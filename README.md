@@ -1,6 +1,6 @@
-# Parser
+# Parsers
 
-The Occam proof assistant's parser.
+The Occam proof assistant's parsers.
 
 ## Credits
 
