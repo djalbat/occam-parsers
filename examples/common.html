@@ -5,6 +5,18 @@
     </head>
     <body>
         <h1>Common parser</h1>
+        <textarea cols="50" rows="20" id="grammar" readonly>
+expr : term (('+' | '-') term)*
+
+term : factor (('*' | '/') factor)*
+
+factor : naturalNumber | '(' expr ')'
+
+naturalNumber : /\d+(?:\.\d+)?/
+        </textarea>
+        <br/>
+        <textarea cols="100" rows="10" id="input"></textarea>
+        <p></p>
         <script src="../examples.js"> </script>
         <script>
 
