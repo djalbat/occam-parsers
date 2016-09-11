@@ -6,6 +6,16 @@ class Rule {
   constructor(parts) {
     this.parts = parts;
   }
+  
+  parse(input, context, productions) {
+    var parsed = this.parts.every(function(part) {
+      var parsed = part.parse(input, context, productions);
+      
+      return parsed;
+    });
+    
+    return parsed;
+  }
 
   static fromExpression(expression, specialSymbols, Parts) {
     var symbols = symbolsFromExpression(expression, specialSymbols),
@@ -31,7 +41,7 @@ class Rule {
 module.exports = Rule;
 
 function symbolsFromExpression(expression, specialSymbols) {
-  var symbolsRegExp = new RegExp(`(\\s+|\\[|\\]|\\.\\.\\.|${specialSymbols})`, 'u'),  ///
+  var symbolsRegExp = new RegExp(`(\\s+|'[^']'|${specialSymbols})`, 'u'),  ///
       symbols = expression.split(symbolsRegExp);
 
   symbols = symbols.reduce(function(symbols, symbol) {

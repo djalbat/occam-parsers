@@ -1,10 +1,26 @@
 'use strict';
 
+var ProductionNamePart = require('./productionName');
+
 class ZeroOrMoreProductionNamesPart {
   constructor(productionName) {
     this.productionName = productionName;
   }
 
+  parse(input, context, productions) {
+    var production = ProductionNamePart.findProduction(this.productionName, productions);
+
+    for(;;) {
+      var index = context.index;
+
+      if (!production.parse(input, context, productions)) {
+        context.index = index;
+
+        return true;
+      }
+    }
+  }
+  
   static fromSymbols(symbols, Parts) {
     var zeroOrMoreProductionNamesPart = null,
         firstSymbol = first(symbols),

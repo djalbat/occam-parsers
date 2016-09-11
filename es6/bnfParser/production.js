@@ -12,6 +12,23 @@ class Production {
   getName() {
     return this.name;
   }
+  
+  parse(input, context, productions) {
+    var index = context.index,
+        parsed = this.rules.some(function(rule) {
+      var parsed = rule.parse(input, context, productions);
+      
+      if (!parsed) {
+        context.index = index;
+        
+        return false;
+      } else {
+        return true;
+      }
+    });
+    
+    return parsed;
+  }
 
   static fromLine(line, specialSymbols, Parts, mappings) {
     var matches = line.match(/^\s*([^\s]+)\s+::=(.+)$/),
