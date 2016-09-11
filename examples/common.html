@@ -6,13 +6,15 @@
     <body>
         <h1>Common parser</h1>
         <textarea cols="50" rows="20" id="grammar" readonly>
-expr : term (('+' | '-') term)*
+expr              ::= term (signedTerm)*
 
-term : factor (('*' | '/') factor)*
+signedTerm        ::= sign term
 
-factor : naturalNumber | '(' expr ')'
+sign              ::= '+' | '-'
 
-naturalNumber : /\d+(?:\.\d+)?/
+term              ::= naturalNumber | '(' expr ')'
+
+naturalNumber     ::= /\d+/
         </textarea>
         <br/>
         <textarea cols="100" rows="10" id="input"></textarea>
