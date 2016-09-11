@@ -23,11 +23,11 @@ var grammarTextAreaValue = grammarTextArea.getValue(),
 
 class CommonParserExample {
   static run() {
-    var commonParser = new CommonParser();
+    var commonParser = new CommonParser(productions);
 
     inputTextArea.onChange(function(value) {
       var input = value,  ///
-          parsedInput = commonParser.parse(input, productions),
+          parsedInput = commonParser.parse(input),
           paragraphElementHTML = parsedInput; ///
 
       paragraphElement.html(paragraphElementHTML);

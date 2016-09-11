@@ -12,9 +12,11 @@ signedTerm        ::= sign term
 
 sign              ::= '+' | '-'
 
-term              ::= naturalNumber | '(' expr ')'
+term              ::= naturalNumber | parenthesizedExpr
 
 naturalNumber     ::= /\d+/
+
+parenthesizedExpr ::= '(' expr ')'
         </textarea>
         <br/>
         <textarea cols="100" rows="10" id="input"></textarea>

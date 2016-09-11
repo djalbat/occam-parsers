@@ -1,7 +1,9 @@
 'use strict';
 
 class CommonParser {
-  constructor() {
+  constructor(productions) {
+    this.productions = productions;
+
     this.input = undefined;
     this.index = undefined;
   }
@@ -87,24 +89,28 @@ class CommonParser {
   }
 
   expr() {
-    return this.term() && this.parseZeroOrMoreTimes(this.plusOrMinusTerm.bind(this));
+    return this.term() && this.parseZeroOrMoreTimes(this.signedTerm.bind(this));
+  }
+
+  signedTerm() {
+    return this.sign() && this.term();
+  }
+
+  sign() {
+    return this.parseFirstOf(this.plus.bind(this), this.minus.bind(this));
   }
 
   term() {
-    return this.factor() && this.parseZeroOrMoreTimes(this.multiplyOrDivideTerm.bind(this));
+    return this.parseFirstOf(this.naturalNumber.bind(this), this.parenthesizedExpr.bind(this));
   }
 
-  factor() {
-    return this.parseFirstOf(this.naturalNumber.bind(this), this.parenthesizedExpr.bind(this));
+  naturalNumber() {
+    return this.parseRegularExpression(/\d+/);
   }
 
   parenthesizedExpr() {
     return this.parseCharacter('(') && this.expr() && this.parseCharacter(')');
   };
-
-  naturalNumber() {
-    return this.parseRegularExpression(/\d+(?:\.\d+)?/);
-  }
 
   plus() {
     return this.parseRegularExpression(/[+]/);
@@ -112,30 +118,6 @@ class CommonParser {
 
   minus() {
     return this.parseRegularExpression(/[-]/);
-  }
-
-  multiply() {
-    return this.parseRegularExpression(/[*]/);
-  }
-
-  divide() {
-    return this.parseRegularExpression(/[/]/);
-  }
-
-  plusOrMinusTerm() {
-    return this.plusOrMinus() && this.term();
-  }
-
-  multiplyOrDivideTerm() {
-    return this.multiplyOrDivide() && this.term();
-  }
-
-  plusOrMinus() {
-    return this.parseFirstOf(this.plus.bind(this), this.minus.bind(this));
-  }
-
-  multiplyOrDivide() {
-    return this.parseFirstOf(this.multiply.bind(this), this.divide.bind(this));
   }
 }
 
