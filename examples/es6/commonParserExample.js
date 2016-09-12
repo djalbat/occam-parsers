@@ -15,26 +15,43 @@ var inputTextAreaSelector = 'textArea#input',
     grammarTextArea = new TextArea(grammarTextAreaSelector),
     paragraphElement = new Element(paragraphElementSelector);
 
-var grammarTextAreaValue = grammarTextArea.getValue(),
-    grammar = grammarTextAreaValue, ///
-    specialSymbols = '\\.|\\(|\\)',
-    lines = BNFLexer.linesFromGrammar(grammar, specialSymbols),
+var specialSymbols = '\\.|\\(|\\)',
     Parts = [],
-    mappings = {},
-    productions = BNFParser.parse(lines, Parts, mappings);
+    mappings = {};
 
 class CommonParserExample {
   static run() {
-    var commonParser = new CommonParser(productions);
+    updateGrammar();
 
-    inputTextArea.onChange(function(value) {
-      var input = value,  ///
-          parsedInput = commonParser.parse(input),
-          paragraphElementHTML = parsedInput; ///
+    grammarTextArea.onChange(function() {
+      updateGrammar();
+      updateInput();
+    });
 
-      paragraphElement.html(paragraphElementHTML);
+    inputTextArea.onChange(function() {
+      updateInput();
     });
   }
 }
 
 module.exports = CommonParserExample;
+
+var commonParser;
+
+function updateGrammar() {
+  var grammarTextAreaValue = grammarTextArea.getValue(),
+      grammar = grammarTextAreaValue, ///
+      lines = BNFLexer.linesFromGrammar(grammar, specialSymbols),
+      productions = BNFParser.parse(lines, Parts, mappings);
+
+  commonParser = new CommonParser(productions);
+}
+
+function updateInput() {
+  var inputTextAreaValue = inputTextArea.getValue(),
+      input = inputTextAreaValue,  ///
+      parsedInput = commonParser.parse(input),
+      paragraphElementHTML = parsedInput; ///
+
+  paragraphElement.html(paragraphElementHTML);
+}

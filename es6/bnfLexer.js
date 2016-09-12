@@ -19,23 +19,28 @@ module.exports = BNFLexer;
 
 function contentsFromGrammar(grammar) {
   var contents = grammar.split('\n').reduce(function (contents, content) {
-    var blank = (content.search(/^\s*$/) === 0);
+    var matches;
 
-    if (!blank) {
-      var matches = content.match(/^\s+(\|.*)$/),
-          continuing = (matches !== null);
+    matches = content.match(/^(.+)::=(.+)$/);
 
-      if (continuing) {
-        var previousContent = contents.pop(),
-            firstMatch = first(matches),
-            continuingContent = ' ' + firstMatch; ///
+    if (matches !== null) {
+      contents.push(content);
 
-        previousContent = previousContent + continuingContent;
+      return contents;
+    }
 
-        content = previousContent;
-      }
+    matches = content.match(/^\s*(\|.*)$/);
+
+    if (matches !== null) {
+      var previousContent = contents.pop(),
+          firstMatch = first(matches),
+          continuingContent = ' ' + firstMatch; ///
+
+      content = previousContent + continuingContent;
 
       contents.push(content);
+
+      return contents;
     }
 
     return contents;

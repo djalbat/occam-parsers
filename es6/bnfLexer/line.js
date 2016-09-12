@@ -17,12 +17,12 @@ class Line {
   }
   
   static fromContent(content) {
-    var matches = content.match(/^\s*([^\s]+)\s+::=(.+)$/),
+    var matches = content.match(/^(.+)::=(.+)$/),
         secondMatch = second(matches),
         thirdMatch = third(matches),
-        expression = thirdMatch.replace(/^\s+|\s+$/g, ''),
+        name = trim(secondMatch),
+        expression = trim(thirdMatch),
         choices = expression.split(/\s+\|\s+/), 
-        name = secondMatch,  ///
         sequencesOfSymbols = choices.map(function(choice) {
           var sequenceOfSymbols = SequenceOfSymbols.fromChoice(choice);
           
@@ -39,3 +39,7 @@ module.exports = Line;
 
 function second(array) { return array[1]; }
 function third(array) { return array[2]; }
+
+function trim(string) { 
+  return string.replace(/^\s+|\s+$/g, ''); 
+}
