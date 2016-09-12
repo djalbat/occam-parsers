@@ -21,7 +21,7 @@ class ZeroOrMoreProductionNamesPart {
     }
   }
   
-  static fromSymbol(symbol, Parts) {
+  static fromSymbol(symbol) {
     var zeroOrMoreProductionNamesPart = null,
         zeroOrMoreProductionNamesRegExp = /([^*]+)\*$/,
         matches = symbol.match(zeroOrMoreProductionNamesRegExp);

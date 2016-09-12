@@ -32,7 +32,7 @@ class ProductionNamePart {
     return production;
   }
 
-  static fromSymbol(symbol, Parts) {
+  static fromSymbol(symbol) {
     var productionName = symbol,  ///
         productionNamePart = new ProductionNamePart(productionName);
 

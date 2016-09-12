@@ -5,12 +5,12 @@
     </head>
     <body>
         <h1>Common parser</h1>
-        <textarea cols="50" rows="20" id="grammar" readonly>
-expr              ::= term signedTerm*
+        <textarea cols="80" rows="20" id="grammar" readonly>
+expr              ::= term plusOrMinusTerm*
 
-signedTerm        ::= sign term
+plusOrMinusTerm   ::= plusOrMinus term
 
-sign              ::= '+' | '-'
+plusOrMinus       ::= '+' | '-'
 
 term              ::= naturalNumber | parenthesizedExpr
 

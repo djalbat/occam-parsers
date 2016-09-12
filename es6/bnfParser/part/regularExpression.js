@@ -27,7 +27,7 @@ class RegularExpressionPart {
     return parsed;
   }
 
-  static fromSymbol(symbol, Parts) {
+  static fromSymbol(symbol) {
     var terminalPart = null,
         terminalRegExp = /\/([^/]+)\//,
         matches = symbol.match(terminalRegExp);

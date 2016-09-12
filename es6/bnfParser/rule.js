@@ -1,6 +1,7 @@
 'use strict';
 
-var Part = require('./part');
+var util = require('../util'),
+    CommonParts = require('./commonParts');
 
 class Rule {
   constructor(parts) {
@@ -17,9 +18,10 @@ class Rule {
     return parsed;
   }
 
-  static fromExpression(expression, Parts) {
-    var parts = expression.mapSymbols(function(symbol) {
-          var part = Part.fromSymbol(symbol, Parts);
+  static fromSequenceOfSymbols(sequenceOfSymbols, Parts) {
+    var AllParts = spliceParts(CommonParts, Parts),
+        parts = sequenceOfSymbols.mapSymbols(function(symbol) {
+          var part = partFromAllParts(AllParts, symbol);
           
           return part;
         }),
@@ -30,3 +32,28 @@ class Rule {
 }
 
 module.exports = Rule;
+
+function partFromAllParts(AllParts, symbol) {
+  var part = null;
+
+  AllParts.some(function(Part) {
+    part = Part.fromSymbol(symbol);
+
+    var parsed = (part !== null);
+
+    return parsed;
+  });
+
+  return part;
+}
+
+function spliceParts(CommonParts, Parts) {
+  var AllParts = CommonParts.slice(),
+      CommonPartsLength = CommonParts.length,
+      start = CommonPartsLength, ///
+      deleteCount = 0;
+
+  util.spliceArray(AllParts, start, deleteCount, Parts);
+
+  return AllParts;
+}
