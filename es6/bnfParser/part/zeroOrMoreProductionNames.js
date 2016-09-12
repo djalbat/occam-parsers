@@ -8,17 +8,24 @@ class ZeroOrMoreProductionNamesPart {
   }
 
   parse(input, context, productions) {
-    var production = ProductionNamePart.findProduction(this.productionName, productions);
+    var parsed = false,
+        production = ProductionNamePart.findProduction(this.productionName, productions);
 
-    for(;;) {
-      var index = context.index;
+    if (production !== null) {
+      parsed = true;
 
-      if (!production.parse(input, context, productions)) {
-        context.index = index;
+      for(;;) {
+        var index = context.index;
 
-        return true;
+        if (!production.parse(input, context, productions)) {
+          context.index = index;
+
+          return parsed;
+        }
       }
     }
+
+    return parsed;
   }
   
   static fromSymbol(symbol) {
