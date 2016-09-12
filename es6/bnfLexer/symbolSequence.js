@@ -1,6 +1,6 @@
 'use strict';
 
-class SequenceOfSymbols {
+class SymbolSequence {
   constructor(symbols) {
     this.symbols = symbols;
   }
@@ -11,10 +11,10 @@ class SequenceOfSymbols {
   
   static fromChoice(choice, specialSymbols) {
     var symbols = choice.split(/\s+/),
-        expression = new SequenceOfSymbols(symbols);
+        expression = new SymbolSequence(symbols);
     
     return expression;
   }
 }
 
-module.exports = SequenceOfSymbols;
+module.exports = SymbolSequence;

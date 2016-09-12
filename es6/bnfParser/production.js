@@ -32,8 +32,8 @@ class Production {
 
   static fromLine(line, Parts, mappings) {
     var name = line.getName(),
-        rules = line.mapSequencesOfSymbols(function(sequenceOfSymbols) {
-          var rule = Rule.fromSequenceOfSymbols(sequenceOfSymbols, Parts);
+        rules = line.mapSymbolSequences(function(symbolSequence) {
+          var rule = Rule.fromSymbolSequence(symbolSequence, Parts);
 
           return rule;
         }),

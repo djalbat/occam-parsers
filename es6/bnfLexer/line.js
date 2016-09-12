@@ -1,35 +1,35 @@
 'use strict';
 
-var SequenceOfSymbols = require('./sequenceOfSymbols');
+var SymbolSequence = require('./symbolSequence');
 
 class Line {
-  constructor(name, sequencesOfSymbols) {
+  constructor(name, symbolSequences) {
     this.name = name;
-    this.sequencesOfSymbols = sequencesOfSymbols;
+    this.symbolSequences = symbolSequences;
   }
   
   getName() {
     return this.name;
   }
   
-  mapSequencesOfSymbols(cb) {
-    return this.sequencesOfSymbols.map(cb);
+  mapSymbolSequences(cb) {
+    return this.symbolSequences.map(cb);
   }
   
   static fromContent(content) {
     var matches = content.match(/^(.+)::=(.+)$/),
         secondMatch = second(matches),
         thirdMatch = third(matches),
-        name = trim(secondMatch),
         expression = trim(thirdMatch),
-        choices = expression.split(/\s+\|\s+/), 
-        sequencesOfSymbols = choices.map(function(choice) {
-          var sequenceOfSymbols = SequenceOfSymbols.fromChoice(choice);
+        choices = expression.split(/\s+\|\s+/),
+        name = trim(secondMatch),
+        symbolSequences = choices.map(function(choice) {
+          var symbolSequence = SymbolSequence.fromChoice(choice);
           
-          return sequenceOfSymbols;
+          return symbolSequence;
         });
     
-    var line = new Line(name, sequencesOfSymbols);
+    var line = new Line(name, symbolSequences);
     
     return line;
   }

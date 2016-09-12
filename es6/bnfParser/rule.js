@@ -18,9 +18,9 @@ class Rule {
     return parsed;
   }
 
-  static fromSequenceOfSymbols(sequenceOfSymbols, Parts) {
+  static fromSymbolSequence(symbolSequence, Parts) {
     var AllParts = spliceParts(CommonParts, Parts),
-        parts = sequenceOfSymbols.mapSymbols(function(symbol) {
+        parts = symbolSequence.mapSymbols(function(symbol) {
           var part = partFromAllParts(AllParts, symbol);
           
           return part;
