@@ -13,12 +13,12 @@ var CommonParts = [
     ];
 
 class Part {
-  static fromSymbols(symbols, Parts) {
+  static fromSymbol(symbol, Parts) {
     var part = null,
         AllParts = spliceParts(CommonParts, Parts);
 
     AllParts.some(function(Part) {
-      part = Part.fromSymbols(symbols, Parts);
+      part = Part.fromSymbol(symbol, Parts);
 
       var parsed = (part !== null);
 

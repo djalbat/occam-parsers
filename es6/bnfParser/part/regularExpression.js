@@ -27,18 +27,14 @@ class RegularExpressionPart {
     return parsed;
   }
 
-  static fromSymbols(symbols, Parts) {
+  static fromSymbol(symbol, Parts) {
     var terminalPart = null,
-        firstSymbol = first(symbols),
-        symbol = firstSymbol, ///
         terminalRegExp = /\/([^/]+)\//,
         matches = symbol.match(terminalRegExp);
 
     if (matches !== null) {
       var pattern = matches[1],
           regExp = new RegExp(pattern);
-
-      symbols.shift();
 
       terminalPart = new RegularExpressionPart(regExp);
     }

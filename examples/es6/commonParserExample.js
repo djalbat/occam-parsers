@@ -4,6 +4,7 @@ var easyui = require('easyui'),
     parsers = require('../../index'),
     Element = easyui.Element,
     TextArea = easyui.TextArea,
+    BNFLexer = parsers.BNFLexer,
     BNFParser = parsers.BNFParser,
     CommonParser = parsers.CommonParser;
 
@@ -17,9 +18,10 @@ var inputTextAreaSelector = 'textArea#input',
 var grammarTextAreaValue = grammarTextArea.getValue(),
     grammar = grammarTextAreaValue, ///
     specialSymbols = '\\.|\\(|\\)',
+    lines = BNFLexer.linesFromGrammar(grammar, specialSymbols),
     Parts = [],
     mappings = {},
-    productions = BNFParser.parse(grammar, specialSymbols, Parts, mappings);
+    productions = BNFParser.parse(lines, Parts, mappings);
 
 class CommonParserExample {
   static run() {

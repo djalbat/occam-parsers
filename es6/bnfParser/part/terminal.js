@@ -27,17 +27,13 @@ class TerminalPart {
     return parsed;
   }
 
-  static fromSymbols(symbols, Parts) {
+  static fromSymbol(symbol, Parts) {
     var terminalPart = null,
-        firstSymbol = first(symbols),
-        symbol = firstSymbol, ///
         terminalRegExp = /'([^']+)'/,
         matches = symbol.match(terminalRegExp);
 
     if (matches !== null) {
       var string = matches[1];
-
-      symbols.shift();
 
       terminalPart = new TerminalPart(string);
     }
@@ -47,5 +43,3 @@ class TerminalPart {
 }
 
 module.exports = TerminalPart;
-
-function first(array) { return array[0]; }

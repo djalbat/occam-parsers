@@ -32,9 +32,8 @@ class ProductionNamePart {
     return production;
   }
 
-  static fromSymbols(symbols, Parts) {
-    var symbol = symbols.shift(),
-        productionName = symbol,  ///
+  static fromSymbol(symbol, Parts) {
+    var productionName = symbol,  ///
         productionNamePart = new ProductionNamePart(productionName);
 
     return productionNamePart;

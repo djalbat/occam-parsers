@@ -30,15 +30,10 @@ class Production {
     return parsed;
   }
 
-  static fromLine(line, specialSymbols, Parts, mappings) {
-    var matches = line.match(/^\s*([^\s]+)\s+::=(.+)$/),
-        secondMatch = second(matches),
-        thirdMatch = third(matches),
-        expression = thirdMatch.replace(/^\s+|\s+$/g, ''),
-        expressions = expression.split(/\s+\|\s+/),
-        name = secondMatch,  ///
-        rules = expressions.map(function(expression) {
-          var rule = Rule.fromExpression(expression, specialSymbols, Parts);
+  static fromLine(line, Parts, mappings) {
+    var name = line.getName(),
+        rules = line.mapExpressions(function(expression) {
+          var rule = Rule.fromExpression(expression, Parts);
 
           return rule;
         }),
@@ -50,6 +45,3 @@ class Production {
 }
 
 module.exports = Production;
-
-function second(array) { return array[1]; }
-function third(array) { return array[2]; }

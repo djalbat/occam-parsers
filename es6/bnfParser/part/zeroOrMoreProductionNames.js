@@ -21,22 +21,13 @@ class ZeroOrMoreProductionNamesPart {
     }
   }
   
-  static fromSymbols(symbols, Parts) {
+  static fromSymbol(symbol, Parts) {
     var zeroOrMoreProductionNamesPart = null,
-        firstSymbol = first(symbols),
-        thirdSymbol = third(symbols),
-        fourthSymbol = fourth(symbols);
+        zeroOrMoreProductionNamesRegExp = /([^*]+)\*$/,
+        matches = symbol.match(zeroOrMoreProductionNamesRegExp);
 
-    if (  (firstSymbol === '(')
-       && (thirdSymbol === ')')
-       && (fourthSymbol === '*')  ) {
-      var secondSymbol = second(symbols),
-          productionName = secondSymbol;
-
-      symbols.shift();
-      symbols.shift();
-      symbols.shift();
-      symbols.shift();
+    if (matches !== null) {
+      var productionName = matches[1];
 
       zeroOrMoreProductionNamesPart = new ZeroOrMoreProductionNamesPart(productionName);
     }
@@ -46,8 +37,3 @@ class ZeroOrMoreProductionNamesPart {
 }
 
 module.exports = ZeroOrMoreProductionNamesPart;
-
-function first(array) { return array[0]; }
-function second(array) { return array[1]; }
-function third(array) { return array[2]; }
-function fourth(array) { return array[3]; }
