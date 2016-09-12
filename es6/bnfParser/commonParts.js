@@ -1,15 +1,15 @@
 'use strict';
 
 var TerminalPart = require('./part/terminal'),
-    ProductionNamePart = require('./part/productionName'),
+    ProductionPart = require('./part/production'),
     RegularExpressionPart = require('./part/regularExpression'),
-    ZeroOrMoreProductionNamesPart = require('./part/zeroOrMoreProductionNames');
+    ZeroOrMoreProductionsPart = require('./part/zeroOrMoreProductions');
 
 var CommonParts = [
   TerminalPart,
   RegularExpressionPart,
-  ZeroOrMoreProductionNamesPart,
-  ProductionNamePart
+  ZeroOrMoreProductionsPart,
+  ProductionPart
 ];
 
 module.exports = CommonParts;
