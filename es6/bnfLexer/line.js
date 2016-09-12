@@ -1,6 +1,7 @@
 'use strict';
 
-var SymbolSequence = require('./symbolSequence');
+var util = require('../util'),
+    SymbolSequence = require('./symbolSequence');
 
 class Line {
   constructor(name, symbolSequences) {
@@ -20,9 +21,9 @@ class Line {
     var matches = content.match(/^(.+)::=(.+)$/),
         secondMatch = second(matches),
         thirdMatch = third(matches),
-        expression = trim(thirdMatch),
+        expression = util.trimString(thirdMatch),
         choices = expression.split(/\s+\|\s+/),
-        name = trim(secondMatch),
+        name = util.trimString(secondMatch),
         symbolSequences = choices.map(function(choice) {
           var symbolSequence = SymbolSequence.fromChoice(choice);
           
@@ -39,7 +40,3 @@ module.exports = Line;
 
 function second(array) { return array[1]; }
 function third(array) { return array[2]; }
-
-function trim(string) { 
-  return string.replace(/^\s+|\s+$/g, ''); 
-}
