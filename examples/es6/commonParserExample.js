@@ -15,7 +15,7 @@ var inputTextAreaSelector = 'textArea#input',
     grammarTextArea = new TextArea(grammarTextAreaSelector),
     paragraphElement = new Element(paragraphElementSelector);
 
-var specialSymbols = '\\.|\\(|\\)',
+var specialSymbols = '',
     Parts = [],
     mappings = {};
 
