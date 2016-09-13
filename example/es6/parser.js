@@ -1,12 +1,12 @@
 'use strict';
 
 var easyui = require('easyui'),
-    parsers = require('../../index'),
     Element = easyui.Element,
-    TextArea = easyui.TextArea,
-    BNFLexer = parsers.BNFLexer,
-    BNFParser = parsers.BNFParser,
-    CommonParser = parsers.CommonParser;
+    TextArea = easyui.TextArea;
+
+var BNFLexer = require ('../../es6/bnfLexer'),
+    BNFParser = require ('../../es6/bnfParser'),
+    Parser = require ('../../es6/parser');
 
 var inputTextAreaSelector = 'textArea#input',
     grammarTextAreaSelector = 'textArea#grammar',
@@ -19,7 +19,7 @@ var specialSymbols = '',
     Parts = [],
     mappings = {};
 
-class CommonParserExample {
+class ParserExample {
   static run() {
     updateGrammar();
 
@@ -34,9 +34,9 @@ class CommonParserExample {
   }
 }
 
-module.exports = CommonParserExample;
+module.exports = ParserExample;
 
-var commonParser;
+var parser;
 
 function updateGrammar() {
   var grammarTextAreaValue = grammarTextArea.getValue(),
@@ -44,13 +44,13 @@ function updateGrammar() {
       lines = BNFLexer.linesFromGrammar(grammar, specialSymbols),
       productions = BNFParser.parse(lines, Parts, mappings);
 
-  commonParser = new CommonParser(productions);
+  parser = new Parser(productions);
 }
 
 function updateInput() {
   var inputTextAreaValue = inputTextArea.getValue(),
       input = inputTextAreaValue,  ///
-      parsedInput = commonParser.parse(input),
+      parsedInput = parser.parse(input),
       paragraphElementHTML = parsedInput; ///
 
   paragraphElement.html(paragraphElementHTML);

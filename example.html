@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Common parser example</title>
+        <title>Parser example</title>
     </head>
     <body>
-        <h1>Common parser</h1>
+        <h1>Parser</h1>
         <textarea cols="80" rows="20" id="grammar" spellcheck="false">
 expr                   ::= term operatorTerm*
 
@@ -27,16 +27,13 @@ parenthesizedExpr      ::= '(' expr ')'
         <br/>
         <textarea cols="100" rows="10" id="input"></textarea>
         <p></p>
-        <script src="../examples.js"> </script>
+        <script src="./example.js"> </script>
         <script>
 
-          var CommonParserExample = examples.CommonParserExample;
+            var ParserExample = example.Parser;
 
-          CommonParserExample.run();
+            ParserExample.run();
 
         </script>
-        <div>
-          <a href="../examples.html">...back</a>
-        </div>
     </body>
 </html>

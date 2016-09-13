@@ -1,6 +1,6 @@
 'use strict';
 
-class CommonParser {
+class Parser {
   constructor(productions) {
     this.productions = productions;
   }
@@ -25,6 +25,6 @@ class CommonParser {
   }
 }
 
-module.exports = CommonParser;
+module.exports = Parser;
 
 function first(array) { return array[0]; }
