@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  Parser: require('./lib/parser')
+  BasicParser: require('./lib/basicParser')
 };

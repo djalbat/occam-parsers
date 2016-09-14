@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Parser example</title>
+        <title>Basic parser example</title>
     </head>
     <body>
-        <h1>Parser</h1>
+        <h1>Basic parser example</h1>
         <textarea cols="80" rows="20" id="grammar" spellcheck="false">
 expr                   ::= term operatorTerm*
 
@@ -30,9 +30,9 @@ parenthesizedExpr      ::= '(' expr ')'
         <script src="./example.js"> </script>
         <script>
 
-            var ParserExample = example.Parser;
+            var BasicParser = example.BasicParser;
 
-            ParserExample.run();
+            BasicParser.run();
 
         </script>
     </body>

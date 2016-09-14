@@ -19,7 +19,7 @@ var specialSymbols = '',
     Parts = [],
     mappings = {};
 
-class ParserExample {
+class BasicParser {
   static run() {
     updateGrammar();
 
@@ -34,7 +34,7 @@ class ParserExample {
   }
 }
 
-module.exports = ParserExample;
+module.exports = BasicParser;
 
 var parser;
 
