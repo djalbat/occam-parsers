@@ -27,13 +27,13 @@ class TerminalPart {
     return parsed;
   }
 
-  static fromSymbol(symbol) {
+  static fromSymbol(symbol, terminalSymbolsRegExp) {
     var terminalPart = null,
-        terminalRegExp = /'([^']+)'/,
-        matches = symbol.match(terminalRegExp);
+        matches = symbol.match(terminalSymbolsRegExp);
 
     if (matches !== null) {
-      var string = matches[1];
+      var firstMatch = first(matches),
+          string = firstMatch;  ///
 
       terminalPart = new TerminalPart(string);
     }
@@ -43,3 +43,5 @@ class TerminalPart {
 }
 
 module.exports = TerminalPart;
+
+function first(array) { return array[0]; }

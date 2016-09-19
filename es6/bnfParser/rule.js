@@ -18,10 +18,10 @@ class Rule {
     return parsed;
   }
 
-  static fromSymbolSequence(symbolSequence, Parts) {
+  static fromSymbolSequence(symbolSequence, Parts, terminalSymbolsRegExp) {
     var AllParts = spliceParts(CommonParts, Parts),
         parts = symbolSequence.mapSymbols(function(symbol) {
-          var part = partFromAllParts(AllParts, symbol);
+          var part = partFromSymbol(symbol, terminalSymbolsRegExp, AllParts);
           
           return part;
         }),
@@ -33,11 +33,11 @@ class Rule {
 
 module.exports = Rule;
 
-function partFromAllParts(AllParts, symbol) {
+function partFromSymbol(symbol, terminalSymbolsRegExp, AllParts) {
   var part = null;
 
   AllParts.some(function(Part) {
-    part = Part.fromSymbol(symbol);
+    part = Part.fromSymbol(symbol, terminalSymbolsRegExp);
 
     var parsed = (part !== null);
 

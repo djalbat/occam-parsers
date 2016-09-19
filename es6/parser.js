@@ -11,17 +11,19 @@ class Parser {
           index: index
         };
 
-    var productions = this.productions,
-        firstProduction = first(productions),
-        parsed = firstProduction.parse(input, context, productions);
-    
-    if (parsed) {
-      var parsedInput = input.slice(0, context.index);
+    var parsedInput = null,
+        productionsLength = this.productions.length;
 
-      return parsedInput;
-    } else {
-      return null;
+    if (productionsLength > 0) {
+      var firstProduction = first(this.productions),
+          parsed = firstProduction.parse(input, context, this.productions);
+
+      if (parsed) {
+        parsedInput = input.slice(0, context.index);
+      }
     }
+
+    return parsedInput;
   }
 }
 

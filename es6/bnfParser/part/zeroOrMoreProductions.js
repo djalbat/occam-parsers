@@ -28,7 +28,7 @@ class ZeroOrMoreProductionsPart {
     return parsed;
   }
   
-  static fromSymbol(symbol) {
+  static fromSymbol(symbol, terminalSymbolsRegExp) {
     var zeroOrMoreProductionsPart = null,
         zeroOrMoreProductionsRegExp = /([^*]+)\*$/,
         matches = symbol.match(zeroOrMoreProductionsRegExp);

@@ -3,10 +3,10 @@
 var Line = require('./bnfLexer/line');
 
 class BNFLexer {
-  static linesFromGrammar(grammar, specialSymbols) {
+  static linesFromGrammar(grammar) {
     var contents = contentsFromGrammar(grammar),
         lines = contents.map(function(content) {
-      var line = Line.fromContent(content, specialSymbols);
+      var line = Line.fromContent(content);
       
       return line;
     });

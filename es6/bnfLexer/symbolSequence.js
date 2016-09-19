@@ -9,7 +9,7 @@ class SymbolSequence {
     return this.symbols.map(cb);
   }
   
-  static fromChoice(choice, specialSymbols) {
+  static fromChoice(choice) {
     var symbols = choice.split(/\s+/),
         expression = new SymbolSequence(symbols);
     

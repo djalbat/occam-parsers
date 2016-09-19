@@ -2,30 +2,57 @@
 <html>
     <head>
         <title>Basic parser example</title>
+        <style>
+          p {
+            display: inline-block;
+            background-color: lightgray;
+          }
+
+          h2 {
+            margin-bottom: 0;
+          }
+
+          input,
+          textarea {
+            width: 50rem;
+            font-family: monospace;
+          }
+
+          p,
+          h2,
+          input,
+          textarea {
+            font-size: 1rem;
+          }
+        </style>
     </head>
     <body>
         <h1>Basic parser example</h1>
-        <textarea cols="80" rows="20" id="grammar" spellcheck="false">
-expr                   ::= term operatorTerm*
+        <h2>Grammar</h2>
+        <textarea rows="20" id="grammar" spellcheck="false">
+expr                       ::= term operatorThenTerm*
 
-operatorTerm           ::= plusOrMinusTerm | multiplyOrDivideTerm
+operatorThenTerm           ::= plusOrMinusThenTerm | multiplyOrDivideThenTerm
 
-plusOrMinusTerm        ::= plusOrMinus term
+plusOrMinusThenTerm        ::= plusOrMinus term
 
-multiplyOrDivideTerm   ::= multiplyOrDivide term
+multiplyOrDivideThenTerm   ::= multiplyOrDivide term
 
-plusOrMinus            ::= '+' | '-'
+plusOrMinus                ::= + | -
 
-multiplyOrDivide       ::= '*' | '/'
+multiplyOrDivide           ::= * | /
 
-term                   ::= naturalNumber | parenthesizedExpr
+term                       ::= naturalNumber | parenthesizedExpr
 
-naturalNumber          ::= /\d+/
+naturalNumber              ::= /\d+/
 
-parenthesizedExpr      ::= '(' expr ')'
+parenthesizedExpr          ::= ( expr )
         </textarea>
-        <br/>
-        <textarea cols="100" rows="10" id="input"></textarea>
+        <h2>Terminal symbols regular expression pattern</h2>
+        <input type="text" id="terminalSymbolsRegExpPattern" value="\+|\-|\*|\/|\(|\)" />
+        <h2>Input</h2>
+        <textarea rows="10" id="input"></textarea>
+        <h2>Output</h2>
         <p></p>
         <script src="./example.js"> </script>
         <script>

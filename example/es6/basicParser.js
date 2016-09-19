@@ -1,6 +1,7 @@
 'use strict';
 
 var easyui = require('easyui'),
+    Input = easyui.Input,
     Element = easyui.Element,
     TextArea = easyui.TextArea;
 
@@ -11,20 +12,26 @@ var Parser = require ('../../es6/parser'),
 var inputTextAreaSelector = 'textArea#input',
     grammarTextAreaSelector = 'textArea#grammar',
     paragraphElementSelector = 'p',
+    terminalSymbolsRegExpPatternInputSelector = 'input#terminalSymbolsRegExpPattern',
     inputTextArea = new TextArea(inputTextAreaSelector),
     grammarTextArea = new TextArea(grammarTextAreaSelector),
-    paragraphElement = new Element(paragraphElementSelector);
+    paragraphElement = new Element(paragraphElementSelector),
+    terminalSymbolsRegExpPatternInput = new Input(terminalSymbolsRegExpPatternInputSelector);
 
-var specialSymbols = '',
-    Parts = [],
+var Parts = [],
     mappings = {};
 
 class BasicParser {
   static run() {
-    updateGrammar();
+    updateParser();
+
+    terminalSymbolsRegExpPatternInput.onChange(function() {
+      updateParser();
+      updateInput();
+    });
 
     grammarTextArea.onChange(function() {
-      updateGrammar();
+      updateParser();
       updateInput();
     });
 
@@ -38,11 +45,13 @@ module.exports = BasicParser;
 
 var parser;
 
-function updateGrammar() {
+function updateParser() {
   var grammarTextAreaValue = grammarTextArea.getValue(),
+      terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternInput.getValue(),
       grammar = grammarTextAreaValue, ///
-      lines = BNFLexer.linesFromGrammar(grammar, specialSymbols),
-      productions = BNFParser.parse(lines, Parts, mappings);
+      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
+      lines = BNFLexer.linesFromGrammar(grammar),
+      productions = BNFParser.parse(lines, Parts, terminalSymbolsRegExpPattern, mappings);
 
   parser = new Parser(productions);
 }
