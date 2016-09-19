@@ -6,12 +6,6 @@ class util {
   
     Array.prototype.splice.apply(array, args);
   }
-
-  static trimString(string) { 
-    var trimmedString = string.replace(/^\s+|\s+$/g, ''); 
-  
-    return trimmedString;
-  }
 }
 
 module.exports = util;

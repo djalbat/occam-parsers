@@ -4,9 +4,9 @@ var easyui = require('easyui'),
     Element = easyui.Element,
     TextArea = easyui.TextArea;
 
-var BNFLexer = require ('../../es6/bnfLexer'),
-    BNFParser = require ('../../es6/bnfParser'),
-    Parser = require ('../../es6/parser');
+var Parser = require ('../../es6/parser'),
+    BNFLexer = require ('../../es6/bnfLexer'),
+    BNFParser = require ('../../es6/bnfParser');
 
 var inputTextAreaSelector = 'textArea#input',
     grammarTextAreaSelector = 'textArea#grammar',

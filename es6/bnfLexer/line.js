@@ -18,12 +18,12 @@ class Line {
   }
   
   static fromContent(content) {
-    var matches = content.match(/^(.+)::=(.+)$/),
+    var matches = content.match(Line.nameExpressionRegExp),
         secondMatch = second(matches),
         thirdMatch = third(matches),
-        expression = util.trimString(thirdMatch),
-        choices = expression.split(/\s+\|\s+/),
-        name = util.trimString(secondMatch),
+        name = secondMatch, ///
+        expression = thirdMatch, ///
+        choices = expression.split(Line.choiceDelimiterRegExp),
         symbolSequences = choices.map(function(choice) {
           var symbolSequence = SymbolSequence.fromChoice(choice);
           
@@ -35,6 +35,10 @@ class Line {
     return line;
   }
 }
+
+Line.nameExpressionRegExp = /^\s*(.*?)\s+::=\s+(.*?)\s*$/;
+Line.continuedExpressionRegExp = /^\s*(\|\s+.*?)\s*$/;
+Line.choiceDelimiterRegExp = /\s+\|\s+/;
 
 module.exports = Line;
 

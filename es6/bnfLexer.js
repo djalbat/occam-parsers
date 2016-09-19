@@ -21,7 +21,7 @@ function contentsFromGrammar(grammar) {
   var contents = grammar.split('\n').reduce(function (contents, content) {
     var matches;
 
-    matches = content.match(/^(.+)::=(.+)$/);
+    matches = content.match(Line.nameExpressionRegExp);
 
     if (matches !== null) {
       contents.push(content);
@@ -29,12 +29,13 @@ function contentsFromGrammar(grammar) {
       return contents;
     }
 
-    matches = content.match(/^\s*(\|.*)$/);
+      matches = content.match(Line.continuedExpressionRegExp);
 
     if (matches !== null) {
       var previousContent = contents.pop(),
           firstMatch = first(matches),
-          continuingContent = ' ' + firstMatch; ///
+          continuedExpression = firstMatch, ///
+          continuingContent = ' ' + continuedExpression;
 
       content = previousContent + continuingContent;
 
