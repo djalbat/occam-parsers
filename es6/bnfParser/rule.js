@@ -1,7 +1,16 @@
 'use strict';
 
-var util = require('../util'),
-    CommonParts = require('./commonParts');
+var TerminalPart = require('./part/terminal'),
+    ProductionPart = require('./part/production'),
+    RegularExpressionPart = require('./part/regularExpression'),
+    ZeroOrMoreProductionsPart = require('./part/zeroOrMoreProductions');
+
+var Parts = [
+  TerminalPart,
+  RegularExpressionPart,
+  ZeroOrMoreProductionsPart,
+  ProductionPart
+];
 
 class Rule {
   constructor(parts) {
@@ -18,10 +27,9 @@ class Rule {
     return parsed;
   }
 
-  static fromSymbolSequence(symbolSequence, Parts, terminalSymbolsRegExp) {
-    var AllParts = spliceParts(CommonParts, Parts),
-        parts = symbolSequence.mapSymbols(function(symbol) {
-          var part = partFromSymbol(symbol, terminalSymbolsRegExp, AllParts);
+  static fromSymbolSequence(symbolSequence, terminalSymbolsRegExp) {
+    var parts = symbolSequence.mapSymbols(function(symbol) {
+          var part = partFromSymbol(symbol, terminalSymbolsRegExp);
           
           return part;
         }),
@@ -34,9 +42,9 @@ class Rule {
 module.exports = Rule;
 
 function partFromSymbol(symbol, terminalSymbolsRegExp, AllParts) {
-  var part = null;
+  var part = undefined; ///
 
-  AllParts.some(function(Part) {
+  Parts.some(function(Part) {
     part = Part.fromSymbol(symbol, terminalSymbolsRegExp);
 
     var parsed = (part !== null);
@@ -45,15 +53,4 @@ function partFromSymbol(symbol, terminalSymbolsRegExp, AllParts) {
   });
 
   return part;
-}
-
-function spliceParts(CommonParts, Parts) {
-  var AllParts = CommonParts.slice(),
-      CommonPartsLength = CommonParts.length,
-      start = CommonPartsLength, ///
-      deleteCount = 0;
-
-  util.spliceArray(AllParts, start, deleteCount, Parts);
-
-  return AllParts;
 }

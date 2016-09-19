@@ -1,7 +1,6 @@
 'use strict';
 
-var util = require('../util'),
-    SymbolSequence = require('./symbolSequence');
+var SymbolSequence = require('./symbolSequence');
 
 class Line {
   constructor(name, symbolSequences) {

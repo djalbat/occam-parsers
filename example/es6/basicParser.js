@@ -18,8 +18,7 @@ var inputTextAreaSelector = 'textArea#input',
     paragraphElement = new Element(paragraphElementSelector),
     terminalSymbolsRegExpPatternInput = new Input(terminalSymbolsRegExpPatternInputSelector);
 
-var Parts = [],
-    mappings = {};
+var mappings = {};
 
 class BasicParser {
   static run() {
@@ -51,7 +50,7 @@ function updateParser() {
       grammar = grammarTextAreaValue, ///
       terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
       lines = BNFLexer.linesFromGrammar(grammar),
-      productions = BNFParser.parse(lines, Parts, terminalSymbolsRegExpPattern, mappings);
+      productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, mappings);
 
   parser = new Parser(productions);
 }
