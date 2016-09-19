@@ -1,24 +1,23 @@
 'use strict';
 
 class TerminalPart {
-  constructor(string) {
-    this.string = string;
+  constructor(symbol) {
+    this.symbol = symbol;
   }
 
   parse(input, context, productions) {
     var parsed = false,
-        index = context.index,
+        index = context.getIndex(),
         inputLength = input.length;
 
     if (index < inputLength) {
-      var inputSubstring = input.substr(index),
-          string = this.string,
-          stringIndex = inputSubstring.indexOf(string);
+      var inputSubtring = input.substr(index),
+          symbolIndex = inputSubtring.indexOf(this.symbol);
 
-      if (stringIndex === 0) {
-        var stringLength = string.length;
+      if (symbolIndex === 0) {
+        var amount = this.symbol.length; ///
 
-        context.index += stringLength;
+        context.advance(amount);
 
         parsed = true;
       }
@@ -32,10 +31,7 @@ class TerminalPart {
         matches = symbol.match(terminalSymbolsRegExp);
 
     if (matches !== null) {
-      var firstMatch = first(matches),
-          string = firstMatch;  ///
-
-      terminalPart = new TerminalPart(string);
+      terminalPart = new TerminalPart(symbol);
     }
 
     return terminalPart;
@@ -43,5 +39,3 @@ class TerminalPart {
 }
 
 module.exports = TerminalPart;
-
-function first(array) { return array[0]; }

@@ -14,12 +14,13 @@ class Production {
   }
   
   parse(input, context, productions) {
-    var index = context.index,
+    var index = context.getIndex(),
+        savedIndex = index, ///
         parsed = this.rules.some(function(rule) {
       var parsed = rule.parse(input, context, productions);
       
       if (!parsed) {
-        context.index = index;
+        context.backtrack(savedIndex);
         
         return false;
       } else {

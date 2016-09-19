@@ -7,7 +7,7 @@ class RegularExpressionPart {
 
   parse(input, context, productions) {
     var parsed = false,
-        index = context.index,
+        index = context.getIndex(),
         inputLength = input.length;
 
     if (index < inputLength) {
@@ -16,9 +16,9 @@ class RegularExpressionPart {
 
       if (matches && matches.index === 0) {
         var firstMatch = first(matches),
-            firstMatchLength = firstMatch.length;
+            amount = firstMatch.length;  ///
 
-        context.index += firstMatchLength;
+        context.advance(amount);
 
         parsed = true;
       }

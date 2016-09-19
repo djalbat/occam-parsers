@@ -1,17 +1,15 @@
 'use strict';
 
+var Context = require('./parser/context');
+
 class Parser {
   constructor(productions) {
     this.productions = productions;
   }
   
   parse(input) {
-    var index = 0,
-        context = {
-          index: index
-        };
-
     var parsedInput = null,
+        context = new Context(),
         productionsLength = this.productions.length;
 
     if (productionsLength > 0) {
@@ -19,7 +17,9 @@ class Parser {
           parsed = firstProduction.parse(input, context, this.productions);
 
       if (parsed) {
-        parsedInput = input.slice(0, context.index);
+        var index = context.getIndex();
+        
+        parsedInput = input.slice(0, index);  ///
       }
     }
 

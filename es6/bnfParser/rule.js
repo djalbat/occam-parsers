@@ -41,7 +41,7 @@ class Rule {
 
 module.exports = Rule;
 
-function partFromSymbol(symbol, terminalSymbolsRegExp, AllParts) {
+function partFromSymbol(symbol, terminalSymbolsRegExp) {
   var part = undefined; ///
 
   Parts.some(function(Part) {

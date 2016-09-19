@@ -15,10 +15,11 @@ class ZeroOrMoreProductionsPart {
       parsed = true;
 
       for(;;) {
-        var index = context.index;
+        var index = context.getIndex(),
+            savedIndex = index; ///
 
         if (!production.parse(input, context, productions)) {
-          context.index = index;
+          context.backtrack(savedIndex);
 
           return parsed;
         }
@@ -34,7 +35,8 @@ class ZeroOrMoreProductionsPart {
         matches = symbol.match(zeroOrMoreProductionsRegExp);
 
     if (matches !== null) {
-      var name = matches[1];
+      var secondMatch = second(matches),
+          name = secondMatch; ///
 
       zeroOrMoreProductionsPart = new ZeroOrMoreProductionsPart(name);
     }
@@ -44,3 +46,5 @@ class ZeroOrMoreProductionsPart {
 }
 
 module.exports = ZeroOrMoreProductionsPart;
+
+function second(array) { return array[1]; }
