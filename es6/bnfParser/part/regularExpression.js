@@ -28,21 +28,23 @@ class RegularExpressionPart {
   }
 
   static fromSymbol(symbol, terminalSymbolsRegExp) {
-    var terminalPart = null,
-        terminalRegExp = /\/([^/]+)\//,
-        matches = symbol.match(terminalRegExp);
+    var regularExpressionPart = null,
+        regularExpressionRegExp = /\/([^/]+)\//,
+        matches = symbol.match(regularExpressionRegExp);
 
     if (matches !== null) {
-      var pattern = matches[1],
+      var secondMatch = second(matches),
+          pattern = secondMatch,  ///
           regExp = new RegExp(pattern);
 
-      terminalPart = new RegularExpressionPart(regExp);
+      regularExpressionPart = new RegularExpressionPart(regExp);
     }
 
-    return terminalPart;
+    return regularExpressionPart;
   }
 }
 
 module.exports = RegularExpressionPart;
 
 function first(array) { return array[0]; }
+function second(array) { return array[1]; }
