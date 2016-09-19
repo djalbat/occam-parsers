@@ -32,17 +32,13 @@
         <textarea rows="20" id="grammar" spellcheck="false">
 expr                       ::= term operatorThenTerm*
 
-operatorThenTerm           ::= plusOrMinusThenTerm | multiplyOrDivideThenTerm
+operatorThenTerm           ::= operator term
 
-plusOrMinusThenTerm        ::= plusOrMinus term
+operator                   ::= + | - | * | /
 
-multiplyOrDivideThenTerm   ::= multiplyOrDivide term
+term                       ::= naturalNumber
 
-plusOrMinus                ::= + | -
-
-multiplyOrDivide           ::= * | /
-
-term                       ::= naturalNumber | parenthesizedExpr
+                             | parenthesizedExpr
 
 naturalNumber              ::= /\d+/
 
