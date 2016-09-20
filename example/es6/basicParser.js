@@ -65,8 +65,9 @@ function updateParser() {
 function updateInput() {
   var inputTextAreaValue = inputTextArea.getValue(),
       input = inputTextAreaValue,  ///
-      parsedInput = parser.parse(input),
-      paragraphElementHTML = parsedInput; ///
+      documentNode = parser.parse(input),
+      documentNodeString = documentNode.toString(),
+      paragraphElementHTML = documentNodeString;  /// 
 
   paragraphElement.html(paragraphElementHTML);
 }

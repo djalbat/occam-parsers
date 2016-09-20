@@ -1,29 +1,35 @@
 'use strict';
 
+var TerminalNode = require('../node/terminal');
+
 class SpecialPart {
   constructor(symbol) {
     this.symbol = symbol;
   }
 
   parse(input, context, productions) {
-    var parsed = false,
+    var nodes = null,
         index = context.getIndex(),
         inputLength = input.length;
 
     if (index < inputLength) {
-      var inputSubtring = input.substr(index),
-          symbolIndex = inputSubtring.indexOf(this.symbol);
+      var inputSubstring = input.substr(index),
+          symbolIndex = inputSubstring.indexOf(this.symbol),
+          parsed = (symbolIndex === 0);
 
-      if (symbolIndex === 0) {
-        var amount = this.symbol.length; ///
+      if (parsed) {
+        var symbolLength = this.symbol.length,
+            str = inputSubstring.substr(0, symbolLength),
+            terminalNode = new TerminalNode(str),
+            amount = symbolLength;  ///
+
+        nodes = [terminalNode];
 
         context.advance(amount);
-
-        parsed = true;
       }
     }
 
-    return parsed;
+    return nodes;
   }
 
   static fromSymbol(symbol, specialSymbolsRegExp) {

@@ -1,6 +1,6 @@
 'use strict';
 
-var Production = require('./bnfParser/production');
+var Production = require('./production');
 
 class BNFParser {
   static parse(lines, specialSymbolsRegExpPattern, mappings) {

@@ -1,6 +1,7 @@
 'use strict';
 
-var Rule = require('./rule');
+var Rule = require('./rule'),
+    NonTerminalNode = require('./node/nonTerminal');
 
 class Production {
   constructor(name, rules, Node) {
@@ -14,21 +15,26 @@ class Production {
   }
   
   parse(input, context, productions) {
-    var index = context.getIndex(),
-        savedIndex = index, ///
+    var ruleNodes = undefined,
+        index = context.getIndex(),
+        savedIndex = index,
         parsed = this.rules.some(function(rule) {
-      var parsed = rule.parse(input, context, productions);
-      
-      if (!parsed) {
-        context.backtrack(savedIndex);
-        
-        return false;
-      } else {
-        return true;
-      }
-    });
+          ruleNodes = rule.parse(input, context, productions);
+          
+          var parsed = (ruleNodes !== null);
     
-    return parsed;
+          if (!parsed) {
+            context.backtrack(savedIndex);
+          }
+          
+          return parsed;
+        });
+    
+    var nodes = parsed ? 
+                  this.Node.fromNodes(ruleNodes) :  ///
+                    null;
+    
+    return nodes;
   }
 
   static fromLine(line, specialSymbolsRegExp, mappings) {
@@ -38,7 +44,7 @@ class Production {
 
           return rule;
         }),
-        Node = mappings[name],
+        Node = mappings[name] || NonTerminalNode, ///
         production = new Production(name, rules, Node);
 
     return production;

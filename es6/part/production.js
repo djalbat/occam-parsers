@@ -6,14 +6,14 @@ class ProductionPart {
   }
   
   parse(input, context, productions) {
-    var parsed = false,
+    var nodes = null,
         production = ProductionPart.findProduction(this.name, productions);
 
     if (production !== null) {
-      parsed = production.parse(input, context, productions);
+      nodes = production.parse(input, context, productions);
     }
 
-    return parsed;
+    return nodes;
   }
 
   static findProduction(name, productions) {

@@ -8,25 +8,29 @@ class ZeroOrMoreProductionsPart {
   }
 
   parse(input, context, productions) {
-    var parsed = false,
+    var nodes = null,
         production = ProductionPart.findProduction(this.name, productions);
 
     if (production !== null) {
-      parsed = true;
+      nodes = [];
 
       for(;;) {
         var index = context.getIndex(),
-            savedIndex = index; ///
+            savedIndex = index, ///
+            productionNodes = production.parse(input, context, productions),
+            parsed = (productionNodes !== null);
 
-        if (!production.parse(input, context, productions)) {
+        if (parsed) {
+          nodes = nodes.concat(productionNodes);
+        } else {
           context.backtrack(savedIndex);
 
-          return parsed;
+          return nodes;
         }
       }
     }
 
-    return parsed;
+    return nodes;
   }
   
   static fromSymbol(symbol, specialSymbolsRegExp) {

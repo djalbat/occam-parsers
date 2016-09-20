@@ -1,30 +1,36 @@
 'use strict';
 
+var TerminalNode = require('../node/terminal');
+
 class RegularExpressionPart {
   constructor(regExp) {
     this.regExp = regExp;
   }
 
   parse(input, context, productions) {
-    var parsed = false,
+    var nodes = null,
         index = context.getIndex(),
         inputLength = input.length;
 
     if (index < inputLength) {
       var inputSubstring = input.substr(index),
-          matches = this.regExp.exec(inputSubstring);
+          matches = this.regExp.exec(inputSubstring),
+          parsed = (matches && matches.index === 0);
 
-      if (matches && matches.index === 0) {
+      if (parsed) {
         var firstMatch = first(matches),
-            amount = firstMatch.length;  ///
+            firstMatchLength = firstMatch.length,
+            str = inputSubstring.substr(0, firstMatchLength),
+            terminalNode = new TerminalNode(str),
+            amount = firstMatchLength;  ///
+
+        nodes = [terminalNode];
 
         context.advance(amount);
-
-        parsed = true;
       }
     }
 
-    return parsed;
+    return nodes;
   }
 
   static fromSymbol(symbol, specialSymbolsRegExp) {

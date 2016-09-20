@@ -1,16 +1,6 @@
 'use strict';
 
-var SpecialPart = require('./part/special'),
-    ProductionPart = require('./part/production'),
-    RegularExpressionPart = require('./part/regularExpression'),
-    ZeroOrMoreProductionsPart = require('./part/zeroOrMoreProductions');
-
-var Parts = [
-  SpecialPart,
-  RegularExpressionPart,
-  ZeroOrMoreProductionsPart,
-  ProductionPart
-];
+var Parts = require('./parts');
 
 class Rule {
   constructor(parts) {
@@ -18,13 +8,22 @@ class Rule {
   }
   
   parse(input, context, productions) {
+    var nodes = [];
+    
     var parsed = this.parts.every(function(part) {
-      var parsed = part.parse(input, context, productions);
+      var partNodes = part.parse(input, context, productions),
+          parsed = (partNodes !== null);
+      
+      if (parsed) {
+        nodes = nodes.concat(partNodes);
+      }
       
       return parsed;
     });
     
-    return parsed;
+    nodes = parsed ? nodes : null;
+    
+    return nodes;
   }
 
   static fromSymbolSequence(symbolSequence, specialSymbolsRegExp) {
