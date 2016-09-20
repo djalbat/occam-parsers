@@ -31,10 +31,10 @@ class Production {
     return parsed;
   }
 
-  static fromLine(line, terminalSymbolsRegExp, mappings) {
+  static fromLine(line, specialSymbolsRegExp, mappings) {
     var name = line.getName(),
         rules = line.mapSymbolSequences(function(symbolSequence) {
-          var rule = Rule.fromSymbolSequence(symbolSequence, terminalSymbolsRegExp);
+          var rule = Rule.fromSymbolSequence(symbolSequence, specialSymbolsRegExp);
 
           return rule;
         }),

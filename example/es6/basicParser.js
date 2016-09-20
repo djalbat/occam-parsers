@@ -12,11 +12,11 @@ var Parser = require ('../../es6/parser'),
 var inputTextAreaSelector = 'textArea#input',
     grammarTextAreaSelector = 'textArea#grammar',
     paragraphElementSelector = 'p',
-    terminalSymbolsRegExpPatternInputSelector = 'input#terminalSymbolsRegExpPattern',
+    specialSymbolsRegExpPatternInputSelector = 'input#specialSymbolsRegExpPattern',
     inputTextArea = new TextArea(inputTextAreaSelector),
     grammarTextArea = new TextArea(grammarTextAreaSelector),
     paragraphElement = new Element(paragraphElementSelector),
-    terminalSymbolsRegExpPatternInput = new Input(terminalSymbolsRegExpPatternInputSelector);
+    specialSymbolsRegExpPatternInput = new Input(specialSymbolsRegExpPatternInputSelector);
 
 var mappings = {};
 
@@ -24,7 +24,7 @@ class BasicParser {
   static run() {
     updateParser();
 
-    terminalSymbolsRegExpPatternInput.onChange(function() {
+    specialSymbolsRegExpPatternInput.onChange(function() {
       updateParser();
       updateInput();
     });
@@ -46,11 +46,11 @@ var parser;
 
 function updateParser() {
   var grammarTextAreaValue = grammarTextArea.getValue(),
-      terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternInput.getValue(),
+      specialSymbolsRegExpPatternInputValue = specialSymbolsRegExpPatternInput.getValue(),
       grammar = grammarTextAreaValue, ///
-      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
+      specialSymbolsRegExpPattern = specialSymbolsRegExpPatternInputValue, ///
       lines = BNFLexer.linesFromGrammar(grammar),
-      productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, mappings);
+      productions = BNFParser.parse(lines, specialSymbolsRegExpPattern, mappings);
 
   parser = new Parser(productions);
 }

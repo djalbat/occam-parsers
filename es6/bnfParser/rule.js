@@ -1,12 +1,12 @@
 'use strict';
 
-var TerminalPart = require('./part/terminal'),
+var SpecialPart = require('./part/special'),
     ProductionPart = require('./part/production'),
     RegularExpressionPart = require('./part/regularExpression'),
     ZeroOrMoreProductionsPart = require('./part/zeroOrMoreProductions');
 
 var Parts = [
-  TerminalPart,
+  SpecialPart,
   RegularExpressionPart,
   ZeroOrMoreProductionsPart,
   ProductionPart
@@ -27,9 +27,9 @@ class Rule {
     return parsed;
   }
 
-  static fromSymbolSequence(symbolSequence, terminalSymbolsRegExp) {
+  static fromSymbolSequence(symbolSequence, specialSymbolsRegExp) {
     var parts = symbolSequence.mapSymbols(function(symbol) {
-          var part = partFromSymbol(symbol, terminalSymbolsRegExp);
+          var part = partFromSymbol(symbol, specialSymbolsRegExp);
           
           return part;
         }),
@@ -41,11 +41,11 @@ class Rule {
 
 module.exports = Rule;
 
-function partFromSymbol(symbol, terminalSymbolsRegExp) {
+function partFromSymbol(symbol, specialSymbolsRegExp) {
   var part = undefined; ///
 
   Parts.some(function(Part) {
-    part = Part.fromSymbol(symbol, terminalSymbolsRegExp);
+    part = Part.fromSymbol(symbol, specialSymbolsRegExp);
 
     var parsed = (part !== null);
 

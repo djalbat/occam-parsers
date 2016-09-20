@@ -1,6 +1,6 @@
 'use strict';
 
-class TerminalPart {
+class SpecialPart {
   constructor(symbol) {
     this.symbol = symbol;
   }
@@ -26,16 +26,16 @@ class TerminalPart {
     return parsed;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp) {
-    var terminalPart = null,
-        matches = symbol.match(terminalSymbolsRegExp);
+  static fromSymbol(symbol, specialSymbolsRegExp) {
+    var specialPart = null,
+        matches = symbol.match(specialSymbolsRegExp);
 
     if (matches !== null) {
-      terminalPart = new TerminalPart(symbol);
+      specialPart = new SpecialPart(symbol);
     }
 
-    return terminalPart;
+    return specialPart;
   }
 }
 
-module.exports = TerminalPart;
+module.exports = SpecialPart;

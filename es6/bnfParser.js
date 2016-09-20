@@ -3,14 +3,14 @@
 var Production = require('./bnfParser/production');
 
 class BNFParser {
-  static parse(lines, terminalSymbolsRegExpPattern, mappings) {
+  static parse(lines, specialSymbolsRegExpPattern, mappings) {
     var productions;
 
     try {
-      var terminalSymbolsRegExp = new RegExp('^(?:' + terminalSymbolsRegExpPattern + ')$');
+      var specialSymbolsRegExp = new RegExp('^(?:' + specialSymbolsRegExpPattern + ')$');
 
       productions = lines.map(function(line) {
-        var production = Production.fromLine(line, terminalSymbolsRegExp, mappings);
+        var production = Production.fromLine(line, specialSymbolsRegExp, mappings);
 
         return production;
       });
