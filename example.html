@@ -2,33 +2,14 @@
 <html>
     <head>
         <title>Basic parser example</title>
-        <style>
-          p {
-            display: inline-block;
-            background-color: lightgray;
-          }
-
-          h2 {
-            margin-bottom: 0;
-          }
-
-          input,
-          textarea {
-            width: 50rem;
-            font-family: monospace;
-          }
-
-          p,
-          h2,
-          input,
-          textarea {
-            font-size: 1rem;
-          }
-        </style>
+        <link href="example.css" rel="stylesheet" type="text/css" media="all">
     </head>
     <body>
         <h1>Basic parser example</h1>
-        <h2>Grammar</h2>
+
+        <div class="columns">
+          <div id="leftColumn">
+            <h2>Grammar</h2>
         <textarea rows="20" id="grammar" spellcheck="false">
 expr                       ::= term operatorThenTerm*
 
@@ -44,12 +25,20 @@ naturalNumber              ::= /\d+/
 
 parenthesizedExpr          ::= ( expr )
         </textarea>
-        <h2>Special symbols regular expression pattern</h2>
-        <input type="text" id="specialSymbolsRegExpPattern" value="\+|\-|\*|\/|\(|\)" />
-        <h2>Input</h2>
-        <textarea rows="10" id="input"></textarea>
-        <h2>Output</h2>
-        <p></p>
+            <h2>Special symbols regular expression pattern</h2>
+            <input type="text" id="specialSymbolsRegExpPattern" value="\+|\-|\*|\/|\(|\)" />
+            <h2>Input</h2>
+            <textarea rows="10" id="input"></textarea>
+            <h2>Output</h2>
+            <p></p>
+          </div>
+          <div class="left vertical splitter"></div>
+          <div class="column">
+            <h2>Abstract syntax tree</h2>
+            <textarea rows="30" id="abstractSyntaxTree" readonly></textarea>
+          </div>
+        </div>
+
         <script src="./example.js"> </script>
         <script>
 

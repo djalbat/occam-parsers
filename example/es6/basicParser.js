@@ -1,9 +1,16 @@
 'use strict';
 
-var easyui = require('easyui'),
-    Input = easyui.Input,
-    Element = easyui.Element,
-    TextArea = easyui.TextArea;
+var easyUI = require('easyui'),
+    easyUILayout = require('easyui-layout'),
+    Input = easyUI.Input,
+    Element = easyUI.Element,
+    TextArea = easyUI.TextArea,
+    SizeableElement = easyUILayout.SizeableElement,
+    VerticalSplitter = easyUILayout.VerticalSplitter;
+
+var leftColumn = new SizeableElement('#leftColumn');
+
+new VerticalSplitter('.left.vertical.splitter', VerticalSplitter.situated.TO_THE_RIGHT_OF, leftColumn);
 
 var Parser = require ('../../es6/parser'),
     BNFLexer = require ('../../es6/bnfLexer'),
