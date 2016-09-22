@@ -8,13 +8,13 @@ var easyUI = require('easyui'),
     SizeableElement = easyUILayout.SizeableElement,
     VerticalSplitter = easyUILayout.VerticalSplitter;
 
-var leftColumn = new SizeableElement('#leftColumn');
-
-new VerticalSplitter('.left.vertical.splitter', VerticalSplitter.situated.TO_THE_RIGHT_OF, leftColumn);
-
 var Parser = require ('../../es6/parser'),
     BNFLexer = require ('../../es6/bnfLexer'),
     BNFParser = require ('../../es6/bnfParser');
+
+var leftColumnSizeableElement = new SizeableElement('#leftColumnSizeableElement'),
+    TO_THE_RIGHT_OF = VerticalSplitter.situated.TO_THE_RIGHT_OF,
+    verticalSplitter = new VerticalSplitter('.left.vertical.splitter', TO_THE_RIGHT_OF, leftColumnSizeableElement);
 
 var inputTextAreaSelector = 'textArea#input',
     grammarTextAreaSelector = 'textArea#grammar',

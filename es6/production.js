@@ -15,16 +15,16 @@ class Production {
   }
   
   parse(input, context, productions) {
+    context.saveIndex();
+    
     var ruleNodes = undefined,
-        index = context.getIndex(),
-        savedIndex = index,
         parsed = this.rules.some(function(rule) {
           ruleNodes = rule.parse(input, context, productions);
           
           var parsed = (ruleNodes !== null);
     
           if (!parsed) {
-            context.backtrack(savedIndex);
+            context.backtrack();
           }
           
           return parsed;

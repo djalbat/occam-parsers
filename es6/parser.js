@@ -15,10 +15,13 @@ class Parser {
 
     if (productionsLength > 0) {
       var firstProduction = first(this.productions),
-          nodes = firstProduction.parse(input, context, this.productions),
-          childNodes = nodes; ///
-      
-      documentNode.addChildNodes(childNodes);
+          nodes = firstProduction.parse(input, context, this.productions);
+
+      if (nodes !== null) {
+        var childNodes = nodes; ///
+
+        documentNode.addChildNodes(childNodes);
+      }
     }
 
     return documentNode;

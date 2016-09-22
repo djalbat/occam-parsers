@@ -15,15 +15,15 @@ class ZeroOrMoreProductionsPart {
       nodes = [];
 
       for(;;) {
-        var index = context.getIndex(),
-            savedIndex = index, ///
-            productionNodes = production.parse(input, context, productions),
+        context.saveIndex();
+        
+        var productionNodes = production.parse(input, context, productions),
             parsed = (productionNodes !== null);
 
         if (parsed) {
           nodes = nodes.concat(productionNodes);
         } else {
-          context.backtrack(savedIndex);
+          context.backtrack();
 
           return nodes;
         }
