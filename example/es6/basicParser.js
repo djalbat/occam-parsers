@@ -3,7 +3,6 @@
 var easyUI = require('easyui'),
     easyUILayout = require('easyui-layout'),
     Input = easyUI.Input,
-    Element = easyUI.Element,
     TextArea = easyUI.TextArea,
     SizeableElement = easyUILayout.SizeableElement,
     VerticalSplitter = easyUILayout.VerticalSplitter;
@@ -18,11 +17,11 @@ var leftColumnSizeableElement = new SizeableElement('#leftColumnSizeableElement'
 
 var inputTextAreaSelector = 'textArea#input',
     grammarTextAreaSelector = 'textArea#grammar',
-    paragraphElementSelector = 'p',
+    parseTreeTextAreaSelector = 'textArea#parseTree',
     specialSymbolsRegExpPatternInputSelector = 'input#specialSymbolsRegExpPattern',
     inputTextArea = new TextArea(inputTextAreaSelector),
     grammarTextArea = new TextArea(grammarTextAreaSelector),
-    paragraphElement = new Element(paragraphElementSelector),
+    parseTreeTextArea = new TextArea(parseTreeTextAreaSelector),
     specialSymbolsRegExpPatternInput = new Input(specialSymbolsRegExpPatternInputSelector);
 
 var mappings = {};
@@ -67,7 +66,7 @@ function updateInput() {
       input = inputTextAreaValue,  ///
       documentNode = parser.parse(input),
       documentNodeString = documentNode.toString(),
-      paragraphElementHTML = documentNodeString;  /// 
+      parseTreeTextAreaHTML = documentNodeString;  ///
 
-  paragraphElement.html(paragraphElementHTML);
+  parseTreeTextArea.html(parseTreeTextAreaHTML);
 }

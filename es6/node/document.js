@@ -4,9 +4,10 @@ var NonTerminalNode = require('./nonTerminal');
 
 class DocumentNode extends NonTerminalNode {
   constructor() {
-    var childNodes = [];
+    var childNodes = [],
+        name = 'document';
 
-    super(childNodes);
+    super(childNodes, name);
   }
 
   addChildNodes(childNodes) {

@@ -31,7 +31,7 @@ class Production {
         });
     
     var nodes = parsed ? 
-                  this.Node.fromNodes(ruleNodes) :  ///
+                  this.Node.fromNodes(ruleNodes, this.name) :  ///
                     null;
     
     return nodes;
