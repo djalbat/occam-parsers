@@ -42,6 +42,11 @@ textarea {
   padding: 0.25rem;
 }
 
+textarea#parseTree {
+  white-space: pre;
+  overflow-wrap: normal;
+}
+
 #leftColumn {
   width: 40rem;
   min-width: 20rem;
@@ -70,3 +75,4 @@ textarea {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+

@@ -13,17 +13,6 @@ class DocumentNode extends NonTerminalNode {
   addChildNodes(childNodes) {
     spliceArray(this.childNodes, 0, 0, childNodes);
   }
-
-  toString() {
-    var strArray = super.getStrArray(),
-        string = strArray.reduce(function(string, str) {
-          string += str + '\n';
-
-          return string;
-        }, '');
-
-    return string;
-  }
 }
 
 module.exports = DocumentNode;

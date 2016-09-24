@@ -11,19 +11,19 @@ var Parser = require ('../../es6/parser'),
     BNFLexer = require ('../../es6/bnfLexer'),
     BNFParser = require ('../../es6/bnfParser');
 
-var leftColumnSizeableElementSelector = '#leftColumn',
-    leftColumnSizeableElement = new SizeableElement(leftColumnSizeableElementSelector),
-    TO_THE_RIGHT_OF = VerticalSplitter.situated.TO_THE_RIGHT_OF,
-    verticalSplitter = new VerticalSplitter('.left.vertical.splitter', TO_THE_RIGHT_OF, leftColumnSizeableElement);
-
-var inputTextAreaSelector = 'textArea#input',
+var leftColumnSelector = '#leftColumn',
+    inputTextAreaSelector = 'textArea#input',
     grammarTextAreaSelector = 'textArea#grammar',
     parseTreeTextAreaSelector = 'textArea#parseTree',
-    specialSymbolsRegExpPatternInputSelector = 'input#specialSymbolsRegExpPattern',
+    specialSymbolsRegExpInputSelector = 'input#specialSymbolsRegExp',
     inputTextArea = new TextArea(inputTextAreaSelector),
     grammarTextArea = new TextArea(grammarTextAreaSelector),
     parseTreeTextArea = new TextArea(parseTreeTextAreaSelector),
-    specialSymbolsRegExpPatternInput = new Input(specialSymbolsRegExpPatternInputSelector);
+    specialSymbolsRegExpInput = new Input(specialSymbolsRegExpInputSelector),
+    leftColumn = new SizeableElement(leftColumnSelector),
+    TO_THE_RIGHT_OF = VerticalSplitter.situated.TO_THE_RIGHT_OF;
+
+new VerticalSplitter('.left.vertical.splitter', TO_THE_RIGHT_OF, leftColumn);
 
 var mappings = {};
 
@@ -31,7 +31,7 @@ class BasicParser {
   static run() {
     updateParser();
 
-    specialSymbolsRegExpPatternInput.onChange(function() {
+    specialSymbolsRegExpInput.onChange(function() {
       updateParser();
       updateInput();
     });
@@ -53,11 +53,11 @@ var parser;
 
 function updateParser() {
   var grammarTextAreaValue = grammarTextArea.getValue(),
-      specialSymbolsRegExpPatternInputValue = specialSymbolsRegExpPatternInput.getValue(),
+      specialSymbolsRegExpInputValue = specialSymbolsRegExpInput.getValue(),
       grammar = grammarTextAreaValue, ///
-      specialSymbolsRegExpPattern = specialSymbolsRegExpPatternInputValue, ///
+      specialSymbolsRegExp = specialSymbolsRegExpInputValue, ///
       lines = BNFLexer.linesFromGrammar(grammar),
-      productions = BNFParser.parse(lines, specialSymbolsRegExpPattern, mappings);
+      productions = BNFParser.parse(lines, specialSymbolsRegExp, mappings);
 
   parser = new Parser(productions);
 }
@@ -66,8 +66,9 @@ function updateInput() {
   var inputTextAreaValue = inputTextArea.getValue(),
       input = inputTextAreaValue,  ///
       documentNode = parser.parse(input),
-      documentNodeString = documentNode.toString(),
-      parseTreeTextAreaHTML = documentNodeString;  ///
+      parseTree = documentNode.getParseTree(),
+      parseTreeStr = parseTree.toString(),
+      parseTreeTextAreaHTML = parseTreeStr;  ///
 
   parseTreeTextArea.html(parseTreeTextAreaHTML);
 }

@@ -1,25 +1,16 @@
 'use strict';
 
+var ParseTree = require('../parseTree');
+
 class TerminalNode {
   constructor(str) {
     this.str = str;
   }
 
-  getStrArray() {
-    var str = this.str + '~',
-        strArray = [str];
+  getParseTree() {
+    var parseTree = ParseTree.fromString(this.str);
     
-    return strArray;
-  }
-  
-  getDepth() {
-    var depth = 0;
-    
-    return depth;
-  }
-
-  getStr() {
-    return this.str;
+    return parseTree;
   }
 }
 
