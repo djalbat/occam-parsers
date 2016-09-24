@@ -13,9 +13,17 @@ class ParseTree {
   }
 
   getWidth() {
-    var lastLine = last(this.lines),
-        lastLineLength = lastLine.length,
-        width = lastLineLength; ///
+    var linesLength = this.lines.length,
+        width = undefined;
+
+    if (linesLength === 0) {
+      width = 0;
+    } else {
+      var lastLine = last(this.lines),
+          lastLineLength = lastLine.length;
+
+      width = lastLineLength; ///
+    }
 
     return width;
   }
@@ -55,12 +63,31 @@ class ParseTree {
     }.bind(this));
   }
 
+  addTopMargin(topMarginDepth) {
+    var width = this.getWidth(),
+        topMarginWidth = width,  ///
+        topMarginStr = marginStrFromMarginWidth(topMarginWidth);
+
+    for (var index = 0; index < topMarginDepth; index++) {
+      this.lines.unshift(topMarginStr);
+    }
+  }
+
   addLeftMargin(leftMarginWidth) {
     var leftMarginStr = marginStrFromMarginWidth(leftMarginWidth),
         linesLength = this.lines.length;
 
     for (var index = 0; index < linesLength; index++) {
       this.lines[index] = leftMarginStr + this.lines[index];
+    }
+  }
+
+  addRightMargin(rightMarginWidth) {
+    var rightMarginStr = marginStrFromMarginWidth(rightMarginWidth),
+        linesLength = this.lines.length;
+
+    for (var index = 0; index < linesLength; index++) {
+      this.lines[index] = this.lines[index] + rightMarginStr;
     }
   }
 
@@ -105,7 +132,25 @@ class ParseTree {
     return parseTree;
   }
 
-  static fromProductionNameAndChildNodes(productionName, childNodes) {
+  static fromProductionName(productionName) {
+    var str = productionName, ///
+        parseTree = ParseTree.fromString(str),
+        parseTreeWidth = parseTree.getWidth(),
+        leftMarginWidth = Math.floor(parseTreeWidth/2),
+        verticalBranchStr = '|',
+        verticalBranchStrLength = verticalBranchStr.length,
+        rightMarginWidth = parseTreeWidth - leftMarginWidth - verticalBranchStrLength,
+        verticalBranchParseTree = ParseTree.fromString(verticalBranchStr);
+
+    verticalBranchParseTree.addLeftMargin(leftMarginWidth);
+    verticalBranchParseTree.addRightMargin(rightMarginWidth);
+
+    parseTree.appendToBottom(verticalBranchParseTree);
+
+    return parseTree;
+  }
+
+  static fromChildNodes(childNodes) {
     var childParseTrees = childNodes.map(function(childNode) {
           var childParseTree = childNode.getParseTree();
 
@@ -118,7 +163,7 @@ class ParseTree {
 
           return childParseTreesDepth;
         }, 0),
-        childParseTreesParseTree = ParseTree.fromDepth(childParseTreesDepth);
+        parseTree = ParseTree.fromDepth(childParseTreesDepth);
 
     childParseTrees.forEach(function(childParseTree) {
       var childParseTreeDepth = childParseTree.getDepth();
@@ -128,24 +173,34 @@ class ParseTree {
             bottomMarginDepth = childParseTreesDepth - childParseTreeDepth;
 
         clonedChildParseTree.addBottomMargin(bottomMarginDepth);
-        childParseTreesParseTree.appendToRight(clonedChildParseTree);
+        parseTree.appendToRight(clonedChildParseTree);
       } else {
-        childParseTreesParseTree.appendToRight(childParseTree);
+        parseTree.appendToRight(childParseTree);
       }
     });
 
-    var str = productionName, ///
-        parseTree = ParseTree.fromString(str),
+    return parseTree;
+  }
+
+  static fromProductionNameAndChildNodes(productionName, childNodes) {
+    var productionNameParseTree = ParseTree.fromProductionName(productionName),
+        childParseTreesParseTree = ParseTree.fromChildNodes(childNodes);
+
+    var parseTree = productionNameParseTree,  ///
         parseTreeWidth = parseTree.getWidth(),
         childParseTreesParseTreeWidth = childParseTreesParseTree.getWidth(),
-        leftMarginWidth = Math.abs(parseTreeWidth - childParseTreesParseTreeWidth);
+        differenceInWidths = Math.abs(parseTreeWidth - childParseTreesParseTreeWidth),
+        leftMarginWidth = Math.floor(differenceInWidths/2),
+        rightMarginWidth = Math.ceil(differenceInWidths/2);
 
     if (false) {
 
     } else if (parseTreeWidth < childParseTreesParseTreeWidth) {
       parseTree.addLeftMargin(leftMarginWidth);
+      parseTree.addRightMargin(rightMarginWidth);
     } else if (childParseTreesParseTreeWidth < parseTreeWidth) {
       childParseTreesParseTree.addLeftMargin(leftMarginWidth);
+      childParseTreesParseTree.addRightMargin(rightMarginWidth);
     }
 
     parseTree.appendToBottom(childParseTreesParseTree);
@@ -158,11 +213,13 @@ module.exports = ParseTree;
 
 function last(array) { return array[array.length - 1]; }
 
-function marginStrFromMarginWidth(marginWidth) {
+function marginStrFromMarginWidth(marginWidth, spaceCharacter) {
   var marginStr = '';
 
+  spaceCharacter = spaceCharacter || ' ';
+
   for (var index = 0; index < marginWidth; index++) {
-    marginStr += ' ';
+    marginStr += spaceCharacter;
   }
 
   return marginStr;
