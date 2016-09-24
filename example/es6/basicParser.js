@@ -11,7 +11,8 @@ var Parser = require ('../../es6/parser'),
     BNFLexer = require ('../../es6/bnfLexer'),
     BNFParser = require ('../../es6/bnfParser');
 
-var leftColumnSizeableElement = new SizeableElement('#leftColumnSizeableElement'),
+var leftColumnSizeableElementSelector = '#leftColumn',
+    leftColumnSizeableElement = new SizeableElement(leftColumnSizeableElementSelector),
     TO_THE_RIGHT_OF = VerticalSplitter.situated.TO_THE_RIGHT_OF,
     verticalSplitter = new VerticalSplitter('.left.vertical.splitter', TO_THE_RIGHT_OF, leftColumnSizeableElement);
 

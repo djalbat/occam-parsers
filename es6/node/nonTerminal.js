@@ -1,32 +1,88 @@
 'use strict';
 
 class NonTerminalNode {
-  constructor(childNodes, name) {
+  constructor(childNodes, productionName) {
     this.childNodes = childNodes;
-    this.name = name;
+    this.productionName = productionName;
   }
   
-  toString() {
-    var childNodesStr = this.childNodes.reduce(function(childNodesStr, childNode) {
-          var childNodeStr = childNode.toString();
+  getStrArray() {
+    var strArray = [],
+        str = this.productionName + '~',
+        strLength = str.length,
+        width = strLength,  ///
+        depth = this.getDepth();
 
-          childNodesStr += childNodeStr;
+    this.childNodes.forEach(function(childNode) {
+      var childNodeStrArray = childNode.getStrArray(),
+          index = 0;
 
-          return childNodesStr;
-        }, ''),
-        nameLength = this.name.length,
-        length = Math.floor(nameLength/2),
-        leftMarginStr = leftMarginStrFromLength(length),
-        str =
-          leftMarginStr + this.name + '\n' +
-          leftMarginStr + '|' + '\n';
+      childNodeStrArray.forEach(function(str) {
+        if (strArray[index] === undefined) {
+          strArray[index] = '';
+        }
+        
+        strArray[index++] += str;
+      });
 
-    return str;
+      var lastIndex = index,
+          lastChildNodeStr = last(childNodeStrArray),
+          lastChildNodeStrLength = lastChildNodeStr.length,
+          size = lastChildNodeStrLength,  ///
+          marginStr = marginStrFromSize(size, ',');
+
+      for (index = lastIndex; index < depth; index++) {
+        if (strArray[index] === undefined) {
+          strArray[index] = '';
+        }
+
+        strArray[index] = marginStr + strArray[index];
+      }
+    });
+
+    var childNodesWidth = strArray.reduce(function(childNodesWidth, str) {
+          var strLength = str.length;
+
+          childNodesWidth = Math.max(childNodesWidth, strLength);
+
+          return childNodesWidth;
+        }, 0);
+
+    var differenceInWidths = width - childNodesWidth,
+        size = Math.abs(differenceInWidths),
+        marginStr = marginStrFromSize(size);
+
+    if (differenceInWidths > 0) {
+      strArray.forEach(function(str, index) {
+        strArray[index] = marginStr + strArray[index];
+      })
+    }
+
+    strArray.unshift(str);
+
+    if (differenceInWidths < 0) {
+      strArray[0] = marginStr + strArray[0];
+    }
+
+    return strArray;
   }
 
-  static fromNodes(nodes, name) {
+  getDepth() {
+    var childNodesDepth = this.childNodes.reduce(function(childNodesDepth, childNode) {
+          var childNodeDepth = childNode.getDepth();
+
+          childNodesDepth = Math.max(childNodesDepth, childNodeDepth);
+
+          return childNodesDepth;
+        }, 0),
+        depth = childNodesDepth + 1;
+
+    return depth;
+  }
+
+  static fromNodes(nodes, productionName) {
     var childNodes = nodes, ///
-        nonTerminalNode = new NonTerminalNode(childNodes, name);
+        nonTerminalNode = new NonTerminalNode(childNodes, productionName);
 
     nodes = [nonTerminalNode]; ///
     
@@ -36,12 +92,16 @@ class NonTerminalNode {
 
 module.exports = NonTerminalNode;
 
-function leftMarginStrFromLength(length) {
-  var leftMarginStr = '';
+function last(array) { return array[array.length - 1]; }
 
-  for (var count = 0; count < length; count++) {
-    leftMarginStr += '.';
+function marginStrFromSize(size, spaceCharacter) {
+  var marginStr = '';
+
+  spaceCharacter = spaceCharacter || ' ';
+
+  for (var count = 0; count < size; count++) {
+    marginStr += spaceCharacter;
   }
 
-  return leftMarginStr;
+  return marginStr;
 }
