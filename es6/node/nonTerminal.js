@@ -1,6 +1,6 @@
 'use strict';
 
-var ParseTree = require('../parseTree');
+var NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
 
 class NonTerminalNode {
   constructor(childNodes, productionName) {
@@ -17,9 +17,10 @@ class NonTerminalNode {
   }
   
   getParseTree() {
-    var nonTerminalNode = this, ///
-        parseTree = ParseTree.fromNonTerminalNode(nonTerminalNode);
-    
+    var nontTerminalNode = this,  ///
+        nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNode(nontTerminalNode),
+        parseTree = nonTerminalNodeParseTree;  ///
+
     return parseTree;
   }
 

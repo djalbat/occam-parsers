@@ -1,6 +1,6 @@
 'use strict';
 
-var ParseTree = require('../parseTree');
+var TerminalNodeParseTree = require('../parseTree/terminalNode');
 
 class TerminalNode {
   constructor(str) {
@@ -10,11 +10,12 @@ class TerminalNode {
   getString() {
     return this.str;
   }
-
+  
   getParseTree() {
     var terminalNode = this,  ///
-        parseTree = ParseTree.fromTerminalNode(terminalNode);
-    
+        terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNode(terminalNode),
+        parseTree = terminalNodeParseTree;  ///
+
     return parseTree;
   }
 }
