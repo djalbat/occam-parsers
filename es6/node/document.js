@@ -5,13 +5,21 @@ var NonTerminalNode = require('./nonTerminal');
 class DocumentNode extends NonTerminalNode {
   constructor() {
     var childNodes = [],
-        name = 'document';
+        productionName = 'document';  ///
 
-    super(childNodes, name);
+    super(childNodes, productionName);
   }
 
   addChildNodes(childNodes) {
     spliceArray(this.childNodes, 0, 0, childNodes);
+  }
+
+  getParseTree() {
+    var parseTree = super.getParseTree();
+
+    parseTree.shiftLine();
+
+    return parseTree;
   }
 }
 

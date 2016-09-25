@@ -17,8 +17,8 @@ class NonTerminalNode {
   }
   
   getParseTree() {
-    var nontTerminalNode = this,  ///
-        nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNode(nontTerminalNode),
+    var nonTerminalNode = this,  ///
+        nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNode(nonTerminalNode),
         parseTree = nonTerminalNodeParseTree;  ///
 
     return parseTree;

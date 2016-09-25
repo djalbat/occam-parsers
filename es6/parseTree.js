@@ -100,6 +100,14 @@ class ParseTree {
       this.lines.push(bottomMarginStr);
     }
   }
+  
+  popLine() { return this.lines.pop(); }
+  
+  shiftLine() { return this.lines.shift(); }
+  
+  pushLine(line) { this.lines.push(line); }
+  
+  unshiftLine(line) { this.lines.unshift(line); }
 
   toString() {
     var str = this.lines.reduce(function(str, line) {

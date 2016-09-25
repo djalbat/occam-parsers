@@ -1,48 +1,69 @@
 'use strict';
 
 var ParseTree = require('../parseTree'),
-    EmptyParseTree = require('../parseTree/empty');
+    EmptyParseTree = require('../parseTree/empty'),
+    HorizontalBranchParseTree = require('../parseTree/horizontalBranch');
 
 class ChildNodesParseTree extends ParseTree {
   static fromChildNodes(childNodes) {
-    var childNodesParseTree = childNodes.map(function(childNode) {
+    var childNodeParseTrees = childNodes.map(function(childNode) {
           var childNodeParseTree = childNode.getParseTree();
 
           return childNodeParseTree;
         }),
-        childNodesParseTreeLength = childNodesParseTree.length,
-        childNodesParseTreeDepth = childNodesParseTree.reduce(function(childNodesParseTreeDepth, childNodeParseTree) {
+        childNodeParseTreesLength = childNodeParseTrees.length,
+        childNodeParseTreesDepth = childNodeParseTrees.reduce(function(childNodeParseTreesDepth, childNodeParseTree) {
           var childNodeParseTreeDepth = childNodeParseTree.getDepth();
 
-          childNodesParseTreeDepth = Math.max(childNodesParseTreeDepth, childNodeParseTreeDepth);
+          childNodeParseTreesDepth = Math.max(childNodeParseTreesDepth, childNodeParseTreeDepth);
 
-          return childNodesParseTreeDepth;
+          return childNodeParseTreesDepth;
         }, 0),
-        emptyParseTree = EmptyParseTree.fromDepth(childNodesParseTreeDepth),
-        parseTree = emptyParseTree; ///
+        emptyParseTree = EmptyParseTree.fromDepth(childNodeParseTreesDepth),
+        childNodesParseTree = emptyParseTree; ///
 
-    childNodesParseTree.forEach(function(childNodeParseTree, index) {
+    childNodeParseTrees.forEach(function(childNodeParseTree, index) {
       var childNodeParseTreeDepth = childNodeParseTree.getDepth(),
-          clonedChildParseTree = childNodeParseTree.clone(),
-          lastChildParseTree = (index === childNodesParseTreeLength - 1);
+          clonedChildNodeParseTree = childNodeParseTree.clone(),
+          lastChildNodeParseTree = (index === childNodeParseTreesLength - 1);
 
-      if (!lastChildParseTree) {
+      if (!lastChildNodeParseTree) {
         var rightMarginWidth = 1;
 
-        clonedChildParseTree.addRightMargin(rightMarginWidth);
+        clonedChildNodeParseTree.addRightMargin(rightMarginWidth);
       }
 
-      if (childNodeParseTreeDepth < childNodesParseTreeDepth) {
-        var bottomMarginDepth = childNodesParseTreeDepth - childNodeParseTreeDepth;
+      if (childNodeParseTreeDepth < childNodeParseTreesDepth) {
+        var bottomMarginDepth = childNodeParseTreesDepth - childNodeParseTreeDepth;
 
-        clonedChildParseTree.addBottomMargin(bottomMarginDepth);
+        clonedChildNodeParseTree.addBottomMargin(bottomMarginDepth);
       }
 
-      parseTree.appendToRight(clonedChildParseTree);
+      childNodesParseTree.appendToRight(clonedChildNodeParseTree);
     });
 
-    return parseTree;
+    if (false) {
+
+    } else if (childNodeParseTreesLength === 1) {
+      
+    } else if (childNodeParseTreesLength > 1) {
+      var firstChildNodeParseTree = first(childNodeParseTrees),
+          lastChildNodeParseTree = last(childNodeParseTrees),
+          firstChildNodeParseTreeWidth = firstChildNodeParseTree.getWidth(),
+          lastChildNodeParseTreeWidth = lastChildNodeParseTree.getWidth(),
+          leftMarginWidth = Math.floor(firstChildNodeParseTreeWidth/2),
+          rightMarginWidth = Math.ceil(lastChildNodeParseTreeWidth/2) - 1,
+          childNodesParseTreeWidth = childNodesParseTree.getWidth(),
+          horizontalBranchParseTree = HorizontalBranchParseTree.fromWidth(childNodesParseTreeWidth, leftMarginWidth, rightMarginWidth);
+
+      childNodesParseTree.appendToTop(horizontalBranchParseTree);
+    }
+
+    return childNodesParseTree;
   }
 }
 
 module.exports = ChildNodesParseTree;
+
+function first(array) { return array[0]; }
+function last(array) { return array[array.length - 1]; }
