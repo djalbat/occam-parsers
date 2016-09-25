@@ -3,7 +3,7 @@
 var ParseTree = require('../parseTree'),
     VerticalBranchParseTree = require('../parseTree/verticalBranch');
 
-class NonTerminalNodeParseTree extends ParseTree {
+class TerminalNodeParseTree extends ParseTree {
   static fromTerminalNode(nonTerminalNode) {
     var str = nonTerminalNode.getString(),
         terminalNodeParseTree = ParseTree.fromString(str),
@@ -16,4 +16,4 @@ class NonTerminalNodeParseTree extends ParseTree {
   }
 }
 
-module.exports = NonTerminalNodeParseTree;
+module.exports = TerminalNodeParseTree;
