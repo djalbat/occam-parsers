@@ -35,9 +35,9 @@ class Line {
   }
 }
 
+Line.choiceDelimiterRegExp = /\s+\|\s+/;
 Line.nameExpressionRegExp = /^\s*(.*?)\s+::=\s+(.*?)\s*$/;
 Line.continuedExpressionRegExp = /^\s*(\|\s+.*?)\s*$/;
-Line.choiceDelimiterRegExp = /\s+\|\s+/;
 
 module.exports = Line;
 
