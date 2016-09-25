@@ -2,14 +2,12 @@
 
 var easyUI = require('easyui'),
     easyUILayout = require('easyui-layout'),
+    occamLexers = require('occam-lexers'),
+    BNFLexer = occamLexers.BNFLexer,
     Input = easyUI.Input,
     TextArea = easyUI.TextArea,
     SizeableElement = easyUILayout.SizeableElement,
     VerticalSplitter = easyUILayout.VerticalSplitter;
-
-var Parser = require ('../../es6/parser'),
-    BNFLexer = require ('../../es6/bnfLexer'),
-    BNFParser = require ('../../es6/bnfParser');
 
 var leftColumnSelector = '#leftColumn',
     inputTextAreaSelector = 'textArea#input',
@@ -24,6 +22,9 @@ var leftColumnSelector = '#leftColumn',
     TO_THE_RIGHT_OF = VerticalSplitter.situated.TO_THE_RIGHT_OF;
 
 new VerticalSplitter('.left.vertical.splitter', TO_THE_RIGHT_OF, leftColumn);
+
+var Parser = require ('../../es6/parser'),
+    BNFParser = require ('../../es6/bnfParser');
 
 var mappings = {};
 
