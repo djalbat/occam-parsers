@@ -6,9 +6,14 @@ class TerminalNode {
   constructor(str) {
     this.str = str;
   }
+  
+  getString() {
+    return this.str;
+  }
 
   getParseTree() {
-    var parseTree = ParseTree.fromString(this.str);
+    var terminalNode = this,  ///
+        parseTree = ParseTree.fromTerminalNode(terminalNode);
     
     return parseTree;
   }

@@ -112,14 +112,14 @@ class ParseTree {
   }
 
   static fromString(str) {
-    var line = str + ' ',
+    var line = str, ///
         lines = [line],
         parseTree = new ParseTree(lines);
-    
+
     return parseTree;
   }
 
-  static fromDepth(depth) {
+  static emptyParseTreeFromDepth(depth) {
     var lines = [],
         index = 0;
 
@@ -127,24 +127,31 @@ class ParseTree {
       lines[index++] = '';
     }
 
-    var parseTree = new ParseTree(lines);
+    var emptyParseTree = new ParseTree(lines);
 
-    return parseTree;
+    return emptyParseTree;
+  }
+
+  static verticalBranchParseTreeFromWidth(width) {
+    var leftMarginWidth = Math.floor(width/2),
+        verticalBranchStr = '|',
+        verticalBranchStrLength = verticalBranchStr.length,
+        rightMarginWidth = width - leftMarginWidth - verticalBranchStrLength,
+        verticalBranchParseTree = ParseTree.fromString(verticalBranchStr);
+
+    verticalBranchParseTree.addLeftMargin(leftMarginWidth);
+    verticalBranchParseTree.addRightMargin(rightMarginWidth);
+
+    return verticalBranchParseTree;
   }
 
   static fromProductionName(productionName) {
     var str = productionName, ///
         parseTree = ParseTree.fromString(str),
         parseTreeWidth = parseTree.getWidth(),
-        leftMarginWidth = Math.floor(parseTreeWidth/2),
-        verticalBranchStr = '|',
-        verticalBranchStrLength = verticalBranchStr.length,
-        rightMarginWidth = parseTreeWidth - leftMarginWidth - verticalBranchStrLength,
-        verticalBranchParseTree = ParseTree.fromString(verticalBranchStr);
+        verticalBranchParseTree = ParseTree.verticalBranchParseTreeFromWidth(parseTreeWidth);
 
-    verticalBranchParseTree.addLeftMargin(leftMarginWidth);
-    verticalBranchParseTree.addRightMargin(rightMarginWidth);
-
+    parseTree.appendToTop(verticalBranchParseTree);
     parseTree.appendToBottom(verticalBranchParseTree);
 
     return parseTree;
@@ -156,6 +163,7 @@ class ParseTree {
 
           return childParseTree;
         }),
+        childParseTreesLength = childParseTrees.length,
         childParseTreesDepth = childParseTrees.reduce(function(childParseTreesDepth, childParseTree) {
           var childParseTreeDepth = childParseTree.getDepth();
 
@@ -163,27 +171,47 @@ class ParseTree {
 
           return childParseTreesDepth;
         }, 0),
-        parseTree = ParseTree.fromDepth(childParseTreesDepth);
+        emptyParseTree = ParseTree.emptyParseTreeFromDepth(childParseTreesDepth),
+        parseTree = emptyParseTree; ///
 
-    childParseTrees.forEach(function(childParseTree) {
-      var childParseTreeDepth = childParseTree.getDepth();
+    childParseTrees.forEach(function(childParseTree, index) {
+      var childParseTreeDepth = childParseTree.getDepth(),
+          clonedChildParseTree = childParseTree.clone(),
+          lastChildParseTree = (index === childParseTreesLength - 1);
+
+      if (!lastChildParseTree) {
+        var rightMarginWidth = 1;
+
+        clonedChildParseTree.addRightMargin(rightMarginWidth);
+      }
 
       if (childParseTreeDepth < childParseTreesDepth) {
-        var clonedChildParseTree = childParseTree.clone(),
-            bottomMarginDepth = childParseTreesDepth - childParseTreeDepth;
+        var bottomMarginDepth = childParseTreesDepth - childParseTreeDepth;
 
         clonedChildParseTree.addBottomMargin(bottomMarginDepth);
-        parseTree.appendToRight(clonedChildParseTree);
-      } else {
-        parseTree.appendToRight(childParseTree);
       }
+
+      parseTree.appendToRight(clonedChildParseTree);
     });
 
     return parseTree;
   }
+  
+  static fromTerminalNode(terminalNode) {
+    var str = terminalNode.getString(),
+        parseTree = ParseTree.fromString(str),
+        parseTreeWidth = parseTree.getWidth(),
+        verticalBranchParseTree = ParseTree.verticalBranchParseTreeFromWidth(parseTreeWidth)
 
-  static fromProductionNameAndChildNodes(productionName, childNodes) {
-    var productionNameParseTree = ParseTree.fromProductionName(productionName),
+    parseTree.appendToTop(verticalBranchParseTree);
+
+    return parseTree;
+  }
+
+  static fromNonTerminalNode(nonTerminalNode) {
+    var productionName = nonTerminalNode.getProductionName(),
+        childNodes = nonTerminalNode.getChildNodes(),
+        productionNameParseTree = ParseTree.fromProductionName(productionName),
         childParseTreesParseTree = ParseTree.fromChildNodes(childNodes);
 
     var parseTree = productionNameParseTree,  ///

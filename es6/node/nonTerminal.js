@@ -8,8 +8,17 @@ class NonTerminalNode {
     this.productionName = productionName;
   }
   
+  getChildNodes() {
+    return this.childNodes;
+  }
+  
+  getProductionName() {
+    return this.productionName;
+  }
+  
   getParseTree() {
-    var parseTree = ParseTree.fromProductionNameAndChildNodes(this.productionName, this.childNodes);
+    var nonTerminalNode = this, ///
+        parseTree = ParseTree.fromNonTerminalNode(nonTerminalNode);
     
     return parseTree;
   }
