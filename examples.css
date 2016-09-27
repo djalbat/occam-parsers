@@ -20,11 +20,6 @@ h2 {
   margin-top: 1rem;
 }
 
-p {
-  display: inline-block;
-  background-color: lightgray;
-}
-
 textarea {
   resize: vertical;
 }
