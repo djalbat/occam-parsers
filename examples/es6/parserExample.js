@@ -28,7 +28,7 @@ var Parser = require ('../../es6/parser'),
 
 var mappings = {};
 
-class BasicParser {
+class ParserExample {
   static run() {
     updateParser();
 
@@ -48,7 +48,7 @@ class BasicParser {
   }
 }
 
-module.exports = BasicParser;
+module.exports = ParserExample;
 
 var parser;
 
