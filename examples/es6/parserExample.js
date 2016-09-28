@@ -34,16 +34,16 @@ class ParserExample {
 
     specialSymbolsRegExpInput.onChange(function() {
       updateParser();
-      updateInput();
+      updateParseTree();
     });
 
     grammarTextArea.onChange(function() {
       updateParser();
-      updateInput();
+      updateParseTree();
     });
 
     inputTextArea.onChange(function() {
-      updateInput();
+      updateParseTree();
     });
   }
 }
@@ -63,7 +63,7 @@ function updateParser() {
   parser = new Parser(productions);
 }
 
-function updateInput() {
+function updateParseTree() {
   var inputTextAreaValue = inputTextArea.getValue(),
       input = inputTextAreaValue,  ///
       documentNode = parser.parse(input),
