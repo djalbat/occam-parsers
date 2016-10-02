@@ -1,5 +1,7 @@
 'use strict';
 
+var BasicLexer = require('../../../Lexers/es6/basic/lexer');  ///
+
 var Example = require('./example');
 
 var mappings = {};
@@ -10,16 +12,16 @@ class BasicExample extends Example {
 
     Example.specialSymbolsRegExpInput.onChange(function() {
       Example.updateParser(mappings);
-      Example.updateParseTree();
+      Example.updateParseTree(BasicLexer);
     });
 
     Example.grammarTextArea.onChange(function() {
       Example.updateParser(mappings);
-      Example.updateParseTree();
+      Example.updateParseTree(BasicLexer);
     });
 
-    Example.inputTextArea.onChange(function() {
-      Example.updateParseTree();
+    Example.contentTextArea.onChange(function() {
+      Example.updateParseTree(BasicLexer);
     });
   }
 }

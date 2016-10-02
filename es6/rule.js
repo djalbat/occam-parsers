@@ -7,11 +7,11 @@ class Rule {
     this.parts = parts;
   }
   
-  parse(input, context, productions) {
+  parse(context, productions) {
     var nodes = [];
     
     var parsed = this.parts.every(function(part) {
-      var partNodes = part.parse(input, context, productions),
+      var partNodes = part.parse(context, productions),
           parsed = (partNodes !== null);
       
       if (parsed) {

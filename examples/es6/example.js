@@ -10,11 +10,11 @@ var easyUI = require('easyui'),
     VerticalSplitter = easyUILayout.VerticalSplitter;
 
 var leftColumnSelector = '#leftColumn',
-    inputTextAreaSelector = 'textArea#input',
+    contentTextAreaSelector = 'textArea#content',
     grammarTextAreaSelector = 'textArea#grammar',
     parseTreeTextAreaSelector = 'textArea#parseTree',
     specialSymbolsRegExpInputSelector = 'input#specialSymbolsRegExp',
-    inputTextArea = new TextArea(inputTextAreaSelector),
+    contentTextArea = new TextArea(contentTextAreaSelector),
     grammarTextArea = new TextArea(grammarTextAreaSelector),
     parseTreeTextArea = new TextArea(parseTreeTextAreaSelector),
     specialSymbolsRegExpInput = new Input(specialSymbolsRegExpInputSelector),
@@ -40,10 +40,11 @@ class Example {
     parser = new Parser(productions);
   }
 
-  static updateParseTree() {
-    var inputTextAreaValue = inputTextArea.getValue(),
-        input = inputTextAreaValue,  ///
-        documentNode = parser.parse(input),
+  static updateParseTree(Lexer) {
+    var contentTextAreaValue = contentTextArea.getValue(),
+        content = contentTextAreaValue,  ///
+        tokens = Lexer.tokensFromContent(content),
+        documentNode = parser.parse(tokens),
         parseTree = documentNode.getParseTree(),
         parseTreeStr = parseTree.toString(),
         parseTreeTextAreaHTML = parseTreeStr;  ///
@@ -52,7 +53,7 @@ class Example {
   }
 }
 
-Example.inputTextArea = inputTextArea;
+Example.contentTextArea = contentTextArea;
 Example.grammarTextArea = grammarTextArea;
 Example.specialSymbolsRegExpInput = specialSymbolsRegExpInput;
 

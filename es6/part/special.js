@@ -7,25 +7,21 @@ class SpecialPart {
     this.symbol = symbol;
   }
 
-  parse(input, context, productions) {
+  parse(context, productions) {
     var nodes = null,
-        index = context.getIndex(),
-        inputLength = input.length;
+        nextNonWhitespaceToken = context.getNextNonWhitespaceToken(),
+        token = nextNonWhitespaceToken; ///
 
-    if (index < inputLength) {
-      var inputSubstring = input.substr(index),
-          symbolIndex = inputSubstring.indexOf(this.symbol),
-          parsed = (symbolIndex === 0);
+    if (token !== undefined) {
+      var str = token.getString(),
+          parsed = (str === this.symbol);
 
       if (parsed) {
-        var symbolLength = this.symbol.length,
-            str = inputSubstring.substr(0, symbolLength),
-            terminalNode = new TerminalNode(str),
-            amount = symbolLength;  ///
+        var terminalNode = new TerminalNode(str);
 
         nodes = [terminalNode];
 
-        context.advance(amount);
+        context.advanceJustPastToken(token);
       }
     }
 

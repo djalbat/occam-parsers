@@ -1,5 +1,7 @@
 'use strict';
 
+var GallinaLexer = require('../../../Lexers/es6/gallina/lexer');
+
 var Example = require('./example');
 
 var mappings = {};
@@ -8,8 +10,8 @@ class GallinaExample extends Example {
   static run() {
     Example.updateParser(mappings);
 
-    Example.inputTextArea.onChange(function() {
-      Example.updateParseTree();
+    Example.contentTextArea.onChange(function() {
+      Example.updateParseTree(GallinaLexer);
     });
   }
 }

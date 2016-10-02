@@ -7,7 +7,7 @@ class ZeroOrMoreProductionsPart {
     this.name = name;
   }
 
-  parse(input, context, productions) {
+  parse(context, productions) {
     var nodes = null,
         production = ProductionPart.findProduction(this.name, productions);
 
@@ -17,7 +17,7 @@ class ZeroOrMoreProductionsPart {
       for(;;) {
         context.saveIndex();
         
-        var productionNodes = production.parse(input, context, productions),
+        var productionNodes = production.parse(context, productions),
             parsed = (productionNodes !== null);
 
         if (parsed) {

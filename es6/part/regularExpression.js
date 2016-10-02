@@ -7,26 +7,26 @@ class RegularExpressionPart {
     this.regExp = regExp;
   }
 
-  parse(input, context, productions) {
+  parse(context, productions) {
     var nodes = null,
-        index = context.getIndex(),
-        inputLength = input.length;
+        nextNonWhitespaceToken = context.getNextNonWhitespaceToken(),
+        token = nextNonWhitespaceToken; ///
 
-    if (index < inputLength) {
-      var inputSubstring = input.substr(index),
-          matches = this.regExp.exec(inputSubstring),
-          parsed = (matches && matches.index === 0);
+    if (token !== undefined) {
+      var str = token.getString(),
+          matches = str.match(this.regExp);
 
-      if (parsed) {
+      if (matches !== null) {
         var firstMatch = first(matches),
-            firstMatchLength = firstMatch.length,
-            str = inputSubstring.substr(0, firstMatchLength),
-            terminalNode = new TerminalNode(str),
-            amount = firstMatchLength;  ///
+            parsed = (firstMatch === str);
 
-        nodes = [terminalNode];
+        if (parsed) {
+          var terminalNode = new TerminalNode(str);
 
-        context.advance(amount);
+          nodes = [terminalNode];
+
+          context.advanceJustPastToken(token);
+        }
       }
     }
 

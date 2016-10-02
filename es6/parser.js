@@ -8,14 +8,14 @@ class Parser {
     this.productions = productions;
   }
   
-  parse(input) {
+  parse(tokens) {
     var documentNode = new DocumentNode(),
-        context = new Context(),
+        context = new Context(tokens),
         productionsLength = this.productions.length;
 
     if (productionsLength > 0) {
       var firstProduction = first(this.productions),
-          nodes = firstProduction.parse(input, context, this.productions);
+          nodes = firstProduction.parse(context, this.productions);
 
       if (nodes !== null) {
         var childNodes = nodes; ///

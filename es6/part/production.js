@@ -5,12 +5,12 @@ class ProductionPart {
     this.name = name;
   }
   
-  parse(input, context, productions) {
+  parse(context, productions) {
     var nodes = null,
         production = ProductionPart.findProduction(this.name, productions);
 
     if (production !== null) {
-      nodes = production.parse(input, context, productions);
+      nodes = production.parse(context, productions);
     }
 
     return nodes;
