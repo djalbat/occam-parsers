@@ -17,9 +17,13 @@ operatorThenTerm           ::= operator term
 
 operator                   ::= + | - | * | /
 
-term                       ::= naturalNumber
+term                       ::= one
+
+                             | naturalNumber
 
                              | parenthesizedExpr
+
+one                        ::= 1
 
 naturalNumber              ::= /\d+/
 
