@@ -1,5 +1,7 @@
 'use strict';
 
 module.exports = {
-  ParserExample: require('./lib/parserExample')
+  BasicExample: require('./lib/basicExample'),
+  GallinaExample: require('./lib/gallinaExample'),
+  FlorenceExample: require('./lib/florenceExample')
 };

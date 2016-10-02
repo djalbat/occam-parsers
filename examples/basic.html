@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Basic example</title>
+        <link href="../examples.css" rel="stylesheet" type="text/css" media="all">
+    </head>
+    <body>
+        <h1>Basic example</h1>
+
+        <div class="columns">
+          <div id="leftColumn">
+            <h2>Grammar</h2>
+        <textarea rows="20" id="grammar" spellcheck="false">
+expr                       ::= term operatorThenTerm*
+
+operatorThenTerm           ::= operator term
+
+operator                   ::= + | - | * | /
+
+term                       ::= naturalNumber
+
+                             | parenthesizedExpr
+
+naturalNumber              ::= /\d+/
+
+parenthesizedExpr          ::= ( expr )
+        </textarea>
+            <h2>Special symbols regular expression</h2>
+            <input type="text" id="specialSymbolsRegExp" value="\+|\-|\*|\/|\(|\)" />
+            <h2>Input</h2>
+            <textarea rows="10" id="input"></textarea>
+          </div>
+          <div class="left vertical splitter"></div>
+          <div class="column">
+            <h2>Parse tree</h2>
+            <textarea rows="30" id="parseTree" readonly></textarea>
+          </div>
+        </div>
+
+        <p>
+          <a href="../examples.html">...back</a>
+        </p>
+
+        <script src="../examples.js"> </script>
+        <script>
+
+            var BasicExample = examples.BasicExample;
+
+            BasicExample.run();
+
+        </script>
+    </body>
+</html>
