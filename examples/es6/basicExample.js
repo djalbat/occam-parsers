@@ -9,11 +9,13 @@ var mappings = {},
 
 class BasicExample extends Example {
   static run() {
-    updateBasicLexer();    
+    updateBasicLexer();
+
     Example.updateParser(mappings);
 
     Example.terminalSymbolsRegExpPatternInput.onChange(function() {
       updateBasicLexer();
+
       Example.updateParser(mappings);
       Example.updateParseTree(basicLexer);
     });
@@ -33,7 +35,11 @@ module.exports = BasicExample;
 
 function updateBasicLexer() {
   var terminalSymbolsRegExpPatternInputValue = Example.terminalSymbolsRegExpPatternInput.getValue(),
-      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue; ///
+      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
+      terminalSymbolsRegExp = new RegExp('^(' + terminalSymbolsRegExpPattern + ')'),
+      grammar = [
+        { terminal : terminalSymbolsRegExp }
+      ];
 
-  basicLexer = BasicLexer.fromTerminalSymbolsRegExpPattern(terminalSymbolsRegExpPattern);
+  basicLexer = BasicLexer.fromGrammar(grammar);
 }

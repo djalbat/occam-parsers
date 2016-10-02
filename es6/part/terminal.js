@@ -2,7 +2,7 @@
 
 var TerminalNode = require('../node/terminal');
 
-class SpecialPart {
+class TerminalPart {
   constructor(symbol) {
     this.symbol = symbol;
   }
@@ -28,16 +28,16 @@ class SpecialPart {
     return nodes;
   }
 
-  static fromSymbol(symbol, specialSymbolsRegExp) {
-    var specialPart = null,
-        matches = symbol.match(specialSymbolsRegExp);
+  static fromSymbol(symbol, terminalSymbolsRegExp) {
+    var terminalPart = null,
+        matches = symbol.match(terminalSymbolsRegExp);
 
     if (matches !== null) {
-      specialPart = new SpecialPart(symbol);
+      terminalPart = new TerminalPart(symbol);
     }
 
-    return specialPart;
+    return terminalPart;
   }
 }
 
-module.exports = SpecialPart;
+module.exports = TerminalPart;

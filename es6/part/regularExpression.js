@@ -33,7 +33,7 @@ class RegularExpressionPart {
     return nodes;
   }
 
-  static fromSymbol(symbol, specialSymbolsRegExp) {
+  static fromSymbol(symbol, terminalSymbolsRegExp) {
     var regularExpressionPart = null,
         regularExpressionRegExp = /\/([^/]+)\//,
         matches = symbol.match(regularExpressionRegExp);

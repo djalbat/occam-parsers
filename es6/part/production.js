@@ -36,7 +36,7 @@ class ProductionPart {
     return production;
   }
 
-  static fromSymbol(symbol, specialSymbolsRegExp) {
+  static fromSymbol(symbol, terminalSymbolsRegExp) {
     var name = symbol,  ///
         productionPart = new ProductionPart(name);
 

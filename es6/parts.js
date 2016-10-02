@@ -1,12 +1,12 @@
 'use strict';
 
-var SpecialPart = require('./part/special'),
+var TerminalPart = require('./part/terminal'),
     ProductionPart = require('./part/production'),
     RegularExpressionPart = require('./part/regularExpression'),
     ZeroOrMoreProductionsPart = require('./part/zeroOrMoreProductions');
 
 var Parts = [
-  SpecialPart,
+  TerminalPart,
   RegularExpressionPart,
   ZeroOrMoreProductionsPart,
   ProductionPart
