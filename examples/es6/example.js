@@ -13,11 +13,11 @@ var leftColumnSelector = '#leftColumn',
     contentTextAreaSelector = 'textArea#content',
     grammarTextAreaSelector = 'textArea#grammar',
     parseTreeTextAreaSelector = 'textArea#parseTree',
-    specialSymbolsRegExpInputSelector = 'input#specialSymbolsRegExp',
+    terminalSymbolsRegExpPatternInputSelector = 'input#terminalSymbolsRegExpPattern',
     contentTextArea = new TextArea(contentTextAreaSelector),
     grammarTextArea = new TextArea(grammarTextAreaSelector),
     parseTreeTextArea = new TextArea(parseTreeTextAreaSelector),
-    specialSymbolsRegExpInput = new Input(specialSymbolsRegExpInputSelector),
+    terminalSymbolsRegExpPatternInput = new Input(terminalSymbolsRegExpPatternInputSelector),
     leftColumn = new SizeableElement(leftColumnSelector),
     TO_THE_RIGHT_OF = VerticalSplitter.situated.TO_THE_RIGHT_OF;
 
@@ -26,24 +26,24 @@ new VerticalSplitter('.left.vertical.splitter', TO_THE_RIGHT_OF, leftColumn);
 var Parser = require ('../../es6/parser'),
     BNFParser = require ('../../es6/bnfParser');
 
-var parser;
+var parser = undefined;
 
 class Example {
   static updateParser(mappings) {
     var grammarTextAreaValue = grammarTextArea.getValue(),
-        specialSymbolsRegExpInputValue = specialSymbolsRegExpInput.getValue(),
+        terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternInput.getValue(),
         grammar = grammarTextAreaValue, ///
-        specialSymbolsRegExp = specialSymbolsRegExpInputValue, ///
+        terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
         lines = BNFLexer.linesFromGrammar(grammar),
-        productions = BNFParser.parse(lines, specialSymbolsRegExp, mappings);
+        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, mappings);
 
     parser = new Parser(productions);
   }
 
-  static updateParseTree(Lexer) {
+  static updateParseTree(lexer) {
     var contentTextAreaValue = contentTextArea.getValue(),
         content = contentTextAreaValue,  ///
-        tokens = Lexer.tokensFromContent(content),
+        tokens = lexer.tokensFromContent(content),
         documentNode = parser.parse(tokens),
         parseTree = documentNode.getParseTree(),
         parseTreeStr = parseTree.toString(),
@@ -55,6 +55,6 @@ class Example {
 
 Example.contentTextArea = contentTextArea;
 Example.grammarTextArea = grammarTextArea;
-Example.specialSymbolsRegExpInput = specialSymbolsRegExpInput;
+Example.terminalSymbolsRegExpPatternInput = terminalSymbolsRegExpPatternInput;
 
 module.exports = Example;
