@@ -3,7 +3,7 @@
 var ParseTree = require('../parseTree');
 
 class HorizontalBranchParseTree extends ParseTree {
-  static fromWidth(width, leftMarginWidth, rightMarginWidth) {
+  static fromWidths(width, leftMarginWidth, rightMarginWidth) {
     var horizontalBranchStrWidth = width - leftMarginWidth - rightMarginWidth,
         horizontalBranchStr = strFromCharactersWidth(horizontalBranchStrWidth, '-'),
         horizontalBranchParseTree = ParseTree.fromString(horizontalBranchStr);

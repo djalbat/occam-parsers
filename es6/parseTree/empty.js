@@ -3,7 +3,9 @@
 var ParseTree = require('../parseTree');
 
 class EmptyParseTree extends ParseTree {
-  static fromDepth(depth) {
+  static fromDepth(depth, Class, ...args) {
+    Class = Class || EmptyParseTree;
+    
     var lines = [],
         index = 0;
 
@@ -11,7 +13,10 @@ class EmptyParseTree extends ParseTree {
       lines[index++] = '';
     }
 
-    var emptyParseTree = new ParseTree(lines);
+    args.unshift(lines);
+    args.unshift(null);
+
+    var emptyParseTree = new (Function.prototype.bind.apply(Class, args));  ///
 
     return emptyParseTree;
   }

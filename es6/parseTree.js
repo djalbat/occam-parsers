@@ -119,10 +119,16 @@ class ParseTree {
     return str;
   }
 
-  static fromString(str) {
+  static fromString(str, Class, ...args) {
+    Class = Class || ParseTree;
+
     var line = str, ///
-        lines = [line],
-        parseTree = new ParseTree(lines);
+        lines = [line];
+    
+    args.unshift(lines);    
+    args.unshift(null);
+
+    var parseTree = new (Function.prototype.bind.apply(Class, args));  ///
 
     return parseTree;
   }
@@ -133,9 +139,9 @@ module.exports = ParseTree;
 function last(array) { return array[array.length - 1]; }
 
 function marginStrFromMarginWidth(marginWidth, spaceCharacter) {
-  var marginStr = '';
-
   spaceCharacter = spaceCharacter || ' ';
+
+  var marginStr = '';
 
   for (var index = 0; index < marginWidth; index++) {
     marginStr += spaceCharacter;

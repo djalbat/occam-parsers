@@ -35,8 +35,16 @@ module.exports = BasicExample;
 
 function updateBasicLexer() {
   var terminalSymbolsRegExpPatternInputValue = Example.terminalSymbolsRegExpPatternInput.getValue(),
-      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
-      terminalSymbolsRegExp = new RegExp('^(' + terminalSymbolsRegExpPattern + ')'),
+      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue; ///
+
+      try {
+        new RegExp('^(' + terminalSymbolsRegExpPattern + ')');
+      }
+      catch(error) {
+        terminalSymbolsRegExpPattern = '.';
+      }
+
+  var terminalSymbolsRegExp = new RegExp('^(' + terminalSymbolsRegExpPattern + ')'),
       grammar = [
         { terminal : terminalSymbolsRegExp }
       ];

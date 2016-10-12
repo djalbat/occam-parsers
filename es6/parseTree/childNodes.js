@@ -1,10 +1,19 @@
 'use strict';
 
 var ParseTree = require('../parseTree'),
-    EmptyParseTree = require('../parseTree/empty'),
-    HorizontalBranchParseTree = require('../parseTree/horizontalBranch');
+    EmptyParseTree = require('../parseTree/empty');
 
 class ChildNodesParseTree extends ParseTree {
+  constructor(lines, verticalBranchPosition) {
+    super(lines);
+    
+    this.verticalBranchPosition = verticalBranchPosition;
+  }
+  
+  getVerticalBranchPosition() {
+    return this.verticalBranchPosition;
+  }
+  
   static fromChildNodes(childNodes) {
     var childNodeParseTrees = childNodes.map(function(childNode) {
           var childNodeParseTree = childNode.getParseTree();
@@ -19,8 +28,19 @@ class ChildNodesParseTree extends ParseTree {
 
           return childNodeParseTreesDepth;
         }, 0),
-        emptyParseTree = EmptyParseTree.fromDepth(childNodeParseTreesDepth),
-        childNodesParseTree = emptyParseTree; ///
+        verticalBranchPosition = childNodeParseTrees.reduce(function(verticalBranchPosition, childNodeParseTree) {
+          if (verticalBranchPosition === null) {
+            var firstChildNodeParseTree = childNodeParseTree,
+                firstChildNodeParseTreeVerticalBranchPosition = firstChildNodeParseTree.getVerticalBranchPosition();
+            
+            verticalBranchPosition = firstChildNodeParseTreeVerticalBranchPosition;
+          } else {
+            verticalBranchPosition = undefined;
+          }
+          
+          return verticalBranchPosition;
+        }, null),
+        childNodesParseTree = EmptyParseTree.fromDepth(childNodeParseTreesDepth, ChildNodesParseTree, verticalBranchPosition);
 
     childNodeParseTrees.forEach(function(childNodeParseTree, index) {
       var childNodeParseTreeDepth = childNodeParseTree.getDepth(),
@@ -41,23 +61,6 @@ class ChildNodesParseTree extends ParseTree {
 
       childNodesParseTree.appendToRight(clonedChildNodeParseTree);
     });
-
-    if (false) {
-
-    } else if (childNodeParseTreesLength === 1) {
-      
-    } else if (childNodeParseTreesLength > 1) {
-      var firstChildNodeParseTree = first(childNodeParseTrees),
-          lastChildNodeParseTree = last(childNodeParseTrees),
-          firstChildNodeParseTreeWidth = firstChildNodeParseTree.getWidth(),
-          lastChildNodeParseTreeWidth = lastChildNodeParseTree.getWidth(),
-          leftMarginWidth = Math.floor(firstChildNodeParseTreeWidth/2),
-          rightMarginWidth = Math.ceil(lastChildNodeParseTreeWidth/2) - 1,
-          childNodesParseTreeWidth = childNodesParseTree.getWidth(),
-          horizontalBranchParseTree = HorizontalBranchParseTree.fromWidth(childNodesParseTreeWidth, leftMarginWidth, rightMarginWidth);
-
-      childNodesParseTree.appendToTop(horizontalBranchParseTree);
-    }
 
     return childNodesParseTree;
   }
