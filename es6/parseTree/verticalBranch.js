@@ -20,14 +20,25 @@ class VerticalBranchParseTree extends ParseTree {
   }
 
   static fromWidth(width) {
-    var leftMarginWidth = Math.floor(width/2),
-        rightMarginWidth = width - leftMarginWidth - 1,
-        verticalBranchStr = '|',
-        verticalBranchPosition = 0, ///
-        verticalBranchParseTree = ParseTree.fromString(verticalBranchStr, VerticalBranchParseTree, verticalBranchPosition);
+    var str = '|',
+        verticalBranchPosition = 0,
+        verticalBranchParseTree = VerticalBranchParseTree.fromString(str, VerticalBranchParseTree, verticalBranchPosition),
+        leftMarginWidth = Math.floor(width/2),
+        rightMarginWidth = width - leftMarginWidth - 1;
 
     verticalBranchParseTree.addLeftMargin(leftMarginWidth);
     verticalBranchParseTree.addRightMargin(rightMarginWidth);
+
+    return verticalBranchParseTree;
+  }
+  
+  static fromString(str, Class, verticalBranchPosition) {
+    Class = Class || ParseTree;
+
+    var line = str, ///
+        lines = [line],
+        args = [null, lines, verticalBranchPosition],
+        verticalBranchParseTree = new (Function.prototype.bind.apply(Class, args));  ///
 
     return verticalBranchParseTree;
   }

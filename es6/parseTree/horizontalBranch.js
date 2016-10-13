@@ -3,13 +3,11 @@
 var ParseTree = require('../parseTree');
 
 class HorizontalBranchParseTree extends ParseTree {
-  static fromWidths(width, leftMarginWidth, rightMarginWidth) {
-    var horizontalBranchStrWidth = width - leftMarginWidth - rightMarginWidth,
-        horizontalBranchStr = strFromCharactersWidth(horizontalBranchStrWidth, '-'),
-        horizontalBranchParseTree = ParseTree.fromString(horizontalBranchStr);
-
-    horizontalBranchParseTree.addLeftMargin(leftMarginWidth);
-    horizontalBranchParseTree.addRightMargin(rightMarginWidth);
+  static fromWidth(width) {
+    var str = strFromCharactersWidth(width, '-'),
+        line = str, ///
+        lines = [line],
+        horizontalBranchParseTree = new HorizontalBranchParseTree(lines);
 
     return horizontalBranchParseTree;
   }

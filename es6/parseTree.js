@@ -118,20 +118,6 @@ class ParseTree {
 
     return str;
   }
-
-  static fromString(str, Class, ...args) {
-    Class = Class || ParseTree;
-
-    var line = str, ///
-        lines = [line];
-    
-    args.unshift(lines);    
-    args.unshift(null);
-
-    var parseTree = new (Function.prototype.bind.apply(Class, args));  ///
-
-    return parseTree;
-  }
 }
 
 module.exports = ParseTree;

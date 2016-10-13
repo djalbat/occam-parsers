@@ -1,11 +1,17 @@
 'use strict';
 
-var ParseTree = require('../parseTree');
+var VerticalBranchParseTree = require('../parseTree/verticalBranch');
 
-class ProductionNameParseTree extends ParseTree {
+class ProductionNameParseTree extends VerticalBranchParseTree {
   static fromProductionName(productionName) {
     var str = productionName, ///
-        productionNameParseTree = ParseTree.fromString(str);
+        strLength = str.length,
+        verticalBranchParseTreeWidth = strLength, ///
+        verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
+        verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(),
+        productionNameParseTree = VerticalBranchParseTree.fromString(str, ProductionNameParseTree, verticalBranchPosition);
+
+    productionNameParseTree.appendToTop(verticalBranchParseTree);
 
     return productionNameParseTree;
   }
