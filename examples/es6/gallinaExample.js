@@ -1,6 +1,7 @@
 'use strict';
 
-var GallinaLexer = require('../../../Lexers/es6/gallina/lexer');
+var lexers = require('occam-lexers'),
+    GallinaLexer = lexers.GallinaLexer;
 
 var Example = require('./example');
 
