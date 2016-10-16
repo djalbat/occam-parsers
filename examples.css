@@ -25,33 +25,25 @@ ul {
   text-align: center;
 }
 
-textarea {
-  resize: vertical;
-}
-
-input,
-textarea {
-  font-family: monospace;
-  border: 1px solid darkgray;
-}
-
 input,
 textarea {
   width: 100%;
   font-size: 1rem;
   padding: 0.25rem;
+  font-family: monospace;
+  border: 1px solid darkgray;
+}
+
+textarea {
+  height: 16rem;
+  resize: vertical;
 }
 
 textarea#parseTree {
-  font-size: 0.75rem;
+  height: 30rem;
   white-space: pre;
+  font-size: 0.75rem;
   overflow-wrap: normal;
-}
-
-#leftColumn {
-  width: 40rem;
-  min-width: 20rem;
-  max-width: 80rem;
 }
 
 .columns {
@@ -77,3 +69,8 @@ textarea#parseTree {
   padding-right: 1rem;
 }
 
+#leftColumn {
+  width: 40rem;
+  min-width: 20rem;
+  max-width: 80rem;
+}

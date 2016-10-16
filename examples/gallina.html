@@ -6,21 +6,23 @@
     </head>
     <body>
         <h1>Gallina example</h1>
-
         <div class="columns">
           <div id="leftColumn">
             <h2>Grammar</h2>
-        <textarea rows="20" id="grammar" spellcheck="false"></textarea>
+        <textarea rows="20" id="grammar" spellcheck="false">
+
+        </textarea>
+            <h2>Terminal symbols regular expression pattern</h2>
+            <input type="text" id="terminalSymbolsRegExpPattern" value="\+|\-|\*|\/|\(|\)|\d+" />
             <h2>Content</h2>
-            <textarea rows="10" id="content"></textarea>
+            <textarea id="content"></textarea>
           </div>
           <div class="left vertical splitter"></div>
           <div class="column">
             <h2>Parse tree</h2>
-            <textarea rows="30" id="parseTree" readonly></textarea>
+            <textarea id="parseTree" readonly></textarea>
           </div>
         </div>
-
         <p>
           <a href="../examples.html">...back</a>
         </p>
