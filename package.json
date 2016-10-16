@@ -1,7 +1,7 @@
 {
   "name": "occam-parser",
   "author": "James Smith",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "license": "MIT",
   "homepage": "https://github.com/occam-proof-assistant/Parser",
   "description": "The Occam proof assistant's parser.",
@@ -20,7 +20,7 @@
     "browserify": "^13.0.0",
     "chokidar-cli": "^1.2.0",
     "npm-update-outdated": "^0.1.6",
-    "occam-lexers": "^0.1.0"
+    "occam-lexers": "^0.1.8"
   },
   "scripts": {
     "clean:lib": "rm -rf ./lib/*",
