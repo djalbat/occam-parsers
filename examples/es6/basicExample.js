@@ -1,7 +1,7 @@
 'use strict';
 
 var easyui = require('easyui'),
-    lexers = require('occam-lexers'),
+    lexers = require('../../../Lexers/index'),
     Input = easyui.Input,
     BNFLexer = lexers.BNFLexer,
     BasicLexer = lexers.BasicLexer;
@@ -52,10 +52,12 @@ class BasicExample extends Example {
 module.exports = BasicExample;
 
 function updateLexer() {
-  try {
-    var terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternInput.getValue(),
-        terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
-        terminalSymbolsRegExp = new RegExp('^(' + terminalSymbolsRegExpPattern + ')'),
+  var terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternInput.getValue(),
+      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue,  ///
+      terminalSymbolsRegExpPatternIsValid = regExpPatternIsValid(terminalSymbolsRegExpPattern);
+
+  if (terminalSymbolsRegExpPatternIsValid) {
+    var terminalSymbolsRegExp = new RegExp(terminalSymbolsRegExpPattern),
         grammar = [
           { terminal : terminalSymbolsRegExp }
         ];
@@ -63,8 +65,7 @@ function updateLexer() {
     lexer = BasicLexer.fromGrammar(grammar);
 
     terminalSymbolsRegExpPatternInput.removeClass('error');
-  }
-  catch(error) {
+  } else {
     terminalSymbolsRegExpPatternInput.addClass('error');
 
     Example.clearParseTree();
@@ -83,4 +84,17 @@ function updateParser() {
       productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, mappings);
 
   parser = new Parser(productions);
+}
+
+function regExpPatternIsValid(regExpPattern) {
+  var valid = true;
+
+  try {
+    new RegExp(regExpPattern);
+  }
+  catch (error) {
+    valid = false;
+  }
+
+  return valid;
 }
