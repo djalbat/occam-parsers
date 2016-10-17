@@ -9,7 +9,7 @@
         <div class="columns">
           <div id="leftColumn">
             <h2>Grammar</h2>
-        <textarea rows="20" id="grammar" spellcheck="false">
+            <textarea id="grammar" spellcheck="false">
 expr                       ::= term operatorThenTerm*
 
 operatorThenTerm           ::= operator term
@@ -23,7 +23,7 @@ term                       ::= naturalNumber
 naturalNumber              ::= /\d+/
 
 parenthesizedExpr          ::= ( expr )
-        </textarea>
+            </textarea>
             <h2>Terminal symbols regular expression pattern</h2>
             <input type="text" id="terminalSymbolsRegExpPattern" value="\+|\-|\*|\/|\(|\)|\d+" />
             <h2>Content</h2>

@@ -38,10 +38,10 @@ class Production {
     return nodes;
   }
 
-  static fromLine(line, terminalSymbolsRegExp, mappings) {
+  static fromLine(line, terminalSymbolsRegExp, terminalTypes, mappings) {
     var name = line.getName(),
         rules = line.mapSymbolSequences(function(symbolSequence) {
-          var rule = Rule.fromSymbolSequence(symbolSequence, terminalSymbolsRegExp);
+          var rule = Rule.fromSymbolSequence(symbolSequence, terminalSymbolsRegExp, terminalTypes);
 
           return rule;
         }),

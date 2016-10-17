@@ -26,9 +26,9 @@ class Rule {
     return nodes;
   }
 
-  static fromSymbolSequence(symbolSequence, terminalSymbolsRegExp) {
+  static fromSymbolSequence(symbolSequence, terminalSymbolsRegExp, terminalTypes) {
     var parts = symbolSequence.mapSymbols(function(symbol) {
-          var part = partFromSymbol(symbol, terminalSymbolsRegExp);
+          var part = partFromSymbol(symbol, terminalSymbolsRegExp, terminalTypes);
           
           return part;
         }),
@@ -40,11 +40,11 @@ class Rule {
 
 module.exports = Rule;
 
-function partFromSymbol(symbol, terminalSymbolsRegExp) {
+function partFromSymbol(symbol, terminalSymbolsRegExp, terminalTypes) {
   var part = undefined; ///
 
   Parts.some(function(Part) {
-    part = Part.fromSymbol(symbol, terminalSymbolsRegExp);
+    part = Part.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes);
 
     var parsed = (part !== null);
 

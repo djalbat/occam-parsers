@@ -23,8 +23,9 @@ class GallinaExample extends Example {
     var grammarTextAreaValue = grammar, ///
         lines = BNFLexer.linesFromGrammar(grammar),
         terminalSymbolsRegExpPattern = lexer.terminalSymbolsRegExpPattern(),
+        terminalTypes = lexer.terminalTypes(),
         mappings = {},
-        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, mappings);
+        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, terminalTypes, mappings);
 
     parser = new Parser(productions);
 

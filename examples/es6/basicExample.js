@@ -80,8 +80,9 @@ function updateParser() {
       grammar = grammarTextAreaValue, ///
       lines = BNFLexer.linesFromGrammar(grammar),
       terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
+      terminalTypes = [],
       mappings = {},
-      productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, mappings);
+      productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, terminalTypes, mappings);
 
   parser = new Parser(productions);
 }

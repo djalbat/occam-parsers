@@ -33,7 +33,7 @@ class ZeroOrMoreProductionsPart {
     return nodes;
   }
   
-  static fromSymbol(symbol, terminalSymbolsRegExp) {
+  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes) {
     var zeroOrMoreProductionsPart = null,
         zeroOrMoreProductionsRegExp = /([^*]+)\*$/,
         matches = symbol.match(zeroOrMoreProductionsRegExp);
