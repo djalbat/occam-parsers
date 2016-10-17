@@ -9,43 +9,6 @@
   padding: 0;
 }
 
-h1 {
-  text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-h2 {
-  font-size: 1.25rem;
-  margin-top: 1rem;
-}
-
-p,
-ul {
-  text-align: center;
-}
-
-input,
-textarea {
-  width: 100%;
-  font-size: 1rem;
-  padding: 0.25rem;
-  font-family: monospace;
-  border: 1px solid darkgray;
-}
-
-textarea {
-  height: 16rem;
-  resize: vertical;
-}
-
-textarea#parseTree {
-  height: 30rem;
-  white-space: pre;
-  font-size: 0.75rem;
-  overflow-wrap: normal;
-}
-
 .columns {
   display: flex;
   align-items: stretch;
@@ -74,3 +37,45 @@ textarea#parseTree {
   min-width: 20rem;
   max-width: 80rem;
 }
+
+h1 {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+}
+
+p,
+ul {
+  text-align: center;
+}
+
+input.error {
+  border-color: red;
+}
+
+input,
+textarea {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.25rem;
+  font-family: monospace;
+  border: 1px solid darkgray;
+}
+
+textarea {
+  height: 16rem;
+  resize: vertical;
+}
+
+textarea#parseTree {
+  height: 30rem;
+  white-space: pre;
+  font-size: 0.75rem;
+  overflow-wrap: normal;
+}
+

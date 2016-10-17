@@ -30,6 +30,12 @@ class Example {
 
     parseTreeTextArea.html(parseTreeTextAreaHTML);
   }
+  
+  static clearParseTree() {
+    var parseTreeTextAreaHTML = '';
+
+    parseTreeTextArea.html(parseTreeTextAreaHTML);
+  }
 }
 
 Example.contentTextArea = contentTextArea;

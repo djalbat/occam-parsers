@@ -18,23 +18,33 @@ var lexer = undefined,
 class BasicExample extends Example {
   static run() {
     updateLexer();
-    updateParser();
+
+    if (lexer !== null) {
+      updateParser();
+    }
 
     terminalSymbolsRegExpPatternInput.onChange(function() {
       updateLexer();
-      updateParser();
 
-      Example.updateParseTree(lexer, parser);
+      if (lexer !== null) {
+        updateParser();
+
+        Example.updateParseTree(lexer, parser);
+      }
     });
 
     Example.grammarTextArea.onChange(function() {
-      updateParser();
+      if (lexer !== null) {
+        updateParser();
 
-      Example.updateParseTree(lexer, parser);
+        Example.updateParseTree(lexer, parser);
+      }
     });
 
     Example.contentTextArea.onChange(function() {
-      Example.updateParseTree(lexer, parser);
+      if (lexer !== null) {
+        Example.updateParseTree(lexer, parser);
+      }
     });
   }
 }
@@ -42,22 +52,25 @@ class BasicExample extends Example {
 module.exports = BasicExample;
 
 function updateLexer() {
-  var terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternInput.getValue(),
-      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue; ///
+  try {
+    var terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternInput.getValue(),
+        terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
+        terminalSymbolsRegExp = new RegExp('^(' + terminalSymbolsRegExpPattern + ')'),
+        grammar = [
+          { terminal : terminalSymbolsRegExp }
+        ];
 
-      try {
-        new RegExp('^(' + terminalSymbolsRegExpPattern + ')');
-      }
-      catch(error) {
-        terminalSymbolsRegExpPattern = '.';
-      }
+    lexer = BasicLexer.fromGrammar(grammar);
 
-  var terminalSymbolsRegExp = new RegExp('^(' + terminalSymbolsRegExpPattern + ')'),
-      grammar = [
-        { terminal : terminalSymbolsRegExp }
-      ];
+    terminalSymbolsRegExpPatternInput.removeClass('error');
+  }
+  catch(error) {
+    terminalSymbolsRegExpPatternInput.addClass('error');
 
-  lexer = BasicLexer.fromGrammar(grammar);
+    Example.clearParseTree();
+
+    lexer = null;
+  }
 }
 
 function updateParser() {
@@ -71,4 +84,3 @@ function updateParser() {
 
   parser = new Parser(productions);
 }
-
