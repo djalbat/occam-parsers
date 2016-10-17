@@ -6,24 +6,26 @@
     </head>
     <body>
         <h1>Gallina example</h1>
-        <div class="columns">
-          <div id="leftColumn">
-            <h2>Grammar</h2>
+        <div class="hidden container">
+          <div class="columns">
+            <div id="leftColumn">
+              <h2>Grammar</h2>
         <textarea rows="20" id="grammar" spellcheck="false">
 
         </textarea>
-            <h2>Content</h2>
-            <textarea id="content"></textarea>
+              <h2>Content</h2>
+              <textarea id="content"></textarea>
+            </div>
+            <div class="left vertical splitter"></div>
+            <div class="column">
+              <h2>Parse tree</h2>
+              <textarea id="parseTree" readonly></textarea>
+            </div>
           </div>
-          <div class="left vertical splitter"></div>
-          <div class="column">
-            <h2>Parse tree</h2>
-            <textarea id="parseTree" readonly></textarea>
-          </div>
+          <p>
+            <a href="../examples.html">...back</a>
+          </p>
         </div>
-        <p>
-          <a href="../examples.html">...back</a>
-        </p>
 
         <script src="../examples.js"> </script>
         <script>

@@ -1,19 +1,40 @@
 'use strict';
 
-var lexers = require('occam-lexers'),
+var easyui = require('easyui'),
+    lexers = require('occam-lexers'),
+    Div = easyui.Div,
+    BNFLexer = lexers.BNFLexer,
     GallinaLexer = lexers.GallinaLexer;
 
-var Example = require('./example');
+var Example = require('./example'),
+    Parser = require ('../../es6/parser'),
+    BNFParser = require ('../../es6/bnfParser'),
+    grammar = require ('../../es6/gallina/grammar');
 
-var mappings = {};
+var lexer = undefined,
+    parser = undefined,
+    containerDivSelector = 'div.container',
+    containerDiv = new Div(containerDivSelector);
 
 class GallinaExample extends Example {
   static run() {
-    Example.updateParser(mappings);
+    lexer = GallinaLexer.fromNothing();
+
+    var grammarTextAreaValue = grammar, ///
+        lines = BNFLexer.linesFromGrammar(grammar),
+        terminalSymbolsRegExpPattern = lexer.terminalSymbolsRegExpPattern(),
+        mappings = {},
+        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, mappings);
+
+    parser = new Parser(productions);
+
+    Example.grammarTextArea.setValue(grammarTextAreaValue);
 
     Example.contentTextArea.onChange(function() {
-      Example.updateParseTree(GallinaLexer);
+      Example.updateParseTree(lexer, parser);
     });
+
+    containerDiv.removeClass('hidden');
   }
 }
 
