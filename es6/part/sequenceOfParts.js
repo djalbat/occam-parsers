@@ -10,7 +10,7 @@ class SequenceOfPartsPart {
     this.productionName = productionName;
   }
 
-  terminalPartOrProduction() {
+  terminalPartOrProduction(productions) {
     var terminalPartOrProduction = (this.terminalPart !== null) ?
                                       this.terminalPart :
                                         ProductionNamePart.findProduction(this.productionName, productions);

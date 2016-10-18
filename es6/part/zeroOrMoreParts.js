@@ -5,8 +5,8 @@ var SequenceOfPartsPart = require('./sequenceOfParts');
 class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   parse(context, productions) {
     var nodes = null,
-        terminalPartOrProduction = this.terminalPartOrProduction();
-    
+        terminalPartOrProduction = this.terminalPartOrProduction(productions);
+
     if (terminalPartOrProduction !== null) {
       nodes = [];
 

@@ -5,7 +5,7 @@ var SequenceOfPartsPart = require('./sequenceOfParts');
 class OneOrMorePartsPart extends SequenceOfPartsPart {
   parse(context, productions) {
     var nodes = null,
-        terminalPartOrProduction = this.terminalPartOrProduction();
+        terminalPartOrProduction = this.terminalPartOrProduction(productions);
 
     if (terminalPartOrProduction !== null) {
       context.saveIndex();
