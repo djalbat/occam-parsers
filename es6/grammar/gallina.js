@@ -2,8 +2,12 @@
 
 var grammar = `
 
-  qualid                ::=   else if+
+  qualid                ::=   ident<NO_WHITESPACE>access_identifier+
+  
+  identifier            ::=   ident
       
+  access_identifier     ::=   access_ident
+
 `;
 
 // term              ::=   name | qualid | sort

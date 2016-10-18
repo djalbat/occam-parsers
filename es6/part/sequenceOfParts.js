@@ -5,9 +5,14 @@ var TerminalTypePart = require('./terminalType'),
     ProductionNamePart = require('./productionName');
 
 class SequenceOfPartsPart {
-  constructor(terminalPart, productionName) {
+  constructor(terminalPart, productionName, noWhitespace) {
     this.terminalPart = terminalPart;
     this.productionName = productionName;
+    this.noWhitespace = noWhitespace;
+  }
+  
+  getNoWhitespace() {
+    return this.noWhitespace;
   }
 
   terminalPartOrProduction(productions) {
@@ -18,7 +23,7 @@ class SequenceOfPartsPart {
     return terminalPartOrProduction;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, regExp, Class) {
+  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace, regExp, Class) {
     var part = null,
         matches = symbol.match(regExp);
 
@@ -27,11 +32,11 @@ class SequenceOfPartsPart {
 
       symbol = secondMatch; ///
 
-      var terminalPart = TerminalTypePart.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes) ||
-                          TerminalSymbolPart.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes),
+      var terminalPart = TerminalTypePart.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace) ||
+                          TerminalSymbolPart.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace),
           productionName = symbol;
 
-      part = new Class(terminalPart, productionName);
+      part = new Class(terminalPart, productionName, noWhitespace);
     }
 
     return part;

@@ -3,14 +3,16 @@
 var TerminalNode = require('../node/terminal');
 
 class TerminalSymbolPart {
-  constructor(symbol) {
+  constructor(symbol, noWhitespace) {
     this.symbol = symbol;
+    this.noWhitespace = noWhitespace;
   }
 
-  parse(context, productions) {
+  parse(context, productions, noWhitespace) {
+    noWhitespace = noWhitespace || this.noWhitespace; ///
+
     var nodes = null,
-        nextNonWhitespaceToken = context.getNextNonWhitespaceToken(),
-        token = nextNonWhitespaceToken; ///
+        token = context.getNextToken(noWhitespace);
 
     if (token !== undefined) {
       var str = token.getString(),
@@ -28,12 +30,12 @@ class TerminalSymbolPart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalSymbolPartsRegExp, terminalTypes) {
+  static fromSymbol(symbol, terminalSymbolPartsRegExp, terminalTypes, noWhitespace) {
     var terminalSymbolPart = null,
         matches = symbol.match(terminalSymbolPartsRegExp);
 
     if (matches !== null) {
-      terminalSymbolPart = new TerminalSymbolPart(symbol);
+      terminalSymbolPart = new TerminalSymbolPart(symbol, noWhitespace);
     }
 
     return terminalSymbolPart;

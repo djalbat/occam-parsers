@@ -14,8 +14,9 @@ class Parser {
         productionsLength = this.productions.length;
 
     if (productionsLength > 0) {
-      var firstProduction = first(this.productions),
-          nodes = firstProduction.parse(context, this.productions);
+      var noWhitespace = false,
+          firstProduction = first(this.productions),
+          nodes = firstProduction.parse(context, this.productions, noWhitespace);
 
       if (nodes !== null) {
         var childNodes = nodes; ///

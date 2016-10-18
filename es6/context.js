@@ -11,17 +11,28 @@ class Context {
     
     this.savedIndex = undefined;  ///
   }
+  
+  getNextToken(noWhitespace) {
+    var token = this.tokens[this.index++],
+        type;
 
-  getNextNonWhitespaceToken() {
-    var token = this.tokens[this.index++];
+    if (noWhitespace) {
+      if (token !== undefined) {
+        type = token.getType();
 
-    while (token !== undefined) {
-      var type = token.getType();
+        if (type === WhitespaceToken.type) {
+          token = undefined;
+        }
+      }      
+    } else {
+      while (token !== undefined) {
+        type = token.getType();
 
-      if (type === WhitespaceToken.type) {
-        token = this.tokens[this.index++];
-      } else {
-        break;
+        if (type === WhitespaceToken.type) {
+          token = this.tokens[this.index++];
+        } else {
+          break;
+        }
       }
     }
 

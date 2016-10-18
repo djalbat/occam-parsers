@@ -9,7 +9,7 @@ var easyui = require('easyui'),
 var Example = require('./example'),
     Parser = require ('../../es6/parser'),
     BNFParser = require ('../../es6/bnfParser'),
-    grammar = require ('../../es6/gallina/grammar');
+    grammar = require ('../../es6/grammar/gallina');
 
 var lexer = undefined,
     parser = undefined,

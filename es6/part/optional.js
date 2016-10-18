@@ -3,7 +3,9 @@
 var SequenceOfPartsPart = require('./sequenceOfParts');
 
 class OptionalPart extends SequenceOfPartsPart {
-  parse(context, productions) {
+  parse(context, productions, noWhitespace) {
+    noWhitespace = this.getNoWhitespace();  ///
+
     var nodes = null,
         terminalPartOrProduction = this.terminalPartOrProduction(productions);
     
@@ -12,7 +14,7 @@ class OptionalPart extends SequenceOfPartsPart {
 
       context.saveIndex();
 
-      var productionNodes = terminalPartOrProduction.parse(context, productions),
+      var productionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace),
           parsed = (productionNodes !== null);
 
       if (parsed) {
@@ -27,10 +29,10 @@ class OptionalPart extends SequenceOfPartsPart {
     return nodes;
   }
   
-  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes) {
+  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace) {
     var regExp = /([^*]+)\?$/,
         Class = OptionalPart,
-        optionalPart = super.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, regExp, Class);
+        optionalPart = super.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace, regExp, Class);
 
     return optionalPart;
   }

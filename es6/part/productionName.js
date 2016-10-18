@@ -1,16 +1,19 @@
 'use strict';
 
 class ProductionNamePart {
-  constructor(name) {
+  constructor(name, noWhitespace) {
     this.name = name;
+    this.noWhitespace = noWhitespace;
   }
   
-  parse(context, productions) {
+  parse(context, productions, noWhitespace) {
+    noWhitespace = noWhitespace || this.noWhitespace; ///
+
     var nodes = null,
         production = ProductionNamePart.findProduction(this.name, productions);
 
     if (production !== null) {
-      nodes = production.parse(context, productions);
+      nodes = production.parse(context, productions, noWhitespace);
     }
 
     return nodes;
@@ -36,9 +39,9 @@ class ProductionNamePart {
     return production;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes) {
+  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace) {
     var name = symbol,  ///
-        productionNamePart = new ProductionNamePart(name);
+        productionNamePart = new ProductionNamePart(name, noWhitespace);
 
     return productionNamePart;
   }

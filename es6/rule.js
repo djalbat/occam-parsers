@@ -1,5 +1,8 @@
 'use strict';
 
+var lexers = require('occam-lexers'),
+    SymbolSequence = lexers.SymbolSequence;
+
 var Parts = require('./parts');
 
 class Rule {
@@ -7,15 +10,17 @@ class Rule {
     this.parts = parts;
   }
   
-  parse(context, productions) {
+  parse(context, productions, noWhitespace) {
     var nodes = [];
     
     var parsed = this.parts.every(function(part) {
-      var partNodes = part.parse(context, productions),
+      var partNodes = part.parse(context, productions, noWhitespace),
           parsed = (partNodes !== null);
       
       if (parsed) {
         nodes = nodes.concat(partNodes);
+
+        noWhitespace = false;
       }
       
       return parsed;
@@ -27,11 +32,20 @@ class Rule {
   }
 
   static fromSymbolSequence(symbolSequence, terminalSymbolsRegExp, terminalTypes) {
-    var parts = symbolSequence.mapSymbols(function(symbol) {
-          var part = partFromSymbol(symbol, terminalSymbolsRegExp, terminalTypes);
-          
-          return part;
-        }),
+    var noWhitespace = false,
+        parts = symbolSequence.reduceSymbols(function(parts, symbol) {
+          if (symbol === SymbolSequence.NO_WHITESPACE) {
+            noWhitespace = true;
+          } else {
+            var part = partFromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace);
+
+            parts.push(part);
+
+            noWhitespace = false;
+          }
+
+          return parts;
+        }, []),
         rule = new Rule(parts);
 
     return rule;
@@ -40,11 +54,11 @@ class Rule {
 
 module.exports = Rule;
 
-function partFromSymbol(symbol, terminalSymbolsRegExp, terminalTypes) {
+function partFromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace) {
   var part = undefined; ///
 
   Parts.some(function(Part) {
-    part = Part.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes);
+    part = Part.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace);
 
     var parsed = (part !== null);
 

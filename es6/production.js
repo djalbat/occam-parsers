@@ -14,12 +14,12 @@ class Production {
     return this.name;
   }
   
-  parse(context, productions) {
+  parse(context, productions, noWhitespace) {
     context.saveIndex();
     
     var ruleNodes = undefined,
         parsed = this.rules.some(function(rule) {
-          ruleNodes = rule.parse(context, productions);
+          ruleNodes = rule.parse(context, productions, noWhitespace);
           
           var parsed = (ruleNodes !== null);
     

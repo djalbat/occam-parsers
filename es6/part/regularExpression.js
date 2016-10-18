@@ -3,14 +3,16 @@
 var TerminalNode = require('../node/terminal');
 
 class RegularExpressionPart {
-  constructor(regExp) {
+  constructor(regExp, noWhitespace) {
     this.regExp = regExp;
+    this.noWhitespace = noWhitespace;
   }
 
-  parse(context, productions) {
+  parse(context, productions, noWhitespace) {
+    noWhitespace = noWhitespace || this.noWhitespace; ///
+
     var nodes = null,
-        nextNonWhitespaceToken = context.getNextNonWhitespaceToken(),
-        token = nextNonWhitespaceToken; ///
+        token = context.getNextToken(noWhitespace);
 
     if (token !== undefined) {
       var str = token.getString(),
@@ -33,7 +35,7 @@ class RegularExpressionPart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes) {
+  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace) {
     var regularExpressionPart = null,
         regularExpressionPartRegExp = /\/([^/]+)\//,
         matches = symbol.match(regularExpressionPartRegExp);
@@ -43,7 +45,7 @@ class RegularExpressionPart {
           pattern = secondMatch,  ///
           regExp = new RegExp(pattern);
 
-      regularExpressionPart = new RegularExpressionPart(regExp);
+      regularExpressionPart = new RegularExpressionPart(regExp, noWhitespace);
     }
 
     return regularExpressionPart;
