@@ -1,19 +1,21 @@
 'use strict';
 
-var ProductionPart = require('./part/production'),
+var OptionalPart = require('./part/optional'),
     TerminalTypePart = require('./part/terminalType'),
     TerminalSymbolPart = require('./part/terminalSymbol'),
+    OneOrMorePartsPart = require('./part/oneOrMoreParts'),
+    ZeroOrMorePartsPart = require('./part/zeroOrMoreParts'),
     RegularExpressionPart = require('./part/regularExpression'),
-    OneOrMoreProductionsPart = require('./part/oneOrMoreProductions'),
-    ZeroOrMoreProductionsPart = require('./part/zeroOrMoreProductions');
+    ProductionNamePart = require('./part/productionName');
 
 var Parts = [
   TerminalTypePart,
   TerminalSymbolPart,
   RegularExpressionPart,
-  ZeroOrMoreProductionsPart,
-  OneOrMoreProductionsPart,
-  ProductionPart
+  OptionalPart,
+  OneOrMorePartsPart,
+  ZeroOrMorePartsPart,
+  ProductionNamePart
 ];
 
 module.exports = Parts;

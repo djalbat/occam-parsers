@@ -35,8 +35,8 @@ class RegularExpressionPart {
 
   static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes) {
     var regularExpressionPart = null,
-        regularExpressionRegExp = /\/([^/]+)\//,
-        matches = symbol.match(regularExpressionRegExp);
+        regularExpressionPartRegExp = /\/([^/]+)\//,
+        matches = symbol.match(regularExpressionPartRegExp);
 
     if (matches !== null) {
       var secondMatch = second(matches),

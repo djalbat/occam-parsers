@@ -17,8 +17,7 @@ class TerminalSymbolPart {
           parsed = (str === this.symbol);  ///
 
       if (parsed) {
-        var type = token.getType(),
-            terminalNode = new TerminalNode(str, type);
+        var terminalNode = new TerminalNode(str);
 
         nodes = [terminalNode];
 
@@ -29,9 +28,9 @@ class TerminalSymbolPart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes) {
+  static fromSymbol(symbol, terminalSymbolPartsRegExp, terminalTypes) {
     var terminalSymbolPart = null,
-        matches = symbol.match(terminalSymbolsRegExp);
+        matches = symbol.match(terminalSymbolPartsRegExp);
 
     if (matches !== null) {
       terminalSymbolPart = new TerminalSymbolPart(symbol);

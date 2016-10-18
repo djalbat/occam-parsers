@@ -18,7 +18,7 @@ class TerminalTypePart {
           parsed = (type === this.type);  ///
 
       if (parsed) {
-        var terminalNode = new TerminalNode(str, type);
+        var terminalNode = new TerminalNode(str);
 
         nodes = [terminalNode];
 
@@ -29,11 +29,11 @@ class TerminalTypePart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalTypesRegExp, terminalTypes) {
+  static fromSymbol(symbol, terminalSymbolssRegExp, terminalTypeParts) {
     var terminalTypePart = null,
         type = symbol,  ///
-        found = terminalTypes.find(function(terminalType) {
-          var found = (type === terminalType);
+        found = terminalTypeParts.find(function(terminalTypePart) {
+          var found = (type === terminalTypePart);
 
           return found;
         });

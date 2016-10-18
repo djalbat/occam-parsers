@@ -1,13 +1,13 @@
 'use strict';
 
-class ProductionPart {
+class ProductionNamePart {
   constructor(name) {
     this.name = name;
   }
   
   parse(context, productions) {
     var nodes = null,
-        production = ProductionPart.findProduction(this.name, productions);
+        production = ProductionNamePart.findProduction(this.name, productions);
 
     if (production !== null) {
       nodes = production.parse(context, productions);
@@ -20,9 +20,9 @@ class ProductionPart {
     var foundProduction = null;
 
     productions.some(function(production) {
-      var productionName = production.getName();
+      var productionNamePart = production.getName();
 
-      if (name === productionName) {
+      if (name === productionNamePart) {
         foundProduction = production;
 
         return true;
@@ -38,10 +38,10 @@ class ProductionPart {
 
   static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes) {
     var name = symbol,  ///
-        productionPart = new ProductionPart(name);
+        productionNamePart = new ProductionNamePart(name);
 
-    return productionPart;
+    return productionNamePart;
   }
 }
 
-module.exports = ProductionPart;
+module.exports = ProductionNamePart;

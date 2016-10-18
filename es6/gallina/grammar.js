@@ -2,17 +2,14 @@
 
 var grammar = `
 
-  name              ::=   ident
-  
-                      |   string
-
-                      |   sort
-
-                      |   _
-                      
-  sort              ::=   Prop | Set | Type
-  
+  qualid                ::=   else if?
+      
 `;
+
+// term              ::=   name | qualid | sort
+//
+//
+// sort              ::=   Prop | Set | Type
 
 module.exports = grammar;
 
