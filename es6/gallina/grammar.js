@@ -2,7 +2,7 @@
 
 var grammar = `
 
-  qualid                ::=   else if?
+  qualid                ::=   else if+
       
 `;
 

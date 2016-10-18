@@ -1,6 +1,7 @@
 'use strict';
 
-var WhitespaceToken = require('../../Lexers/es6/common/token/whitespace');
+var lexers = require('occam-lexers'),
+    WhitespaceToken = lexers.WhitespaceToken;
 
 class Context {
   constructor(tokens) {
@@ -15,7 +16,9 @@ class Context {
     var token = this.tokens[this.index++];
 
     while (token !== undefined) {
-      if (token instanceof WhitespaceToken) {
+      var type = token.getType();
+
+      if (type === WhitespaceToken.type) {
         token = this.tokens[this.index++];
       } else {
         break;
