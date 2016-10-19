@@ -52,12 +52,6 @@ class Context {
     return nextNonWhitespaceToken;
   }
 
-  advanceJustPastToken(token) {
-    var tokenIndex = indexOf(token, this.tokens);
-
-    this.index = tokenIndex + 1;
-  }
-  
   savedIndex() {
     var index = this.getIndex(),
         savedIndex = index; ///

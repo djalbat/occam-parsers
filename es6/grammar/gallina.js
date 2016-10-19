@@ -88,7 +88,7 @@ var grammar = `
 
   |ThenMult_pattern     ::=   | mult_pattern
 
-  mult_pattern          ::=   pattern /commaThenPattern*/
+  mult_pattern          ::=   pattern commaThenPattern*
 
   commaThenPattern      ::=   , pattern
 

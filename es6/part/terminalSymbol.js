@@ -12,6 +12,7 @@ class TerminalSymbolPart {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
     var nodes = null,
+        savedIndex = context.savedIndex(),
         nextNonWhitespaceToken = context.getNextNonWhitespaceToken(noWhitespace),
         token = nextNonWhitespaceToken; ///
 
@@ -24,9 +25,11 @@ class TerminalSymbolPart {
             terminalNode = new TerminalNode(str, type);
 
         nodes = [terminalNode];
-
-        context.advanceJustPastToken(token);
       }
+    }
+
+    if (nodes === null) {
+      context.backtrack(savedIndex);
     }
 
     return nodes;
