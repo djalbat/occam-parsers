@@ -90,19 +90,23 @@ var grammar = `
 
   mult_pattern          ::=   pattern commaThenPattern*
 
+  pattern               ::=   @? qualid patterns pattern'
+  
+                          |   qualid pattern'
+  
+                          |   _ pattern'
+  
+                          |   num pattern'
+  
+                          |   ( or_patterns ) pattern'
+
+  pattern'              ::=   as ident pattern' 
+  
+                          |   % ident pattern' 
+  
+                          |   ε
+
   commaThenPattern      ::=   , pattern
-
-  pattern               ::=   qualid patterns
-
-                          |   @ qualid patterns
-
-                          |   qualid
-
-                          |   _
-
-                          |   num
-
-                          |   ( or_patterns )
 
   or_patterns           ::=   or_pattern commaThenOrPattern*
 

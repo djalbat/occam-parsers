@@ -9,7 +9,9 @@ class TerminalNode {
   }
   
   getString() {
-    var str = `${this.str}[${this.type}]`; ///
+    var str = (this.type === null) ?
+                 this.str :
+                `${this.str}[${this.type}]`; ///
 
     return str;
   }

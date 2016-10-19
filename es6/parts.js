@@ -1,6 +1,7 @@
 'use strict';
 
-var OptionalPartPart = require('./part/optionalPart'),
+var EpsilonPart = require('./part/epsilon'),
+    OptionalPartPart = require('./part/optionalPart'),
     TerminalSymbolPart = require('./part/terminalSymbol'),
     OneOrMorePartsPart = require('./part/oneOrMoreParts'),
     ZeroOrMorePartsPart = require('./part/zeroOrMoreParts'),
@@ -9,6 +10,7 @@ var OptionalPartPart = require('./part/optionalPart'),
     ProductionNamePart = require('./part/productionName');
 
 var Parts = [
+  EpsilonPart,
   TerminalSymbolPart,
   RegularExpressionPart,
   SignificantTokenTypePart,
