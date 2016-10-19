@@ -1,7 +1,7 @@
 'use strict';
 
 var lexers = require('occam-lexers'),
-    symbolTypes = lexers.symbolTypes;
+    specialSymbols = lexers.specialSymbols;
 
 var Parts = require('./parts');
 
@@ -39,7 +39,7 @@ class Rule {
   static fromSymbolSequence(symbolSequence, terminalSymbolsRegExp, terminalTypes) {
     var noWhitespace = false,
         parts = symbolSequence.reduceSymbols(function(parts, symbol) {
-          if (symbol === symbolTypes.NO_WHITESPACE) {
+          if (symbol === specialSymbols.NO_WHITESPACE) {
             noWhitespace = true;
           } else {
             var part = partFromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace);
