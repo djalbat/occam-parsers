@@ -1,7 +1,7 @@
 'use strict';
 
 var lexers = require('occam-lexers'),
-    WhitespaceToken = lexers.WhitespaceToken;
+    SignificantToken = lexers.SignificantToken;
 
 class Context {
   constructor(tokens) {
@@ -18,31 +18,38 @@ class Context {
     this.index = index;
   }
 
-  getNextToken(noWhitespace) {
-    var token = this.tokens[this.index++],
-        type;
+  getNextToken() {
+    var nextToken = this.tokens[this.index++] || null;
 
-    if (noWhitespace) {
-      if (token !== undefined) {
-        type = token.getType();
+    return nextToken;
+  }
 
-        if (type === WhitespaceToken.type) {
-          token = undefined;
+  getNextNonWhitespaceToken(noWhitespace) {
+    var nextNonWhitespaceToken = this.getNextToken();
+
+    if (nextNonWhitespaceToken !== null) {
+      var type;
+
+      if (noWhitespace) {
+        type = nextNonWhitespaceToken.getType();
+        
+        if (type === SignificantToken.types.WHITESPACE) {
+          nextNonWhitespaceToken = null;
         }
-      }      
-    } else {
-      while (token !== undefined) {
-        type = token.getType();
+      } else {
+        while (nextNonWhitespaceToken !== null) {
+          type = nextNonWhitespaceToken.getType();
 
-        if (type === WhitespaceToken.type) {
-          token = this.tokens[this.index++];
-        } else {
-          break;
+          if (type === SignificantToken.types.WHITESPACE) {
+            nextNonWhitespaceToken = this.getNextToken();
+          } else {
+            break;
+          }
         }
       }
     }
 
-    return token;
+    return nextNonWhitespaceToken;
   }
 
   advanceJustPastToken(token) {

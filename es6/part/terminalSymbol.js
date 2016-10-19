@@ -12,14 +12,16 @@ class TerminalSymbolPart {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
     var nodes = null,
-        token = context.getNextToken(noWhitespace);
+        nextNonWhitespaceToken = context.getNextNonWhitespaceToken(noWhitespace),
+        token = nextNonWhitespaceToken; ///
 
-    if (token !== undefined) {
+    if (token !== null) {
       var str = token.getString(),
           parsed = (str === this.symbol);  ///
 
       if (parsed) {
-        var terminalNode = new TerminalNode(str);
+        var type = token.getType(),
+            terminalNode = new TerminalNode(str, type);
 
         nodes = [terminalNode];
 

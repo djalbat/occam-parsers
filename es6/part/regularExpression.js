@@ -12,9 +12,10 @@ class RegularExpressionPart {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
     var nodes = null,
-        token = context.getNextToken(noWhitespace);
+        nextNonWhitespaceToken = context.getNextNonWhitespaceToken(noWhitespace),
+        token = nextNonWhitespaceToken; ///
 
-    if (token !== undefined) {
+    if (token !== null) {
       var str = token.getString(),
           matches = str.match(this.regExp);
 
@@ -23,7 +24,8 @@ class RegularExpressionPart {
             parsed = (firstMatch === str);
 
         if (parsed) {
-          var terminalNode = new TerminalNode(str);
+          var type = RegularExpressionPart.type,
+              terminalNode = new TerminalNode(str, type);
 
           nodes = [terminalNode];
 
@@ -51,6 +53,8 @@ class RegularExpressionPart {
     return regularExpressionPart;
   }
 }
+
+RegularExpressionPart.type = 'regexp'; ///
 
 module.exports = RegularExpressionPart;
 

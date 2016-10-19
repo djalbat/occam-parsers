@@ -2,52 +2,43 @@
 
 var grammar = `
 
-  binder                ::=   name
+  term                  ::=   forall binders , term
 
-                          |   ( name+ : term )
 
-                          |   ( name colonThenTerm? := term )
+
+
+                          |   qualid
+
+                          |   sort
+
+                          |   num
+
+                          |   _
+
+                          |   ( term )
+
+  binders               ::=   binder+
   
-  name                  ::=   ident
+  binder	              ::=	  name
   
+                          |	  ( name+ : term )
+                          
+                          |	  ( name colonThenTerm? := term )
+
+  arg                   ::=   term
+
+                          |   ( ident := term )
+
   colonThenTerm         ::=   : term
 
-  term                  ::=   num
+  name                  ::=   ident
+
+                          |   _
+
+  qualid                ::=   ident<NO_WHITESPACE>access_ident*
+
+  sort                  ::=   Prop | Set | Type
+
 `;
 
 module.exports = grammar;
-
-// var grammar = `
-//
-//   term                  ::=   forall binders , term
-//
-//
-//
-//
-//                           |   qualid
-//
-//                           |   sort
-//
-//                           |   num
-//
-//                           |   _
-//
-//                           |   ( term )
-//
-//   binders               ::=   binder+
-//
-//   arg                   ::=   term
-//
-//                           |   ( ident := term )
-//
-//   colonThenTerm         ::=   : term
-//
-//   name                  ::=   ident
-//
-//                           |   _
-//
-//   qualid                ::=   ident<NO_WHITESPACE>access_ident*
-//
-//   sort                  ::=   Prop | Set | Type
-//
-// `;
