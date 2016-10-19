@@ -2,27 +2,19 @@
 
 var SequenceOfPartsPart = require('./sequenceOfParts');
 
-class OptionalPart extends SequenceOfPartsPart {
+class OptionalPartPart extends SequenceOfPartsPart {
   parse(context, productions, noWhitespace) {
     noWhitespace = this.getNoWhitespace();  ///
 
-    var nodes = null,
+    var nodes = [], ///
         terminalPartOrProduction = this.terminalPartOrProduction(productions);
     
     if (terminalPartOrProduction !== null) {
-      nodes = [];
-
-      context.saveIndex();
-
       var productionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace),
           parsed = (productionNodes !== null);
 
       if (parsed) {
-        nodes = nodes.concat(productionNodes);
-      } else {
-        context.backtrack();
-
-        return nodes;
+        nodes = productionNodes;
       }
     }
 
@@ -31,11 +23,11 @@ class OptionalPart extends SequenceOfPartsPart {
   
   static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace) {
     var regExp = /([^*]+)\?$/,
-        Class = OptionalPart,
-        optionalPart = super.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace, regExp, Class);
+        Class = OptionalPartPart,
+        optionalPartPart = super.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace, regExp, Class);
 
-    return optionalPart;
+    return optionalPartPart;
   }
 }
 
-module.exports = OptionalPart;
+module.exports = OptionalPartPart;

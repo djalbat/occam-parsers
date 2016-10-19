@@ -15,18 +15,12 @@ class Production {
   }
   
   parse(context, productions, noWhitespace) {
-    context.saveIndex();
-    
     var ruleNodes = undefined,
         parsed = this.rules.some(function(rule) {
           ruleNodes = rule.parse(context, productions, noWhitespace);
           
           var parsed = (ruleNodes !== null);
     
-          if (!parsed) {
-            context.backtrack();
-          }
-          
           return parsed;
         });
     

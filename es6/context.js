@@ -8,10 +8,16 @@ class Context {
     this.tokens = tokens;
     
     this.index = 0;
-    
-    this.savedIndex = undefined;  ///
   }
-  
+
+  getIndex() {
+    return this.index;
+  }
+
+  setIndex(index) {
+    this.index = index;
+  }
+
   getNextToken(noWhitespace) {
     var token = this.tokens[this.index++],
         type;
@@ -45,27 +51,36 @@ class Context {
     this.index = tokenIndex + 1;
   }
   
-  saveIndex() {
-    this.savedIndex = this.index;
+  savedIndex() {
+    var index = this.getIndex(),
+        savedIndex = index; ///
+    
+    return savedIndex;
   }
 
-  backtrack() {
-    this.index = this.savedIndex;
+  backtrack(savedIndex) {
+    var index = savedIndex; ///
+    
+    this.setIndex(index);
   }
 }
 
 module.exports = Context;
 
 function indexOf(element, array) {
-  var index = array.reduce(function(index, arrayElement, arrayIndex) {
-    if (index === -1) {
-      if (element === arrayElement) {
-        index = arrayIndex;
-      }
+  var foundIndex = -1;
+  
+  array.some(function(arrayElement, index) {
+    if (element === arrayElement) {
+      foundIndex = index;
+      
+      return true;
+    } else {
+      return false;
     }
-
-    return index;
-  }, -1);
-
+  });
+  
+  var index = foundIndex;
+  
   return index;
 }

@@ -13,16 +13,12 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
       nodes = [];
 
       for(;;) {
-        context.saveIndex();
-        
         var productionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace),
             parsed = (productionNodes !== null);
 
         if (parsed) {
           nodes = nodes.concat(productionNodes);
         } else {
-          context.backtrack();
-
           return nodes;
         }
       }

@@ -1,6 +1,6 @@
 'use strict';
 
-var TerminalTypePart = require('./terminalType'),
+var TerminalTypePart = require('./significantTokenType'),
     TerminalSymbolPart = require('./terminalSymbol'),
     ProductionNamePart = require('./productionName');
 

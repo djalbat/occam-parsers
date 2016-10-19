@@ -11,7 +11,8 @@ class Rule {
   }
   
   parse(context, productions, noWhitespace) {
-    var nodes = [];
+    var nodes = [],
+        savedIndex = context.savedIndex();
     
     var parsed = this.parts.every(function(part) {
       var partNodes = part.parse(context, productions, noWhitespace),
@@ -22,12 +23,16 @@ class Rule {
 
         noWhitespace = false;
       }
-      
+
       return parsed;
     });
     
-    nodes = parsed ? nodes : null;
-    
+    if (!parsed) {
+      nodes = null;
+      
+      context.backtrack(savedIndex);
+    }
+
     return nodes;
   }
 

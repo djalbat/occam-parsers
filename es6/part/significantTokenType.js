@@ -2,7 +2,7 @@
 
 var TerminalNode = require('../node/terminal');
 
-class TerminalTypePart {
+class SignificantTokenTypePart {
   constructor(type, noWhitespace) {
     this.type = type;
     this.noWhitespace = noWhitespace;
@@ -31,22 +31,22 @@ class TerminalTypePart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypeParts, noWhitespace) {
-    var terminalTypePart = null,
+  static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) {
+    var significantTokenTypePart = null,
         type = symbol,  ///
-        foundType = terminalTypeParts.find(function(terminalTypePart) {
-          var found = (type === terminalTypePart);
+        foundType = significantTokenTypes.find(function(significantTokenType) {
+          var found = (type === significantTokenType);
 
           return found;
         }),
         found = (foundType !== undefined);
 
     if (found) {
-      terminalTypePart = new TerminalTypePart(type, noWhitespace);
+      significantTokenTypePart = new SignificantTokenTypePart(type, noWhitespace);
     }
 
-    return terminalTypePart;
+    return significantTokenTypePart;
   }
 }
 
-module.exports = TerminalTypePart;
+module.exports = SignificantTokenTypePart;

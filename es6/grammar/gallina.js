@@ -2,59 +2,52 @@
 
 var grammar = `
 
-  qualid                ::=   ident<NO_WHITESPACE>access_identifier+
+  binder                ::=   name
+
+                          |   ( name+ : term )
+
+                          |   ( name colonThenTerm? := term )
   
-  identifier            ::=   ident
-      
-  access_identifier     ::=   access_ident
+  name                  ::=   ident
+  
+  colonThenTerm         ::=   : term
 
+  term                  ::=   num
 `;
-
-// term              ::=   name | qualid | sort
-//
-//
-// sort              ::=   Prop | Set | Type
 
 module.exports = grammar;
 
-// match_item        ::=   term [as name] [in qualid]
+// var grammar = `
 //
-// term              ::=   num
-//
-// name              ::=   ident
-//
-// |   sort
-//
-// |   qualid
-//
-// |   _
-//
-// |   bracketedTerm
-
-// match_items       ::=   match_item , ... , match_item
+//   term                  ::=   forall binders , term
 //
 //
-// |   bracketedTerm
 //
-// bracketedTerm     ::=   ( term )
 //
-// arg               ::=   term
+//                           |   qualid
 //
-//     |   identToTerm
+//                           |   sort
 //
-// identToTerm       ::=   ( ident := term )
+//                           |   num
 //
-// binders           ::=   binder ... binder
+//                           |   _
 //
-// binder            ::=   namesTermBinder
+//                           |   ( term )
 //
-//     |   nameToTermBinder
+//   binders               ::=   binder+
 //
-//     |   nameBinder
+//   arg                   ::=   term
 //
-// namesTermBinder   ::=   ( name ... name : term )
+//                           |   ( ident := term )
 //
-// nameToTermBinder  ::=   ( name [: term] := term )
+//   colonThenTerm         ::=   : term
 //
-// nameBinder        ::=   name
+//   name                  ::=   ident
 //
+//                           |   _
+//
+//   qualid                ::=   ident<NO_WHITESPACE>access_ident*
+//
+//   sort                  ::=   Prop | Set | Type
+//
+// `;
