@@ -2,6 +2,101 @@
 
 var grammar = `
 
+  sentence              ::=   assumption
+  
+                          |   definition
+                          
+                          |   inductive
+                          
+                          |   fixpoint
+                          
+                          |   assertion proof
+                            
+                            
+                            
+  assumption            ::=   assumption_keyword assums .
+  
+  assumption_keyword    ::=   Axiom | Conjecture
+  
+                          |   Parameter | Parameters
+                          
+                          |   Variable | Variables
+                          
+                          |   Hypothesis | Hypotheses
+                            
+                            
+                            
+  assums                ::=   assum
+  
+                          |   assumInBrackets+
+
+  assum                 ::=   ident+ : term
+
+  assumInBrackets       ::=   ( assum )
+                            
+                            
+                            
+  definition            ::=   Local? Definition ident binders? colonThenTerm? := term .
+  
+                          |   Let ident binders? colonThenTerm? := term .
+                            
+                            
+                            
+  inductive             ::=   Inductive ind_body withThenInd_body+ .
+                          
+                          |   CoInductive ind_body withThenInd_body+ .
+                          
+  withThenInd_body      ::=   with ind_body
+
+  ind_body              ::=   ident binders? : term := ind_body'?
+  
+  ind_body'             ::=   |? ind_body'' |ThenInd_body''+
+  
+  |ThenInd_body''       ::=   | ind_body''
+  
+  ind_body''            ::=   ident binders? colonThenTerm?
+                            
+                            
+                            
+  fixpoint              ::=   Fixpoint fix_body withThenfix_body+ .
+  
+                          |   CoFixpoint cofix_body withThenCofix_body+ .
+                          
+  withThenfix_body      ::=   with fix_body
+  
+  withThenCofix_body    ::=   with cofix_body
+                            
+                            
+                            
+  assertion             ::=   assertion_keyword ident binders? : term .
+
+  ssertion_keyword      ::=   Theorem | Lemma
+  
+                          |   Remark | Fact
+                          
+                          |   Corollary | Proposition
+                          
+                          |   Definition | Example
+                            
+                            
+                            
+  proof                 ::=   Proof . … Qed .
+  
+                          |   Proof . … Defined .
+                          
+                          |   Proof . … Admitted .
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
   term                  ::=   forall binders , term term'
   
                           |   fun binders => term term'
@@ -101,27 +196,18 @@ var grammar = `
                           
                           
   sort                  ::=   Prop | Set | Type
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
   fix_bodies            ::=   fix_body
   
                           |   fix_body withFix_body+ for ident
@@ -203,7 +289,10 @@ var grammar = `
   or_pattern            ::=   pattern |ThenPattern*
 
   |ThenPattern          ::=   | pattern
-
+  
 `;
 
 module.exports = grammar;
+
+
+
