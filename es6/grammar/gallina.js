@@ -31,9 +31,9 @@ var grammar = `
 
   commaThenMatchItem    ::=   , match_item
 
-  orEquations           ::=   or? equation orEquation*
+  orEquations           ::=   |? equation orEquation*
 
-  orEquation            ::=   or equation
+  orEquation            ::=   | equation
 
   arg                   ::=   term
 
@@ -84,11 +84,11 @@ var grammar = `
 
   return_type           ::=   return term
 
-  equation              ::=   mult_pattern orThenMult_pattern => term
+  equation              ::=   mult_pattern |ThenMult_pattern* => term
+
+  |ThenMult_pattern     ::=   | mult_pattern
 
   mult_pattern          ::=   pattern /commaThenPattern*/
-
-  orThenMult_pattern    ::=   or mult_pattern
 
   commaThenPattern      ::=   , pattern
 
@@ -108,11 +108,9 @@ var grammar = `
 
   commaThenOrPattern    ::=   , or_pattern
 
-  or_pattern            ::=   pattern orPattern*
+  or_pattern            ::=   pattern |ThenPattern*
 
-  orPattern             ::=   or pattern
-
-  or                    ::=   /\|/
+  |ThenPattern          ::=   | pattern
 
 `;
 
