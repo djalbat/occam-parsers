@@ -2,91 +2,89 @@
 
 var grammar = `
 
-  sentence              ::=   assumption
+  sentence                            ::=   assumption
   
-                          |   definition
+                                        |   definition
                           
-                          |   inductive
+                                        |   inductive
                           
-                          |   fixpoint
+                                        |   fixpoint
                           
-                          |   assertion proof
+                                        |   assertion proof
                             
                             
                             
-  assumption            ::=   assumption_keyword assums .
+  assumption                          ::=   assumption_keyword assums .
   
-  assumption_keyword    ::=   Axiom | Conjecture
+  assumption_keyword                  ::=   Axiom | Conjecture
   
-                          |   Parameter | Parameters
+                                        |   Parameter | Parameters
                           
-                          |   Variable | Variables
+                                        |   Variable | Variables
                           
-                          |   Hypothesis | Hypotheses
+                                        |   Hypothesis | Hypotheses
                             
                             
                             
-  assums                ::=   assum
+  assums                              ::=   assum
   
-                          |   assumInBrackets+
+                                        |   assumInBrackets+
 
-  assum                 ::=   ident+ : term
+  assum                               ::=   ident+ : term
 
-  assumInBrackets       ::=   ( assum )
+  assumInBrackets                     ::=   ( assum )
                             
                             
                             
-  definition            ::=   Local? Definition ident binders? colonThenTerm? := term .
+  definition                          ::=   Local? Definition ident binders? colonThenTerm? := term .
   
-                          |   Let ident binders? colonThenTerm? := term .
+                                        |   Let ident binders? colonThenTerm? := term .
                             
                             
                             
-  inductive             ::=   Inductive ind_body withThenInd_body+ .
+  inductive                           ::=   Inductive ind_body withThenInd_body+ .
                           
-                          |   CoInductive ind_body withThenInd_body+ .
+                                        |   CoInductive ind_body withThenInd_body+ .
                           
-  withThenInd_body      ::=   with ind_body
+  withThenInd_body                    ::=   with ind_body
 
-  ind_body              ::=   ident binders? : term := ind_body'?
+  ind_body                            ::=   ident binders? : term := ind_body'?
   
-  ind_body'             ::=   |? ind_body'' |ThenInd_body''+
+  ind_body'                           ::=   |? identThenBindersThenColonThenTerm |ThenInd_body''+
   
-  |ThenInd_body''       ::=   | ind_body''
+  |ThenInd_body''                     ::=   | identThenBindersThenColonThenTerm
   
-  ind_body''            ::=   ident binders? colonThenTerm?
+  identThenBindersThenColonThenTerm   ::=   ident binders? colonThenTerm?
                             
                             
                             
-  fixpoint              ::=   Fixpoint fix_body withThenfix_body+ .
+  fixpoint                            ::=   Fixpoint fix_body withThenfix_body+ .
   
-                          |   CoFixpoint cofix_body withThenCofix_body+ .
+                                        |   CoFixpoint cofix_body withThenCofix_body+ .
                           
-  withThenfix_body      ::=   with fix_body
+  withThenfix_body                    ::=   with fix_body
   
-  withThenCofix_body    ::=   with cofix_body
+  withThenCofix_body                  ::=   with cofix_body
                             
                             
                             
-  assertion             ::=   assertion_keyword ident binders? : term .
+  assertion                           ::=   assertion_keyword ident binders? : term .
 
-  ssertion_keyword      ::=   Theorem | Lemma
+  ssertion_keyword                    ::=   Theorem | Lemma
   
-                          |   Remark | Fact
+                                        |   Remark | Fact
                           
-                          |   Corollary | Proposition
+                                        |   Corollary | Proposition
                           
-                          |   Definition | Example
+                                        |   Definition | Example
                             
                             
                             
-  proof                 ::=   Proof . … Qed .
+  proof                               ::=   Proof . … Qed .
   
-                          |   Proof . … Defined .
+                                        |   Proof . … Defined .
                           
-                          |   Proof . … Admitted .
-                          
-                          
+                                        |   Proof . … Admitted .
                           
                           
                           
@@ -97,109 +95,107 @@ var grammar = `
                           
                           
                           
-  term                  ::=   forall binders , term term'
+                          
+                          
+  term                                ::=   forall binders , term term'
   
-                          |   fun binders => term term'
+                                        |   fun binders => term term'
   
-                          |   fix fix_bodies term'
+                                        |   fix fix_bodies term'
   
-                          |   cofix cofix_bodies term'
+                                        |   cofix cofix_bodies term'
   
-                          |   let let' term'
+                                        |   let let_body term'
   
-                          |   if term dep_ret_type? then term else term term'
+                                        |   if term dep_ret_type? then term else term term'
   
-                          |   @ qualid terms? term'
+                                        |   @ qualid terms? term'
   
-                          |   match match_items return_type? with orEquations? end term'
+                                        |   match match_items return_type? with orEquations? end term'
 
-                          |   qualid term'
+                                        |   qualid term'
 
-                          |   sort term'
+                                        |   sort term'
 
-                          |   num term'
+                                        |   num term'
 
-                          |   _ term'
+                                        |   _ term'
 
-                          |   ( term ) term'
+                                        |   ( term ) term'
                           
                           
                           
-  term'                 ::=   : term term'
+  term'                               ::=   : term term'
   
-                          |   <: term term'
+                                        |   <: term term'
   
-                          |   :> term'
+                                        |   :> term'
   
-                          |   -> term term'
+                                        |   -> term term'
   
-                          |   arg+ term'
+                                        |   arg+ term'
   
-                          |   % ident term'
+                                        |   % ident term'
   
-                          |   ε
+                                        |   ε
                           
                           
                           
-  let'                  ::=   ident binders? colonThenTerm? := term in term
+  let_body                            ::=   ident binders? colonThenTerm? := term in term
   
-                          |   fix fix_body in term
+                                        |   fix fix_body in term
   
-                          |   cofix cofix_body in term
+                                        |   cofix cofix_body in term
   
-                          |   ( names ) dep_ret_type? := term in term
+                                        |   ( names ) dep_ret_type? := term in term
   
-                          |   ' pattern inTerm? := term return_type? in term
+                                        |   ' pattern inTerm? := term return_type? in term
                           
                           
                           
-  inTerm                ::=   in term
+  inTerm                              ::=   in term
   
-  terms                 ::=   term+
+  terms                               ::=   term+
 
-  match_items           ::=   match_item commaThenMatchItem*
+  match_items                         ::=   match_item commaThenMatchItem*
 
-  commaThenMatchItem    ::=   , match_item
+  commaThenMatchItem                  ::=   , match_item
 
-  orEquations           ::=   |? equation orEquation*
+  orEquations                         ::=   |? equation orEquation*
 
-  orEquation            ::=   | equation
+  orEquation                          ::=   | equation
                           
                           
                           
-  arg                   ::=   term
+  arg                                 ::=   term
 
-                          |   ( ident := term )
+                                        |   ( ident := term )
                           
                           
                           
-  binders               ::=   binder+
+  binders                             ::=   binder+
                           
                           
                           
-  binder                ::=   name
+  binder                              ::=   name
 
-                          |   ( name+ : term )
+                                        |   ( name+ : term )
 
-                          |   ( name colonThenTerm? := term )
+                                        |   ( name colonThenTerm? := term )
                           
                           
                           
-  name                  ::=   ident
+  name                                ::=   ident
 
-                          |   _
+                                        |   _
                           
                           
                           
-  qualid                ::=   ident<NO_WHITESPACE>access_ident*
+  qualid                              ::=   ident<NO_WHITESPACE>access_ident*
                           
                           
                           
-  sort                  ::=   Prop | Set | Type
-                          
-                          
-                          
-                          
+  sort                                ::=   Prop | Set | Type
                           
                           
                           
@@ -208,87 +204,91 @@ var grammar = `
                           
                           
                           
-  fix_bodies            ::=   fix_body
+                          
+                          
+                          
+                          
+  fix_bodies                          ::=   fix_body
   
-                          |   fix_body withFix_body+ for ident
+                                        |   fix_body withFix_body+ for ident
                           
-  withFix_body          ::=   with fix_body                     
+  withFix_body                        ::=   with fix_body                     
 
-  cofix_bodies          ::=   cofix_body
+  cofix_bodies                        ::=   cofix_body
   
-                          |   cofix_body withCofix_body+ for ident
+                                        |   cofix_body withCofix_body+ for ident
                           
-  withCofix_body        ::=   with cofix_body
+  withCofix_body                      ::=   with cofix_body
                        
                        
                        
-  fix_body              ::=   ident binders annotation? colonThenTerm? := term
+  fix_body                            ::=   ident binders annotation? colonThenTerm? := term
 
-  cofix_body            ::=   ident binders? colonThenTerm? := term
+  cofix_body                          ::=   ident binders? colonThenTerm? := term
                        
                        
                        
-  colonThenTerm         ::=   : term
+  colonThenTerm                       ::=   : term
                        
                        
                        
-  annotation            ::=   { struct ident }
+  annotation                          ::=   { struct ident }
                        
                        
                        
-  match_item            ::=   term asName? inQualidPatterns?
+  match_item                          ::=   term asName? inQualidPatterns?
 
-  inQualidPatterns      ::=   in qualid patterns?
+  inQualidPatterns                    ::=   in qualid patterns?
 
-  patterns              ::=   pattern+
+  patterns                            ::=   pattern+
   
-  dep_ret_type          ::=   asName? return_type
+  dep_ret_type                        ::=   asName? return_type
 
-  asName                ::=   as name
+  asName                              ::=   as name
                        
                        
                        
-  return_type           ::=   return term
+  return_type                         ::=   return term
                        
                        
                        
-  equation              ::=   mult_pattern |ThenMult_pattern* => term
+  equation                            ::=   mult_pattern |ThenMult_pattern* => term
 
-  |ThenMult_pattern     ::=   | mult_pattern
+  |ThenMult_pattern                   ::=   | mult_pattern
                        
                        
                        
-  mult_pattern          ::=   pattern commaThenPattern*
+  mult_pattern                        ::=   pattern commaThenPattern*
                        
                        
                        
-  pattern               ::=   @? qualid patterns pattern'
+  pattern                             ::=   @? qualid patterns pattern'
   
-                          |   qualid pattern'
+                                        |   qualid pattern'
   
-                          |   _ pattern'
+                                        |   _ pattern'
   
-                          |   num pattern'
+                                        |   num pattern'
   
-                          |   ( or_patterns ) pattern'
+                                        |   ( or_patterns ) pattern'
 
-  pattern'              ::=   as ident pattern' 
+  pattern'                            ::=   as ident pattern' 
   
-                          |   % ident pattern' 
+                                        |   % ident pattern' 
   
-                          |   ε
+                                        |   ε
 
-  commaThenPattern      ::=   , pattern
+  commaThenPattern                    ::=   , pattern
 
-  or_patterns           ::=   or_pattern commaThenOrPattern*
+  or_patterns                         ::=   or_pattern commaThenOrPattern*
 
-  commaThenOrPattern    ::=   , or_pattern
+  commaThenOrPattern                  ::=   , or_pattern
                        
                        
                        
-  or_pattern            ::=   pattern |ThenPattern*
+  or_pattern                          ::=   pattern |ThenPattern*
 
-  |ThenPattern          ::=   | pattern
+  |ThenPattern                        ::=   | pattern
   
 `;
 
