@@ -2,11 +2,21 @@
 
 var grammar = `
 
+    theorem                         ::=   theoremDeclaration premise(s)? conclusion proof
+    
+    theoremDeclaration              ::=   Theorem parenthesisedLabel? <END_OF_LINE>
+    
+    
+    
+    lemma                           ::=   lemmaDeclaration premise(s)? conclusion proof
+    
+    lemmaDeclaration                ::=   Lemma parenthesisedLabel? <END_OF_LINE>
+    
+    
+    
     rule                            ::=   ruleDeclaration premise(s) conclusion proof?
     
-    ruleDeclaration                 ::=   Rule parenthesisedLabel <END_OF_LINE>
-    
-    parenthesisedLabel              ::=   /\\([^)]+\\)/
+    ruleDeclaration                 ::=   Rule parenthesisedLabel? <END_OF_LINE>
     
     
     
@@ -28,7 +38,7 @@ var grammar = `
     
     
 
-    proof                           ::=   proofDeclaration subLemmaOr(labelled)statement* statement
+    proof                           ::=   proofDeclaration subLemmaOr(labelled)statement* hence
     
     proofDeclaration                ::=   Proof <END_OF_LINE>
     
@@ -60,6 +70,7 @@ var grammar = `
     
     label                           ::=   /[^)]+/
     
+    parenthesisedLabel              ::=   /\\([^)]+\\)/
     
 `;
 
