@@ -4,15 +4,17 @@ var grammar = `
 
     rule                            ::=   ruleDeclaration premise(s) conclusion proof?
     
-    ruleDeclaration                 ::=   Rule /\\([^)]+\\)/ <END_OF_LINE>
+    ruleDeclaration                 ::=   Rule parenthesisedLabel <END_OF_LINE>
+    
+    parenthesisedLabel              ::=   /\\([^)]+\\)/
     
     
     
     premise(s)                      ::=   premise | premises
     
-    premise                         ::=   premiseDeclaration (qualified)statement
+    premise                         ::=   premiseDeclaration (labelled)statement
     
-    premises                        ::=   premisesDeclaration (qualified)statement+
+    premises                        ::=   premisesDeclaration (labelled)statement+
     
     premiseDeclaration              ::=   Premise <END_OF_LINE>
     
@@ -26,13 +28,13 @@ var grammar = `
     
     
 
-    proof                           ::=   proofDeclaration subLemmaOr(qualified)statement* statement
+    proof                           ::=   proofDeclaration subLemmaOr(labelled)statement* statement
     
     proofDeclaration                ::=   Proof <END_OF_LINE>
     
     
 
-    subLemmaOr(qualified)statement  ::=   subLemma | (qualifed)statement
+    subLemmaOr(labelled)statement   ::=   subLemma | (labelled)statement
 
     subLemma                        ::=   suppose then? hence
     
@@ -40,7 +42,7 @@ var grammar = `
     
     supposeDeclaration              ::=   Suppose <END_OF_LINE>
     
-    then                            ::=   thenDeclaration (qualified)statement+
+    then                            ::=   thenDeclaration (labelled)statement+
     
     thenDeclaration                 ::=   Then <END_OF_LINE>
     
@@ -50,17 +52,15 @@ var grammar = `
     
     
 
-    (qualified)statement            ::=   qualifiedStatement | statement
+    (labelled)statement             ::=   labelledStatement | statement
     
-    qualifiedStatement              ::=   statement by label
+    labelledStatement               ::=   undefined+ by label <END_OF_LINE>
     
     statement                       ::=   undefined+ <END_OF_LINE>
     
+    label                           ::=   /[^)]+/
     
     
 `;
 
 module.exports = grammar;
-
-
-
