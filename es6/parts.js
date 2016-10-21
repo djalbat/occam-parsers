@@ -1,6 +1,7 @@
 'use strict';
 
 var EpsilonPart = require('./part/epsilon'),
+    EndOfLinePart = require('./part/endOfLine'),
     OptionalPartPart = require('./part/optionalPart'),
     TerminalSymbolPart = require('./part/terminalSymbol'),
     OneOrMorePartsPart = require('./part/oneOrMoreParts'),
@@ -11,6 +12,7 @@ var EpsilonPart = require('./part/epsilon'),
 
 var Parts = [
   EpsilonPart,
+  EndOfLinePart,
   RegularExpressionPart,
   SignificantTokenTypePart,
   TerminalSymbolPart,

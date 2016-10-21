@@ -4,7 +4,7 @@ var grammar = `
 
     rule                            ::=   ruleDeclaration premise(s) conclusion proof?
     
-    ruleDeclaration                 ::=   Rule /\\(/<NO_WHITESPACE>label<NO_WHITESPACE>/\\) <END_OF_LINE>
+    ruleDeclaration                 ::=   Rule /\\([^)]+\\)/ <END_OF_LINE>
     
     
     
@@ -54,7 +54,7 @@ var grammar = `
     
     qualifiedStatement              ::=   statement by label
     
-    statement                       ::=   /\\w+/ <END_OF_LINE>
+    statement                       ::=   undefined+ <END_OF_LINE>
     
     
     

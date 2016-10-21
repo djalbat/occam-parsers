@@ -47,8 +47,8 @@ class RegularExpressionPart {
 
     if (matches !== null) {
       var secondMatch = second(matches),
-          pattern = secondMatch,  ///
-          regExp = new RegExp(pattern);
+          regExpPattern = secondMatch,  ///
+          regExp = new RegExp(`^${regExpPattern}$`); ///
 
       regularExpressionPart = new RegularExpressionPart(regExp, noWhitespace);
     }
