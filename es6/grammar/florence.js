@@ -2,21 +2,26 @@
 
 var grammar = `
 
+    
+    assertion                       ::=   rule | theorem | lemma
+    
+    
+    
     theorem                         ::=   theoremDeclaration premise(s)? conclusion proof
     
-    theoremDeclaration              ::=   Theorem parenthesisedLabel? <END_OF_LINE>
+    theoremDeclaration              ::=   Theorem parenthesisedLabel? <END_OF_LINE>+
     
     
     
     lemma                           ::=   lemmaDeclaration premise(s)? conclusion proof
     
-    lemmaDeclaration                ::=   Lemma parenthesisedLabel? <END_OF_LINE>
+    lemmaDeclaration                ::=   Lemma parenthesisedLabel? <END_OF_LINE>+
     
     
     
     rule                            ::=   ruleDeclaration premise(s) conclusion proof?
     
-    ruleDeclaration                 ::=   Rule parenthesisedLabel? <END_OF_LINE>
+    ruleDeclaration                 ::=   Rule parenthesisedLabel? <END_OF_LINE>+
     
     
     
@@ -24,23 +29,23 @@ var grammar = `
     
     premise                         ::=   premiseDeclaration (labelled)statement
     
-    premises                        ::=   premisesDeclaration (labelled)statement+
+    premises                        ::=   premisesDeclaration (labelled)statement (labelled)statement+
     
-    premiseDeclaration              ::=   Premise <END_OF_LINE>
+    premiseDeclaration              ::=   Premise <END_OF_LINE>+
     
-    premisesDeclaration             ::=   Premises <END_OF_LINE>
+    premisesDeclaration             ::=   Premises <END_OF_LINE>+
     
     
 
     conclusion                      ::=   conclusionDeclaration statement
     
-    conclusionDeclaration           ::=   Conclusion <END_OF_LINE>
+    conclusionDeclaration           ::=   Conclusion <END_OF_LINE>+
     
     
 
     proof                           ::=   proofDeclaration subLemmaOr(labelled)statement* hence
     
-    proofDeclaration                ::=   Proof <END_OF_LINE>
+    proofDeclaration                ::=   Proof <END_OF_LINE>+
     
     
 
@@ -50,27 +55,27 @@ var grammar = `
     
     suppose                         ::=   supposeDeclaration statement
     
-    supposeDeclaration              ::=   Suppose <END_OF_LINE>
+    supposeDeclaration              ::=   Suppose <END_OF_LINE>+
     
     then                            ::=   thenDeclaration (labelled)statement+
     
-    thenDeclaration                 ::=   Then <END_OF_LINE>
+    thenDeclaration                 ::=   Then <END_OF_LINE>+
     
     hence                           ::=   henceDeclaration statement
     
-    henceDeclaration                ::=   Hence <END_OF_LINE>
+    henceDeclaration                ::=   Hence <END_OF_LINE>+
     
     
+    
+    parenthesisedLabel              ::=   (<NO_WHITESPACE>label<NO_WHITESPACE>)
 
     (labelled)statement             ::=   labelledStatement | statement
     
-    labelledStatement               ::=   undefined+ by label <END_OF_LINE>
+    labelledStatement               ::=   unassigned+ by label <END_OF_LINE>+
     
-    statement                       ::=   undefined+ <END_OF_LINE>
+    statement                       ::=   unassigned+ <END_OF_LINE>+
     
-    label                           ::=   /[^)]+/
-    
-    parenthesisedLabel              ::=   /\\([^)]+\\)/
+    label                           ::=   unassigned
     
 `;
 

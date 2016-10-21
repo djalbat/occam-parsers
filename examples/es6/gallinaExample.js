@@ -1,7 +1,7 @@
 'use strict';
 
 var easyui = require('easyui'),
-    lexers = require('occam-lexers'),
+    lexers = require('../../es6/occam-lexers'),
     Div = easyui.Div,
     BNFLexer = lexers.BNFLexer,
     GallinaLexer = lexers.GallinaLexer;
