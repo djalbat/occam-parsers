@@ -1,19 +1,43 @@
 'use strict';
 
-var lexers = require('occam-lexers'),
+var easyui = require('easyui'),
+    lexers = require('occam-lexers'),
+    Div = easyui.Div,
+    BNFLexer = lexers.BNFLexer,
     FlorenceLexer = lexers.FlorenceLexer;
 
-var Example = require('./example');
+var NonBasicExample = require('./nonBasicExample'),
+    Parser = require ('../../es6/parser'),
+    BNFParser = require ('../../es6/bnfParser'),
+    PreProcessor = require('../../es6/preprocessor'),
+    grammar = require ('../../es6/grammar/florence');
 
-var mappings = {};
+var preprocessor = new PreProcessor(),
+    lexer = undefined,
+    parser = undefined,
+    containerDivSelector = 'div.container',
+    containerDiv = new Div(containerDivSelector);
 
-class FlorenceExample extends Example {
+class FlorenceExample extends NonBasicExample {
   static run() {
-    Example.updateParser(mappings);
+    lexer = FlorenceLexer.fromNothing();
 
-    Example.contentTextArea.onChange(function() {
-      Example.updateParseTree(FlorenceLexer);
+    var grammarTextAreaValue = grammar, ///
+        lines = BNFLexer.linesFromGrammar(grammar),
+        terminalSymbolsRegExpPattern = lexer.terminalSymbolsRegExpPattern(),
+        significantTokenTypes = lexer.significantTokenTypes(),
+        mappings = {},
+        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings);
+
+    parser = new Parser(productions);
+
+    NonBasicExample.grammarTextArea.setValue(grammarTextAreaValue);
+
+    NonBasicExample.contentTextArea.onChange(function() {
+      NonBasicExample.updateParseTree(preprocessor, lexer, parser);
     });
+
+    containerDiv.removeClass('hidden');
   }
 }
 

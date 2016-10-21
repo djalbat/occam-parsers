@@ -18,12 +18,19 @@ var leftColumnSelector = '#leftColumn',
 
 new VerticalSplitter('.left.vertical.splitter', TO_THE_RIGHT_OF, leftColumn);
 
-class Example {
-  static updateParseTree(lexer, parser) {
+class NonBasicExample {
+  static updateParseTree(preprocessor, lexer, parser) {
     var contentTextAreaValue = contentTextArea.getValue(),
         content = contentTextAreaValue,  ///
-        tokens = lexer.tokensFromContent(content),
-        documentNode = parser.parse(tokens),
+        tokens = lexer.tokensFromContent(content);
+
+    if (preprocessor !== undefined) {
+      var preprocessedTokens = preprocessor.parse(tokens);
+
+      tokens = preprocessedTokens;  ///
+    }
+
+    var documentNode = parser.parse(tokens),
         parseTree = documentNode.getParseTree(),
         parseTreeStr = parseTree.toString(),
         parseTreeTextAreaHTML = parseTreeStr;  ///
@@ -38,7 +45,7 @@ class Example {
   }
 }
 
-Example.contentTextArea = contentTextArea;
-Example.grammarTextArea = grammarTextArea;
+NonBasicExample.contentTextArea = contentTextArea;
+NonBasicExample.grammarTextArea = grammarTextArea;
 
-module.exports = Example;
+module.exports = NonBasicExample;

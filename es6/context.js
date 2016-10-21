@@ -25,24 +25,27 @@ class Context {
   }
 
   getNextNonWhitespaceToken(noWhitespace) {
-    var nextNonWhitespaceToken = this.getNextToken();
+    var nextNonWhitespaceToken = null,
+        nextToken = this.getNextToken();
 
-    if (nextNonWhitespaceToken !== null) {
-      var type;
+    if (nextToken !== null) {
+      var nextTokenIsWhitespaceToken;
 
       if (noWhitespace) {
-        type = nextNonWhitespaceToken.getType();
-        
-        if (type === SignificantToken.types.WHITESPACE) {
-          nextNonWhitespaceToken = null;
+        nextTokenIsWhitespaceToken = tokenIsWhitespaceToken(nextToken);
+
+        if (!nextTokenIsWhitespaceToken) {
+          nextNonWhitespaceToken = nextToken;
         }
       } else {
-        while (nextNonWhitespaceToken !== null) {
-          type = nextNonWhitespaceToken.getType();
+        while (nextToken !== null) {
+          nextTokenIsWhitespaceToken = tokenIsWhitespaceToken(nextToken);
 
-          if (type === SignificantToken.types.WHITESPACE) {
-            nextNonWhitespaceToken = this.getNextToken();
+          if (nextTokenIsWhitespaceToken) {
+            nextToken = this.getNextToken();
           } else {
+            nextNonWhitespaceToken = nextToken;
+
             break;
           }
         }
@@ -68,20 +71,9 @@ class Context {
 
 module.exports = Context;
 
-function indexOf(element, array) {
-  var foundIndex = -1;
+function tokenIsWhitespaceToken(token) {
+  var type = token.getType(),
+      whitespaceToken = (type === SignificantToken.types.WHITESPACE);
   
-  array.some(function(arrayElement, index) {
-    if (element === arrayElement) {
-      foundIndex = index;
-      
-      return true;
-    } else {
-      return false;
-    }
-  });
-  
-  var index = foundIndex;
-  
-  return index;
+  return whitespaceToken;
 }

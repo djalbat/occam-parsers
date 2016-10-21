@@ -6,33 +6,34 @@ var easyui = require('easyui'),
     BNFLexer = lexers.BNFLexer,
     GallinaLexer = lexers.GallinaLexer;
 
-var Example = require('./example'),
+var NonBasicExample = require('./nonBasicExample'),
     Parser = require ('../../es6/parser'),
     BNFParser = require ('../../es6/bnfParser'),
     grammar = require ('../../es6/grammar/gallina');
 
-var lexer = undefined,
+var preprocessor = undefined,
+    lexer = undefined,
     parser = undefined,
     containerDivSelector = 'div.container',
     containerDiv = new Div(containerDivSelector);
 
-class GallinaExample extends Example {
+class GallinaExample extends NonBasicExample {
   static run() {
     lexer = GallinaLexer.fromNothing();
 
     var grammarTextAreaValue = grammar, ///
         lines = BNFLexer.linesFromGrammar(grammar),
         terminalSymbolsRegExpPattern = lexer.terminalSymbolsRegExpPattern(),
-        terminalTypes = lexer.terminalTypes(),
+        significantTokenTypes = lexer.significantTokenTypes(),
         mappings = {},
-        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, terminalTypes, mappings);
+        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings);
 
     parser = new Parser(productions);
 
-    Example.grammarTextArea.setValue(grammarTextAreaValue);
+    NonBasicExample.grammarTextArea.setValue(grammarTextAreaValue);
 
-    Example.contentTextArea.onChange(function() {
-      Example.updateParseTree(lexer, parser);
+    NonBasicExample.contentTextArea.onChange(function() {
+      NonBasicExample.updateParseTree(preprocessor, lexer, parser);
     });
 
     containerDiv.removeClass('hidden');

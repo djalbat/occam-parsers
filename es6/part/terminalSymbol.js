@@ -35,7 +35,7 @@ class TerminalSymbolPart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalSymbolPartsRegExp, terminalTypes, noWhitespace) {
+  static fromSymbol(symbol, terminalSymbolPartsRegExp, significantTokenTypes, noWhitespace) {
     var terminalSymbolPart = null,
         matches = symbol.match(terminalSymbolPartsRegExp);
 

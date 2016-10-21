@@ -6,7 +6,7 @@ var easyui = require('easyui'),
     BNFLexer = lexers.BNFLexer,
     BasicLexer = lexers.BasicLexer;
 
-var Example = require('./example'),
+var Example = require('./nonBasicExample'),
     Parser = require ('../../es6/parser'),
     BNFParser = require ('../../es6/bnfParser');
 
@@ -80,9 +80,9 @@ function updateParser() {
       grammar = grammarTextAreaValue, ///
       lines = BNFLexer.linesFromGrammar(grammar),
       terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
-      terminalTypes = [],
+      significantTokenTypes = [],
       mappings = {},
-      productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, terminalTypes, mappings);
+      productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings);
 
   parser = new Parser(productions);
 }

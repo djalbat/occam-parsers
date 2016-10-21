@@ -39,7 +39,7 @@ class ProductionNamePart {
     return production;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace) {
+  static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) {
     var name = symbol,  ///
         productionNamePart = new ProductionNamePart(name, noWhitespace);
 

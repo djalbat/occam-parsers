@@ -70,7 +70,7 @@ var grammar = `
                             
   assertion                           ::=   assertion_keyword ident binders? : term .
 
-  ssertion_keyword                    ::=   Theorem | Lemma
+  assertion_keyword                   ::=   Theorem | Lemma
   
                                         |   Remark | Fact
                           

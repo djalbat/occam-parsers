@@ -11,9 +11,9 @@ var EpsilonPart = require('./part/epsilon'),
 
 var Parts = [
   EpsilonPart,
-  TerminalSymbolPart,
   RegularExpressionPart,
   SignificantTokenTypePart,
+  TerminalSymbolPart,
   OptionalPartPart,
   OneOrMorePartsPart,
   ZeroOrMorePartsPart,

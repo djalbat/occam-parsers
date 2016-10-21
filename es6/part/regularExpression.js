@@ -40,7 +40,7 @@ class RegularExpressionPart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace) {
+  static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) {
     var regularExpressionPart = null,
         regularExpressionPartRegExp = /\/([^/]+)\//,
         matches = symbol.match(regularExpressionPartRegExp);

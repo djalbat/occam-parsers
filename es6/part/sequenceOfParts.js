@@ -1,8 +1,8 @@
 'use strict';
 
-var TerminalTypePart = require('./significantTokenType'),
+var ProductionNamePart = require('./productionName'),
     TerminalSymbolPart = require('./terminalSymbol'),
-    ProductionNamePart = require('./productionName');
+    SignificantTokenTypePart = require('./significantTokenType');
 
 class SequenceOfPartsPart {
   constructor(terminalPart, productionName, noWhitespace) {
@@ -23,7 +23,7 @@ class SequenceOfPartsPart {
     return terminalPartOrProduction;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace, regExp, Class) {
+  static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace, regExp, Class) {
     var part = null,
         matches = symbol.match(regExp);
 
@@ -32,8 +32,8 @@ class SequenceOfPartsPart {
 
       symbol = secondMatch; ///
 
-      var terminalPart = TerminalTypePart.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace) ||
-                          TerminalSymbolPart.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace),
+      var terminalPart = SignificantTokenTypePart.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) ||
+                          TerminalSymbolPart.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace),
           productionName = symbol;
 
       part = new Class(terminalPart, productionName, noWhitespace);

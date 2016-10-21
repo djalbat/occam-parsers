@@ -36,13 +36,13 @@ class Rule {
     return nodes;
   }
 
-  static fromSymbolSequence(symbolSequence, terminalSymbolsRegExp, terminalTypes) {
+  static fromSymbolSequence(symbolSequence, terminalSymbolsRegExp, significantTokenTypes) {
     var noWhitespace = false,
         parts = symbolSequence.reduceSymbols(function(parts, symbol) {
           if (symbol === specialSymbols.NO_WHITESPACE) {
             noWhitespace = true;
           } else {
-            var part = partFromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace);
+            var part = partFromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace);
 
             parts.push(part);
 
@@ -59,11 +59,11 @@ class Rule {
 
 module.exports = Rule;
 
-function partFromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace) {
+function partFromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) {
   var part = undefined; ///
 
   Parts.some(function(Part) {
-    part = Part.fromSymbol(symbol, terminalSymbolsRegExp, terminalTypes, noWhitespace);
+    part = Part.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace);
 
     var parsed = (part !== null);
 
