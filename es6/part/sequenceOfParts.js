@@ -1,6 +1,7 @@
 'use strict';
 
-var ProductionNamePart = require('./productionName'),
+var EndOfLinePart = require('./endOfLine'),
+    ProductionNamePart = require('./productionName'),
     TerminalSymbolPart = require('./terminalSymbol'),
     SignificantTokenTypePart = require('./significantTokenType');
 
@@ -33,7 +34,8 @@ class SequenceOfPartsPart {
       symbol = secondMatch; ///
 
       var terminalPart = SignificantTokenTypePart.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) ||
-                          TerminalSymbolPart.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace),
+                           TerminalSymbolPart.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) ||
+                             EndOfLinePart.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace),
           productionName = symbol;
 
       part = new Class(terminalPart, productionName, noWhitespace);

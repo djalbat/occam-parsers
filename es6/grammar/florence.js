@@ -19,7 +19,7 @@ var grammar = `
     
     
     
-    rule                            ::=   ruleDeclaration premise(s) conclusion proof?
+    rule                            ::=   ruleDeclaration premise(s)? conclusion proof?
     
     ruleDeclaration                 ::=   Rule parenthesisedLabel? <END_OF_LINE>+
     
