@@ -2,7 +2,6 @@
 
 var grammar = `
 
-    
     assertion                       ::=   rule | theorem | lemma
     
     
@@ -67,15 +66,27 @@ var grammar = `
     
     
     
-    parenthesisedLabel              ::=   (<NO_WHITESPACE>label<NO_WHITESPACE>)
-
     (labelled)statement             ::=   labelledStatement | statement
     
-    labelledStatement               ::=   unassigned+ by label <END_OF_LINE>+
+    labelledStatement               ::=   symbol+ by label <END_OF_LINE>+
     
-    statement                       ::=   unassigned+ <END_OF_LINE>+
+    statement                       ::=   symbol+ <END_OF_LINE>+
     
-    label                           ::=   unassigned
+    symbol                          ::=   unassigned 
+    
+                                      |   ( 
+                                      
+                                      |   )
+    
+    
+    
+    parenthesisedLabel              ::=   (<NO_WHITESPACE>label<NO_WHITESPACE>)
+
+    label                           ::=   unassignedOrKeyword<NO_WHITESPACE>unassignedOrKeyword+
+    
+                                      |   unassigned
+                                      
+    unassignedOrKeyword             ::=   unassigned | keyword                                      
     
 `;
 
