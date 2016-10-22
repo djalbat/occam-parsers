@@ -42,9 +42,15 @@ var grammar = `
     
     
 
-    proof                           ::=   proofDeclaration subLemmaOr(labelled)statement* hence
+    proof                           ::=   proofDeclaration subLemmaOr(labelled)statement* therefore
     
     proofDeclaration                ::=   Proof <END_OF_LINE>+
+    
+    
+
+    therefore                       ::=   thereforeDeclaration (labelled)statement
+    
+    thereforeDeclaration            ::=   Therefore <END_OF_LINE>+
     
     
 
@@ -52,15 +58,19 @@ var grammar = `
 
     subLemma                        ::=   suppose then? hence
     
-    suppose                         ::=   supposeDeclaration statement
+    
+
+    suppose                         ::=   supposeDeclaration supposition+
     
     supposeDeclaration              ::=   Suppose <END_OF_LINE>+
     
-    then                            ::=   thenDeclaration (labelled)statement+
+    supposition                     ::=   statement
+    
+    then                            ::=   thenDeclaration subLemmaOr(labelled)statement+
     
     thenDeclaration                 ::=   Then <END_OF_LINE>+
     
-    hence                           ::=   henceDeclaration statement
+    hence                           ::=   henceDeclaration (labelled)statement
     
     henceDeclaration                ::=   Hence <END_OF_LINE>+
     
