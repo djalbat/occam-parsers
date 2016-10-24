@@ -191,6 +191,8 @@ var grammar = `
                           
                           
                           
+  access_ident                        ::=   .<NO_WHITESPACE>ident                                    
+                          
   qualid                              ::=   ident<NO_WHITESPACE>access_ident*
                           
                           

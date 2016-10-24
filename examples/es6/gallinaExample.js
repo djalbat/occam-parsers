@@ -1,42 +1,27 @@
 'use strict';
 
-var easyui = require('easyui'),
-    lexers = require('../../es6/occam-lexers'),
-    Div = easyui.Div,
-    BNFLexer = lexers.BNFLexer,
+var lexers = require('../../es6/occam-lexers'),
     GallinaLexer = lexers.GallinaLexer;
 
-var NonBasicExample = require('./nonBasicExample'),
-    Parser = require ('../../es6/parser'),
-    BNFParser = require ('../../es6/bnfParser'),
-    grammar = require ('../../es6/grammar/gallina');
+var Example = require('./example');
 
-var preprocessor = undefined,
-    lexer = undefined,
-    parser = undefined,
-    containerDivSelector = 'div.container',
-    containerDiv = new Div(containerDivSelector);
+var grammar = require ('../../es6/grammar/gallina');
 
-class GallinaExample extends NonBasicExample {
-  static run() {
-    lexer = GallinaLexer.fromNothing();
+var terminalSymbolsRegExpPattern = GallinaLexer.terminalSymbolsRegExpPattern();
 
-    var grammarTextAreaValue = grammar, ///
-        lines = BNFLexer.linesFromGrammar(grammar),
-        terminalSymbolsRegExpPattern = lexer.terminalSymbolsRegExpPattern(),
-        significantTokenTypes = lexer.significantTokenTypes(),
-        mappings = {},
-        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings);
+class GallinaExample extends Example {
+  constructor() {
+    var preprocessor = null;
 
-    parser = new Parser(productions);
+    super(GallinaLexer, preprocessor);
+  }
 
-    NonBasicExample.grammarTextArea.setValue(grammarTextAreaValue);
+  run() {
+    super.setGrammar(grammar);
 
-    NonBasicExample.contentTextArea.onChange(function() {
-      NonBasicExample.updateParseTree(preprocessor, lexer, parser);
-    });
+    super.setTerminalSymbolsRegExpPattern(terminalSymbolsRegExpPattern);
 
-    containerDiv.removeClass('hidden');
+    super.run();
   }
 }
 

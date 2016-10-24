@@ -82,7 +82,15 @@ var grammar = `
     
     statement                       ::=   symbol+ <END_OF_LINE>+
     
-    symbol                          ::=   unassigned 
+    symbol                          ::=   unassigned
+                                      
+                                      |   { 
+                                      
+                                      |   } 
+                                      
+                                      |   = 
+                                      
+                                      |   : 
     
                                       |   ( 
                                       
@@ -92,9 +100,7 @@ var grammar = `
     
     parenthesisedLabel              ::=   (<NO_WHITESPACE>label<NO_WHITESPACE>)
 
-    label                           ::=   unassignedOrKeyword<NO_WHITESPACE>unassignedOrKeyword+
-    
-                                      |   unassigned
+    label                           ::=   unassigned
                                       
     unassignedOrKeyword             ::=   unassigned | keyword                                      
     

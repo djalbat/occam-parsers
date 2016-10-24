@@ -1,52 +1,39 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Basic example</title>
-        <link href="../examples.css" rel="stylesheet" type="text/css" media="all">
-    </head>
-    <body>
-        <h1>Basic example</h1>
-        <div class="columns">
-          <div id="leftColumn">
-            <h2>Grammar</h2>
-            <textarea id="grammar" spellcheck="false">
-expr                       ::= term operatorThenTerm*
+  <head>
+    <meta charset="UTF-8">
+    <title>Basic example</title>
+    <link href="../examples.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+  <body>
+  <h1>Basic example</h1>
+  <div class="columns">
+    <div id="leftColumn">
+      <h2>Grammar</h2>
+      <textarea id="grammar" spellcheck="false"> </textarea>
+      <h2>Terminal symbols regular expression pattern</h2>
+      <textarea id="terminalSymbolsRegExpPattern" spellcheck="false"> </textarea>
+      <h2>Content</h2>
+      <textarea id="content" spellcheck="false"></textarea>
+    </div>
+    <div class="left vertical splitter"></div>
+    <div class="column">
+      <h2>Parse tree</h2>
+      <textarea id="parseTree" readonly></textarea>
+    </div>
+  </div>
+  <p>
+    <a href="../examples.html">...back</a>
+  </p>
 
-operatorThenTerm           ::= operator term
+  <script src="../examples.js"> </script>
+  <script>
 
-operator                   ::= + | - | * | /
+    var BasicExample = examples.BasicExample,
+        basicExample = new BasicExample();
 
-term                       ::= naturalNumber
+    basicExample.run();
 
-                             | parenthesizedExpr
-
-naturalNumber              ::= /\d+/
-
-parenthesizedExpr          ::= ( expr )
-            </textarea>
-            <h2>Terminal symbols regular expression pattern</h2>
-            <input type="text" id="terminalSymbolsRegExpPattern" value="\+|\-|\*|\/|\(|\)|\d+" />
-            <h2>Content</h2>
-            <textarea id="content" spellcheck="false"></textarea>
-          </div>
-          <div class="left vertical splitter"></div>
-          <div class="column">
-            <h2>Parse tree</h2>
-            <textarea id="parseTree" readonly></textarea>
-          </div>
-        </div>
-        <p>
-          <a href="../examples.html">...back</a>
-        </p>
-
-        <script src="../examples.js"> </script>
-        <script>
-
-            var BasicExample = examples.BasicExample;
-
-            BasicExample.run();
-
-        </script>
-    </body>
+  </script>
+  </body>
 </html>

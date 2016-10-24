@@ -83,3 +83,7 @@ textarea#parseTree {
   overflow-wrap: normal;
 }
 
+textarea#terminalSymbolsRegExpPattern {
+  height: 3rem;
+}
+

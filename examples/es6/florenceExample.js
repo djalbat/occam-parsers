@@ -1,43 +1,29 @@
 'use strict';
 
-var easyui = require('easyui'),
-    lexers = require('../../es6/occam-lexers'),
-    Div = easyui.Div,
-    BNFLexer = lexers.BNFLexer,
+var lexers = require('../../es6/occam-lexers'),
     FlorenceLexer = lexers.FlorenceLexer;
 
-var NonBasicExample = require('./nonBasicExample'),
-    Parser = require ('../../es6/parser'),
-    BNFParser = require ('../../es6/bnfParser'),
-    PreProcessor = require('../../es6/preprocessor'),
-    grammar = require ('../../es6/grammar/florence');
+var Preprocessor = require ('../../es6/preprocessor');
 
-var preprocessor = new PreProcessor(),
-    lexer = undefined,
-    parser = undefined,
-    containerDivSelector = 'div.container',
-    containerDiv = new Div(containerDivSelector);
+var Example = require('./example');
 
-class FlorenceExample extends NonBasicExample {
-  static run() {
-    lexer = FlorenceLexer.fromNothing();
+var grammar = require ('../../es6/grammar/gallina');
 
-    var grammarTextAreaValue = grammar, ///
-        lines = BNFLexer.linesFromGrammar(grammar),
-        terminalSymbolsRegExpPattern = lexer.terminalSymbolsRegExpPattern(),
-        significantTokenTypes = lexer.significantTokenTypes(),
-        mappings = {},
-        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings);
+var terminalSymbolsRegExpPattern = FlorenceLexer.terminalSymbolsRegExpPattern();
 
-    parser = new Parser(productions);
+class FlorenceExample extends Example {
+  constructor() {
+    var preprocessor = new Preprocessor();
 
-    NonBasicExample.grammarTextArea.setValue(grammarTextAreaValue);
+    super(FlorenceLexer, preprocessor);
+  }
 
-    NonBasicExample.contentTextArea.onChange(function() {
-      NonBasicExample.updateParseTree(preprocessor, lexer, parser);
-    });
+  run() {
+    super.setGrammar(grammar);
 
-    containerDiv.removeClass('hidden');
+    super.setTerminalSymbolsRegExpPattern(terminalSymbolsRegExpPattern);
+
+    super.run();
   }
 }
 

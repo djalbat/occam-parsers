@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <meta charset="UTF-8">
-      <title>Florence example</title>
-      <link href="../examples.css" rel="stylesheet" type="text/css" media="all">
-    </head>
-    <body>
-        <h1>Florence example</h1>
-        <div class="container">
-          <div class="columns">
-            <div id="leftColumn">
-              <h2>Grammar</h2>
-              <textarea id="grammar" spellcheck="false" readonly> </textarea>
-              <h2>Content</h2>
-              <textarea id="content" spellcheck="false"></textarea>
-            </div>
-            <div class="left vertical splitter"></div>
-            <div class="column">
-              <h2>Parse tree</h2>
-              <textarea id="parseTree" readonly></textarea>
-            </div>
-          </div>
-          <p>
-            <a href="../examples.html">...back</a>
-          </p>
-        </div>
+  <head>
+    <meta charset="UTF-8">
+    <title>Florence example</title>
+    <link href="../examples.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+  <body>
+  <h1>Florence example</h1>
+  <div class="columns">
+    <div id="leftColumn">
+      <h2>Grammar</h2>
+      <textarea id="grammar" spellcheck="false"> </textarea>
+      <h2>Terminal symbols regular expression pattern</h2>
+      <textarea id="terminalSymbolsRegExpPattern" spellcheck="false"> </textarea>
+      <h2>Content</h2>
+      <textarea id="content" spellcheck="false"></textarea>
+    </div>
+    <div class="left vertical splitter"></div>
+    <div class="column">
+      <h2>Parse tree</h2>
+      <textarea id="parseTree" readonly></textarea>
+    </div>
+  </div>
+  <p>
+    <a href="../examples.html">...back</a>
+  </p>
 
-        <script src="../examples.js"> </script>
-        <script>
+  <script src="../examples.js"> </script>
+  <script>
 
-            var FlorenceExample = examples.FlorenceExample;
+    var FlorenceExample = examples.FlorenceExample,
+        florenceExample = new FlorenceExample();
 
-            FlorenceExample.run();
+    florenceExample.run();
 
-        </script>
-    </body>
+  </script>
+  </body>
 </html>
