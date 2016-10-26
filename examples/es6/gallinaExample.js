@@ -3,24 +3,41 @@
 var lexers = require('../../es6/occam-lexers'),
     GallinaLexer = lexers.GallinaLexer;
 
-var grammar = require ('../../es6/grammar/gallina');
+var Example = require('./example');
 
-var terminalSymbolsRegExpPattern = GallinaLexer.terminalSymbolsRegExpPattern();
+var grammar = require('../../es6/grammar/gallina');
+
+var lexer = GallinaLexer.fromNothing();
 
 class GallinaExample {
-  // constructor() {
-  //   var preprocessor = null;
-  //
-  //   super(GallinaLexer, preprocessor);
-  // }
-  //
-  // run() {
-  //   super.setGrammar(grammar);
-  //
-  //   super.setTerminalSymbolsRegExpPattern(terminalSymbolsRegExpPattern);
-  //
-  //   super.run();
-  // }
+  static run() {
+    var grammarTextAreaValue = grammar; ///
+
+    Example.setGrammarTextAreaValue(grammarTextAreaValue);
+
+    update();
+
+    Example.onGrammarTextAreaChange(function() {
+      update();
+    });
+
+    Example.onContentTextAreaChange(function() {
+      update();
+    });
+  }
+}
+
+function update() {
+  updateParser();
+
+  Example.updateParseTree(lexer);
 }
 
 module.exports = GallinaExample;
+
+function updateParser() {
+  var terminalSymbolsRegExpPattern = GallinaLexer.terminalSymbolsRegExpPattern(),
+      significantTokenTypes = GallinaLexer.significantTokenTypes();
+
+  Example.updateParser(grammar, terminalSymbolsRegExpPattern, significantTokenTypes);
+}

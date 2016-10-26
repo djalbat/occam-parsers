@@ -3,26 +3,41 @@
 var lexers = require('../../es6/occam-lexers'),
     FlorenceLexer = lexers.FlorenceLexer;
 
-var Preprocessor = require ('../../es6/preprocessor');
+var Example = require('./example');
 
-var grammar = require ('../../es6/grammar/gallina');
+var grammar = require('../../es6/grammar/florence');
 
-var terminalSymbolsRegExpPattern = FlorenceLexer.terminalSymbolsRegExpPattern();
+var lexer = FlorenceLexer.fromNothing();
 
 class FlorenceExample {
-  // constructor() {
-  //   var preprocessor = new Preprocessor();
-  //
-  //   super(FlorenceLexer, preprocessor);
-  // }
-  //
-  // run() {
-  //   super.setGrammar(grammar);
-  //
-  //   super.setTerminalSymbolsRegExpPattern(terminalSymbolsRegExpPattern);
-  //
-  //   super.run();
-  // }
+  static run() {
+    var grammarTextAreaValue = grammar; ///
+
+    Example.setGrammarTextAreaValue(grammarTextAreaValue);
+
+    update();
+
+    Example.onGrammarTextAreaChange(function() {
+      update();
+    });
+
+    Example.onContentTextAreaChange(function() {
+      update();
+    });
+  }
+}
+
+function update() {
+  updateParser();
+
+  Example.updateParseTree(lexer);
 }
 
 module.exports = FlorenceExample;
+
+function updateParser() {
+  var terminalSymbolsRegExpPattern = FlorenceLexer.terminalSymbolsRegExpPattern(),
+      significantTokenTypes = FlorenceLexer.significantTokenTypes();
+
+  Example.updateParser(grammar, terminalSymbolsRegExpPattern, significantTokenTypes);
+}
