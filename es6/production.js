@@ -1,6 +1,7 @@
 'use strict';
 
 var Rule = require('./rule'),
+    ErrorNode = require('./node/terminal/error'),
     NonTerminalNode = require('./node/nonTerminal');
 
 class Production {
@@ -15,20 +16,30 @@ class Production {
   }
   
   parse(context, productions, noWhitespace) {
-    var ruleNodes = undefined,
-        parsed = this.rules.some(function(rule) {
-          ruleNodes = rule.parse(context, productions, noWhitespace);
-          
-          var parsed = (ruleNodes !== null);
-    
-          return parsed;
-        });
-    
-    var productionName = this.name, ///
-        nodes = parsed ?
-                  this.Node.fromNodes(ruleNodes, productionName) :  ///
-                    null;
-    
+    var nodes = null;
+
+    this.rules.some(function(rule) {
+      nodes = rule.parse(context, productions, noWhitespace);
+
+      var parsed = (nodes !== null);
+
+      return parsed;
+    });
+
+    var parsed = (nodes !== null);
+
+    if (parsed) {
+      var firstNode = first(nodes);
+
+      if (firstNode instanceof ErrorNode) {
+
+      } else {
+        var productionName = this.name; ///
+
+        nodes = this.Node.fromNodes(nodes, productionName);
+      }
+    }
+
     return nodes;
   }
 
@@ -47,3 +58,5 @@ class Production {
 }
 
 module.exports = Production;
+
+function first(array) { return array[0]; }

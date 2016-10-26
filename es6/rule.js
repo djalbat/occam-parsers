@@ -3,7 +3,8 @@
 var lexers = require('./occam-lexers'),
     specialSymbols = lexers.specialSymbols;
 
-var Parts = require('./parts');
+var Parts = require('./parts'),
+    ErrorNode = require('./node/terminal/error');
 
 class Rule {
   constructor(parts) {
@@ -11,27 +12,39 @@ class Rule {
   }
   
   parse(context, productions, noWhitespace) {
+    context.increaseDepth();
+
     var nodes = [],
-        savedIndex = context.savedIndex();
-    
-    var parsed = this.parts.every(function(part) {
-      var partNodes = part.parse(context, productions, noWhitespace),
-          parsed = (partNodes !== null);
-      
-      if (parsed) {
-        nodes = nodes.concat(partNodes);
+        tooDeep = context.isTooDeep();
 
-        noWhitespace = false;
+    if (tooDeep) {
+      var errorNode = new ErrorNode();
+
+      nodes = [errorNode];
+    } else {
+      var savedIndex = context.savedIndex();
+
+      var parsed = this.parts.every(function(part) {
+        var partNodes = part.parse(context, productions, noWhitespace),
+            parsed = (partNodes !== null);
+
+        if (parsed) {
+          nodes = nodes.concat(partNodes);
+
+          noWhitespace = false;
+        }
+
+        return parsed;
+      });
+
+      if (!parsed) {
+        nodes = null;
+
+        context.backtrack(savedIndex);
       }
-
-      return parsed;
-    });
-    
-    if (!parsed) {
-      nodes = null;
-      
-      context.backtrack(savedIndex);
     }
+
+    context.decreaseDepth();
 
     return nodes;
   }
