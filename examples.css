@@ -58,20 +58,16 @@ ul {
   text-align: center;
 }
 
-input.error {
+textarea.error {
   border-color: red;
 }
 
-input,
 textarea {
   width: 100%;
   font-size: 1rem;
   padding: 0.25rem;
   font-family: monospace;
   border: 1px solid darkgray;
-}
-
-textarea {
   height: 16rem;
   resize: vertical;
 }
