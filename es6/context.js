@@ -3,7 +3,7 @@
 var lexers = require('./occam-lexers'),
     SignificantToken = lexers.SignificantToken;
 
-const MAXIMUM_DEPTH = 500;
+const MAXIMUM_DEPTH = 100;
 
 class Context {
   constructor(tokens) {
