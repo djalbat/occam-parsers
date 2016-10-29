@@ -1,6 +1,5 @@
 'use strict';
 
-var Parser = require('./lib/parser'),
-    PreProcessor = require('./lib/preProcessor');
+var Parser = require('./lib/parser');
 
 module.exports = Parser;
