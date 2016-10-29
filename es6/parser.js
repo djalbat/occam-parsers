@@ -1,7 +1,6 @@
 'use strict';
 
-var Context = require('./context'),
-    DocumentNode = require('./node/document');
+var Context = require('./context');
 
 class Parser {
   constructor(productions) {
@@ -9,7 +8,7 @@ class Parser {
   }
   
   parse(tokens) {
-    var documentNode = new DocumentNode(),
+    var documentNode = null,
         context = new Context(tokens),
         productionsLength = this.productions.length;
 
@@ -19,9 +18,9 @@ class Parser {
           nodes = firstProduction.parse(context, this.productions, noWhitespace);
 
       if (nodes !== null) {
-        var childNodes = nodes; ///
+        var firstNode = first(nodes);
 
-        documentNode.addChildNodes(childNodes);
+        documentNode = firstNode; ///
       }
     }
 

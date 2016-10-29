@@ -47,12 +47,20 @@ class Example {
     var contentTextAreaValue = contentTextArea.getValue(),
         content = contentTextAreaValue,  ///
         tokens = lexer.tokensFromContent(content),
-        documentNode = parser.parse(tokens),
-        parseTree = documentNode.getParseTree(),
-        parseTreeStr = parseTree.toString(),
-        parseTreeTextAreaHTML = parseTreeStr;  ///
+        documentNode = parser.parse(tokens);
 
-    parseTreeTextArea.html(parseTreeTextAreaHTML);
+    if (documentNode !== null) {
+      var parseTree = documentNode.getParseTree();
+
+      parseTree.shiftLine();  //
+
+      var parseTreeString = parseTree.toString(),
+          parseTreeTextAreaHTML = parseTreeString;  ///
+
+      parseTreeTextArea.html(parseTreeTextAreaHTML);
+    } else {
+      Example.clearParseTree();
+    }
   }
 
   static clearParseTree() {

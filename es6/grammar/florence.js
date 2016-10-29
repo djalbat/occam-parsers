@@ -2,6 +2,8 @@
 
 var grammar = `
 
+    document                        ::=   assertion*
+
     assertion                       ::=   rule | theorem | lemma
     
     
