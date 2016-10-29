@@ -13,15 +13,15 @@ class TerminalSymbolPart {
 
     var nodes = null,
         savedIndex = context.savedIndex(),
-        nextNonWhitespaceToken = context.getNextNonWhitespaceToken(noWhitespace),
-        token = nextNonWhitespaceToken; ///
+        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+        significantToken = nextNonWhitespaceSignificantToken; ///
 
-    if (token !== null) {
-      var str = token.getString(),
+    if (significantToken !== null) {
+      var str = significantToken.getString(),
           parsed = (str === this.symbol);  ///
 
       if (parsed) {
-        var type = token.getType(),
+        var type = significantToken.getType(),
             terminalNode = new TerminalNode(str, type);
 
         nodes = [terminalNode];

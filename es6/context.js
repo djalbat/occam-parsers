@@ -36,33 +36,57 @@ class Context {
     this.index = index;
   }
 
-  getNextToken() {
-    var nextToken = this.tokens[this.index++] || null;
+  getNextSignificantToken() {
+    var nextSignificantToken;
 
-    return nextToken;
+    for (;;) {
+      var nextToken = this.tokens[this.index++];
+
+      if (nextToken === undefined) {
+        nextSignificantToken = null;
+
+        break;
+      }
+
+      if (nextToken instanceof SignificantToken) {
+        nextSignificantToken = nextToken;
+
+        break;
+      }
+    }
+
+    return nextSignificantToken;
   }
 
-  getNextNonWhitespaceToken(noWhitespace) {
-    var nextNonWhitespaceToken = null,
-        nextToken = this.getNextToken();
+  getNextNonWhitespaceSignificantToken(noWhitespace) {
+    var nextNonWhitespaceSignificantToken = null,
+        nextSignificantToken = this.getNextSignificantToken();
 
-    if (nextToken !== null) {
-      var nextTokenIsWhitespaceToken;
+    if (nextSignificantToken !== null) {
+      var nextSignificantTokenIsWhitespaceToken;
 
       if (noWhitespace) {
-        nextTokenIsWhitespaceToken = tokenIsWhitespaceToken(nextToken);
+        nextSignificantTokenIsWhitespaceToken = significantTokenIsWhitespaceToken(nextSignificantToken);
 
-        if (!nextTokenIsWhitespaceToken) {
-          nextNonWhitespaceToken = nextToken;
+        if (nextSignificantTokenIsWhitespaceToken) {
+          nextNonWhitespaceSignificantToken = null
+        } else {
+          nextNonWhitespaceSignificantToken = nextSignificantToken;
         }
       } else {
-        while (nextToken !== null) {
-          nextTokenIsWhitespaceToken = tokenIsWhitespaceToken(nextToken);
+        for (;;) {
+          nextSignificantTokenIsWhitespaceToken = significantTokenIsWhitespaceToken(nextSignificantToken);
 
-          if (nextTokenIsWhitespaceToken) {
-            nextToken = this.getNextToken();
+          if (nextSignificantTokenIsWhitespaceToken) {
+            nextSignificantToken = this.getNextSignificantToken();
           } else {
-            nextNonWhitespaceToken = nextToken;
+            nextNonWhitespaceSignificantToken = nextSignificantToken;
+
+            break;
+          }
+
+          if (nextSignificantToken === null) {
+            nextNonWhitespaceSignificantToken = null;
 
             break;
           }
@@ -70,7 +94,7 @@ class Context {
       }
     }
 
-    return nextNonWhitespaceToken;
+    return nextNonWhitespaceSignificantToken;
   }
 
   savedIndex() {
@@ -89,8 +113,8 @@ class Context {
 
 module.exports = Context;
 
-function tokenIsWhitespaceToken(token) {
-  var type = token.getType(),
+function significantTokenIsWhitespaceToken(significantToken) {
+  var type = significantToken.getType(),
       whitespaceToken = (type === SignificantToken.types.WHITESPACE);
   
   return whitespaceToken;

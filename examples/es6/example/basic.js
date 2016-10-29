@@ -3,16 +3,16 @@
 var easyui = require('easyui'),
     TextArea = easyui.TextArea;
 
-var lexers = require('../../es6/occam-lexers'),
+var lexers = require('../../../es6/occam-lexers'),
     BasicLexer = lexers.BasicLexer;
 
-var Example = require('./example');
+var Example = require('../example');
 
 var terminalSymbolsRegExpPatternTextAreaSelector = 'textarea#terminalSymbolsRegExpPattern',
     terminalSymbolsRegExpPatternTextArea = new TextArea(terminalSymbolsRegExpPatternTextAreaSelector);
 
 var grammar = `
-    
+
       expr                       ::= term operatorThenTerm*
       
       operatorThenTerm           ::= operator term
@@ -63,6 +63,8 @@ function update() {
 
   if (lexer !== null) {
     Example.updateParseTree(lexer);
+  } else {
+    Example.clearParseTree();
   }
 }
 
@@ -84,8 +86,6 @@ function updateLexer() {
     terminalSymbolsRegExpPatternTextArea.removeClass('error');
   } else {
     terminalSymbolsRegExpPatternTextArea.addClass('error');
-
-    Example.clearParseTree();
 
     lexer = null;
   }

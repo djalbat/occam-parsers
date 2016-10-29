@@ -16,21 +16,18 @@ class SignificantTokenTypePart {
     
     var nodes = null,
         savedIndex = context.savedIndex(),
-        nextNonWhitespaceToken = context.getNextNonWhitespaceToken(noWhitespace),
-        token = nextNonWhitespaceToken; ///
+        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+        significantToken = nextNonWhitespaceSignificantToken; ///
 
-    if (token !== null) {
-      if (token instanceof SignificantToken) {
-        var significantToken = token,
-            type = significantToken.getType(),
-            parsed = (type === this.type);  ///
+    if (significantToken !== null) {
+      var type = significantToken.getType(),
+          parsed = (type === this.type);  ///
 
-        if (parsed) {
-          var str = significantToken.getString(),
-              terminalNode = new TerminalNode(str, type);
+      if (parsed) {
+        var str = significantToken.getString(),
+            terminalNode = new TerminalNode(str, type);
 
-          nodes = [terminalNode];
-        }
+        nodes = [terminalNode];
       }
     }
 

@@ -13,11 +13,11 @@ class RegularExpressionPart {
 
     var nodes = null,
         savedIndex = context.savedIndex(),
-        nextNonWhitespaceToken = context.getNextNonWhitespaceToken(noWhitespace),
-        token = nextNonWhitespaceToken; ///
+        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+        significantToken = nextNonWhitespaceSignificantToken; ///
 
-    if (token !== null) {
-      var str = token.getString(),
+    if (significantToken !== null) {
+      var str = significantToken.getString(),
           matches = str.match(this.regExp);
 
       if (matches !== null) {

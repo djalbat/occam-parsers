@@ -4,7 +4,7 @@ var lexers = require('./occam-lexers'),
     specialSymbols = lexers.specialSymbols;
 
 var Parts = require('./parts'),
-    ErrorNode = require('./node/terminal/error');
+    ErrorNode = require('./node/error');
 
 class Rule {
   constructor(parts) {
@@ -18,7 +18,9 @@ class Rule {
         tooDeep = context.isTooDeep();
 
     if (tooDeep) {
-      var errorNode = new ErrorNode();
+      var str = '',
+          message = TOO_DEEP_ERROR_MESSAGE,
+          errorNode = new ErrorNode(str, message);
 
       nodes = [errorNode];
     } else {
@@ -85,3 +87,5 @@ function partFromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, no
 
   return part;
 }
+
+const TOO_DEEP_ERROR_MESSAGE = 'The parse tree is too deep. This is likely caused by left recursion.';

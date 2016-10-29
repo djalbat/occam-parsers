@@ -1,7 +1,7 @@
 'use strict';
 
 var Rule = require('./rule'),
-    ErrorNode = require('./node/terminal/error'),
+    ErrorNode = require('./node/error'),
     NonTerminalNode = require('./node/nonTerminal');
 
 class Production {

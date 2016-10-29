@@ -16,11 +16,11 @@ class EndOfLinePart {
 
     var nodes = null,
         savedIndex = context.savedIndex(),
-        nextNonWhitespaceToken = context.getNextNonWhitespaceToken(noWhitespace),
-        token = nextNonWhitespaceToken; ///
+        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+        significantToken = nextNonWhitespaceSignificantToken; ///
 
-    if (token !== null) {
-      var type = token.getType(),
+    if (significantToken !== null) {
+      var type = significantToken.getType(),
           found = (type === SignificantToken.types.END_OF_LINE);
 
       if (found) {

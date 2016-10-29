@@ -1,11 +1,11 @@
 'use strict';
 
-var lexers = require('../../es6/occam-lexers'),
+var lexers = require('../../../es6/occam-lexers'),
     GallinaLexer = lexers.GallinaLexer;
 
-var Example = require('./example');
+var Example = require('../example');
 
-var grammar = require('../../es6/grammar/gallina');
+var grammar = require('../../../es6/grammar/gallina');
 
 var lexer = GallinaLexer.fromNothing();
 
