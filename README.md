@@ -2,7 +2,16 @@
 
 The Occam proof assistant's parser.
 
-Reads a variant of extended [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form) and parses streams of tokens provided by Occam's [lexers](https://github.com/occam-proof-assistant/Lexers) accordingly. The following, taken from the basic example, shows the some of the extended BNF that it can read:
+### Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Examples](#examples)
+- [Building](#building)
+- [Resources](#resources)
+- [Contact](#contact)
+
+Supports a variant of extended [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form) and parses tokens provided by Occam's [lexers](https://github.com/occam-proof-assistant/Lexers) accordingly. The following, taken from the basic example, shows some features of the variant of extended BNF:
 
       expr                       ::= term operatorThenTerm*
 
@@ -22,13 +31,13 @@ Note that grouping is not allowed. You cannot do this:
 
       expr                       ::= term (operator term)*
 
-You have to do this:
+Instead you have to do this:
 
       expr                       ::= term operatorThenTerm*
 
       operatorThenTerm           ::= operator term
 
-One reason for this is to keep both the BNF parser and the BNF lexer from the Lexers project as simple as possible. The other reason is that terminal symbols aren't quoted, and therefore the `(` and `)` characters aren't reserved. By not quoting terminal symbols the BNF becomes easier to read and write, although a regular expression pattern defining the terminal symbols must be provided to the parser in order to allow it to distinguish terminal symbols in the absence of quotes.
+One reason is to keep both the BNF parser and lexer as simple as possible. The other reason is that terminal symbols aren't quoted, therefore in this case the `(` and `)` characters aren't reserved. By not quoting terminal symbols the BNF becomes easier to read and write, however a regular expression pattern defining the terminal symbols must be provided in order to allow the parser to distinguish terminal symbols in the absence of quotes.
 
 ## Resources
 
