@@ -3,14 +3,14 @@
 var ErrorNodeParseTree = require('../parseTree/errorNode');
 
 class ErrorNode {
-  constructor(str, message) {
-    this.str = str;
+  constructor(string, message) {
+    this.string = string;
     this.message = message;
   }
 
 
   getString() {
-    return this.str;
+    return this.string;
   }
 
   getMessage() {

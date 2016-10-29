@@ -4,12 +4,12 @@ var VerticalBranchParseTree = require('../parseTree/verticalBranch');
 
 class TerminalNodeParseTree extends VerticalBranchParseTree {
   static fromTerminalNode(terminalNode) {
-    var str = terminalNode.getString(),
-        strLength = str.length,
-        verticalBranchParseTreeWidth = strLength, ///
+    var string = terminalNode.getString(),
+        stringLength = string.length,
+        verticalBranchParseTreeWidth = stringLength, ///
         verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
         verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(), 
-        terminalNodeParseTree = VerticalBranchParseTree.fromString(str, TerminalNodeParseTree, verticalBranchPosition);
+        terminalNodeParseTree = VerticalBranchParseTree.fromString(string, TerminalNodeParseTree, verticalBranchPosition);
     
     terminalNodeParseTree.appendToTop(verticalBranchParseTree);
 

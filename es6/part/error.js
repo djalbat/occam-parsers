@@ -15,9 +15,9 @@ class ErrorPart {
     if (token !== null) {
       if (token instanceof ErrorToken) {
         var errorToken = token,
-            str = errorToken.getString(),
+            string = errorToken.getString(),
             message = errorToken.getMessage(),
-            terminalNode = new ErrorNode(str, message);
+            terminalNode = new ErrorNode(string, message);
 
         nodes = [terminalNode];
       }

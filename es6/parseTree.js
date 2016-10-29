@@ -66,38 +66,38 @@ class ParseTree {
   addTopMargin(topMarginDepth) {
     var width = this.getWidth(),
         topMarginWidth = width,  ///
-        topMarginStr = marginStrFromMarginWidth(topMarginWidth);
+        topMarginString = marginStringFromMarginWidth(topMarginWidth);
 
     for (var index = 0; index < topMarginDepth; index++) {
-      this.lines.unshift(topMarginStr);
+      this.lines.unshift(topMarginString);
     }
   }
 
   addLeftMargin(leftMarginWidth) {
-    var leftMarginStr = marginStrFromMarginWidth(leftMarginWidth),
+    var leftMarginString = marginStringFromMarginWidth(leftMarginWidth),
         linesLength = this.lines.length;
 
     for (var index = 0; index < linesLength; index++) {
-      this.lines[index] = leftMarginStr + this.lines[index];
+      this.lines[index] = leftMarginString + this.lines[index];
     }
   }
 
   addRightMargin(rightMarginWidth) {
-    var rightMarginStr = marginStrFromMarginWidth(rightMarginWidth),
+    var rightMarginString = marginStringFromMarginWidth(rightMarginWidth),
         linesLength = this.lines.length;
 
     for (var index = 0; index < linesLength; index++) {
-      this.lines[index] = this.lines[index] + rightMarginStr;
+      this.lines[index] = this.lines[index] + rightMarginString;
     }
   }
 
   addBottomMargin(bottomMarginDepth) {
     var width = this.getWidth(),
         bottomMarginWidth = width,  ///
-        bottomMarginStr = marginStrFromMarginWidth(bottomMarginWidth);
+        bottomMarginString = marginStringFromMarginWidth(bottomMarginWidth);
 
     for (var index = 0; index < bottomMarginDepth; index++) {
-      this.lines.push(bottomMarginStr);
+      this.lines.push(bottomMarginString);
     }
   }
   
@@ -110,13 +110,13 @@ class ParseTree {
   unshiftLine(line) { this.lines.unshift(line); }
 
   toString() {
-    var str = this.lines.reduce(function(str, line) {
-      str += line + '\n';
+    var string = this.lines.reduce(function(string, line) {
+      string += line + '\n';
 
-      return str;
+      return string;
     }, '');
 
-    return str;
+    return string;
   }
 }
 
@@ -124,14 +124,14 @@ module.exports = ParseTree;
 
 function last(array) { return array[array.length - 1]; }
 
-function marginStrFromMarginWidth(marginWidth, spaceCharacter) {
+function marginStringFromMarginWidth(marginWidth, spaceCharacter) {
   spaceCharacter = spaceCharacter || ' ';
 
-  var marginStr = '';
+  var marginString = '';
 
   for (var index = 0; index < marginWidth; index++) {
-    marginStr += spaceCharacter;
+    marginString += spaceCharacter;
   }
 
-  return marginStr;
+  return marginString;
 }

@@ -1,8 +1,5 @@
 'use strict';
 
-var lexers = require('../occam-lexers'),
-    SignificantToken = lexers.SignificantToken;
-
 var TerminalNode = require('../node/terminal');
 
 class SignificantTokenTypePart {
@@ -24,8 +21,8 @@ class SignificantTokenTypePart {
           parsed = (type === this.type);  ///
 
       if (parsed) {
-        var str = significantToken.getString(),
-            terminalNode = new TerminalNode(str, type);
+        var string = significantToken.getString(),
+            terminalNode = new TerminalNode(string, type);
 
         nodes = [terminalNode];
       }

@@ -4,12 +4,12 @@ var VerticalBranchParseTree = require('../parseTree/verticalBranch');
 
 class ProductionNameParseTree extends VerticalBranchParseTree {
   static fromProductionName(productionName) {
-    var str = productionName, ///
-        strLength = str.length,
-        verticalBranchParseTreeWidth = strLength, ///
+    var string = productionName, ///
+        stringLength = string.length,
+        verticalBranchParseTreeWidth = stringLength, ///
         verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
         verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(),
-        productionNameParseTree = VerticalBranchParseTree.fromString(str, ProductionNameParseTree, verticalBranchPosition);
+        productionNameParseTree = VerticalBranchParseTree.fromString(string, ProductionNameParseTree, verticalBranchPosition);
 
     productionNameParseTree.appendToTop(verticalBranchParseTree);
 

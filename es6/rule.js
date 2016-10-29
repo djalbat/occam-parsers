@@ -18,9 +18,9 @@ class Rule {
         tooDeep = context.isTooDeep();
 
     if (tooDeep) {
-      var str = '',
+      var string = '',  ///
           message = TOO_DEEP_ERROR_MESSAGE,
-          errorNode = new ErrorNode(str, message);
+          errorNode = new ErrorNode(string, message);
 
       nodes = [errorNode];
     } else {

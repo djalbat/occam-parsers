@@ -17,16 +17,16 @@ class RegularExpressionPart {
         significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      var str = significantToken.getString(),
-          matches = str.match(this.regExp);
+      var string = significantToken.getString(),
+          matches = string.match(this.regExp);
 
       if (matches !== null) {
         var firstMatch = first(matches),
-            parsed = (firstMatch === str);
+            parsed = (firstMatch === string);
 
         if (parsed) {
           var type = RegularExpressionPart.type,
-              terminalNode = new TerminalNode(str, type);
+              terminalNode = new TerminalNode(string, type);
 
           nodes = [terminalNode];
         }

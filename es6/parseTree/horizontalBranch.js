@@ -4,8 +4,8 @@ var ParseTree = require('../parseTree');
 
 class HorizontalBranchParseTree extends ParseTree {
   static fromWidth(width) {
-    var str = strFromCharactersWidth(width, '-'),
-        line = str, ///
+    var string = stringFromCharactersWidth(width, '-'),
+        line = string, ///
         lines = [line],
         horizontalBranchParseTree = new HorizontalBranchParseTree(lines);
 
@@ -15,12 +15,12 @@ class HorizontalBranchParseTree extends ParseTree {
 
 module.exports = HorizontalBranchParseTree;
 
-function strFromCharactersWidth(charactersWidth, character) {
-  var str = '';
+function stringFromCharactersWidth(charactersWidth, character) {
+  var string = '';
 
   for (var index = 0; index < charactersWidth; index++) {
-    str += character;
+    string += character;
   }
 
-  return str;
+  return string;
 }
