@@ -271,19 +271,19 @@ The `<NO_WHITESPACE>` special symbol will bind more tightly to the symbol to its
 
 The relevant part of the parse tree is as follows:
 
-                                                                 term
-                                                                   |
-                                                    ------------------------------
-                                                    |                            |
-                                                 qualid                        term'
-                                                    |                            |
-                                  ------------------------------------           ε
-                                  |              |                   |
-                              a[ident]     access_ident        access_ident
-                                                 |                   |
-                                            -----------         -----------
-                                            |         |         |         |
-                                       .[special] b[ident] .[special] c[ident]
+                                                             term
+                                                               |
+                                                ------------------------------
+                                                |                            |
+                                             qualid                        term'
+                                                |                            |
+                              ------------------------------------           ε
+                              |              |                   |
+                          a[ident]     access_ident        access_ident
+                                             |                   |
+                                        -----------         -----------
+                                        |         |         |         |
+                                   .[special] b[ident] .[special] c[ident]
 
 ## Building
 
