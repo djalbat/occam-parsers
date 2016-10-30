@@ -59,33 +59,33 @@ You will need to do this if you want to look at the examples.
 
 Although there is only one parser, aside from the internal BNF parser that is, just like the [Lexers](https://github.com/occam-proof-assistant/Lexers) project there are three examples. Unlike the Lexers project, however, the examples are a little edifying. They show a representation of the parse tree, which is useful both for writing and debugging grammars. For example, here is the parse tree corresponding to the expression `1+(2*3)` given the grammar in the introduction:
 
-                        expr
-                          |
-          ---------------------------------
-          |                               |
-        term                      operatorThenTerm
-          |                               |
-    naturalNumber      ---------------------------------------
-          |            |                                     |
-      1[regexp]    operator                                term
-                       |                                     |
-                  +[terminal]                        parenthesizedExpr
-                                                             |
-                                   -----------------------------------------------------
-                                   |                      |                            |
-                              ([terminal]               expr                      )[terminal]
-                                                          |
-                                                ---------------------
-                                                |                   |
-                                              term          operatorThenTerm
-                                                |                   |
-                                          naturalNumber      --------------
-                                                |            |            |
-                                            2[regexp]    operator       term
-                                                             |            |
-                                                        *[terminal] naturalNumber
-                                                                          |
-                                                                      3[regexp]
+                            expr
+                              |
+              ---------------------------------
+              |                               |
+            term                      operatorThenTerm
+              |                               |
+        naturalNumber      ---------------------------------------
+              |            |                                     |
+          1[regexp]    operator                                term
+                           |                                     |
+                      +[terminal]                        parenthesizedExpr
+                                                                 |
+                                       -----------------------------------------------------
+                                       |                      |                            |
+                                  ([terminal]               expr                      )[terminal]
+                                                              |
+                                                    ---------------------
+                                                    |                   |
+                                                  term          operatorThenTerm
+                                                    |                   |
+                                              naturalNumber      --------------
+                                                    |            |            |
+                                                2[regexp]    operator       term
+                                                                 |            |
+                                                            *[terminal] naturalNumber
+                                                                              |
+                                                                          3[regexp]
 
 To view the examples, open the `examples.html` file in the project's root directory.
 
@@ -169,6 +169,67 @@ This uses [the part](https://raw.githubusercontent.com/occam-proof-assistant/Par
 
       Therefore
         ¬∃r (r:IrreducibleFraction ∧ r=√2) by ProofByNegation
+
+### Gallina example
+
+This uses [the part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/gallina.js) of the Gallina specification language aside from the lexical part. Bear in mind however that this is not the same as the official Gallina specification, which uses a different variant of extended BNF.
+
+To give an example, the following nonsensical axiom will parse...
+
+    Axiom (ident : 10).
+
+..., resulting in the following parse tree:
+
+                                               sentence
+                                                   |
+                                              assumption
+                                                   |
+             ----------------------------------------------------------------------------
+             |                                       |                                  |
+    assumption_keyword                            assums                           .[special]
+             |                                       |
+      Axiom[keyword]                          assumInBrackets
+                                                     |
+                            --------------------------------------------------
+                            |                        |                       |
+                       ([special]                  assum                )[special]
+                                                     |
+                                        --------------------------
+                                        |           |            |
+                                  ident[ident] :[special]      term
+                                                                 |
+                                                             --------
+                                                             |      |
+                                                          10[num] term'
+                                                                    |
+                                                                    ε
+
+Those familiar with recursive descent parsers should recognise a construction of the `term` production that avoids left recursion:
+
+    term'                               ::=   : term term'
+
+                                            |   <: term term'
+
+                                            |   :> term'
+
+                                            |   -> term term'
+
+                                            |   arg+ term'
+
+                                            |   % ident term'
+
+                                            |   ε
+
+Work on the Gallina specification is very much a work in progress for two reasons. Firstly, the official specification is somewhat informal and appears to be incomplete or at least a little out of date. Secondly, the Coq proof assistant supports extensible grammars. Eventually however the Occam proof assistant will support these, too.
+
+## Building
+
+Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. The pertinent commands are:
+
+    npm run build-debug
+    npm run watch-debug
+
+The Florence and Gallina grammars are defined in the `grammar.js` files found in the `es6/florence` and `es6/gallina` directories, respectively.
 
 ## Resources
 
