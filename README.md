@@ -207,19 +207,19 @@ The following nonsensical axiom will parse...
 
 Those familiar with recursive descent parsers should recognise a `term` production that avoids left recursion:
 
-    term'                                 ::=   : term term'
+    term' ::= : term term'
 
-                                            |   <: term term'
+            |   <: term term'
 
-                                            |   :> term'
+            |   :> term'
 
-                                            |   -> term term'
+            |   -> term term'
 
-                                            |   arg+ term'
+            |   arg+ term'
 
-                                            |   % ident term'
+            |   % ident term'
 
-                                            |   ε
+            |   ε
 
 The Gallina grammar is very much a work in progress for two reasons. Firstly, the official specification is somewhat informal and appears to be incomplete or at least a little out of date. Secondly, the Coq proof assistant supports extensible grammars. Eventually the Occam proof assistant will support these, too.
 
