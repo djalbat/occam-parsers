@@ -48,7 +48,7 @@ With [npm](https://www.npmjs.com/):
 
     npm install occam-parser
 
-You can also clone the repository with [git](https://git-scm.com/)...
+You can also clone the repository with [Git](https://git-scm.com/)...
 
     git clone git@github.com:occam-proof-assistant/Parser.git
 
