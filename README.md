@@ -7,6 +7,7 @@ The Occam proof assistant's parser.
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Examples](#examples)
+- [Features](#features)
 - [Building](#building)
 - [Resources](#resources)
 - [Contact](#contact)
@@ -23,7 +24,7 @@ Supports a variant of extended [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%
 
                                    | parenthesizedExpr
 
-      naturalNumber              ::= /\\d+/
+      naturalNumber              ::= /^\\d+$/
 
       parenthesizedExpr          ::= ( expr )
 
@@ -204,7 +205,7 @@ To give an example, the following nonsensical axiom will parse...
                                                                            |
                                                                            ε
 
-Those familiar with recursive descent parsers should recognise a construction of the `term` production that avoids left recursion:
+Those familiar with recursive descent parsers should recognise a `term` production that avoids left recursion:
 
     term'                                 ::=   : term term'
 
@@ -220,7 +221,25 @@ Those familiar with recursive descent parsers should recognise a construction of
 
                                             |   ε
 
-Work on the Gallina specification is very much a work in progress for two reasons. Firstly, the official specification is somewhat informal and appears to be incomplete or at least a little out of date. Secondly, the Coq proof assistant supports extensible grammars. Eventually however the Occam proof assistant will support these, too.
+The Gallina grammar is very much a work in progress for two reasons. Firstly, the official specification is somewhat informal and appears to be incomplete or at least a little out of date. Secondly, the Coq proof assistant supports extensible grammars. Eventually however the Occam proof assistant will support these, too.
+
+## Features
+
+Aside from the aforementioned support for terminal symbols that do not require quotes, the BNF grammar has the following features:
+
+- `*` zero or more operator
+- `+` one or more operator
+- `?` optional operator
+
+These bind tightly to symbols and can therefore be re-used as terminal symbols in their own right. Recall the grammar in the introduction, which re-uses `*` and `+` as terminal symbols.
+
+- Regular expressions
+
+These are probably best avoided in production grammars but are useful for illustrative purposes. Note that the regular expression for natural numbers finds its way both into the aforementioned grammar and the terminal symbols regular expression in the basic example. In the grammar the regular expression includes leading and trailing anchors:
+
+   /^\d+$/
+
+Recall that the terminal symbols regular expression is also passed to the lexer, which will pick out matching content as individual tokens. Hence the anchors are matched, although that can be safely done away with.
 
 ## Building
 

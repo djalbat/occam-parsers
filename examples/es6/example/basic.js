@@ -23,7 +23,7 @@ var grammar = `
       
                                    | parenthesizedExpr
       
-      naturalNumber              ::= /\\d+/
+      naturalNumber              ::= /^\\d+$/
       
       parenthesizedExpr          ::= ( expr )
     
