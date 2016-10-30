@@ -12,6 +12,8 @@ The Occam proof assistant's parser.
 - [Resources](#resources)
 - [Contact](#contact)
 
+## Introduction
+
 Supports a variant of extended [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form) and parses tokens provided by Occam's [lexers](https://github.com/occam-proof-assistant/Lexers) accordingly. The following, taken from the basic example, shows some features of this variant:
 
       expr                       ::= term operatorThenTerm*
