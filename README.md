@@ -245,7 +245,7 @@ Recall that the terminal symbols regular expression is also passed to the lexer,
 
 ### Matching token types
 
-This can be done with a symbol that is identical to the token type in question. Recall that the [lexical grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/grammar.js) of the Florence grammar defines `unassigned` tokens. These are used in the production for labels in the BNF grammar:
+This can be done with a symbol that is identical to the token type in question. Recall that the [lexical grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/grammar.js) of the Florence specification language defines `unassigned` tokens. These are used in the production for labels in the BNF grammar:
 
      label ::= unassigned
 
@@ -253,16 +253,37 @@ Note that there is a possibility of overloading a symbol in these cases and that
 
 ### Matching end of line tokens
 
-This can be done with the `<END_OF_LINE>` special symbol, which will also bind to operators. For example the production for theorem declarations in the Florence grammar:
+This can be done with the `<END_OF_LINE>` special symbol, which will also bind to operators. For example the production for theorem declarations in the Florence specification language:
 
     theoremDeclaration ::= Theorem parenthesisedLabel? <END_OF_LINE>+
 
 ### Matching no whitespace
 
-This can be done with the `<NO_WHITESPACE>` special symbol.
+This can be done with the `<NO_WHITESPACE>` special symbol. Examples are the `access_ident` and `qualid` productions in the Gallina BNF grammar:
 
+    access_ident ::= .<NO_WHITESPACE>ident
 
+    qualid       ::= ident<NO_WHITESPACE>access_ident*
 
+The `<NO_WHITESPACE>` special symbol will bind more tightly to the symbol to its right than any operator and will therefore be used repeatedly. Since a `term` can be a `qualid` the following nonsensical axiom will parse:
+
+    Axiom (ident : a.b.c).
+
+The relevant part of the parse tree is as follows:
+
+                                                                 term
+                                                                   |
+                                                    ------------------------------
+                                                    |                            |
+                                                 qualid                        term'
+                                                    |                            |
+                                  ------------------------------------           ε
+                                  |              |                   |
+                              a[ident]     access_ident        access_ident
+                                                 |                   |
+                                            -----------         -----------
+                                            |         |         |         |
+                                       .[special] b[ident] .[special] c[ident]
 
 ## Building
 
