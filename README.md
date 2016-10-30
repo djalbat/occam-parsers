@@ -38,7 +38,7 @@ Instead you have to do this:
 
       operatorThenTerm           ::= operator term
 
-One reason for this is to keep both the BNF parser and lexer as simple as possible. The other reason is that terminal symbols aren't quoted, so in this case for example the `(` and `)` characters aren't reserved. By not quoting terminal symbols the BNF becomes easier to read and write, however a regular expression pattern defining the terminal symbols must be provided in order to allow the parser to distinguish terminal symbols in the absence of quotes.
+One reason for this is to keep both the BNF parser and lexer as simple as possible. The other reason is that terminal symbols aren't quoted, and so in this case the `(` and `)` characters aren't reserved. By not quoting terminal symbols the BNF becomes easier to read and write, however a regular expression defining the terminal symbols must be provided to the parser in order to allow it to distinguish terminal symbols in the absence of quotes.
 
 ## Installation
 
@@ -58,7 +58,7 @@ You will need to do this if you want to look at the examples.
 
 ## Examples
 
-Although there is only one parser, aside from the internal BNF parser that is, just like the [Lexers](https://github.com/occam-proof-assistant/Lexers) project there are three examples. Unlike the Lexers project, however, the examples are a little edifying. They show a representation of the parse tree, which is useful both for writing and debugging grammars. For example, here is the parse tree corresponding to the expression `1+(2*3)` given the grammar in the introduction:
+Although there is only one parser, aside from the internal BNF parser that is, just like the [Lexers](https://github.com/occam-proof-assistant/Lexers) project there are three examples. Unlike the Lexers project, however, the examples are a little edifying. They show a representation of the parse tree, which is useful for writing and debugging grammars. For example, here is the parse tree corresponding to the expression `1+(2*3)` given the grammar in the introduction:
 
                               expr
                                 |
@@ -92,11 +92,11 @@ To view the examples, open the `examples.html` file in the project's root direct
 
 ### Basic example
 
-Both the grammar and the terminal symbols regular expression pattern can be changed dynamically. The terminal symbols regular expression is passed to both the parser and the lexer. The lexer uses it to split up the content into tokens, the parser uses it to distinguish terminal symbols in the BNF grammar. For example, each of the arithmetic symbols on the right hand side of the `operator` production can be found in the terminal symbols regular expression pattern.
+Both the grammar and the terminal symbols regular expression pattern can be changed dynamically. The terminal symbols regular expression is passed to both the parser and the lexer. The lexer uses it to split up the content into tokens, the parser uses it to distinguish terminal symbols in the grammar. For example, each of the arithmetic symbols on the right hand side of the `operator` production can be found in the terminal symbols regular expression pattern.
 
 ### Florence example
 
-This uses [the part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/florence.js) of Occam's Florence specification language aside from the lexical part. The following inference rule and proof from propositional logic will parse...
+This uses the [BNF part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/florence.js) of Occam's Florence specification language. The following inference rule and proof from propositional logic will parse...
 
     Rule (NegationOfConjunctionOfNegationsImpliesDisjunction)
       Premise
@@ -173,9 +173,9 @@ This uses [the part](https://raw.githubusercontent.com/occam-proof-assistant/Par
 
 ### Gallina example
 
-This uses [the part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/gallina.js) of the Gallina specification language aside from the lexical part. Bear in mind however that this is not the same as the official Gallina specification, which uses a different variant of extended BNF.
+This uses the [BNF part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/gallina.js) of the Gallina specification language. Bear in mind that this is not the same as the official Gallina specification, which uses a different variant of extended BNF.
 
-To give an example, the following nonsensical axiom will parse...
+The following nonsensical axiom will parse...
 
     Axiom (ident : 10).
 
@@ -221,25 +221,48 @@ Those familiar with recursive descent parsers should recognise a `term` producti
 
                                             |   ε
 
-The Gallina grammar is very much a work in progress for two reasons. Firstly, the official specification is somewhat informal and appears to be incomplete or at least a little out of date. Secondly, the Coq proof assistant supports extensible grammars. Eventually however the Occam proof assistant will support these, too.
+The Gallina grammar is very much a work in progress for two reasons. Firstly, the official specification is somewhat informal and appears to be incomplete or at least a little out of date. Secondly, the Coq proof assistant supports extensible grammars. Eventually the Occam proof assistant will support these, too.
 
 ## Features
 
 Aside from the aforementioned support for terminal symbols that do not require quotes, the BNF grammar has the following features:
 
-- `*` zero or more operator
-- `+` one or more operator
-- `?` optional operator
+### Operators
+
+- `*` zero or more
+- `+` one or more
+- `?` optional
 
 These bind tightly to symbols and can therefore be re-used as terminal symbols in their own right. Recall the grammar in the introduction, which re-uses `*` and `+` as terminal symbols.
 
-- Regular expressions
+### Regular expressions
 
 These are probably best avoided in production grammars but are useful for illustrative purposes. Note that the regular expression for natural numbers finds its way both into the aforementioned grammar and the terminal symbols regular expression in the basic example. In the grammar the regular expression includes leading and trailing anchors:
 
-   /^\d+$/
+    /^\d+$/
 
-Recall that the terminal symbols regular expression is also passed to the lexer, which will pick out matching content as individual tokens. Hence the anchors are matched, although that can be safely done away with.
+Recall that the terminal symbols regular expression is also passed to the lexer, which will pick out matching content as individual tokens. Hence the anchors are matched, although they are not strictly needed.
+
+### Matching token types
+
+This can be done with a symbol that is identical to the token type in question. Recall that the [lexical part](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/grammar.js) of the Florence grammar defines `unassigned` tokens. These are used in the production for labels in the BNF part:
+
+     label ::= unassigned
+
+Note that there is a possibility of overloading a symbol in these cases and that this is best avoided. A production called `unassigned`, for example, may not give the desired behaviour.
+
+### Matching end of line tokens
+
+This can be done with the `<END_OF_LINE>` special symbol, which will also bind to operators. For example the production for theorem declarations in the Florence grammar:
+
+    theoremDeclaration ::= Theorem parenthesisedLabel? <END_OF_LINE>+
+
+### Matching no whitespace
+
+This can be done with the `<NO_WHITESPACE>` special symbol.
+
+
+
 
 ## Building
 

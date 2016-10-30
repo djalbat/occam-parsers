@@ -103,8 +103,6 @@ var grammar = `
     parenthesisedLabel              ::=   (<NO_WHITESPACE>label<NO_WHITESPACE>)
 
     label                           ::=   unassigned
-                                      
-    unassignedOrKeyword             ::=   unassigned | keyword                                      
     
 `;
 
