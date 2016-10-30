@@ -57,7 +57,7 @@ You will need to do this if you want to look at the examples.
 
 ## Examples
 
-Although there is only one parser, aside from the internal BNF parser that is, just like the [Lexers](https://github.com/occam-proof-assistant/Lexers) project there are three examples. Unlike the Lexers project, however, the examples are a little edifying. They show a representation of the parse tree, which is useful both for writing and debugging grammars. Here is the parse tree corresponding to the expression `1+(2*3)` given the intial grammar in the basic example:
+Although there is only one parser, aside from the internal BNF parser that is, just like the [Lexers](https://github.com/occam-proof-assistant/Lexers) project there are three examples. Unlike the Lexers project, however, the examples are a little edifying. They show a representation of the parse tree, which is useful both for writing and debugging grammars. For example, here is the parse tree corresponding to the expression `1+(2*3)` given the grammar in the introduction:
 
                         expr
                           |
@@ -88,6 +88,87 @@ Although there is only one parser, aside from the internal BNF parser that is, j
                                                                       3[regexp]
 
 To view the examples, open the `examples.html` file in the project's root directory.
+
+### Basic example
+
+Both the grammar and the terminal symbols regular expression pattern can be changed dynamically. The terminal symbols regular expression is passed to both the parser and the lexer. The lexer uses it to split up the content into tokens, the parser uses it to distinguish terminal symbols in the BNF grammar. For example, each of the arithmetic symbols on the right hand side of the `operator` production can be found in the terminal symbols regular expression pattern.
+
+### Florence example
+
+This uses [the part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/florence.js) of Occam's Florence specification language aside from the lexical part. The following inference rule and proof from propositional logic will parse...
+
+    Rule (NegationOfConjunctionOfNegationsImpliesDisjunction)
+      Premise
+        ¬(¬P∧¬Q)
+      Conclusion
+        P∨Q
+      Proof
+        Suppose
+          Q
+        Hence
+          P∨Q
+        Q=>P∨Q
+        Suppose
+          ¬Q
+        Then
+          Suppose
+            ¬P
+          Hence
+            ¬P∧¬Q
+          ¬P=>(¬P∧¬Q)
+          ¬(¬P∧¬Q)
+          ¬¬P by ModusTollens
+          P by DoubleNegationElimination
+        Hence
+          P∨Q
+        ¬Q=>P∨Q
+        Q∨¬Q by LawOfTheExcludedMiddle
+      Therefore
+        P∨Q by DisjunctionElimination
+
+...as will the following well known theorem and proof:
+
+    Theorem (TheSquareRootOfTwoIsIrrational)
+      Conclusion
+        ¬∃r (r:IrreducibleFraction ∧ r=√2)
+      Proof
+        Suppose
+          ∃r (r:IrreducibleFraction ∧ r=√2)
+        Then
+          r:IrreducibleFraction ∧ r=√2
+        Hence
+          r:IrreducibleFraction
+        ∃r (r:IrreducibleFraction ∧ r=√2)=>r:IrreducibleFraction
+
+        Suppose
+          ∃r (r:IrreducibleFraction ∧ r=√2)
+        Then
+          r=√2
+          p/q=r
+          p/q=√2
+          p=q√2
+          p²=2q²
+          p²:EvenNumber
+          p²:SquareNumber
+          p:EvenNumber by TheSquareRootOfAnEvenSquareNumberIsEven
+          2|p
+          p=2m
+          p²=4m²
+          2q²=4m²
+          q²=2m²
+          q²=2n
+          q²:EvenNumber
+          q²:SquareNumber
+          q:EvenNumber by TheSquareRootOfAnEvenSquareNumberIsEven
+          2|q
+          2|p ∧ 2|q
+          ∃s:Nat s|p ∧ s|q ∧ s≠1
+        Hence
+          ¬r:IrreducibleFraction
+        ∃r (r:IrreducibleFraction ∧ r=√2)=>¬r:IrreducibleFraction
+
+      Therefore
+        ¬∃r (r:IrreducibleFraction ∧ r=√2) by ProofByNegation
 
 ## Resources
 
