@@ -209,17 +209,17 @@ Those familiar with recursive descent parsers should recognise a `term` producti
 
     term' ::= : term term'
 
-            |   <: term term'
+            | <: term term'
 
-            |   :> term'
+            | :> term'
 
-            |   -> term term'
+            | -> term term'
 
-            |   arg+ term'
+            | arg+ term'
 
-            |   % ident term'
+            | % ident term'
 
-            |   ε
+            | ε
 
 The Gallina grammar is very much a work in progress for two reasons. Firstly, the official specification is somewhat informal and appears to be incomplete or at least a little out of date. Secondly, the Coq proof assistant supports extensible grammars. Eventually the Occam proof assistant will support these, too.
 
@@ -268,7 +268,7 @@ This can be done with the `<NO_WHITESPACE>` special symbol. Examples are the `ac
 The `<NO_WHITESPACE>` special symbol will bind more tightly to the symbol to its right than any operator and will therefore be used repeatedly. Since a `term` can be a `qualid` the following nonsensical axiom will parse:
 
     Axiom (ident : a.b.c).
-    
+
 ## Building
 
 Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. The pertinent commands are:
