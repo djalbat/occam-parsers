@@ -96,7 +96,7 @@ Both the grammar and the terminal symbols regular expression pattern can be chan
 
 ### Florence example
 
-This uses the [BNF part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/florence.js) of Occam's Florence specification language. The following inference rule and proof from propositional logic will parse...
+This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/florence.js) of Occam's Florence specification language. The following inference rule and proof from propositional logic will parse...
 
     Rule (NegationOfConjunctionOfNegationsImpliesDisjunction)
       Premise
@@ -173,7 +173,7 @@ This uses the [BNF part](https://raw.githubusercontent.com/occam-proof-assistant
 
 ### Gallina example
 
-This uses the [BNF part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/gallina.js) of the Gallina specification language. Bear in mind that this is not the same as the official Gallina specification, which uses a different variant of extended BNF.
+This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/gallina.js) of the Gallina specification language. Bear in mind that this is not the same as the official Gallina specification, which uses a different variant of extended BNF.
 
 The following nonsensical axiom will parse...
 
@@ -237,15 +237,15 @@ These bind tightly to symbols and can therefore be re-used as terminal symbols i
 
 ### Regular expressions
 
-These are probably best avoided in production grammars but are useful for illustrative purposes. Note that the regular expression for natural numbers finds its way both into the aforementioned grammar and the terminal symbols regular expression in the basic example. In the grammar the regular expression includes leading and trailing anchors:
+These are probably best avoided in production grammars but are useful for illustrative purposes. Note that the regular expression for natural numbers finds its way both into the BNF grammar and the terminal symbols regular expression in the basic example. In the BNF grammar the regular expression includes leading and trailing anchors:
 
     /^\d+$/
 
-Recall that the terminal symbols regular expression is also passed to the lexer, which will pick out matching content as individual tokens. Hence the anchors are matched, although they are not strictly needed.
+Recall that the terminal symbols regular expression is also passed to the lexer, which will pick out matching content as individual tokens. Hence the anchors in the BNF grammar's regular expression are matched although they are not strictly needed.
 
 ### Matching token types
 
-This can be done with a symbol that is identical to the token type in question. Recall that the [lexical part](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/grammar.js) of the Florence grammar defines `unassigned` tokens. These are used in the production for labels in the BNF part:
+This can be done with a symbol that is identical to the token type in question. Recall that the [lexical grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/grammar.js) of the Florence grammar defines `unassigned` tokens. These are used in the production for labels in the BNF grammar:
 
      label ::= unassigned
 
