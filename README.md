@@ -268,23 +268,7 @@ This can be done with the `<NO_WHITESPACE>` special symbol. Examples are the `ac
 The `<NO_WHITESPACE>` special symbol will bind more tightly to the symbol to its right than any operator and will therefore be used repeatedly. Since a `term` can be a `qualid` the following nonsensical axiom will parse:
 
     Axiom (ident : a.b.c).
-
-The relevant part of the parse tree is as follows:
-
-                                                             term
-                                                               |
-                                                ------------------------------
-                                                |                            |
-                                             qualid                        term'
-                                                |                            |
-                              ------------------------------------           ε
-                              |              |                   |
-                          a[ident]     access_ident        access_ident
-                                             |                   |
-                                        -----------         -----------
-                                        |         |         |         |
-                                   .[special] b[ident] .[special] c[ident]
-
+    
 ## Building
 
 Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. The pertinent commands are:
