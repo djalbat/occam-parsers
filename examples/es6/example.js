@@ -6,7 +6,7 @@ var easyui = require('easyui'),
     SizeableElement = easyuilayout.SizeableElement,
     VerticalSplitter = easyuilayout.VerticalSplitter;
 
-var lexers = require('../../es6/occam-lexers'),
+var lexers = require('occam-lexers'),
     BNFLexer = lexers.BNFLexer;
 
 var Parser = require('../../es6/parser'),

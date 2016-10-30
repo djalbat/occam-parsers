@@ -1,6 +1,6 @@
 'use strict';
 
-var lexers = require('../occam-lexers'),
+var lexers = require('occam-lexers'),
     ErrorToken = lexers.ErrorToken;
 
 var ErrorNode = require('../node/error');

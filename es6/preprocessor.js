@@ -1,6 +1,6 @@
 'use strict';
 
-var lexers = require('./occam-lexers'),
+var lexers = require('occam-lexers'),
     IncludeDirectiveToken = lexers.IncludeDirectiveToken;
 
 class PreProcessor {

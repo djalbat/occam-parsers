@@ -3,7 +3,7 @@
 var easyui = require('easyui'),
     TextArea = easyui.TextArea;
 
-var lexers = require('../../../es6/occam-lexers'),
+var lexers = require('occam-lexers'),
     BasicLexer = lexers.BasicLexer;
 
 var Example = require('../example');

@@ -1,6 +1,6 @@
 'use strict';
 
-var lexers = require('./occam-lexers'),
+var lexers = require('occam-lexers'),
     specialSymbols = lexers.specialSymbols;
 
 var Parts = require('./parts'),

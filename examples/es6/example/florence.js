@@ -1,6 +1,6 @@
 'use strict';
 
-var lexers = require('../../../es6/occam-lexers'),
+var lexers = require('occam-lexers'),
     FlorenceLexer = lexers.FlorenceLexer;
 
 var Example = require('../example');
