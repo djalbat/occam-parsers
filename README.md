@@ -255,9 +255,9 @@ Note that there is a possibility of overloading a symbol in these cases and that
 
 ### Matching end of line tokens
 
-This can be done with the `<END_OF_LINE>` special symbol, which will also bind to operators. For example the production for theorem declarations in the Florence specification language:
+This can be done with the `<END_OF_LINE>` special symbol, which will also bind to operators. For example the production for axioms in the Florence specification language:
 
-    theoremDeclaration ::= Theorem parenthesisedLabel? <END_OF_LINE>+
+    axiom ::= Axiom parenthesisedLabel? <END_OF_LINE>+ premise(s)? conclusion
 
 ### Matching no whitespace
 
