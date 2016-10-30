@@ -59,33 +59,33 @@ You will need to do this if you want to look at the examples.
 
 Although there is only one parser, aside from the internal BNF parser that is, just like the [Lexers](https://github.com/occam-proof-assistant/Lexers) project there are three examples. Unlike the Lexers project, however, the examples are a little edifying. They show a representation of the parse tree, which is useful both for writing and debugging grammars. For example, here is the parse tree corresponding to the expression `1+(2*3)` given the grammar in the introduction:
 
-                            expr
-                              |
-              ---------------------------------
-              |                               |
-            term                      operatorThenTerm
-              |                               |
-        naturalNumber      ---------------------------------------
-              |            |                                     |
-          1[regexp]    operator                                term
-                           |                                     |
-                      +[terminal]                        parenthesizedExpr
-                                                                 |
-                                       -----------------------------------------------------
-                                       |                      |                            |
-                                  ([terminal]               expr                      )[terminal]
-                                                              |
-                                                    ---------------------
-                                                    |                   |
-                                                  term          operatorThenTerm
-                                                    |                   |
-                                              naturalNumber      --------------
-                                                    |            |            |
-                                                2[regexp]    operator       term
-                                                                 |            |
-                                                            *[terminal] naturalNumber
-                                                                              |
-                                                                          3[regexp]
+                              expr
+                                |
+                ---------------------------------
+                |                               |
+              term                      operatorThenTerm
+                |                               |
+          naturalNumber      ---------------------------------------
+                |            |                                     |
+            1[regexp]    operator                                term
+                             |                                     |
+                        +[terminal]                        parenthesizedExpr
+                                                                   |
+                                         -----------------------------------------------------
+                                         |                      |                            |
+                                    ([terminal]               expr                      )[terminal]
+                                                                |
+                                                      ---------------------
+                                                      |                   |
+                                                    term          operatorThenTerm
+                                                      |                   |
+                                                naturalNumber      --------------
+                                                      |            |            |
+                                                  2[regexp]    operator       term
+                                                                   |            |
+                                                              *[terminal] naturalNumber
+                                                                                |
+                                                                            3[regexp]
 
 To view the examples, open the `examples.html` file in the project's root directory.
 
@@ -180,33 +180,33 @@ To give an example, the following nonsensical axiom will parse...
 
 ..., resulting in the following parse tree:
 
-                                               sentence
-                                                   |
-                                              assumption
-                                                   |
-             ----------------------------------------------------------------------------
-             |                                       |                                  |
-    assumption_keyword                            assums                           .[special]
-             |                                       |
-      Axiom[keyword]                          assumInBrackets
-                                                     |
-                            --------------------------------------------------
-                            |                        |                       |
-                       ([special]                  assum                )[special]
-                                                     |
-                                        --------------------------
-                                        |           |            |
-                                  ident[ident] :[special]      term
-                                                                 |
-                                                             --------
-                                                             |      |
-                                                          10[num] term'
-                                                                    |
-                                                                    ε
+                                                      sentence
+                                                          |
+                                                     assumption
+                                                          |
+                    ----------------------------------------------------------------------------
+                    |                                       |                                  |
+           assumption_keyword                            assums                           .[special]
+                    |                                       |
+             Axiom[keyword]                          assumInBrackets
+                                                            |
+                                   --------------------------------------------------
+                                   |                        |                       |
+                              ([special]                  assum                )[special]
+                                                            |
+                                               --------------------------
+                                               |           |            |
+                                         ident[ident] :[special]      term
+                                                                        |
+                                                                    --------
+                                                                    |      |
+                                                                 10[num] term'
+                                                                           |
+                                                                           ε
 
 Those familiar with recursive descent parsers should recognise a construction of the `term` production that avoids left recursion:
 
-    term'                               ::=   : term term'
+    term'                                 ::=   : term term'
 
                                             |   <: term term'
 
