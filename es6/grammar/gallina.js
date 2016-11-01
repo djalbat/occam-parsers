@@ -11,6 +11,12 @@ var grammar = `
                                         |   fixpoint
                           
                                         |   assertion proof
+                                        
+                                        |   error
+                                        
+                                        
+                                        
+  error                               ::=   string | special | keyword | ident | num                                      
                             
                             
                             

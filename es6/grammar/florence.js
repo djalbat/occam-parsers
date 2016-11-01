@@ -5,7 +5,13 @@ var grammar = `
     
     document                                  ::=   part*
 
-    part                                      ::=   rule | axiom | theorem | lemma | variable(s) | constructor(s)
+    part                                      ::=   space | rule | axiom | theorem | lemma | variable(s) | constructor(s) | error
+    
+    
+    
+    space                                     ::=   <END_OF_LINE>+
+   
+    error                                     ::=   string | special | keyword | unassigned 
     
     
     
