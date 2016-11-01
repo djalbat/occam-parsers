@@ -2,13 +2,11 @@
 
 var grammar = `
 
-    
+
     document                                  ::=   part*
 
     part                                      ::=   space | rule | axiom | theorem | lemma | variable(s) | constructor(s) | error
-    
-    
-    
+       
     space                                     ::=   <END_OF_LINE>+
    
     error                                     ::=   string | special | keyword | unassigned 
