@@ -2,9 +2,10 @@
 
 var grammar = `
 
-    document                                  ::=   assertion*
+    
+    document                                  ::=   part*
 
-    assertion                                 ::=   rule | axiom | theorem | lemma | variable(s)
+    part                                      ::=   rule | axiom | theorem | lemma | variable(s) | constructor(s)
     
     
     
@@ -87,6 +88,46 @@ var grammar = `
     colonThenTypeName                         ::=   : typeName
 
     variableName                              ::=   unassigned
+
+
+
+    constructor(s)                            ::=   constructor | constructors
+
+    constructors                              ::=   Constructors <END_OF_LINE>+ constructor(s)Declaration(s)
+    
+    constructor                               ::=   Constructor <END_OF_LINE>+ constructorDeclaration
+    
+    constructor(s)Declaration(s)              ::=   constructors(s)Declarations | constructorsDeclaration
+
+    constructors(s)Declarations               ::=   constructor(s)Declaration semiColonThenConstructor(s)Declaration+
+       
+    semiColonThenConstructor(s)Declaration    ::=   ; constructor(s)Declaration
+    
+    constructor(s)Declaration                 ::=   constructorsDeclaration | constructorDeclaration
+    
+    constructorsDeclaration                   ::=   constructorBodies colonThenTypeName?
+
+    constructorDeclaration                    ::=   constructorBody colonThenTypeName?
+
+    constructorBodies                         ::=   constructorBody commaThenConstructorBody+
+
+    commaThenConstructorBody                  ::=   , constructorBody    
+    
+    colonThenTypeName                         ::=   : typeName
+
+    constructorBody                           ::=   constructorName<NO_WHITESPACE>parenthesisedConstructorArguments?
+
+    constructorName                           ::=   unassigned
+    
+    parenthesisedConstructorArguments         ::=   (<NO_WHITESPACE>constructorArguments<NO_WHITESPACE>)
+
+    constructorArguments                      ::=   constructorArgument<NO_WHITESPACE>commaThenConstructorArgument*
+    
+    commaThenConstructorArgument              ::=   ,<NO_WHITESPACE>constructorArgument
+    
+    constructorArgument                       ::=   typeName | .. | unassigned
+    
+    
 
     typeName                                  ::=   unassigned
     

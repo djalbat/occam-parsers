@@ -50,7 +50,7 @@ class Production {
 
           return rule;
         }),
-        Node = mappings[name] || NonTerminalNode, ///
+        Node = mappings.hasOwnProperty(name) ? mappings[name] : NonTerminalNode, ///
         production = new Production(name, rules, Node);
 
     return production;
