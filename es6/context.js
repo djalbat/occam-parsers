@@ -115,7 +115,7 @@ module.exports = Context;
 
 function significantTokenIsWhitespaceToken(significantToken) {
   var type = significantToken.getType(),
-      whitespaceToken = (type === SignificantToken.types.WHITESPACE);
+      whitespaceToken = (type === SignificantToken.types.whitespace);
   
   return whitespaceToken;
 }

@@ -21,7 +21,7 @@ class EndOfLinePart {
 
     if (significantToken !== null) {
       var type = significantToken.getType(),
-          found = (type === SignificantToken.types.END_OF_LINE);
+          found = (type === SignificantToken.types.endOfLine);
 
       if (found) {
         var string = type; ///
@@ -43,7 +43,7 @@ class EndOfLinePart {
 
   static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) {
     var endOfLinePart = null,
-        found = (symbol === specialSymbols.END_OF_LINE);
+        found = (symbol === specialSymbols.endOfLine);
 
     if (found) {
       endOfLinePart = new EndOfLinePart(noWhitespace);
