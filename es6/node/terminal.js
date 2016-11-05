@@ -3,17 +3,17 @@
 var TerminalNodeParseTree = require('../parseTree/terminalNode');
 
 class TerminalNode {
-  constructor(string, type) {
-    this.string = string;
+  constructor(content, type) {
+    this.content = content;
     this.type = type;
   }
   
-  getString() {
-    var string = (this.type === null) ?
-                    this.string :
-                   `${this.string}[${this.type}]`; ///
+  getContent() {
+    var content = (this.type === null) ?
+                    this.content :
+                   `${this.content}[${this.type}]`; ///
 
-    return string;
+    return content;
   }
   
   getParseTree() {

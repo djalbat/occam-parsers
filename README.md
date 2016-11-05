@@ -26,7 +26,7 @@ Supports a variant of extended [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%
 
                                    | parenthesizedExpr
 
-      naturalNumber              ::= /^\\d+$/
+      naturalNumber              ::= /^\d+$/
 
       parenthesizedExpr          ::= ( expr )
 

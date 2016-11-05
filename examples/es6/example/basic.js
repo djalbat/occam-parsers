@@ -71,8 +71,8 @@ function update() {
 module.exports = BasicExample;
 
 function updateLexer() {
-  var terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternTextArea.getValue(),
-      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue,  ///
+  var terminalSymbolsRegExpPatternTextAreaValue = terminalSymbolsRegExpPatternTextArea.getValue(),
+      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternTextAreaValue,  ///
       terminalSymbolsRegExpPatternIsValid = regExpPatternIsValid(terminalSymbolsRegExpPattern);
 
   if (terminalSymbolsRegExpPatternIsValid) {
@@ -93,10 +93,10 @@ function updateLexer() {
 
 function updateParser() {
   var grammarTextAreaValue = Example.getGrammarTextAreaValue(),
-      terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternTextArea.getValue(),
+      terminalSymbolsRegExpPatternTextAreaValue = terminalSymbolsRegExpPatternTextArea.getValue(),
       grammar = grammarTextAreaValue, ///
-      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
-      significantTokenTypes = BasicLexer.significantTokenTypes();
+      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternTextAreaValue, ///
+      significantTokenTypes = [];
 
   Example.updateParser(grammar, terminalSymbolsRegExpPattern, significantTokenTypes);
 }

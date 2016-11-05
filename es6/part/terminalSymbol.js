@@ -17,12 +17,12 @@ class TerminalSymbolPart {
         significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      var string = significantToken.getString(),
-          parsed = (string === this.symbol);  ///
+      var content = significantToken.getContent(),
+          parsed = (content === this.symbol);  ///
 
       if (parsed) {
         var type = significantToken.getType(),
-            terminalNode = new TerminalNode(string, type);
+            terminalNode = new TerminalNode(content, type);
 
         nodes = [terminalNode];
       }
