@@ -257,7 +257,9 @@ Note that there is a possibility of overloading a symbol in these cases and that
 
 This can be done with the `<END_OF_LINE>` special symbol, which will also bind to operators. For example the production for axioms in the Florence specification language:
 
-    axiom ::= Axiom parenthesisedLabel? <END_OF_LINE>+ premise(s)? conclusion
+    axiom ::= Axiom parenthesisedLabels? ↲ localVariable(s)? premise(s)? conclusion
+
+    ↲     ::=   <END_OF_LINE>+
 
 ### Matching no whitespace
 

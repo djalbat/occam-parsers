@@ -5,19 +5,19 @@ var grammar = `
 
     document                                  ::=   part*
 
-    part                                      ::=   ↲ | rule | axiom | theorem | lemma | variable(s) | constructor(s) | error
+    part                                      ::=   ↲ | rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | definition | error
    
     error                                     ::=   string | special | keyword | unassigned 
     
     
     
-    rule                                      ::=   Rule parenthesisedLabels? ↲ premise(s)? conclusion proof?
+    rule                                      ::=   Rule parenthesisedLabels? ↲ localVariable(s)? premise(s)? conclusion proof?
     
-    axiom                                     ::=   Axiom parenthesisedLabels? ↲ premise(s)? conclusion
+    axiom                                     ::=   Axiom parenthesisedLabels? ↲ localVariable(s)? premise(s)? conclusion
     
-    theorem                                   ::=   Theorem parenthesisedLabels? ↲ premise(s)? conclusion proof
+    theorem                                   ::=   Theorem parenthesisedLabels? ↲ localVariable(s)? premise(s)? conclusion proof
         
-    lemma                                     ::=   Lemma parenthesisedLabels? ↲ premise(s)? conclusion proof
+    lemma                                     ::=   Lemma parenthesisedLabels? ↲ localVariable(s)? premise(s)? conclusion proof    
     
     
     
@@ -69,11 +69,13 @@ var grammar = `
     
 
 
+    localVariable(s)                          ::=   variable(s)
+
     variable(s)                               ::=   variable | variables
 
-    variables                                 ::=   Variables ↲ variable(s)Declaration(s)
+    variables                                 ::=   Variables ↲ variable(s)Declaration(s) ↲
     
-    variable                                  ::=   Variable ↲ variableDeclaration
+    variable                                  ::=   Variable ↲ variableDeclaration ↲
     
     variable(s)Declaration(s)                 ::=   variables(s)Declarations | variablesDeclaration
 
@@ -97,11 +99,13 @@ var grammar = `
 
 
 
+    localConstructor(s)                       ::=   constructor(s)
+
     constructor(s)                            ::=   constructor | constructors
 
-    constructors                              ::=   Constructors ↲ constructor(s)Declaration(s)
+    constructors                              ::=   Constructors ↲ constructor(s)Declaration(s) ↲
     
-    constructor                               ::=   Constructor ↲ constructorDeclaration
+    constructor                               ::=   Constructor ↲ constructorDeclaration ↲
     
     constructor(s)Declaration(s)              ::=   constructors(s)Declarations | constructorsDeclaration
 
