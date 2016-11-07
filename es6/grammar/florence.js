@@ -73,9 +73,9 @@ var grammar = `
 
     variable(s)                               ::=   variable | variables
 
-    variables                                 ::=   Variables ↲ variable(s)Declaration(s) ↲
+    variables                                 ::=   Variables ↲? variable(s)Declaration(s) ↲
     
-    variable                                  ::=   Variable ↲ variableDeclaration ↲
+    variable                                  ::=   Variable ↲? variableDeclaration ↲
     
     variable(s)Declaration(s)                 ::=   variables(s)Declarations | variablesDeclaration
 
@@ -103,9 +103,9 @@ var grammar = `
 
     constructor(s)                            ::=   constructor | constructors
 
-    constructors                              ::=   Constructors ↲ constructor(s)Declaration(s) ↲
+    constructors                              ::=   Constructors ↲? constructor(s)Declaration(s) ↲
     
-    constructor                               ::=   Constructor ↲ constructorDeclaration ↲
+    constructor                               ::=   Constructor ↲? constructorDeclaration ↲
     
     constructor(s)Declaration(s)              ::=   constructors(s)Declarations | constructorsDeclaration
 
@@ -138,6 +138,8 @@ var grammar = `
     constructorArgument                       ::=   typeName | .. | unassigned
     
     
+    
+    type                                      ::=   Type typeName ↲
 
     typeName                                  ::=   unassigned
 
