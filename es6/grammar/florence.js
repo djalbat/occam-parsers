@@ -2,7 +2,6 @@
 
 var grammar = `
 
-
     document                                  ::=   part*
 
     part                                      ::=   ↲ | rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | definition | error
@@ -136,6 +135,22 @@ var grammar = `
     commaThenConstructorArgument              ::=   ,<NO_WHITESPACE>constructorArgument
     
     constructorArgument                       ::=   typeName | .. | unassigned
+
+    
+    
+    object                                    ::=   Object ↲? objectDeclaration ↲
+
+    objectDeclaration                         ::=   objectLiteral : typeName
+    
+    objectLiteral                             ::=   { properties }
+    
+    properties                                ::=   property commaThenProperty*
+    
+    commaThenProperty                         ::=   , property
+    
+    property                                  ::=   propertyName : typeName
+    
+    propertyName                              ::=   unassigned
     
     
     
@@ -143,6 +158,7 @@ var grammar = `
 
     typeName                                  ::=   unassigned
 
+           
            
     ↲                                         ::=   <END_OF_LINE>+
 
