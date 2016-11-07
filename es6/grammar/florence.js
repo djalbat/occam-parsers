@@ -5,35 +5,33 @@ var grammar = `
 
     document                                  ::=   part*
 
-    part                                      ::=   space | rule | axiom | theorem | lemma | variable(s) | constructor(s) | error
-       
-    space                                     ::=   <END_OF_LINE>+
+    part                                      ::=   ↲ | rule | axiom | theorem | lemma | variable(s) | constructor(s) | error
    
     error                                     ::=   string | special | keyword | unassigned 
     
     
     
-    rule                                      ::=   Rule parenthesisedLabel? <END_OF_LINE>+ premise(s)? conclusion proof?
+    rule                                      ::=   Rule parenthesisedLabels? ↲ premise(s)? conclusion proof?
     
-    axiom                                     ::=   Axiom parenthesisedLabel? <END_OF_LINE>+ premise(s)? conclusion
+    axiom                                     ::=   Axiom parenthesisedLabels? ↲ premise(s)? conclusion
     
-    theorem                                   ::=   Theorem parenthesisedLabel? <END_OF_LINE>+ premise(s)? conclusion proof
+    theorem                                   ::=   Theorem parenthesisedLabels? ↲ premise(s)? conclusion proof
         
-    lemma                                     ::=   Lemma parenthesisedLabel? <END_OF_LINE>+ premise(s)? conclusion proof
+    lemma                                     ::=   Lemma parenthesisedLabels? ↲ premise(s)? conclusion proof
     
     
     
     premise(s)                                ::=   premise | premises
     
-    premise                                   ::=   Premise <END_OF_LINE>+ (labelled)statement
+    premise                                   ::=   Premise ↲ (labelled)statement
     
-    premises                                  ::=   Premises <END_OF_LINE>+ (labelled)statement (labelled)statement+
+    premises                                  ::=   Premises ↲ (labelled)statement (labelled)statement+
 
-    conclusion                                ::=   Conclusion <END_OF_LINE>+ statement
+    conclusion                                ::=   Conclusion ↲ statement
 
-    proof                                     ::=   Proof <END_OF_LINE>+ subLemmaOr(labelled)statement* therefore
+    proof                                     ::=   Proof ↲ subLemmaOr(labelled)statement* therefore
 
-    therefore                                 ::=   Therefore <END_OF_LINE>+ (labelled)statement
+    therefore                                 ::=   Therefore ↲ (labelled)statement
     
     
 
@@ -43,25 +41,29 @@ var grammar = `
     
     
 
-    suppose                                   ::=   Suppose <END_OF_LINE>+ statement+
+    suppose                                   ::=   Suppose ↲ statement+
     
-    then                                      ::=   Then <END_OF_LINE>+ subLemmaOr(labelled)statement+
+    then                                      ::=   Then ↲ subLemmaOr(labelled)statement+
     
-    hence                                     ::=   Hence <END_OF_LINE>+ (labelled)statement
+    hence                                     ::=   Hence ↲ (labelled)statement
     
     
     
     (labelled)statement                       ::=   labelledStatement | statement
     
-    labelledStatement                         ::=   symbol+ by label <END_OF_LINE>+
+    labelledStatement                         ::=   symbol+ by label ↲
     
-    statement                                 ::=   symbol+ <END_OF_LINE>+
+    statement                                 ::=   symbol+ ↲
     
     symbol                                    ::=   unassigned | { | } | = | : | ( | )
     
     
     
-    parenthesisedLabel                        ::=   (<NO_WHITESPACE>label<NO_WHITESPACE>)
+    parenthesisedLabels                       ::=   (<NO_WHITESPACE>labels<NO_WHITESPACE>)
+    
+    labels                                    ::=   label<NO_WHITESPACE>commaThenLabel*
+    
+    commaThenLabel                            ::=   ,<NO_WHITESPACE>label
 
     label                                     ::=   unassigned
     
@@ -69,9 +71,9 @@ var grammar = `
 
     variable(s)                               ::=   variable | variables
 
-    variables                                 ::=   Variables <END_OF_LINE>+ variable(s)Declaration(s)
+    variables                                 ::=   Variables ↲ variable(s)Declaration(s)
     
-    variable                                  ::=   Variable <END_OF_LINE>+ variableDeclaration
+    variable                                  ::=   Variable ↲ variableDeclaration
     
     variable(s)Declaration(s)                 ::=   variables(s)Declarations | variablesDeclaration
 
@@ -97,9 +99,9 @@ var grammar = `
 
     constructor(s)                            ::=   constructor | constructors
 
-    constructors                              ::=   Constructors <END_OF_LINE>+ constructor(s)Declaration(s)
+    constructors                              ::=   Constructors ↲ constructor(s)Declaration(s)
     
-    constructor                               ::=   Constructor <END_OF_LINE>+ constructorDeclaration
+    constructor                               ::=   Constructor ↲ constructorDeclaration
     
     constructor(s)Declaration(s)              ::=   constructors(s)Declarations | constructorsDeclaration
 
@@ -134,7 +136,10 @@ var grammar = `
     
 
     typeName                                  ::=   unassigned
-    
+
+           
+    ↲                                         ::=   <END_OF_LINE>+
+
 `;
 
 module.exports = grammar;
