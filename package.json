@@ -1,7 +1,7 @@
 {
   "name": "occam-parser",
   "author": "James Smith",
-  "version": "0.6.53",
+  "version": "0.6.54",
   "license": "MIT",
   "homepage": "https://github.com/occam-proof-assistant/Parser",
   "description": "The Occam proof assistant's parser.",
@@ -23,7 +23,7 @@
   },
   "scripts": {
     "clean:lib": "rm -rf ./lib",
-    "clean:examples": "rm -rf ./examples",
+    "clean:examples": "rm -rf ./examples/lib",
     "clean": "npm run clean:lib && npm run clean:examples",
     "babel:lib": "babel ./es6 --presets=es2015 --out-dir=./lib",
     "babel:lib-debug": "babel ./es6 --presets=es2015 --source-maps inline --out-dir=./lib",
