@@ -21,7 +21,7 @@ class EndOfLinePart {
 
     if (significantToken !== null) {
       var type = significantToken.getType(),
-          found = (type === SignificantToken.types.END_OF_LINE);
+          found = (type === SignificantToken.types.endOfLine);
 
       if (found) {
         var string = type; ///

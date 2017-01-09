@@ -73,9 +73,15 @@ function update() {
 
 module.exports = BasicExample;
 
+<<<<<<< HEAD
 function updateBasicLexer() {
   var terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternTextArea.getValue(),
       terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue,  ///
+=======
+function updateLexer() {
+  var terminalSymbolsRegExpPatternTextAreaValue = terminalSymbolsRegExpPatternTextArea.getValue(),
+      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternTextAreaValue,  ///
+>>>>>>> 4ab04ba5c9c94e87451c0a4e250083f96cc5755c
       terminalSymbolsRegExpPatternIsValid = regExpPatternIsValid(terminalSymbolsRegExpPattern);
 
   if (terminalSymbolsRegExpPatternIsValid) {
@@ -96,9 +102,14 @@ function updateBasicLexer() {
 
 function updateBasicParser() {
   var grammarTextAreaValue = Example.getGrammarTextAreaValue(),
-      terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternTextArea.getValue(),
+      terminalSymbolsRegExpPatternTextAreaValue = terminalSymbolsRegExpPatternTextArea.getValue(),
       grammar = grammarTextAreaValue, ///
+<<<<<<< HEAD
       terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue; ///
+=======
+      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternTextAreaValue, ///
+      significantTokenTypes = [];
+>>>>>>> 4ab04ba5c9c94e87451c0a4e250083f96cc5755c
 
   basicParser = BasicParser.fromGrammarAndTerminalSymbolsRegExpPattern(grammar, terminalSymbolsRegExpPattern);
 }

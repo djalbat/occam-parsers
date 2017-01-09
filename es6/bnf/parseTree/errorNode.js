@@ -4,12 +4,10 @@ var VerticalBranchParseTree = require('../parseTree/verticalBranch');
 
 class ErrorNodeParseTree extends VerticalBranchParseTree {
   static fromErrorNode(errorNode) {
-    var string = errorNode.getString(),
-        message = errorNode.getMessage();
-
-    string = `${string}[${message}]`; ///
-
-    var stringLength = string.length,
+    var content = errorNode.getContent(),
+        message = errorNode.getMessage(),
+        string = `${content}[${message}]`,
+        stringLength = string.length,
         verticalBranchParseTreeWidth = stringLength, ///
         verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
         verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(), 
