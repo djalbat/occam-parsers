@@ -5,8 +5,8 @@ var lexers = require('occam-lexers'),
 
 var Example = require('../example');
 
-var FlorenceParser = require('../../../es6/florence/parser'),
-    florenceGrammar = require('../../../es6/florence/grammar');
+var FlorenceParser = require('../florence/parser'),
+    florenceGrammar = require('../florence/grammar');
 
 var florenceLexer = FlorenceLexer.fromNothing(),
     florenceParser = FlorenceParser.fromNothing();

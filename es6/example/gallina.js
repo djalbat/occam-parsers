@@ -5,8 +5,8 @@ var lexers = require('occam-lexers'),
 
 var Example = require('../example');
 
-var GallinaParser = require('../../../es6/gallina/parser'),
-    gallinaGrammar = require('../../../es6/gallina/grammar');
+var GallinaParser = require('../gallina/parser'),
+    gallinaGrammar = require('../gallina/grammar');
 
 var gallinaLexer = GallinaLexer.fromNothing(),
     gallinaParser = GallinaParser.fromNothing();

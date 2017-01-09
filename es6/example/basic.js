@@ -6,7 +6,7 @@ var easyui = require('easyui'),
 var lexers = require('occam-lexers'),
     BasicLexer = lexers.BasicLexer;
 
-var BasicParser = require('../../../es6/basic/parser');
+var BasicParser = require('../basic/parser');
 
 var Example = require('../example');
 
