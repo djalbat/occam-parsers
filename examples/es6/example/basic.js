@@ -6,6 +6,8 @@ var easyui = require('easyui'),
 var lexers = require('occam-lexers'),
     BasicLexer = lexers.BasicLexer;
 
+var BasicParser = require('../../../es6/basic/parser');
+
 var Example = require('../example');
 
 var terminalSymbolsRegExpPatternTextAreaSelector = 'textarea#terminalSymbolsRegExpPattern',
@@ -30,7 +32,8 @@ var grammar = `
     `,
     terminalSymbolsRegExpPattern = `\\+|\\-|\\*|\\/|\\(|\\)|\\d+`;
 
-var lexer = null;
+var basicLexer = null,
+    basicParser = null;
 
 class BasicExample {
   static run() {
@@ -58,11 +61,11 @@ class BasicExample {
 }
 
 function update() {
-  updateLexer();
-  updateParser();
+  updateBasicLexer();
+  updateBasicParser();
 
-  if (lexer !== null) {
-    Example.updateParseTree(lexer);
+  if (basicLexer !== null) {
+    Example.updateParseTree(basicLexer, basicParser);
   } else {
     Example.clearParseTree();
   }
@@ -70,7 +73,7 @@ function update() {
 
 module.exports = BasicExample;
 
-function updateLexer() {
+function updateBasicLexer() {
   var terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternTextArea.getValue(),
       terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue,  ///
       terminalSymbolsRegExpPatternIsValid = regExpPatternIsValid(terminalSymbolsRegExpPattern);
@@ -81,24 +84,23 @@ function updateLexer() {
           { terminal : terminalSymbolsRegExp }
         ];
 
-    lexer = BasicLexer.fromGrammar(grammar);
+    basicLexer = BasicLexer.fromGrammar(grammar);
 
     terminalSymbolsRegExpPatternTextArea.removeClass('error');
   } else {
     terminalSymbolsRegExpPatternTextArea.addClass('error');
 
-    lexer = null;
+    basicLexer = null;
   }
 }
 
-function updateParser() {
+function updateBasicParser() {
   var grammarTextAreaValue = Example.getGrammarTextAreaValue(),
       terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternTextArea.getValue(),
       grammar = grammarTextAreaValue, ///
-      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue, ///
-      significantTokenTypes = BasicLexer.significantTokenTypes();
+      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue; ///
 
-  Example.updateParser(grammar, terminalSymbolsRegExpPattern, significantTokenTypes);
+  basicParser = BasicParser.fromGrammarAndTerminalSymbolsRegExpPattern(grammar, terminalSymbolsRegExpPattern);
 }
 
 function regExpPatternIsValid(regExpPattern) {

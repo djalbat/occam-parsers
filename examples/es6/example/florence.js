@@ -5,13 +5,15 @@ var lexers = require('occam-lexers'),
 
 var Example = require('../example');
 
-var grammar = require('../../../es6/grammar/florence');
+var FlorenceParser = require('../../../es6/florence/parser'),
+    florenceGrammar = require('../../../es6/florence/grammar');
 
-var lexer = FlorenceLexer.fromNothing();
+var florenceLexer = FlorenceLexer.fromNothing(),
+    florenceParser = FlorenceParser.fromNothing();
 
 class FlorenceExample {
   static run() {
-    var grammarTextAreaValue = grammar; ///
+    var grammarTextAreaValue = florenceGrammar; ///
 
     Example.setGrammarTextAreaValue(grammarTextAreaValue);
 
@@ -28,16 +30,7 @@ class FlorenceExample {
 }
 
 function update() {
-  updateParser();
-
-  Example.updateParseTree(lexer);
+  Example.updateParseTree(florenceLexer, florenceParser);
 }
 
 module.exports = FlorenceExample;
-
-function updateParser() {
-  var terminalSymbolsRegExpPattern = FlorenceLexer.terminalSymbolsRegExpPattern(),
-      significantTokenTypes = FlorenceLexer.significantTokenTypes();
-
-  Example.updateParser(grammar, terminalSymbolsRegExpPattern, significantTokenTypes);
-}

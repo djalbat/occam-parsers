@@ -5,13 +5,15 @@ var lexers = require('occam-lexers'),
 
 var Example = require('../example');
 
-var grammar = require('../../../es6/grammar/gallina');
+var GallinaParser = require('../../../es6/gallina/parser'),
+    gallinaGrammar = require('../../../es6/gallina/grammar');
 
-var lexer = GallinaLexer.fromNothing();
+var gallinaLexer = GallinaLexer.fromNothing(),
+    gallinaParser = GallinaParser.fromNothing();
 
 class GallinaExample {
   static run() {
-    var grammarTextAreaValue = grammar; ///
+    var grammarTextAreaValue = gallinaGrammar; ///
 
     Example.setGrammarTextAreaValue(grammarTextAreaValue);
 
@@ -28,16 +30,7 @@ class GallinaExample {
 }
 
 function update() {
-  updateParser();
-
-  Example.updateParseTree(lexer);
+  Example.updateParseTree(gallinaLexer, gallinaParser);
 }
 
 module.exports = GallinaExample;
-
-function updateParser() {
-  var terminalSymbolsRegExpPattern = GallinaLexer.terminalSymbolsRegExpPattern(),
-      significantTokenTypes = GallinaLexer.significantTokenTypes();
-
-  Example.updateParser(grammar, terminalSymbolsRegExpPattern, significantTokenTypes);
-}

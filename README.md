@@ -1,6 +1,6 @@
-# Parser
+# Parsers
 
-The Occam proof assistant's parser.
+The Occam proof assistant's parsers.
 
 ### Contents
 
@@ -46,11 +46,11 @@ One reason for this is to keep both the BNF parser and lexer as simple as possib
 
 With [npm](https://www.npmjs.com/):
 
-    npm install occam-parser
+    npm install occam-parsers
 
 You can also clone the repository with [Git](https://git-scm.com/)...
 
-    git clone git@github.com:occam-proof-assistant/Parser.git
+    git clone git@github.com:occam-proof-assistant/Parsers.git
 
 ...and then install the necessary modules with npm from within the project's root directory:
 
@@ -60,7 +60,7 @@ You will need to do this if you want to look at the examples.
 
 ## Examples
 
-Although there is only one parser, aside from the internal BNF parser that is, just like the [Lexers](https://github.com/occam-proof-assistant/Lexers) project there are three examples. Unlike the Lexers project, however, the examples are a little edifying. They show a representation of the parse tree, which is useful for writing and debugging grammars. For example, here is the parse tree corresponding to the expression `1+(2*3)` given the grammar in the introduction:
+Just like the [Lexers](https://github.com/occam-proof-assistant/Lexers) project there are three examples. Unlike the Lexers project, however, the examples are a little edifying. They show a representation of the parse tree, which is useful for writing and debugging grammars. For example, here is the parse tree corresponding to the expression `1+(2*3)` given the grammar in the introduction:
 
                               expr
                                 |
@@ -98,7 +98,7 @@ Both the grammar and the terminal symbols regular expression pattern can be chan
 
 ### Florence example
 
-This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/florence.js) of Occam's Florence specification language. The following inference rule and proof from propositional logic will parse...
+This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/grammar/florence.js) of Occam's Florence specification language. The following inference rule and proof from propositional logic will parse...
 
     Rule (NegationOfConjunctionOfNegationsImpliesDisjunction)
       Premise
@@ -175,7 +175,7 @@ This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-a
 
 ### Gallina example
 
-This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parser/master/es6/grammar/gallina.js) of the Gallina specification language. Bear in mind that this is not the same as the official Gallina specification, which uses a different variant of extended BNF.
+This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/grammar/gallina.js) of the Gallina specification language. Bear in mind that this is not the same as the official Gallina specification, which uses a different variant of extended BNF.
 
 The following nonsensical axiom will parse...
 
@@ -222,8 +222,6 @@ Those familiar with recursive descent parsers should recognise a `term` producti
             | % ident term'
 
             | ε
-
-The Gallina grammar is very much a work in progress for two reasons. Firstly, the official specification is somewhat informal and appears to be incomplete or at least a little out of date. Secondly, the Coq proof assistant supports extensible grammars. Eventually the Occam proof assistant will support these, too.
 
 ## Features
 
