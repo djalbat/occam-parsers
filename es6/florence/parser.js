@@ -6,7 +6,7 @@ var lexers = require('occam-lexers'),
 
 var grammar = require('./grammar'),
     BNFParser = require('../bnf/parser'),
-    CommonParser = require('../../es6/common/parser');
+    CommonParser = require('../common/parser');
 
 class FlorenceParser extends CommonParser {
   static fromNothing() {
