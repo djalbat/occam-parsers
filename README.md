@@ -60,7 +60,7 @@ You will need to do this if you want to look at the examples.
 
 ## Examples
 
-Just like the [Lexers](https://github.com/occam-proof-assistant/Lexers) project there are three examples. Unlike the Lexers project, however, the examples are a little edifying. They show a representation of the parse tree, which is useful for writing and debugging grammars. For example, here is the parse tree corresponding to the expression `1+(2*3)` given the grammar in the introduction:
+There are three examples. They show a representation of the parse tree, which is useful for writing and debugging grammars. For example, here is the parse tree corresponding to the expression `1+(2*3)` given the grammar in the introduction:
 
                               expr
                                 |
@@ -98,7 +98,7 @@ Both the grammar and the terminal symbols regular expression pattern can be chan
 
 ### Florence example
 
-This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/grammar/florence.js) of Occam's Florence specification language. The following inference rule and proof from propositional logic will parse...
+This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/grammar.js) of Occam's Florence specification language. The following inference rule and proof from propositional logic will parse...
 
     Rule (NegationOfConjunctionOfNegationsImpliesDisjunction)
       Premise
@@ -175,7 +175,7 @@ This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-a
 
 ### Gallina example
 
-This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/grammar/gallina.js) of the Gallina specification language. Bear in mind that this is not the same as the official Gallina specification, which uses a different variant of extended BNF.
+This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/gallina/grammar.js) of the Gallina specification language. Bear in mind that this is not the same as the official Gallina specification, which uses a different variant of extended BNF.
 
 The following nonsensical axiom will parse...
 
