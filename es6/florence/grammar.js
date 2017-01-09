@@ -159,7 +159,7 @@ var grammar = `
     typeName                                  ::=   unassigned
 
            
-           
+
     ↲                                         ::=   <END_OF_LINE>+
 
 `;

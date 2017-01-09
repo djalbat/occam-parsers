@@ -19,10 +19,6 @@ class FlorenceExample {
 
     update();
 
-    Example.onGrammarTextAreaChange(function() {
-      update();
-    });
-
     Example.onContentTextAreaChange(function() {
       update();
     });

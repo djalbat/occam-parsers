@@ -19,10 +19,6 @@ class GallinaExample {
 
     update();
 
-    Example.onGrammarTextAreaChange(function() {
-      update();
-    });
-
     Example.onContentTextAreaChange(function() {
       update();
     });

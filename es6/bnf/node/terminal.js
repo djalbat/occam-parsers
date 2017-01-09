@@ -10,8 +10,8 @@ class TerminalNode {
   
   getContent() {
     var content = (this.type === null) ?
-                    this.content :
-                   `${this.content}[${this.type}]`; ///
+                     this.content :
+                    `${this.content}[${this.type}]`; ///
 
     return content;
   }
