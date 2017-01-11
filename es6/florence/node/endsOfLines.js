@@ -1,11 +1,7 @@
 'use strict';
 
-class EndsOfLinesNode {
-  static fromNodes(nodes, productionName) {
-    nodes = undefined;  ///
+var MissingNode = require('./missing');
 
-    return nodes;
-  }
-}
+class EndsOfLinesNode extends MissingNode {}
 
 module.exports = EndsOfLinesNode;
