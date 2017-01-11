@@ -296,7 +296,7 @@ Mappings allow the parse tree to be simplified by throwing away needless nodes. 
       Conclusion
         P=>Q
 
-...and result in the much simplified parse tree:
+...and result in the much simplified parse tree. Note by the way the mistake in the parsing of the conclusion statement, because the implies symbols `=>` are missing from the Florence grammar:
 
                                                   document
                                                       |
@@ -314,7 +314,7 @@ Mappings allow the parse tree to be simplified by throwing away needless nodes. 
                                                                   |            |            |
                                                             P[unassigned] =[special] >Q[unassigned]
 
-Mappings to missing nodes will result in the corresponding node, and all its child nodes, being completely absent from the parse tree. Transparent nodes are ignored, with their child nodes being effectively moved up to replace them:
+Mappings to the `MissingNode` class, for example, will result in the corresponding node and all its child nodes being removed from the parse tree. Mappings to the `TransparentNode` class similarly results in the corresponding node being removed from the parse tree, however the child nodes remain and are effectively moved up to replace the removed node. The implementation is straightforward:
 
     class TransparentNode extends NonTerminalNode {
       static fromNodes(nodes, productionName) {
@@ -322,7 +322,7 @@ Mappings to missing nodes will result in the corresponding node, and all its chi
       }
     }
 
-It is true that a more expressive BNF would allow the grammars, and therefore the resultant parse trees, to be more succinct. However, it is still the case that some nodes, such as keywords, can always be usefully thrown away, hence the need for mappings.
+It is true that a more expressive BNF would allow the grammars, and therefore the resultant parse trees, to be simpler in the first place. However, it is still the case that some nodes, such as keywords, can always be usefully thrown away, hence the need for mappings.
 
 ## Building
 
