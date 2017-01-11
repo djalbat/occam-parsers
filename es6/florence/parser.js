@@ -7,10 +7,9 @@ var lexers = require('occam-lexers'),
 var grammar = require('./grammar'),
     BNFParser = require('../bnf/parser'),
     CommonParser = require('../common/parser'),
-    PartNode = require('./node/part'),
-    EndsOfLinesNode = require('./node/endsOfLines'),
-    CommaThenLabelNode = require('./node/commaThenLabel'),
-    ParenthesisedLabelsNode = require('./node/parenthesisedLabels');
+    MissingNode = require('./node/missing'),
+    TransparentNode = require('./node/transparent'),
+    SecondChildNode = require('./node/secondChild');
 
 class FlorenceParser extends CommonParser {
   static fromNothing() {
@@ -18,10 +17,11 @@ class FlorenceParser extends CommonParser {
         terminalSymbolsRegExpPattern = FlorenceLexer.terminalSymbolsRegExpPattern(),
         significantTokenTypes = FlorenceLexer.significantTokenTypes(),
         mappings = {
-          part: PartNode,
-          endsOfLines: EndsOfLinesNode,
-          commaThenLabel: CommaThenLabelNode,
-          parenthesisedLabels: ParenthesisedLabelsNode
+          'part': TransparentNode,
+          'endsOfLines': MissingNode,
+          'commaThenLabel': SecondChildNode,
+          'parenthesisedLabels': SecondChildNode,
+          '(labelled)statement': TransparentNode
         },
         productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings),
         florenceParser = new FlorenceParser(productions);
