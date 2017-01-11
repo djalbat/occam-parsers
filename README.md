@@ -62,6 +62,34 @@ You will need to do this if you want to look at the examples.
 
 There are three examples. They show a representation of the parse tree, which is useful for writing and debugging grammars. For example, here is the parse tree corresponding to the expression `1+(2*3)` given the grammar in the introduction:
 
+                                expr
+                                  |
+                  ---------------------------------
+                  |                               |
+                term                      operatorThenTerm
+                  |                               |
+            naturalNumber      ---------------------------------------
+                  |            |                                     |
+             1[terminal]   operator                                term
+                               |                                     |
+                          +[terminal]                        parenthesizedExpr
+                                                                     |
+                                           -----------------------------------------------------
+                                           |                      |                            |
+                                      ([terminal]               expr                      )[terminal]
+                                                                  |
+                                                        ---------------------
+                                                        |                   |
+                                                      term          operatorThenTerm
+                                                        |                   |
+                                                  naturalNumber      --------------
+                                                        |            |            |
+                                                   2[terminal]   operator       term
+                                                                     |            |
+                                                                *[terminal] naturalNumber
+                                                                                  |
+                                                                             3[terminal]
+
                               expr
                                 |
                 ---------------------------------
@@ -277,7 +305,7 @@ Mappings allow the parse tree to be simplified by throwing away needless nodes. 
 
     mappings = {
       'part': TransparentNode,
-      'label': TransparentNode,
+      'label': LabelNode,
       'rule': MissingFirstChildNode,
       'premise': TransparentSecondChildNode,
       'premises': TransparentMissingFirstChildNode,
@@ -302,27 +330,37 @@ Mappings allow the parse tree to be simplified by throwing away needless nodes. 
                                                       |
                                                     rule
                                                       |
-                            ----------------------------------------------------
-                            |                       |                          |
-                         labels                premise(s)                 conclusion
-                            |                       |                          |
-            PrincipleOfExplosion[unassigned]    statement                  statement
-                                                    |                          |
-                                                 symbol           ---------------------------
-                                                    |             |            |            |
-                                             ⌐P[unassigned]    symbol       symbol       symbol
-                                                                  |            |            |
-                                                            P[unassigned] =[special] >Q[unassigned]
+                             --------------------------------------------------
+                             |                     |                          |
+                          labels              premise(s)                 conclusion
+                             |                     |                          |
+                PrincipleOfExplosion[label]    statement                  statement
+                                                   |                          |
+                                                symbol           ---------------------------
+                                                   |             |            |            |
+                                            ⌐P[unassigned]    symbol       symbol       symbol
+                                                                 |            |            |
+                                                           P[unassigned] =[special] >Q[unassigned]
 
-Mappings to the `MissingNode` class, for example, will result in the corresponding node and all its child nodes being removed from the parse tree. Mappings to the `TransparentNode` class similarly results in the corresponding node being removed from the parse tree, however the child nodes remain and are effectively moved up to replace the removed node. The implementation is straightforward:
+Mappings to the `MissingNode` class, for example, will result in the corresponding node and all its child nodes being removed from the parse tree. Mappings to the `TransparentNode` class similarly results in the corresponding node being removed from the parse tree, however the child nodes remain and are effectively moved up to replace the removed node.
 
-    class TransparentNode extends NonTerminalNode {
+Custom nodes can also be defined. The following `LabelNode` class acts transparently but also adjusts the type of the underlying significant token:
+
+    class LabelNode {
       static fromNodes(nodes, productionName) {
+        var childNodes = nodes, ///
+            firstChildNode = first(childNodes),
+            terminalNode = firstChildNode,  ///
+            significantToken = terminalNode.getSignificantToken(),
+            significantTokenType = 'label'; ///
+
+        significantToken.setType(significantTokenType);
+
+        nodes = [terminalNode]; ///
+
         return nodes;
       }
     }
-
-It is true that a more expressive BNF would allow the grammars, and therefore the resultant parse trees, to be simpler in the first place. However, it is still the case that some nodes, such as keywords, can always be usefully thrown away, hence the need for mappings.
 
 ## Building
 

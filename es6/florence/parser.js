@@ -7,11 +7,12 @@ var lexers = require('occam-lexers'),
 var grammar = require('./grammar'),
     BNFParser = require('../bnf/parser'),
     CommonParser = require('../common/parser'),
-    MissingNode = require('./node/missing'),
-    TransparentNode = require('./node/transparent'),
-    MissingFirstChildNode = require('./node/missingFirstChild'),
-    TransparentSecondChildNode = require('./node/transparentSecondChild'),
-    TransparentMissingFirstChildNode = require('./node/transparentMissingFirstChild');
+    LabelNode = require('./node/label'),
+    MissingNode = require('../common/node/missing'),
+    TransparentNode = require('../common/node/transparent'),
+    MissingFirstChildNode = require('../common/node/missingFirstChild'),
+    TransparentSecondChildNode = require('../common/node/transparentSecondChild'),
+    TransparentMissingFirstChildNode = require('../common/node/transparentMissingFirstChild');
 
 class FlorenceParser extends CommonParser {
   static fromNothing() {
@@ -20,7 +21,7 @@ class FlorenceParser extends CommonParser {
         significantTokenTypes = FlorenceLexer.significantTokenTypes(),
         mappings = {
           'part': TransparentNode,
-          'label': TransparentNode,
+          'label': LabelNode,
           'rule': MissingFirstChildNode,
           'premise': TransparentSecondChildNode,
           'premises': TransparentMissingFirstChildNode,

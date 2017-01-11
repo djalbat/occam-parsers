@@ -25,8 +25,7 @@ class RegularExpressionPart {
             parsed = (firstMatch === content);
 
         if (parsed) {
-          var type = RegularExpressionPart.type,
-              terminalNode = new TerminalNode(content, type);
+          var terminalNode = new TerminalNode(content, significantToken);
 
           nodes = [terminalNode];
         }
@@ -56,8 +55,6 @@ class RegularExpressionPart {
     return regularExpressionPart;
   }
 }
-
-RegularExpressionPart.type = 'regexp'; ///
 
 module.exports = RegularExpressionPart;
 

@@ -22,7 +22,7 @@ class SignificantTokenTypePart {
 
       if (parsed) {
         var content = significantToken.getContent(),
-            terminalNode = new TerminalNode(content, type);
+            terminalNode = new TerminalNode(content, significantToken);
 
         nodes = [terminalNode];
       }

@@ -4,9 +4,9 @@ var TerminalNode = require('../node/terminal');
 
 class EpsilonPart {
   parse(context, productions, noWhitespace) {
-    var string = 'ε',
-        type = null,
-        terminalNode = new TerminalNode(string, type),
+    var content = 'ε',
+        significantToken = null, ///
+        terminalNode = new TerminalNode(content, significantToken),
         nodes = [terminalNode];
 
     return nodes;

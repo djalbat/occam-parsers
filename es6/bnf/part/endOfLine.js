@@ -24,11 +24,8 @@ class EndOfLinePart {
           found = (type === SignificantToken.types.endOfLine);
 
       if (found) {
-        var string = type; ///
-
-        type = null;
-
-        var terminalNode = new TerminalNode(string, type);
+        var content = '', ///
+            terminalNode = new TerminalNode(content, significantToken);
 
         nodes = [terminalNode];
       }
