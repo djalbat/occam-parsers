@@ -9,8 +9,9 @@ var grammar = require('./grammar'),
     CommonParser = require('../common/parser'),
     MissingNode = require('./node/missing'),
     TransparentNode = require('./node/transparent'),
-    SecondChildNode = require('./node/secondChild'),
-    MissingFirstChildNode = require('./node/missingFirstChild');
+    MissingFirstChildNode = require('./node/missingFirstChild'),
+    TransparentSecondChildNode = require('./node/transparentSecondChild'),
+    TransparentMissingFirstChildNode = require('./node/transparentMissingFirstChild');
 
 class FlorenceParser extends CommonParser {
   static fromNothing() {
@@ -21,11 +22,12 @@ class FlorenceParser extends CommonParser {
           'part': TransparentNode,
           'label': TransparentNode,
           'rule': MissingFirstChildNode,
-          'premise': SecondChildNode,
+          'premise': TransparentSecondChildNode,
+          'premises': TransparentMissingFirstChildNode,
           'conclusion': MissingFirstChildNode,
           'endsOfLines': MissingNode,
-          'commaThenLabel': SecondChildNode,
-          'parenthesisedLabels': SecondChildNode,
+          'commaThenLabel': TransparentSecondChildNode,
+          'parenthesisedLabels': TransparentSecondChildNode,
           '(labelled)statement': TransparentNode
         },
         productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings),

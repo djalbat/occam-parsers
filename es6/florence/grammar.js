@@ -24,7 +24,7 @@ var grammar = `
     
     premise                                   ::=   Premise endsOfLines (labelled)statement
     
-    premises                                  ::=   Premises endsOfLines (labelled)statement (labelled)statement+
+    premises                                  ::=   Premises endsOfLines (labelled)statement+
 
     conclusion                                ::=   Conclusion endsOfLines statement
 
