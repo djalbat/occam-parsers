@@ -9,7 +9,8 @@ var grammar = require('./grammar'),
     CommonParser = require('../common/parser'),
     MissingNode = require('./node/missing'),
     TransparentNode = require('./node/transparent'),
-    SecondChildNode = require('./node/secondChild');
+    SecondChildNode = require('./node/secondChild'),
+    MissingFirstChildNode = require('./node/missingFirstChild');
 
 class FlorenceParser extends CommonParser {
   static fromNothing() {
@@ -18,6 +19,10 @@ class FlorenceParser extends CommonParser {
         significantTokenTypes = FlorenceLexer.significantTokenTypes(),
         mappings = {
           'part': TransparentNode,
+          'label': TransparentNode,
+          'rule': MissingFirstChildNode,
+          'premise': SecondChildNode,
+          'conclusion': MissingFirstChildNode,
           'endsOfLines': MissingNode,
           'commaThenLabel': SecondChildNode,
           'parenthesisedLabels': SecondChildNode,
