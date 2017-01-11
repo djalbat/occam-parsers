@@ -181,7 +181,7 @@ The following nonsensical axiom will parse...
 
     Axiom (ident : 10).
 
-..., resulting in the following parse tree:
+...and will result in the following parse tree:
 
                                                       sentence
                                                           |
@@ -270,6 +270,59 @@ This can be done with the `<NO_WHITESPACE>` special symbol. Examples are the `ac
 The `<NO_WHITESPACE>` special symbol will bind more tightly to the symbol to its right than any operator and will therefore be used repeatedly. Since a `term` can be a `qualid` the following nonsensical axiom will parse:
 
     Axiom (ident : a.b.c).
+
+### Mappings
+
+Mappings allow the parse tree to be simplified by throwing away needless nodes. For example, given the following mappings...
+
+    mappings = {
+      'part': TransparentNode,
+      'label': TransparentNode,
+      'rule': MissingFirstChildNode,
+      'premise': TransparentSecondChildNode,
+      'premises': TransparentMissingFirstChildNode,
+      'conclusion': MissingFirstChildNode,
+      'endsOfLines': MissingNode,
+      'commaThenLabel': TransparentSecondChildNode,
+      'parenthesisedLabels': TransparentSecondChildNode,
+      '(labelled)statement': TransparentNode
+    }
+
+...the following rule will parse...
+
+    Rule (PrincipleOfExplosion)
+      Premise
+        ⌐P
+      Conclusion
+        P=>Q
+
+...and result in the much simplified parse tree:
+
+                                                  document
+                                                      |
+                                                    rule
+                                                      |
+                            ----------------------------------------------------
+                            |                       |                          |
+                         labels                premise(s)                 conclusion
+                            |                       |                          |
+            PrincipleOfExplosion[unassigned]    statement                  statement
+                                                    |                          |
+                                                 symbol           ---------------------------
+                                                    |             |            |            |
+                                             ⌐P[unassigned]    symbol       symbol       symbol
+                                                                  |            |            |
+                                                            P[unassigned] =[special] >Q[unassigned]
+
+Mappings to missing nodes will result in the corresponding node, and all its child nodes, being completely absent from the parse tree. Transparent nodes are ignored, with their child nodes being effectively moved up to replace them:
+
+    class TransparentNode extends NonTerminalNode {
+      static fromNodes(nodes, productionName) {
+        return nodes;
+      }
+    }
+
+It is true that a more expressive BNF would allow the grammars, and therefore the resultant parse trees, to be more succinct. However, it is still the case that some nodes, such as keywords, can always be usefully thrown away, hence the need for mappings.
 
 ## Building
 
