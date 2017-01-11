@@ -31,7 +31,9 @@ class Rule {
             parsed = (partNodes !== null);
 
         if (parsed) {
-          nodes = nodes.concat(partNodes);
+          if (partNodes !== undefined) {
+            nodes = nodes.concat(partNodes);
+          }
 
           noWhitespace = false;
         }

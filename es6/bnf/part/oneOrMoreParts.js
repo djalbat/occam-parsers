@@ -10,18 +10,20 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
         terminalPartOrProduction = this.terminalPartOrProduction(productions);
 
     if (terminalPartOrProduction !== null) {
-      var productionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace),
-          parsed = (productionNodes !== null);
+      var terminalPartOrProductionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace),
+          parsed = (terminalPartOrProductionNodes !== null);
 
       if (parsed) {
-        nodes = productionNodes;
+        nodes = terminalPartOrProductionNodes;
 
         for(;;) {
-          productionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace);
-          parsed = (productionNodes !== null);
+          terminalPartOrProductionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace);
+          parsed = (terminalPartOrProductionNodes !== null);
 
           if (parsed) {
-            nodes = nodes.concat(productionNodes);
+            if (terminalPartOrProductionNodes !== undefined) {
+              nodes = nodes.concat(terminalPartOrProductionNodes);
+            }
           } else {
             return nodes;
           }

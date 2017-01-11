@@ -4,33 +4,33 @@ var grammar = `
 
     document                                  ::=   part*
 
-    part                                      ::=   ↲ | rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | definition | error
+    part                                      ::=   endsOfLines | rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | definition | error
    
     error                                     ::=   string | special | keyword | unassigned 
     
     
     
-    rule                                      ::=   Rule parenthesisedLabels? ↲ localVariable(s)? premise(s)? conclusion proof?
+    rule                                      ::=   Rule parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion proof?
     
-    axiom                                     ::=   Axiom parenthesisedLabels? ↲ localVariable(s)? premise(s)? conclusion
+    axiom                                     ::=   Axiom parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion
     
-    theorem                                   ::=   Theorem parenthesisedLabels? ↲ localVariable(s)? premise(s)? conclusion proof
+    theorem                                   ::=   Theorem parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion proof
         
-    lemma                                     ::=   Lemma parenthesisedLabels? ↲ localVariable(s)? premise(s)? conclusion proof    
+    lemma                                     ::=   Lemma parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion proof    
     
     
     
     premise(s)                                ::=   premise | premises
     
-    premise                                   ::=   Premise ↲ (labelled)statement
+    premise                                   ::=   Premise endsOfLines (labelled)statement
     
-    premises                                  ::=   Premises ↲ (labelled)statement (labelled)statement+
+    premises                                  ::=   Premises endsOfLines (labelled)statement (labelled)statement+
 
-    conclusion                                ::=   Conclusion ↲ statement
+    conclusion                                ::=   Conclusion endsOfLines statement
 
-    proof                                     ::=   Proof ↲ subLemmaOr(labelled)statement* therefore
+    proof                                     ::=   Proof endsOfLines subLemmaOr(labelled)statement* therefore
 
-    therefore                                 ::=   Therefore ↲ (labelled)statement
+    therefore                                 ::=   Therefore endsOfLines (labelled)statement
     
     
 
@@ -40,19 +40,19 @@ var grammar = `
     
     
 
-    suppose                                   ::=   Suppose ↲ statement+
+    suppose                                   ::=   Suppose endsOfLines statement+
     
-    then                                      ::=   Then ↲ subLemmaOr(labelled)statement+
+    then                                      ::=   Then endsOfLines subLemmaOr(labelled)statement+
     
-    hence                                     ::=   Hence ↲ (labelled)statement
+    hence                                     ::=   Hence endsOfLines (labelled)statement
     
     
     
     (labelled)statement                       ::=   labelledStatement | statement
     
-    labelledStatement                         ::=   symbol+ by label ↲
+    labelledStatement                         ::=   symbol+ by label endsOfLines
     
-    statement                                 ::=   symbol+ ↲
+    statement                                 ::=   symbol+ endsOfLines
     
     symbol                                    ::=   unassigned | { | } | = | : | ( | )
     
@@ -72,9 +72,9 @@ var grammar = `
 
     variable(s)                               ::=   variable | variables
 
-    variables                                 ::=   Variables ↲? variable(s)Declaration(s) ↲
+    variables                                 ::=   Variables endsOfLines? variable(s)Declaration(s) endsOfLines
     
-    variable                                  ::=   Variable ↲? variableDeclaration ↲
+    variable                                  ::=   Variable endsOfLines? variableDeclaration endsOfLines
     
     variable(s)Declaration(s)                 ::=   variables(s)Declarations | variablesDeclaration
 
@@ -102,9 +102,9 @@ var grammar = `
 
     constructor(s)                            ::=   constructor | constructors
 
-    constructors                              ::=   Constructors ↲? constructor(s)Declaration(s) ↲
+    constructors                              ::=   Constructors endsOfLines? constructor(s)Declaration(s) endsOfLines
     
-    constructor                               ::=   Constructor ↲? constructorDeclaration ↲
+    constructor                               ::=   Constructor endsOfLines? constructorDeclaration endsOfLines
     
     constructor(s)Declaration(s)              ::=   constructors(s)Declarations | constructorsDeclaration
 
@@ -138,7 +138,7 @@ var grammar = `
 
     
     
-    object                                    ::=   Object ↲? objectDeclaration ↲
+    object                                    ::=   Object endsOfLines? objectDeclaration endsOfLines
 
     objectDeclaration                         ::=   objectLiteral : typeName
     
@@ -154,13 +154,13 @@ var grammar = `
     
     
     
-    type                                      ::=   Type typeName ↲
+    type                                      ::=   Type typeName endsOfLines
 
     typeName                                  ::=   unassigned
 
            
 
-    ↲                                         ::=   <END_OF_LINE>+
+    endsOfLines                               ::=   <END_OF_LINE>+
 
 `;
 
