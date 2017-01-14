@@ -2,10 +2,6 @@
 
 var grammar = `
 
-    subLemma                                  ::=   suppose then? hence
-
-
-
     document                                  ::=   header body
      
     header                                    ::=   directive*     
@@ -36,19 +32,19 @@ var grammar = `
     
     premise(s)                                ::=   premise | premises
     
-    premise                                   ::=   Premise endsOfLines (labelled)statement
+    premise                                   ::=   Premise endsOfLines (labelled)Statement
     
-    premises                                  ::=   Premises endsOfLines (labelled)statement+
+    premises                                  ::=   Premises endsOfLines (labelled)Statement+
 
     conclusion                                ::=   Conclusion endsOfLines statement
 
-    proof                                     ::=   Proof endsOfLines subLemmaOr(labelled)statement* therefore
+    proof                                     ::=   Proof endsOfLines subLemmaOr(labelled)Statement* therefore
 
-    therefore                                 ::=   Therefore endsOfLines (labelled)statement
+    therefore                                 ::=   Therefore endsOfLines (labelled)Statement
     
     
 
-    subLemmaOr(labelled)statement             ::=   subLemma | (labelled)statement
+    subLemmaOr(labelled)Statement             ::=   subLemma | (labelled)Statement
 
     subLemma                                  ::=   suppose then? hence
     
@@ -56,13 +52,13 @@ var grammar = `
 
     suppose                                   ::=   Suppose endsOfLines statement+
     
-    then                                      ::=   Then endsOfLines subLemmaOr(labelled)statement+
+    then                                      ::=   Then endsOfLines subLemmaOr(labelled)Statement+
     
-    hence                                     ::=   Hence endsOfLines (labelled)statement
+    hence                                     ::=   Hence endsOfLines (labelled)Statement
     
     
     
-    (labelled)statement                       ::=   labelledStatement | statement
+    (labelled)Statement                       ::=   labelledStatement | statement
     
     labelledStatement                         ::=   symbol+ by label endsOfLines
     

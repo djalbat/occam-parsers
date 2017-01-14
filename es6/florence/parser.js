@@ -11,6 +11,7 @@ var grammar = require('./grammar'),
     IncludeDirectiveNode = require('./node/includeDirective'),
     MissingNode = require('../common/node/missing'),
     MissingFirstChildNode = require('../common/node/missingFirstChild'),
+    MissingSecondChildNode = require('../common/node/missingSecondChild'),
     TransparentNode = require('../common/node/transparent'),
     TransparentThenSecondNode = require('../common/node/transparentThenSecond'),
     TransparentThenMissingFirstNode = require('../common/node/transparentThenMissingFirst');
@@ -29,14 +30,17 @@ class FlorenceParser extends CommonParser {
           'directive': TransparentNode,
           'then': MissingFirstChildNode,
           'hence': MissingFirstChildNode,
+          'proof': MissingFirstChildNode,
           'suppose': MissingFirstChildNode,
+          'therefore': TransparentThenMissingFirstNode,
           'conclusion': MissingFirstChildNode,
           'endsOfLines': MissingNode,
           'commaThenLabel': TransparentThenSecondNode,
           'includeDirective': IncludeDirectiveNode,
           'parenthesisedLabels': TransparentThenSecondNode,
-          '(labelled)statement': TransparentNode,
-          'subLemmaOr(labelled)statement': TransparentNode
+          'labelledStatement': MissingSecondChildNode,
+          '(labelled)Statement': TransparentNode,
+          'subLemmaOr(labelled)Statement': TransparentNode
         },
         productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings),
         florenceParser = new FlorenceParser(productions);

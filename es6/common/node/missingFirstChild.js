@@ -4,7 +4,8 @@ var NonTerminalNode = require('../../bnf/node/nonTerminal');
 
 class MissingFirstChildNode extends NonTerminalNode {
   static fromNodes(nodes, productionName) {
-    var childNodes = nodes.slice(1), ///
+    var secondNodeOnwards = secondOnwards(nodes),
+        childNodes = secondNodeOnwards, ///
         missingFirstChildNode = new MissingFirstChildNode(childNodes, productionName);
 
     nodes = [missingFirstChildNode]; ///
@@ -14,3 +15,5 @@ class MissingFirstChildNode extends NonTerminalNode {
 }
 
 module.exports = MissingFirstChildNode;
+
+function secondOnwards(array) { return array.slice(1); }
