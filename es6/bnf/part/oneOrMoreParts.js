@@ -1,32 +1,54 @@
 'use strict';
 
-var SequenceOfPartsPart = require('./sequenceOfParts');
+var ErrorNode = require('../node/error'),
+    SequenceOfPartsPart = require('./sequenceOfParts'),
+    ZeroOrMorePartsPart = require('./zeroOrMoreParts');
 
 class OneOrMorePartsPart extends SequenceOfPartsPart {
   parse(context, productions, noWhitespace) {
     noWhitespace = this.getNoWhitespace();  ///
     
     var nodes = null,
+        errorNode,
         terminalPartOrProduction = this.terminalPartOrProduction(productions);
 
     if (terminalPartOrProduction !== null) {
       var terminalPartOrProductionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace),
-          parsed = (terminalPartOrProductionNodes !== null);
+          terminalPartOrProductionParsed = (terminalPartOrProductionNodes !== null);
 
-      if (parsed) {
-        nodes = terminalPartOrProductionNodes;
+      if (terminalPartOrProductionParsed) {
+        if (terminalPartOrProductionNodes !== undefined) {
+          var firstTerminalPartOrProductionNode = first(terminalPartOrProductionNodes);
 
-        for(;;) {
-          terminalPartOrProductionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace);
-          parsed = (terminalPartOrProductionNodes !== null);
+          if (firstTerminalPartOrProductionNode instanceof ErrorNode) {
+            errorNode = firstTerminalPartOrProductionNode;
 
-          if (parsed) {
-            if (terminalPartOrProductionNodes !== undefined) {
-              nodes = nodes.concat(terminalPartOrProductionNodes);
-            }
-          } else {
+            nodes = [errorNode];
+
             return nodes;
           }
+        }
+
+        nodes = terminalPartOrProductionNodes;
+
+        var zeroOrMorePartsPart = ZeroOrMorePartsPart.fromOneOrMorePartsPart(this), ///
+            zeroOrMorePartsPartNodes = zeroOrMorePartsPart.parse(context, productions, noWhitespace),
+            zeroOrMorePartsPartNodesParsed = (zeroOrMorePartsPartNodes !== null);
+
+        if (zeroOrMorePartsPartNodesParsed) {
+          if (zeroOrMorePartsPartNodes !== undefined) {
+            var firstZeroOrMorePartsPartNode = first(zeroOrMorePartsPartNodes);
+
+            if (firstZeroOrMorePartsPartNode instanceof ErrorNode) {
+              errorNode = firstZeroOrMorePartsPartNode;
+
+              nodes = [errorNode];
+
+              return nodes;
+            }
+          }
+
+          nodes = nodes.concat(zeroOrMorePartsPartNodes);
         }
       }
     }
@@ -44,3 +66,5 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
 }
 
 module.exports = OneOrMorePartsPart;
+
+function first(array) { return array[0]; }

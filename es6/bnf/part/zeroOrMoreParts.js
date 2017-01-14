@@ -1,12 +1,14 @@
 'use strict';
 
-var SequenceOfPartsPart = require('./sequenceOfParts');
+var ErrorNode = require('../node/error'),
+    SequenceOfPartsPart = require('./sequenceOfParts');
 
 class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   parse(context, productions, noWhitespace) {
     noWhitespace = this.getNoWhitespace();  ///
 
     var nodes = null,
+        errorNode,
         terminalPartOrProduction = this.terminalPartOrProduction(productions);
 
     if (terminalPartOrProduction !== null) {
@@ -14,11 +16,21 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
 
       for(;;) {
         var terminalPartOrProductionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace),
-            parsed = (terminalPartOrProductionNodes !== null);
+            terminalPartOrProductionParsed = (terminalPartOrProductionNodes !== null);
 
-        if (parsed) {
+        if (terminalPartOrProductionParsed) {
           if (terminalPartOrProductionNodes !== undefined) {
-            nodes = nodes.concat(terminalPartOrProductionNodes);
+            var firstTerminalPartOrProductionNode = first(terminalPartOrProductionNodes);
+
+            if (firstTerminalPartOrProductionNode instanceof ErrorNode) {
+              errorNode = firstTerminalPartOrProductionNode;
+
+              nodes = [errorNode];
+
+              return nodes;
+            } else {
+              nodes = nodes.concat(terminalPartOrProductionNodes);
+            }
           }
         } else {
           return nodes;
@@ -36,6 +48,18 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
 
     return zeroOrMorePartsPart;
   }
+
+
+  static fromOneOrMorePartsPart(oneOrMorePartsPart) {
+    var terminalPart = oneOrMorePartsPart.getTerminalPart(),
+        productionName = oneOrMorePartsPart.getProductionName(),
+        noWhitespace = oneOrMorePartsPart.getNoWhitespace(),
+        zeroOrMorePartsPart = new ZeroOrMorePartsPart(terminalPart, productionName, noWhitespace);
+
+    return zeroOrMorePartsPart;
+  }
 }
 
 module.exports = ZeroOrMorePartsPart;
+
+function first(array) { return array[0]; }

@@ -1,20 +1,34 @@
 'use strict';
 
-var SequenceOfPartsPart = require('./sequenceOfParts');
+var ErrorNode = require('../node/error'),
+    SequenceOfPartsPart = require('./sequenceOfParts');
 
 class OptionalPartPart extends SequenceOfPartsPart {
   parse(context, productions, noWhitespace) {
     noWhitespace = this.getNoWhitespace();  ///
 
-    var nodes = [], ///
+    var nodes = [],
+        errorNode,
         terminalPartOrProduction = this.terminalPartOrProduction(productions);
     
     if (terminalPartOrProduction !== null) {
-      var productionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace),
-          parsed = (productionNodes !== null);
+      var terminalPartOrProductionNodes = terminalPartOrProduction.parse(context, productions, noWhitespace),
+          terminalPartOrProductionParsed = (terminalPartOrProductionNodes !== null);
 
-      if (parsed) {
-        nodes = productionNodes;
+      if (terminalPartOrProductionParsed) {
+        if (terminalPartOrProductionNodes !== undefined) {
+          var firstTerminalPartOrProductionNode = first(terminalPartOrProductionNodes);
+
+          if (firstTerminalPartOrProductionNode instanceof ErrorNode) {
+            errorNode = firstTerminalPartOrProductionNode;
+
+            nodes = [errorNode];
+
+            return nodes;
+          }
+
+          nodes = terminalPartOrProductionNodes;
+        }
       }
     }
 
@@ -31,3 +45,5 @@ class OptionalPartPart extends SequenceOfPartsPart {
 }
 
 module.exports = OptionalPartPart;
+
+function first(array) { return array[0]; }

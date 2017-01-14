@@ -11,6 +11,14 @@ class SequenceOfPartsPart {
     this.productionName = productionName;
     this.noWhitespace = noWhitespace;
   }
+
+  getTerminalPart() {
+    return this.terminalPart;
+  }
+
+  getProductionName() {
+    return this.productionName;
+  }
   
   getNoWhitespace() {
     return this.noWhitespace;

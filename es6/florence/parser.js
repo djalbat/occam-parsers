@@ -10,9 +10,9 @@ var grammar = require('./grammar'),
     LabelNode = require('./node/label'),
     IncludeDirectiveNode = require('./node/includeDirective'),
     DiscardNode = require('../common/node/discard'),
+    TransparentNode = require('../common/node/transparent'),
     DiscardFirstChildNode = require('../common/node/discardFirstChild'),
     DiscardSecondChildNode = require('../common/node/discardSecondChild'),
-    TransparentNode = require('../common/node/transparent'),
     TransparentThenSecondNode = require('../common/node/transparentThenSecond'),
     TransparentThenDiscardFirstNode = require('../common/node/transparentThenDiscardFirst');
 

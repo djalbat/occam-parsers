@@ -12,43 +12,44 @@ class Rule {
   }
   
   parse(context, productions, noWhitespace) {
-    context.increaseDepth();
-
     var nodes = [],
-        tooDeep = context.isTooDeep();
+        savedIndex = context.savedIndex(),
+        parsed = this.parts.every(function(part) {
+          var partNodes = part.parse(context, productions, noWhitespace),
+              parsed = (partNodes !== null);
 
-    if (tooDeep) {
-      var string = '',  ///
-          message = TOO_DEEP_ERROR_MESSAGE,
-          errorNode = new ErrorNode(string, message);
+          if (parsed) {
+            if (partNodes !== undefined) {
+              var firstPartNode = first(partNodes);
 
-      nodes = [errorNode];
-    } else {
-      var savedIndex = context.savedIndex();
+              if (firstPartNode instanceof ErrorNode) {
+                var errorNode = firstPartNode;
 
-      var parsed = this.parts.every(function(part) {
-        var partNodes = part.parse(context, productions, noWhitespace),
-            parsed = (partNodes !== null);
+                nodes = [errorNode];
 
-        if (parsed) {
-          if (partNodes !== undefined) {
-            nodes = nodes.concat(partNodes);
+                parsed = false;
+              } else {
+                nodes = nodes.concat(partNodes);
+              }
+            }
+
+            noWhitespace = false;
           }
 
-          noWhitespace = false;
-        }
+          return parsed;
+        });
 
-        return parsed;
-      });
+    if (!parsed) {
+      var firstNode = first(nodes);
 
-      if (!parsed) {
+      if (firstNode instanceof ErrorNode) {
+
+      } else {
         nodes = null;
 
         context.backtrack(savedIndex);
       }
     }
-
-    context.decreaseDepth();
 
     return nodes;
   }
@@ -90,4 +91,4 @@ function partFromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, no
   return part;
 }
 
-const TOO_DEEP_ERROR_MESSAGE = 'The parse tree is too deep. This is likely caused by left recursion.';
+function first(array) { return array[0]; }

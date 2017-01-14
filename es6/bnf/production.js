@@ -2,7 +2,8 @@
 
 var Rule = require('./rule'),
     ErrorNode = require('./node/error'),
-    NonTerminalNode = require('./node/nonTerminal');
+    NonTerminalNode = require('./node/nonTerminal'),
+    TooDeepErrorNode = require('./node/error/tooDeep');
 
 class Production {
   constructor(name, rules, Node) {
@@ -16,29 +17,40 @@ class Production {
   }
   
   parse(context, productions, noWhitespace) {
-    var nodes = null;
+    context.increaseDepth();
 
-    this.rules.some(function(rule) {
-      nodes = rule.parse(context, productions, noWhitespace);
+    var nodes = null,
+        tooDeep = context.isTooDeep();
+
+    if (tooDeep) {
+      var tooDeepErrorNode = new TooDeepErrorNode();
+
+      nodes = [tooDeepErrorNode]
+    } else {
+      this.rules.some(function(rule) {
+        nodes = rule.parse(context, productions, noWhitespace);
+
+        var parsed = (nodes !== null);
+
+        return parsed;
+      });
 
       var parsed = (nodes !== null);
 
-      return parsed;
-    });
+      if (parsed) {
+        var firstNode = first(nodes);
 
-    var parsed = (nodes !== null);
+        if (firstNode instanceof ErrorNode) {
 
-    if (parsed) {
-      var firstNode = first(nodes);
+        } else {
+          var productionName = this.name; ///
 
-      if (firstNode instanceof ErrorNode) {
-
-      } else {
-        var productionName = this.name; ///
-
-        nodes = this.Node.fromNodes(nodes, productionName);
+          nodes = this.Node.fromNodes(nodes, productionName);
+        }
       }
     }
+
+    context.decreaseDepth();
 
     return nodes;
   }
