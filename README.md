@@ -271,9 +271,9 @@ These are probably best avoided in production grammars but are useful for illust
 
 Recall that the terminal symbols regular expression is also passed to the lexer, which will pick out matching content as individual tokens. Hence the anchors in the BNF grammar's regular expression are matched although they are not strictly needed.
 
-### Matching token types
+### Matching significant token types
 
-This can be done with a symbol that is identical to the token type in question, contained within square brackets. Recall that the [lexical grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/grammar.js) of the Florence specification language defines `unassigned` tokens. These are used in the production for labels in the BNF grammar:
+This can be done with a symbol that is identical to the significant token type in question, contained within square brackets. Recall that the [lexical grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/grammar.js) of the Florence specification language defines `unassigned` significant tokens. These are used in the production for labels in the corresponding BNF grammar:
 
     label ::= [unassigned]
 
