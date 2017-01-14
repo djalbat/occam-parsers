@@ -12,7 +12,7 @@ var grammar = `
     
     directive                                 ::=   includeDirective | endsOfLines
     
-    includeDirective                          ::=   include<NO_WHITESPACE>(<NO_WHITESPACE>string<NO_WHITESPACE>) endsOfLines
+    includeDirective                          ::=   include<NO_WHITESPACE>(<NO_WHITESPACE>[string]<NO_WHITESPACE>) endsOfLines
     
     
 
@@ -64,7 +64,7 @@ var grammar = `
     
     statement                                 ::=   symbol+ endsOfLines
     
-    symbol                                    ::=   unassigned | { | } | = | : | ( | )
+    symbol                                    ::=   [unassigned] | { | } | = | : | ( | )
     
     
     
@@ -74,7 +74,7 @@ var grammar = `
     
     commaThenLabel                            ::=   ,<NO_WHITESPACE>label
 
-    label                                     ::=   unassigned
+    label                                     ::=   [unassigned]
     
 
 
@@ -104,7 +104,7 @@ var grammar = `
     
     colonThenTypeName                         ::=   : typeName
 
-    variableName                              ::=   unassigned
+    variableName                              ::=   [unassigned]
 
 
 
@@ -136,7 +136,7 @@ var grammar = `
 
     constructorBody                           ::=   constructorName<NO_WHITESPACE>parenthesisedConstructorArguments?
 
-    constructorName                           ::=   unassigned
+    constructorName                           ::=   [unassigned]
     
     parenthesisedConstructorArguments         ::=   (<NO_WHITESPACE>constructorArguments<NO_WHITESPACE>)
 
@@ -144,7 +144,7 @@ var grammar = `
     
     commaThenConstructorArgument              ::=   ,<NO_WHITESPACE>constructorArgument
     
-    constructorArgument                       ::=   typeName | .. | unassigned
+    constructorArgument                       ::=   typeName | .. | [unassigned]
 
     
     
@@ -160,17 +160,17 @@ var grammar = `
     
     property                                  ::=   propertyName : typeName
     
-    propertyName                              ::=   unassigned
+    propertyName                              ::=   [unassigned]
     
     
     
     type                                      ::=   Type typeName endsOfLines
 
-    typeName                                  ::=   unassigned
+    typeName                                  ::=   [unassigned]
 
            
 
-    error                                     ::=   string | special | keyword | unassigned 
+    error                                     ::=   [string] | [special] | [keyword] | [unassigned] 
     
 
 

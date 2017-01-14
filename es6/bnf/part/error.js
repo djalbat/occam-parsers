@@ -9,8 +9,8 @@ class ErrorPart {
   parse(context, productions, noWhitespace) {
     var nodes = null,
         savedIndex = context.savedIndex(),
-        nextNonWhitespaceToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
-        token = nextNonWhitespaceToken; ///
+        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+        token = nextNonWhitespaceSignificantToken; ///
 
     if (token !== null) {
       if (token instanceof ErrorToken) {

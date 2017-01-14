@@ -273,11 +273,9 @@ Recall that the terminal symbols regular expression is also passed to the lexer,
 
 ### Matching token types
 
-This can be done with a symbol that is identical to the token type in question. Recall that the [lexical grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/grammar.js) of the Florence specification language defines `unassigned` tokens. These are used in the production for labels in the BNF grammar:
+This can be done with a symbol that is identical to the token type in question, contained within square brackets. Recall that the [lexical grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/grammar.js) of the Florence specification language defines `unassigned` tokens. These are used in the production for labels in the BNF grammar:
 
-    label ::= unassigned
-
-Note that there is a possibility of overloading a symbol in these cases and that this is best avoided. A production called `unassigned`, for example, may not give the desired behaviour.
+    label ::= [unassigned]
 
 ### Matching end of line tokens
 

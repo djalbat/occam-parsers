@@ -37,16 +37,22 @@ class SignificantTokenTypePart {
 
   static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) {
     var significantTokenTypePart = null,
-        type = symbol,  ///
-        foundType = significantTokenTypes.find(function(significantTokenType) {
-          var found = (type === significantTokenType);
+        significantTokenTypePartRegExp = /\[([^/]+)\]/,
+        matches = symbol.match(significantTokenTypePartRegExp);
 
-          return found;
-        }),
-        found = (foundType !== undefined);
+    if (matches !== null) {
+      var secondMatch = second(matches),
+          type = secondMatch, ///
+          foundType = significantTokenTypes.find(function(significantTokenType) {
+            var found = (type === significantTokenType);
 
-    if (found) {
-      significantTokenTypePart = new SignificantTokenTypePart(type, noWhitespace);
+            return found;
+          }),
+          found = (foundType !== undefined);
+
+      if (found) {
+        significantTokenTypePart = new SignificantTokenTypePart(type, noWhitespace);
+      }
     }
 
     return significantTokenTypePart;
@@ -54,3 +60,5 @@ class SignificantTokenTypePart {
 }
 
 module.exports = SignificantTokenTypePart;
+
+function second(array) { return array[1]; }
