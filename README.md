@@ -307,12 +307,12 @@ Mappings allow the parse tree to be simplified by throwing away needless nodes. 
       'part': TransparentNode,
       'label': LabelNode,
       'rule': MissingFirstChildNode,
-      'premise': TransparentSecondChildNode,
-      'premises': TransparentMissingFirstChildNode,
+      'premise': TransparentThenSecondNode,
+      'premises': TransparentThenMissingFirstNode,
       'conclusion': MissingFirstChildNode,
       'endsOfLines': MissingNode,
-      'commaThenLabel': TransparentSecondChildNode,
-      'parenthesisedLabels': TransparentSecondChildNode,
+      'commaThenLabel': TransparentThenSecondNode,
+      'parenthesisedLabels': TransparentThenSecondNode,
       '(labelled)statement': TransparentNode
     }
 

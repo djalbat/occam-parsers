@@ -2,9 +2,8 @@
 
 class LabelNode {
   static fromNodes(nodes, productionName) {
-    var childNodes = nodes, ///
-        firstChildNode = first(childNodes),
-        terminalNode = firstChildNode,  ///
+    var firstNode = first(nodes),
+        terminalNode = firstNode,  ///
         significantToken = terminalNode.getSignificantToken(),
         significantTokenType = 'label'; ///
 

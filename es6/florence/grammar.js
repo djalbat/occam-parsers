@@ -2,11 +2,21 @@
 
 var grammar = `
 
-    document                                  ::=   part*
+    document                                  ::=   header body
+     
+    header                                    ::=   directive*     
+     
+    body                                      ::=   part*
+    
+    
+    
+    directive                                 ::=   includeDirective | endsOfLines
+    
+    includeDirective                          ::=   include<NO_WHITESPACE>(<NO_WHITESPACE>string<NO_WHITESPACE>) endsOfLines
+    
+    
 
-    part                                      ::=   endsOfLines | rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | definition | error
-   
-    error                                     ::=   string | special | keyword | unassigned 
+    part                                      ::=   rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | error | endsOfLines
     
     
     
@@ -159,6 +169,10 @@ var grammar = `
     typeName                                  ::=   unassigned
 
            
+
+    error                                     ::=   string | special | keyword | unassigned 
+    
+
 
     endsOfLines                               ::=   <END_OF_LINE>+
 
