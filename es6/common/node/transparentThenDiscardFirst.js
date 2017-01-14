@@ -2,7 +2,7 @@
 
 var NonTerminalNode = require('../../bnf/node/nonTerminal');
 
-class TransparentThenMissingFirstNode extends NonTerminalNode {
+class TransparentThenDiscardFirstNode extends NonTerminalNode {
   static fromNodes(nodes, productionName) {
     nodes = nodes.slice(1);
 
@@ -10,6 +10,6 @@ class TransparentThenMissingFirstNode extends NonTerminalNode {
   }
 }
 
-module.exports = TransparentThenMissingFirstNode;
+module.exports = TransparentThenDiscardFirstNode;
 
 function second(array) { return array[1]; }

@@ -1,6 +1,6 @@
 'use strict';
 
-class MissingNode {
+class DiscardNode {
   static fromNodes(nodes, productionName) {
     nodes = undefined;  ///
 
@@ -8,4 +8,4 @@ class MissingNode {
   }
 }
 
-module.exports = MissingNode;
+module.exports = DiscardNode;
