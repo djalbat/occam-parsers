@@ -1,9 +1,10 @@
 'use strict';
 
 var Rule = require('./rule'),
-    ErrorNode = require('./node/error'),
-    NonTerminalNode = require('./node/nonTerminal'),
-    TooDeepErrorNode = require('./node/error/tooDeep');
+    FatalErrorNode = require('./node/fatalError'),
+    NonTerminalNode = require('./node/nonTerminal');
+
+const TOO_DEEP_FATAL_ERROR_MESSAGE = 'The parse tree is too deep. This is likely caused by left recursion.';
 
 class Production {
   constructor(name, rules, Node) {
@@ -23,9 +24,10 @@ class Production {
         tooDeep = context.isTooDeep();
 
     if (tooDeep) {
-      var tooDeepErrorNode = new TooDeepErrorNode();
+      var tooDeepFatalErrorMessage = TOO_DEEP_FATAL_ERROR_MESSAGE,
+          tooDeepFatalErrorNode = new FatalErrorNode(tooDeepFatalErrorMessage);
 
-      nodes = [tooDeepErrorNode]
+      nodes = [tooDeepFatalErrorNode]
     } else {
       this.rules.some(function(rule) {
         nodes = rule.parse(context, productions, noWhitespace);
@@ -40,7 +42,7 @@ class Production {
       if (parsed) {
         var firstNode = first(nodes);
 
-        if (firstNode instanceof ErrorNode) {
+        if (firstNode instanceof FatalErrorNode) {
 
         } else {
           var productionName = this.name; ///

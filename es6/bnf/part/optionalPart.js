@@ -1,6 +1,6 @@
 'use strict';
 
-var ErrorNode = require('../node/error'),
+var FatalErrorNode = require('../node/fatalError'),
     SequenceOfPartsPart = require('./sequenceOfParts');
 
 class OptionalPartPart extends SequenceOfPartsPart {
@@ -8,7 +8,7 @@ class OptionalPartPart extends SequenceOfPartsPart {
     noWhitespace = this.getNoWhitespace();  ///
 
     var nodes = [],
-        errorNode,
+        fatalErrorNode,
         terminalPartOrProduction = this.terminalPartOrProduction(productions);
     
     if (terminalPartOrProduction !== null) {
@@ -19,10 +19,10 @@ class OptionalPartPart extends SequenceOfPartsPart {
         if (terminalPartOrProductionNodes !== undefined) {
           var firstTerminalPartOrProductionNode = first(terminalPartOrProductionNodes);
 
-          if (firstTerminalPartOrProductionNode instanceof ErrorNode) {
-            errorNode = firstTerminalPartOrProductionNode;
+          if (firstTerminalPartOrProductionNode instanceof FatalErrorNode) {
+            fatalErrorNode = firstTerminalPartOrProductionNode;
 
-            nodes = [errorNode];
+            nodes = [fatalErrorNode];
 
             return nodes;
           }

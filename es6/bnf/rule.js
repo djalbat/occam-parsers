@@ -4,7 +4,7 @@ var lexers = require('occam-lexers'),
     specialSymbols = lexers.specialSymbols;
 
 var Parts = require('./parts'),
-    ErrorNode = require('./node/error');
+    FatalErrorNode = require('./node/fatalError');
 
 class Rule {
   constructor(parts) {
@@ -22,10 +22,10 @@ class Rule {
             if (partNodes !== undefined) {
               var firstPartNode = first(partNodes);
 
-              if (firstPartNode instanceof ErrorNode) {
-                var errorNode = firstPartNode;
+              if (firstPartNode instanceof FatalErrorNode) {
+                var fatalErrorNode = firstPartNode;
 
-                nodes = [errorNode];
+                nodes = [fatalErrorNode];
 
                 parsed = false;
               } else {
@@ -42,7 +42,7 @@ class Rule {
     if (!parsed) {
       var firstNode = first(nodes);
 
-      if (firstNode instanceof ErrorNode) {
+      if (firstNode instanceof FatalErrorNode) {
 
       } else {
         nodes = null;
