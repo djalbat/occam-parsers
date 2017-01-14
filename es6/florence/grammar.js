@@ -2,6 +2,10 @@
 
 var grammar = `
 
+    subLemma                                  ::=   suppose then? hence
+
+
+
     document                                  ::=   header body
      
     header                                    ::=   directive*     

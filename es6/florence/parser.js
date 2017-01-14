@@ -27,12 +27,16 @@ class FlorenceParser extends CommonParser {
           'premise': TransparentThenSecondNode,
           'premises': TransparentThenMissingFirstNode,
           'directive': TransparentNode,
+          'then': MissingFirstChildNode,
+          'hence': MissingFirstChildNode,
+          'suppose': MissingFirstChildNode,
           'conclusion': MissingFirstChildNode,
           'endsOfLines': MissingNode,
           'commaThenLabel': TransparentThenSecondNode,
           'includeDirective': IncludeDirectiveNode,
           'parenthesisedLabels': TransparentThenSecondNode,
-          '(labelled)statement': TransparentNode
+          '(labelled)statement': TransparentNode,
+          'subLemmaOr(labelled)statement': TransparentNode
         },
         productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings),
         florenceParser = new FlorenceParser(productions);
