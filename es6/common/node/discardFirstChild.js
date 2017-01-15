@@ -1,11 +1,11 @@
 'use strict';
 
-var NonTerminalNode = require('../../bnf/node/nonTerminal');
+var arrayUtil = require('../arrayUtil'),
+    NonTerminalNode = require('../../bnf/node/nonTerminal');
 
 class DiscardFirstChildNode extends NonTerminalNode {
   static fromNodes(nodes, productionName) {
-    var secondNodeOnwards = secondOnwards(nodes),
-        childNodes = secondNodeOnwards, ///
+    var childNodes = arrayUtil.discardFirst(nodes), ///
         discardFirstChildNode = new DiscardFirstChildNode(childNodes, productionName);
 
     nodes = [discardFirstChildNode]; ///
@@ -15,5 +15,3 @@ class DiscardFirstChildNode extends NonTerminalNode {
 }
 
 module.exports = DiscardFirstChildNode;
-
-function secondOnwards(array) { return array.slice(1); }

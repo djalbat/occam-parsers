@@ -1,15 +1,22 @@
 'use strict';
 
-class LabelNode {
+var TerminalNode = require('../../bnf/node/terminal');
+
+class LabelNode extends TerminalNode {
+  update() {
+    var significantToken = this.getSignificantToken(),
+        significantTokenType = 'label'; ///
+
+    significantToken.setType(significantTokenType);
+  }
+  
   static fromNodes(nodes, productionName) {
     var firstNode = first(nodes),
         terminalNode = firstNode,  ///
         significantToken = terminalNode.getSignificantToken(),
-        significantTokenType = 'label'; ///
+        labelNode = new LabelNode(significantToken);
 
-    significantToken.setType(significantTokenType);
-
-    nodes = [terminalNode]; ///
+    nodes = [labelNode];
 
     return nodes;
   }

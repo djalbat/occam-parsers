@@ -90,34 +90,6 @@ There are three examples. They show a representation of the parse tree, which is
                                                                                   |
                                                                              3[terminal]
 
-                              expr
-                                |
-                ---------------------------------
-                |                               |
-              term                      operatorThenTerm
-                |                               |
-          naturalNumber      ---------------------------------------
-                |            |                                     |
-            1[regexp]    operator                                term
-                             |                                     |
-                        +[terminal]                        parenthesizedExpr
-                                                                   |
-                                         -----------------------------------------------------
-                                         |                      |                            |
-                                    ([terminal]               expr                      )[terminal]
-                                                                |
-                                                      ---------------------
-                                                      |                   |
-                                                    term          operatorThenTerm
-                                                      |                   |
-                                                naturalNumber      --------------
-                                                      |            |            |
-                                                  2[regexp]    operator       term
-                                                                   |            |
-                                                              *[terminal] naturalNumber
-                                                                                |
-                                                                            3[regexp]
-
 To view the examples, open the `examples.html` file in the project's root directory.
 
 ### Basic example
@@ -342,23 +314,33 @@ Mappings allow the parse tree to be simplified by throwing away needless nodes. 
 
 Mappings to the `MissingNode` class, for example, will result in the corresponding node and all its child nodes being removed from the parse tree. Mappings to the `TransparentNode` class similarly results in the corresponding node being removed from the parse tree, however the child nodes remain and are effectively moved up to replace the removed node.
 
-Custom nodes can also be defined. The following `LabelNode` class acts transparently but also adjusts the type of the underlying significant token:
+Custom nodes can also be defined. The following `LabelNode` class acts transparently, effectively turning itself into a terminal node. It then updates the type of its underlying significant token when the time comes:
 
-    class LabelNode {
-      static fromNodes(nodes, productionName) {
-        var childNodes = nodes, ///
-            firstChildNode = first(childNodes),
-            terminalNode = firstChildNode,  ///
-            significantToken = terminalNode.getSignificantToken(),
+    var TerminalNode = require('../../bnf/node/terminal');
+    
+    class LabelNode extends TerminalNode {
+      update() {
+        var significantToken = this.getSignificantToken(),
             significantTokenType = 'label'; ///
-
+    
         significantToken.setType(significantTokenType);
-
-        nodes = [terminalNode]; ///
-
+      }
+      
+      static fromNodes(nodes, productionName) {
+        var firstNode = first(nodes),
+            terminalNode = firstNode,  ///
+            significantToken = terminalNode.getSignificantToken(),
+            labelNode = new LabelNode(significantToken);
+    
+        nodes = [labelNode];
+    
         return nodes;
       }
     }
+    
+    module.exports = LabelNode;
+    
+    function first(array) { return array[0]; }
 
 ## Building
 

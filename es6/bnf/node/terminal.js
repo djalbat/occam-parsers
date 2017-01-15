@@ -3,19 +3,14 @@
 var TerminalNodeParseTree = require('../parseTree/terminalNode');
 
 class TerminalNode {
-  constructor(content, significantToken) {
-    this.content = content;
+  constructor(significantToken) {
     this.significantToken = significantToken;
   }
   
   getContent() {
-    var content = this.content;
-
-    if (this.significantToken !== null) {
-      var significantTokenType = this.significantToken.getType();
-
-      content = `${content}[${significantTokenType}]`; ///
-    }
+    var significantTokenType = this.significantToken.getType(),
+        significantTokenContent = this.significantToken.getContent(),
+        content = `${significantTokenContent}[${significantTokenType}]`; ///
 
     return content;
   }
@@ -30,6 +25,10 @@ class TerminalNode {
         parseTree = terminalNodeParseTree;  ///
 
     return parseTree;
+  }
+  
+  update() {
+    
   }
 }
 

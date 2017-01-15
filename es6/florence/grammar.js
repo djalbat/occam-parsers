@@ -170,7 +170,7 @@ var grammar = `
 
            
 
-    error                                     ::=   [string] | [special] | [keyword] | [unassigned] 
+    error                                     ::=   [string] | [special] | [include] | [keyword] | [unassigned] 
     
 
 

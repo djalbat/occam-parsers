@@ -21,8 +21,7 @@ class SignificantTokenTypePart {
           parsed = (type === this.type);  ///
 
       if (parsed) {
-        var content = significantToken.getContent(),
-            terminalNode = new TerminalNode(content, significantToken);
+        var terminalNode = new TerminalNode(significantToken);
 
         nodes = [terminalNode];
       }

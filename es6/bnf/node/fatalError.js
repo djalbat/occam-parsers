@@ -18,6 +18,10 @@ class FatalErrorNode {
 
     return parseTree;
   }
+  
+  update() {
+    
+  }
 }
 
 module.exports = FatalErrorNode;

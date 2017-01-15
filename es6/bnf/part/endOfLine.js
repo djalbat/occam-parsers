@@ -4,7 +4,7 @@ var lexers = require('occam-lexers'),
     specialSymbols = lexers.specialSymbols,
     SignificantToken = lexers.SignificantToken;
 
-var TerminalNode = require('../node/terminal');
+var EndOfLineTerminalNode = require('../node/terminal/endOfLine');
 
 class EndOfLinePart {
   constructor(noWhitespace) {
@@ -24,8 +24,7 @@ class EndOfLinePart {
           found = (type === SignificantToken.types.endOfLine);
 
       if (found) {
-        var content = '', ///
-            terminalNode = new TerminalNode(content, significantToken);
+        var terminalNode = new EndOfLineTerminalNode();
 
         nodes = [terminalNode];
       }

@@ -23,6 +23,12 @@ class NonTerminalNode {
 
     return parseTree;
   }
+  
+  update() {
+    this.childNodes.forEach(function(childNode) {
+      childNode.update();
+    });
+  }
 
   static fromNodes(nodes, productionName) {
     var childNodes = nodes, ///

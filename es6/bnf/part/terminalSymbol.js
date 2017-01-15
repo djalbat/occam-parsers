@@ -21,7 +21,7 @@ class TerminalSymbolPart {
           parsed = (content === this.symbol);  ///
 
       if (parsed) {
-        var terminalNode = new TerminalNode(content, significantToken);
+        var terminalNode = new TerminalNode(significantToken);
 
         nodes = [terminalNode];
       }

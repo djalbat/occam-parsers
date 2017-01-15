@@ -1,15 +1,13 @@
 'use strict';
 
-var NonTerminalNode = require('../../bnf/node/nonTerminal');
+var arrayUtil = require('../arrayUtil');
 
-class TransparentThenDiscardFirstNode extends NonTerminalNode {
+class TransparentThenDiscardFirstNode {
   static fromNodes(nodes, productionName) {
-    nodes = nodes.slice(1);
+    nodes = arrayUtil.discardFirst(nodes);
 
     return nodes;
   }
 }
 
 module.exports = TransparentThenDiscardFirstNode;
-
-function second(array) { return array[1]; }

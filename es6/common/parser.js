@@ -21,6 +21,8 @@ class CommonParser {
         var firstNode = first(nodes);
 
         documentNode = firstNode; ///
+
+        documentNode.update();
       }
     }
 

@@ -1,8 +1,6 @@
 'use strict';
 
-var NonTerminalNode = require('../../bnf/node/nonTerminal');
-
-class TransparentNode extends NonTerminalNode {
+class TransparentNode {
   static fromNodes(nodes, productionName) {
     return nodes;
   }
