@@ -3,23 +3,33 @@
 var lexers = require('occam-lexers'),
     SignificantToken = lexers.SignificantToken;
 
-const MAXIMUM_DEPTH = 99;
+const DEFAULT_MAXIMUM_DEPTH = 99;
 
 class Context {
-  constructor(tokens) {
+  constructor(tokens, maximumDepth = DEFAULT_MAXIMUM_DEPTH) {
     this.tokens = tokens;
-    
-    this.index = 0;
+
+    this.maximumDepth = maximumDepth;
 
     this.depth = 0;
+
+    this.index = 0;
+  }
+
+  getMaximumDepth() {
+    return this.maximumDepth;
+  }
+
+  getDepth() {
+    return this.depth;
   }
 
   getIndex() {
     return this.index;
   }
-  
+
   isTooDeep() {
-    var tooDeep = this.depth > MAXIMUM_DEPTH;
+    var tooDeep = this.depth > this.maximumDepth;
     
     return tooDeep;
   }
@@ -107,6 +117,13 @@ class Context {
   backtrack(savedIndex) {
     var index = savedIndex; ///
     
+    this.setIndex(index);
+  }
+
+  fastForward() {
+    var tokensLength = this.tokens.length,
+        index = tokensLength;
+
     this.setIndex(index);
   }
 }

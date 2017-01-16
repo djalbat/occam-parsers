@@ -1,10 +1,7 @@
 'use strict';
 
 var Rule = require('./rule'),
-    FatalErrorNode = require('./node/fatalError'),
     NonTerminalNode = require('./node/nonTerminal');
-
-const TOO_DEEP_FATAL_ERROR_MESSAGE = 'The parse tree is too deep. This is likely caused by left recursion.';
 
 class Production {
   constructor(name, rules, Node) {
@@ -18,41 +15,33 @@ class Production {
   }
   
   parse(context, productions, noWhitespace) {
-    context.increaseDepth();
-
     var nodes = null,
         tooDeep = context.isTooDeep();
 
-    if (tooDeep) {
-      var tooDeepFatalErrorMessage = TOO_DEEP_FATAL_ERROR_MESSAGE,
-          tooDeepFatalErrorNode = new FatalErrorNode(tooDeepFatalErrorMessage);
+    if (!tooDeep) {
+      context.increaseDepth();
 
-      nodes = [tooDeepFatalErrorNode]
-    } else {
-      this.rules.some(function(rule) {
-        nodes = rule.parse(context, productions, noWhitespace);
+      var ruleNodes = null,
+          ruleParsed = this.rules.some(function(rule) {
+            ruleNodes = rule.parse(context, productions, noWhitespace);
 
-        var parsed = (nodes !== null);
+            var ruleParsed = (ruleNodes !== null);
 
-        return parsed;
-      });
+            return ruleParsed;
+          });
 
-      var parsed = (nodes !== null);
+      if (ruleParsed) {
+        var productionName = this.name; ///
 
-      if (parsed) {
-        var firstNode = first(nodes);
+        nodes = this.Node.fromNodes(ruleNodes, productionName);
+      }
 
-        if (firstNode instanceof FatalErrorNode) {
+      tooDeep = context.isTooDeep();
 
-        } else {
-          var productionName = this.name; ///
-
-          nodes = this.Node.fromNodes(nodes, productionName);
-        }
+      if (!tooDeep) {
+        context.decreaseDepth();
       }
     }
-
-    context.decreaseDepth();
 
     return nodes;
   }
@@ -72,5 +61,3 @@ class Production {
 }
 
 module.exports = Production;
-
-function first(array) { return array[0]; }

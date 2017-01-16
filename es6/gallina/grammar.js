@@ -7,7 +7,7 @@ var grammar = `
     
     part                                ::=   sentence | error
     
-    error                               ::=   string | special | keyword | ident | num                                      
+    error                               ::=   [string] | [special] | [keyword] | [ident] | [num]                                      
                               
     
     
@@ -38,16 +38,18 @@ var grammar = `
     assums                              ::=   assum
     
                                           |   assumInBrackets+
+                                          
+    assumBody                           ::=   [ident]                                      
   
-    assum                               ::=   ident+ : term
+    assum                               ::=   assumBody+ : term
   
     assumInBrackets                     ::=   ( assum )
                               
                               
                               
-    definition                          ::=   Local? Definition ident binders? colonThenTerm? := term .
+    definition                          ::=   Local? Definition [ident] binders? colonThenTerm? := term .
     
-                                          |   Let ident binders? colonThenTerm? := term .
+                                          |   Let [ident] binders? colonThenTerm? := term .
                               
                               
                               
@@ -57,13 +59,13 @@ var grammar = `
                             
     withThenInd_body                    ::=   with ind_body
   
-    ind_body                            ::=   ident binders? : term := ind_body'?
+    ind_body                            ::=   [ident] binders? : term := ind_body'?
     
-    ind_body'                           ::=   |? identThenBindersThenColonThenTerm |ThenInd_body''+
+    ind_body'                           ::=   |? identThenBindersThenColonThenTerm | ThenInd_body''+
     
     |ThenInd_body''                     ::=   | identThenBindersThenColonThenTerm
     
-    identThenBindersThenColonThenTerm   ::=   ident binders? colonThenTerm?
+    identThenBindersThenColonThenTerm   ::=   [ident] binders? colonThenTerm?
                               
                               
                               
@@ -77,7 +79,7 @@ var grammar = `
                               
                               
                               
-    assertion                           ::=   assertion_keyword ident binders? : term .
+    assertion                           ::=   assertion_keyword [ident] binders? : term .
   
     assertion_keyword                   ::=   Theorem | Lemma
     
@@ -126,7 +128,7 @@ var grammar = `
   
                                           |   sort term'
   
-                                          |   num term'
+                                          |   [num] term'
   
                                           |   _ term'
   
@@ -144,13 +146,13 @@ var grammar = `
     
                                           |   arg+ term'
     
-                                          |   % ident term'
+                                          |   % [ident] term'
     
                                           |   ε
                             
                             
                             
-    let_body                            ::=   ident binders? colonThenTerm? := term in term
+    let_body                            ::=   [ident] binders? colonThenTerm? := term in term
     
                                           |   fix fix_body in term
     
@@ -178,7 +180,7 @@ var grammar = `
                             
     arg                                 ::=   term
   
-                                          |   ( ident := term )
+                                          |   ( [ident] := term )
                             
                             
                             
@@ -194,15 +196,15 @@ var grammar = `
                             
                             
                             
-    name                                ::=   ident
+    name                                ::=   [ident]
   
                                           |   _
                             
                             
                             
-    access_ident                        ::=   .<NO_WHITESPACE>ident                                    
+    access_ident                        ::=   .<NO_WHITESPACE>[ident]                                    
                             
-    qualid                              ::=   ident<NO_WHITESPACE>access_ident*
+    qualid                              ::=   [ident]<NO_WHITESPACE>access_ident*
                             
                             
                             
@@ -221,21 +223,21 @@ var grammar = `
                             
     fix_bodies                          ::=   fix_body
     
-                                          |   fix_body withFix_body+ for ident
+                                          |   fix_body withFix_body+ for [ident]
                             
     withFix_body                        ::=   with fix_body                     
   
     cofix_bodies                        ::=   cofix_body
     
-                                          |   cofix_body withCofix_body+ for ident
+                                          |   cofix_body withCofix_body+ for [ident]
                             
     withCofix_body                      ::=   with cofix_body
                          
                          
                          
-    fix_body                            ::=   ident binders annotation? colonThenTerm? := term
+    fix_body                            ::=   [ident] binders annotation? colonThenTerm? := term
   
-    cofix_body                          ::=   ident binders? colonThenTerm? := term
+    cofix_body                          ::=   [ident] binders? colonThenTerm? := term
                          
                          
                          
@@ -243,7 +245,7 @@ var grammar = `
                          
                          
                          
-    annotation                          ::=   { struct ident }
+    annotation                          ::=   { struct [ident] }
                          
                          
                          
@@ -279,13 +281,13 @@ var grammar = `
     
                                           |   _ pattern'
     
-                                          |   num pattern'
+                                          |   [num] pattern'
     
                                           |   ( or_patterns ) pattern'
   
-    pattern'                            ::=   as ident pattern' 
+    pattern'                            ::=   as [ident] pattern' 
     
-                                          |   % ident pattern' 
+                                          |   % [ident] pattern' 
     
                                           |   ε
   

@@ -3,8 +3,7 @@
 var lexers = require('occam-lexers'),
     specialSymbols = lexers.specialSymbols;
 
-var Parts = require('./parts'),
-    FatalErrorNode = require('./node/fatalError');
+var Parts = require('./parts');
 
 class Rule {
   constructor(parts) {
@@ -12,42 +11,34 @@ class Rule {
   }
   
   parse(context, productions, noWhitespace) {
-    var nodes = [],
-        savedIndex = context.savedIndex(),
-        parsed = this.parts.every(function(part) {
-          var partNodes = part.parse(context, productions, noWhitespace),
-              parsed = (partNodes !== null);
+    var nodes = null,
+        tooDeep = context.isTooDeep();
 
-          if (parsed) {
-            if (partNodes !== undefined) {
-              var firstPartNode = first(partNodes);
+    if (!tooDeep) {
+      nodes = [];
 
-              if (firstPartNode instanceof FatalErrorNode) {
-                var fatalErrorNode = firstPartNode;
+      var savedIndex = context.savedIndex(),
+          parsed = this.parts.every(function(part) {
+            var partNodes = part.parse(context, productions, noWhitespace),
+                partParsed = (partNodes !== null);
 
-                nodes = [fatalErrorNode];
+            if (partParsed) {
+              nodes = nodes.concat(partNodes);
 
-                parsed = false;
-              } else {
-                nodes = nodes.concat(partNodes);
-              }
+              noWhitespace = false;
             }
 
-            noWhitespace = false;
-          }
+            return partParsed;
+          });
 
-          return parsed;
-        });
+      if (!parsed) {
+        tooDeep = context.isTooDeep();
 
-    if (!parsed) {
-      var firstNode = first(nodes);
+        if (!tooDeep) {
+          context.backtrack(savedIndex);
+        }
 
-      if (firstNode instanceof FatalErrorNode) {
-
-      } else {
         nodes = null;
-
-        context.backtrack(savedIndex);
       }
     }
 
@@ -90,5 +81,3 @@ function partFromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, no
 
   return part;
 }
-
-function first(array) { return array[0]; }

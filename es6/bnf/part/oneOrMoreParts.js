@@ -1,7 +1,6 @@
 'use strict';
 
-var FatalErrorNode = require('../node/fatalError'),
-    SequenceOfPartsPart = require('./sequenceOfParts'),
+var SequenceOfPartsPart = require('./sequenceOfParts'),
     ZeroOrMorePartsPart = require('./zeroOrMoreParts');
 
 class OneOrMorePartsPart extends SequenceOfPartsPart {
@@ -9,7 +8,6 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
     noWhitespace = this.getNoWhitespace();  ///
     
     var nodes = null,
-        fatalErrorNode,
         terminalPartOrProduction = this.terminalPartOrProduction(productions);
 
     if (terminalPartOrProduction !== null) {
@@ -17,39 +15,12 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
           terminalPartOrProductionParsed = (terminalPartOrProductionNodes !== null);
 
       if (terminalPartOrProductionParsed) {
-        if (terminalPartOrProductionNodes !== undefined) {
-          var firstTerminalPartOrProductionNode = first(terminalPartOrProductionNodes);
-
-          if (firstTerminalPartOrProductionNode instanceof FatalErrorNode) {
-            fatalErrorNode = firstTerminalPartOrProductionNode;
-
-            nodes = [fatalErrorNode];
-
-            return nodes;
-          }
-        }
-
         nodes = terminalPartOrProductionNodes;
 
         var zeroOrMorePartsPart = ZeroOrMorePartsPart.fromOneOrMorePartsPart(this), ///
-            zeroOrMorePartsPartNodes = zeroOrMorePartsPart.parse(context, productions, noWhitespace),
-            zeroOrMorePartsPartNodesParsed = (zeroOrMorePartsPartNodes !== null);
+            zeroOrMorePartsPartNodes = zeroOrMorePartsPart.parse(context, productions, noWhitespace);
 
-        if (zeroOrMorePartsPartNodesParsed) {
-          if (zeroOrMorePartsPartNodes !== undefined) {
-            var firstZeroOrMorePartsPartNode = first(zeroOrMorePartsPartNodes);
-
-            if (firstZeroOrMorePartsPartNode instanceof FatalErrorNode) {
-              fatalErrorNode = firstZeroOrMorePartsPartNode;
-
-              nodes = [fatalErrorNode];
-
-              return nodes;
-            }
-          }
-
-          nodes = nodes.concat(zeroOrMorePartsPartNodes);
-        }
+        nodes = nodes.concat(zeroOrMorePartsPartNodes);
       }
     }
 
@@ -66,5 +37,3 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
 }
 
 module.exports = OneOrMorePartsPart;
-
-function first(array) { return array[0]; }

@@ -15,14 +15,18 @@ class CommonParser {
     if (productionsLength > 0) {
       var noWhitespace = false,
           firstProduction = first(this.productions),
-          nodes = firstProduction.parse(context, this.productions, noWhitespace);
+          nodes = firstProduction.parse(context, this.productions, noWhitespace),
+          depth = context.getDepth(),
+          maximumDepth = context.getMaximumDepth();
 
-      if (nodes !== null) {
-        var firstNode = first(nodes);
+      if (depth < maximumDepth) {
+        if (nodes !== null) {
+          var firstNode = first(nodes);
 
-        documentNode = firstNode; ///
+          documentNode = firstNode; ///
 
-        documentNode.update();
+          documentNode.update();
+        }
       }
     }
 

@@ -1,14 +1,12 @@
 'use strict';
 
-var FatalErrorNode = require('../node/fatalError'),
-    SequenceOfPartsPart = require('./sequenceOfParts');
+var SequenceOfPartsPart = require('./sequenceOfParts');
 
 class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   parse(context, productions, noWhitespace) {
     noWhitespace = this.getNoWhitespace();  ///
 
     var nodes = null,
-        fatalErrorNode,
         terminalPartOrProduction = this.terminalPartOrProduction(productions);
 
     if (terminalPartOrProduction !== null) {
@@ -19,19 +17,7 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
             terminalPartOrProductionParsed = (terminalPartOrProductionNodes !== null);
 
         if (terminalPartOrProductionParsed) {
-          if (terminalPartOrProductionNodes !== undefined) {
-            var firstTerminalPartOrProductionNode = first(terminalPartOrProductionNodes);
-
-            if (firstTerminalPartOrProductionNode instanceof FatalErrorNode) {
-              fatalErrorNode = firstTerminalPartOrProductionNode;
-
-              nodes = [fatalErrorNode];
-
-              return nodes;
-            } else {
-              nodes = nodes.concat(terminalPartOrProductionNodes);
-            }
-          }
+          nodes = nodes.concat(terminalPartOrProductionNodes);
         } else {
           return nodes;
         }
