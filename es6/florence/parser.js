@@ -37,6 +37,7 @@ class FlorenceParser extends CommonParser {
           'therefore': TransparentThenDiscardFirstNode,
           'conclusion': DiscardFirstChildNode,
           'endsOfLines': DiscardChildrenNode,
+          'statementBody': TransparentNode,
           'commaThenLabel': TransparentThenSecondNode,
           'includeDirective': IncludeDirectiveNode,
           'parenthesisedLabels': TransparentThenSecondNode,

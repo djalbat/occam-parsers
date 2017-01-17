@@ -36,7 +36,7 @@ var grammar = `
     
     premises                                  ::=   Premises endsOfLines (labelled)Statement+
 
-    conclusion                                ::=   Conclusion endsOfLines statement
+    conclusion                                ::=   Conclusion endsOfLines (labelled)Statement
 
     proof                                     ::=   Proof endsOfLines subLemmaOr(labelled)Statement* therefore
 
@@ -60,11 +60,13 @@ var grammar = `
     
     (labelled)Statement                       ::=   labelledStatement | statement
     
-    labelledStatement                         ::=   symbol+ by label endsOfLines
+    labelledStatement                         ::=   statementBody by label endsOfLines
     
-    statement                                 ::=   symbol+ endsOfLines
+    statement                                 ::=   statementBody endsOfLines
     
-    symbol                                    ::=   [unassigned] | { | } | = | : | ( | )
+    statementBody                             ::=   specialOrUnassigned+ 
+    
+    specialOrUnassigned                       ::=   [special] | [unassigned]
     
     
     
