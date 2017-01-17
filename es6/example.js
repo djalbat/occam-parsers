@@ -42,6 +42,10 @@ class Example {
           parseTreeTextAreaHTML = parseTreeString;  ///
 
       parseTreeTextArea.html(parseTreeTextAreaHTML);
+
+      var nodes = documentNode.query('document/body/rule[1]/conclusion/statement/*');
+
+      debugger
     } else {
       Example.clearParseTree();
     }

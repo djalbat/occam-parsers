@@ -16,16 +16,14 @@ class CommonParser {
       var noWhitespace = false,
           firstProduction = first(this.productions),
           nodes = firstProduction.parse(context, this.productions, noWhitespace),
-          depth = context.getDepth(),
-          maximumDepth = context.getMaximumDepth();
+          maximumDepth = context.getMaximumDepth(),
+          depth = context.getDepth();
 
       if (depth < maximumDepth) {
         if (nodes !== null) {
           var firstNode = first(nodes);
 
           documentNode = firstNode; ///
-
-          documentNode.update();
         }
       }
     }

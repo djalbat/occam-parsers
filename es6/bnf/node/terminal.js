@@ -26,9 +26,17 @@ class TerminalNode {
 
     return parseTree;
   }
-  
+
+  query(expression, index) {
+    var node = (expression === '*') ?
+                  this :
+                    null;
+
+    return node;
+  }
+
   update() {
-    
+
   }
 }
 

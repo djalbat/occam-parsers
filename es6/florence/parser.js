@@ -18,6 +18,18 @@ var grammar = require('./grammar'),
     TransparentThenDiscardFirstNode = require('../common/node/transparentThenDiscardFirst');
 
 class FlorenceParser extends CommonParser {
+  parse(tokens) {
+    var documentNode = super.parse(tokens);
+
+    if (documentNode !== null) {
+      var errorNodes = documentNode.query('//error');
+
+      documentNode.update();
+    }
+
+    return documentNode;
+  }
+
   static fromNothing() {
     var lines = BNFLexer.linesFromGrammar(grammar),
         terminalSymbolsRegExpPattern = FlorenceLexer.terminalSymbolsRegExpPattern(),
@@ -43,6 +55,7 @@ class FlorenceParser extends CommonParser {
           'parenthesisedLabels': TransparentThenSecondNode,
           'labelledStatement': DiscardSecondChildNode,
           '(labelled)Statement': TransparentNode,
+          'specialOrUnassigned': TransparentNode,
           'subLemmaOr(labelled)Statement': TransparentNode
         },
         productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings),
