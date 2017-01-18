@@ -4,10 +4,16 @@ class Spread {
   constructor(startIndex, endIndex) {
     this.startIndex = startIndex;
     this.endIndex = endIndex;
+
+    this.index = 0;
   }
 
-  containsIndex(index) {
-    return ((index >= this.startIndex) && (index <= this.endIndex));  ///
+  isBetween() {
+    return ((this.index >= this.startIndex) && (this.index <= this.endIndex));
+  }
+
+  incrementIndex() {
+    this.index += 1;
   }
 
   static fromExpression(expression) {
@@ -17,14 +23,23 @@ class Spread {
     if (expression !== undefined) {
       var matches = expression.match(/\[(\d+)?(\.\.\.)?(\d+)?\]/),
           secondMatch = second(matches),
+          thirdMatch = third(matches),
           fourthMatch = fourth(matches);
 
       if (secondMatch !== undefined) {
         startIndex = parseInt(secondMatch);
+
+        if (thirdMatch === undefined) {
+          endIndex = startIndex;
+        }
       }
 
       if (fourthMatch !== undefined) {
         endIndex = parseInt(fourthMatch);
+
+        if (thirdMatch === undefined) {
+          startIndex = endIndex;
+        }
       }
     }
 
@@ -37,4 +52,5 @@ class Spread {
 module.exports = Spread;
 
 function second(array) { return array[1]; }
+function third(array) { return array[2]; }
 function fourth(array) { return array[3]; }

@@ -3,11 +3,11 @@
 var Spread = require('./spread');
 
 class Query {
-  constructor(infiniteDescent, productionName, spread, subQuery) {
+  constructor(infiniteDescent, productionName, subQuery, spread) {
     this.infiniteDescent = infiniteDescent;
     this.productionName = productionName;
-    this.spread = spread;
     this.subQuery = subQuery;
+    this.spread = spread;
   }
   
   nodesFromNode(node) {
@@ -17,26 +17,32 @@ class Query {
 
     if ((this.productionName === '*') ||
         (this.productionName === nodeProductionName)) {
-      
-      if (this.subQuery === null) {
-        nodes = [node];
-      } else {
-        nodes = childNodes.reduce(function(nodes, childNode) {
-          var childNodeNodes = this.subQuery.nodesFromNode(childNode);
 
-          nodes = nodes.concat(childNodeNodes);
-          
-          return nodes;
-        }.bind(this), []);
+      if (this.spread.isBetween()) {
+        if (this.subQuery === null) {
+          nodes = [node];
+        } else {
+          nodes = childNodes.reduce(function(nodes, childNode) {
+            var childNodeNodes = this.subQuery.nodesFromNode(childNode);
+
+            nodes = nodes.concat(childNodeNodes);
+
+            return nodes;
+          }.bind(this), nodes);
+        }
       }
-    } else if (this.infiniteDescent) {
+
+      this.spread.incrementIndex();
+    }
+
+    if (this.infiniteDescent) {
       nodes = childNodes.reduce(function(nodes, childNode) {
         var childNodeNodes = this.nodesFromNode(childNode);
 
         nodes = nodes.concat(childNodeNodes);
 
         return nodes;
-      }.bind(this), []);
+      }.bind(this), nodes);
     }
 
     return nodes;
@@ -54,11 +60,11 @@ class Query {
         fifthMatch = fifth(matches),
         infiniteDescent = (secondMatch === '/'),  ///
         productionName = thirdMatch,  ///
-        spreadExpression = fourthMatch,  ///
         subExpression = fifthMatch,  ///
-        spread = Spread.fromExpression(spreadExpression),
+        spreadExpression = fourthMatch,  ///
         subQuery = Query.fromExpression(subExpression),
-        query = new Query(infiniteDescent, productionName, spread, subQuery);
+        spread = Spread.fromExpression(spreadExpression),
+        query = new Query(infiniteDescent, productionName, subQuery, spread);
     
     return query;
   }
