@@ -18,8 +18,6 @@ var leftColumnSelector = '#leftColumn',
 
 new VerticalSplitter('.left.vertical.splitter', TO_THE_RIGHT_OF, leftColumn);
 
-var Query = require('./common/query');
-
 class Example {
   static getGrammarTextAreaValue() { return grammarTextArea.getValue(); }
 
@@ -44,12 +42,6 @@ class Example {
           parseTreeTextAreaHTML = parseTreeString;  ///
 
       parseTreeTextArea.html(parseTreeTextAreaHTML);
-
-      var query = Query.fromExpression('//*[4...11]/statement[1...3]');
-
-      var nodes = query.nodesFromNode(documentNode);
-
-      debugger
     } else {
       Example.clearParseTree();
     }
