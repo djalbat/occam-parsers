@@ -23,48 +23,6 @@ class NonTerminalNode {
 
     return parseTree;
   }
-  
-  query(expression, index = null) {
-    if ((expression === '*') ||
-        (expression === this.productionName)) {
-      return this;
-    }
-
-    var queryRegExpPattern = `^(?:${this.productionName}|\\*)(?:\\[(\\d+)\\])?\/(.+)`,
-        queryRegExp = new RegExp(queryRegExpPattern),
-        matches = expression.match(queryRegExp);
-
-    if (matches === null) {
-      return null;
-    }
-
-    var secondMatch = second(matches),
-        modifierIndex = parseInt(secondMatch),  ///
-        modifierIndexInteger = !isNaN(modifierIndex);
-
-    if (modifierIndexInteger) {
-      if (modifierIndex !== index) {
-        return [];
-      }
-    }
-
-    var thirdMatch = third(matches),
-        childExpression = thirdMatch,  ///
-        childIndex = 0,
-        nodes = this.childNodes.reduce(function(nodes, childNode) {
-          var childNodeNodes = childNode.query(childExpression, childIndex);
-
-          if (childNodeNodes !== null) {
-            nodes = nodes.concat(childNodeNodes);
-
-            childIndex++;
-          }
-
-          return nodes;
-        }, []);
-
-    return nodes;
-  }
 
   update() {
     this.childNodes.forEach(function(childNode) {
@@ -83,6 +41,3 @@ class NonTerminalNode {
 }
 
 module.exports = NonTerminalNode;
-
-function second(array) { return array[1]; }
-function third(array) { return array[2]; }

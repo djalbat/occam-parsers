@@ -21,11 +21,11 @@ class FlorenceParser extends CommonParser {
   parse(tokens) {
     var documentNode = super.parse(tokens);
 
-    if (documentNode !== null) {
-      var errorNodes = documentNode.query('//error');
-
-      documentNode.update();
-    }
+    // if (documentNode !== null) {
+    //   var errorNodes = documentNode.query('//error');
+    //
+    //   documentNode.update();
+    // }
 
     return documentNode;
   }

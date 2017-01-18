@@ -7,6 +7,18 @@ class TerminalNode {
     this.significantToken = significantToken;
   }
   
+  getChildNodes() {
+    var childNodes = null;  ///
+    
+    return childNodes;
+  }
+  
+  getProductionName() {
+    var productionName = null;  ///
+    
+    return productionName;
+  }
+  
   getContent() {
     var significantTokenType = this.significantToken.getType(),
         significantTokenContent = this.significantToken.getContent(),
@@ -25,14 +37,6 @@ class TerminalNode {
         parseTree = terminalNodeParseTree;  ///
 
     return parseTree;
-  }
-
-  query(expression, index) {
-    var node = (expression === '*') ?
-                  this :
-                    null;
-
-    return node;
   }
 
   update() {
