@@ -8,7 +8,7 @@ class TerminalNode {
   }
   
   getChildNodes() {
-    var childNodes = null;  ///
+    var childNodes = [];  ///
     
     return childNodes;
   }

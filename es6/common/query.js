@@ -3,38 +3,37 @@
 var Spread = require('./spread');
 
 class Query {
-  constructor(infiniteDescent, childProductionName, spread, subQuery) {
+  constructor(infiniteDescent, productionName, spread, subQuery) {
     this.infiniteDescent = infiniteDescent;
-    this.childProductionName = childProductionName;
+    this.productionName = productionName;
     this.spread = spread;
     this.subQuery = subQuery;
   }
   
   nodesFromNode(node) {
-    var nodes = null,
-        childNodes = node.getChildNodes();
+    var nodes = [],
+        childNodes = node.getChildNodes(),
+        nodeProductionName = node.getProductionName();
 
-    if (childNodes !== null) {
-      var index = 0;
+    if ((this.productionName === '*') ||
+        (this.productionName === nodeProductionName)) {
+      
+      if (this.subQuery === null) {
+        nodes = [node];
+      } else {
+        nodes = childNodes.reduce(function(nodes, childNode) {
+          var childNodeNodes = this.subQuery.nodesFromNode(childNode);
 
+          nodes = nodes.concat(childNodeNodes);
+          
+          return nodes;
+        }.bind(this), []);
+      }
+    } else if (this.infiniteDescent) {
       nodes = childNodes.reduce(function(nodes, childNode) {
-        var childNodeProductionName = childNode.getProductionName();
+        var childNodeNodes = this.nodesFromNode(childNode);
 
-        if ((this.childProductionName === '*') ||
-            (this.childProductionName === childNodeProductionName)) {
-
-          var spreadIndex = this.spread.containsIndex(index);
-
-          if (spreadIndex) {
-            var childNodeNodes = (this.subQuery !== null) ?
-                                    this.subQuery.nodesFromNode(childNode) :
-                                      [childNode];  ///
-
-            nodes = nodes.concat(childNodeNodes);
-          }
-
-          index++;
-        }
+        nodes = nodes.concat(childNodeNodes);
 
         return nodes;
       }.bind(this), []);
@@ -54,12 +53,12 @@ class Query {
         fourthMatch = fourth(matches),
         fifthMatch = fifth(matches),
         infiniteDescent = (secondMatch === '/'),  ///
-        childProductionName = thirdMatch,  ///
+        productionName = thirdMatch,  ///
         spreadExpression = fourthMatch,  ///
         subExpression = fifthMatch,  ///
         spread = Spread.fromExpression(spreadExpression),
         subQuery = Query.fromExpression(subExpression),
-        query = new Query(infiniteDescent, childProductionName, spread, subQuery);
+        query = new Query(infiniteDescent, productionName, spread, subQuery);
     
     return query;
   }

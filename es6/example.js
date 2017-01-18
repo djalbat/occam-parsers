@@ -45,7 +45,7 @@ class Example {
 
       parseTreeTextArea.html(parseTreeTextAreaHTML);
 
-      var query = Query.fromExpression('/body//statement[1...]/*');
+      var query = Query.fromExpression('/document//rule//statement');
 
       var nodes = query.nodesFromNode(documentNode);
 
