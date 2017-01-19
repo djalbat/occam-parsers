@@ -12,7 +12,7 @@ var grammar = `
     
     directive                                 ::=   includeDirective | endsOfLines
     
-    includeDirective                          ::=   include<NO_WHITESPACE>(<NO_WHITESPACE>[string]<NO_WHITESPACE>) endsOfLines
+    includeDirective                          ::=   include<NO_WHITESPACE>'('<NO_WHITESPACE>[string]<NO_WHITESPACE>')' endsOfLines
     
     
 
@@ -20,27 +20,27 @@ var grammar = `
     
     
     
-    rule                                      ::=   Rule parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion proof?
+    rule                                      ::=   'Rule' parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion proof?
     
-    axiom                                     ::=   Axiom parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion
+    axiom                                     ::=   'Axiom' parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion
     
-    theorem                                   ::=   Theorem parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion proof
+    theorem                                   ::=   'Theorem' parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion proof
         
-    lemma                                     ::=   Lemma parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion proof    
+    lemma                                     ::=   'Lemma' parenthesisedLabels? endsOfLines localVariable(s)? premise(s)? conclusion proof    
     
     
     
     premise(s)                                ::=   premise | premises
     
-    premise                                   ::=   Premise endsOfLines (labelled)Statement
+    premise                                   ::=   'Premise' endsOfLines (labelled)Statement
     
-    premises                                  ::=   Premises endsOfLines (labelled)Statement (labelled)Statement+
+    premises                                  ::=   'Premises' endsOfLines (labelled)Statement (labelled)Statement+
 
-    conclusion                                ::=   Conclusion endsOfLines (labelled)Statement
+    conclusion                                ::=   'Conclusion' endsOfLines (labelled)Statement
 
-    proof                                     ::=   Proof endsOfLines subLemmaOr(labelled)Statement* therefore
+    proof                                     ::=   'Proof' endsOfLines subLemmaOr(labelled)Statement* therefore
 
-    therefore                                 ::=   Therefore endsOfLines (labelled)Statement
+    therefore                                 ::=   'Therefore' endsOfLines (labelled)Statement
     
     
 
@@ -50,17 +50,17 @@ var grammar = `
     
     
 
-    suppose                                   ::=   Suppose endsOfLines statement+
+    suppose                                   ::=   'Suppose' endsOfLines statement+
     
-    then                                      ::=   Then endsOfLines subLemmaOr(labelled)Statement+
+    then                                      ::=   'Then' endsOfLines subLemmaOr(labelled)Statement+
     
-    hence                                     ::=   Hence endsOfLines (labelled)Statement
+    hence                                     ::=   'Hence' endsOfLines (labelled)Statement
     
     
     
     (labelled)Statement                       ::=   labelledStatement | statement
     
-    labelledStatement                         ::=   statementBody by label endsOfLines
+    labelledStatement                         ::=   statementBody 'by' label endsOfLines
     
     statement                                 ::=   statementBody endsOfLines
     
@@ -70,11 +70,11 @@ var grammar = `
     
     
     
-    parenthesisedLabels                       ::=   (<NO_WHITESPACE>labels<NO_WHITESPACE>)
+    parenthesisedLabels                       ::=   '('<NO_WHITESPACE>labels<NO_WHITESPACE>')'
     
     labels                                    ::=   label<NO_WHITESPACE>commaThenLabel*
     
-    commaThenLabel                            ::=   ,<NO_WHITESPACE>label
+    commaThenLabel                            ::=   ','<NO_WHITESPACE>label
 
     label                                     ::=   [unassigned]
     
@@ -84,15 +84,15 @@ var grammar = `
 
     variable(s)                               ::=   variable | variables
 
-    variables                                 ::=   Variables endsOfLines? variable(s)Declaration(s) endsOfLines
+    variables                                 ::=   'Variables' endsOfLines? variable(s)Declaration(s) endsOfLines
     
-    variable                                  ::=   Variable endsOfLines? variableDeclaration endsOfLines
+    variable                                  ::=   'Variable' endsOfLines? variableDeclaration endsOfLines
     
     variable(s)Declaration(s)                 ::=   variables(s)Declarations | variablesDeclaration
 
     variables(s)Declarations                  ::=   variable(s)Declaration semiColonThenVariable(s)Declaration+
        
-    semiColonThenVariable(s)Declaration       ::=   ; variable(s)Declaration
+    semiColonThenVariable(s)Declaration       ::=   ';' variable(s)Declaration
     
     variable(s)Declaration                    ::=   variablesDeclaration | variableDeclaration
     
@@ -102,9 +102,9 @@ var grammar = `
 
     variableNames                             ::=   variableName commaThenVariableName+
 
-    commaThenVariableName                     ::=   , variableName    
+    commaThenVariableName                     ::=   ',' variableName    
     
-    colonThenTypeName                         ::=   : typeName
+    colonThenTypeName                         ::=   ':' typeName
 
     variableName                              ::=   [unassigned]
 
@@ -114,15 +114,15 @@ var grammar = `
 
     constructor(s)                            ::=   constructor | constructors
 
-    constructors                              ::=   Constructors endsOfLines? constructor(s)Declaration(s) endsOfLines
+    constructors                              ::=   'Constructors' endsOfLines? constructor(s)Declaration(s) endsOfLines
     
-    constructor                               ::=   Constructor endsOfLines? constructorDeclaration endsOfLines
+    constructor                               ::=   'Constructor' endsOfLines? constructorDeclaration endsOfLines
     
     constructor(s)Declaration(s)              ::=   constructors(s)Declarations | constructorsDeclaration
 
     constructors(s)Declarations               ::=   constructor(s)Declaration semiColonThenConstructor(s)Declaration+
        
-    semiColonThenConstructor(s)Declaration    ::=   ; constructor(s)Declaration
+    semiColonThenConstructor(s)Declaration    ::=   ';' constructor(s)Declaration
     
     constructor(s)Declaration                 ::=   constructorsDeclaration | constructorDeclaration
     
@@ -132,41 +132,41 @@ var grammar = `
 
     constructorBodies                         ::=   constructorBody commaThenConstructorBody+
 
-    commaThenConstructorBody                  ::=   , constructorBody    
+    commaThenConstructorBody                  ::=   ',' constructorBody    
     
-    colonThenTypeName                         ::=   : typeName
+    colonThenTypeName                         ::=   ':' typeName
 
     constructorBody                           ::=   constructorName<NO_WHITESPACE>parenthesisedConstructorArguments?
 
     constructorName                           ::=   [unassigned]
     
-    parenthesisedConstructorArguments         ::=   (<NO_WHITESPACE>constructorArguments<NO_WHITESPACE>)
+    parenthesisedConstructorArguments         ::=   '('<NO_WHITESPACE>constructorArguments<NO_WHITESPACE>')'
 
     constructorArguments                      ::=   constructorArgument<NO_WHITESPACE>commaThenConstructorArgument*
     
-    commaThenConstructorArgument              ::=   ,<NO_WHITESPACE>constructorArgument
+    commaThenConstructorArgument              ::=   ','<NO_WHITESPACE>constructorArgument
     
     constructorArgument                       ::=   typeName | .. | [unassigned]
 
     
     
-    object                                    ::=   Object endsOfLines? objectDeclaration endsOfLines
+    object                                    ::=   'Object' endsOfLines? objectDeclaration endsOfLines
 
-    objectDeclaration                         ::=   objectLiteral : typeName
+    objectDeclaration                         ::=   objectLiteral ':' typeName
     
-    objectLiteral                             ::=   { properties }
+    objectLiteral                             ::=   '{' properties '}'
     
     properties                                ::=   property commaThenProperty*
     
-    commaThenProperty                         ::=   , property
+    commaThenProperty                         ::=   ',' property
     
-    property                                  ::=   propertyName : typeName
+    property                                  ::=   propertyName ':' typeName
     
     propertyName                              ::=   [unassigned]
     
     
     
-    type                                      ::=   Type typeName endsOfLines
+    type                                      ::=   'Type' typeName endsOfLines
 
     typeName                                  ::=   [unassigned]
 

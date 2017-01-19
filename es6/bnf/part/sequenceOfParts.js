@@ -32,7 +32,7 @@ class SequenceOfPartsPart {
     return terminalPartOrProduction;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace, regExp, Class) {
+  static fromSymbol(symbol, significantTokenTypes, noWhitespace, regExp, Class) {
     var part = null,
         matches = symbol.match(regExp);
 
@@ -41,9 +41,9 @@ class SequenceOfPartsPart {
 
       symbol = secondMatch; ///
 
-      var terminalPart = SignificantTokenTypePart.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) ||
-                           TerminalSymbolPart.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) ||
-                             EndOfLinePart.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace),
+      var terminalPart = SignificantTokenTypePart.fromSymbol(symbol, significantTokenTypes, noWhitespace) ||
+                           TerminalSymbolPart.fromSymbol(symbol, significantTokenTypes, noWhitespace) ||
+                             EndOfLinePart.fromSymbol(symbol, significantTokenTypes, noWhitespace),
           productionName = symbol;
 
       part = new Class(terminalPart, productionName, noWhitespace);

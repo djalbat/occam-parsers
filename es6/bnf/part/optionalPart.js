@@ -21,10 +21,10 @@ class OptionalPartPart extends SequenceOfPartsPart {
     return nodes;
   }
   
-  static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) {
+  static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     var regExp = /([^*]+)\?$/,
         Class = OptionalPartPart,
-        optionalPartPart = super.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace, regExp, Class);
+        optionalPartPart = super.fromSymbol(symbol, significantTokenTypes, noWhitespace, regExp, Class);
 
     return optionalPartPart;
   }
