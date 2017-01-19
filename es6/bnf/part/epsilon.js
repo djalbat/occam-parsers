@@ -10,7 +10,7 @@ class EpsilonPart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) {
+  static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     var epsilonPart = null,
         found = (symbol === 'ε');
     

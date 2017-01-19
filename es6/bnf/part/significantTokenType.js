@@ -34,7 +34,7 @@ class SignificantTokenTypePart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) {
+  static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     var significantTokenTypePart = null,
         significantTokenTypePartRegExp = /\[([^/]+)\]/,
         matches = symbol.match(significantTokenTypePartRegExp);

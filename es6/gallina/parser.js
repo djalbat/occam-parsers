@@ -11,10 +11,9 @@ var grammar = require('./grammar'),
 class GallinaParser extends CommonParser {
   static fromNothing() {
     var lines = BNFLexer.linesFromGrammar(grammar),
-        terminalSymbolsRegExpPattern = GallinaLexer.terminalSymbolsRegExpPattern(),
         significantTokenTypes = GallinaLexer.significantTokenTypes(),
         mappings = {},
-        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings),
+        productions = BNFParser.parse(lines, significantTokenTypes, mappings),
         gallinaParser = new GallinaParser(productions);
 
     return gallinaParser;

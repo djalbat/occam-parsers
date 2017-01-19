@@ -21,7 +21,8 @@ class Spread {
         endIndex = Number.POSITIVE_INFINITY;
 
     if (expression !== undefined) {
-      var matches = expression.match(/\[(\d+)?(\.\.\.)?(\d+)?\]/),
+      var regExp = /\[(\d+)?(\.\.\.)?(\d+)?\]/,
+          matches = expression.match(regExp),
           secondMatch = second(matches),
           thirdMatch = third(matches),
           fourthMatch = fourth(matches);

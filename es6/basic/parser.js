@@ -8,11 +8,11 @@ var BNFParser = require('../bnf/parser'),
     CommonParser = require('../common/parser');
 
 class BasicParser extends CommonParser {
-  static fromGrammarAndTerminalSymbolsRegExpPattern(grammar, terminalSymbolsRegExpPattern) {
+  static fromGrammar(grammar) {
     var lines = BNFLexer.linesFromGrammar(grammar),
         significantTokenTypes = BasicLexer.significantTokenTypes(),
         mappings = {},
-        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings),
+        productions = BNFParser.parse(lines, significantTokenTypes, mappings),
         basicParser = new BasicParser(productions);
 
     return basicParser;

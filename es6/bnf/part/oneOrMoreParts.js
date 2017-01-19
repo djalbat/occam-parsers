@@ -27,10 +27,10 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) {
+  static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     var regExp = /([^*]+)\+$/,
         Class = OneOrMorePartsPart,
-        oneOrMorePartsPart = super.fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace, regExp, Class);
+        oneOrMorePartsPart = super.fromSymbol(symbol, significantTokenTypes, noWhitespace, regExp, Class);
 
     return oneOrMorePartsPart;
   }

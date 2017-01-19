@@ -32,7 +32,6 @@ class FlorenceParser extends CommonParser {
 
   static fromNothing() {
     var lines = BNFLexer.linesFromGrammar(grammar),
-        terminalSymbolsRegExpPattern = FlorenceLexer.terminalSymbolsRegExpPattern(),
         significantTokenTypes = FlorenceLexer.significantTokenTypes(),
         mappings = {
           'part': TransparentNode,
@@ -58,7 +57,7 @@ class FlorenceParser extends CommonParser {
           'specialOrUnassigned': TransparentNode,
           'subLemmaOr(labelled)Statement': TransparentNode
         },
-        productions = BNFParser.parse(lines, terminalSymbolsRegExpPattern, significantTokenTypes, mappings),
+        productions = BNFParser.parse(lines, significantTokenTypes, mappings),
         florenceParser = new FlorenceParser(productions);
 
     return florenceParser;

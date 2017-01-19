@@ -19,7 +19,7 @@ var grammar = `
       
       operatorThenTerm           ::= operator term
       
-      operator                   ::= + | - | * | /
+      operator                   ::= '+' | '-' | '*' | '/'
       
       term                       ::= naturalNumber
       
@@ -27,7 +27,7 @@ var grammar = `
       
       naturalNumber              ::= /^\\d+$/
       
-      parenthesizedExpr          ::= ( expr )
+      parenthesizedExpr          ::= '(' expr ')'
     
     `,
     terminalSymbolsRegExpPattern = `\\+|\\-|\\*|\\/|\\(|\\)|\\d+`;
@@ -96,11 +96,9 @@ function updateBasicLexer() {
 
 function updateBasicParser() {
   var grammarTextAreaValue = Example.getGrammarTextAreaValue(),
-      terminalSymbolsRegExpPatternTextAreaValue = terminalSymbolsRegExpPatternTextArea.getValue(),
-      grammar = grammarTextAreaValue, ///
-      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternTextAreaValue; ///
+      grammar = grammarTextAreaValue; ///
 
-  basicParser = BasicParser.fromGrammarAndTerminalSymbolsRegExpPattern(grammar, terminalSymbolsRegExpPattern);
+  basicParser = BasicParser.fromGrammar(grammar);
 }
 
 function regExpPatternIsValid(regExpPattern) {

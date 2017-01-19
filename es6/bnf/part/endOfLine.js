@@ -37,7 +37,7 @@ class EndOfLinePart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalSymbolsRegExp, significantTokenTypes, noWhitespace) {
+  static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     var endOfLinePart = null,
         found = (symbol === specialSymbols.END_OF_LINE);
 

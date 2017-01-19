@@ -8,8 +8,8 @@ var Example = require('../example');
 var GallinaParser = require('../gallina/parser'),
     gallinaGrammar = require('../gallina/grammar');
 
-var gallinaLexer = GallinaLexer.fromNothing(),
-    gallinaParser = GallinaParser.fromNothing();
+// var gallinaLexer = GallinaLexer.fromNothing(),
+//     gallinaParser = GallinaParser.fromNothing();
 
 class GallinaExample {
   static run() {

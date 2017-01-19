@@ -34,11 +34,16 @@ class TerminalSymbolPart {
     return nodes;
   }
 
-  static fromSymbol(symbol, terminalSymbolPartsRegExp, significantTokenTypes, noWhitespace) {
+  static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     var terminalSymbolPart = null,
-        matches = symbol.match(terminalSymbolPartsRegExp);
+        terminalSymbolPartRegExp = /'([^/]+)'/,
+        matches = symbol.match(terminalSymbolPartRegExp);
 
     if (matches !== null) {
+      var secondMatch = second(matches);
+      
+      symbol = secondMatch; ///
+
       terminalSymbolPart = new TerminalSymbolPart(symbol, noWhitespace);
     }
 
@@ -47,3 +52,5 @@ class TerminalSymbolPart {
 }
 
 module.exports = TerminalSymbolPart;
+
+function second(array) { return array[1]; }

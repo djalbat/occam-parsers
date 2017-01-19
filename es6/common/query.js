@@ -53,7 +53,8 @@ class Query {
       return null;
     }
     
-    var matches = expression.match(/^\/(\/)?([^/\[]+)(\[[^\]]+\])?(\/.*)?$/),
+    var regExp = /^\/(\/)?([^/\[]+)(\[[^\]]+\])?(\/.*)?$/,
+        matches = expression.match(regExp),
         secondMatch = second(matches),
         thirdMatch = third(matches),
         fourthMatch = fourth(matches),
