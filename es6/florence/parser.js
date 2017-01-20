@@ -14,18 +14,16 @@ var grammar = require('./grammar'),
     DiscardChildrenNode = require('../common/node/discardChildren'),
     DiscardFirstChildNode = require('../common/node/discardFirstChild'),
     DiscardSecondChildNode = require('../common/node/discardSecondChild'),
-    TransparentThenSecondNode = require('../common/node/transparentThenSecond'),
+    TransparentThenKeepSecondNode = require('../common/node/transparentThenKeepSecond'),
     TransparentThenDiscardFirstNode = require('../common/node/transparentThenDiscardFirst');
 
 class FlorenceParser extends CommonParser {
   parse(tokens) {
     var documentNode = super.parse(tokens);
 
-    // if (documentNode !== null) {
-    //   var errorNodes = documentNode.query('//error');
-    //
-    //   documentNode.update();
-    // }
+    if (documentNode !== null) {
+      documentNode.update();
+    }
 
     return documentNode;
   }
@@ -38,20 +36,22 @@ class FlorenceParser extends CommonParser {
           'rule': DiscardFirstChildNode,
           'error': ErrorNode,
           'label': LabelNode,
-          'premise': TransparentThenSecondNode,
+          'premise': TransparentThenKeepSecondNode,
           'premises': TransparentThenDiscardFirstNode,
           'directive': TransparentNode,
           'then': DiscardFirstChildNode,
           'hence': DiscardFirstChildNode,
           'proof': DiscardFirstChildNode,
+          'lemma': DiscardFirstChildNode,
+          'theorem': DiscardFirstChildNode,
           'suppose': DiscardFirstChildNode,
           'therefore': TransparentThenDiscardFirstNode,
           'conclusion': DiscardFirstChildNode,
           'endsOfLines': DiscardChildrenNode,
           'statementBody': TransparentNode,
-          'commaThenLabel': TransparentThenSecondNode,
+          'commaThenLabel': TransparentThenKeepSecondNode,
           'includeDirective': IncludeDirectiveNode,
-          'parenthesisedLabels': TransparentThenSecondNode,
+          'parenthesisedLabels': TransparentThenKeepSecondNode,
           'labelledStatement': DiscardSecondChildNode,
           '(labelled)Statement': TransparentNode,
           'specialOrUnassigned': TransparentNode,
