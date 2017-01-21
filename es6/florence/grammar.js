@@ -2,6 +2,10 @@
 
 var grammar = `
 
+    includeDirective                          ::=   'include'<NO_WHITESPACE>'('<NO_WHITESPACE>[string]<NO_WHITESPACE>')' endsOfLines
+    
+    
+
     document                                  ::=   header body
      
     header                                    ::=   directive*     
