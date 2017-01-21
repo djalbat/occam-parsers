@@ -15,19 +15,17 @@ var terminalSymbolsRegExpPatternTextAreaSelector = 'textarea#terminalSymbolsRegE
 
 var grammar = `
 
-      expr                       ::= term operatorThenTerm*
+      expression                 ::= term operatorThenTerm*
       
       operatorThenTerm           ::= operator term
       
       operator                   ::= '+' | '-' | '*' | '/'
       
-      term                       ::= naturalNumber
-      
-                                   | parenthesizedExpr
+      term                       ::= naturalNumber | parenthesizedExpression
       
       naturalNumber              ::= /^\\d+$/
       
-      parenthesizedExpr          ::= '(' expr ')'
+      parenthesizedExpression    ::= '(' expression ')'
     
     `,
     terminalSymbolsRegExpPattern = `\\+|\\-|\\*|\\/|\\(|\\)|\\d+`;
