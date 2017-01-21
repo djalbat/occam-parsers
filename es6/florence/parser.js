@@ -30,7 +30,7 @@ class FlorenceParser extends CommonParser {
 
   static fromNothing() {
     var lines = BNFLexer.linesFromGrammar(grammar),
-        significantTokenTypes = FlorenceLexer.significantTokenTypes(),
+        significantTokenTypes = FlorenceLexer.getSignificantTokenTypes(),
         mappings = {
           'part': TransparentNode,
           'rule': DiscardFirstChildNode,
