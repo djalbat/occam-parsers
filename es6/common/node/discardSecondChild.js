@@ -1,6 +1,6 @@
 'use strict';
 
-var arrayUtil = require('../arrayUtil'),
+var arrayUtil = require('../../arrayUtil'),
     NonTerminalNode = require('../../bnf/node/nonTerminal');
 
 class DiscardSecondChildNode extends NonTerminalNode {
