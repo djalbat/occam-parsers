@@ -18,24 +18,17 @@ var Query = require('../query'),
     TransparentThenKeepSecondNode = require('../common/node/transparentThenKeepSecond'),
     TransparentThenDiscardFirstNode = require('../common/node/transparentThenDiscardFirst');
 
-var errorQuery = Query.fromExpression('//error'),
-    labelQuery = Query.fromExpression('//label');
+var errorOrLabelQuery = Query.fromExpression('//error|label');
 
 class FlorenceParser extends CommonParser {
   parse(tokens) {
     var documentNode = super.parse(tokens);
 
     if (documentNode !== null) {
-      var errorNodes = errorQuery.nodesFromNode(documentNode);
+      var errorOrLabelNodes = errorOrLabelQuery.nodesFromNode(documentNode);
 
-      errorNodes.forEach(function(errorNode) {
-        errorNode.update();
-      });
-
-      var labelNodes = labelQuery.nodesFromNode(documentNode);
-
-      labelNodes.forEach(function(labelNode) {
-        labelNode.update();
+      errorOrLabelNodes.forEach(function(errorOrLabelNode) {
+        errorOrLabelNode.update();
       });
     }
 

@@ -285,10 +285,10 @@ Custom nodes can also be defined. The following `LabelNode` class updates the ty
       
 There is a 'Query' class with a static `fromExpression()` method that constructs a query that can then be applied to any node in a parse tree. For example:
 
-    var errorQuery = Query.fromExpression('//error'),
-        errorNodes = query.nodesFromNode(documentNode);
+    var errorOrLabelQuery = Query.fromExpression('//error|label'),
+        errorOrLabelNodes = query.nodesFromNode(documentNode);
         
-This example demonstrates the infinite descent `//` operator, which is computationally expensive and should generally be avoided. Queries should be specific. Given the rule from propositional logic above, for example, the following query will pick out the conclusion's statement:
+This example demonstrates the alternatives `|` and infinite descent `//` operators. The latter is computationally expensive and should generally be avoided. Queries should be specific. Given the rule from propositional logic above, for example, the following query will pick out the conclusion's statement:
 
     var conclusionStatementQuery = Query.fromExpression('/document/body/rule/conclusion[0]/statement');
     

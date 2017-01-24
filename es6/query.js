@@ -3,9 +3,9 @@
 var Spread = require('./spread');
 
 class Query {
-  constructor(infiniteDescent, productionName, subQuery, spread) {
+  constructor(infiniteDescent, productionNames, subQuery, spread) {
     this.infiniteDescent = infiniteDescent;
-    this.productionName = productionName;
+    this.productionNames = productionNames;
     this.subQuery = subQuery;
     this.spread = spread;
   }
@@ -13,11 +13,11 @@ class Query {
   nodesFromNode(node) {
     var nodes = [],
         childNodes = node.getChildNodes(),
-        nodeProductionName = node.getProductionName();
+        nodeProductionName = node.getProductionName(),
+        wildcard = (this.productionNames === '*'),
+        found = (this.productionNames.indexOf(nodeProductionName) > -1);
 
-    if ((this.productionName === '*') ||
-        (this.productionName === nodeProductionName)) {
-
+    if (wildcard || found) {
       if (this.spread.isBetween()) {
         if (this.subQuery === null) {
           nodes = [node];
@@ -60,12 +60,12 @@ class Query {
         fourthMatch = fourth(matches),
         fifthMatch = fifth(matches),
         infiniteDescent = (secondMatch === '/'),  ///
-        productionName = thirdMatch,  ///
+        productionNames = thirdMatch.split('|'),  ///
         subExpression = fifthMatch,  ///
         spreadExpression = fourthMatch,  ///
         subQuery = Query.fromExpression(subExpression),
         spread = Spread.fromExpression(spreadExpression),
-        query = new Query(infiniteDescent, productionName, subQuery, spread);
+        query = new Query(infiniteDescent, productionNames, subQuery, spread);
     
     return query;
   }
