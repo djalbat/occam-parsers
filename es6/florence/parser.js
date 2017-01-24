@@ -4,7 +4,8 @@ var lexers = require('occam-lexers'),
     BNFLexer = lexers.BNFLexer,
     FlorenceLexer = lexers.FlorenceLexer;
 
-var grammar = require('./grammar'),
+var Query = require('../query'),
+    grammar = require('./grammar'),
     BNFParser = require('../bnf/parser'),
     CommonParser = require('../common/parser'),
     ErrorNode = require('./node/error'),
@@ -17,12 +18,25 @@ var grammar = require('./grammar'),
     TransparentThenKeepSecondNode = require('../common/node/transparentThenKeepSecond'),
     TransparentThenDiscardFirstNode = require('../common/node/transparentThenDiscardFirst');
 
+var errorQuery = Query.fromExpression('//error'),
+    labelQuery = Query.fromExpression('//label');
+
 class FlorenceParser extends CommonParser {
   parse(tokens) {
     var documentNode = super.parse(tokens);
 
     if (documentNode !== null) {
-      documentNode.update();
+      var errorNodes = errorQuery.nodesFromNode(documentNode);
+
+      errorNodes.forEach(function(errorNode) {
+        errorNode.update();
+      });
+
+      var labelNodes = labelQuery.nodesFromNode(documentNode);
+
+      labelNodes.forEach(function(labelNode) {
+        labelNode.update();
+      });
     }
 
     return documentNode;

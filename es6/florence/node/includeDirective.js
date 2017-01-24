@@ -17,9 +17,10 @@ class IncludeDirectiveNode extends NonTerminalNode {
   static fromNodes(nodes, productionName) {
     var childNodes = arrayUtil.keepThird(nodes),
         firstChildNode = first(childNodes),
-        firstChildNodeSignificantToken = firstChildNode.getSignificantToken(),
-        firstChildNodeSignificantTokenContent = firstChildNodeSignificantToken.getContent(),
-        filePath = filePathFromContent(firstChildNodeSignificantTokenContent),
+        terminalNode = firstChildNode,  ///
+        significantToken = terminalNode.getSignificantToken(),
+        content = significantToken.getContent(),
+        filePath = filePathFromContent(content),
         includeDirectiveNode = new IncludeDirectiveNode(childNodes, productionName, filePath);
 
     nodes = [includeDirectiveNode]; ///

@@ -4,19 +4,20 @@ var TerminalNode = require('../../bnf/node/terminal');
 
 class ErrorNode extends TerminalNode {
   update() {
-    var significantToken = this.getSignificantToken(),
-        significantTokenType = 'error'; ///
+    var productionName = this.getProductionName(),
+        significantToken = this.getSignificantToken(),
+        significantTokenType = productionName;  ///
 
     significantToken.setType(significantTokenType);
   }
-  
+
   static fromNodes(nodes, productionName) {
     var firstNode = first(nodes),
-        terminalNode = firstNode,  ///
+        terminalNode = firstNode, ///
         significantToken = terminalNode.getSignificantToken(),
-        errorNode = new ErrorNode(significantToken);
+        errorNode = new ErrorNode(significantToken, productionName);
 
-    nodes = [errorNode];
+    nodes = [errorNode]; ///
 
     return nodes;
   }

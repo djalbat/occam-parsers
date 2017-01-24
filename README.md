@@ -254,45 +254,32 @@ Mappings allow the parse tree to be pruned by discarding needless nodes. For exa
                                                                  |            |            |
                                                            P[unassigned] =[special] >Q[unassigned]
 
-Custom nodes can also be defined. The following `LabelNode` class acts transparently, effectively turning itself into a terminal node. It then updates the type of its underlying significant token when its `update()` method is called:
+Custom nodes can also be defined. The following `LabelNode` class updates the type of its underlying significant token when its `update()` method is called:
 
     var TerminalNode = require('../../bnf/node/terminal');
-    
+
     class LabelNode extends TerminalNode {
       update() {
-        var significantToken = this.getSignificantToken(),
-            significantTokenType = 'label'; ///
-    
+        var productionName = this.getProductionName(),
+            significantToken = this.getSignificantToken(),
+            significantTokenType = productionName;  ///
+
         significantToken.setType(significantTokenType);
       }
-      
+
       static fromNodes(nodes, productionName) {
         var firstNode = first(nodes),
-            terminalNode = firstNode,  ///
+            terminalNode = firstNode, ///
             significantToken = terminalNode.getSignificantToken(),
-            labelNode = new LabelNode(significantToken);
-    
-        nodes = [labelNode];
-    
+            labelNode = new LabelNode(significantToken, productionName);
+
+        nodes = [labelNode]; ///
+
         return nodes;
       }
     }
-    
-    module.exports = LabelNode;
-    
+
     function first(array) { return array[0]; }
-
-### Updating the parse tree
-
-The `TerminalNode` class has a vacuous `update()` method and the `NonTerminalNode` the obvious implementation:
-
-      update() {
-        this.childNodes.forEach(function(childNode) {
-          childNode.update();
-        });
-      }
-      
-Calling the `update()` method of the topmost node returned by the parser, which is done automatically by the Florence parser, is therefore a good way to implement changes to the parse tree that can only be done once it has been fully generated, such as altering the type of a terminal node's underlying significant token. The `update()` method of the `LabelNode` class, given above, is an example of this.
 
 ### Querying the parse tree
       
@@ -305,7 +292,7 @@ This example demonstrates the infinite descent `//` operator, which is computati
 
     var conclusionStatementQuery = Query.fromExpression('/document/body/rule/conclusion[0]/statement');
     
-Array modifiers can also be used, see the `/conclusion` sub-query above for a vacuous example, since a rule can only have one conclusion. Queries must start with a single leading slash `/`, if not two, and must include the production name of the node that is passed to the `nodeFromNodes()` method. A specific query such as this should be fast compared to more a general infinite descent one.
+Array modifiers can be used, see the `/conclusion` sub-query above for a vacuous example, since a rule can only have one conclusion. Queries must start with a single leading slash `/`, if not two, and must include the production name of the node that is passed to the `nodeFromNodes()` method. A specific query such as this should be fast compared to more a general infinite descent one. Infinite descents can also be nested.
 
 ## Building
 
