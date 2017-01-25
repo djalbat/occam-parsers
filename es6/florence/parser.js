@@ -4,8 +4,7 @@ var lexers = require('occam-lexers'),
     BNFLexer = lexers.BNFLexer,
     FlorenceLexer = lexers.FlorenceLexer;
 
-var Query = require('../query'),
-    grammar = require('./grammar'),
+var grammar = require('./grammar'),
     BNFParser = require('../bnf/parser'),
     CommonParser = require('../common/parser'),
     ErrorNode = require('./node/error'),
@@ -18,48 +17,32 @@ var Query = require('../query'),
     TransparentThenKeepSecondNode = require('../common/node/transparentThenKeepSecond'),
     TransparentThenDiscardFirstNode = require('../common/node/transparentThenDiscardFirst');
 
-var errorOrLabelQuery = Query.fromExpression('//error|label');
-
 class FlorenceParser extends CommonParser {
-  parse(tokens) {
-    var documentNode = super.parse(tokens);
-
-    if (documentNode !== null) {
-      var errorOrLabelNodes = errorOrLabelQuery.nodesFromNode(documentNode);
-
-      errorOrLabelNodes.forEach(function(errorOrLabelNode) {
-        errorOrLabelNode.update();
-      });
-    }
-
-    return documentNode;
-  }
-
   static fromNothing() {
     var lines = BNFLexer.linesFromGrammar(grammar),
         significantTokenTypes = FlorenceLexer.getSignificantTokenTypes(),
         mappings = {
-          'part': TransparentNode,
-          'rule': DiscardFirstChildNode,
+          'includeDirective': IncludeDirectiveNode,
           'error': ErrorNode,
           'label': LabelNode,
-          'premise': TransparentThenKeepSecondNode,
-          'premises': TransparentThenDiscardFirstNode,
-          'directive': TransparentNode,
+          'part': TransparentNode,
+          'rule': DiscardFirstChildNode,
           'then': DiscardFirstChildNode,
           'hence': DiscardFirstChildNode,
           'proof': DiscardFirstChildNode,
           'lemma': DiscardFirstChildNode,
           'theorem': DiscardFirstChildNode,
           'suppose': DiscardFirstChildNode,
+          'premise': TransparentThenKeepSecondNode,
+          'premises': TransparentThenDiscardFirstNode,
           'therefore': TransparentThenDiscardFirstNode,
+          'directive': TransparentNode,
           'conclusion': DiscardFirstChildNode,
           'endsOfLines': DiscardChildrenNode,
           'statementBody': TransparentNode,
           'commaThenLabel': TransparentThenKeepSecondNode,
-          'includeDirective': IncludeDirectiveNode,
-          'parenthesisedLabels': TransparentThenKeepSecondNode,
           'labelledStatement': DiscardSecondChildNode,
+          'parenthesisedLabels': TransparentThenKeepSecondNode,
           '(labelled)Statement': TransparentNode,
           'specialOrUnassigned': TransparentNode,
           'subLemmaOr(labelled)Statement': TransparentNode

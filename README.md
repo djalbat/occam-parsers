@@ -254,11 +254,11 @@ Mappings allow the parse tree to be pruned by discarding needless nodes. For exa
                                                                  |            |            |
                                                            P[unassigned] =[special] >Q[unassigned]
 
-Custom nodes can also be defined. The following `LabelNode` class updates the type of its underlying significant token when its `update()` method is called:
+Custom nodes can also be defined. The following `ErrorNode` class updates the type of its underlying significant token when its `update()` method is called:
 
     var TerminalNode = require('../../bnf/node/terminal');
 
-    class LabelNode extends TerminalNode {
+    class ErrorNode extends TerminalNode {
       update() {
         var productionName = this.getProductionName(),
             significantToken = this.getSignificantToken(),
@@ -271,9 +271,9 @@ Custom nodes can also be defined. The following `LabelNode` class updates the ty
         var firstNode = first(nodes),
             terminalNode = firstNode, ///
             significantToken = terminalNode.getSignificantToken(),
-            labelNode = new LabelNode(significantToken, productionName);
+            errorNode = new ErrorNode(significantToken, productionName);
 
-        nodes = [labelNode]; ///
+        nodes = [errorNode]; ///
 
         return nodes;
       }
