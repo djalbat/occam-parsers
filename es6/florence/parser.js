@@ -15,7 +15,7 @@ var grammar = require('./grammar'),
     TransparentThenDiscardFirstNode = require('../common/node/transparentThenDiscardFirst');
 
 class FlorenceParser extends CommonParser {
-  static fromMappings(mappings) {
+  static fromNothing(mappings) {
     var lines = BNFLexer.linesFromGrammar(grammar),
         significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
 
