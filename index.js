@@ -5,7 +5,7 @@ var parsers = {
   'BNFParser': require('./lib/bnf/parser'),
   'BasicParser': require('./lib/basic/parser'),
   'FlorenceParser': require('./lib/florence/parser'),
-  'TerminalNode': requir('./lib/common/node/terminal'),
+  'TerminalNode': require('./lib/common/node/terminal'),
   'NonTerminalNode': require('./lib/common/node/nonTerminal')
 };
 
