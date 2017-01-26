@@ -1,7 +1,7 @@
 'use strict';
 
 var arrayUtil = require('../../arrayUtil'),
-    NonTerminalNode = require('../../bnf/node/nonTerminal');
+    NonTerminalNode = require('./nonTerminal');
 
 class KeepThirdChildNode extends NonTerminalNode {
   static fromNodes(nodes, productionName) {

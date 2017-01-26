@@ -1,6 +1,6 @@
 'use strict';
 
-var TerminalNode = require('../node/terminal');
+var TerminalNode = require('../../common/node/terminal');
 
 class RegularExpressionPart {
   constructor(regExp, noWhitespace) {
@@ -41,7 +41,7 @@ class RegularExpressionPart {
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     var regularExpressionPart = null,
-        regularExpressionPartRegExp = /\/([^/]+)\//,
+        regularExpressionPartRegExp = /^\/([^/]+)\/$/,
         matches = symbol.match(regularExpressionPartRegExp);
 
     if (matches !== null) {

@@ -1,6 +1,6 @@
 'use strict';
 
-var TerminalNode = require('../node/terminal');
+var TerminalNode = require('../../common/node/terminal');
 
 class SignificantTokenTypePart {
   constructor(type, noWhitespace) {
@@ -36,7 +36,7 @@ class SignificantTokenTypePart {
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     var significantTokenTypePart = null,
-        significantTokenTypePartRegExp = /\[([^/]+)\]/,
+        significantTokenTypePartRegExp = /^\[([^/]+)\]$/,
         matches = symbol.match(significantTokenTypePartRegExp);
 
     if (matches !== null) {

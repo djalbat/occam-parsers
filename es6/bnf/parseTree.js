@@ -35,8 +35,8 @@ class ParseTree {
     return depth;
   }
 
-  forEachLine(cb) {
-    this.lines.forEach(cb);
+  forEachLine(callback) {
+    this.lines.forEach(callback);
   }
 
   appendToTop(parseTree) {

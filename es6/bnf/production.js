@@ -1,7 +1,7 @@
 'use strict';
 
 var Rule = require('./rule'),
-    NonTerminalNode = require('./node/nonTerminal');
+    NonTerminalNode = require('../common/node/nonTerminal');
 
 class Production {
   constructor(name, rules, Node) {

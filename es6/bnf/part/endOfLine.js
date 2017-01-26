@@ -4,7 +4,7 @@ var lexers = require('occam-lexers'),
     specialSymbols = lexers.specialSymbols,
     SignificantToken = lexers.SignificantToken;
 
-var TerminalNode = require('../node/terminal');
+var TerminalNode = require('../../common/node/terminal');
 
 class EndOfLinePart {
   constructor(noWhitespace) {

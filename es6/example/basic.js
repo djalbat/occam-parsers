@@ -10,10 +10,10 @@ var BasicParser = require('../basic/parser');
 
 var Example = require('../example');
 
-var terminalSymbolsRegExpPatternTextAreaSelector = 'textarea#terminalSymbolsRegExpPattern',
-    terminalSymbolsRegExpPatternTextArea = new TextArea(terminalSymbolsRegExpPatternTextAreaSelector);
-
-var grammar = `
+var terminalSymbolsRegExpPatternTextArea,
+    terminalSymbolsRegExpPatternTextAreaSelector = 'textarea#terminalSymbolsRegExpPattern',
+    terminalSymbolsRegExpPattern = `\\+|\\-|\\*|\\/|\\(|\\)|\\d+`,
+    grammar = `
 
       expression                 ::= term operatorThenTerm*
       
@@ -28,13 +28,13 @@ var grammar = `
       parenthesizedExpression    ::= '(' expression ')'
     
     `,
-    terminalSymbolsRegExpPattern = `\\+|\\-|\\*|\\/|\\(|\\)|\\d+`;
-
-var basicLexer = null,
+    basicLexer = null,
     basicParser = null;
 
 class BasicExample {
   static run() {
+    terminalSymbolsRegExpPatternTextArea = new TextArea(terminalSymbolsRegExpPatternTextAreaSelector);
+
     var grammarTextAreaValue = grammar, ///
         terminalSymbolsRegExpPatternTextAreaValue = terminalSymbolsRegExpPattern; ///
 
@@ -52,7 +52,7 @@ class BasicExample {
       update();
     });
 
-    Example.onContentTextAreaChange(function() {
+    Example.onContentTextAreaKeyUp(function() {
       update();
     });
   }

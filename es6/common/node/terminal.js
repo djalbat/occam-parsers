@@ -1,6 +1,6 @@
 'use strict';
 
-var TerminalNodeParseTree = require('../parseTree/terminalNode');
+var TerminalNodeParseTree = require('../../bnf/parseTree/terminalNode');
 
 class TerminalNode {
   constructor(significantToken, productionName = null) {

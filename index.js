@@ -4,7 +4,9 @@ var parsers = {
   'Query': require('./lib/query'),
   'BNFParser': require('./lib/bnf/parser'),
   'BasicParser': require('./lib/basic/parser'),
-  'FlorenceParser': require('./lib/florence/parser')
+  'FlorenceParser': require('./lib/florence/parser'),
+  'TerminalNode': requir('./lib/common/node/terminal'),
+  'NonTerminalNode': require('./lib/common/node/nonTerminal')
 };
 
 module.exports = parsers;

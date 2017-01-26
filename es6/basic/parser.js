@@ -10,7 +10,7 @@ var BNFParser = require('../bnf/parser'),
 class BasicParser extends CommonParser {
   static fromGrammar(grammar) {
     var lines = BNFLexer.linesFromGrammar(grammar),
-        significantTokenTypes = BasicLexer.significantTokenTypes(),
+        significantTokenTypes = BasicLexer.getSignificantTokenTypes(),
         mappings = {},
         productions = BNFParser.parse(lines, significantTokenTypes, mappings),
         basicParser = new BasicParser(productions);

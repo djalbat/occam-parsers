@@ -19,7 +19,7 @@ class FlorenceExample {
 
     update();
 
-    Example.onContentTextAreaChange(function() {
+    Example.onContentTextAreaKeyUp(function() {
       update();
     });
   }

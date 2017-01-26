@@ -1,6 +1,6 @@
 'use strict';
 
-var EpsilonTerminalNode = require('../node/terminal/epsilon');
+var EpsilonTerminalNode = require('../../common/node/terminal/epsilon');
 
 class EpsilonPart {
   parse(context, productions, noWhitespace) {

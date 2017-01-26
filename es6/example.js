@@ -23,7 +23,11 @@ class Example {
 
   static setGrammarTextAreaValue(value) { grammarTextArea.setValue(value); }
 
-  static onContentTextAreaChange(handler) { contentTextArea.onChange(handler); }
+  static onContentTextAreaKeyUp(handler) { contentTextArea.on('keyup', function() {
+    var content = contentTextArea.getValue(); ///
+
+    handler(content);
+  }); }
 
   static onGrammarTextAreaChange(handler) { grammarTextArea.onChange(handler); }
 

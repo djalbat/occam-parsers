@@ -1,6 +1,6 @@
 'use strict';
 
-var TerminalNode = require('../node/terminal');
+var TerminalNode = require('../../common/node/terminal');
 
 class TerminalSymbolPart {
   constructor(symbol, noWhitespace) {
@@ -36,7 +36,7 @@ class TerminalSymbolPart {
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     var terminalSymbolPart = null,
-        terminalSymbolPartRegExp = /'([^/]+)'/,
+        terminalSymbolPartRegExp = /^'([^']+)'$/,
         matches = symbol.match(terminalSymbolPartRegExp);
 
     if (matches !== null) {

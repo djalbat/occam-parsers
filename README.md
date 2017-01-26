@@ -217,15 +217,13 @@ Mappings allow the parse tree to be pruned by discarding needless nodes. For exa
 
     mappings = {
       'part': TransparentNode,
-      'label': LabelNode,
       'rule': DiscardFirstChildNode,
       'premise': TransparentThenKeepSecondNode,
       'premises': TransparentThenDiscardFirstNode,
       'conclusion': DiscardFirstChildNode,
-      'endsOfLines': DiscardNode,
-      'commaThenLabel': TransparentThenKeepSecondNode,
+      'endsOfLines': DiscardChildrenNode,
+      'labelledStatement': DiscardSecondChildNode,
       'parenthesisedLabels': TransparentThenKeepSecondNode,
-      '(labelled)statement': TransparentNode
     }
 
 ...the following rule will parse...
@@ -253,33 +251,6 @@ Mappings allow the parse tree to be pruned by discarding needless nodes. For exa
                                             ⌐P[unassigned]    symbol       symbol       symbol
                                                                  |            |            |
                                                            P[unassigned] =[special] >Q[unassigned]
-
-Custom nodes can also be defined. The following `ErrorNode` class updates the type of its underlying significant token when its `update()` method is called:
-
-    var TerminalNode = require('../../bnf/node/terminal');
-
-    class ErrorNode extends TerminalNode {
-      update() {
-        var productionName = this.getProductionName(),
-            significantToken = this.getSignificantToken(),
-            significantTokenType = productionName;  ///
-
-        significantToken.setType(significantTokenType);
-      }
-
-      static fromNodes(nodes, productionName) {
-        var firstNode = first(nodes),
-            terminalNode = firstNode, ///
-            significantToken = terminalNode.getSignificantToken(),
-            errorNode = new ErrorNode(significantToken, productionName);
-
-        nodes = [errorNode]; ///
-
-        return nodes;
-      }
-    }
-
-    function first(array) { return array[0]; }
 
 ### Querying the parse tree
       
