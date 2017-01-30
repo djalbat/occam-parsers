@@ -6,7 +6,7 @@ var grammar = `
      
     header                                    ::=   directive+     
      
-    body                                      ::=   whitespaceOrPart+
+    body                                      ::=   part whitespaceOrPart*
     
     
     

@@ -8,8 +8,9 @@ var grammar = require('./grammar'),
     BNFParser = require('../bnf/parser'),
     CommonParser = require('../common/parser'),
     TransparentNode = require('../common/node/transparent'),
-    DiscardChildrenNode = require('../common/node/discardChildren'),
+    KeepFirstChildNode = require('../common/node/keepFirstChild'),
     DiscardSecondChildNode = require('../common/node/discardSecondChild'),
+    KeepFirstAndThirdChildNode = require('../common/node/keepFirstAndThirdChild'),
     TransparentThenKeepSecondNode = require('../common/node/transparentThenKeepSecond');
 
 class FlorenceParser extends CommonParser {
@@ -18,19 +19,21 @@ class FlorenceParser extends CommonParser {
         significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
 
     mappings = Object.assign({
-      // 'part': TransparentNode,
-      // 'label': TransparentNode,
-      // 'premise': TransparentNode,
-      // 'premises': TransparentNode,
-      // 'directive': TransparentNode,
-      // 'endsOfLines': DiscardChildrenNode,
-      // 'statementBody': TransparentNode,
-      // 'commaThenLabel': TransparentThenKeepSecondNode,
-      // 'labelledStatement': DiscardSecondChildNode,
-      // 'parenthesisedLabels': TransparentThenKeepSecondNode,
-      // '(labelled)Statement': TransparentNode,
-      // 'specialOrUnassigned': TransparentNode,
-      // 'subLemmaOr(labelled)Statement': TransparentNode
+      'part': TransparentNode,
+      'premise': TransparentNode,
+      'premises': TransparentNode,
+      'premise(s)': DiscardSecondChildNode,
+      'directive': TransparentNode,
+      'statement': KeepFirstChildNode,
+      'conclusion': DiscardSecondChildNode,
+      'statementBody': TransparentNode,
+      'commaThenLabel': TransparentThenKeepSecondNode,
+      'whitespaceOrPart': TransparentNode,
+      'labelledStatement': KeepFirstAndThirdChildNode,
+      'parenthesisedLabels': TransparentThenKeepSecondNode,
+      '(labelled)Statement': TransparentNode,
+      'specialOrUnassigned': TransparentNode,
+      'subLemmaOr(labelled)Statement': TransparentNode
     }, mappings);
 
     var productions = BNFParser.parse(lines, significantTokenTypes, mappings),
