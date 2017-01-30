@@ -3,7 +3,7 @@
 var TerminalNodeParseTree = require('../../bnf/parseTree/terminalNode');
 
 class TerminalNode {
-  constructor(significantToken, productionName = null) {
+  constructor(significantToken, productionName) {
     this.significantToken = significantToken;
     this.productionName = productionName;
   }
@@ -17,11 +17,29 @@ class TerminalNode {
   getProductionName() {
     return this.productionName;
   }
-  
+
+  getLine() { return this.significantToken.getLine() };
+
+  getStartLine() {
+    var line = this.getLine(),
+        startLine = line; ///
+
+    return startLine;
+  }
+
+  getEndLine() {
+    var line = this.getLine(),
+        endLine = line; ///
+
+    return endLine;
+  }
+
   getContent() {
     var significantTokenType = this.significantToken.getType(),
         significantTokenContent = this.significantToken.getContent(),
-        content = `${significantTokenContent}[${significantTokenType}]`; ///
+        line = this.getLine(),
+        lineNumber = line.getNumber(),
+        content = `${significantTokenContent}[${significantTokenType}] (${lineNumber})`;
 
     return content;
   }
@@ -36,6 +54,12 @@ class TerminalNode {
         parseTree = terminalNodeParseTree;  ///
 
     return parseTree;
+  }
+
+  static fromSignificantTokenAndProductionName(significantToken, productionName, Class = TerminalNode) {
+    var terminalNode = new Class(significantToken, productionName);
+
+    return terminalNode;
   }
 }
 

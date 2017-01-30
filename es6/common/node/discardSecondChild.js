@@ -6,7 +6,7 @@ var arrayUtil = require('../../arrayUtil'),
 class DiscardSecondChildNode extends NonTerminalNode {
   static fromNodes(nodes, productionName) {
     var childNodes = arrayUtil.discardSecond(nodes),
-        discardSecondChildNode = new DiscardSecondChildNode(childNodes, productionName);
+        discardSecondChildNode = NonTerminalNode.fromChildNodesAndProductionName(childNodes, productionName, DiscardSecondChildNode);
 
     nodes = [discardSecondChildNode]; ///
 

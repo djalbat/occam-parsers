@@ -2,22 +2,26 @@
 
 var EmptyParseTree = require('../parseTree/empty'),
     ChildNodesParseTree = require('../parseTree/childNodes'),
-    ProductionNameParseTree = require('../parseTree/productionName'),
-    VerticalBranchParseTree = require('../parseTree/verticalBranch');
+    VerticalBranchParseTree = require('../parseTree/verticalBranch'),
+    ProductionNameAndLineNumbersParseTree = require('../parseTree/productionNameAndLineNumbers');
 
 class NonTerminalNodeParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNode(nonTerminalNode) {
     var productionName = nonTerminalNode.getProductionName(),
         childNodes = nonTerminalNode.getChildNodes(),
+        startLine = nonTerminalNode.getStartLine(),
+        endLine = nonTerminalNode.getEndLine(),
+        startLineNumber = startLine.getNumber(),
+        endLineNumber = endLine.getNumber(),
         firstChildNode = first(childNodes),
         childNode = firstChildNode,
         childNodesLength = childNodes.length,
-        productionNameParseTree = ProductionNameParseTree.fromProductionName(productionName),
+        productionNameAndLineNumbersParseTree = ProductionNameAndLineNumbersParseTree.fromProductionNameAndLineNumbers(productionName, startLineNumber, endLineNumber),
         childNodeOrNodesParseTree = (childNodesLength === 1) ?
                                       childNode.getParseTree() :
                                         ChildNodesParseTree.fromChildNodes(childNodes);
     
-    var productionNameParseTreeVerticalBranchPosition = productionNameParseTree.getVerticalBranchPosition(),
+    var productionNameParseTreeVerticalBranchPosition = productionNameAndLineNumbersParseTree.getVerticalBranchPosition(),
         childNodeOrNodesParseTreeVerticalBranchPosition = childNodeOrNodesParseTree.getVerticalBranchPosition(),
         verticalBranchPositionsDifference = productionNameParseTreeVerticalBranchPosition - childNodeOrNodesParseTreeVerticalBranchPosition,
         leftMarginWidth = undefined;
@@ -27,14 +31,14 @@ class NonTerminalNodeParseTree extends VerticalBranchParseTree {
     } else if (verticalBranchPositionsDifference < 0) {
       leftMarginWidth = -verticalBranchPositionsDifference;
 
-      productionNameParseTree.addLeftMargin(leftMarginWidth);
+      productionNameAndLineNumbersParseTree.addLeftMargin(leftMarginWidth);
     } else if (verticalBranchPositionsDifference > 0) {
       leftMarginWidth = +verticalBranchPositionsDifference;
 
       childNodeOrNodesParseTree.addLeftMargin(leftMarginWidth);
     }
 
-    var productionNameParseTreeWidth = productionNameParseTree.getWidth(),
+    var productionNameParseTreeWidth = productionNameAndLineNumbersParseTree.getWidth(),
         childNodeOrNodesParseTreeWidth = childNodeOrNodesParseTree.getWidth(),
         widthsDifference = productionNameParseTreeWidth - childNodeOrNodesParseTreeWidth,
         rightMarginWidth = undefined;
@@ -44,21 +48,21 @@ class NonTerminalNodeParseTree extends VerticalBranchParseTree {
     } else if (widthsDifference < 0) {
       rightMarginWidth = -widthsDifference;
       
-      productionNameParseTree.addRightMargin(rightMarginWidth);
+      productionNameAndLineNumbersParseTree.addRightMargin(rightMarginWidth);
     } else if (widthsDifference > 0) {
       rightMarginWidth = +widthsDifference;
 
       childNodeOrNodesParseTree.addRightMargin(rightMarginWidth);
     }
 
-    productionNameParseTreeVerticalBranchPosition = productionNameParseTree.getVerticalBranchPosition();
+    productionNameParseTreeVerticalBranchPosition = productionNameAndLineNumbersParseTree.getVerticalBranchPosition();
 
-    var productionNameParseTreeDepth = productionNameParseTree.getDepth(),
+    var productionNameParseTreeDepth = productionNameAndLineNumbersParseTree.getDepth(),
         nonTerminalNodeParseTreeDepth = productionNameParseTreeDepth, ///
         verticalBranchPosition = productionNameParseTreeVerticalBranchPosition, ///
         nonTerminalNodeParseTree = EmptyParseTree.fromDepth(nonTerminalNodeParseTreeDepth, NonTerminalNodeParseTree, verticalBranchPosition);
 
-    nonTerminalNodeParseTree.appendToRight(productionNameParseTree);
+    nonTerminalNodeParseTree.appendToRight(productionNameAndLineNumbersParseTree);
     nonTerminalNodeParseTree.appendToBottom(childNodeOrNodesParseTree);
 
     return nonTerminalNodeParseTree;
