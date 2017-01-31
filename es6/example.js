@@ -34,7 +34,9 @@ class Example {
   static updateParseTree(lexer, parser) {
     var contentTextAreaValue = contentTextArea.getValue(),
         content = contentTextAreaValue,  ///
-        tokens = lexer.tokensFromContent(content),
+        contents = content.split(/\n/),
+        lines = lexer.linesFromContents(contents),
+        tokens = tokensFromLines(lines),
         documentNode = parser.parse(tokens);
 
     if (documentNode !== null) {
@@ -59,3 +61,15 @@ class Example {
 }
 
 module.exports = Example;
+
+function tokensFromLines(lines) {
+  var tokens = lines.reduce(function(tokens, line) {
+    var lineTokens = line.getTokens();
+
+    tokens = tokens.concat(lineTokens);
+
+    return tokens;
+  }, []);
+
+  return tokens;
+}

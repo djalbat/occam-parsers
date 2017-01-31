@@ -1,7 +1,6 @@
 'use strict';
 
-var missingLine = require('../missingLine'),
-    NonTerminalNodeParseTree = require('../../bnf/parseTree/nonTerminalNode');
+var NonTerminalNodeParseTree = require('../../bnf/parseTree/nonTerminalNode');
 
 class NonTerminalNode {
   constructor(childNodes, productionName, startLine, endLine) {
@@ -57,9 +56,7 @@ module.exports = NonTerminalNode;
 
 function startLineFromChildNodes(childNodes) {
   var firstChildNode = first(childNodes),
-      firstChildNodeStartLine = (firstChildNode !== undefined) ?
-                                   firstChildNode.getStartLine() :
-                                     missingLine,
+      firstChildNodeStartLine = firstChildNode.getStartLine(),
       startLine = firstChildNodeStartLine;
 
   return startLine;
@@ -67,9 +64,7 @@ function startLineFromChildNodes(childNodes) {
 
 function endLineFromChildNodes(childNodes) {
   var lastChildNode = last(childNodes),
-      lastChildNodeStartLine = (lastChildNode !== undefined) ?
-                                  lastChildNode.getEndLine() :
-                                    missingLine,
+      lastChildNodeStartLine = lastChildNode.getEndLine(),
       endLine = lastChildNodeStartLine;
 
   return endLine;
