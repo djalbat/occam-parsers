@@ -26,6 +26,10 @@ class NonTerminalNode {
     return this.endLine;
   }
 
+  setChildNodes(childNodes) {
+    this.childNodes = childNodes;
+  }
+
   getParseTree() {
     var nonTerminalNode = this,  ///
         nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNode(nonTerminalNode),

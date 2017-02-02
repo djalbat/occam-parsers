@@ -35,6 +35,10 @@ class TerminalNode {
     return endLine;
   }
 
+  setChildNodes(childNodes) {
+    ///
+  }
+
   getContent() {
     var significantTokenType = this.significantToken.getType(),
         significantTokenContent = this.significantToken.getContent(),
