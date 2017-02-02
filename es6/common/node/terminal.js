@@ -3,33 +3,34 @@
 var TerminalNodeParseTree = require('../../bnf/parseTree/terminalNode');
 
 class TerminalNode {
-  constructor(significantToken, productionName) {
-    this.significantToken = significantToken;
+  constructor(productionName, significantToken, line) {
     this.productionName = productionName;
+    this.significantToken = significantToken;
+    this.line = line;
   }
-  
+
+  getProductionName() {
+    return this.productionName;
+  }
+
+  getSignificantToken() {
+    return this.significantToken;
+  }
+
   getChildNodes() {
     var childNodes = [];  ///
     
     return childNodes;
   }
   
-  getProductionName() {
-    return this.productionName;
-  }
-
-  getLine() { return this.significantToken.getLine() };
-
   getStartLine() {
-    var line = this.getLine(),
-        startLine = line; ///
+    var startLine = this.line; ///
 
     return startLine;
   }
 
   getEndLine() {
-    var line = this.getLine(),
-        endLine = line; ///
+    var endLine = this.line; ///
 
     return endLine;
   }
@@ -37,17 +38,12 @@ class TerminalNode {
   getContent() {
     var significantTokenType = this.significantToken.getType(),
         significantTokenContent = this.significantToken.getContent(),
-        line = this.getLine(),
-        lineNumber = line.getNumber(),
+        lineNumber = this.line.getNumber(),
         content = `${significantTokenContent}[${significantTokenType}] (${lineNumber})`;
 
     return content;
   }
 
-  getSignificantToken() {
-    return this.significantToken;
-  }
-  
   getParseTree() {
     var terminalNode = this,  ///
         terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNode(terminalNode),
@@ -56,8 +52,9 @@ class TerminalNode {
     return parseTree;
   }
 
-  static fromSignificantTokenAndProductionName(significantToken, productionName, Class = TerminalNode) {
-    var terminalNode = new Class(significantToken, productionName);
+  static fromProductionNameAndSignificantToken(productionName, significantToken, Class = TerminalNode) {
+    var line = significantToken.getLine(),
+        terminalNode = new Class(productionName, significantToken, line);
 
     return terminalNode;
   }

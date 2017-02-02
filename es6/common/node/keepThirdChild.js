@@ -6,7 +6,7 @@ var arrayUtil = require('../../arrayUtil'),
 class KeepThirdChildNode extends NonTerminalNode {
   static fromNodes(nodes, productionName) {
     var childNodes = arrayUtil.keepThird(nodes),
-        keepThirdChildNode = NonTerminalNode.fromChildNodesAndProductionName(childNodes, productionName, KeepThirdChildNode);
+        keepThirdChildNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, KeepThirdChildNode);
 
     nodes = [keepThirdChildNode]; ///
 

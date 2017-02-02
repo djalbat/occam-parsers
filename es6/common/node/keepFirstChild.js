@@ -6,7 +6,7 @@ var arrayUtil = require('../../arrayUtil'),
 class KeepFirstChildNode extends NonTerminalNode {
   static fromNodes(nodes, productionName) {
     var childNodes = arrayUtil.keepFirst(nodes),
-        keepFirstChildNode = NonTerminalNode.fromChildNodesAndProductionName(childNodes, productionName, KeepFirstChildNode);
+        keepFirstChildNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, KeepFirstChildNode);
 
     nodes = [keepFirstChildNode]; ///
 

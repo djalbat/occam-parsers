@@ -22,7 +22,7 @@ class SignificantTokenTypePart {
 
       if (parsed) {
         var productionName = null,
-            terminalNode = TerminalNode.fromSignificantTokenAndProductionName(significantToken, productionName);
+            terminalNode = TerminalNode.fromProductionNameAndSignificantToken(productionName, significantToken);
 
         nodes = [terminalNode];
       }

@@ -3,21 +3,21 @@
 var NonTerminalNodeParseTree = require('../../bnf/parseTree/nonTerminalNode');
 
 class NonTerminalNode {
-  constructor(childNodes, productionName, startLine, endLine) {
-    this.childNodes = childNodes;
+  constructor(productionName, childNodes, startLine, endLine) {
     this.productionName = productionName;
+    this.childNodes = childNodes;
     this.startLine = startLine;
     this.endLine = endLine;
   }
-  
-  getChildNodes() {
-    return this.childNodes;
-  }
-  
+
   getProductionName() {
     return this.productionName;
   }
 
+  getChildNodes() {
+    return this.childNodes;
+  }
+  
   getStartLine() {
     return this.startLine;
   }
@@ -36,17 +36,17 @@ class NonTerminalNode {
 
   static fromNodes(nodes, productionName) {
     var childNodes = nodes, ///
-        nonTerminalNode = NonTerminalNode.fromChildNodesAndProductionName(childNodes, productionName);
+        nonTerminalNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes);
 
     nodes = [nonTerminalNode]; ///
     
     return nodes;
   }
 
-  static fromChildNodesAndProductionName(childNodes, productionName, Class = NonTerminalNode) {
+  static fromProductionNameAndChildNodes(productionName, childNodes, Class = NonTerminalNode) {
     var startLine = startLineFromChildNodes(childNodes),
         endLine = endLineFromChildNodes(childNodes),
-        nonTerminalNode = new Class(childNodes, productionName, startLine, endLine);
+        nonTerminalNode = new Class(productionName, childNodes, startLine, endLine);
 
     return nonTerminalNode;
   }
