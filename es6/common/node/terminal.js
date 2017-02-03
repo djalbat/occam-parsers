@@ -17,6 +17,10 @@ class TerminalNode {
     return this.significantToken;
   }
 
+  getLine() {
+    return this.line;
+  }
+
   getChildNodes() {
     var childNodes = [];  ///
     
@@ -37,15 +41,6 @@ class TerminalNode {
 
   setChildNodes(childNodes) {
     ///
-  }
-
-  getContent() {
-    var significantTokenType = this.significantToken.getType(),
-        significantTokenContent = this.significantToken.getContent(),
-        lineNumber = this.line.getNumber(),
-        content = `${significantTokenContent}[${significantTokenType}] (${lineNumber})`;
-
-    return content;
   }
 
   getParseTree() {

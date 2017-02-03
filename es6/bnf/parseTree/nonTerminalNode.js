@@ -7,21 +7,16 @@ var EmptyParseTree = require('../parseTree/empty'),
 
 class NonTerminalNodeParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNode(nonTerminalNode) {
-    var productionName = nonTerminalNode.getProductionName(),
-        childNodes = nonTerminalNode.getChildNodes(),
-        startLine = nonTerminalNode.getStartLine(),
-        endLine = nonTerminalNode.getEndLine(),
-        startLineNumber = startLine.getNumber(),
-        endLineNumber = endLine.getNumber(),
+    var childNodes = nonTerminalNode.getChildNodes(),
         firstChildNode = first(childNodes),
         childNode = firstChildNode,
         childNodesLength = childNodes.length,
-        productionNameAndLineNumbersParseTree = ProductionNameAndLineNumbersParseTree.fromProductionNameAndLineNumbers(productionName, startLineNumber, endLineNumber),
         childNodeOrNodesParseTree = (childNodesLength === 1) ?
                                       childNode.getParseTree() :
                                         ChildNodesParseTree.fromChildNodes(childNodes);
     
-    var productionNameParseTreeVerticalBranchPosition = productionNameAndLineNumbersParseTree.getVerticalBranchPosition(),
+    var productionNameAndLineNumbersParseTree = ProductionNameAndLineNumbersParseTree.fromNonTerminalNode(nonTerminalNode),
+        productionNameParseTreeVerticalBranchPosition = productionNameAndLineNumbersParseTree.getVerticalBranchPosition(),
         childNodeOrNodesParseTreeVerticalBranchPosition = childNodeOrNodesParseTree.getVerticalBranchPosition(),
         verticalBranchPositionsDifference = productionNameParseTreeVerticalBranchPosition - childNodeOrNodesParseTreeVerticalBranchPosition,
         leftMarginWidth = undefined;
