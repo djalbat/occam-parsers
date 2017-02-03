@@ -26,12 +26,17 @@ class CommonParser {
   }
 
   parseGivenProductionName(tokens, productionName) {
-    var context = new Context(tokens),
+    var node = null,
+        context = new Context(tokens),
         production = this.findProduction(productionName),
         noWhitespace = false,
-        nodes = production.parse(context, this.productions, noWhitespace),
-        firstNode = first(nodes),
-        node = firstNode; ///
+        nodes = production.parse(context, this.productions, noWhitespace);
+
+    if (nodes !== null) {
+      var firstNode = first(nodes);
+      
+      node = firstNode; ///
+    }
 
     return node;
   }
