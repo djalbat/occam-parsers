@@ -7,32 +7,30 @@ class CommonParser {
     this.productions = productions;
   }
   
-  parse(tokens, productionName = null) {
-    var parsedNode = null,
+  parse(tokens) {
+    var documentNode = null,
         context = new Context(tokens),
         productionsLength = this.productions.length;
 
     if (productionsLength > 0) {
       var noWhitespace = false,
           firstProduction = first(this.productions),
-          foundProduction = this.findProduction(productionName),
-          production = (productionName === null) ?
-                         firstProduction :
-                           foundProduction,
-          nodes = production.parse(context, this.productions, noWhitespace),
-          maximumDepth = context.getMaximumDepth(),
-          depth = context.getDepth();
+          nodes = firstProduction.parse(context, this.productions, noWhitespace),
+          firstNode = first(nodes);
 
-      if (depth < maximumDepth) {
-        if (nodes !== null) {
-          var firstNode = first(nodes);
-
-          parsedNode = firstNode; ///
-        }
-      }
+      documentNode = firstNode; ///
     }
 
-    return parsedNode;
+    return documentNode;
+  }
+
+  parseGivenProductionName(tokens, productionName) {
+    var context = new Context(tokens),
+        production = this.findProduction(productionName),
+        noWhitespace = false,
+        nodes = production.parse(context, this.productions, noWhitespace);
+
+    return nodes;
   }
 
   findProduction(productionName) {
