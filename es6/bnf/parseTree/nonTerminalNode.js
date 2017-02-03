@@ -13,9 +13,8 @@ class NonTerminalNodeParseTree extends VerticalBranchParseTree {
         childNodesLength = childNodes.length,
         childNodeOrNodesParseTree = (childNodesLength === 1) ?
                                       childNode.getParseTree() :
-                                        ChildNodesParseTree.fromChildNodes(childNodes);
-    
-    var productionNameAndLineNumbersParseTree = ProductionNameAndLineNumbersParseTree.fromNonTerminalNode(nonTerminalNode),
+                                        ChildNodesParseTree.fromChildNodes(childNodes),
+        productionNameAndLineNumbersParseTree = ProductionNameAndLineNumbersParseTree.fromNonTerminalNode(nonTerminalNode),
         productionNameParseTreeVerticalBranchPosition = productionNameAndLineNumbersParseTree.getVerticalBranchPosition(),
         childNodeOrNodesParseTreeVerticalBranchPosition = childNodeOrNodesParseTree.getVerticalBranchPosition(),
         verticalBranchPositionsDifference = productionNameParseTreeVerticalBranchPosition - childNodeOrNodesParseTreeVerticalBranchPosition,

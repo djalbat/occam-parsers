@@ -8,29 +8,32 @@ class CommonParser {
   }
   
   parse(tokens) {
-    var documentNode = null,
-        context = new Context(tokens),
+    var node = null,
         productionsLength = this.productions.length;
 
     if (productionsLength > 0) {
-      var noWhitespace = false,
-          firstProduction = first(this.productions),
-          nodes = firstProduction.parse(context, this.productions, noWhitespace),
+      var firstProduction = first(this.productions),
+          context = new Context(tokens),
+          production = firstProduction, ///
+          noWhitespace = false,
+          nodes = production.parse(context, this.productions, noWhitespace),
           firstNode = first(nodes);
 
-      documentNode = firstNode; ///
+      node = firstNode; ///
     }
 
-    return documentNode;
+    return node;
   }
 
   parseGivenProductionName(tokens, productionName) {
     var context = new Context(tokens),
         production = this.findProduction(productionName),
         noWhitespace = false,
-        nodes = production.parse(context, this.productions, noWhitespace);
+        nodes = production.parse(context, this.productions, noWhitespace),
+        firstNode = first(nodes),
+        node = firstNode; ///
 
-    return nodes;
+    return node;
   }
 
   findProduction(productionName) {
