@@ -47,14 +47,12 @@ class Context {
   }
 
   getNextSignificantToken() {
-    var nextSignificantToken;
+    var nextSignificantToken = null;
 
     for (;;) {
       var nextToken = this.tokens[this.index++];
 
       if (nextToken === undefined) {
-        nextSignificantToken = null;
-
         break;
       }
 
@@ -117,13 +115,6 @@ class Context {
   backtrack(savedIndex) {
     var index = savedIndex; ///
     
-    this.setIndex(index);
-  }
-
-  fastForward() {
-    var tokensLength = this.tokens.length,
-        index = tokensLength;
-
     this.setIndex(index);
   }
 }
