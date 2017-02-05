@@ -43,6 +43,12 @@ class TerminalNode {
     ///
   }
 
+  getLastToken() {
+    var lastToken = this.significantToken;  ///
+
+    return lastToken;
+  }
+
   getParseTree() {
     var terminalNode = this,  ///
         terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNode(terminalNode),

@@ -30,6 +30,14 @@ class NonTerminalNode {
     this.childNodes = childNodes;
   }
 
+  getLastToken() {
+    var lastChildNode = last(this.childNodes),
+        lastChildNodeLastToken = lastChildNode.getLastToken(),
+        lastToken = lastChildNodeLastToken; ///
+
+    return lastToken;
+  }
+
   getParseTree() {
     var nonTerminalNode = this,  ///
         nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNode(nonTerminalNode),
