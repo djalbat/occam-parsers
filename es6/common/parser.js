@@ -33,13 +33,9 @@ class CommonParser {
         nodes = production.parse(context, this.productions, noWhitespace);
 
     if (nodes !== null) {
-      var nextSignificantToken = context.getNextSignificantToken();
+      var firstNode = first(nodes);
 
-      if (nextSignificantToken === null) {
-        var firstNode = first(nodes);
-
-        node = firstNode; ///
-      }
+      node = firstNode; ///
     }
 
     return node;
