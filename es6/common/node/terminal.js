@@ -27,16 +27,16 @@ class TerminalNode {
     return childNodes;
   }
   
-  getStartLine() {
-    var startLine = this.line; ///
+  getFirstLine() {
+    var firstLine = this.line; ///
 
-    return startLine;
+    return firstLine;
   }
 
-  getEndLine() {
-    var endLine = this.line; ///
+  getLastLine() {
+    var lastLine = this.line; ///
 
-    return endLine;
+    return lastLine;
   }
 
   setChildNodes(childNodes) {

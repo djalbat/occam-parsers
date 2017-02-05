@@ -3,11 +3,11 @@
 var NonTerminalNodeParseTree = require('../../bnf/parseTree/nonTerminalNode');
 
 class NonTerminalNode {
-  constructor(productionName, childNodes, startLine, endLine) {
+  constructor(productionName, childNodes, firstLine, lastLine) {
     this.productionName = productionName;
     this.childNodes = childNodes;
-    this.startLine = startLine;
-    this.endLine = endLine;
+    this.firstLine = firstLine;
+    this.lastLine = lastLine;
   }
 
   getProductionName() {
@@ -18,12 +18,12 @@ class NonTerminalNode {
     return this.childNodes;
   }
   
-  getStartLine() {
-    return this.startLine;
+  getFirstLine() {
+    return this.firstLine;
   }
 
-  getEndLine() {
-    return this.endLine;
+  getLastLine() {
+    return this.lastLine;
   }
 
   setChildNodes(childNodes) {
@@ -48,9 +48,9 @@ class NonTerminalNode {
   }
 
   static fromProductionNameAndChildNodes(productionName, childNodes, Class = NonTerminalNode) {
-    var startLine = startLineFromChildNodes(childNodes),
-        endLine = endLineFromChildNodes(childNodes),
-        nonTerminalNode = new Class(productionName, childNodes, startLine, endLine);
+    var firstLine = firstLineFromChildNodes(childNodes),
+        lastLine = lastLineFromChildNodes(childNodes),
+        nonTerminalNode = new Class(productionName, childNodes, firstLine, lastLine);
 
     return nonTerminalNode;
   }
@@ -58,20 +58,20 @@ class NonTerminalNode {
 
 module.exports = NonTerminalNode;
 
-function startLineFromChildNodes(childNodes) {
+function firstLineFromChildNodes(childNodes) {
   var firstChildNode = first(childNodes),
-      firstChildNodeStartLine = firstChildNode.getStartLine(),
-      startLine = firstChildNodeStartLine;
+      firstChildNodeFirstLine = firstChildNode.getFirstLine(),
+      firstLine = firstChildNodeFirstLine;
 
-  return startLine;
+  return firstLine;
 }
 
-function endLineFromChildNodes(childNodes) {
+function lastLineFromChildNodes(childNodes) {
   var lastChildNode = last(childNodes),
-      lastChildNodeStartLine = lastChildNode.getEndLine(),
-      endLine = lastChildNodeStartLine;
+      lastChildNodeFirstLine = lastChildNode.getLastLine(),
+      lastLine = lastChildNodeFirstLine;
 
-  return endLine;
+  return lastLine;
 }
 function first(array) { return array[0]; }
 function last(array) { return array[array.length - 1]; }

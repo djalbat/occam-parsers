@@ -5,11 +5,11 @@ var VerticalBranchParseTree = require('../parseTree/verticalBranch');
 class ProductionNameParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNode(nonTerminalNode) {
     var productionName = nonTerminalNode.getProductionName(),
-        startLine = nonTerminalNode.getStartLine(),
-        endLine = nonTerminalNode.getEndLine(),
-        startLineNumber = startLine.getNumber(),
-        endLineNumber = endLine.getNumber(),
-        string = `${productionName} (${startLineNumber}-${endLineNumber})`,
+        firstLine = nonTerminalNode.getFirstLine(),
+        lastLine = nonTerminalNode.getLastLine(),
+        firstLineNumber = firstLine.getNumber(),
+        lastLineNumber = lastLine.getNumber(),
+        string = `${productionName} (${firstLineNumber}-${lastLineNumber})`,
         stringLength = string.length,
         verticalBranchParseTreeWidth = stringLength, ///
         verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
