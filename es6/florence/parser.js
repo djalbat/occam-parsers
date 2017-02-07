@@ -8,9 +8,7 @@ var grammar = require('./grammar'),
     BNFParser = require('../bnf/parser'),
     CommonParser = require('../common/parser'),
     TransparentNode = require('../common/node/transparent'),
-    KeepFirstChildNode = require('../common/node/keepFirstChild'),
     DiscardSecondChildNode = require('../common/node/discardSecondChild'),
-    KeepFirstAndThirdChildNode = require('../common/node/keepFirstAndThirdChild'),
     TransparentThenKeepSecondNode = require('../common/node/transparentThenKeepSecond');
 
 class FlorenceParser extends CommonParser {
@@ -24,12 +22,11 @@ class FlorenceParser extends CommonParser {
       'premises': TransparentNode,
       'premise(s)': DiscardSecondChildNode,
       'directive': TransparentNode,
-      'statement': KeepFirstChildNode,
       'conclusion': DiscardSecondChildNode,
       'statementBody': TransparentNode,
       'commaThenLabel': TransparentThenKeepSecondNode,
       'whitespaceOrPart': TransparentNode,
-      'labelledStatement': KeepFirstAndThirdChildNode,
+      'labelledStatement': DiscardSecondChildNode,
       'parenthesisedLabels': TransparentThenKeepSecondNode,
       '(labelled)Statement': TransparentNode,
       'specialOrUnassigned': TransparentNode,
