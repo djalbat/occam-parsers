@@ -17,7 +17,6 @@ class FlorenceParser extends CommonParser {
         significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
 
     mappings = Object.assign({
-      'part': TransparentNode,
       'premise': TransparentNode,
       'premises': TransparentNode,
       'premise(s)': DiscardSecondChildNode,
