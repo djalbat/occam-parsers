@@ -43,16 +43,16 @@ class TerminalNode {
     ///
   }
 
-  getFirstToken() {
-    var firstToken = this.significantToken;  ///
+  getFirstSignificantToken() {
+    var firstSignificantToken = this.significantToken;  ///
 
-    return firstToken;
+    return firstSignificantToken;
   }
 
-  getLastToken() {
-    var lastToken = this.significantToken;  ///
+  getLastSignificantToken() {
+    var lastSignificantToken = this.significantToken;  ///
 
-    return lastToken;
+    return lastSignificantToken;
   }
 
   getParseTree() {

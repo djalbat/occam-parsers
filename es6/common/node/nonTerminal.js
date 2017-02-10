@@ -30,20 +30,20 @@ class NonTerminalNode {
     this.childNodes = childNodes;
   }
 
-  getFirstToken() {
+  getSignificantFirstToken() {
     var firstChildNode = first(this.childNodes),
-        firstChildNodeFirstToken = firstChildNode.getFirstToken(),
-        firstToken = firstChildNodeFirstToken; ///
+        firstChildNodeFirstSignificantToken = firstChildNode.getSignificantFirstToken(),
+        firstSignificantToken = firstChildNodeFirstSignificantToken; ///
 
-    return firstToken;
+    return firstSignificantToken;
   }
 
-  getLastToken() {
+  getSignificantLastToken() {
     var lastChildNode = last(this.childNodes),
-        lastChildNodeLastToken = lastChildNode.getLastToken(),
-        lastToken = lastChildNodeLastToken; ///
+        lastChildNodeLastSignificantToken = lastChildNode.getSignificantLastToken(),
+        lastSignificantToken = lastChildNodeLastSignificantToken; ///
 
-    return lastToken;
+    return lastSignificantToken;
   }
 
   getParseTree() {
