@@ -32,7 +32,7 @@ class NonTerminalNode {
 
   getFirstSignificantToken() {
     var firstChildNode = first(this.childNodes),
-        firstChildNodeFirstSignificantToken = firstChildNode.getSignificantFirstToken(),
+        firstChildNodeFirstSignificantToken = firstChildNode.getFirstSignificantToken(),
         firstSignificantToken = firstChildNodeFirstSignificantToken; ///
 
     return firstSignificantToken;
