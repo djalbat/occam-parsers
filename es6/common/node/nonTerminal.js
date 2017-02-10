@@ -30,7 +30,7 @@ class NonTerminalNode {
     this.childNodes = childNodes;
   }
 
-  getSignificantFirstToken() {
+  getFirstSignificantToken() {
     var firstChildNode = first(this.childNodes),
         firstChildNodeFirstSignificantToken = firstChildNode.getSignificantFirstToken(),
         firstSignificantToken = firstChildNodeFirstSignificantToken; ///
@@ -38,9 +38,9 @@ class NonTerminalNode {
     return firstSignificantToken;
   }
 
-  getSignificantLastToken() {
+  getLastSignificantToken() {
     var lastChildNode = last(this.childNodes),
-        lastChildNodeLastSignificantToken = lastChildNode.getSignificantLastToken(),
+        lastChildNodeLastSignificantToken = lastChildNode.getLastSignificantToken(),
         lastSignificantToken = lastChildNodeLastSignificantToken; ///
 
     return lastSignificantToken;
