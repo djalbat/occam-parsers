@@ -16,10 +16,17 @@ class CommonParser {
           context = new Context(tokens),
           production = firstProduction, ///
           noWhitespace = false,
-          nodes = production.parse(context, this.productions, noWhitespace),
-          firstNode = first(nodes);
+          nodes = production.parse(context, this.productions, noWhitespace);
 
-      node = firstNode; ///
+      if (nodes !== null) {
+        var nodesLength = nodes.length;
+
+        if (nodesLength > 0) {
+          var firstNode = first(nodes);
+
+          node = firstNode; ///
+        }
+      }
     }
 
     return node;

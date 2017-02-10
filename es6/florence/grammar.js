@@ -2,23 +2,23 @@
 
 var grammar = `
 
-    document                                  ::=   header? whitespace? body?
+    document                                  ::=   header? verticalSpace? body?
+
      
-    header                                    ::=   directive+     
      
-    body                                      ::=   part whitespaceOrPart*
-    
-    
-    
-    directive                                 ::=   includeDirective
+    header                                    ::=   includeDirective+
     
     includeDirective                          ::=   'include'<NO_WHITESPACE>'('<NO_WHITESPACE>[string]<NO_WHITESPACE>')' <END_OF_LINE>
     
     
     
-    whitespaceOrPart                          ::=   whitespace | part
+    body                                      ::=   partOrVerticalSpace+
+        
+    partOrVerticalSpace                       ::=   part | verticalSpace
     
-    part                                      ::=   rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | error
+    
+    
+    part                                      ::=   rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | errors
     
     
     
@@ -48,7 +48,7 @@ var grammar = `
 
     subLemmaOr(labelled)Statement             ::=   subLemma | (labelled)Statement
 
-    subLemma                                  ::=   suppose then? hence whitespace?
+    subLemma                                  ::=   suppose then? hence verticalSpace?
     
     
 
@@ -171,6 +171,10 @@ var grammar = `
     type                                      ::=   'Type' typeName <END_OF_LINE>
 
     typeName                                  ::=   [unassigned]
+    
+    
+    
+    errors                                    ::=   error+ <END_OF_LINE>
 
 
            
@@ -178,7 +182,7 @@ var grammar = `
      
      
      
-    whitespace                                ::=   <END_OF_LINE>+
+    verticalSpace                             ::=   <END_OF_LINE>+
 
 `;
 

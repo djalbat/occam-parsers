@@ -30,6 +30,14 @@ class NonTerminalNode {
     this.childNodes = childNodes;
   }
 
+  getFirstToken() {
+    var firstChildNode = first(this.childNodes),
+        firstChildNodeFirstToken = firstChildNode.getFirstToken(),
+        firstToken = firstChildNodeFirstToken; ///
+
+    return firstToken;
+  }
+
   getLastToken() {
     var lastChildNode = last(this.childNodes),
         lastChildNodeLastToken = lastChildNode.getLastToken(),

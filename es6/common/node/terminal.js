@@ -43,6 +43,12 @@ class TerminalNode {
     ///
   }
 
+  getFirstToken() {
+    var firstToken = this.significantToken;  ///
+
+    return firstToken;
+  }
+
   getLastToken() {
     var lastToken = this.significantToken;  ///
 

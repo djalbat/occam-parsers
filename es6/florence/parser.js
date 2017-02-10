@@ -17,10 +17,10 @@ class FlorenceParser extends CommonParser {
         significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
 
     mappings = Object.assign({
+      'part': TransparentNode,
       'premise': TransparentNode,
       'premises': TransparentNode,
       'premise(s)': DiscardSecondChildNode,
-      'directive': TransparentNode,
       'conclusion': DiscardSecondChildNode,
       'statementBody': TransparentNode,
       'commaThenLabel': TransparentThenKeepSecondNode,

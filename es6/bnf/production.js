@@ -31,9 +31,12 @@ class Production {
           });
 
       if (ruleParsed) {
-        var productionName = this.name; ///
+        var ruleNodesLength = ruleNodes.length,
+            productionName = this.name; ///
 
-        nodes = this.Node.fromNodes(ruleNodes, productionName);
+        if (ruleNodesLength > 0) {
+          nodes = this.Node.fromNodes(ruleNodes, productionName);
+        }
       }
 
       tooDeep = context.isTooDeep();
