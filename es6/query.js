@@ -61,7 +61,7 @@ class Query {
         }.bind(this), nodes);
       }
     }
-    
+
     return nodes;
   }
 

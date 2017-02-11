@@ -18,7 +18,7 @@ var grammar = `
     
     
     
-    part                                      ::=   rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | errors
+    part                                      ::=   rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | errors+
     
     
     
@@ -175,9 +175,7 @@ var grammar = `
     
     
     errors                                    ::=   error+ <END_OF_LINE>
-
-
-           
+    
     error                                     ::=   [string] | [special] | [include] | [keyword] | [unassigned]
      
      
