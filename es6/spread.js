@@ -9,7 +9,9 @@ class Spread {
   }
 
   isBetween() {
-    return ((this.index >= this.startIndex) && (this.index <= this.endIndex));
+    var between = ((this.index >= this.startIndex) && (this.index <= this.endIndex));
+
+    return between;
   }
 
   incrementIndex() {

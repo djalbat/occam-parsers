@@ -1,6 +1,7 @@
 'use strict';
 
-var Spread = require('./spread');
+var Spread = require('./spread'),
+    NonTerminalNode = require('./common/node/nonTerminal');
 
 class Query {
   constructor(infiniteDescent, productionNames, subQuery, spread) {
@@ -11,38 +12,41 @@ class Query {
   }
   
   nodesFromNode(node) {
-    var nodes = [],
-        childNodes = node.getChildNodes(),
-        nodeProductionName = node.getProductionName(),
-        wildcard = (this.productionNames === '*'),
-        found = (this.productionNames.indexOf(nodeProductionName) > -1);
+    var nodes = [];
 
-    if (wildcard || found) {
-      if (this.spread.isBetween()) {
-        if (this.subQuery === null) {
-          nodes = [node];
-        } else {
-          nodes = childNodes.reduce(function(nodes, childNode) {
-            var childNodeNodes = this.subQuery.nodesFromNode(childNode);
+    if (node instanceof NonTerminalNode) {
+      var childNodes = node.getChildNodes(),
+          nodeProductionName = node.getProductionName(),
+          wildcard = (this.productionNames === '*'),
+          found = (this.productionNames.indexOf(nodeProductionName) > -1);
 
-            nodes = nodes.concat(childNodeNodes);
+      if (wildcard || found) {
+        if (this.spread.isBetween()) {
+          if (this.subQuery === null) {
+            nodes = [node];
+          } else {
+            nodes = childNodes.reduce(function(nodes, childNode) {
+              var childNodeNodes = this.subQuery.nodesFromNode(childNode);
 
-            return nodes;
-          }.bind(this), nodes);
+              nodes = nodes.concat(childNodeNodes);
+
+              return nodes;
+            }.bind(this), nodes);
+          }
         }
+
+        this.spread.incrementIndex();
       }
 
-      this.spread.incrementIndex();
-    }
+      if (this.infiniteDescent) {
+        nodes = childNodes.reduce(function(nodes, childNode) {
+          var childNodeNodes = this.nodesFromNode(childNode);
 
-    if (this.infiniteDescent) {
-      nodes = childNodes.reduce(function(nodes, childNode) {
-        var childNodeNodes = this.nodesFromNode(childNode);
+          nodes = nodes.concat(childNodeNodes);
 
-        nodes = nodes.concat(childNodeNodes);
-
-        return nodes;
-      }.bind(this), nodes);
+          return nodes;
+        }.bind(this), nodes);
+      }
     }
 
     return nodes;
