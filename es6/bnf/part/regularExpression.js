@@ -25,8 +25,7 @@ class RegularExpressionPart {
             parsed = (firstMatch === content);
 
         if (parsed) {
-          var productionName = null,
-              terminalNode = TerminalNode.fromProductionNameAndSignificantToken(productionName, significantToken);
+          var terminalNode = TerminalNode.fromSignificantToken(significantToken);
 
           nodes = [terminalNode];
         }

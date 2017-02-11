@@ -32,23 +32,36 @@ class Example {
   static onGrammarTextAreaChange(handler) { grammarTextArea.onChange(handler); }
 
   static updateParseTree(lexer, parser) {
-    var contentTextAreaValue = contentTextArea.getValue(),
-        content = contentTextAreaValue,  ///
-        contents = content.split(/\n/),
-        lines = lexer.linesFromContents(contents),
-        tokens = tokensFromLines(lines),
-        documentNode = parser.parse(tokens);
+    try {
+      var contentTextAreaValue = contentTextArea.getValue(),
+          content = contentTextAreaValue;  ///
 
-    if (documentNode !== null) {
-      var parseTree = documentNode.getParseTree();
+      if (content !== '') {
+        var contents = content.split(/\n/),
+            lines = lexer.linesFromContents(contents),
+            tokens = tokensFromLines(lines),
+            documentNode = parser.parse(tokens);
 
-      parseTree.shiftLine();  //
+        if (documentNode === null) {
+          throw new Error('The document cannot be parsed for some reason.');
+        }
 
-      var parseTreeString = parseTree.toString(),
-          parseTreeTextAreaHTML = parseTreeString;  ///
+        var parseTree = documentNode.getParseTree();
 
-      parseTreeTextArea.html(parseTreeTextAreaHTML);
-    } else {
+        parseTree.shiftLine();  //
+
+        var parseTreeString = parseTree.toString(),
+            parseTreeTextAreaHTML = parseTreeString;  ///
+
+        parseTreeTextArea.html(parseTreeTextAreaHTML);
+      } else {
+        Example.clearParseTree();
+      }
+
+      contentTextArea.removeClass('error');
+    } catch (error) {
+      contentTextArea.addClass('error');
+
       Example.clearParseTree();
     }
   }

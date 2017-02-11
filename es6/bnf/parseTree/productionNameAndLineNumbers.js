@@ -9,13 +9,7 @@ class ProductionNameParseTree extends VerticalBranchParseTree {
         lastLine = nonTerminalNode.getLastLine(),
         firstLineNumber = firstLine.getNumber(),
         lastLineNumber = lastLine.getNumber(),
-        firstLineRemoved = firstLine.isRemoved(),
-        lastLineRemoved = lastLine.isRemoved();
-
-    firstLineNumber = firstLineRemoved ? '-' : firstLineNumber; ///
-    lastLineNumber = lastLineRemoved ? '-' : lastLineNumber;  ///
-
-    var string = `${productionName} (${firstLineNumber}-${lastLineNumber})`,
+        string = `${productionName} (${firstLineNumber}-${lastLineNumber})`,
         stringLength = string.length,
         verticalBranchParseTreeWidth = stringLength, ///
         verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),

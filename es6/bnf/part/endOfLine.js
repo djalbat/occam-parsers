@@ -24,8 +24,7 @@ class EndOfLinePart {
           found = (type === SignificantToken.types.endOfLine);
 
       if (found) {
-        var productionName = null,
-            terminalNode = TerminalNode.fromProductionNameAndSignificantToken(productionName, significantToken);
+        var terminalNode = TerminalNode.fromSignificantToken(significantToken);
 
         nodes = [terminalNode];
       }

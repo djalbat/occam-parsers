@@ -40,9 +40,13 @@ class CommonParser {
         nodes = production.parse(context, this.productions, noWhitespace);
 
     if (nodes !== null) {
-      var firstNode = first(nodes);
+      var nodesLength = nodes.length;
 
-      node = firstNode; ///
+      if (nodesLength > 0) {
+        var firstNode = first(nodes);
+
+        node = firstNode; ///
+      }
     }
 
     return node;

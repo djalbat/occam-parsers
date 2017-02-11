@@ -15,36 +15,35 @@ class Production {
   }
   
   parse(context, productions, noWhitespace) {
-    var nodes = null,
-        tooDeep = context.isTooDeep();
+    var nodes = null;
 
-    if (!tooDeep) {
-      context.increaseDepth();
+    context.increaseDepth();
 
-      var ruleNodes = null,
-          ruleParsed = this.rules.some(function(rule) {
-            ruleNodes = rule.parse(context, productions, noWhitespace);
+    var tooDeep = context.isTooDeep();
 
-            var ruleParsed = (ruleNodes !== null);
+    if (tooDeep) {
+      throw new Error(`The parse tree is too deep at production '${this.name}'`);
+    }
 
-            return ruleParsed;
-          });
+    var ruleNodes = null,
+        ruleParsed = this.rules.some(function(rule) {
+          ruleNodes = rule.parse(context, productions, noWhitespace);
 
-      if (ruleParsed) {
-        var ruleNodesLength = ruleNodes.length,
-            productionName = this.name; ///
+          var ruleParsed = (ruleNodes !== null);
 
-        if (ruleNodesLength > 0) {
-          nodes = this.Node.fromNodes(ruleNodes, productionName);
-        }
-      }
+          return ruleParsed;
+        });
 
-      tooDeep = context.isTooDeep();
+    if (ruleParsed) {
+      var ruleNodesLength = ruleNodes.length,
+          productionName = this.name; ///
 
-      if (!tooDeep) {
-        context.decreaseDepth();
+      if (ruleNodesLength > 0) {
+        nodes = this.Node.fromNodes(ruleNodes, productionName);
       }
     }
+
+    context.decreaseDepth();
 
     return nodes;
   }

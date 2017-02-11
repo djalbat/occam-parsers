@@ -6,11 +6,7 @@ class TerminalNodeParseTree extends VerticalBranchParseTree {
   static fromTerminalNode(terminalNode) {
     var line = terminalNode.getLine(),
         lineNumber = line.getNumber(),
-        lineRemoved = line.isRemoved();
-
-    lineNumber = lineRemoved ? '-' : lineNumber;  ///
-
-    var significantToken = terminalNode.getSignificantToken(),
+        significantToken = terminalNode.getSignificantToken(),
         significantTokenType = significantToken.getType(),
         significantTokenContent = significantToken.getContent(),
         string = `${significantTokenContent}[${significantTokenType}] (${lineNumber})`,

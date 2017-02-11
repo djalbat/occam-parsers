@@ -11,35 +11,28 @@ class Rule {
   }
   
   parse(context, productions, noWhitespace) {
-    var nodes = null,
-        tooDeep = context.isTooDeep();
+    var nodes = null;
 
-    if (!tooDeep) {
-      nodes = [];
+    nodes = [];
 
-      var savedIndex = context.savedIndex(),
-          parsed = this.parts.every(function(part) {
-            var partNodes = part.parse(context, productions, noWhitespace),
-                partParsed = (partNodes !== null);
+    var savedIndex = context.savedIndex(),
+        parsed = this.parts.every(function(part) {
+          var partNodes = part.parse(context, productions, noWhitespace),
+              partParsed = (partNodes !== null);
 
-            if (partParsed) {
-              nodes = nodes.concat(partNodes);
+          if (partParsed) {
+            nodes = nodes.concat(partNodes);
 
-              noWhitespace = false;
-            }
+            noWhitespace = false;
+          }
 
-            return partParsed;
-          });
+          return partParsed;
+        });
 
-      if (!parsed) {
-        tooDeep = context.isTooDeep();
+    if (!parsed) {
+      context.backtrack(savedIndex);
 
-        if (!tooDeep) {
-          context.backtrack(savedIndex);
-        }
-
-        nodes = null;
-      }
+      nodes = null;
     }
 
     return nodes;
