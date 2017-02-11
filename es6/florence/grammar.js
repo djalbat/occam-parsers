@@ -18,7 +18,7 @@ var grammar = `
     
     
     
-    part                                      ::=   rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | errors+
+    part                                      ::=   rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | errors
     
     
     
@@ -149,7 +149,7 @@ var grammar = `
     commaThenConstructorArgument              ::=   ','<NO_WHITESPACE>constructorArgument
     
     constructorArgument                       ::=   typeName | .. | [unassigned]
-
+    
     
     
     object                                    ::=   'Object' <END_OF_LINE>? objectDeclaration <END_OF_LINE>
@@ -174,7 +174,9 @@ var grammar = `
     
     
     
-    errors                                    ::=   error+ <END_OF_LINE>
+    errors                                    ::=   errorsThenEndOfLine+
+    
+    errorsThenEndOfLine                       ::=   error+ <END_OF_LINE>
     
     error                                     ::=   [string] | [special] | [include] | [keyword] | [unassigned]
      
