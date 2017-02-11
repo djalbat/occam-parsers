@@ -1,6 +1,7 @@
 'use strict';
 
 var Spread = require('./spread'),
+    TerminalNode = require('./common/node/terminal'),
     NonTerminalNode = require('./common/node/nonTerminal');
 
 class Query {
@@ -12,13 +13,25 @@ class Query {
   }
   
   nodesFromNode(node) {
-    var nodes = [];
+    var nodes = [],
+        wildcard = (this.productionNames === '*');
 
-    if (node instanceof NonTerminalNode) {
+    if (false) {
+
+    } else if (node instanceof TerminalNode) {
+      if (wildcard) {
+        if (this.spread.isBetween()) {
+          if (this.subQuery === null) {
+            nodes = [node];
+          }
+        }
+
+        this.spread.incrementIndex();
+      }
+    } else if (node instanceof NonTerminalNode) {
       var childNodes = node.getChildNodes(),
-          nodeProductionName = node.getProductionName(),
-          wildcard = (this.productionNames === '*'),
-          found = (this.productionNames.indexOf(nodeProductionName) > -1);
+          productionName = node.getProductionName(),
+          found = (this.productionNames.indexOf(productionName) > -1);
 
       if (wildcard || found) {
         if (this.spread.isBetween()) {
@@ -48,7 +61,7 @@ class Query {
         }.bind(this), nodes);
       }
     }
-
+    
     return nodes;
   }
 
