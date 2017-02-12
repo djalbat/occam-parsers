@@ -4,7 +4,7 @@ var arrayUtil = require('../../arrayUtil'),
     NonTerminalNode = require('./nonTerminal');
 
 class DiscardLastChildNode extends NonTerminalNode {
-  static fromNodes(nodes, productionName) {
+  static fromNodesAndProductionName(nodes, productionName) {
     var childNodes = arrayUtil.discardLast(nodes), ///
         discardLastChildNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, DiscardLastChildNode);
 

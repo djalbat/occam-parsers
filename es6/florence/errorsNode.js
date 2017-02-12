@@ -3,7 +3,7 @@
 var NonTerminalNode = require('../common/node/nonTerminal');
 
 class ErrorsNode extends NonTerminalNode {
-  static fromProductionNameAndChildNodes(productionName, childNodes) { NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, ErrorsNode); }
+  static fromNodesAndProductionName(nodes, productionName) { NonTerminalNode.fromNodesAndProductionName(nodes, productionName, ErrorsNode); }
 }
 
 module.exports = ErrorsNode;

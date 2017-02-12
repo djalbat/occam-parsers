@@ -54,7 +54,7 @@ class NonTerminalNode {
     return parseTree;
   }
 
-  static fromNodes(nodes, productionName) {
+  static fromNodesAndProductionName(nodes, productionName) {
     var childNodes = nodes, ///
         nonTerminalNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes);
 

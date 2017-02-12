@@ -3,7 +3,7 @@
 var arrayUtil = require('../../arrayUtil');
 
 class TransparentThenDiscardFirstNode {
-  static fromNodes(nodes, productionName) {
+  static fromNodesAndProductionName(nodes, productionName) {
     nodes = arrayUtil.discardFirst(nodes);
 
     return nodes;

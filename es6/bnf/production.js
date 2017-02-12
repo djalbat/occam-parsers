@@ -39,7 +39,7 @@ class Production {
           productionName = this.name; ///
 
       if (ruleNodesLength > 0) {
-        nodes = this.Node.fromNodes(ruleNodes, productionName);
+        nodes = this.Node.fromNodesAndProductionName(ruleNodes, productionName);
       }
     }
 

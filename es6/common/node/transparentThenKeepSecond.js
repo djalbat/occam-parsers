@@ -3,7 +3,7 @@
 var arrayUtil = require('../../arrayUtil');
 
 class TransparentThenKeepSecondNode {
-  static fromNodes(nodes, productionName) {
+  static fromNodesAndProductionName(nodes, productionName) {
     nodes = arrayUtil.keepSecond(nodes);
 
     return nodes;
