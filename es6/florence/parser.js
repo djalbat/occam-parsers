@@ -7,6 +7,7 @@ var lexers = require('occam-lexers'),
 var grammar = require('./grammar'),
     BNFParser = require('../bnf/parser'),
     CommonParser = require('../common/parser'),
+    ErrorsNode = require('./errorsNode'),
     TransparentNode = require('../common/node/transparent'),
     DiscardSecondChildNode = require('../common/node/discardSecondChild'),
     TransparentThenKeepSecondNode = require('../common/node/transparentThenKeepSecond');
@@ -17,6 +18,7 @@ class FlorenceParser extends CommonParser {
         significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
 
     mappings = Object.assign({
+      'errors': ErrorsNode,
       'part': TransparentNode,
       'premise': TransparentNode,
       'premises': TransparentNode,
