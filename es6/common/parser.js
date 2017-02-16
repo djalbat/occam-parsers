@@ -32,7 +32,7 @@ class CommonParser {
     return node;
   }
 
-  parseGivenProductionName(tokens, productionName) {
+  parseGivenProductionName(productionName, tokens) {
     var node = null,
         context = new Context(tokens),
         production = this.findProduction(productionName),
