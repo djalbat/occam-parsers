@@ -3,9 +3,8 @@
 var TerminalNodeParseTree = require('../../bnf/parseTree/terminalNode');
 
 class TerminalNode {
-  constructor(significantToken, line) {
+  constructor(significantToken) {
     this.significantToken = significantToken;
-    this.line = line;
   }
 
   getSignificantToken() {
@@ -13,17 +12,21 @@ class TerminalNode {
   }
 
   getLine() {
-    return this.line;
+    var line = this.significantToken.getLine();
+
+    return line;
   }
 
   getFirstLine() {
-    var firstLine = this.line; ///
+    var line = this.getLine(),
+        firstLine = line; ///
 
     return firstLine;
   }
 
   getLastLine() {
-    var lastLine = this.line; ///
+    var line = this.getLine(),
+        lastLine = line;  ///
 
     return lastLine;
   }
@@ -49,8 +52,7 @@ class TerminalNode {
   }
 
   static fromSignificantToken(significantToken, Class = TerminalNode) {
-    var line = significantToken.getLine(),
-        terminalNode = new Class(significantToken, line);
+    var terminalNode = new Class(significantToken);
 
     return terminalNode;
   }
