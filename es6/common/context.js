@@ -6,14 +6,20 @@ var lexers = require('occam-lexers'),
 const DEFAULT_MAXIMUM_DEPTH = 99;
 
 class Context {
-  constructor(tokens, maximumDepth = DEFAULT_MAXIMUM_DEPTH) {
+  constructor(tokens, productions, maximumDepth = DEFAULT_MAXIMUM_DEPTH) {
     this.tokens = tokens;
+
+    this.productions = productions;
 
     this.maximumDepth = maximumDepth;
 
     this.depth = 0;
 
     this.index = 0;
+  }
+
+  getProductions() {
+    return this.productions;
   }
 
   getMaximumDepth() {

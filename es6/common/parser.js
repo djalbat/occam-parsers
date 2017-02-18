@@ -6,17 +6,16 @@ class CommonParser {
   constructor(productions) {
     this.productions = productions;
   }
-  
+
   parse(tokens) {
     var node = null,
         productionsLength = this.productions.length;
 
     if (productionsLength > 0) {
       var firstProduction = first(this.productions),
-          context = new Context(tokens),
+          context = new Context(tokens, this.productions),
           production = firstProduction, ///
-          noWhitespace = false,
-          nodes = production.parse(context, this.productions, noWhitespace);
+          nodes = production.parse(context);
 
       if (nodes !== null) {
         var nodesLength = nodes.length;
@@ -26,26 +25,6 @@ class CommonParser {
 
           node = firstNode; ///
         }
-      }
-    }
-
-    return node;
-  }
-
-  parseGivenProductionName(productionName, tokens) {
-    var node = null,
-        context = new Context(tokens),
-        production = this.findProduction(productionName),
-        noWhitespace = false,
-        nodes = production.parse(context, this.productions, noWhitespace);
-
-    if (nodes !== null) {
-      var nodesLength = nodes.length;
-
-      if (nodesLength > 0) {
-        var firstNode = first(nodes);
-
-        node = firstNode; ///
       }
     }
 
