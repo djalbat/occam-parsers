@@ -13,8 +13,8 @@ class Production {
   getName() {
     return this.name;
   }
-  
-  parse(context, noWhitespace = false) {
+
+  parse(context, noWhitespace) {
     var nodes = null;
 
     context.increaseDepth();
@@ -25,21 +25,20 @@ class Production {
       throw new Error(`The parse tree is too deep at production '${this.name}'`);
     }
 
-    var ruleNodes = null,
-        ruleParsed = this.rules.some(function(rule) {
-          ruleNodes = rule.parse(context, noWhitespace);
+    var someRuleParsed = this.rules.some(function(rule) {
+          nodes = rule.parse(context, noWhitespace);
 
-          var ruleParsed = (ruleNodes !== null);
+          var ruleParsed = (nodes !== null);
 
           return ruleParsed;
         });
 
-    if (ruleParsed) {
-      var ruleNodesLength = ruleNodes.length,
+    if (someRuleParsed) {
+      var nodesLength = nodes.length,
           productionName = this.name; ///
 
-      if (ruleNodesLength > 0) {
-        nodes = this.Node.fromNodesAndProductionName(ruleNodes, productionName);
+      if (nodesLength > 0) {
+        nodes = this.Node.fromNodesAndProductionName(nodes, productionName);  ///
       }
     }
 

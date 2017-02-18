@@ -12,13 +12,11 @@ var grammar = `
     
     
     
-    body                                      ::=   partOrVerticalSpace+
+    body                                      ::=   part+  
         
-    partOrVerticalSpace                       ::=   part | verticalSpace
     
     
-    
-    part                                      ::=   rule | axiom | theorem | lemma | errors
+    part                                      ::=   rule | axiom | theorem | lemma | verticalSpace | error
     
     
     
@@ -34,38 +32,37 @@ var grammar = `
     
     premise(s)                                ::=   premise | premises
     
-    premise                                   ::=   'Premise' <END_OF_LINE> (labelled)Statement
+    premise                                   ::=   'Premise' <END_OF_LINE> (un)labelledStatement
     
-    premises                                  ::=   'Premises' <END_OF_LINE> (labelled)Statement (labelled)Statement+
+    premises                                  ::=   'Premises' <END_OF_LINE> (un)labelledStatement (un)labelledStatement+
 
-    conclusion                                ::=   'Conclusion' <END_OF_LINE> (labelled)Statement
+    conclusion                                ::=   'Conclusion' <END_OF_LINE> (un)labelledStatement
 
-    proof                                     ::=   'Proof' <END_OF_LINE> subLemmaOr(labelled)Statement* therefore
+    proof                                     ::=   'Proof' <END_OF_LINE> subLemmaOr(un)labelledStatement* therefore
 
-    therefore                                 ::=   'Therefore' <END_OF_LINE> (labelled)Statement
+    therefore                                 ::=   'Therefore' <END_OF_LINE> (un)labelledStatement
     
     
 
-    subLemmaOr(labelled)Statement             ::=   subLemma | (labelled)Statement
+    subLemmaOr(un)labelledStatement           ::=   subLemma | (un)labelledStatement
 
     subLemma                                  ::=   suppose then? hence verticalSpace?
     
     
 
-    suppose                                   ::=   'Suppose' <END_OF_LINE> statement+
+    suppose                                   ::=   'Suppose' <END_OF_LINE> unlabelledStatement+
     
-    then                                      ::=   'Then' <END_OF_LINE> subLemmaOr(labelled)Statement+
+    then                                      ::=   'Then' <END_OF_LINE> subLemmaOr(un)labelledStatement+
     
-    hence                                     ::=   'Hence' <END_OF_LINE> (labelled)Statement
-    
-    
+    hence                                     ::=   'Hence' <END_OF_LINE> (un)labelledStatement
     
     
-    (labelled)Statement                       ::=   labelledStatementOrStatement <END_OF_LINE>
     
-    labelledStatementOrStatement              ::=   labelledStatement | statement  
+    (un)labelledStatement                     ::=   unlabelledStatement | labelledStatement
     
-    labelledStatement                         ::=   statement 'by' label
+    labelledStatement                         ::=   statement 'by' label <END_OF_LINE>  
+
+    unlabelledStatement                       ::=   statement <END_OF_LINE>  
     
     statement                                 ::=   specialOrUnassigned+ 
     
@@ -80,18 +77,14 @@ var grammar = `
     commaThenLabel                            ::=   ','<NO_WHITESPACE>label
 
     label                                     ::=   [unassigned]
-    
-    
-    
-    errors                                    ::=   errorsThenEndOfLine+
-    
-    errorsThenEndOfLine                       ::=   error+ <END_OF_LINE>
-    
-    error                                     ::=   [string] | [special] | [include] | [keyword] | [unassigned]
      
      
      
     verticalSpace                             ::=   <END_OF_LINE>+
+    
+    
+    
+    error                                     ::=   [string] | [special] | [include] | [keyword] | [unassigned]
 
 `;
 

@@ -9,11 +9,13 @@ class Rule {
   constructor(parts) {
     this.parts = parts;
   }
-  
-  parse(context, noWhitespace) {
-    var nodes = null;
 
-    nodes = [];
+  getParts() {
+    return this.parts;
+  }
+
+  parse(context, noWhitespace) {
+    var nodes = [];
 
     var savedIndex = context.savedIndex(),
         everyPartParsed = this.parts.every(function(part) {
