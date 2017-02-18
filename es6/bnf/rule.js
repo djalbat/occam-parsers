@@ -16,7 +16,7 @@ class Rule {
     nodes = [];
 
     var savedIndex = context.savedIndex(),
-        parsed = this.parts.every(function(part) {
+        everyPartParsed = this.parts.every(function(part) {
           var partNodes = part.parse(context, productions, noWhitespace),
               partParsed = (partNodes !== null);
 
@@ -29,7 +29,7 @@ class Rule {
           return partParsed;
         });
 
-    if (!parsed) {
+    if (!everyPartParsed) {
       context.backtrack(savedIndex);
 
       nodes = null;

@@ -18,17 +18,17 @@ var grammar = `
     
     
     
-    part                                      ::=   rule | axiom | theorem | lemma | variable(s) | constructor(s) | type | errors
+    part                                      ::=   rule | axiom | theorem | lemma | errors
     
     
     
-    rule                                      ::=   'Rule' parenthesisedLabels? <END_OF_LINE> localVariable(s)? premise(s)? conclusion proof?
+    rule                                      ::=   'Rule' parenthesisedLabels? <END_OF_LINE> premise(s)? conclusion proof?
     
-    axiom                                     ::=   'Axiom' parenthesisedLabels? <END_OF_LINE> localVariable(s)? premise(s)? conclusion
+    axiom                                     ::=   'Axiom' parenthesisedLabels? <END_OF_LINE> premise(s)? conclusion
     
-    theorem                                   ::=   'Theorem' parenthesisedLabels? <END_OF_LINE> localVariable(s)? premise(s)? conclusion proof
+    theorem                                   ::=   'Theorem' parenthesisedLabels? <END_OF_LINE> premise(s)? conclusion proof
         
-    lemma                                     ::=   'Lemma' parenthesisedLabels? <END_OF_LINE> localVariable(s)? premise(s)? conclusion proof    
+    lemma                                     ::=   'Lemma' parenthesisedLabels? <END_OF_LINE> premise(s)? conclusion proof    
     
     
     
@@ -60,13 +60,14 @@ var grammar = `
     
     
     
-    (labelled)Statement                       ::=   labelledStatement | statement
     
-    labelledStatement                         ::=   statementBody 'by' label <END_OF_LINE>
+    (labelled)Statement                       ::=   labelledStatementOrStatement <END_OF_LINE>
     
-    statement                                 ::=   statementBody <END_OF_LINE>
+    labelledStatementOrStatement              ::=   labelledStatement | statement  
     
-    statementBody                             ::=   specialOrUnassigned+ 
+    labelledStatement                         ::=   statement 'by' label
+    
+    statement                                 ::=   specialOrUnassigned+ 
     
     specialOrUnassigned                       ::=   [special] | [unassigned]
     
@@ -79,98 +80,6 @@ var grammar = `
     commaThenLabel                            ::=   ','<NO_WHITESPACE>label
 
     label                                     ::=   [unassigned]
-    
-
-
-    localVariable(s)                          ::=   variable(s)
-
-    variable(s)                               ::=   variable | variables
-
-    variables                                 ::=   'Variables' <END_OF_LINE>? variable(s)Declaration(s) <END_OF_LINE>
-    
-    variable                                  ::=   'Variable' <END_OF_LINE>? variableDeclaration <END_OF_LINE>
-    
-    variable(s)Declaration(s)                 ::=   variables(s)Declarations | variablesDeclaration
-
-    variables(s)Declarations                  ::=   variable(s)Declaration semiColonThenVariable(s)Declaration+
-       
-    semiColonThenVariable(s)Declaration       ::=   ';' variable(s)Declaration
-    
-    variable(s)Declaration                    ::=   variablesDeclaration | variableDeclaration
-    
-    variablesDeclaration                      ::=   variableNames colonThenTypeName?
-
-    variableDeclaration                       ::=   variableName colonThenTypeName?
-
-    variableNames                             ::=   variableName commaThenVariableName+
-
-    commaThenVariableName                     ::=   ',' variableName    
-    
-    colonThenTypeName                         ::=   ':' typeName
-
-    variableName                              ::=   [unassigned]
-
-
-
-    localConstructor(s)                       ::=   constructor(s)
-
-    constructor(s)                            ::=   constructor | constructors
-
-    constructors                              ::=   'Constructors' <END_OF_LINE>? constructor(s)Declaration(s) <END_OF_LINE>
-    
-    constructor                               ::=   'Constructor' <END_OF_LINE>? constructorDeclaration <END_OF_LINE>
-    
-    constructor(s)Declaration(s)              ::=   constructors(s)Declarations | constructorsDeclaration
-
-    constructors(s)Declarations               ::=   constructor(s)Declaration semiColonThenConstructor(s)Declaration+
-       
-    semiColonThenConstructor(s)Declaration    ::=   ';' constructor(s)Declaration
-    
-    constructor(s)Declaration                 ::=   constructorsDeclaration | constructorDeclaration
-    
-    constructorsDeclaration                   ::=   constructorBodies colonThenTypeName?
-
-    constructorDeclaration                    ::=   constructorBody colonThenTypeName?
-
-    constructorBodies                         ::=   constructorBody commaThenConstructorBody+
-
-    commaThenConstructorBody                  ::=   ',' constructorBody    
-    
-    colonThenTypeName                         ::=   ':' typeName
-
-    constructorBody                           ::=   constructorName<NO_WHITESPACE>parenthesisedConstructorArguments?
-
-    constructorName                           ::=   [unassigned]
-    
-    parenthesisedConstructorArguments         ::=   '('<NO_WHITESPACE>constructorArguments<NO_WHITESPACE>')'
-
-    constructorArguments                      ::=   constructorArgument<NO_WHITESPACE>commaThenConstructorArgument*
-    
-    commaThenConstructorArgument              ::=   ','<NO_WHITESPACE>constructorArgument
-    
-    constructorArgument                       ::=   typeName | .. | [unassigned]
-    
-    
-    
-    object                                    ::=   'Object' <END_OF_LINE>? objectDeclaration <END_OF_LINE>
-
-    objectDeclaration                         ::=   objectLiteral ':' typeName
-    
-    objectLiteral                             ::=   '{' properties '}'
-    
-    properties                                ::=   property commaThenProperty*
-    
-    commaThenProperty                         ::=   ',' property
-    
-    property                                  ::=   propertyName ':' typeName
-    
-    propertyName                              ::=   [unassigned]
-    
-    
-    
-    type                                      ::=   'Type' typeName <END_OF_LINE>
-
-    typeName                                  ::=   [unassigned]
     
     
     
