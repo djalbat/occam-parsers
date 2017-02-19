@@ -239,11 +239,11 @@ The Florence grammar can be found in the `grammar.js` file in the `es6/florence`
 
 ## Resources
 
+* [Notes on Formal Language Theory and Parsing] (http://www.cs.nuim.ie/~jpower/Courses/Previous/parsing/node1.html)
 * [Gate lectures by Ravindrababu Ravula on Compiler Design](https://www.youtube.com/watch?v=Qkwj65l_96I&list=PLEbnTDJUr_IcPtUXFy2b1sGRPsLFMghhS)
 * [Eliminating ambiguity in context free grammars by Rasmus Ejlers Møgelberg](http://itu.dk/people/mogel/SPLC2012/lectures/eliminatingAmbiguity.pdf)
 * [BNF and EBNF: What are they and how do they work? by Lars Marius Garshol](http://www.garshol.priv.no/download/text/bnf.html#id2.3.)
 * [Introduction to Grammar and Parsing using the Recursive Descent Parser algorithm ACT talk by Eric Nielsen](https://www.youtube.com/watch?v=9jSSSE2FuLU)
-* [Notes on Formal Language Theory and Parsing] (http://www.cs.nuim.ie/~jpower/Courses/Previous/parsing/node1.html)
 
 ## Contact
 
