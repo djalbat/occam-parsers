@@ -11,11 +11,11 @@ class OptionalPartPart extends SequenceOfPartsPart {
         terminalPartOrProduction = this.terminalPartOrProduction(productions);
     
     if (terminalPartOrProduction !== null) {
-      var terminalPartOrProductionNodes = terminalPartOrProduction.parse(context, noWhitespace),
-          terminalPartOrProductionParsed = (terminalPartOrProductionNodes !== null);
+      var terminalPartOrProductionNodeOrNodes = terminalPartOrProduction.parse(context, noWhitespace),
+          terminalPartOrProductionParsed = (terminalPartOrProductionNodeOrNodes !== null);
 
       if (terminalPartOrProductionParsed) {
-        nodes = terminalPartOrProductionNodes;
+        nodes = terminalPartOrProductionNodeOrNodes;
       }
     }
 

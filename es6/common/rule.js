@@ -15,15 +15,14 @@ class Rule {
   }
 
   parse(context, noWhitespace) {
-    var nodes = [];
-
-    var savedIndex = context.savedIndex(),
+    var nodes = [],
+        savedIndex = context.savedIndex(),
         everyPartParsed = this.parts.every(function(part) {
-          var partNodes = part.parse(context, noWhitespace),
-              partParsed = (partNodes !== null);
+          var partNodeOrNodes = part.parse(context, noWhitespace),
+              partParsed = (partNodeOrNodes !== null);
 
           if (partParsed) {
-            nodes = nodes.concat(partNodes);
+            nodes = nodes.concat(partNodeOrNodes);
 
             noWhitespace = false;
           }

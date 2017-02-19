@@ -1,6 +1,7 @@
 'use strict';
 
 var EpsilonPart = require('./part/epsilon'),
+    WildcardPart = require('./part/wildcard'),
     EndOfLinePart = require('./part/endOfLine'),
     OptionalPartPart = require('./part/optionalPart'),
     TerminalSymbolPart = require('./part/terminalSymbol'),
@@ -12,6 +13,7 @@ var EpsilonPart = require('./part/epsilon'),
 
 var Parts = [
   EpsilonPart,
+  WildcardPart,
   EndOfLinePart,
   RegularExpressionPart,
   SignificantTokenTypePart,

@@ -14,7 +14,7 @@ class EndOfLinePart {
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
-    var nodes = null,
+    var terminalNode = null,
         savedIndex = context.savedIndex(),
         nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
         significantToken = nextNonWhitespaceSignificantToken; ///
@@ -24,17 +24,15 @@ class EndOfLinePart {
           found = (type === SignificantToken.types.endOfLine);
 
       if (found) {
-        var terminalNode = TerminalNode.fromSignificantToken(significantToken);
-
-        nodes = [terminalNode];
+        terminalNode = TerminalNode.fromSignificantToken(significantToken);
       }
     }
     
-    if (nodes === null) {
+    if (terminalNode === null) {
       context.backtrack(savedIndex);
     }
 
-    return nodes;
+    return terminalNode;
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {

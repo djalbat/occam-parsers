@@ -7,9 +7,9 @@ var lexers = require('occam-lexers'),
 var grammar = require('./grammar'),
     BNFParser = require('../bnf/parser'),
     CommonParser = require('../common/parser'),
-    TransparentNode = require('../common/node/transparent'),
-    DiscardSecondChildNode = require('../common/node/discardSecondChild'),
-    TransparentThenKeepSecondNode = require('../common/node/transparentThenKeepSecond');
+    TransparentNode = require('../common/node/nonTerminal/transparent'),
+    DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChild'),
+    TransparentThenKeepSecondNode = require('../common/node/nonTerminal/transparentThenKeepSecond');
 
 class FlorenceParser extends CommonParser {
   static fromNothing(mappings) {
@@ -20,16 +20,15 @@ class FlorenceParser extends CommonParser {
       'part': TransparentNode,
       'premise': TransparentNode,
       'premises': TransparentNode,
+      'statement': TransparentNode,
       'premise(s)': DiscardSecondChildNode,
       'conclusion': DiscardSecondChildNode,
-      'statementBody': TransparentNode,
       'commaThenLabel': TransparentThenKeepSecondNode,
-      'whitespaceOrPart': TransparentNode,
       'labelledStatement': DiscardSecondChildNode,
       'parenthesisedLabels': TransparentThenKeepSecondNode,
-      '(labelled)Statement': TransparentNode,
+      '(un)labelledStatement': TransparentNode,
       'specialOrUnassigned': TransparentNode,
-      'subLemmaOr(labelled)Statement': TransparentNode
+      'subLemmaOr(un)labelledStatement': TransparentNode
     }, mappings);
 
     var productions = BNFParser.parse(lines, significantTokenTypes, mappings),

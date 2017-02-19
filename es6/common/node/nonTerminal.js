@@ -3,9 +3,11 @@
 var NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
 
 class NonTerminalNode {
-  constructor(productionName, childNodes) {
+  constructor(productionName, childNodes, firstLine, lastLine) {
     this.productionName = productionName;
     this.childNodes = childNodes;
+    this.firstLine = firstLine;
+    this.lastLine = lastLine;
   }
 
   getProductionName() {
@@ -17,19 +19,11 @@ class NonTerminalNode {
   }
   
   getFirstLine() {
-    var firstChildNode = first(this.childNodes),
-        firstChildNodeFirstLine = firstChildNode.getFirstLine(),
-        firstLine = firstChildNodeFirstLine;
-
-    return firstLine;
+    return this.firstLine;
   }
 
   getLastLine() {
-    var lastChildNode = last(this.childNodes),
-        lastChildNodeFirstLine = lastChildNode.getLastLine(),
-        lastLine = lastChildNodeFirstLine;
-
-    return lastLine;
+    return this.lastLine;
   }
 
   getFirstSignificantToken() {
@@ -64,13 +58,17 @@ class NonTerminalNode {
     var childNodes = nodes, ///
         nonTerminalNode = Class.fromProductionNameAndChildNodes(productionName, childNodes);
 
-    nodes = [nonTerminalNode]; ///
-    
-    return nodes;
+    return nonTerminalNode;
   }
 
   static fromProductionNameAndChildNodes(productionName, childNodes, Class = NonTerminalNode) {
-    var nonTerminalNode = new Class(productionName, childNodes);
+    var firstChildNode = first(childNodes),
+        lastChildNode = last(childNodes),
+        firstChildNodeFirstLine = firstChildNode.getFirstLine(),
+        lastChildNodeFirstLine = lastChildNode.getLastLine(),
+        firstLine = firstChildNodeFirstLine,  ///
+        lastLine = lastChildNodeFirstLine,  ///
+        nonTerminalNode = new Class(productionName, childNodes, firstLine, lastLine);
 
     return nonTerminalNode;
   }

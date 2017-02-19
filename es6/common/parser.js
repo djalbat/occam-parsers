@@ -11,7 +11,7 @@ class CommonParser {
     return this.productions;
   }
 
-  parse(tokens, production = null, noWhitespace = false) {
+  parse(tokens, production = null) {
     var node = null;
 
     if (production === null) {
@@ -26,16 +26,13 @@ class CommonParser {
 
     if (production !== null) {
       var context = new Context(tokens, this.productions),
-          nodes = production.parse(context, noWhitespace);
+          noWhitespace = false,
+          nodeOrNodes = production.parse(context, noWhitespace);
 
-      if (nodes !== null) {
-        var nodesLength = nodes.length;
-
-        if (nodesLength > 0) {
-          var firstNode = first(nodes);
-
-          node = firstNode; ///
-        }
+      if (nodeOrNodes !== null) {
+        node = (nodeOrNodes instanceof Array) ?
+                 first(nodeOrNodes) :
+                   nodeOrNodes;
       }
     }
 

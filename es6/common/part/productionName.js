@@ -9,15 +9,15 @@ class ProductionNamePart {
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
-    var nodes = null,
+    var nodeOrNodes = null,
         productions = context.getProductions(),
         production = ProductionNamePart.findProduction(this.name, productions);
 
     if (production !== null) {
-      nodes = production.parse(context, noWhitespace);
+      nodeOrNodes = production.parse(context, noWhitespace);
     }
 
-    return nodes;
+    return nodeOrNodes;
   }
 
   static findProduction(name, productions) {

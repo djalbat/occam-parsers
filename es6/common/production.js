@@ -15,7 +15,7 @@ class Production {
   }
 
   parse(context, noWhitespace) {
-    var nodes = null;
+    var nodeOrNodes = null;
 
     context.increaseDepth();
 
@@ -25,26 +25,29 @@ class Production {
       throw new Error(`The parse tree is too deep at production '${this.name}'`);
     }
 
-    var someRuleParsed = this.rules.some(function(rule) {
-          nodes = rule.parse(context, noWhitespace);
+    var ruleNodes = null,
+        someRuleParsed = this.rules.some(function(rule) {
+          ruleNodes = rule.parse(context, noWhitespace);
 
-          var ruleParsed = (nodes !== null);
+          var ruleParsed = (ruleNodes !== null);
 
           return ruleParsed;
         });
 
     if (someRuleParsed) {
-      var nodesLength = nodes.length,
-          productionName = this.name; ///
+      var ruleNodesLength = ruleNodes.length;
 
-      if (nodesLength > 0) {
-        nodes = this.Node.fromNodesAndProductionName(nodes, productionName);  ///
+      if (ruleNodesLength > 0) {
+        var nodes = ruleNodes,  ///
+            productionName = this.name; ///
+
+        nodeOrNodes = this.Node.fromNodesAndProductionName(nodes, productionName);  ///
       }
     }
 
     context.decreaseDepth();
 
-    return nodes;
+    return nodeOrNodes;
   }
 
   static fromLine(line, significantTokenTypes, mappings) {
@@ -54,7 +57,9 @@ class Production {
 
           return rule;
         }),
-        Node = mappings.hasOwnProperty(name) ? mappings[name] : NonTerminalNode, ///
+        Node = mappings.hasOwnProperty(name) ?
+                 mappings[name] :
+                   NonTerminalNode, ///
         production = new Production(name, rules, Node);
 
     return production;

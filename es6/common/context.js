@@ -119,9 +119,7 @@ class Context {
   }
 
   backtrack(savedIndex) {
-    var index = savedIndex; ///
-    
-    this.setIndex(index);
+    this.index = savedIndex;  ///
   }
 }
 

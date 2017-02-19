@@ -17,9 +17,7 @@ class ErrorNode extends NonTerminalNode {
         childNodes = [firstNode], ///
         errorNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, ErrorNode);
 
-    nodes = [errorNode]; ///
-
-    return nodes;
+    return errorNode;
   }
 }
 

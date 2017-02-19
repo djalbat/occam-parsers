@@ -4,10 +4,9 @@ var EpsilonTerminalNode = require('../../common/node/terminal/epsilon');
 
 class EpsilonPart {
   parse(context, noWhitespace) {
-    var epsilonTerminalNode = new EpsilonTerminalNode(),
-        nodes = [epsilonTerminalNode];
+    var epsilonTerminalNode = new EpsilonTerminalNode();
 
-    return nodes;
+    return epsilonTerminalNode;
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {

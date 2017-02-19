@@ -2,9 +2,8 @@
 
 var TerminalNode = require('../../common/node/terminal');
 
-class TerminalSymbolPart {
-  constructor(symbol, noWhitespace) {
-    this.symbol = symbol;
+class WildcardPart {
+  constructor(noWhitespace) {
     this.noWhitespace = noWhitespace;
   }
 
@@ -17,12 +16,7 @@ class TerminalSymbolPart {
         significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      var content = significantToken.getContent(),
-          parsed = (content === this.symbol);  ///
-
-      if (parsed) {
-        terminalNode = TerminalNode.fromSignificantToken(significantToken);
-      }
+      terminalNode = TerminalNode.fromSignificantToken(significantToken);
     }
 
     if (terminalNode === null) {
@@ -33,22 +27,16 @@ class TerminalSymbolPart {
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
-    var terminalSymbolPart = null,
-        terminalSymbolPartRegExp = /^'([^']+)'$/,
-        matches = symbol.match(terminalSymbolPartRegExp);
+    var wildcardPart = null,
+        wildcardPartRegExp = /^\*$/,
+        matches = symbol.match(wildcardPartRegExp);
 
     if (matches !== null) {
-      var secondMatch = second(matches);
-      
-      symbol = secondMatch; ///
-
-      terminalSymbolPart = new TerminalSymbolPart(symbol, noWhitespace);
+      wildcardPart = new WildcardPart(noWhitespace);
     }
 
-    return terminalSymbolPart;
+    return wildcardPart;
   }
 }
 
-module.exports = TerminalSymbolPart;
-
-function second(array) { return array[1]; }
+module.exports = WildcardPart;

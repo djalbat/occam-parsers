@@ -6,21 +6,19 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   parse(context, noWhitespace) {
     noWhitespace = this.getNoWhitespace();  ///
 
-    var nodes = null,
+    var nodes = [],
         productions = context.getProductions(),
         terminalPartOrProduction = this.terminalPartOrProduction(productions);
 
     if (terminalPartOrProduction !== null) {
-      nodes = [];
-
       for(;;) {
-        var terminalPartOrProductionNodes = terminalPartOrProduction.parse(context, noWhitespace),
-            terminalPartOrProductionParsed = (terminalPartOrProductionNodes !== null);
+        var terminalPartOrProductionNodeOrNodes = terminalPartOrProduction.parse(context, noWhitespace),
+            terminalPartOrProductionParsed = (terminalPartOrProductionNodeOrNodes !== null);
 
         if (terminalPartOrProductionParsed) {
-          nodes = nodes.concat(terminalPartOrProductionNodes);
+          nodes = nodes.concat(terminalPartOrProductionNodeOrNodes);
         } else {
-          return nodes;
+          break;
         }
       }
     }
