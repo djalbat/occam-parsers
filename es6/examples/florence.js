@@ -1,19 +1,19 @@
 'use strict';
 
-var lexers = require('occam-lexers'),
-    FlorenceLexer = lexers.FlorenceLexer;
+const lexers = require('occam-lexers'),
+      FlorenceLexer = lexers.FlorenceLexer;
 
-var Example = require('../example');
+const Example = require('../example');
 
-var FlorenceParser = require('../florence/parser'),
-    florenceGrammar = require('../florence/grammar');
+const FlorenceParser = require('../florence/parser'),
+      florenceGrammar = require('../florence/grammar');
 
-var florenceLexer = FlorenceLexer.fromNothing(),
-    florenceParser = FlorenceParser.fromNothing();
+const florenceLexer = FlorenceLexer.fromNothing(),
+      florenceParser = FlorenceParser.fromNothing();
 
 class FlorenceExample {
   static run() {
-    var grammarTextareaValue = florenceGrammar; ///
+    const grammarTextareaValue = florenceGrammar; ///
 
     Example.setGrammarTextareaValue(grammarTextareaValue);
 

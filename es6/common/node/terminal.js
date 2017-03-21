@@ -1,6 +1,6 @@
 'use strict';
 
-var TerminalNodeParseTree = require('../parseTree/terminalNode');
+const TerminalNodeParseTree = require('../parseTree/terminalNode');
 
 class TerminalNode {
   constructor(significantToken, line) {
@@ -17,40 +17,40 @@ class TerminalNode {
   }
 
   getFirstLine() {
-    var firstLine = this.line; ///
+    const firstLine = this.line; ///
 
     return firstLine;
   }
 
   getLastLine() {
-    var lastLine = this.line;  ///
+    const lastLine = this.line;  ///
 
     return lastLine;
   }
 
   getFirstSignificantToken() {
-    var firstSignificantToken = this.significantToken;  ///
+    const firstSignificantToken = this.significantToken;  ///
 
     return firstSignificantToken;
   }
 
   getLastSignificantToken() {
-    var lastSignificantToken = this.significantToken;  ///
+    const lastSignificantToken = this.significantToken;  ///
 
     return lastSignificantToken;
   }
 
   getParseTree() {
-    var terminalNode = this,  ///
-        terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNode(terminalNode),
-        parseTree = terminalNodeParseTree;  ///
+    const terminalNode = this,  ///
+          terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNode(terminalNode),
+          parseTree = terminalNodeParseTree;  ///
 
     return parseTree;
   }
 
   static fromSignificantToken(significantToken, Class = TerminalNode) {
-    var line = significantToken.getLine(),
-        terminalNode = new Class(significantToken, line);
+    const line = significantToken.getLine(),
+          terminalNode = new Class(significantToken, line);
 
     return terminalNode;
   }

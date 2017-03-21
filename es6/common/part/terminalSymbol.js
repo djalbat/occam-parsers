@@ -1,6 +1,6 @@
 'use strict';
 
-var TerminalNode = require('../../common/node/terminal');
+const TerminalNode = require('../../common/node/terminal');
 
 class TerminalSymbolPart {
   constructor(symbol, noWhitespace) {
@@ -11,13 +11,14 @@ class TerminalSymbolPart {
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
-    var terminalNode = null,
-        savedIndex = context.savedIndex(),
-        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
-        significantToken = nextNonWhitespaceSignificantToken; ///
+    let terminalNode = null;
+    
+    const savedIndex = context.savedIndex(),
+      nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+      significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      var content = significantToken.getContent(),
+      const content = significantToken.getContent(),
           parsed = (content === this.symbol);  ///
 
       if (parsed) {
@@ -33,12 +34,13 @@ class TerminalSymbolPart {
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
-    var terminalSymbolPart = null,
-        terminalSymbolPartRegExp = /^'([^']+)'$/,
-        matches = symbol.match(terminalSymbolPartRegExp);
+    let terminalSymbolPart = null;
+    
+    const terminalSymbolPartRegExp = /^'([^']+)'$/,
+          matches = symbol.match(terminalSymbolPartRegExp);
 
     if (matches !== null) {
-      var secondMatch = second(matches);
+      const secondMatch = second(matches);
       
       symbol = secondMatch; ///
 

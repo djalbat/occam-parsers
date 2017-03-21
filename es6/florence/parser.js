@@ -1,20 +1,20 @@
 'use strict';
 
-var lexers = require('occam-lexers'),
-    BNFLexer = lexers.BNFLexer,
-    FlorenceLexer = lexers.FlorenceLexer;
+const lexers = require('occam-lexers'),
+      BNFLexer = lexers.BNFLexer,
+      FlorenceLexer = lexers.FlorenceLexer;
 
-var grammar = require('./grammar'),
-    BNFParser = require('../bnf/parser'),
-    CommonParser = require('../common/parser'),
-    TransparentNode = require('../common/node/nonTerminal/transparent'),
-    DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChild'),
-    TransparentThenKeepSecondNode = require('../common/node/nonTerminal/transparentThenKeepSecond');
+const grammar = require('./grammar'),
+      BNFParser = require('../bnf/parser'),
+      CommonParser = require('../common/parser'),
+      TransparentNode = require('../common/node/nonTerminal/transparent'),
+      DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChild'),
+      TransparentThenKeepSecondNode = require('../common/node/nonTerminal/transparentThenKeepSecond');
 
 class FlorenceParser extends CommonParser {
   static fromNothing(mappings) {
-    var lines = BNFLexer.linesFromGrammar(grammar),
-        significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
+    const lines = BNFLexer.linesFromGrammar(grammar),
+          significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
 
     mappings = Object.assign({
       'part': TransparentNode,
@@ -31,8 +31,8 @@ class FlorenceParser extends CommonParser {
       'subLemmaOr(un)labelledStatement': TransparentNode
     }, mappings);
 
-    var productions = BNFParser.parse(lines, significantTokenTypes, mappings),
-        florenceParser = new FlorenceParser(productions);
+    const productions = BNFParser.parse(lines, significantTokenTypes, mappings),
+          florenceParser = new FlorenceParser(productions);
 
     return florenceParser;
   }

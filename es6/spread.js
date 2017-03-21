@@ -9,7 +9,7 @@ class Spread {
   }
 
   isBetween() {
-    var between = ((this.index >= this.startIndex) && (this.index <= this.endIndex));
+    const between = ((this.index >= this.startIndex) && (this.index <= this.endIndex));
 
     return between;
   }
@@ -19,11 +19,11 @@ class Spread {
   }
 
   static fromExpression(expression) {
-    var startIndex = -1,
+    let startIndex = -1,
         endIndex = Number.POSITIVE_INFINITY;
 
     if (expression !== undefined) {
-      var regExp = /\[(\d+)?(\.\.\.)?(\d+)?\]/,
+      const regExp = /\[(\d+)?(\.\.\.)?(\d+)?\]/,
           matches = expression.match(regExp),
           secondMatch = second(matches),
           thirdMatch = third(matches),
@@ -46,7 +46,7 @@ class Spread {
       }
     }
 
-    var spread = new Spread(startIndex, endIndex);
+    const spread = new Spread(startIndex, endIndex);
 
     return spread;
   }

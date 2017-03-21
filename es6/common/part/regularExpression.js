@@ -1,6 +1,6 @@
 'use strict';
 
-var TerminalNode = require('../../common/node/terminal');
+const TerminalNode = require('../../common/node/terminal');
 
 class RegularExpressionPart {
   constructor(regExp, noWhitespace) {
@@ -11,18 +11,19 @@ class RegularExpressionPart {
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
-    var terminalNode = null,
-        savedIndex = context.savedIndex(),
-        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
-        significantToken = nextNonWhitespaceSignificantToken; ///
+    let terminalNode = null;
+    
+    const savedIndex = context.savedIndex(),
+          nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+          significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      var content = significantToken.getContent(),
-          matches = content.match(this.regExp);
+      const content = significantToken.getContent(),
+            matches = content.match(this.regExp);
 
       if (matches !== null) {
-        var firstMatch = first(matches),
-            parsed = (firstMatch === content);
+        const firstMatch = first(matches),
+              parsed = (firstMatch === content);
 
         if (parsed) {
           terminalNode = TerminalNode.fromSignificantToken(significantToken);
@@ -38,14 +39,15 @@ class RegularExpressionPart {
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
-    var regularExpressionPart = null,
-        regularExpressionPartRegExp = /^\/([^/]+)\/$/,
-        matches = symbol.match(regularExpressionPartRegExp);
+    let regularExpressionPart = null;
+    
+    const regularExpressionPartRegExp = /^\/([^/]+)\/$/,
+          matches = symbol.match(regularExpressionPartRegExp);
 
     if (matches !== null) {
-      var secondMatch = second(matches),
-          regExpPattern = secondMatch,  ///
-          regExp = new RegExp(`^${regExpPattern}$`); ///
+      const secondMatch = second(matches),
+            regExpPattern = secondMatch,  ///
+            regExp = new RegExp(`^${regExpPattern}$`); ///
 
       regularExpressionPart = new RegularExpressionPart(regExp, noWhitespace);
     }

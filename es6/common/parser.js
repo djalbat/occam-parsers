@@ -1,6 +1,6 @@
 'use strict';
 
-var Context = require('./context');
+const Context = require('./context');
 
 class CommonParser {
   constructor(productions) {
@@ -12,22 +12,22 @@ class CommonParser {
   }
 
   parse(tokens, production = null) {
-    var node = null;
+    let node = null;
 
     if (production === null) {
-      var productionsLength = this.productions.length;
+      const productionsLength = this.productions.length;
 
       if (productionsLength > 0) {
-        var firstProduction = first(this.productions);
+        const firstProduction = first(this.productions);
 
         production = firstProduction; ///
       }
     }
 
     if (production !== null) {
-      var context = new Context(tokens, this.productions),
-          noWhitespace = false,
-          nodeOrNodes = production.parse(context, noWhitespace);
+      const context = new Context(tokens, this.productions),
+            noWhitespace = false,
+            nodeOrNodes = production.parse(context, noWhitespace);
 
       if (nodeOrNodes !== null) {
         node = (nodeOrNodes instanceof Array) ?
@@ -40,21 +40,21 @@ class CommonParser {
   }
 
   findProduction(productionName) {
-    var name = productionName,  ///
-        index = this.indexOfProductionByName(name),
-        production = (index !== null) ?
-                       this.productions[index] :
-                         null;
+    const name = productionName,  ///
+          index = this.indexOfProductionByName(name),
+          production = (index !== null) ?
+                         this.productions[index] :
+                           null;
 
     return production;
   }
 
   indexOfProductionByName(name) {
-    var index,
+    let index,
         foundIndex = null;
 
     this.productions.some(function(production, index) {
-      var productionName = production.getName();
+      const productionName = production.getName();
 
       if (productionName === name) {
         foundIndex = index;

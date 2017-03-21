@@ -6,21 +6,21 @@ class ParseTree {
   }
 
   clone() {
-    var lines = this.lines.slice(0),  ///
-        parseTree = new ParseTree(lines);
+    const lines = this.lines.slice(0),  ///
+          parseTree = new ParseTree(lines);
 
     return parseTree;
   }
 
   getWidth() {
-    var linesLength = this.lines.length,
-        width = undefined;
+    let linesLength = this.lines.length,
+          width = undefined;
 
     if (linesLength === 0) {
       width = 0;
     } else {
-      var lastLine = last(this.lines),
-          lastLineLength = lastLine.length;
+      const lastLine = last(this.lines),
+            lastLineLength = lastLine.length;
 
       width = lastLineLength; ///
     }
@@ -29,8 +29,8 @@ class ParseTree {
   }
 
   getDepth() {
-    var linesLength = this.lines.length,
-        depth = linesLength;  ///
+    const linesLength = this.lines.length,
+          depth = linesLength;  ///
 
     return depth;
   }
@@ -64,39 +64,39 @@ class ParseTree {
   }
 
   addTopMargin(topMarginDepth) {
-    var width = this.getWidth(),
-        topMarginWidth = width,  ///
-        topMarginString = marginStringFromMarginWidth(topMarginWidth);
+    const width = this.getWidth(),
+          topMarginWidth = width,  ///
+          topMarginString = marginStringFromMarginWidth(topMarginWidth);
 
-    for (var index = 0; index < topMarginDepth; index++) {
+    for (let index = 0; index < topMarginDepth; index++) {
       this.lines.unshift(topMarginString);
     }
   }
 
   addLeftMargin(leftMarginWidth) {
-    var leftMarginString = marginStringFromMarginWidth(leftMarginWidth),
-        linesLength = this.lines.length;
+    const leftMarginString = marginStringFromMarginWidth(leftMarginWidth),
+          linesLength = this.lines.length;
 
-    for (var index = 0; index < linesLength; index++) {
+    for (let index = 0; index < linesLength; index++) {
       this.lines[index] = leftMarginString + this.lines[index];
     }
   }
 
   addRightMargin(rightMarginWidth) {
-    var rightMarginString = marginStringFromMarginWidth(rightMarginWidth),
-        linesLength = this.lines.length;
+    const rightMarginString = marginStringFromMarginWidth(rightMarginWidth),
+          linesLength = this.lines.length;
 
-    for (var index = 0; index < linesLength; index++) {
+    for (let index = 0; index < linesLength; index++) {
       this.lines[index] = this.lines[index] + rightMarginString;
     }
   }
 
   addBottomMargin(bottomMarginDepth) {
-    var width = this.getWidth(),
-        bottomMarginWidth = width,  ///
-        bottomMarginString = marginStringFromMarginWidth(bottomMarginWidth);
+    const width = this.getWidth(),
+          bottomMarginWidth = width,  ///
+          bottomMarginString = marginStringFromMarginWidth(bottomMarginWidth);
 
-    for (var index = 0; index < bottomMarginDepth; index++) {
+    for (let index = 0; index < bottomMarginDepth; index++) {
       this.lines.push(bottomMarginString);
     }
   }
@@ -110,7 +110,7 @@ class ParseTree {
   unshiftLine(line) { this.lines.unshift(line); }
 
   toString() {
-    var string = this.lines.reduce(function(string, line) {
+    const string = this.lines.reduce(function(string, line) {
       string += line + '\n';
 
       return string;
@@ -127,9 +127,9 @@ function last(array) { return array[array.length - 1]; }
 function marginStringFromMarginWidth(marginWidth, spaceCharacter) {
   spaceCharacter = spaceCharacter || ' ';
 
-  var marginString = '';
+  let marginString = '';
 
-  for (var index = 0; index < marginWidth; index++) {
+  for (let index = 0; index < marginWidth; index++) {
     marginString += spaceCharacter;
   }
 

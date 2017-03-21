@@ -1,6 +1,6 @@
 'use strict';
 
-var TerminalNode = require('../../common/node/terminal');
+const TerminalNode = require('../../common/node/terminal');
 
 class WildcardPart {
   constructor(noWhitespace) {
@@ -10,10 +10,11 @@ class WildcardPart {
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
-    var terminalNode = null,
-        savedIndex = context.savedIndex(),
-        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
-        significantToken = nextNonWhitespaceSignificantToken; ///
+    let terminalNode = null;
+    
+    const savedIndex = context.savedIndex(),
+          nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+          significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
       terminalNode = TerminalNode.fromSignificantToken(significantToken);
@@ -27,9 +28,10 @@ class WildcardPart {
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
-    var wildcardPart = null,
-        wildcardPartRegExp = /^\*$/,
-        matches = symbol.match(wildcardPartRegExp);
+    let wildcardPart = null;
+    
+    const wildcardPartRegExp = /^\*$/,
+          matches = symbol.match(wildcardPartRegExp);
 
     if (matches !== null) {
       wildcardPart = new WildcardPart(noWhitespace);

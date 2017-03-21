@@ -1,7 +1,7 @@
 'use strict';
 
-var lexers = require('occam-lexers'),
-    SignificantToken = lexers.SignificantToken;
+const lexers = require('occam-lexers'),
+      SignificantToken = lexers.SignificantToken;
 
 const DEFAULT_MAXIMUM_DEPTH = 99;
 
@@ -35,7 +35,7 @@ class Context {
   }
 
   isTooDeep() {
-    var tooDeep = this.depth > this.maximumDepth;
+    const tooDeep = this.depth > this.maximumDepth;
     
     return tooDeep;
   }
@@ -53,10 +53,10 @@ class Context {
   }
 
   getNextSignificantToken() {
-    var nextSignificantToken = null;
+    let nextSignificantToken = null;
 
     for (;;) {
-      var nextToken = this.tokens[this.index++];
+      const nextToken = this.tokens[this.index++];
 
       if (nextToken === undefined) {
         break;
@@ -73,11 +73,11 @@ class Context {
   }
 
   getNextNonWhitespaceSignificantToken(noWhitespace) {
-    var nextNonWhitespaceSignificantToken = null,
+    let nextNonWhitespaceSignificantToken = null,
         nextSignificantToken = this.getNextSignificantToken();
 
     if (nextSignificantToken !== null) {
-      var nextSignificantTokenIsWhitespaceToken;
+      let nextSignificantTokenIsWhitespaceToken;
 
       if (noWhitespace) {
         nextSignificantTokenIsWhitespaceToken = significantTokenIsWhitespaceToken(nextSignificantToken);
@@ -112,8 +112,8 @@ class Context {
   }
 
   savedIndex() {
-    var index = this.getIndex(),
-        savedIndex = index; ///
+    const index = this.getIndex(),
+          savedIndex = index; ///
     
     return savedIndex;
   }
@@ -126,8 +126,8 @@ class Context {
 module.exports = Context;
 
 function significantTokenIsWhitespaceToken(significantToken) {
-  var type = significantToken.getType(),
-      whitespaceToken = (type === SignificantToken.types.whitespace);
+  const type = significantToken.getType(),
+        whitespaceToken = (type === SignificantToken.types.whitespace);
   
   return whitespaceToken;
 }

@@ -1,7 +1,7 @@
 'use strict';
 
-var Rule = require('./rule'),
-    NonTerminalNode = require('../common/node/nonTerminal');
+const Rule = require('./rule'),
+      NonTerminalNode = require('../common/node/nonTerminal');
 
 class Production {
   constructor(name, rules, Node) {
@@ -15,31 +15,32 @@ class Production {
   }
 
   parse(context, noWhitespace) {
-    var nodeOrNodes = null;
+    let nodeOrNodes = null;
 
     context.increaseDepth();
 
-    var tooDeep = context.isTooDeep();
+    const tooDeep = context.isTooDeep();
 
     if (tooDeep) {
       throw new Error(`The parse tree is too deep at production '${this.name}'`);
     }
 
-    var ruleNodes = null,
-        someRuleParsed = this.rules.some(function(rule) {
-          ruleNodes = rule.parse(context, noWhitespace);
-
-          var ruleParsed = (ruleNodes !== null);
-
-          return ruleParsed;
-        });
+    let ruleNodes = null;
+    
+    const someRuleParsed = this.rules.some(function(rule) {
+            ruleNodes = rule.parse(context, noWhitespace);
+  
+            const ruleParsed = (ruleNodes !== null);
+  
+            return ruleParsed;
+          });
 
     if (someRuleParsed) {
-      var ruleNodesLength = ruleNodes.length;
+      const ruleNodesLength = ruleNodes.length;
 
       if (ruleNodesLength > 0) {
-        var nodes = ruleNodes,  ///
-            productionName = this.name; ///
+        const nodes = ruleNodes,  ///
+              productionName = this.name; ///
 
         nodeOrNodes = this.Node.fromNodesAndProductionName(nodes, productionName);  ///
       }
@@ -51,16 +52,16 @@ class Production {
   }
 
   static fromLine(line, significantTokenTypes, mappings) {
-    var name = line.getName(),
-        rules = line.mapSymbolSequences(function(symbolSequence) {
-          var rule = Rule.fromSymbolSequence(symbolSequence, significantTokenTypes);
-
-          return rule;
-        }),
-        Node = mappings.hasOwnProperty(name) ?
-                 mappings[name] :
-                   NonTerminalNode, ///
-        production = new Production(name, rules, Node);
+    const name = line.getName(),
+          rules = line.mapSymbolSequences(function(symbolSequence) {
+            const rule = Rule.fromSymbolSequence(symbolSequence, significantTokenTypes);
+  
+            return rule;
+          }),
+          Node = mappings.hasOwnProperty(name) ?
+                   mappings[name] :
+                     NonTerminalNode, ///
+          production = new Production(name, rules, Node);
 
     return production;
   }

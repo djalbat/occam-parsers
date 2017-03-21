@@ -1,6 +1,6 @@
 'use strict';
 
-var TerminalNode = require('../../common/node/terminal');
+const TerminalNode = require('../../common/node/terminal');
 
 class SignificantTokenTypePart {
   constructor(type, noWhitespace) {
@@ -11,14 +11,15 @@ class SignificantTokenTypePart {
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
     
-    var terminalNode = null,
-        savedIndex = context.savedIndex(),
-        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
-        significantToken = nextNonWhitespaceSignificantToken; ///
+    let terminalNode = null;
+    
+    const savedIndex = context.savedIndex(),
+          nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+          significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      var type = significantToken.getType(),
-          parsed = (type === this.type);  ///
+      const type = significantToken.getType(),
+            parsed = (type === this.type);  ///
 
       if (parsed) {
         terminalNode = TerminalNode.fromSignificantToken(significantToken);
@@ -33,19 +34,20 @@ class SignificantTokenTypePart {
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
-    var significantTokenTypePart = null,
-        significantTokenTypePartRegExp = /^\[([^/]+)\]$/,
-        matches = symbol.match(significantTokenTypePartRegExp);
+    let significantTokenTypePart = null;
+    
+    const significantTokenTypePartRegExp = /^\[([^/]+)\]$/,
+          matches = symbol.match(significantTokenTypePartRegExp);
 
     if (matches !== null) {
-      var secondMatch = second(matches),
-          type = secondMatch, ///
-          foundType = significantTokenTypes.find(function(significantTokenType) {
-            var found = (type === significantTokenType);
-
-            return found;
-          }),
-          found = (foundType !== undefined);
+      const secondMatch = second(matches),
+            type = secondMatch, ///
+            foundType = significantTokenTypes.find(function(significantTokenType) {
+              const found = (type === significantTokenType);
+  
+              return found;
+            }),
+            found = (foundType !== undefined);
 
       if (found) {
         significantTokenTypePart = new SignificantTokenTypePart(type, noWhitespace);

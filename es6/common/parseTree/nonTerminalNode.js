@@ -1,24 +1,27 @@
 'use strict';
 
-var EmptyParseTree = require('../parseTree/empty'),
+const EmptyParseTree = require('../parseTree/empty'),
     ChildNodesParseTree = require('../parseTree/childNodes'),
     VerticalBranchParseTree = require('../parseTree/verticalBranch'),
     ProductionNameAndLineNumbersParseTree = require('../parseTree/productionNameAndLineNumbers');
 
 class NonTerminalNodeParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNode(nonTerminalNode) {
-    var childNodes = nonTerminalNode.getChildNodes(),
-        firstChildNode = first(childNodes),
-        childNode = firstChildNode,
-        childNodesLength = childNodes.length,
-        childNodeOrNodesParseTree = (childNodesLength === 1) ?
-                                      childNode.getParseTree() :
-                                        ChildNodesParseTree.fromChildNodes(childNodes),
-        productionNameAndLineNumbersParseTree = ProductionNameAndLineNumbersParseTree.fromNonTerminalNode(nonTerminalNode),
-        productionNameParseTreeVerticalBranchPosition = productionNameAndLineNumbersParseTree.getVerticalBranchPosition(),
-        childNodeOrNodesParseTreeVerticalBranchPosition = childNodeOrNodesParseTree.getVerticalBranchPosition(),
-        verticalBranchPositionsDifference = productionNameParseTreeVerticalBranchPosition - childNodeOrNodesParseTreeVerticalBranchPosition,
-        leftMarginWidth = undefined;
+    const childNodes = nonTerminalNode.getChildNodes(),
+          firstChildNode = first(childNodes),
+          childNode = firstChildNode,
+          childNodesLength = childNodes.length,
+          childNodeOrNodesParseTree = (childNodesLength === 1) ?
+                                        childNode.getParseTree() :
+                                          ChildNodesParseTree.fromChildNodes(childNodes),
+          productionNameAndLineNumbersParseTree = ProductionNameAndLineNumbersParseTree.fromNonTerminalNode(nonTerminalNode);
+    
+    let productionNameParseTreeVerticalBranchPosition = productionNameAndLineNumbersParseTree.getVerticalBranchPosition();
+    
+    const childNodeOrNodesParseTreeVerticalBranchPosition = childNodeOrNodesParseTree.getVerticalBranchPosition(),
+          verticalBranchPositionsDifference = productionNameParseTreeVerticalBranchPosition - childNodeOrNodesParseTreeVerticalBranchPosition;
+    
+    let leftMarginWidth = undefined;
 
     if (false) {
 
@@ -32,10 +35,11 @@ class NonTerminalNodeParseTree extends VerticalBranchParseTree {
       childNodeOrNodesParseTree.addLeftMargin(leftMarginWidth);
     }
 
-    var productionNameParseTreeWidth = productionNameAndLineNumbersParseTree.getWidth(),
-        childNodeOrNodesParseTreeWidth = childNodeOrNodesParseTree.getWidth(),
-        widthsDifference = productionNameParseTreeWidth - childNodeOrNodesParseTreeWidth,
-        rightMarginWidth = undefined;
+    const productionNameParseTreeWidth = productionNameAndLineNumbersParseTree.getWidth(),
+          childNodeOrNodesParseTreeWidth = childNodeOrNodesParseTree.getWidth(),
+          widthsDifference = productionNameParseTreeWidth - childNodeOrNodesParseTreeWidth;
+    
+    let rightMarginWidth = undefined;
 
     if (false) {
 
@@ -51,7 +55,7 @@ class NonTerminalNodeParseTree extends VerticalBranchParseTree {
 
     productionNameParseTreeVerticalBranchPosition = productionNameAndLineNumbersParseTree.getVerticalBranchPosition();
 
-    var productionNameParseTreeDepth = productionNameAndLineNumbersParseTree.getDepth(),
+    const productionNameParseTreeDepth = productionNameAndLineNumbersParseTree.getDepth(),
         nonTerminalNodeParseTreeDepth = productionNameParseTreeDepth, ///
         verticalBranchPosition = productionNameParseTreeVerticalBranchPosition, ///
         nonTerminalNodeParseTree = EmptyParseTree.fromDepth(nonTerminalNodeParseTreeDepth, NonTerminalNodeParseTree, verticalBranchPosition);

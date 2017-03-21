@@ -1,10 +1,10 @@
 'use strict';
 
-var lexers = require('occam-lexers'),
+const lexers = require('occam-lexers'),
     specialSymbols = lexers.specialSymbols,
     SignificantToken = lexers.SignificantToken;
 
-var TerminalNode = require('../../common/node/terminal');
+const TerminalNode = require('../../common/node/terminal');
 
 class EndOfLinePart {
   constructor(noWhitespace) {
@@ -14,14 +14,15 @@ class EndOfLinePart {
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
-    var terminalNode = null,
-        savedIndex = context.savedIndex(),
-        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
-        significantToken = nextNonWhitespaceSignificantToken; ///
+    let terminalNode = null;
+    
+    const savedIndex = context.savedIndex(),
+          nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+          significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      var type = significantToken.getType(),
-          found = (type === SignificantToken.types.endOfLine);
+      const type = significantToken.getType(),
+           found = (type === SignificantToken.types.endOfLine);
 
       if (found) {
         terminalNode = TerminalNode.fromSignificantToken(significantToken);
@@ -36,8 +37,9 @@ class EndOfLinePart {
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
-    var endOfLinePart = null,
-        found = (symbol === specialSymbols.END_OF_LINE);
+    let endOfLinePart = null;
+    
+    const found = (symbol === specialSymbols.END_OF_LINE);
 
     if (found) {
       endOfLinePart = new EndOfLinePart(noWhitespace);

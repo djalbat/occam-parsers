@@ -1,19 +1,19 @@
 'use strict';
 
-var lexers = require('occam-lexers'),
-    BNFLexer = lexers.BNFLexer,
-    BasicLexer = lexers.BasicLexer;
+const lexers = require('occam-lexers'),
+      BNFLexer = lexers.BNFLexer,
+      BasicLexer = lexers.BasicLexer;
 
-var BNFParser = require('../bnf/parser'),
-    CommonParser = require('../common/parser');
+const BNFParser = require('../bnf/parser'),
+      CommonParser = require('../common/parser');
 
 class BasicParser extends CommonParser {
   static fromGrammar(grammar) {
-    var lines = BNFLexer.linesFromGrammar(grammar),
-        significantTokenTypes = BasicLexer.getSignificantTokenTypes(),
-        mappings = {},
-        productions = BNFParser.parse(lines, significantTokenTypes, mappings),
-        basicParser = new BasicParser(productions);
+    const lines = BNFLexer.linesFromGrammar(grammar),
+          significantTokenTypes = BasicLexer.getSignificantTokenTypes(),
+          mappings = {},
+          productions = BNFParser.parse(lines, significantTokenTypes, mappings),
+          basicParser = new BasicParser(productions);
 
     return basicParser;
   }

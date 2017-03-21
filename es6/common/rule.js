@@ -1,9 +1,9 @@
 'use strict';
 
-var lexers = require('occam-lexers'),
-    specialSymbols = lexers.specialSymbols;
+const lexers = require('occam-lexers'),
+      specialSymbols = lexers.specialSymbols;
 
-var Parts = require('./parts');
+const Parts = require('./parts');
 
 class Rule {
   constructor(parts) {
@@ -15,20 +15,21 @@ class Rule {
   }
 
   parse(context, noWhitespace) {
-    var nodes = [],
-        savedIndex = context.savedIndex(),
-        everyPartParsed = this.parts.every(function(part) {
-          var partNodeOrNodes = part.parse(context, noWhitespace),
-              partParsed = (partNodeOrNodes !== null);
-
-          if (partParsed) {
-            nodes = nodes.concat(partNodeOrNodes);
-
-            noWhitespace = false;
-          }
-
-          return partParsed;
-        });
+    let nodes = [];
+    
+    const savedIndex = context.savedIndex(),
+          everyPartParsed = this.parts.every(function(part) {
+            const partNodeOrNodes = part.parse(context, noWhitespace),
+                partParsed = (partNodeOrNodes !== null);
+  
+            if (partParsed) {
+              nodes = nodes.concat(partNodeOrNodes);
+  
+              noWhitespace = false;
+            }
+  
+            return partParsed;
+          });
 
     if (!everyPartParsed) {
       context.backtrack(savedIndex);
@@ -40,21 +41,22 @@ class Rule {
   }
 
   static fromSymbolSequence(symbolSequence, significantTokenTypes) {
-    var noWhitespace = false,
-        parts = symbolSequence.reduceSymbols(function(parts, symbol) {
-          if (symbol === specialSymbols.NO_WHITESPACE) {
-            noWhitespace = true;
-          } else {
-            var part = partFromSymbol(symbol, significantTokenTypes, noWhitespace);
-
-            parts.push(part);
-
-            noWhitespace = false;
-          }
-
-          return parts;
-        }, []),
-        rule = new Rule(parts);
+    let noWhitespace = false;
+    
+    const parts = symbolSequence.reduceSymbols(function(parts, symbol) {
+            if (symbol === specialSymbols.NO_WHITESPACE) {
+              noWhitespace = true;
+            } else {
+              const part = partFromSymbol(symbol, significantTokenTypes, noWhitespace);
+  
+              parts.push(part);
+  
+              noWhitespace = false;
+            }
+  
+            return parts;
+          }, []),
+          rule = new Rule(parts);
 
     return rule;
   }
@@ -63,12 +65,12 @@ class Rule {
 module.exports = Rule;
 
 function partFromSymbol(symbol, significantTokenTypes, noWhitespace) {
-  var part = undefined; ///
+  let part = undefined; ///
 
   Parts.some(function(Part) {
     part = Part.fromSymbol(symbol, significantTokenTypes, noWhitespace);
 
-    var parsed = (part !== null);
+    const parsed = (part !== null);
 
     return parsed;
   });

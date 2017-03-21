@@ -1,9 +1,9 @@
 'use strict';
 
-var EndOfLinePart = require('./endOfLine'),
-    ProductionNamePart = require('./productionName'),
-    TerminalSymbolPart = require('./terminalSymbol'),
-    SignificantTokenTypePart = require('./significantTokenType');
+const EndOfLinePart = require('./endOfLine'),
+      ProductionNamePart = require('./productionName'),
+      TerminalSymbolPart = require('./terminalSymbol'),
+      SignificantTokenTypePart = require('./significantTokenType');
 
 class SequenceOfPartsPart {
   constructor(terminalPart, productionName, noWhitespace) {
@@ -25,27 +25,28 @@ class SequenceOfPartsPart {
   }
 
   terminalPartOrProduction(productions) {
-    var production = ProductionNamePart.findProduction(this.productionName, productions),
-        terminalPartOrProduction = (this.terminalPart !== null) ?
-                                      this.terminalPart :
-                                        production;
+    const production = ProductionNamePart.findProduction(this.productionName, productions),
+          terminalPartOrProduction = (this.terminalPart !== null) ?
+                                        this.terminalPart :
+                                          production;
 
     return terminalPartOrProduction;
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace, regExp, Class) {
-    var part = null,
-        matches = symbol.match(regExp);
+    let part = null;
+    
+    const matches = symbol.match(regExp);
 
     if (matches !== null) {
-      var secondMatch = second(matches);
+      const secondMatch = second(matches);
 
       symbol = secondMatch; ///
 
-      var terminalPart = SignificantTokenTypePart.fromSymbol(symbol, significantTokenTypes, noWhitespace) ||
-                           TerminalSymbolPart.fromSymbol(symbol, significantTokenTypes, noWhitespace) ||
-                             EndOfLinePart.fromSymbol(symbol, significantTokenTypes, noWhitespace),
-          productionName = symbol;
+      const terminalPart = SignificantTokenTypePart.fromSymbol(symbol, significantTokenTypes, noWhitespace) ||
+                             TerminalSymbolPart.fromSymbol(symbol, significantTokenTypes, noWhitespace) ||
+                               EndOfLinePart.fromSymbol(symbol, significantTokenTypes, noWhitespace),
+            productionName = symbol;
 
       part = new Class(terminalPart, productionName, noWhitespace);
     }

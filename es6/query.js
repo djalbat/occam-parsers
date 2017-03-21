@@ -1,8 +1,8 @@
 'use strict';
 
-var Spread = require('./spread'),
-    TerminalNode = require('./common/node/terminal'),
-    NonTerminalNode = require('./common/node/nonTerminal');
+const Spread = require('./spread'),
+      TerminalNode = require('./common/node/terminal'),
+      NonTerminalNode = require('./common/node/nonTerminal');
 
 class Query {
   constructor(infiniteDescent, productionNames, subQuery, spread) {
@@ -13,8 +13,9 @@ class Query {
   }
   
   nodesFromNode(node) {
-    var nodes = [],
-        wildcard = (this.productionNames === '*');
+    let nodes = [];
+    
+    const wildcard = (this.productionNames === '*');
 
     if (false) {
 
@@ -29,9 +30,9 @@ class Query {
         this.spread.incrementIndex();
       }
     } else if (node instanceof NonTerminalNode) {
-      var childNodes = node.getChildNodes(),
-          productionName = node.getProductionName(),
-          found = (this.productionNames.indexOf(productionName) > -1);
+      const childNodes = node.getChildNodes(),
+            productionName = node.getProductionName(),
+            found = (this.productionNames.indexOf(productionName) > -1);
 
       if (wildcard || found) {
         if (this.spread.isBetween()) {
@@ -39,7 +40,7 @@ class Query {
             nodes = [node];
           } else {
             nodes = childNodes.reduce(function(nodes, childNode) {
-              var childNodeNodes = this.subQuery.nodesFromNode(childNode);
+              const childNodeNodes = this.subQuery.nodesFromNode(childNode);
 
               nodes = nodes.concat(childNodeNodes);
 
@@ -53,7 +54,7 @@ class Query {
 
       if (this.infiniteDescent) {
         nodes = childNodes.reduce(function(nodes, childNode) {
-          var childNodeNodes = this.nodesFromNode(childNode);
+          const childNodeNodes = this.nodesFromNode(childNode);
 
           nodes = nodes.concat(childNodeNodes);
 
@@ -70,19 +71,19 @@ class Query {
       return null;
     }
     
-    var regExp = /^\/(\/)?([^/\[]+)(\[[^\]]+\])?(\/.*)?$/,
-        matches = expression.match(regExp),
-        secondMatch = second(matches),
-        thirdMatch = third(matches),
-        fourthMatch = fourth(matches),
-        fifthMatch = fifth(matches),
-        infiniteDescent = (secondMatch === '/'),  ///
-        productionNames = thirdMatch.split('|'),  ///
-        subExpression = fifthMatch,  ///
-        spreadExpression = fourthMatch,  ///
-        subQuery = Query.fromExpression(subExpression),
-        spread = Spread.fromExpression(spreadExpression),
-        query = new Query(infiniteDescent, productionNames, subQuery, spread);
+    const regExp = /^\/(\/)?([^/\[]+)(\[[^\]]+\])?(\/.*)?$/,
+          matches = expression.match(regExp),
+          secondMatch = second(matches),
+          thirdMatch = third(matches),
+          fourthMatch = fourth(matches),
+          fifthMatch = fifth(matches),
+          infiniteDescent = (secondMatch === '/'),  ///
+          productionNames = thirdMatch.split('|'),  ///
+          subExpression = fifthMatch,  ///
+          spreadExpression = fourthMatch,  ///
+          subQuery = Query.fromExpression(subExpression),
+          spread = Spread.fromExpression(spreadExpression),
+          query = new Query(infiniteDescent, productionNames, subQuery, spread);
     
     return query;
   }

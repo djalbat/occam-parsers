@@ -1,6 +1,6 @@
 'use strict';
 
-var NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
+const NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
 
 class NonTerminalNode {
   constructor(productionName, childNodes, firstLine, lastLine) {
@@ -27,25 +27,25 @@ class NonTerminalNode {
   }
 
   getFirstSignificantToken() {
-    var firstChildNode = first(this.childNodes),
-        firstChildNodeFirstSignificantToken = firstChildNode.getFirstSignificantToken(),
-        firstSignificantToken = firstChildNodeFirstSignificantToken; ///
+    const firstChildNode = first(this.childNodes),
+          firstChildNodeFirstSignificantToken = firstChildNode.getFirstSignificantToken(),
+          firstSignificantToken = firstChildNodeFirstSignificantToken; ///
 
     return firstSignificantToken;
   }
 
   getLastSignificantToken() {
-    var lastChildNode = last(this.childNodes),
-        lastChildNodeLastSignificantToken = lastChildNode.getLastSignificantToken(),
-        lastSignificantToken = lastChildNodeLastSignificantToken; ///
+    const lastChildNode = last(this.childNodes),
+          lastChildNodeLastSignificantToken = lastChildNode.getLastSignificantToken(),
+          lastSignificantToken = lastChildNodeLastSignificantToken; ///
 
     return lastSignificantToken;
   }
 
   getParseTree() {
-    var nonTerminalNode = this,  ///
-        nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNode(nonTerminalNode),
-        parseTree = nonTerminalNodeParseTree;  ///
+    const nonTerminalNode = this,  ///
+          nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNode(nonTerminalNode),
+          parseTree = nonTerminalNodeParseTree;  ///
 
     return parseTree;
   }
@@ -55,20 +55,20 @@ class NonTerminalNode {
   }
 
   static fromNodesAndProductionName(nodes, productionName, Class = NonTerminalNode) {
-    var childNodes = nodes, ///
-        nonTerminalNode = Class.fromProductionNameAndChildNodes(productionName, childNodes);
+    const childNodes = nodes, ///
+          nonTerminalNode = Class.fromProductionNameAndChildNodes(productionName, childNodes);
 
     return nonTerminalNode;
   }
 
   static fromProductionNameAndChildNodes(productionName, childNodes, Class = NonTerminalNode) {
-    var firstChildNode = first(childNodes),
-        lastChildNode = last(childNodes),
-        firstChildNodeFirstLine = firstChildNode.getFirstLine(),
-        lastChildNodeFirstLine = lastChildNode.getLastLine(),
-        firstLine = firstChildNodeFirstLine,  ///
-        lastLine = lastChildNodeFirstLine,  ///
-        nonTerminalNode = new Class(productionName, childNodes, firstLine, lastLine);
+    const firstChildNode = first(childNodes),
+          lastChildNode = last(childNodes),
+          firstChildNodeFirstLine = firstChildNode.getFirstLine(),
+          lastChildNodeFirstLine = lastChildNode.getLastLine(),
+          firstLine = firstChildNodeFirstLine,  ///
+          lastLine = lastChildNodeFirstLine,  ///
+          nonTerminalNode = new Class(productionName, childNodes, firstLine, lastLine);
 
     return nonTerminalNode;
   }

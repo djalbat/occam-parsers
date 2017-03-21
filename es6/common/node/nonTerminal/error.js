@@ -1,21 +1,21 @@
 'use strict';
 
-var NonTerminalNode = require('../nonTerminal');
+const NonTerminalNode = require('../nonTerminal');
 
 class ErrorNode extends NonTerminalNode {
   getSignificantToken() {
-    var childNodes = this.getChildNodes(),
-        firstChildNode = first(childNodes),
-        terminalNode = firstChildNode,  ///
-        significantToken = terminalNode.getSignificantToken();
+    const childNodes = this.getChildNodes(),
+          firstChildNode = first(childNodes),
+          terminalNode = firstChildNode,  ///
+          significantToken = terminalNode.getSignificantToken();
 
     return significantToken;
   }
 
   static fromNodesAndProductionName(nodes, productionName) {
-    var firstNode = first(nodes),
-        childNodes = [firstNode], ///
-        errorNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, ErrorNode);
+    const firstNode = first(nodes),
+          childNodes = [firstNode], ///
+          errorNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, ErrorNode);
 
     return errorNode;
   }

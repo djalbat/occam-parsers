@@ -1,6 +1,6 @@
 'use strict';
 
-var grammar = `
+const grammar = `
 
     document                                  ::=   header? verticalSpace? body?
                                               

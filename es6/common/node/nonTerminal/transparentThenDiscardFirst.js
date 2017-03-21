@@ -1,6 +1,6 @@
 'use strict';
 
-var arrayUtil = require('../../../arrayUtil');
+const arrayUtil = require('../../../arrayUtil');
 
 class TransparentThenDiscardFirstNode {
   static fromNodesAndProductionName(nodes, productionName) {

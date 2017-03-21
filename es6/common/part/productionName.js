@@ -9,9 +9,10 @@ class ProductionNamePart {
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
-    var nodeOrNodes = null,
-        productions = context.getProductions(),
-        production = ProductionNamePart.findProduction(this.name, productions);
+    let nodeOrNodes = null;
+    
+    const productions = context.getProductions(),
+          production = ProductionNamePart.findProduction(this.name, productions);
 
     if (production !== null) {
       nodeOrNodes = production.parse(context, noWhitespace);
@@ -21,10 +22,10 @@ class ProductionNamePart {
   }
 
   static findProduction(name, productions) {
-    var foundProduction = null;
+    let foundProduction = null;
 
     productions.some(function(production) {
-      var productionNamePart = production.getName();
+      const productionNamePart = production.getName();
 
       if (name === productionNamePart) {
         foundProduction = production;
@@ -35,15 +36,15 @@ class ProductionNamePart {
       }
     });
 
-    var production = foundProduction;
+    const production = foundProduction;
 
     return production;
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
-    var name = symbol,  ///
-        productionNamePart = new ProductionNamePart(name, noWhitespace);
-
+    const name = symbol,  ///
+          productionNamePart = new ProductionNamePart(name, noWhitespace);
+  
     return productionNamePart;
   }
 }

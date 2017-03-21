@@ -1,11 +1,11 @@
 'use strict';
 
-var Production = require('../common/production'),
-    ErrorNode = require('../common/node/nonTerminal/error');
+const Production = require('../common/production'),
+      ErrorNode = require('../common/node/nonTerminal/error');
 
 class BNFParser {
   static parse(lines, significantTokenTypes, mappings) {
-    var productions;
+    let productions;
 
     mappings = Object.assign({
       'error': ErrorNode
@@ -13,7 +13,7 @@ class BNFParser {
 
     try {
       productions = lines.map(function(line) {
-        var production = Production.fromLine(line, significantTokenTypes, mappings);
+        const production = Production.fromLine(line, significantTokenTypes, mappings);
 
         return production;
       });
