@@ -13,13 +13,13 @@ var florenceLexer = FlorenceLexer.fromNothing(),
 
 class FlorenceExample {
   static run() {
-    var grammarTextAreaValue = florenceGrammar; ///
+    var grammarTextareaValue = florenceGrammar; ///
 
-    Example.setGrammarTextAreaValue(grammarTextAreaValue);
+    Example.setGrammarTextareaValue(grammarTextareaValue);
 
     update();
 
-    Example.onContentTextAreaKeyUp(function() {
+    Example.onContentTextareaKeyUp(function() {
       update();
     });
   }

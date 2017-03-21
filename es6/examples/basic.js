@@ -1,7 +1,7 @@
 'use strict';
 
-var easyui = require('easyui'),
-    TextArea = easyui.TextArea;
+var easy = require('easy'),
+    Textarea = easy.Textarea;
 
 var lexers = require('occam-lexers'),
     BasicLexer = lexers.BasicLexer;
@@ -10,8 +10,8 @@ var BasicParser = require('../basic/parser');
 
 var Example = require('../example');
 
-var terminalSymbolsRegExpPatternTextArea,
-    terminalSymbolsRegExpPatternTextAreaSelector = 'textarea#terminalSymbolsRegExpPattern',
+var terminalSymbolsRegExpPatternTextarea,
+    terminalSymbolsRegExpPatternTextareaSelector = 'textarea#terminalSymbolsRegExpPattern',
     terminalSymbolsRegExpPattern = `\\+|\\-|\\*|\\/|\\(|\\)|\\d+`,
     grammar = `
 
@@ -33,26 +33,26 @@ var terminalSymbolsRegExpPatternTextArea,
 
 class BasicExample {
   static run() {
-    terminalSymbolsRegExpPatternTextArea = new TextArea(terminalSymbolsRegExpPatternTextAreaSelector);
+    terminalSymbolsRegExpPatternTextarea = new Textarea(terminalSymbolsRegExpPatternTextareaSelector);
 
-    var grammarTextAreaValue = grammar, ///
-        terminalSymbolsRegExpPatternTextAreaValue = terminalSymbolsRegExpPattern; ///
+    var grammarTextareaValue = grammar, ///
+        terminalSymbolsRegExpPatternTextareaValue = terminalSymbolsRegExpPattern; ///
 
-    Example.setGrammarTextAreaValue(grammarTextAreaValue);
+    Example.setGrammarTextareaValue(grammarTextareaValue);
 
-    terminalSymbolsRegExpPatternTextArea.setValue(terminalSymbolsRegExpPatternTextAreaValue);
+    terminalSymbolsRegExpPatternTextarea.setValue(terminalSymbolsRegExpPatternTextareaValue);
 
     update();
 
-    terminalSymbolsRegExpPatternTextArea.onChange(function() {
+    terminalSymbolsRegExpPatternTextarea.onChange(function() {
       update();
     });
 
-    Example.onGrammarTextAreaChange(function() {
+    Example.onGrammarTextareaChange(function() {
       update();
     });
 
-    Example.onContentTextAreaKeyUp(function() {
+    Example.onContentTextareaKeyUp(function() {
       update();
     });
   }
@@ -72,7 +72,7 @@ function update() {
 module.exports = BasicExample;
 
 function updateBasicLexer() {
-  var terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternTextArea.getValue(),
+  var terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternTextarea.getValue(),
       terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue,  ///
       terminalSymbolsRegExpPatternIsValid = regExpPatternIsValid(terminalSymbolsRegExpPattern);
 
@@ -84,17 +84,17 @@ function updateBasicLexer() {
 
     basicLexer = BasicLexer.fromGrammar(grammar);
 
-    terminalSymbolsRegExpPatternTextArea.removeClass('error');
+    terminalSymbolsRegExpPatternTextarea.removeClass('error');
   } else {
-    terminalSymbolsRegExpPatternTextArea.addClass('error');
+    terminalSymbolsRegExpPatternTextarea.addClass('error');
 
     basicLexer = null;
   }
 }
 
 function updateBasicParser() {
-  var grammarTextAreaValue = Example.getGrammarTextAreaValue(),
-      grammar = grammarTextAreaValue; ///
+  var grammarTextareaValue = Example.getGrammarTextareaValue(),
+      grammar = grammarTextareaValue; ///
 
   basicParser = BasicParser.fromGrammar(grammar);
 }

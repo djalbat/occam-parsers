@@ -1,40 +1,41 @@
 'use strict';
 
-var easyui = require('easyui'),
-    easyuilayout = require('easyui-layout'),
-    TextArea = easyui.TextArea,
-    SizeableElement = easyuilayout.SizeableElement,
-    VerticalSplitter = easyuilayout.VerticalSplitter;
+var easy = require('easy'),
+    easylayout = require('easy-layout'),
+    Textarea = easy.Textarea,
+    options = easylayout.options,
+    SizeableElement = easylayout.SizeableElement,
+    VerticalSplitter = easylayout.VerticalSplitter;
 
 var leftColumnSelector = '#leftColumn',
-    grammarTextAreaSelector = 'textarea#grammar',
-    contentTextAreaSelector = 'textarea#content',
-    parseTreeTextAreaSelector = 'textarea#parseTree',
+    grammarTextareaSelector = 'textarea#grammar',
+    contentTextareaSelector = 'textarea#content',
+    parseTreeTextareaSelector = 'textarea#parseTree',
     leftColumn = new SizeableElement(leftColumnSelector),
-    contentTextArea = new TextArea(contentTextAreaSelector),
-    grammarTextArea = new TextArea(grammarTextAreaSelector),
-    parseTreeTextArea = new TextArea(parseTreeTextAreaSelector),
-    TO_THE_RIGHT_OF = VerticalSplitter.situated.TO_THE_RIGHT_OF;
+    contentTextarea = new Textarea(contentTextareaSelector),
+    grammarTextarea = new Textarea(grammarTextareaSelector),
+    parseTreeTextarea = new Textarea(parseTreeTextareaSelector),
+    TO_THE_RIGHT_OF = options.situated.TO_THE_RIGHT_OF;
 
 new VerticalSplitter('.left.vertical.splitter', TO_THE_RIGHT_OF, leftColumn);
 
 class Example {
-  static getGrammarTextAreaValue() { return grammarTextArea.getValue(); }
+  static getGrammarTextareaValue() { return grammarTextarea.getValue(); }
 
-  static setGrammarTextAreaValue(value) { grammarTextArea.setValue(value); }
+  static setGrammarTextareaValue(value) { grammarTextarea.setValue(value); }
 
-  static onContentTextAreaKeyUp(handler) { contentTextArea.on('keyup', function() {
-    var content = contentTextArea.getValue(); ///
+  static onContentTextareaKeyUp(handler) { contentTextarea.on('keyup', function() {
+    var content = contentTextarea.getValue(); ///
 
     handler(content);
   }); }
 
-  static onGrammarTextAreaChange(handler) { grammarTextArea.onChange(handler); }
+  static onGrammarTextareaChange(handler) { grammarTextarea.onChange(handler); }
 
   static updateParseTree(lexer, parser) {
     try {
-      var contentTextAreaValue = contentTextArea.getValue(),
-          content = contentTextAreaValue;  ///
+      var contentTextareaValue = contentTextarea.getValue(),
+          content = contentTextareaValue;  ///
 
       if (content !== '') {
         var contents = content.split(/\n/),
@@ -51,25 +52,25 @@ class Example {
         parseTree.shiftLine();  //
 
         var parseTreeString = parseTree.toString(),
-            parseTreeTextAreaHTML = parseTreeString;  ///
+            parseTreeTextareaHTML = parseTreeString;  ///
 
-        parseTreeTextArea.html(parseTreeTextAreaHTML);
+        parseTreeTextarea.html(parseTreeTextareaHTML);
       } else {
         Example.clearParseTree();
       }
 
-      contentTextArea.removeClass('error');
+      contentTextarea.removeClass('error');
     } catch (error) {
-      contentTextArea.addClass('error');
+      contentTextarea.addClass('error');
 
       Example.clearParseTree();
     }
   }
 
   static clearParseTree() {
-    var parseTreeTextAreaHTML = '';
+    var parseTreeTextareaHTML = '';
 
-    parseTreeTextArea.html(parseTreeTextAreaHTML);
+    parseTreeTextarea.html(parseTreeTextareaHTML);
   }
 }
 
