@@ -1,10 +1,10 @@
 {
   "name": "occam-parsers",
   "author": "James Smith",
-  "version": "2.1.46",
+  "version": "2.1.47",
   "license": "MIT",
   "homepage": "https://github.com/occam-proof-assistant/Parsers",
-  "description": "The Occam proof assistant's parsers.",
+  "description": "Occam's parsers.",
   "repository": {
     "type": "git",
     "url": "https://github.com/occam-proof-assistant/Parsers"
