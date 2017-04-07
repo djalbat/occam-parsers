@@ -1,9 +1,9 @@
 'use strict';
 
 const EmptyParseTree = require('../parseTree/empty'),
-    ChildNodesParseTree = require('../parseTree/childNodes'),
-    VerticalBranchParseTree = require('../parseTree/verticalBranch'),
-    ProductionNameAndLineNumbersParseTree = require('../parseTree/productionNameAndLineNumbers');
+      ChildNodesParseTree = require('../parseTree/childNodes'),
+      VerticalBranchParseTree = require('../parseTree/verticalBranch'),
+      ProductionNameAndLineNumbersParseTree = require('../parseTree/productionNameAndLineNumbers');
 
 class NonTerminalNodeParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNode(nonTerminalNode) {

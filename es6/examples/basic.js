@@ -1,14 +1,13 @@
 'use strict';
 
 const easy = require('easy'),
-      Textarea = easy.Textarea;
+      lexers = require('occam-lexers');
 
-const lexers = require('occam-lexers'),
-      BasicLexer = lexers.BasicLexer;
+const BasicParser = require('../basic/parser'),
+      Example = require('../example');
 
-const BasicParser = require('../basic/parser');
-
-const Example = require('../example');
+const { Textarea } = easy,
+      { BasicLexer } = lexers;
 
 let terminalSymbolsRegExpPatternTextarea;
 

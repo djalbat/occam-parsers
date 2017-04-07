@@ -1,8 +1,6 @@
 'use strict';
 
-const lexers = require('occam-lexers'),
-      BNFLexer = lexers.BNFLexer,
-      FlorenceLexer = lexers.FlorenceLexer;
+const lexers = require('occam-lexers');
 
 const grammar = require('./grammar'),
       BNFParser = require('../bnf/parser'),
@@ -10,6 +8,8 @@ const grammar = require('./grammar'),
       TransparentNode = require('../common/node/nonTerminal/transparent'),
       DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChild'),
       TransparentThenKeepSecondNode = require('../common/node/nonTerminal/transparentThenKeepSecond');
+
+const { BNFLexer, FlorenceLexer } = lexers;
 
 class FlorenceParser extends CommonParser {
   static fromNothing(mappings) {

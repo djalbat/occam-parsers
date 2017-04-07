@@ -1,11 +1,11 @@
 'use strict';
 
-const lexers = require('occam-lexers'),
-      BNFLexer = lexers.BNFLexer,
-      BasicLexer = lexers.BasicLexer;
+const lexers = require('occam-lexers');
 
 const BNFParser = require('../bnf/parser'),
       CommonParser = require('../common/parser');
+
+const { BNFLexer, BasicLexer } = lexers;
 
 class BasicParser extends CommonParser {
   static fromGrammar(grammar) {

@@ -1,8 +1,8 @@
 'use strict';
 
-const lexers = require('occam-lexers'),
-    specialSymbols = lexers.specialSymbols,
-    SignificantToken = lexers.SignificantToken;
+const lexers = require('occam-lexers');
+
+const { specialSymbols, SignificantToken } = lexers;
 
 const TerminalNode = require('../../common/node/terminal');
 

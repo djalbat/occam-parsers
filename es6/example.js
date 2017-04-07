@@ -1,21 +1,21 @@
 'use strict';
 
 const easy = require('easy'),
-      easylayout = require('easy-layout'),
-      Textarea = easy.Textarea,
-      options = easylayout.options,
-      SizeableElement = easylayout.SizeableElement,
-      VerticalSplitter = easylayout.VerticalSplitter;
+      easylayout = require('easy-layout');
 
 const leftColumnSelector = '#leftColumn',
       grammarTextareaSelector = 'textarea#grammar',
       contentTextareaSelector = 'textarea#content',
-      parseTreeTextareaSelector = 'textarea#parseTree',
-      leftColumn = new SizeableElement(leftColumnSelector),
+      parseTreeTextareaSelector = 'textarea#parseTree';
+
+const { Textarea } = easy,
+      { options, SizeableElement, VerticalSplitter } = easylayout,
+      { TO_THE_RIGHT_OF } = options;
+
+const leftColumn = new SizeableElement(leftColumnSelector),
       contentTextarea = new Textarea(contentTextareaSelector),
       grammarTextarea = new Textarea(grammarTextareaSelector),
-      parseTreeTextarea = new Textarea(parseTreeTextareaSelector),
-      TO_THE_RIGHT_OF = options.situated.TO_THE_RIGHT_OF;
+      parseTreeTextarea = new Textarea(parseTreeTextareaSelector);
 
 new VerticalSplitter('.left.vertical.splitter', TO_THE_RIGHT_OF, leftColumn);
 

@@ -1,12 +1,12 @@
 'use strict';
 
-const lexers = require('occam-lexers'),
-      FlorenceLexer = lexers.FlorenceLexer;
+const lexers = require('occam-lexers');
 
-const Example = require('../example');
-
-const FlorenceParser = require('../florence/parser'),
+const Example = require('../example'),
+      FlorenceParser = require('../florence/parser'),
       florenceGrammar = require('../florence/grammar');
+
+const { FlorenceLexer } = lexers;
 
 const florenceLexer = FlorenceLexer.fromNothing(),
       florenceParser = FlorenceParser.fromNothing();

@@ -1,7 +1,8 @@
 'use strict';
 
-const lexers = require('occam-lexers'),
-      SignificantToken = lexers.SignificantToken;
+const lexers = require('occam-lexers');
+
+const { SignificantToken } = lexers;
 
 const DEFAULT_MAXIMUM_DEPTH = 99;
 

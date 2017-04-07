@@ -1,9 +1,10 @@
 'use strict';
 
-const lexers = require('occam-lexers'),
-      specialSymbols = lexers.specialSymbols;
+const lexers = require('occam-lexers');
 
 const Parts = require('./parts');
+
+const { specialSymbols } = lexers;
 
 class Rule {
   constructor(parts) {
