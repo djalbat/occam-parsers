@@ -1,21 +1,16 @@
 'use strict';
 
-const NonTerminalNode = require('../nonTerminal');
+const TerminalNode = require('../terminal');
 
-class ErrorNode extends NonTerminalNode {
-  getSignificantToken() {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          terminalNode = firstChildNode,  ///
-          significantToken = terminalNode.getSignificantToken();
-
-    return significantToken;
-  }
-
+class ErrorNode extends TerminalNode {
   static fromNodesAndProductionName(nodes, productionName) {
     const firstNode = first(nodes),
-          childNodes = [firstNode], ///
-          errorNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, ErrorNode);
+          terminalNode = firstNode,  ///
+          significantToken = terminalNode.getSignificantToken(),
+          errorNode = TerminalNode.fromSignificantToken(significantToken, ErrorNode),
+          error = true;
+
+    significantToken.setError(error);
 
     return errorNode;
   }

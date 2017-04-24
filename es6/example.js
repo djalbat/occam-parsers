@@ -39,15 +39,15 @@ class Example {
 
       if (content !== '') {
         const contents = content.split(/\n/),
-            lines = lexer.linesFromContents(contents),
-            tokens = tokensFromLines(lines),
-            documentNode = parser.parse(tokens);
+              lines = lexer.linesFromContents(contents),
+              tokens = tokensFromLines(lines),
+              documentNode = parser.parse(tokens);
 
         if (documentNode === null) {
           throw new Error('The document cannot be parsed for some reason.');
         }
 
-        const parseTree = documentNode.getParseTree();
+        const parseTree = documentNode.parseTree(lines);
 
         parseTree.shiftLine();  //
 
@@ -62,7 +62,7 @@ class Example {
       contentTextarea.removeClass('error');
     } catch (error) {
       contentTextarea.addClass('error');
-
+    
       Example.clearParseTree();
     }
   }

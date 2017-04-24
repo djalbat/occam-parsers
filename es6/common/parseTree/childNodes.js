@@ -1,13 +1,13 @@
 'use strict';
 
-const EmptyParseTree = require('../parseTree/empty'),
-      VerticalBranchParseTree = require('../parseTree/verticalBranch'),
-      HorizontalBranchParseTree = require('../parseTree/horizontalBranch');
+const EmptyParseTree = require('./empty'),
+      VerticalBranchParseTree = require('./verticalBranch'),
+      HorizontalBranchParseTree = require('./horizontalBranch');
 
 class ChildNodesParseTree extends VerticalBranchParseTree {
-  static fromChildNodes(childNodes) {
+  static fromChildNodes(childNodes, lines) {
     const childNodeParseTrees = childNodes.map(function(childNode) {
-            const childNodeParseTree = childNode.getParseTree();
+            const childNodeParseTree = childNode.parseTree(lines);
   
             return childNodeParseTree;
           }),
@@ -48,10 +48,10 @@ class ChildNodesParseTree extends VerticalBranchParseTree {
     });
 
     const width = lastVerticalBranchPosition - firstVerticalBranchPosition + 1,
-        verticalBranchParseTree = VerticalBranchParseTree.fromWidth(width),
-        horizontalBranchParseTree = HorizontalBranchParseTree.fromWidth(width),
-        leftMarginWidth = firstVerticalBranchPosition,
-        rightMarginWidth = childNodeParseTreesWidth - width - leftMarginWidth;
+          verticalBranchParseTree = VerticalBranchParseTree.fromWidth(width),
+          horizontalBranchParseTree = HorizontalBranchParseTree.fromWidth(width),
+          leftMarginWidth = firstVerticalBranchPosition,
+          rightMarginWidth = childNodeParseTreesWidth - width - leftMarginWidth;
 
     verticalBranchParseTree.addLeftMargin(leftMarginWidth);
     verticalBranchParseTree.addRightMargin(rightMarginWidth);
@@ -59,11 +59,11 @@ class ChildNodesParseTree extends VerticalBranchParseTree {
     horizontalBranchParseTree.addRightMargin(rightMarginWidth);
     
     const verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(),
-        childNodesParseTree = EmptyParseTree.fromDepth(childNodeParseTreesDepth, ChildNodesParseTree, verticalBranchPosition);
+          childNodesParseTree = EmptyParseTree.fromDepth(childNodeParseTreesDepth, ChildNodesParseTree, verticalBranchPosition);
 
     childNodeParseTrees.forEach(function(childNodeParseTree, index) {
       const childNodeParseTreeDepth = childNodeParseTree.getDepth(),
-          clonedChildNodeParseTree = childNodeParseTree.clone();
+            clonedChildNodeParseTree = childNodeParseTree.clone();
 
       if (index < childNodeParseTreesLength - 1) {
         const rightMarginWidth = 1;

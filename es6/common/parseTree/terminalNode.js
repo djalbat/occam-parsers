@@ -1,15 +1,21 @@
 'use strict';
 
-const VerticalBranchParseTree = require('../parseTree/verticalBranch');
+const VerticalBranchParseTree = require('./verticalBranch');
 
 class TerminalNodeParseTree extends VerticalBranchParseTree {
-  static fromTerminalNode(terminalNode) {
+  static fromTerminalNode(terminalNode, lines) {
     const line = terminalNode.getLine(),
-          lineNumber = line.getNumber(),
+          lineIndex = lines.indexOf(line),
+          lineNumber = lineIndex + 1,
           significantToken = terminalNode.getSignificantToken(),
           significantTokenType = significantToken.getType(),
+          significantTokenError = significantToken.getError(),
           significantTokenContent = significantToken.getContent(),
-          string = `${significantTokenContent}[${significantTokenType}] (${lineNumber})`,
+          content = significantTokenContent,
+          description = (significantTokenError === true) ?
+                          'error' :
+                            significantTokenType,
+          string = `${content}[${description}] (${lineNumber})`,
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),

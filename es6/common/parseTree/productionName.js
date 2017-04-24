@@ -1,14 +1,16 @@
 'use strict';
 
-const VerticalBranchParseTree = require('../parseTree/verticalBranch');
+const VerticalBranchParseTree = require('./verticalBranch');
 
 class ProductionNameParseTree extends VerticalBranchParseTree {
-  static fromNonTerminalNode(nonTerminalNode) {
+  static fromNonTerminalNode(nonTerminalNode, lines) {
     const productionName = nonTerminalNode.getProductionName(),
           firstLine = nonTerminalNode.getFirstLine(),
           lastLine = nonTerminalNode.getLastLine(),
-          firstLineNumber = firstLine.getNumber(),
-          lastLineNumber = lastLine.getNumber(),
+          firstLineIndex = lines.indexOf(firstLine),
+          lastLineIndex = lines.indexOf(lastLine),
+          firstLineNumber = firstLineIndex + 1,
+          lastLineNumber = lastLineIndex + 1,
           string = `${productionName} (${firstLineNumber}-${lastLineNumber})`,
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///

@@ -40,9 +40,9 @@ class TerminalNode {
     return lastSignificantToken;
   }
 
-  getParseTree() {
+  parseTree(lines) {
     const terminalNode = this,  ///
-          terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNode(terminalNode),
+          terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNode(terminalNode, lines),
           parseTree = terminalNodeParseTree;  ///
 
     return parseTree;
@@ -50,7 +50,10 @@ class TerminalNode {
 
   static fromSignificantToken(significantToken, Class = TerminalNode) {
     const line = significantToken.getLine(),
-          terminalNode = new Class(significantToken, line);
+          terminalNode = new Class(significantToken, line),
+          error = false;
+    
+    significantToken.setError(error);
 
     return terminalNode;
   }
