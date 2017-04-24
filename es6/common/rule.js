@@ -21,7 +21,7 @@ class Rule {
     const savedIndex = context.savedIndex(),
           everyPartParsed = this.parts.every(function(part) {
             const partNodeOrNodes = part.parse(context, noWhitespace),
-                partParsed = (partNodeOrNodes !== null);
+                  partParsed = (partNodeOrNodes !== null);
   
             if (partParsed) {
               nodes = nodes.concat(partNodeOrNodes);

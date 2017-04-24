@@ -52,7 +52,7 @@ class Example {
         parseTree.shiftLine();  //
 
         const parseTreeString = parseTree.toString(),
-            parseTreeTextareaHTML = parseTreeString;  ///
+              parseTreeTextareaHTML = parseTreeString;  ///
 
         parseTreeTextarea.html(parseTreeTextareaHTML);
       } else {
