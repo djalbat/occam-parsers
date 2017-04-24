@@ -14,7 +14,7 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
 
     if (terminalPartOrProduction !== null) {
       const terminalPartOrProductionNodeOrNodes = terminalPartOrProduction.parse(context, noWhitespace),
-          terminalPartOrProductionParsed = (terminalPartOrProductionNodeOrNodes !== null);
+            terminalPartOrProductionParsed = (terminalPartOrProductionNodeOrNodes !== null);
 
       if (terminalPartOrProductionParsed) {
         nodes = (terminalPartOrProductionNodeOrNodes instanceof Array) ?
@@ -22,7 +22,7 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
                     [terminalPartOrProductionNodeOrNodes];
 
         const zeroOrMorePartsPart = ZeroOrMorePartsPart.fromOneOrMorePartsPart(this), ///
-            zeroOrMorePartsPartNodeOrNodes = zeroOrMorePartsPart.parse(context, noWhitespace);
+              zeroOrMorePartsPartNodeOrNodes = zeroOrMorePartsPart.parse(context, noWhitespace);
 
         nodes = nodes.concat(zeroOrMorePartsPartNodeOrNodes);
       }
