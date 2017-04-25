@@ -3,11 +3,13 @@
 const NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
 
 class NonTerminalNode {
-  constructor(productionName, childNodes, firstLine, lastLine) {
+  constructor(productionName, childNodes, firstLine, lastLine, firstSignificantToken, lastSignificantToken) {
     this.productionName = productionName;
     this.childNodes = childNodes;
     this.firstLine = firstLine;
     this.lastLine = lastLine;
+    this.firstSignificantToken = firstSignificantToken;
+    this.lastSignificantToken = lastSignificantToken;
   }
 
   getProductionName() {
@@ -27,19 +29,11 @@ class NonTerminalNode {
   }
 
   getFirstSignificantToken() {
-    const firstChildNode = first(this.childNodes),
-          firstChildNodeFirstSignificantToken = firstChildNode.getFirstSignificantToken(),
-          firstSignificantToken = firstChildNodeFirstSignificantToken; ///
-
-    return firstSignificantToken;
+    return this.firstSignificantToken;
   }
 
   getLastSignificantToken() {
-    const lastChildNode = last(this.childNodes),
-          lastChildNodeLastSignificantToken = lastChildNode.getLastSignificantToken(),
-          lastSignificantToken = lastChildNodeLastSignificantToken; ///
-
-    return lastSignificantToken;
+    return this.lastSignificantToken;
   }
 
   parseTree(lines) {
@@ -66,9 +60,13 @@ class NonTerminalNode {
           lastChildNode = last(childNodes),
           firstChildNodeFirstLine = firstChildNode.getFirstLine(),
           lastChildNodeFirstLine = lastChildNode.getLastLine(),
+          firstChildNodeFirstSignificantToken = firstChildNode.getFirstSignificantToken(),
+          lastChildNodeLastSignificantToken = lastChildNode.getLastSignificantToken(),
           firstLine = firstChildNodeFirstLine,  ///
           lastLine = lastChildNodeFirstLine,  ///
-          nonTerminalNode = new Class(productionName, childNodes, firstLine, lastLine);
+          firstSignificantToken = firstChildNodeFirstSignificantToken, ///
+          lastSignificantToken = lastChildNodeLastSignificantToken, ///
+          nonTerminalNode = new Class(productionName, childNodes, firstLine, lastLine, firstSignificantToken, lastSignificantToken);
 
     return nonTerminalNode;
   }

@@ -16,18 +16,6 @@ class TerminalNode {
     return this.line;
   }
 
-  getFirstLine() {
-    const firstLine = this.line; ///
-
-    return firstLine;
-  }
-
-  getLastLine() {
-    const lastLine = this.line;  ///
-
-    return lastLine;
-  }
-
   getFirstSignificantToken() {
     const firstSignificantToken = this.significantToken;  ///
 
@@ -38,6 +26,18 @@ class TerminalNode {
     const lastSignificantToken = this.significantToken;  ///
 
     return lastSignificantToken;
+  }
+
+  getFirstLine() {
+    const firstLine = this.line; ///
+
+    return firstLine;
+  }
+
+  getLastLine() {
+    const lastLine = this.line;  ///
+
+    return lastLine;
   }
 
   parseTree(lines) {
