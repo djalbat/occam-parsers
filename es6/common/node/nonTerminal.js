@@ -35,6 +35,12 @@ class NonTerminalNode {
   getLastSignificantToken() {
     return this.lastSignificantToken;
   }
+  
+  update() {
+    this.childNodes.forEach(function(childNode) {
+      childNode.update();
+    })
+  }
 
   parseTree(lines) {
     const nonTerminalNode = this,  ///
@@ -50,7 +56,7 @@ class NonTerminalNode {
 
   static fromNodesAndProductionName(nodes, productionName, Class = NonTerminalNode) {
     const childNodes = nodes, ///
-          nonTerminalNode = Class.fromProductionNameAndChildNodes(productionName, childNodes);
+          nonTerminalNode = Class.fromProductionNameAndChildNodes(productionName, childNodes, Class);
 
     return nonTerminalNode;
   }
