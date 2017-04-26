@@ -42,6 +42,12 @@ class NonTerminalNode {
     })
   }
 
+  reset() {
+    this.childNodes.forEach(function(childNode) {
+      childNode.reset();
+    })
+  }
+
   parseTree(lines) {
     const nonTerminalNode = this,  ///
           nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNode(nonTerminalNode, lines),

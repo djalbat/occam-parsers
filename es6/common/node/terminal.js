@@ -43,6 +43,10 @@ class TerminalNode {
   update() {
     ///
   }
+  
+  reset() {
+    ///
+  }
 
   parseTree(lines) {
     const terminalNode = this,  ///
