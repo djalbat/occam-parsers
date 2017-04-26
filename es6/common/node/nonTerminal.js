@@ -47,6 +47,18 @@ class NonTerminalNode {
   setChildNodes(childNodes) {
     this.childNodes = childNodes;
   }
+  
+  update() {
+    this.childNodes.forEach(function(childNode) {
+      childNode.update();
+    })
+  }
+
+  reset() {
+    this.childNodes.forEach(function(childNode) {
+      childNode.reset();
+    })
+  }
 
   static fromNodesAndProductionName(nodes, productionName, Class = NonTerminalNode) {
     const childNodes = nodes, ///
