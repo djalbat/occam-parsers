@@ -36,9 +36,9 @@ class NonTerminalNode {
     return this.lastSignificantToken;
   }
 
-  update() {
+  update(...args) {
     this.childNodes.forEach(function(childNode) {
-      childNode.update(arguments);
+      childNode.update(...args);
     });
   }
   
