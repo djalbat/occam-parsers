@@ -38,7 +38,7 @@ class NonTerminalNode {
 
   update() {
     this.childNodes.forEach(function(childNode) {
-      childNode.update();
+      childNode.update(arguments);
     });
   }
   
