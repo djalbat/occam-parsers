@@ -13,23 +13,49 @@ const grammar = `
                                               
     body                                              ::=   part+  
         
-    part                                              ::=   rule | axiom | theorem | lemma | verticalSpace | error
+    part                                              ::=   type | constructors | rule | axiom | theorem | lemma | verticalSpace | error
     
     
+
+    type                                              ::=   'Type' typeName
     
-    rule                                              ::=   'Rule' parenthesisedLabels? <END_OF_LINE> premise(s)? conclusion proof?
+    constructors                                      ::=   'Constructors' typedConstructorList
     
-    axiom                                             ::=   'Axiom' parenthesisedLabels? <END_OF_LINE> premise(s)? conclusion
+    rule                                              ::=   'Rule' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
     
-    theorem                                           ::=   'Theorem' parenthesisedLabels? <END_OF_LINE> premise(s)? conclusion proof
+    axiom                                             ::=   'Axiom' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion
+    
+    theorem                                           ::=   'Theorem' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof
         
-    lemma                                             ::=   'Lemma' parenthesisedLabels? <END_OF_LINE> premise(s)? conclusion proof    
+    lemma                                             ::=   'Lemma' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof    
     
     
     
-    parenthesisedLabels                               ::=   '('<NO_WHITESPACE>labels<NO_WHITESPACE>')'
+    typedConstructorList                              ::=   typedConstructor<NO_WHITESPACE>commaThenTypedConstructor*
     
-    labels                                            ::=   label<NO_WHITESPACE>commaThenLabel*
+    commaThenTypedConstructor                         ::=   ','<NO_WHITESPACE>typedConstructor
+    
+    typedConstructor                                  ::=   constructor<NO_WHITESPACE>':'<NO_WHITESPACE>typeName
+    
+    constructor                                       ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNameList?
+    
+    constructorName                                   ::=   [unassigned]
+        
+    
+    
+    parenthesisedTypeNameList                         ::=   '('<NO_WHITESPACE>typeNameList<NO_WHITESPACE>')'
+    
+    typeNameList                                      ::=   typeName<NO_WHITESPACE>commaThenTypeName*
+    
+    commaThenTypeName                                 ::=   ','<NO_WHITESPACE>typeName
+
+    typeName                                          ::=   [unassigned]
+    
+    
+
+    parenthesisedLabelList                            ::=   '('<NO_WHITESPACE>labelList<NO_WHITESPACE>')'
+    
+    labelList                                         ::=   label<NO_WHITESPACE>commaThenLabel*
     
     commaThenLabel                                    ::=   ','<NO_WHITESPACE>label
     
