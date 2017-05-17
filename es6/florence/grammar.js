@@ -20,6 +20,8 @@ const grammar = `
                                                         
                                                         |   (typed)Variable(s)Declaration
                                                         
+                                                        |   Metavariable(s)Declaration
+
                                                         |   rule 
                                                         
                                                         |   axiom
@@ -39,6 +41,8 @@ const grammar = `
     typedConstructor(s)Declaration                    ::=   typedConstructorsDeclaration | typedConstructorDeclaration 
     
     (typed)Variable(s)Declaration                     ::=   (typed)VariableDeclaration | (typed)VariablesDeclaration
+    
+    Metavariable(s)Declaration                        ::=   MetavariablesDeclaration | MetavariableDeclaration
 
     rule                                              ::=   'Rule' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
     
@@ -84,9 +88,9 @@ const grammar = `
     
     (typed)VariableDeclaration                        ::=   'Variable' (typed)Variable
 
-    (typed)VariableList                               ::=   (typed)Variable<NO_WHITESPACE>commaThen(Typed)Variable*
+    (typed)VariableList                               ::=   (typed)Variable<NO_WHITESPACE>commaThen(typed)Variable*
     
-    commaThen(Typed)Variable                          ::=   ','<NO_WHITESPACE>(typed)Variable
+    commaThen(typed)Variable                          ::=   ','<NO_WHITESPACE>(typed)Variable
     
     (typed)Variable                                   ::=   typedVariable | variable
     
@@ -95,6 +99,22 @@ const grammar = `
     variable                                          ::=   variableName
     
     variableName                                      ::=   [unassigned]
+    
+    
+    
+    MetavariablesDeclaration                          ::=   'Metavariables' metavariableList
+    
+    MetavariableDeclaration                           ::=   'Metavariable' metavariable
+    
+    metavariableList                                  ::=   metavariable<NO_WHITESPACE>commaThenMetavariable*
+
+    commaThenMetavariable                             ::=   ','<NO_WHITESPACE>metavariable
+
+    metavariable                                      ::=   metavariableName<NO_WHITESPACE>parenthesisedType?
+    
+    parenthesisedType                                 ::=   '('<NO_WHITESPACE>type<NO_WHITESPACE>')'
+    
+    metavariableName                                  ::=   [unassigned]
     
     
 
