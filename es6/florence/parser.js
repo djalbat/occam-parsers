@@ -24,11 +24,21 @@ class FlorenceParser extends CommonParser {
       'premise(s)': DiscardSecondChildNode,
       'conclusion': DiscardSecondChildNode,
       'commaThenLabel': TransparentThenKeepSecondNode,
+      'typedVariable': DiscardSecondChildNode,
+      'typedConstructor': DiscardSecondChildNode,
+      'labelledStatement': DiscardSecondChildNode,
       'labelledStatement': DiscardSecondChildNode,
       'parenthesisedLabels': TransparentThenKeepSecondNode,
       '(un)labelledStatement': TransparentNode,
       'specialOrUnassigned': TransparentNode,
-      'subLemmaOr(un)labelledStatement': TransparentNode
+      'subLemmaOr(un)labelledStatement': TransparentNode,
+      'commaThen(Typed)Variable': TransparentThenKeepSecondNode,
+      'constructorName': TransparentNode,
+      'variableName': TransparentNode,
+      '(typed)Variable': TransparentNode,
+      'type(s)Declaration': TransparentNode,
+      'typedConstructor(s)Declaration': TransparentNode,
+      '(typed)Variable(s)Declaration': TransparentNode
     }, mappings);
 
     const productions = BNFParser.parse(lines, significantTokenTypes, mappings),

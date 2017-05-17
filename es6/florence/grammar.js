@@ -10,46 +10,91 @@ const grammar = `
     
     includeDirective                                  ::=   'include'<NO_WHITESPACE>'('<NO_WHITESPACE>[string]<NO_WHITESPACE>')' <END_OF_LINE>
                                               
+        
                                               
     body                                              ::=   part+  
         
-    part                                              ::=   type | constructors | rule | axiom | theorem | lemma | verticalSpace | error
+    part                                              ::=   type(s)Declaration
     
+                                                        |   typedConstructor(s)Declaration 
+                                                        
+                                                        |   (typed)Variable(s)Declaration
+                                                        
+                                                        |   rule 
+                                                        
+                                                        |   axiom
+                                                         
+                                                        |   theorem 
+                                                        
+                                                        |   lemma 
+                                                        
+                                                        |   verticalSpace 
+                                                        
+                                                        |   error
+                                                        
+                                                        
+                                                        
+    type(s)Declaration                                ::=   typesDeclaration | typeDeclaration 
     
+    typedConstructor(s)Declaration                    ::=   typedConstructorsDeclaration | typedConstructorDeclaration 
+    
+    (typed)Variable(s)Declaration                     ::=   (typed)VariableDeclaration | (typed)VariablesDeclaration
 
-    type                                              ::=   'Type' typeName
-    
-    constructors                                      ::=   'Constructors' typedConstructorList
-    
     rule                                              ::=   'Rule' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
     
     axiom                                             ::=   'Axiom' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion
     
     theorem                                           ::=   'Theorem' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof
         
-    lemma                                             ::=   'Lemma' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof    
+    lemma                                             ::=   'Lemma' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof
+
+
+
+    typesDeclaration                                  ::=   'Types' typeList
+    
+    typeDeclaration                                   ::=   'Type' type
+    
+    typeList                                          ::=   type<NO_WHITESPACE>commaThenType*
+    
+    commaThenType                                     ::=   ','<NO_WHITESPACE>type
+
+    type                                              ::=   [unassigned]
+
     
     
+    typedConstructorsDeclaration                      ::=   'Constructors' typedConstructorList
     
+    typedConstructorDeclaration                       ::=   'Constructor' typedConstructor
+
     typedConstructorList                              ::=   typedConstructor<NO_WHITESPACE>commaThenTypedConstructor*
     
     commaThenTypedConstructor                         ::=   ','<NO_WHITESPACE>typedConstructor
     
-    typedConstructor                                  ::=   constructor<NO_WHITESPACE>':'<NO_WHITESPACE>typeName
+    typedConstructor                                  ::=   constructor<NO_WHITESPACE>':'<NO_WHITESPACE>type
     
-    constructor                                       ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNameList?
+    constructor                                       ::=   constructorName<NO_WHITESPACE>parenthesisedTypeList?
     
-    constructorName                                   ::=   [unassigned]
-        
-    
-    
-    parenthesisedTypeNameList                         ::=   '('<NO_WHITESPACE>typeNameList<NO_WHITESPACE>')'
-    
-    typeNameList                                      ::=   typeName<NO_WHITESPACE>commaThenTypeName*
-    
-    commaThenTypeName                                 ::=   ','<NO_WHITESPACE>typeName
+    parenthesisedTypeList                             ::=   '('<NO_WHITESPACE>typeList<NO_WHITESPACE>')'
 
-    typeName                                          ::=   [unassigned]
+    constructorName                                   ::=   [unassigned]
+
+
+
+    (typed)VariablesDeclaration                       ::=   'Variables' (typed)VariableList
+    
+    (typed)VariableDeclaration                        ::=   'Variable' (typed)Variable
+
+    (typed)VariableList                               ::=   (typed)Variable<NO_WHITESPACE>commaThen(Typed)Variable*
+    
+    commaThen(Typed)Variable                          ::=   ','<NO_WHITESPACE>(typed)Variable
+    
+    (typed)Variable                                   ::=   typedVariable | variable
+    
+    typedVariable                                     ::=   variable<NO_WHITESPACE>':'<NO_WHITESPACE>type
+    
+    variable                                          ::=   variableName
+    
+    variableName                                      ::=   [unassigned]
     
     
 
