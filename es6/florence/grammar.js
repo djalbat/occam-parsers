@@ -44,9 +44,9 @@ const grammar = `
     
     axiom                                             ::=   'Axiom' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion
     
-    theorem                                           ::=   'Theorem' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof
+    theorem                                           ::=   'Theorem' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
         
-    lemma                                             ::=   'Lemma' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof
+    lemma                                             ::=   'Lemma' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
 
 
 
