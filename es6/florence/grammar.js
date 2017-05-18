@@ -184,7 +184,7 @@ const grammar = `
      
     
 
-    statement                                                     ::=   typeAssertion | proofAssertion | equality    
+    statement                                                     ::=   (qualified)Metavariable | typeAssertion | proofAssertion | equality    
     
     
     
