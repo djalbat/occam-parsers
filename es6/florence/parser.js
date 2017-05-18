@@ -35,6 +35,7 @@ class FlorenceParser extends CommonParser {
       '(qualified)Metavariable': TransparentNode,
       'abridgedProofDerivation': TransparentNode,
       '(abridged)ProofDerivation': TransparentNode,
+      'specialKeywordOrUnassigned': TransparentNode,
       '(typed)Variable(s)Declaration': TransparentNode,
       'typedConstructor(s)Declaration': TransparentNode,
       'unjustifiedStatementOrUnknown': TransparentNode,

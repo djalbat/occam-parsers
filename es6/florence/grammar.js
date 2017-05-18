@@ -182,12 +182,6 @@ const grammar = `
      
     
 
-    unknown                                                       ::=   unassignedOrSpecial+ <END_OF_LINE>
-
-    unassignedOrSpecial                                           ::=   [unassigned] | [special]
-
-
-
     statement                                                     ::=   typeAssertion | equality    
     
     
@@ -215,6 +209,12 @@ const grammar = `
     label                                                         ::=   [unassigned]
     
     
+
+    unknown                                                       ::=   specialKeywordOrUnassigned+ <END_OF_LINE>
+
+    specialKeywordOrUnassigned                                    ::=   [special] | [keyword] | [unassigned]
+
+
 
     verticalSpace                                                 ::=   <END_OF_LINE>+
     
