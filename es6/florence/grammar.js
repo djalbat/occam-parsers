@@ -1,10 +1,8 @@
 'use strict';
 
-//  header? verticalSpace? body?
-
 const grammar = `
 
-    document                                                      ::=   statement <END_OF_LINE>*   
+    document                                                      ::=   header? verticalSpace? body?   
                                               
                                               
                                               
