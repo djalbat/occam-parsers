@@ -210,9 +210,9 @@ const grammar = `
     
     
 
-    unknown                                                       ::=   specialKeywordOrUnassigned+ <END_OF_LINE>
+    unknown                                                       ::=   specialUnassignedOrMinorKeywords+ <END_OF_LINE>
 
-    specialKeywordOrUnassigned                                    ::=   [special] | [keyword] | [unassigned]
+    specialUnassignedOrMinorKeywords                              ::=   [special] | [unassigned] | 'by' | 'from'
 
 
 
