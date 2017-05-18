@@ -61,8 +61,10 @@ const grammar = `
     typeList                                                      ::=   type<NO_WHITESPACE>commaThenType*
     
     commaThenType                                                 ::=   ','<NO_WHITESPACE>type
+    
+    type                                                          ::=   typeName
 
-    type                                                          ::=   [unassigned]
+    typeName                                                      ::=   [unassigned]
 
     
     
@@ -180,9 +182,33 @@ const grammar = `
     
     
 
-    statement                                                     ::=   specialOrUnassigned+ 
+    statement                                                     ::=   typeAssertion | equality | unknown
     
-    specialOrUnassigned                                           ::=   [special] | [unassigned]
+    
+    
+    typeAssertion                                                 ::=   expression ':' type
+    
+    equality                                                      ::=   expression '=' expression
+    
+    unknown                                                       ::=   unassignedOrSpecial+
+
+
+
+    expression                                                    ::=   term
+    
+    
+
+    term                                                          ::=   compoundTerm | variableName | constructorName
+    
+    compoundTerm                                                  ::=   constructorName<NO_WHITESPACE>'('<NO_WHITESPACE>termList<NO_WHITESPACE>')'
+    
+    termList                                                      ::=   term<NO_WHITESPACE>commaThenTerm*
+    
+    commaThenTerm                                                 ::=   ','<NO_WHITESPACE>term
+    
+    
+
+    unassignedOrSpecial                                           ::=   [unassigned] | [special]
 
 
 
