@@ -114,11 +114,13 @@ const grammar = `
 
     (qualified)Metavariable                                       ::=   qualifiedMetavariable | metavariable
     
-    qualifiedMetavariable                                         ::=   metavariable<NO_WHITESPACE>parenthesisedType?
+    qualifiedMetavariable                                         ::=   metavariable<NO_WHITESPACE>parenthesisedTypeOrTerm
 
     metavariable                                                  ::=   metavariableName
 
-    parenthesisedType                                             ::=   '('<NO_WHITESPACE>type<NO_WHITESPACE>')'
+    parenthesisedTypeOrTerm                                       ::=   '('<NO_WHITESPACE>typeOrTerm<NO_WHITESPACE>')'
+    
+    typeOrTerm                                                    ::=   type | term
     
     metavariableName                                              ::=   [unassigned]
     
@@ -182,12 +184,14 @@ const grammar = `
      
     
 
-    statement                                                     ::=   typeAssertion | equality    
+    statement                                                     ::=   typeAssertion | proofAssertion | equality    
     
     
     
     typeAssertion                                                 ::=   expression ':' type
     
+    proofAssertion                                                ::=   (qualified)Metavariable '::' (qualified)Metavariable
+
     equality                                                      ::=   expression '=' expression
 
     
@@ -206,7 +210,11 @@ const grammar = `
     
     
 
-    label                                                         ::=   [unassigned]
+    label                                                         ::=   labelName<NO_WHITESPACE>parenthesisedTermList?
+    
+    parenthesisedTermList                                         ::=   '('<NO_WHITESPACE>termList<NO_WHITESPACE>')'
+
+    labelName                                                     ::=   [unassigned]
     
     
 

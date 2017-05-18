@@ -17,42 +17,54 @@ class FlorenceParser extends CommonParser {
           significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
 
     mappings = Object.assign({
+
       'part': TransparentNode,
       'premise': TransparentNode,
       'premises': TransparentNode,
-      'byOrFrom': TransparentNode,
-      'typeName': TransparentNode,
       'statement': TransparentNode,
-      'variableName': TransparentNode,
       'subDerivation': TransparentNode,
       'proofDerivation': TransparentNode,
-      '(typed)Variable': TransparentNode,
+      'parenthesisedType': TransparentNode,
+      'abridgedProofDerivation': TransparentNode,
+
+      'typeName': TransparentNode,
+      'labelName': TransparentNode,
+      'variableName': TransparentNode,
       'constructorName': TransparentNode,
       'metavariableName': TransparentNode,
-      'parenthesisedType': TransparentNode,
+
+      'premise(s)': TransparentNode,
       'type(s)Declaration': TransparentNode,
-      'unassignedOrSpecial': TransparentNode,
-      '(qualified)Metavariable': TransparentNode,
-      'abridgedProofDerivation': TransparentNode,
-      '(abridged)ProofDerivation': TransparentNode,
-      'specialKeywordOrUnassigned': TransparentNode,
       '(typed)Variable(s)Declaration': TransparentNode,
       'typedConstructor(s)Declaration': TransparentNode,
+      '(qualified)Metavariable(s)Declaration': TransparentNode,
+
+      '(typed)Variable': TransparentNode,
+      '(qualified)Metavariable': TransparentNode,
+      '(abridged)ProofDerivation': TransparentNode,
+
+      'byOrFrom': TransparentNode,
+      'typeOrTerm': TransparentNode,
       'unjustifiedStatementOrUnknown': TransparentNode,
       '(un)justifiedStatementOrUnknown': TransparentNode,
-      '(qualified)Metavariable(s)Declaration': TransparentNode,
-      'premise(s)': DiscardSecondChildNode,
-      'conclusion': DiscardSecondChildNode,
-      'typedVariable': DiscardSecondChildNode,
-      'typedConstructor': DiscardSecondChildNode,
+      'specialUnassignedOrMinorKeywords': TransparentNode,
+
+      'commaThenTerm': TransparentThenKeepSecondNode,
       'commaThenType': TransparentThenKeepSecondNode,
       'commaThenLabel': TransparentThenKeepSecondNode,
       'commaThenMetavariable': TransparentThenKeepSecondNode,
-      'commaThen(Typed)Variable': TransparentThenKeepSecondNode,
+      'commaThen(typed)Variable': TransparentThenKeepSecondNode,
       'commaThenTypedConstructor': TransparentThenKeepSecondNode,
       'commaThen(qualified)Metavariable': TransparentThenKeepSecondNode,
+
+      'parenthesisedTermList': TransparentThenKeepSecondNode,
       'parenthesisedTypeList': TransparentThenKeepSecondNode,
-      'parenthesisedLabelList': TransparentThenKeepSecondNode
+      'parenthesisedLabelList': TransparentThenKeepSecondNode,
+
+      'conclusion': DiscardSecondChildNode,
+      'typedVariable': DiscardSecondChildNode,
+      'typedConstructor': DiscardSecondChildNode
+
     }, mappings);
 
     const productions = BNFParser.parse(lines, significantTokenTypes, mappings),
