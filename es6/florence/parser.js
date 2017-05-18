@@ -18,6 +18,7 @@ class FlorenceParser extends CommonParser {
 
     mappings = Object.assign({
 
+      'name': TransparentNode,
       'part': TransparentNode,
       'premise': TransparentNode,
       'premises': TransparentNode,

@@ -1,8 +1,10 @@
 'use strict';
 
+//  header? verticalSpace? body?
+
 const grammar = `
 
-    document                                                      ::=   header? verticalSpace? body?
+    document                                                      ::=   statement <END_OF_LINE>*   
                                               
                                               
                                               
@@ -64,7 +66,7 @@ const grammar = `
     
     type                                                          ::=   typeName
 
-    typeName                                                      ::=   [unassigned]
+    typeName                                                      ::=   name
 
     
     
@@ -82,7 +84,7 @@ const grammar = `
     
     parenthesisedTypeList                                         ::=   '('<NO_WHITESPACE>typeList<NO_WHITESPACE>')'
 
-    constructorName                                               ::=   [unassigned]
+    constructorName                                               ::=   name
 
 
 
@@ -100,7 +102,7 @@ const grammar = `
     
     variable                                                      ::=   variableName
     
-    variableName                                                  ::=   [unassigned]
+    variableName                                                  ::=   name
     
     
     
@@ -122,7 +124,7 @@ const grammar = `
     
     typeOrTerm                                                    ::=   type | term
     
-    metavariableName                                              ::=   [unassigned]
+    metavariableName                                              ::=   name
     
     
 
@@ -184,19 +186,19 @@ const grammar = `
      
     
 
-    statement                                                     ::=   (qualified)Metavariable | typeAssertion | proofAssertion | equality    
+    statement                                                     ::=   proofAssertion | typeAssertion | equality | expression     
     
     
-    
-    typeAssertion                                                 ::=   expression ':' type
     
     proofAssertion                                                ::=   (qualified)Metavariable '::' (qualified)Metavariable
 
+    typeAssertion                                                 ::=   expression ':' type
+    
     equality                                                      ::=   expression '=' expression
 
     
     
-    expression                                                    ::=   term
+    expression                                                    ::=   term | (qualified)Metavariable
     
     
 
@@ -214,7 +216,10 @@ const grammar = `
     
     parenthesisedTermList                                         ::=   '('<NO_WHITESPACE>termList<NO_WHITESPACE>')'
 
-    labelName                                                     ::=   [unassigned]
+    labelName                                                     ::=   name
+    
+    
+    name                                                          ::=   /\\w+/
     
     
 
