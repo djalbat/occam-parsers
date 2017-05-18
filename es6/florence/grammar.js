@@ -134,11 +134,11 @@ const grammar = `
     
     premise(s)                                                    ::=   premise | premises
     
-    premise                                                       ::=   'Premise' <END_OF_LINE> unjustifiedStatement
+    premise                                                       ::=   'Premise' <END_OF_LINE> unjustifiedStatementOrUnknown
     
-    premises                                                      ::=   'Premises' <END_OF_LINE> unjustifiedStatement unjustifiedStatement+
+    premises                                                      ::=   'Premises' <END_OF_LINE> unjustifiedStatementOrUnknown unjustifiedStatementOrUnknown+
     
-    conclusion                                                    ::=   'Conclusion' <END_OF_LINE> (un)justifiedStatement
+    conclusion                                                    ::=   'Conclusion' <END_OF_LINE> (un)justifiedStatementOrUnknown
     
 
 
@@ -146,54 +146,58 @@ const grammar = `
     
     (abridged)ProofDerivation                                     ::=   proofDerivation | abridgedProofDerivation
     
-    proofDerivation                                               ::=   derivation therefore
+    abridgedProofDerivation                                       ::=   (un)justifiedStatementOrUnknown
     
-    abridgedProofDerivation                                       ::=   (un)justifiedStatement
+    proofDerivation                                               ::=   derivation therefore
     
     derivation                                                    ::=   subDerivation+    
     
-    therefore                                                     ::=   'Therefore' <END_OF_LINE> (un)justifiedStatement
+    therefore                                                     ::=   'Therefore' <END_OF_LINE> (un)justifiedStatementOrUnknown
     
-    subDerivation                                                 ::=   subLemma | (un)justifiedStatement
+    subDerivation                                                 ::=   subLemma | (un)justifiedStatementOrUnknown
     
     
     
-    subLemma                                                      ::=   suppose then? hence unjustifiedStatement? verticalSpace?    
+    subLemma                                                      ::=   suppose then? hence unjustifiedStatementOrUnknown? verticalSpace?    
     
-    suppose                                                       ::=   'Suppose' <END_OF_LINE> unjustifiedStatement+
+    suppose                                                       ::=   'Suppose' <END_OF_LINE> unjustifiedStatementOrUnknown+
     
     then                                                          ::=   'Then' <END_OF_LINE> derivation
     
-    hence                                                         ::=   'Hence' <END_OF_LINE> (un)justifiedStatement
+    hence                                                         ::=   'Hence' <END_OF_LINE> (un)justifiedStatementOrUnknown
     
     
     
-    (un)justifiedStatement                                        ::=   justifiedStatement | unjustifiedStatement
+    (un)justifiedStatementOrUnknown                               ::=   justifiedStatement | unjustifiedStatement | unknown
+    
+    unjustifiedStatementOrUnknown                                 ::=   unjustifiedStatement | unknown
+    
+    unjustifiedStatement                                          ::=   statement <END_OF_LINE>
     
     justifiedStatement                                            ::=   statement justification <END_OF_LINE>
       
-    unjustifiedStatement                                          ::=   statement <END_OF_LINE>
-    
     justification                                                 ::=   byOrFrom label
      
-    byOrFrom                                                      ::=   'by' | 'from' 
-    
-    label                                                         ::=   [unassigned]
-    
+    byOrFrom                                                      ::=   'by' | 'from'
+     
     
 
-    statement                                                     ::=   typeAssertion | equality | unknown
+    unknown                                                       ::=   unassignedOrSpecial+ <END_OF_LINE>
+
+    unassignedOrSpecial                                           ::=   [unassigned] | [special]
+
+
+
+    statement                                                     ::=   typeAssertion | equality    
     
     
     
     typeAssertion                                                 ::=   expression ':' type
     
     equality                                                      ::=   expression '=' expression
+
     
-    unknown                                                       ::=   unassignedOrSpecial+
-
-
-
+    
     expression                                                    ::=   term
     
     
@@ -208,9 +212,9 @@ const grammar = `
     
     
 
-    unassignedOrSpecial                                           ::=   [unassigned] | [special]
-
-
+    label                                                         ::=   [unassigned]
+    
+    
 
     verticalSpace                                                 ::=   <END_OF_LINE>+
     
