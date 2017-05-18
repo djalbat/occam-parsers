@@ -20,7 +20,7 @@ const grammar = `
                                                         
                                                         |   (typed)Variable(s)Declaration
                                                         
-                                                        |   Metavariable(s)Declaration
+                                                        |   (qualified)Metavariable(s)Declaration
 
                                                         |   rule 
                                                         
@@ -42,7 +42,7 @@ const grammar = `
     
     (typed)Variable(s)Declaration                     ::=   (typed)VariableDeclaration | (typed)VariablesDeclaration
     
-    Metavariable(s)Declaration                        ::=   MetavariablesDeclaration | MetavariableDeclaration
+    (qualified)Metavariable(s)Declaration             ::=   (qualified)MetavariablesDeclaration | (qualified)MetavariableDeclaration
 
     rule                                              ::=   'Rule' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
     
@@ -102,16 +102,20 @@ const grammar = `
     
     
     
-    MetavariablesDeclaration                          ::=   'Metavariables' metavariableList
+    (qualified)MetavariablesDeclaration               ::=   'Metavariables' (qualified)MetavariableList
     
-    MetavariableDeclaration                           ::=   'Metavariable' metavariable
+    (qualified)MetavariableDeclaration                ::=   'Metavariable' (qualified)Metavariable
     
-    metavariableList                                  ::=   metavariable<NO_WHITESPACE>commaThenMetavariable*
+    (qualified)MetavariableList                       ::=   (qualified)Metavariable<NO_WHITESPACE>commaThen(qualified)Metavariable+
 
-    commaThenMetavariable                             ::=   ','<NO_WHITESPACE>metavariable
+    commaThen(qualified)Metavariable                  ::=   ','<NO_WHITESPACE>(qualified)Metavariable
 
-    metavariable                                      ::=   metavariableName<NO_WHITESPACE>parenthesisedType?
+    (qualified)Metavariable                           ::=   qualifiedMetavariable | metavariable
     
+    qualifiedMetavariable                             ::=   metavariable<NO_WHITESPACE>parenthesisedType?
+
+    metavariable                                      ::=   metavariableName
+
     parenthesisedType                                 ::=   '('<NO_WHITESPACE>type<NO_WHITESPACE>')'
     
     metavariableName                                  ::=   [unassigned]

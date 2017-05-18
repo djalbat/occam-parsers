@@ -25,12 +25,15 @@ class FlorenceParser extends CommonParser {
       '(typed)Variable': TransparentNode,
       'constructorName': TransparentNode,
       'metavariableName': TransparentNode,
+      'parenthesisedType': TransparentNode,
       'type(s)Declaration': TransparentNode,
       'specialOrUnassigned': TransparentNode,
       '(un)labelledStatement': TransparentNode,
+      '(qualified)Metavariable': TransparentNode,
       '(typed)Variable(s)Declaration': TransparentNode,
       'typedConstructor(s)Declaration': TransparentNode,
       'subLemmaOr(un)labelledStatement': TransparentNode,
+      '(qualified)Metavariable(s)Declaration': TransparentNode,
       'premise(s)': DiscardSecondChildNode,
       'conclusion': DiscardSecondChildNode,
       'typedVariable': DiscardSecondChildNode,
@@ -41,6 +44,7 @@ class FlorenceParser extends CommonParser {
       'commaThenMetavariable': TransparentThenKeepSecondNode,
       'commaThen(Typed)Variable': TransparentThenKeepSecondNode,
       'commaThenTypedConstructor': TransparentThenKeepSecondNode,
+      'commaThen(qualified)Metavariable': TransparentThenKeepSecondNode,
       'parenthesisedTypeList': TransparentThenKeepSecondNode,
       'parenthesisedLabelList': TransparentThenKeepSecondNode
     }, mappings);
