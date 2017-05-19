@@ -3,21 +3,24 @@
 const easy = require('easy'),
       easylayout = require('easy-layout');
 
-const leftColumnSelector = '#leftColumn',
+const verticalSplitterSelector = '#verticalSplitter',
+      sizeableElementSelector = '#sizeableElement',
       grammarTextareaSelector = 'textarea#grammar',
       contentTextareaSelector = 'textarea#content',
       parseTreeTextareaSelector = 'textarea#parseTree';
 
 const { Textarea } = easy,
-      { options, SizeableElement, VerticalSplitter } = easylayout,
-      { TO_THE_RIGHT_OF } = options;
+      { SizeableElement, VerticalSplitter } = easylayout;
 
-const leftColumn = new SizeableElement(leftColumnSelector),
+const sizeableElement = new SizeableElement(sizeableElementSelector),
       contentTextarea = new Textarea(contentTextareaSelector),
       grammarTextarea = new Textarea(grammarTextareaSelector),
       parseTreeTextarea = new Textarea(parseTreeTextareaSelector);
 
-new VerticalSplitter('.left.vertical.splitter', TO_THE_RIGHT_OF, leftColumn);
+const beforeSizeableElement = false,
+      afterSizeableElement = true;
+
+new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
 
 class Example {
   static getGrammarTextareaValue() { return grammarTextarea.getValue(); }

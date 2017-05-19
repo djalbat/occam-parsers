@@ -4,33 +4,37 @@
     <meta charset="UTF-8">
     <title>Florence example</title>
     <link href="../examples.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../florence.css" rel="stylesheet" type="text/css" media="all">
   </head>
-  <body>
-  <h1>Florence example</h1>
-  <div class="columns">
-    <div id="leftColumn">
-      <h2>Grammar</h2>
-      <textarea id="grammar" spellcheck="false" readonly> </textarea>
-      <h2>Content</h2>
-      <textarea id="content" spellcheck="false"></textarea>
-    </div>
-    <div class="left vertical splitter"></div>
-    <div class="column">
+  <body class="florence">
+    <h1>Florence example</h1>
+    <div class="container">
       <h2>Parse tree</h2>
       <textarea id="parseTree" readonly></textarea>
     </div>
-  </div>
-  <p>
-    <a href="../examples.html">...back</a>
-  </p>
+    <div class="columns">
+      <div id="sizeableElement" class="sizeable">
+        <h2>Grammar</h2>
+        <textarea id="grammar" spellcheck="false" readonly> </textarea>
+      </div><div id="verticalSplitter" class="vertical splitter"></div>
+      <div class="column">
+        <h2>Production name</h2>
+        <textarea id="productionName" spellcheck="false"></textarea>
+        <h2>Content</h2>
+        <textarea id="content" spellcheck="false"></textarea>
+      </div>
+    </div>
+    <p>
+      <a href="../examples.html">...back</a>
+    </p>
 
-  <script src="../examples.js"> </script>
-  <script>
+    <script src="../examples.js"> </script>
+    <script>
 
-    var FlorenceExample = examples.FlorenceExample;
+      var FlorenceExample = examples.FlorenceExample;
 
-    FlorenceExample.run();
+      FlorenceExample.run();
 
-  </script>
+    </script>
   </body>
 </html>

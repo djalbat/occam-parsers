@@ -9,8 +9,20 @@
   padding: 0;
 }
 
-.hidden {
-  display: none;
+h1 {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin: 1rem 0 0.5rem 0;
+}
+
+p,
+ul {
+  text-align: center;
 }
 
 .columns {
@@ -24,42 +36,10 @@
   flex: 1;
 }
 
-.splitter.vertical {
+.vertical.splitter {
   width: 8px;
   min-width: 8px;
   background-color: lightgray;
-}
-
-.column,
-#leftColumn {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-#leftColumn {
-  width: 40rem;
-  min-width: 20rem;
-  max-width: 80rem;
-}
-
-h1 {
-  text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-h2 {
-  font-size: 1.25rem;
-  margin-top: 1rem;
-}
-
-p,
-ul {
-  text-align: center;
-}
-
-textarea.error {
-  border-color: red;
 }
 
 textarea {
@@ -68,18 +48,19 @@ textarea {
   padding: 0.25rem;
   font-family: monospace;
   border: 1px solid darkgray;
-  height: 16rem;
   resize: vertical;
 }
 
+textarea#grammar,
 textarea#parseTree {
-  height: 30rem;
   white-space: pre;
-  font-size: 0.75rem;
   overflow-wrap: normal;
 }
 
-textarea#terminalSymbolsRegExpPattern {
-  height: 3rem;
+textarea#parseTree {
+  font-size: 0.75rem;
 }
 
+textarea.error {
+  border-color: red;
+}

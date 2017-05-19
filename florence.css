@@ -1,0 +1,33 @@
+.column,
+#sizeableElement {
+  margin: 0 1rem 0 1rem;
+}
+
+#sizeableElement {
+  width: 80rem;
+  min-width: 40rem;
+  max-width: 120rem;
+}
+
+.container {
+  padding: 0 1rem 0.5rem 1rem;
+}
+
+textarea#parseTree {
+  height: 15rem;
+}
+
+textarea#content {
+  height: 12rem;
+}
+
+textarea#grammar {
+  height: 24rem;
+  margin-bottom: 1rem;
+}
+
+textarea#productionName {
+  height: 3rem;
+  resize: none;
+}
+

@@ -15,19 +15,19 @@ const terminalSymbolsRegExpPatternTextareaSelector = 'textarea#terminalSymbolsRe
       terminalSymbolsRegExpPattern = `\\+|\\-|\\*|\\/|\\(|\\)|\\d+`,
       grammar = `
   
-        expression                 ::= term operatorThenTerm*
-        
-        operatorThenTerm           ::= operator term
-        
-        operator                   ::= '+' | '-' | '*' | '/'
-        
-        term                       ::= naturalNumber | parenthesizedExpression
-        
-        naturalNumber              ::= /^\\d+$/
-        
-        parenthesizedExpression    ::= '(' expression ')'
+  expression                 ::= term operatorThenTerm*
+  
+  operatorThenTerm           ::= operator term
+  
+  operator                   ::= '+' | '-' | '*' | '/'
+  
+  term                       ::= naturalNumber | parenthesizedExpression
+  
+  naturalNumber              ::= /^\\d+$/
+  
+  parenthesizedExpression    ::= '(' expression ')'
       
-      `;
+`;
 
 let basicLexer = null,
     basicParser = null;
@@ -37,7 +37,7 @@ class BasicExample {
     terminalSymbolsRegExpPatternTextarea = new Textarea(terminalSymbolsRegExpPatternTextareaSelector);
 
     const grammarTextareaValue = grammar, ///
-        terminalSymbolsRegExpPatternTextareaValue = terminalSymbolsRegExpPattern; ///
+          terminalSymbolsRegExpPatternTextareaValue = terminalSymbolsRegExpPattern; ///
 
     Example.setGrammarTextareaValue(grammarTextareaValue);
 
@@ -74,14 +74,14 @@ module.exports = BasicExample;
 
 function updateBasicLexer() {
   const terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternTextarea.getValue(),
-      terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue,  ///
-      terminalSymbolsRegExpPatternIsValid = regExpPatternIsValid(terminalSymbolsRegExpPattern);
+        terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue,  ///
+        terminalSymbolsRegExpPatternIsValid = regExpPatternIsValid(terminalSymbolsRegExpPattern);
 
   if (terminalSymbolsRegExpPatternIsValid) {
     const terminalSymbolsRegExp = new RegExp(terminalSymbolsRegExpPattern),
-        grammar = [
-          { terminal : terminalSymbolsRegExp }
-        ];
+          grammar = [{
+            terminal : terminalSymbolsRegExp
+          }];
 
     basicLexer = BasicLexer.fromGrammar(grammar);
 
