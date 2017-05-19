@@ -57,7 +57,9 @@ function update() {
   updateBasicParser();
 
   if (basicLexer !== null) {
-    Example.updateParseTree(basicLexer, basicParser);
+    const production = null;  ///
+
+    Example.updateParseTree(basicLexer, basicParser, production);
   } else {
     Example.clearParseTree();
   }

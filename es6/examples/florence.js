@@ -23,9 +23,9 @@ class FlorenceExample {
 
     const grammarTextareaValue = florenceGrammar; ///
 
-    productionNameTextarea.onKeyUp(update);
-
     Example.setGrammarTextareaValue(grammarTextareaValue);
+
+    productionNameTextarea.onKeyUp(update);
 
     Example.onGrammarTextareaKeyUp(update);
 
