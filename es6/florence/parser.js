@@ -13,7 +13,7 @@ const significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
 
 class FlorenceParser extends CommonParser {
   static fromAdditionalMappings(additionalMappings) {
-    const florenceParser = FlorenceParser.fromGrammarAndAdditionalMappings(grammar, Object.assign(mappings, additionalMappings)); ///
+    const florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, Object.assign(mappings, additionalMappings)); ///
 
     return florenceParser;
   }
