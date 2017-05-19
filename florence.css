@@ -13,6 +13,11 @@
   padding: 0 1rem 0.5rem 1rem;
 }
 
+.column h2,
+#sizeableElement h2 {
+  margin-top: 0;
+}
+
 textarea#parseTree {
   height: 15rem;
 }
@@ -29,5 +34,6 @@ textarea#grammar {
 textarea#productionName {
   height: 3rem;
   resize: none;
+  margin-bottom: 1rem;
 }
 

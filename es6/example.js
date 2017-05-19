@@ -3,42 +3,44 @@
 const easy = require('easy'),
       easylayout = require('easy-layout');
 
-const verticalSplitterSelector = '#verticalSplitter',
-      sizeableElementSelector = '#sizeableElement',
-      grammarTextareaSelector = 'textarea#grammar',
-      contentTextareaSelector = 'textarea#content',
-      parseTreeTextareaSelector = 'textarea#parseTree';
-
 const { Textarea } = easy,
       { SizeableElement, VerticalSplitter } = easylayout;
 
-const sizeableElement = new SizeableElement(sizeableElementSelector),
-      contentTextarea = new Textarea(contentTextareaSelector),
+const grammarTextareaSelector = 'textarea#grammar',
+      contentTextareaSelector = 'textarea#content',
+      parseTreeTextareaSelector = 'textarea#parseTree',
+      sizeableElementSelector = '#sizeableElement',
+      verticalSplitterSelector = '#verticalSplitter',
       grammarTextarea = new Textarea(grammarTextareaSelector),
-      parseTreeTextarea = new Textarea(parseTreeTextareaSelector);
-
-const beforeSizeableElement = false,
+      contentTextarea = new Textarea(contentTextareaSelector),
+      parseTreeTextarea = new Textarea(parseTreeTextareaSelector),
+      sizeableElement = new SizeableElement(sizeableElementSelector),
+      beforeSizeableElement = false,
       afterSizeableElement = true;
 
 new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
 
 class Example {
-  static getGrammarTextareaValue() { return grammarTextarea.getValue(); }
+  static getGrammarTextareaValue() {
+    const grammarTextareaValue = grammarTextarea.getValue();
 
-  static setGrammarTextareaValue(value) { grammarTextarea.setValue(value); }
+    return grammarTextareaValue;
+  }
 
-  static onContentTextareaKeyUp(handler) { contentTextarea.on('keyup', function() {
-    const content = contentTextarea.getValue(); ///
+  static setGrammarTextareaValue(grammarTextareaValue) {
+    const value = grammarTextareaValue; ///
 
-    handler(content);
-  }); }
+    grammarTextarea.setValue(value);
+  }
 
-  static onGrammarTextareaChange(handler) { grammarTextarea.onChange(handler); }
+  static onContentTextareaKeyUp(handler) { contentTextarea.onKeyUp(handler); }
+
+  static onGrammarTextareaKeyUp(handler) { grammarTextarea.onKeyUp(handler); }
 
   static updateParseTree(lexer, parser) {
     try {
       const contentTextareaValue = contentTextarea.getValue(),
-          content = contentTextareaValue;  ///
+            content = contentTextareaValue;  ///
 
       if (content !== '') {
         const contents = content.split(/\n/),

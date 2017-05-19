@@ -9,53 +9,46 @@ const BasicParser = require('../basic/parser'),
 const { Textarea } = easy,
       { BasicLexer } = lexers;
 
-let terminalSymbolsRegExpPatternTextarea;
-
 const terminalSymbolsRegExpPatternTextareaSelector = 'textarea#terminalSymbolsRegExpPattern',
       terminalSymbolsRegExpPattern = `\\+|\\-|\\*|\\/|\\(|\\)|\\d+`,
       grammar = `
   
-  expression                 ::= term operatorThenTerm*
-  
-  operatorThenTerm           ::= operator term
-  
-  operator                   ::= '+' | '-' | '*' | '/'
-  
-  term                       ::= naturalNumber | parenthesizedExpression
-  
-  naturalNumber              ::= /^\\d+$/
-  
-  parenthesizedExpression    ::= '(' expression ')'
-      
-`;
+    expression                 ::= term operatorThenTerm*
+    
+    operatorThenTerm           ::= operator term
+    
+    operator                   ::= '+' | '-' | '*' | '/'
+    
+    term                       ::= naturalNumber | parenthesizedExpression
+    
+    naturalNumber              ::= /^\\d+$/
+    
+    parenthesizedExpression    ::= '(' expression ')'
+          
+      `;
 
-let basicLexer = null,
+let terminalSymbolsRegExpPatternTextarea,
+    basicLexer = null,
     basicParser = null;
 
 class BasicExample {
   static run() {
-    terminalSymbolsRegExpPatternTextarea = new Textarea(terminalSymbolsRegExpPatternTextareaSelector);
-
     const grammarTextareaValue = grammar, ///
           terminalSymbolsRegExpPatternTextareaValue = terminalSymbolsRegExpPattern; ///
+
+    terminalSymbolsRegExpPatternTextarea = new Textarea(terminalSymbolsRegExpPatternTextareaSelector);
 
     Example.setGrammarTextareaValue(grammarTextareaValue);
 
     terminalSymbolsRegExpPatternTextarea.setValue(terminalSymbolsRegExpPatternTextareaValue);
 
+    terminalSymbolsRegExpPatternTextarea.onKeyUp(update);
+
+    Example.onGrammarTextareaKeyUp(update);
+
+    Example.onContentTextareaKeyUp(update);
+
     update();
-
-    terminalSymbolsRegExpPatternTextarea.onChange(function() {
-      update();
-    });
-
-    Example.onGrammarTextareaChange(function() {
-      update();
-    });
-
-    Example.onContentTextareaKeyUp(function() {
-      update();
-    });
   }
 }
 
@@ -79,8 +72,9 @@ function updateBasicLexer() {
 
   if (terminalSymbolsRegExpPatternIsValid) {
     const terminalSymbolsRegExp = new RegExp(terminalSymbolsRegExpPattern),
+          terminal = terminalSymbolsRegExp, ///
           grammar = [{
-            terminal : terminalSymbolsRegExp
+            terminal : terminal
           }];
 
     basicLexer = BasicLexer.fromGrammar(grammar);

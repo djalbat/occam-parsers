@@ -17,11 +17,9 @@ class FlorenceExample {
 
     Example.setGrammarTextareaValue(grammarTextareaValue);
 
-    update();
+    Example.onContentTextareaKeyUp(update);
 
-    Example.onContentTextareaKeyUp(function() {
-      update();
-    });
+    update();
   }
 }
 
