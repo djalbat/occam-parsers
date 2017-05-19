@@ -5,25 +5,31 @@ const easy = require('easy'),
 
 const Example = require('../example'),
       FlorenceParser = require('../florence/parser'),
-      florenceGrammar = require('../florence/grammar');
+      grammar = require('../florence/grammar'),
+      mappings = require('../florence/mappings');
 
-const { Textarea } = easy,
+const { Checkbox, Textarea } = easy,
       { FlorenceLexer } = lexers;
 
-const productionNameTextareaSelector = 'textarea#productionName';
+const mappingsCheckboxSelector = '#mappings',
+      productionNameTextareaSelector = '#productionName';
 
 const florenceLexer = FlorenceLexer.fromNothing();
 
 let productionName,
+    mappingsCheckbox,
     productionNameTextarea;
 
 class FlorenceExample {
   static run() {
+    mappingsCheckbox = new Checkbox(mappingsCheckboxSelector);
     productionNameTextarea = new Textarea(productionNameTextareaSelector);
 
-    const grammarTextareaValue = florenceGrammar; ///
+    const grammarTextareaValue = grammar; ///
 
     Example.setGrammarTextareaValue(grammarTextareaValue);
+
+    mappingsCheckbox.onChange(update);
 
     productionNameTextarea.onKeyUp(update);
 
@@ -36,11 +42,13 @@ class FlorenceExample {
 }
 
 function update() {
-  const grammarTextareaValue = Example.getGrammarTextareaValue(),
+  const mappingsCheckboxChecked = mappingsCheckbox.isChecked(),
+        grammarTextareaValue = Example.getGrammarTextareaValue(),
         productionNameTextareaValue = productionNameTextarea.getValue(),
-        grammar = grammarTextareaValue, ///
+        adjustedMappings = mappingsCheckboxChecked ? mappings : {},
+        adjustedGrammar = grammarTextareaValue, ///
         productionName = productionNameTextareaValue, ///
-        florenceParser = FlorenceParser.fromGrammar(grammar),
+        florenceParser = FlorenceParser.fromGrammarAndMappings(adjustedGrammar, adjustedMappings),
         production = florenceParser.findProduction(productionName);
 
   Example.updateParseTree(florenceLexer, florenceParser, production);

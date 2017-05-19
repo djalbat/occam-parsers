@@ -18,8 +18,12 @@
   margin-top: 0;
 }
 
+input[type="checkbox"] {
+  margin-bottom: 1rem;
+}
+
 textarea#parseTree {
-  height: 15rem;
+  height: 12rem;
 }
 
 textarea#content {
@@ -27,7 +31,7 @@ textarea#content {
 }
 
 textarea#grammar {
-  height: 24rem;
+  height: 21rem;
   margin-bottom: 1rem;
 }
 

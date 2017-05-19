@@ -8,8 +8,6 @@ const mappings = {
 
   'name': TransparentNode,
   'part': TransparentNode,
-  'premise': TransparentNode,
-  'premises': TransparentNode,
   'statement': TransparentNode,
   'subDerivation': TransparentNode,
   'proofDerivation': TransparentNode,

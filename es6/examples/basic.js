@@ -9,7 +9,7 @@ const BasicParser = require('../basic/parser'),
 const { Textarea } = easy,
       { BasicLexer } = lexers;
 
-const terminalSymbolsRegExpPatternTextareaSelector = 'textarea#terminalSymbolsRegExpPattern',
+const terminalSymbolsRegExpPatternTextareaSelector = '#terminalSymbolsRegExpPattern',
       terminalSymbolsRegExpPattern = `\\+|\\-|\\*|\\/|\\(|\\)|\\d+`,
       grammar = `
   

@@ -18,15 +18,19 @@ class RegularExpressionPart {
           significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      const content = significantToken.getContent(),
-            matches = content.match(this.regExp);
+      const type = significantToken.getType();
 
-      if (matches !== null) {
-        const firstMatch = first(matches),
-              parsed = (firstMatch === content);
+      if (type === 'unassigned') {
+        const content = significantToken.getContent(),
+              matches = content.match(this.regExp);
 
-        if (parsed) {
-          terminalNode = TerminalNode.fromSignificantToken(significantToken);
+        if (matches !== null) {
+          const firstMatch = first(matches),
+                parsed = (firstMatch === content);
+
+          if (parsed) {
+            terminalNode = TerminalNode.fromSignificantToken(significantToken);
+          }
         }
       }
     }
