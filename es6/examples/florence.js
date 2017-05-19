@@ -1,21 +1,33 @@
 'use strict';
 
-const lexers = require('occam-lexers');
+const easy = require('easy'),
+      lexers = require('occam-lexers');
 
 const Example = require('../example'),
       FlorenceParser = require('../florence/parser'),
       florenceGrammar = require('../florence/grammar');
 
-const { FlorenceLexer } = lexers;
+const { Textarea } = easy,
+      { FlorenceLexer } = lexers;
 
-const florenceLexer = FlorenceLexer.fromNothing(),
-      florenceParser = FlorenceParser.fromNothing();
+const productionNameTextareaSelector = 'textarea#productionName';
+
+const florenceLexer = FlorenceLexer.fromNothing();
+
+let productionName,
+    productionNameTextarea;
 
 class FlorenceExample {
   static run() {
+    productionNameTextarea = new Textarea(productionNameTextareaSelector);
+
     const grammarTextareaValue = florenceGrammar; ///
 
+    productionNameTextarea.onKeyUp(update);
+
     Example.setGrammarTextareaValue(grammarTextareaValue);
+
+    Example.onGrammarTextareaKeyUp(update);
 
     Example.onContentTextareaKeyUp(update);
 
@@ -24,7 +36,14 @@ class FlorenceExample {
 }
 
 function update() {
-  Example.updateParseTree(florenceLexer, florenceParser);
+  const grammarTextareaValue = Example.getGrammarTextareaValue(),
+        productionNameTextareaValue = productionNameTextarea.getValue(),
+        grammar = grammarTextareaValue, ///
+        productionName = productionNameTextareaValue, ///
+        florenceParser = FlorenceParser.fromGrammar(grammar),
+        production = florenceParser.findProduction(productionName);
+
+  Example.updateParseTree(florenceLexer, florenceParser, production);
 }
 
 module.exports = FlorenceExample;

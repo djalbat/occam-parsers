@@ -37,7 +37,7 @@ class Example {
 
   static onGrammarTextareaKeyUp(handler) { grammarTextarea.onKeyUp(handler); }
 
-  static updateParseTree(lexer, parser) {
+  static updateParseTree(lexer, parser, production) {
     try {
       const contentTextareaValue = contentTextarea.getValue(),
             content = contentTextareaValue;  ///
@@ -46,7 +46,7 @@ class Example {
         const contents = content.split(/\n/),
               lines = lexer.linesFromContents(contents),
               tokens = tokensFromLines(lines),
-              documentNode = parser.parse(tokens);
+              documentNode = parser.parse(tokens, production);
 
         if (documentNode === null) {
           throw new Error('The document cannot be parsed for some reason.');

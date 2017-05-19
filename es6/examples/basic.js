@@ -33,10 +33,10 @@ let terminalSymbolsRegExpPatternTextarea,
 
 class BasicExample {
   static run() {
+    terminalSymbolsRegExpPatternTextarea = new Textarea(terminalSymbolsRegExpPatternTextareaSelector);
+
     const grammarTextareaValue = grammar, ///
           terminalSymbolsRegExpPatternTextareaValue = terminalSymbolsRegExpPattern; ///
-
-    terminalSymbolsRegExpPatternTextarea = new Textarea(terminalSymbolsRegExpPatternTextareaSelector);
 
     Example.setGrammarTextareaValue(grammarTextareaValue);
 

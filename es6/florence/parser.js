@@ -3,72 +3,26 @@
 const lexers = require('occam-lexers');
 
 const grammar = require('./grammar'),
+      mappings = require('./mappings'),
       BNFParser = require('../bnf/parser'),
-      CommonParser = require('../common/parser'),
-      TransparentNode = require('../common/node/nonTerminal/transparent'),
-      DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChild'),
-      TransparentThenKeepSecondNode = require('../common/node/nonTerminal/transparentThenKeepSecond');
+      CommonParser = require('../common/parser');
 
 const { BNFLexer, FlorenceLexer } = lexers;
 
+const significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
+
 class FlorenceParser extends CommonParser {
-  static fromNothing(mappings) {
+  static fromAdditionalMappings(additionalMappings) {
     const lines = BNFLexer.linesFromGrammar(grammar),
-          significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
+          productions = BNFParser.parse(lines, significantTokenTypes, Object.assign(mappings, additionalMappings)), ///
+          florenceParser = new FlorenceParser(productions);
 
-    mappings = Object.assign({
+    return florenceParser;
+  }
 
-      'name': TransparentNode,
-      'part': TransparentNode,
-      'premise': TransparentNode,
-      'premises': TransparentNode,
-      'statement': TransparentNode,
-      'subDerivation': TransparentNode,
-      'proofDerivation': TransparentNode,
-      'parenthesisedType': TransparentNode,
-      'abridgedProofDerivation': TransparentNode,
-
-      'typeName': TransparentNode,
-      'labelName': TransparentNode,
-      'variableName': TransparentNode,
-      'constructorName': TransparentNode,
-      'metavariableName': TransparentNode,
-
-      'premise(s)': TransparentNode,
-      'type(s)Declaration': TransparentNode,
-      '(typed)Variable(s)Declaration': TransparentNode,
-      'typedConstructor(s)Declaration': TransparentNode,
-      '(qualified)Metavariable(s)Declaration': TransparentNode,
-
-      '(typed)Variable': TransparentNode,
-      '(qualified)Metavariable': TransparentNode,
-      '(abridged)ProofDerivation': TransparentNode,
-
-      'byOrFrom': TransparentNode,
-      'typeOrTerm': TransparentNode,
-      'unjustifiedStatementOrUnknown': TransparentNode,
-      '(un)justifiedStatementOrUnknown': TransparentNode,
-      'specialUnassignedOrMinorKeywords': TransparentNode,
-
-      'commaThenTerm': TransparentThenKeepSecondNode,
-      'commaThenType': TransparentThenKeepSecondNode,
-      'commaThenLabel': TransparentThenKeepSecondNode,
-      'commaThenMetavariable': TransparentThenKeepSecondNode,
-      'commaThen(typed)Variable': TransparentThenKeepSecondNode,
-      'commaThenTypedConstructor': TransparentThenKeepSecondNode,
-      'commaThen(qualified)Metavariable': TransparentThenKeepSecondNode,
-
-      'parenthesisedTermList': TransparentThenKeepSecondNode,
-      'parenthesisedTypeList': TransparentThenKeepSecondNode,
-      'parenthesisedLabelList': TransparentThenKeepSecondNode,
-
-      'conclusion': DiscardSecondChildNode,
-      'typedVariable': DiscardSecondChildNode,
-      'typedConstructor': DiscardSecondChildNode
-
-    }, mappings);
-
-    const productions = BNFParser.parse(lines, significantTokenTypes, mappings),
+  static fromGrammar(grammar) {
+    const lines = BNFLexer.linesFromGrammar(grammar),
+          productions = BNFParser.parse(lines, significantTokenTypes, mappings),
           florenceParser = new FlorenceParser(productions);
 
     return florenceParser;
