@@ -17,6 +17,7 @@ const mappings = {
   'typeName': TransparentNode,
   'labelName': TransparentNode,
   'variableName': TransparentNode,
+  'referenceName': TransparentNode,
   'constructorName': TransparentNode,
   'metavariableName': TransparentNode,
 

@@ -2,6 +2,7 @@
 
 const grammar = `
 
+
     document                                                      ::=   header? verticalSpace? body?   
                                               
                                               
@@ -132,6 +133,10 @@ const grammar = `
     
     commaThenLabel                                                ::=   ','<NO_WHITESPACE>label
     
+    label                                                         ::=   labelName<NO_WHITESPACE>parenthesisedTermList?
+    
+    labelName                                                     ::=   name
+
     
     
     premise(s)                                                    ::=   premise | premises
@@ -178,10 +183,14 @@ const grammar = `
     
     justifiedStatement                                            ::=   statement justification <END_OF_LINE>
       
-    justification                                                 ::=   byOrFrom label
+    justification                                                 ::=   byOrFrom reference
      
     byOrFrom                                                      ::=   'by' | 'from'
      
+    reference                                                     ::=   referenceName<NO_WHITESPACE>parenthesisedTermList?
+
+    referenceName                                                 ::=   name
+
     
 
     statement                                                     ::=   proofAssertion | typeAssertion | equality | expression     
@@ -192,31 +201,26 @@ const grammar = `
 
     typeAssertion                                                 ::=   expression ':' type
     
-    equality                                                      ::=   expression '=' expression
-
-    
+    equality                                                      ::=   expression '=' expression    
     
     expression                                                    ::=   term | (qualified)Metavariable
     
     
 
-    term                                                          ::=   compoundTerm | variableName | constructorName
+    term                                                          ::=   compoundTerm | variableName
     
-    compoundTerm                                                  ::=   constructorName<NO_WHITESPACE>'('<NO_WHITESPACE>termList<NO_WHITESPACE>')'
+    compoundTerm                                                  ::=   constructorName<NO_WHITESPACE>parenthesisedTermList?
     
+    
+
+    parenthesisedTermList                                         ::=   '('<NO_WHITESPACE>termList<NO_WHITESPACE>')'
+
     termList                                                      ::=   term<NO_WHITESPACE>commaThenTerm*
     
     commaThenTerm                                                 ::=   ','<NO_WHITESPACE>term
     
-    
 
-    label                                                         ::=   labelName<NO_WHITESPACE>parenthesisedTermList?
-    
-    parenthesisedTermList                                         ::=   '('<NO_WHITESPACE>termList<NO_WHITESPACE>')'
 
-    labelName                                                     ::=   name
-    
-    
     name                                                          ::=   /\\w+/
     
     
