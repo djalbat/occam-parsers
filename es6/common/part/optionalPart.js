@@ -13,7 +13,7 @@ class OptionalPartPart extends SequenceOfPartsPart {
     
     if (terminalPartOrProduction !== null) {
       const terminalPartOrProductionNodeOrNodes = terminalPartOrProduction.parse(context, noWhitespace),
-          terminalPartOrProductionParsed = (terminalPartOrProductionNodeOrNodes !== null);
+            terminalPartOrProductionParsed = (terminalPartOrProductionNodeOrNodes !== null);
 
       if (terminalPartOrProductionParsed) {
         nodes = terminalPartOrProductionNodeOrNodes;

@@ -40,28 +40,23 @@ class Example {
   static updateParseTree(lexer, parser, production) {
     try {
       const contentTextareaValue = contentTextarea.getValue(),
-            content = contentTextareaValue;  ///
+            content = contentTextareaValue, ///
+            lines = lexer.linesFromContent(content),
+            node = parser.nodeFromLines(lines, production),
+            documentNode = node;  ///
 
-      if (content !== '') {
-        const lines = lexer.linesFromContent(content),
-              node = parser.nodeFromLines(lines, production),
-              documentNode = node;  ///
-
-        if (documentNode === null) {
-          throw new Error('The document cannot be parsed for some reason.');
-        }
-
-        const parseTree = documentNode.parseTree(lines);
-
-        parseTree.shiftLine();  //
-
-        const parseTreeString = parseTree.toString(),
-              parseTreeTextareaHTML = parseTreeString;  ///
-
-        parseTreeTextarea.html(parseTreeTextareaHTML);
-      } else {
-        Example.clearParseTree();
+      if (documentNode === null) {
+        throw new Error('The document cannot be parsed for some reason.');
       }
+
+      const parseTree = documentNode.parseTree(lines);
+
+      parseTree.shiftLine();  //
+
+      const parseTreeString = parseTree.toString(),
+            parseTreeTextareaHTML = parseTreeString;  ///
+
+      parseTreeTextarea.html(parseTreeTextareaHTML);
 
       contentTextarea.removeClass('error');
     } catch (error) {
