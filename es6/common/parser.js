@@ -10,8 +10,15 @@ class CommonParser {
   getProductions() {
     return this.productions;
   }
+  
+  nodeFromLines(lines, production = null) {
+    const tokens = tokensFromLines(lines),
+          node = this.parse(tokens, production);
+    
+    return node;
+  }
 
-  parse(tokens, production = null) {
+  parse(tokens, production) {
     let node = null;
 
     if (production === null) {
@@ -72,5 +79,17 @@ class CommonParser {
 }
 
 module.exports = CommonParser;
+
+function tokensFromLines(lines) {
+  const tokens = lines.reduce(function(tokens, line) {
+   const lineTokens = line.getTokens();
+
+    tokens = tokens.concat(lineTokens);
+
+    return tokens;
+  }, []);
+
+  return tokens;
+}
 
 function first(array) { return array[0]; }

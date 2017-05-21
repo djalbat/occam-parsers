@@ -44,8 +44,8 @@ class Example {
 
       if (content !== '') {
         const lines = lexer.linesFromContent(content),
-              tokens = tokensFromLines(lines),
-              documentNode = parser.parse(tokens, production);
+              node = parser.nodeFromLines(lines, production),
+              documentNode = node;  ///
 
         if (documentNode === null) {
           throw new Error('The document cannot be parsed for some reason.');
@@ -80,14 +80,3 @@ class Example {
 
 module.exports = Example;
 
-function tokensFromLines(lines) {
-  const tokens = lines.reduce(function(tokens, line) {
-          const lineTokens = line.getTokens();
-      
-          tokens = tokens.concat(lineTokens);
-      
-          return tokens;
-        }, []);
-      
-  return tokens;
-}
