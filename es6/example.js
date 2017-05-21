@@ -43,8 +43,7 @@ class Example {
             content = contentTextareaValue;  ///
 
       if (content !== '') {
-        const contents = content.split(/\n/),
-              lines = lexer.linesFromContents(contents),
+        const lines = lexer.linesFromContent(content),
               tokens = tokensFromLines(lines),
               documentNode = parser.parse(tokens, production);
 
