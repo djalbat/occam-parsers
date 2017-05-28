@@ -4,8 +4,8 @@ const lexers = require('occam-lexers');
 
 const grammar = require('./grammar'),
       mappings = require('./mappings'),
-      BNFParser = require('../bnf/parser'),
-      CommonParser = require('../common/parser');
+      CommonParser = require('../common/parser'),
+      PrimitiveParser = require('../primitive/parser');
 
 const { BNFLexer, FlorenceLexer } = lexers;
 
@@ -20,7 +20,7 @@ class FlorenceParser extends CommonParser {
 
   static fromGrammarAndMappings(grammar, mappings) {
     const lines = BNFLexer.linesFromGrammar(grammar),
-          productions = BNFParser.parse(lines, significantTokenTypes, mappings),
+          productions = PrimitiveParser.parse(lines, significantTokenTypes, mappings),
           florenceParser = new FlorenceParser(productions);
 
     return florenceParser;
