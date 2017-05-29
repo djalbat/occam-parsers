@@ -7,9 +7,9 @@ const grammar = require('./grammar'),
       CommonParser = require('../common/parser'),
       PrimitiveParser = require('../primitive/parser');
 
-const { BNFLexer, FlorenceLexer } = lexers;
+const { PrimitiveLexer, FlorenceLexer } = lexers;
 
-const significantTokenTypes = FlorenceLexer.getSignificantTokenTypes();
+const significantTokenTypes = FlorenceLexer.significantTokenTypes();
 
 class FlorenceParser extends CommonParser {
   static fromAdditionalMappings(additionalMappings) {
@@ -19,7 +19,7 @@ class FlorenceParser extends CommonParser {
   }
 
   static fromGrammarAndMappings(grammar, mappings) {
-    const lines = BNFLexer.linesFromGrammar(grammar),
+    const lines = PrimitiveLexer.linesFromGrammar(grammar),
           productions = PrimitiveParser.parse(lines, significantTokenTypes, mappings),
           florenceParser = new FlorenceParser(productions);
 

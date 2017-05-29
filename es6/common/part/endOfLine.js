@@ -2,7 +2,7 @@
 
 const lexers = require('occam-lexers');
 
-const { specialSymbols, SignificantToken } = lexers;
+const { specialSymbols, EndOfLineToken } = lexers;
 
 const TerminalNode = require('../../common/node/terminal');
 
@@ -22,7 +22,7 @@ class EndOfLinePart {
 
     if (significantToken !== null) {
       const type = significantToken.getType(),
-           found = (type === SignificantToken.types.endOfLine);
+            found = (type === EndOfLineToken.type);
 
       if (found) {
         terminalNode = TerminalNode.fromSignificantToken(significantToken);

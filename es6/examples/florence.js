@@ -25,15 +25,15 @@ class FlorenceExample {
     mappingsCheckbox = new Checkbox(mappingsCheckboxSelector);
     productionNameTextarea = new Textarea(productionNameTextareaSelector);
 
-    const grammarTextareaValue = grammar; ///
+    const bnfGrammarTextareaValue = grammar; ///
 
-    Example.setGrammarTextareaValue(grammarTextareaValue);
+    Example.setBNFGrammarTextareaValue(bnfGrammarTextareaValue);
 
     mappingsCheckbox.onChange(update);
 
     productionNameTextarea.onKeyUp(update);
 
-    Example.onGrammarTextareaKeyUp(update);
+    Example.onBNFGrammarTextareaKeyUp(update);
 
     Example.onContentTextareaKeyUp(update);
 
@@ -43,15 +43,17 @@ class FlorenceExample {
 
 function update() {
   const mappingsCheckboxChecked = mappingsCheckbox.isChecked(),
-        grammarTextareaValue = Example.getGrammarTextareaValue(),
+        bnfGrammarTextareaValue = Example.getBNFGrammarTextareaValue(),
         productionNameTextareaValue = productionNameTextarea.getValue(),
-        adjustedMappings = mappingsCheckboxChecked ? mappings : {},
-        adjustedGrammar = grammarTextareaValue, ///
+        adjustedMappings = mappingsCheckboxChecked ? 
+                             mappings : 
+                               {},
+        adjustedGrammar = bnfGrammarTextareaValue, ///
         productionName = productionNameTextareaValue, ///
         florenceParser = FlorenceParser.fromGrammarAndMappings(adjustedGrammar, adjustedMappings),
         production = florenceParser.findProduction(productionName);
 
-  Example.updateParseTree(florenceLexer, florenceParser, production);
+  Example.updateParseTreeTextarea(florenceLexer, florenceParser, production);
 }
 
 module.exports = FlorenceExample;

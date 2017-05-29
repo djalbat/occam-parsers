@@ -6,14 +6,14 @@ const easy = require('easy'),
 const { Textarea } = easy,
       { SizeableElement, VerticalSplitter } = easylayout;
 
-const grammarTextareaSelector = 'textarea#grammar',
-      contentTextareaSelector = 'textarea#content',
+const contentTextareaSelector = 'textarea#content',
       parseTreeTextareaSelector = 'textarea#parseTree',
+      bnfGrammarTextareaSelector = 'textarea#bnfGrammar',
       sizeableElementSelector = '#sizeableElement',
       verticalSplitterSelector = '#verticalSplitter',
-      grammarTextarea = new Textarea(grammarTextareaSelector),
       contentTextarea = new Textarea(contentTextareaSelector),
       parseTreeTextarea = new Textarea(parseTreeTextareaSelector),
+      bnfGrammarTextarea = new Textarea(bnfGrammarTextareaSelector),
       sizeableElement = new SizeableElement(sizeableElementSelector),
       beforeSizeableElement = false,
       afterSizeableElement = true;
@@ -21,23 +21,15 @@ const grammarTextareaSelector = 'textarea#grammar',
 new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
 
 class Example {
-  static getGrammarTextareaValue() {
-    const grammarTextareaValue = grammarTextarea.getValue();
+  static getBNFGrammarTextareaValue() { return bnfGrammarTextarea.getValue(); }
 
-    return grammarTextareaValue;
-  }
+  static setBNFGrammarTextareaValue(value) { bnfGrammarTextarea.setValue(value); }
 
-  static setGrammarTextareaValue(grammarTextareaValue) {
-    const value = grammarTextareaValue; ///
-
-    grammarTextarea.setValue(value);
-  }
+  static onBNFGrammarTextareaKeyUp(handler) { bnfGrammarTextarea.onKeyUp(handler); }
 
   static onContentTextareaKeyUp(handler) { contentTextarea.onKeyUp(handler); }
 
-  static onGrammarTextareaKeyUp(handler) { grammarTextarea.onKeyUp(handler); }
-
-  static updateParseTree(lexer, parser, production) {
+  static updateParseTreeTextarea(lexer, parser, production) {
     try {
       const contentTextareaValue = contentTextarea.getValue(),
             content = contentTextareaValue, ///
@@ -62,11 +54,11 @@ class Example {
     } catch (error) {
       contentTextarea.addClass('error');
     
-      Example.clearParseTree();
+      Example.clearParseTreeTextarea();
     }
   }
 
-  static clearParseTree() {
+  static clearParseTreeTextarea() {
     const parseTreeTextareaHTML = '';
 
     parseTreeTextarea.html(parseTreeTextareaHTML);

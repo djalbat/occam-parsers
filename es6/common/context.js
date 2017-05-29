@@ -2,7 +2,7 @@
 
 const lexers = require('occam-lexers');
 
-const { SignificantToken } = lexers;
+const { SignificantToken, WhitespaceToken } = lexers;
 
 const DEFAULT_MAXIMUM_DEPTH = 99;
 
@@ -128,7 +128,7 @@ module.exports = Context;
 
 function significantTokenIsWhitespaceToken(significantToken) {
   const type = significantToken.getType(),
-        whitespaceToken = (type === SignificantToken.types.whitespace);
+        whitespaceToken = (type === WhitespaceToken.type);
   
   return whitespaceToken;
 }

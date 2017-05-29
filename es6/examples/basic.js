@@ -9,9 +9,9 @@ const BasicParser = require('../basic/parser'),
 const { Textarea } = easy,
       { BasicLexer } = lexers;
 
-const terminalSymbolsRegExpPatternTextareaSelector = '#terminalSymbolsRegExpPattern',
-      terminalSymbolsRegExpPattern = `\\+|\\-|\\*|\\/|\\(|\\)|\\d+`,
-      grammar = `
+const lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
+      lexicalGrammar = BasicLexer.grammar,
+      bnfGrammar = `
   
     expression                 ::= term operatorThenTerm*
     
@@ -25,28 +25,28 @@ const terminalSymbolsRegExpPatternTextareaSelector = '#terminalSymbolsRegExpPatt
     
     parenthesizedExpression    ::= '(' expression ')'
           
-      `;
+`;
 
-let terminalSymbolsRegExpPatternTextarea,
+let lexicalGrammarTextarea,
     basicLexer = null,
     basicParser = null;
 
 class BasicExample {
   static run() {
-    terminalSymbolsRegExpPatternTextarea = new Textarea(terminalSymbolsRegExpPatternTextareaSelector);
+    lexicalGrammarTextarea = new Textarea(lexicalGrammarTextareaSelector);
 
-    const grammarTextareaValue = grammar, ///
-          terminalSymbolsRegExpPatternTextareaValue = terminalSymbolsRegExpPattern; ///
+    const bnfGrammarTextareaValue = bnfGrammar, ///
+          lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '); ///
 
-    Example.setGrammarTextareaValue(grammarTextareaValue);
+    lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
 
-    terminalSymbolsRegExpPatternTextarea.setValue(terminalSymbolsRegExpPatternTextareaValue);
+    Example.setBNFGrammarTextareaValue(bnfGrammarTextareaValue);
 
-    terminalSymbolsRegExpPatternTextarea.onKeyUp(update);
-
-    Example.onGrammarTextareaKeyUp(update);
+    Example.onBNFGrammarTextareaKeyUp(update);
 
     Example.onContentTextareaKeyUp(update);
+
+    lexicalGrammarTextarea.onKeyUp(update);
 
     update();
   }
@@ -54,57 +54,45 @@ class BasicExample {
 
 function update() {
   updateBasicLexer();
+
   updateBasicParser();
 
   if (basicLexer !== null) {
     const production = null;  ///
 
-    Example.updateParseTree(basicLexer, basicParser, production);
+    Example.updateParseTreeTextarea(basicLexer, basicParser, production);
   } else {
-    Example.clearParseTree();
+    Example.clearParseTreeTextarea();
   }
 }
 
 module.exports = BasicExample;
 
 function updateBasicLexer() {
-  const terminalSymbolsRegExpPatternInputValue = terminalSymbolsRegExpPatternTextarea.getValue(),
-        terminalSymbolsRegExpPattern = terminalSymbolsRegExpPatternInputValue,  ///
-        terminalSymbolsRegExpPatternIsValid = regExpPatternIsValid(terminalSymbolsRegExpPattern);
+  const lexicalGrammarTextareaValue = lexicalGrammarTextarea.getValue();
 
-  if (terminalSymbolsRegExpPatternIsValid) {
-    const terminalSymbolsRegExp = new RegExp(terminalSymbolsRegExpPattern),
-          terminal = terminalSymbolsRegExp, ///
-          grammar = [{
-            terminal : terminal
-          }];
+  let lexicalGrammar = null;
 
-    basicLexer = BasicLexer.fromGrammar(grammar);
+  try {
+    lexicalGrammar = JSON.parse(lexicalGrammarTextareaValue);
+  } catch (error) {}
 
-    terminalSymbolsRegExpPatternTextarea.removeClass('error');
+  const lexicalGrammarValid = (lexicalGrammar !== null);
+
+  if (lexicalGrammarValid) {
+    basicLexer = BasicLexer.fromGrammar(lexicalGrammar);
+
+    lexicalGrammarTextarea.removeClass('error');
   } else {
-    terminalSymbolsRegExpPatternTextarea.addClass('error');
+    lexicalGrammarTextarea.addClass('error');
 
     basicLexer = null;
   }
 }
 
 function updateBasicParser() {
-  const grammarTextareaValue = Example.getGrammarTextareaValue(),
-        grammar = grammarTextareaValue; ///
+  const bnfGrammarTextareaValue = Example.getBNFGrammarTextareaValue(),
+        bnfGrammar = bnfGrammarTextareaValue; ///
 
-  basicParser = BasicParser.fromGrammar(grammar);
-}
-
-function regExpPatternIsValid(regExpPattern) {
-  let valid = true;
-
-  try {
-    new RegExp(regExpPattern);
-  }
-  catch (error) {
-    valid = false;
-  }
-
-  return valid;
+  basicParser = BasicParser.fromGrammar(bnfGrammar);
 }

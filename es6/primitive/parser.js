@@ -3,7 +3,7 @@
 const Production = require('../common/production'),
       ErrorNode = require('../common/node/nonTerminal/error');
 
-class BNFParser {
+class PrimitiveParser {
   static parse(lines, significantTokenTypes, mappings) {
     let productions;
 
@@ -25,5 +25,5 @@ class BNFParser {
   }
 }
 
-module.exports = BNFParser;
+module.exports = PrimitiveParser;
 

@@ -9,21 +9,19 @@
   max-width: 80rem;
 }
 
-textarea#parseTree {
-  height: 15rem;
-}
-
 textarea#content {
   height: 12rem;
   margin-bottom: 1rem;
 }
 
-textarea#grammar {
+textarea#bnfGrammar {
   height: 24rem;
 }
 
-textarea#terminalSymbolsRegExpPattern {
-  height: 3rem;
-  resize: none;
+textarea#lexicalGrammar {
+  height: 12rem;
 }
 
+textarea#parseTree {
+  height: 15rem;
+}
