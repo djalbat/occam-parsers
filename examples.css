@@ -9,22 +9,6 @@
   padding: 0;
 }
 
-h1 {
-  text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-h2 {
-  font-size: 1.25rem;
-  margin: 1rem 0 0.5rem 0;
-}
-
-p,
-ul {
-  text-align: center;
-}
-
 .columns {
   display: flex;
   align-items: stretch;
@@ -32,7 +16,7 @@ ul {
   height: 100%;
 }
 
-.columns .column {
+.column {
   flex: 1;
 }
 
@@ -42,16 +26,53 @@ ul {
   background-color: lightgray;
 }
 
+.columns {
+  margin-bottom: 1rem;
+}
+
+.column,
+#sizeableElement {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+#sizeableElement {
+  width: 60rem;
+  min-width: 40rem;
+  max-width: 120rem;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+}
+
+p,
+ul {
+  text-align: center;
+}
+
 textarea {
   width: 100%;
   font-size: 1rem;
   padding: 0.25rem;
   font-family: monospace;
   border: 1px solid darkgray;
+  height: 16rem;
   resize: vertical;
+  margin-top: 0.5rem;
 }
 
-textarea#grammar,
+textarea.error {
+  border-color: red;
+}
+
+textarea#bnfGrammar,
 textarea#parseTree {
   white-space: pre;
   overflow-wrap: normal;
@@ -59,8 +80,4 @@ textarea#parseTree {
 
 textarea#parseTree {
   font-size: 0.75rem;
-}
-
-textarea.error {
-  border-color: red;
 }

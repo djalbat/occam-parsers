@@ -1,21 +1,5 @@
-.column,
-#sizeableElement {
-  margin: 0 1rem 0 1rem;
-}
-
-#sizeableElement {
-  width: 80rem;
-  min-width: 40rem;
-  max-width: 120rem;
-}
-
 .container {
-  padding: 0 1rem 0.5rem 1rem;
-}
-
-.column h2,
-#sizeableElement h2 {
-  margin-top: 0;
+  margin: 1rem;
 }
 
 input[type="checkbox"] {
@@ -30,7 +14,7 @@ textarea#content {
   height: 12rem;
 }
 
-textarea#grammar {
+textarea#bnfGrammar {
   height: 21rem;
   margin-bottom: 1rem;
 }

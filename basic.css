@@ -1,14 +1,3 @@
-.column,
-#sizeableElement {
-  margin: 0 1rem 0 1rem;
-}
-
-#sizeableElement {
-  width: 40rem;
-  min-width: 20rem;
-  max-width: 80rem;
-}
-
 textarea#content {
   height: 12rem;
   margin-bottom: 1rem;
@@ -20,8 +9,10 @@ textarea#bnfGrammar {
 
 textarea#lexicalGrammar {
   height: 12rem;
+  margin-bottom: 1rem;
 }
 
 textarea#parseTree {
   height: 15rem;
+  margin-bottom: 1rem;
 }
