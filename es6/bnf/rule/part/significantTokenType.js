@@ -1,6 +1,6 @@
 'use strict';
 
-const Rule = require('../rule'),
+const Rule = require('../../rule'),
       SignificantTokenTypePart = require('../../part/significantTokenType');
 
 class SignificantTokenTypePartRule extends Rule {

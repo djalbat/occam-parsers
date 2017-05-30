@@ -9,7 +9,8 @@ const Production = require('../production'),
       ZeroOrMorePartsPartRule = require('../rule/part/zeroOrMoreParts'),
       RegularExpressionPartRule = require('../rule/part/regularExpression'),
       SignificantTokenTypePartRule = require('../rule/part/significantTokenType'),
-      ProductionNamePartRule = require('../rule/part/productionName');
+      ProductionNamePartRule = require('../rule/part/productionName'),
+      NonTerminalNode = require('../../common/node/nonTerminal');
 
 class PartProduction extends Production {
   constructor() {
@@ -24,17 +25,17 @@ class PartProduction extends Production {
           productionNamePartRule = new ProductionNamePartRule(),    
           name = 'part',
           rules = [
+            regularExpressionPartRule,
             wildcardPartRule,
             endOfLinePartRule,
             optionalPartPartRule,
             terminalSymbolPartRule,
             oneOrMorePartsPartRule,
             zeroOrMorePartsPartRule,
-            regularExpressionPartRule,
             significantTokenTypePartRule,
             productionNamePartRule
           ],
-          Node = null;
+          Node = NonTerminalNode;
     
     super(name, rules, Node)
   }

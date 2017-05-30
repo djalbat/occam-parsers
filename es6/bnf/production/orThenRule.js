@@ -1,7 +1,8 @@
 'use strict';
 
 const Production = require('../production'),
-      OrThenRuleRule = require('../rule/orThenRule');
+      OrThenRuleRule = require('../rule/orThenRule'),
+      NonTerminalNode = require('../../common/node/nonTerminal');
 
 class OrThenRuleProduction extends Production {
   constructor() {
@@ -10,7 +11,7 @@ class OrThenRuleProduction extends Production {
           rules = [
             orThenRuleRule
           ],
-          Node = null;
+          Node = NonTerminalNode;
     
     super(name, rules, Node)
   }

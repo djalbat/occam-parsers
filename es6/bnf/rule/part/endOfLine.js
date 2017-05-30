@@ -1,6 +1,6 @@
 'use strict';
 
-const Rule = require('../rule'),
+const Rule = require('../../rule'),
       EndOfLinePart = require('../../part/endOfLine');
 
 class EndOfLinePartRule extends Rule {

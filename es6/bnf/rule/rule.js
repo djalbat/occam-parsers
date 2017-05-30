@@ -3,7 +3,7 @@
 const Rule = require('../rule'),
       ProductionNamePart = require('../part/productionName');
 
-class RuleRUle extends Rule {
+class RuleRule extends Rule {
   constructor() {
     const noWhitespace = false,
           partsProductionName = 'parts',
@@ -16,4 +16,4 @@ class RuleRUle extends Rule {
   }
 }
 
-module.exports = RuleRUle;
+module.exports = RuleRule;

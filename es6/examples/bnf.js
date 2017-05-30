@@ -43,13 +43,13 @@ function update() {
 
   updateBNFParser();
 
-  // if (bnfLexer !== null) {
-  //   const production = null;  ///
-  //
-  //   Example.updateParseTreeTextarea(bnfLexer, bnfParser, production);
-  // } else {
-  //   Example.clearParseTreeTextarea();
-  // }
+  if (bnfLexer !== null) {
+    const production = null;  ///
+
+    Example.updateParseTreeTextarea(bnfLexer, bnfParser, production);
+  } else {
+    Example.clearParseTreeTextarea();
+  }
 }
 
 module.exports = BNFExample;

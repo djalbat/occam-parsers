@@ -1,6 +1,6 @@
 'use strict';
 
-const Rule = require('../rule'),
+const Rule = require('../../rule'),
       RegularExpressionPart = require('../../part/regularExpression');
 
 class RegularExpressionPartRule extends Rule {

@@ -1,16 +1,16 @@
 'use strict';
 
 const Rule = require('../rule'),
-      OneOrMorePartsPart = require('../part/oneOrMoreParts');
+      ZeroOrMorePartsPart = require('../part/zeroOrMoreParts');
 
 class ProductionsRule extends Rule {
   constructor() {
     const terminalPart = null,
           noWhitespace = false, 
           productionProductionName = 'production',
-          oneOrMoreProductionProductionNamePartsPart = new OneOrMorePartsPart(terminalPart, productionProductionName, noWhitespace),
+          zeroOrMoreProductionProductionNamePartsPart = new ZeroOrMorePartsPart(terminalPart, productionProductionName, noWhitespace),
           parts = [
-            oneOrMoreProductionProductionNamePartsPart 
+            zeroOrMoreProductionProductionNamePartsPart
           ];
     
     super(parts)

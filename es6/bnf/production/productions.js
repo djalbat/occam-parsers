@@ -1,7 +1,8 @@
 'use strict';
 
 const Production = require('../production'),
-      ProductionsRule = require('../rule/productions');
+      ProductionsRule = require('../rule/productions'),
+      NonTerminalNode = require('../../common/node/nonTerminal');
 
 class ProductionsProduction extends Production {
   constructor() {
@@ -10,7 +11,7 @@ class ProductionsProduction extends Production {
           rules = [
             productionsRule
           ],
-          Node = null;
+          Node = NonTerminalNode;
     
     super(name, rules, Node)
   }

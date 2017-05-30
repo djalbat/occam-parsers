@@ -1,6 +1,6 @@
 'use strict';
 
-const Rule = require('../rule'),
+const Rule = require('../../rule'),
       WildcardPart = require('../../part/wildcard');
 
 class WildcardPartRule extends Rule {

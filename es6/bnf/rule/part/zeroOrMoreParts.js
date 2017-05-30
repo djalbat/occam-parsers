@@ -1,6 +1,6 @@
 'use strict';
 
-const Rule = require('../rule'),
+const Rule = require('../../rule'),
       ZeroOrMorePartsPart = require('../../part/zeroOrMoreParts');
 
 class ZeroOrMorePartsPartRule extends Rule {
