@@ -10,7 +10,7 @@ const grammar = `
     
     term                       ::= naturalNumber | parenthesizedExpression
     
-    naturalNumber              ::= /^\d+$/
+    naturalNumber              ::= /\d+/
     
     parenthesizedExpression    ::= '(' expression ')'
               

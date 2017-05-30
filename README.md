@@ -17,7 +17,7 @@ The Occam proof assistant's parsers.
 There are three parsers in all:
 
 * A primitive to parse a variant of extended [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form), hardly a parser at all in fact.
-* A basic parser, for illustrative purposes.
+* A basic parser, for illustrative purposes, and for developing new grammars.
 * The main parser, namely the parser for the BNF grammar part of Occam's vernacular, called Florence.
 
 All parsers bar the primitive parser share common patterns and functionality. The last two parse content according to productions defined in the aforementioned variant of extended BNF. The following, taken from the basic example, shows some features of this variant:
@@ -141,9 +141,11 @@ These bind tightly to symbols and can therefore be re-used as terminal symbols i
 
 ### Regular expressions
 
-A regular expression is distinguished by the usual leading and trailing anchors:
+A regular expression is distinguished by the usual leading and trailing foward slashes:
 
-    /^\d+$/
+    /\d+/
+    
+A regular expression should match the whole of a token. For this reason, the leading and trailing anchors `^` and `$` will be added automatically.
 
 ### Matching significant token types
 
