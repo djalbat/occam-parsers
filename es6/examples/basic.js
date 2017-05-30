@@ -3,29 +3,15 @@
 const easy = require('easy'),
       lexers = require('occam-lexers');
 
-const BasicParser = require('../basic/parser'),
-      Example = require('../example');
+const Example = require('../example'),
+      grammar = require('../basic/grammar'),
+      BasicParser = require('../basic/parser');
 
 const { Textarea } = easy,
       { BasicLexer } = lexers;
 
 const lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
-      lexicalGrammar = BasicLexer.grammar,
-      bnfGrammar = `
-  
-    expression                 ::= term operatorThenTerm*
-    
-    operatorThenTerm           ::= operator term
-    
-    operator                   ::= '+' | '-' | '*' | '/'
-    
-    term                       ::= naturalNumber | parenthesizedExpression
-    
-    naturalNumber              ::= /^\\d+$/
-    
-    parenthesizedExpression    ::= '(' expression ')'
-          
-`;
+      lexicalGrammar = BasicLexer.grammar;
 
 let lexicalGrammarTextarea,
     basicLexer = null,
@@ -35,7 +21,7 @@ class BasicExample {
   static run() {
     lexicalGrammarTextarea = new Textarea(lexicalGrammarTextareaSelector);
 
-    const bnfGrammarTextareaValue = bnfGrammar, ///
+    const bnfGrammarTextareaValue = grammar, ///
           lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '); ///
 
     lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);

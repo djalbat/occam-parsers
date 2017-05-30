@@ -8,6 +8,12 @@ const PrimitiveParser = require('../primitive/parser'),
 const { PrimitiveLexer, BasicLexer } = lexers;
 
 class BasicParser extends CommonParser {
+  static fromNothing() {
+    const basicParser = BasicParser.fromGrammar(grammar);
+    
+    return basicParser;
+  }
+  
   static fromGrammar(grammar) {
     const lines = PrimitiveLexer.linesFromGrammar(grammar),
           significantTokenTypes = BasicLexer.significantTokenTypes(),

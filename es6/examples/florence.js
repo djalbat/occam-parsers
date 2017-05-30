@@ -4,9 +4,9 @@ const easy = require('easy'),
       lexers = require('occam-lexers');
 
 const Example = require('../example'),
-      FlorenceParser = require('../florence/parser'),
       grammar = require('../florence/grammar'),
-      mappings = require('../florence/mappings');
+      mappings = require('../florence/mappings'),
+      FlorenceParser = require('../florence/parser');
 
 const { Checkbox, Textarea } = easy,
       { FlorenceLexer } = lexers;
