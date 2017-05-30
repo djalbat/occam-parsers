@@ -9,7 +9,7 @@ const grammar = `
                                               
     header                                                        ::=   includeDirective+
     
-    includeDirective                                              ::=   'include'<NO_WHITESPACE>'('<NO_WHITESPACE>[string]<NO_WHITESPACE>')' <END_OF_LINE>
+    includeDirective                                              ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE>
                                               
         
                                               
@@ -45,23 +45,23 @@ const grammar = `
     
     (qualified)Metavariable(s)Declaration                         ::=   (qualified)MetavariablesDeclaration | (qualified)MetavariableDeclaration
 
-    rule                                                          ::=   'Rule' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
+    rule                                                          ::=   "Rule" parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
     
-    axiom                                                         ::=   'Axiom' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion
+    axiom                                                         ::=   "Axiom" parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion
     
-    theorem                                                       ::=   'Theorem' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
+    theorem                                                       ::=   "Theorem" parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
         
-    lemma                                                         ::=   'Lemma' parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
+    lemma                                                         ::=   "Lemma" parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
 
 
 
-    typesDeclaration                                              ::=   'Types' typeList
+    typesDeclaration                                              ::=   "Types" typeList
     
-    typeDeclaration                                               ::=   'Type' type
+    typeDeclaration                                               ::=   "Type" type
     
     typeList                                                      ::=   type<NO_WHITESPACE>commaThenType*
     
-    commaThenType                                                 ::=   ','<NO_WHITESPACE>type
+    commaThenType                                                 ::=   ","<NO_WHITESPACE>type
     
     type                                                          ::=   typeName
 
@@ -69,35 +69,35 @@ const grammar = `
 
     
     
-    typedConstructorsDeclaration                                  ::=   'Constructors' typedConstructorList
+    typedConstructorsDeclaration                                  ::=   "Constructors" typedConstructorList
     
-    typedConstructorDeclaration                                   ::=   'Constructor' typedConstructor
+    typedConstructorDeclaration                                   ::=   "Constructor" typedConstructor
 
     typedConstructorList                                          ::=   typedConstructor<NO_WHITESPACE>commaThenTypedConstructor*
     
-    commaThenTypedConstructor                                     ::=   ','<NO_WHITESPACE>typedConstructor
+    commaThenTypedConstructor                                     ::=   ","<NO_WHITESPACE>typedConstructor
     
-    typedConstructor                                              ::=   constructor<NO_WHITESPACE>':'<NO_WHITESPACE>type
+    typedConstructor                                              ::=   constructor<NO_WHITESPACE>":"<NO_WHITESPACE>type
     
     constructor                                                   ::=   constructorName<NO_WHITESPACE>parenthesisedTypeList?
     
-    parenthesisedTypeList                                         ::=   '('<NO_WHITESPACE>typeList<NO_WHITESPACE>')'
+    parenthesisedTypeList                                         ::=   "("<NO_WHITESPACE>typeList<NO_WHITESPACE>")"
 
     constructorName                                               ::=   name
 
 
 
-    (typed)VariablesDeclaration                                   ::=   'Variables' (typed)VariableList
+    (typed)VariablesDeclaration                                   ::=   "Variables" (typed)VariableList
     
-    (typed)VariableDeclaration                                    ::=   'Variable' (typed)Variable
+    (typed)VariableDeclaration                                    ::=   "Variable" (typed)Variable
 
     (typed)VariableList                                           ::=   (typed)Variable<NO_WHITESPACE>commaThen(typed)Variable*
     
-    commaThen(typed)Variable                                      ::=   ','<NO_WHITESPACE>(typed)Variable
+    commaThen(typed)Variable                                      ::=   ","<NO_WHITESPACE>(typed)Variable
     
     (typed)Variable                                               ::=   typedVariable | variable
     
-    typedVariable                                                 ::=   variable<NO_WHITESPACE>':'<NO_WHITESPACE>type
+    typedVariable                                                 ::=   variable<NO_WHITESPACE>":"<NO_WHITESPACE>type
     
     variable                                                      ::=   variableName
     
@@ -105,13 +105,13 @@ const grammar = `
     
     
     
-    (qualified)MetavariablesDeclaration                           ::=   'Metavariables' (qualified)MetavariableList
+    (qualified)MetavariablesDeclaration                           ::=   "Metavariables" (qualified)MetavariableList
     
-    (qualified)MetavariableDeclaration                            ::=   'Metavariable' (qualified)Metavariable
+    (qualified)MetavariableDeclaration                            ::=   "Metavariable" (qualified)Metavariable
     
     (qualified)MetavariableList                                   ::=   (qualified)Metavariable<NO_WHITESPACE>commaThen(qualified)Metavariable+
 
-    commaThen(qualified)Metavariable                              ::=   ','<NO_WHITESPACE>(qualified)Metavariable
+    commaThen(qualified)Metavariable                              ::=   ","<NO_WHITESPACE>(qualified)Metavariable
 
     (qualified)Metavariable                                       ::=   qualifiedMetavariable | metavariable
     
@@ -119,7 +119,7 @@ const grammar = `
 
     metavariable                                                  ::=   metavariableName
 
-    parenthesisedTypeOrTerm                                       ::=   '('<NO_WHITESPACE>typeOrTerm<NO_WHITESPACE>')'
+    parenthesisedTypeOrTerm                                       ::=   "("<NO_WHITESPACE>typeOrTerm<NO_WHITESPACE>")"
     
     typeOrTerm                                                    ::=   type | term
     
@@ -127,11 +127,11 @@ const grammar = `
     
     
 
-    parenthesisedLabelList                                        ::=   '('<NO_WHITESPACE>labelList<NO_WHITESPACE>')'
+    parenthesisedLabelList                                        ::=   "("<NO_WHITESPACE>labelList<NO_WHITESPACE>")"
     
     labelList                                                     ::=   label<NO_WHITESPACE>commaThenLabel*
     
-    commaThenLabel                                                ::=   ','<NO_WHITESPACE>label
+    commaThenLabel                                                ::=   ","<NO_WHITESPACE>label
     
     label                                                         ::=   labelName<NO_WHITESPACE>parenthesisedTermList?
     
@@ -141,15 +141,15 @@ const grammar = `
     
     premise(s)                                                    ::=   premise | premises
     
-    premise                                                       ::=   'Premise' <END_OF_LINE> unjustifiedStatementOrUnknown
+    premise                                                       ::=   "Premise" <END_OF_LINE> unjustifiedStatementOrUnknown
     
-    premises                                                      ::=   'Premises' <END_OF_LINE> unjustifiedStatementOrUnknown unjustifiedStatementOrUnknown+
+    premises                                                      ::=   "Premises" <END_OF_LINE> unjustifiedStatementOrUnknown unjustifiedStatementOrUnknown+
     
-    conclusion                                                    ::=   'Conclusion' <END_OF_LINE> (un)justifiedStatementOrUnknown
+    conclusion                                                    ::=   "Conclusion" <END_OF_LINE> (un)justifiedStatementOrUnknown
     
 
 
-    proof                                                         ::=   'Proof' <END_OF_LINE> (abridged)ProofDerivation
+    proof                                                         ::=   "Proof" <END_OF_LINE> (abridged)ProofDerivation
     
     (abridged)ProofDerivation                                     ::=   proofDerivation | abridgedProofDerivation
     
@@ -159,7 +159,7 @@ const grammar = `
     
     derivation                                                    ::=   subDerivation+    
     
-    therefore                                                     ::=   'Therefore' <END_OF_LINE> (un)justifiedStatementOrUnknown
+    therefore                                                     ::=   "Therefore" <END_OF_LINE> (un)justifiedStatementOrUnknown
     
     subDerivation                                                 ::=   subLemma | (un)justifiedStatementOrUnknown
     
@@ -167,11 +167,11 @@ const grammar = `
     
     subLemma                                                      ::=   suppose then? hence unjustifiedStatementOrUnknown? verticalSpace?    
     
-    suppose                                                       ::=   'Suppose' <END_OF_LINE> unjustifiedStatementOrUnknown+
+    suppose                                                       ::=   "Suppose" <END_OF_LINE> unjustifiedStatementOrUnknown+
     
-    then                                                          ::=   'Then' <END_OF_LINE> derivation
+    then                                                          ::=   "Then" <END_OF_LINE> derivation
     
-    hence                                                         ::=   'Hence' <END_OF_LINE> (un)justifiedStatementOrUnknown
+    hence                                                         ::=   "Hence" <END_OF_LINE> (un)justifiedStatementOrUnknown
     
     
     
@@ -185,7 +185,7 @@ const grammar = `
       
     justification                                                 ::=   byOrFrom reference
      
-    byOrFrom                                                      ::=   'by' | 'from'
+    byOrFrom                                                      ::=   "by" | "from"
      
     reference                                                     ::=   referenceName<NO_WHITESPACE>parenthesisedTermList?
 
@@ -197,11 +197,11 @@ const grammar = `
     
     
     
-    proofAssertion                                                ::=   (qualified)Metavariable '::' (qualified)Metavariable
+    proofAssertion                                                ::=   (qualified)Metavariable "::" (qualified)Metavariable
 
-    typeAssertion                                                 ::=   expression ':' type
+    typeAssertion                                                 ::=   expression ":" type
     
-    equality                                                      ::=   expression '=' expression    
+    equality                                                      ::=   expression "=" expression    
     
     expression                                                    ::=   term | (qualified)Metavariable
     
@@ -213,11 +213,11 @@ const grammar = `
     
     
 
-    parenthesisedTermList                                         ::=   '('<NO_WHITESPACE>termList<NO_WHITESPACE>')'
+    parenthesisedTermList                                         ::=   "("<NO_WHITESPACE>termList<NO_WHITESPACE>")"
 
     termList                                                      ::=   term<NO_WHITESPACE>commaThenTerm*
     
-    commaThenTerm                                                 ::=   ','<NO_WHITESPACE>term
+    commaThenTerm                                                 ::=   ","<NO_WHITESPACE>term
     
 
 
@@ -227,7 +227,7 @@ const grammar = `
 
     unknown                                                       ::=   specialUnassignedOrMinorKeywords+ <END_OF_LINE>
 
-    specialUnassignedOrMinorKeywords                              ::=   [special] | [unassigned] | 'by' | 'from'
+    specialUnassignedOrMinorKeywords                              ::=   [special] | [unassigned] | "by" | "from"
 
 
 

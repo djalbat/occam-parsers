@@ -2,8 +2,9 @@
 
 const lexers = require('occam-lexers');
 
-const PrimitiveParser = require('../primitive/parser'),
-      CommonParser = require('../common/parser');
+const grammar = require('./grammar'),
+      CommonParser = require('../common/parser'),
+      PrimitiveParser = require('../primitive/parser');
 
 const { PrimitiveLexer, BasicLexer } = lexers;
 
