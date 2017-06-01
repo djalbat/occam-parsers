@@ -1,9 +1,9 @@
 'use strict';
 
-const Rule = require('../../rule'),
-      RegularExpressionPart = require('../../part/regularExpression');
+const Rule = require('../rule'),
+      RegularExpressionPart = require('../part/regularExpression');
 
-class RegularExpressionPartRule extends Rule {
+class RegularExpressionRule extends Rule {
   constructor() {
     const noWhitespace = false,
           regularExpressionPart = new RegularExpressionPart(noWhitespace),
@@ -15,4 +15,4 @@ class RegularExpressionPartRule extends Rule {
   }
 }
 
-module.exports = RegularExpressionPartRule;
+module.exports = RegularExpressionRule;

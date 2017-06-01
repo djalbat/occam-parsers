@@ -7,7 +7,6 @@ const CommonParser = require('../common/parser'),
       RulesProduction = require('./production/rules'),
       OrThenRuleProduction = require('./production/orThenRule'),
       RuleProduction = require('./production/rule'),
-      PartsProduction = require('./production/parts'),
       PartProduction = require('./production/part');
 
 class BNFParser extends CommonParser {
@@ -18,7 +17,6 @@ class BNFParser extends CommonParser {
           rulesProduction = new RulesProduction(),
           orThenRuleProduction = new OrThenRuleProduction(),
           ruleProduction = new RuleProduction(),
-          partsProduction = new PartsProduction(),
           partProduction = new PartProduction(),
           productions = [
             productionsProduction,
@@ -27,7 +25,6 @@ class BNFParser extends CommonParser {
             rulesProduction,
             orThenRuleProduction,
             ruleProduction,
-            partsProduction,
             partProduction
           ],
           bnfParser = new BNFParser(productions);

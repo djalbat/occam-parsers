@@ -21,12 +21,19 @@ class BNFExample {
   static run() {
     lexicalGrammarTextarea = new Textarea(lexicalGrammarTextareaSelector);
 
-    const bnfGrammarTextareaValue = grammar, ///
-          lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '); ///
+    const lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
+          bnfGrammarTextareaValue = grammar, ///
+          contentTextareaValue = `
+
+    naturalNumber            ::=  /\d+/
+                            
+`;
 
     lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
 
     Example.setBNFGrammarTextareaValue(bnfGrammarTextareaValue);
+
+    Example.setContentTextareaValue(contentTextareaValue);
 
     Example.onBNFGrammarTextareaKeyUp(update);
 

@@ -141,12 +141,10 @@ These bind tightly to symbols and can therefore be re-used as terminal symbols i
 
 ### Regular expressions
 
-A regular expression is distinguished by the usual leading and trailing foward slashes:
+A regular expression is distinguished by the usual leading and trailing forward slashes:
 
     /\d+/
     
-A regular expression should match the whole of a token. For this reason, the leading and trailing anchors `^` and `$` will be added automatically.
-
 ### Matching significant token types
 
 This can be done with a symbol that is identical to the significant token type in question, contained within square brackets:

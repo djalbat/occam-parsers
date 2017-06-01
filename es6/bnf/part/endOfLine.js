@@ -2,9 +2,9 @@
 
 const lexers = require('occam-lexers');
 
-const { EndOfLineToken } = lexers;
-
 const TerminalNode = require('../../common/node/terminal');
+
+const { BNFLexer } = lexers;
 
 class EndOfLinePart {
   constructor(noWhitespace) {
@@ -15,20 +15,20 @@ class EndOfLinePart {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
     let terminalNode = null;
-    
+
     const savedIndex = context.savedIndex(),
           nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
           significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
       const type = significantToken.getType(),
-            found = (type === EndOfLineToken.type);
+            parsed = (type === BNFLexer.significantTokenTypes.endOfLine);  ///
 
-      if (found) {
+      if (parsed) {
         terminalNode = TerminalNode.fromSignificantToken(significantToken);
       }
     }
-    
+
     if (terminalNode === null) {
       context.backtrack(savedIndex);
     }

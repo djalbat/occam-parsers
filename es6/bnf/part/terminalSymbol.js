@@ -3,8 +3,8 @@
 const TerminalNode = require('../../common/node/terminal');
 
 class TerminalSymbolPart {
-  constructor(symbol, noWhitespace) {
-    this.symbol = symbol;
+  constructor(content, noWhitespace) {
+    this.content = content;
     this.noWhitespace = noWhitespace;
   }
 
@@ -19,7 +19,7 @@ class TerminalSymbolPart {
 
     if (significantToken !== null) {
       const content = significantToken.getContent(),
-          parsed = (content === this.symbol);  ///
+            parsed = (content === this.content);
 
       if (parsed) {
         terminalNode = TerminalNode.fromSignificantToken(significantToken);

@@ -2,7 +2,7 @@
 
 const grammar = `
 
-    expression               ::=  term & (operator<NO_WHITESPACE>term)* <END_OF_LINE>
+    expression               ::=  term & (operator term)* 
     
     operator                 ::=  "+" | "-" | "*" | "/"
     

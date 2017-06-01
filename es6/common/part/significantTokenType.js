@@ -3,8 +3,8 @@
 const TerminalNode = require('../../common/node/terminal');
 
 class SignificantTokenTypePart {
-  constructor(type, noWhitespace) {
-    this.type = type;
+  constructor(significantTokenType, noWhitespace) {
+    this.significantTokenType = significantTokenType;
     this.noWhitespace = noWhitespace;
   }
 
@@ -18,8 +18,8 @@ class SignificantTokenTypePart {
           significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      const type = significantToken.getType(),
-            parsed = (type === this.type);  ///
+      const significantTokenType = significantToken.getType(),
+            parsed = (significantTokenType === this.significantTokenType);  ///
 
       if (parsed) {
         terminalNode = TerminalNode.fromSignificantToken(significantToken);
@@ -32,32 +32,6 @@ class SignificantTokenTypePart {
 
     return terminalNode;
   }
-
-  static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
-    let significantTokenTypePart = null;
-    
-    const significantTokenTypePartRegExp = /^\[([^/]+)\]$/,
-          matches = symbol.match(significantTokenTypePartRegExp);
-
-    if (matches !== null) {
-      const secondMatch = second(matches),
-            type = secondMatch, ///
-            foundType = significantTokenTypes.find(function(significantTokenType) {
-              const found = (type === significantTokenType);
-  
-              return found;
-            }),
-            found = (foundType !== undefined);
-
-      if (found) {
-        significantTokenTypePart = new SignificantTokenTypePart(type, noWhitespace);
-      }
-    }
-
-    return significantTokenTypePart;
-  }
 }
 
 module.exports = SignificantTokenTypePart;
-
-function second(array) { return array[1]; }

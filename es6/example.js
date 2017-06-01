@@ -25,6 +25,8 @@ class Example {
 
   static setBNFGrammarTextareaValue(value) { bnfGrammarTextarea.setValue(value); }
 
+  static setContentTextareaValue(value) { contentTextarea.setValue(value); }
+
   static onBNFGrammarTextareaKeyUp(handler) { bnfGrammarTextarea.onKeyUp(handler); }
 
   static onContentTextareaKeyUp(handler) { contentTextarea.onKeyUp(handler); }

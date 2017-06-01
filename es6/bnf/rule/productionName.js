@@ -3,17 +3,17 @@
 const Rule = require('../rule'),
       SignificantTokenTypePart = require('../part/significantTokenType');
 
-class ProductionRule extends Rule {
+class ProductionNameRule extends Rule {
   constructor() {
     const noWhitespace = false,
-          nameType = 'name',
-          significantTokenTypePart = new SignificantTokenTypePart(nameType, noWhitespace),
+          nameSignificantTokenType = 'name',
+          nameSignificantTokenTypePart = new SignificantTokenTypePart(nameSignificantTokenType, noWhitespace),
           parts = [
-            significantTokenTypePart
+            nameSignificantTokenTypePart
           ];
     
     super(parts)
   }
 }
 
-module.exports = ProductionRule;
+module.exports = ProductionNameRule;

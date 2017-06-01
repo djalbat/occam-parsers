@@ -13,8 +13,8 @@ class RulesRule extends Rule {
           orThenRuleProductionName = 'orThenRule',
           zeroOrMoreOrThenRuleProductionNamePartsPart = new ZeroOrMorePartsPart(terminalPart, orThenRuleProductionName, noWhitespace),
           parts = [
-            ruleProductionNamePart,
-            zeroOrMoreOrThenRuleProductionNamePartsPart
+            ruleProductionNamePart/*,
+            zeroOrMoreOrThenRuleProductionNamePartsPart*/
           ];
     
     super(parts)

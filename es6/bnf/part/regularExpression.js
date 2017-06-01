@@ -1,10 +1,13 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const TerminalNode = require('../../common/node/terminal');
 
+const { BNFLexer } = lexers;
+
 class RegularExpressionPart {
-  constructor(regExp, noWhitespace) {
-    this.regExp = regExp;
+  constructor(noWhitespace) {
     this.noWhitespace = noWhitespace;
   }
 
@@ -18,19 +21,14 @@ class RegularExpressionPart {
           significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      const content = significantToken.getContent(),
-            matches = content.match(this.regExp);
+      const significantTokenType = significantToken.getType(),
+            parsed = (significantTokenType === 'regularExpression');  ///
 
-      if (matches !== null) {
-        const firstMatch = first(matches),
-              parsed = (firstMatch === content);
-
-        if (parsed) {
-          terminalNode = TerminalNode.fromSignificantToken(significantToken);
-        }
+      if (parsed) {
+        terminalNode = TerminalNode.fromSignificantToken(significantToken);
       }
     }
-    
+
     if (terminalNode === null) {
       context.backtrack(savedIndex);
     }
@@ -40,5 +38,3 @@ class RegularExpressionPart {
 }
 
 module.exports = RegularExpressionPart;
-
-function first(array) { return array[0]; }

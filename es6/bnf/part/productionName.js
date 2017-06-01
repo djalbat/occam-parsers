@@ -1,18 +1,18 @@
 'use strict';
 
 class ProductionNamePart {
-  constructor(name, noWhitespace) {
-    this.name = name;
+  constructor(content, noWhitespace) {
+    this.content = content;
     this.noWhitespace = noWhitespace;
   }
-  
+
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
     let nodeOrNodes = null;
-    
+
     const productions = context.getProductions(),
-          production = ProductionNamePart.findProduction(this.name, productions);
+          production = ProductionNamePart.findProduction(this.content, productions);
 
     if (production !== null) {
       nodeOrNodes = production.parse(context, noWhitespace);

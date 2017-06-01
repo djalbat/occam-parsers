@@ -41,13 +41,13 @@ class RegularExpressionPart {
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     let regularExpressionPart = null;
     
-    const regularExpressionPartRegExp = /^\/([^/]+)\/$/,
+    const regularExpressionPartRegExp = /^(\/[^/]+\/)$/,
           matches = symbol.match(regularExpressionPartRegExp);
 
     if (matches !== null) {
       const secondMatch = second(matches),
             regExpPattern = secondMatch,  ///
-            regExp = new RegExp(`^${regExpPattern}$`); ///
+            regExp = new RegExp(regExpPattern);
 
       regularExpressionPart = new RegularExpressionPart(regExp, noWhitespace);
     }

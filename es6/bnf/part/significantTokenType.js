@@ -3,8 +3,8 @@
 const TerminalNode = require('../../common/node/terminal');
 
 class SignificantTokenTypePart {
-  constructor(type, noWhitespace) {
-    this.type = type;
+  constructor(significantTokenType, noWhitespace) {
+    this.significantTokenType = significantTokenType;
     this.noWhitespace = noWhitespace;
   }
 
@@ -18,8 +18,8 @@ class SignificantTokenTypePart {
           significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      const type = significantToken.getType(),
-            parsed = (type === this.type);  ///
+      const significantTokenType = significantToken.getType(),
+            parsed = (significantTokenType === this.significantTokenType);  ///
 
       if (parsed) {
         terminalNode = TerminalNode.fromSignificantToken(significantToken);

@@ -1,25 +1,26 @@
 'use strict';
 
 const Rule = require('../rule'),
-      EndOfLinePart = require('../part/endOfLine'),
       TerminalSymbolPart = require('../part/terminalSymbol'),
-      ProductionNamePart = require('../part/productionName');
+      ProductionNamePart = require('../part/productionName'),
+      SignificantTokenTypePart = require('../part/significantTokenType');
 
 class ProductionRule extends Rule {
   constructor() {
     const noWhitespace = false,
-          productionNameProductionName = 'productionName',
-          productionNameProductionNamePart = new ProductionNamePart(productionNameProductionName, noWhitespace),
-          separatorSymbol = '::=',
-          separatorTerminalSymbolPart = new TerminalSymbolPart(separatorSymbol, noWhitespace),
-          rulesProductionName = 'rules',
-          rulesProductionNamePart = new ProductionNamePart(rulesProductionName, noWhitespace),
-          endOfLinePart = new EndOfLinePart(),
+          productionNameProductionNameContent = 'productionName',
+          separatorTerminalSymbolContent = '::=',
+          rulesProductionNameContent = 'rules',
+          endOfLineSignificantTokenType = 'endOfLine',
+          productionNameProductionNamePart = new ProductionNamePart(productionNameProductionNameContent, noWhitespace),
+          separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent, noWhitespace),
+          rulesProductionNamePart = new ProductionNamePart(rulesProductionNameContent, noWhitespace),
+          endOfLineSignificantTokenTypePart = new SignificantTokenTypePart(endOfLineSignificantTokenType, noWhitespace),
           parts = [
             productionNameProductionNamePart,
             separatorTerminalSymbolPart,
             rulesProductionNamePart,
-            endOfLinePart
+            endOfLineSignificantTokenTypePart
           ];
     
     super(parts)
