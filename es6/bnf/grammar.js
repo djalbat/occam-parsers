@@ -2,33 +2,37 @@
 
 const grammar = `
 
-  productions        ::=  production+
+  productions           ::=  production+
   
-  production         ::=  productionName "::=" rules [endOfLine]
+  production            ::=  productionName "::=" rules [endOfLine]
   
-  rules              ::=  rule
+  rules                 ::=  rule
   
-  rule               ::=  part+
+  rule                  ::=  part+
   
-  part               ::=  productionName  
+  part                  ::=  productionName  
                 
-                       |  regularExpression 
+                          |  regularExpression 
                 
-                       |  terminalSymbol
+                          |  significantTokenType 
+
+                          |  terminalSymbol
                         
-                       |  noWhitespace 
+                          |  noWhitespace 
                 
-                       |  endOfLine 
+                          |  endOfLine 
   
-  productionName     ::=  [name]
+  productionName        ::=  [name]
 
-  regularExpression  ::=  [regularExpression]
+  regularExpression     ::=  [regularExpression]
+  
+  significantTokenType  ::=  [type]
 
-  terminalSymbol     ::=  [string]
+  terminalSymbol        ::=  [string]
   
-  noWhitespace       ::=  "<NO_WHITESPACE>"
+  noWhitespace          ::=  "<NO_WHITESPACE>"
   
-  endOfLine          ::=  "<END_OF_LINE>"
+  endOfLine             ::=  "<END_OF_LINE>"
 
 `;
 
