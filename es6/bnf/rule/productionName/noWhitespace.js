@@ -1,7 +1,7 @@
 'use strict';
 
-const Rule = require('../rule'),
-      ProductionNamePart = require('../part/productionName');
+const Rule = require('../../rule'),
+      ProductionNamePart = require('../../../common/part/productionName');
 
 class NoWhitespaceProductionNameRule extends Rule {
   constructor() {

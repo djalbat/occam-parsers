@@ -1,9 +1,9 @@
 'use strict';
 
-const Rule = require('../rule'),
-      SignificantTokenTypePart = require('../part/significantTokenType');
+const Rule = require('../../rule'),
+      SignificantTokenTypePart = require('../../part/significantTokenType');
 
-class TerminalSymbolRule extends Rule {
+class StringSignificantTokenTypeRule extends Rule {
   constructor() {
     const noWhitespace = false,
           stringSignificantTokenType = 'string',
@@ -16,4 +16,4 @@ class TerminalSymbolRule extends Rule {
   }
 }
 
-module.exports = TerminalSymbolRule;
+module.exports = StringSignificantTokenTypeRule;

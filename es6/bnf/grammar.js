@@ -20,12 +20,6 @@ const grammar = `
                 
                        |  endOfLine 
   
-                       |  OptionalPart 
-                
-                       |  oneOrMoreParts 
-                
-                       |  zeroOrMoreParts 
-  
   productionName     ::=  [name]
 
   regularExpression  ::=  [regularExpression]

@@ -1,9 +1,9 @@
 'use strict';
 
-const Rule = require('../rule'),
-    SignificantTokenTypePart = require('../part/significantTokenType');
+const Rule = require('../../rule'),
+      SignificantTokenTypePart = require('../../part/significantTokenType');
 
-class RegularExpressionRule extends Rule {
+class RegularExpressionSignificantTokenTypeRule extends Rule {
   constructor() {
     const noWhitespace = false,
           regularExpressionSignificantTokenType = 'regularExpression',
@@ -16,4 +16,4 @@ class RegularExpressionRule extends Rule {
   }
 }
 
-module.exports = RegularExpressionRule;
+module.exports = RegularExpressionSignificantTokenTypeRule;

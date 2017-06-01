@@ -37,8 +37,8 @@
 }
 
 #sizeableElement {
-  width: 60rem;
-  min-width: 40rem;
+  width: 50rem;
+  min-width: 20rem;
   max-width: 120rem;
 }
 

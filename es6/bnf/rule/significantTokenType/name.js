@@ -1,9 +1,9 @@
 'use strict';
 
-const Rule = require('../rule'),
-      SignificantTokenTypePart = require('../part/significantTokenType');
+const Rule = require('../../rule'),
+      SignificantTokenTypePart = require('../../part/significantTokenType');
 
-class ProductionNameRule extends Rule {
+class NameSignificantTokenTypeRule extends Rule {
   constructor() {
     const noWhitespace = false,
           nameSignificantTokenType = 'name',
@@ -16,4 +16,4 @@ class ProductionNameRule extends Rule {
   }
 }
 
-module.exports = ProductionNameRule;
+module.exports = NameSignificantTokenTypeRule;

@@ -1,7 +1,7 @@
 'use strict';
 
 const Rule = require('../rule'),
-      OneOrMorePartsPart = require('../part/oneOrMoreParts');
+      OneOrMorePartsPart = require('../../common/part/oneOrMoreParts');
 
 class ProductionsRule extends Rule {
   constructor() {

@@ -1,29 +1,29 @@
 'use strict';
 
 const CommonParser = require('../common/parser'),
-      ProductionsProduction = require('./production/productions'),
-      ProductionProduction = require('./production/production'),
-      RulesProduction = require('./production/rules'),
-      RuleProduction = require('./production/rule'),
       PartProduction = require('./production/part'),
-      ProductionNameProduction = require('./production/productionName'),
-      RegularExpressionProduction = require('./production/regularExpression'),
-      TerminalSymbolProduction = require('./production/terminalSymbol'),
+      RuleProduction = require('./production/rule'),
+      RulesProduction = require('./production/rules'),
+      EndOfLineProduction = require('./production/endOfLine'),
+      ProductionProduction = require('./production/production'),
+      ProductionsProduction = require('./production/productions'),
       NoWhitespaceProduction = require('./production/noWhitespace'),
-      EndOfLineProduction = require('./production/endOfLine');
+      ProductionNameProduction = require('./production/productionName'),
+      TerminalSymbolProduction = require('./production/terminalSymbol'),
+      RegularExpressionProduction = require('./production/regularExpression');
 
 class BNFParser extends CommonParser {
   static fromNothing() {
-    const productionsProduction = new ProductionsProduction(),
-          productionProduction = new ProductionProduction(),
-          rulesProduction = new RulesProduction(),
+    const partProduction = new PartProduction(),
           ruleProduction = new RuleProduction(),
-          partProduction = new PartProduction(),
-          productionNameProduction = new ProductionNameProduction(),
-          regularExpressionProduction = new RegularExpressionProduction(),
-          terminalSymbolProduction = new TerminalSymbolProduction(),
-          noWhitespaceProduction = new NoWhitespaceProduction(),
+          rulesProduction = new RulesProduction(),
           endOfLineProduction = new EndOfLineProduction(),
+          productionProduction = new ProductionProduction(),
+          productionsProduction = new ProductionsProduction(),
+          noWhitespaceProduction = new NoWhitespaceProduction(),
+          productionNameProduction = new ProductionNameProduction(),
+          terminalSymbolProduction = new TerminalSymbolProduction(),
+          regularExpressionProduction = new RegularExpressionProduction(),
           productions = [
             productionsProduction,
             productionProduction,
