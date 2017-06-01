@@ -1,12 +1,12 @@
 'use strict';
 
 const Production = require('../production'),
-      RegularExpressionRule = require('../rule/regularExpression'),
+      RegularExpressionProductionNameRule = require('../rule/regularExpressionProductionName'),
       ProductionNameProductionNameRule = require('../rule/productionNameProductionName'),
+      TerminalSymbolRule = require('../rule/terminalSymbol'),
       WildcardPartRule = require('../rule/part/wildcard'),
       EndOfLinePartRule = require('../rule/part/endOfLine'),
       OptionalPartPartRule = require('../rule/part/optionalPart'),
-      TerminalSymbolPartRule = require('../rule/part/terminalSymbol'),
       OneOrMorePartsPartRule = require('../rule/part/oneOrMoreParts'),
       ZeroOrMorePartsPartRule = require('../rule/part/zeroOrMoreParts'),
       SignificantTokenTypePartRule = require('../rule/part/significantTokenType'),
@@ -14,23 +14,23 @@ const Production = require('../production'),
 
 class PartProduction extends Production {
   constructor() {
-    const regularExpressionRule = new RegularExpressionRule(),
+    const regularExpressionProductionNameRule = new RegularExpressionProductionNameRule(),
           productionNameProductionNameRule = new ProductionNameProductionNameRule(),
+          terminalSymbolRule = new TerminalSymbolRule(),
           wildcardPartRule = new WildcardPartRule(),
           endOfLinePartRule = new EndOfLinePartRule(),
           optionalPartPartRule = new OptionalPartPartRule(),
-          terminalSymbolPartRule = new TerminalSymbolPartRule(),
           oneOrMorePartsPartRule = new OneOrMorePartsPartRule(),
           zeroOrMorePartsPartRule = new ZeroOrMorePartsPartRule(),
           significantTokenTypePartRule = new SignificantTokenTypePartRule(),
           name = 'part',
           rules = [
-            regularExpressionRule,
-            productionNameProductionNameRule/*,
+            regularExpressionProductionNameRule,
+            productionNameProductionNameRule,
+            terminalSymbolRule/*,
             wildcardPartRule,
             endOfLinePartRule,
             optionalPartPartRule,
-            terminalSymbolPartRule,
             oneOrMorePartsPartRule,
             zeroOrMorePartsPartRule,
             significantTokenTypePartRule*/

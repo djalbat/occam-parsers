@@ -2,34 +2,35 @@
 
 const grammar = `
 
-  productions     ::=  production+
+  productions        ::=  production+
   
-  production      ::=  productionName "::=" rules [endOfLine]
+  production         ::=  productionName "::=" rules [endOfLine]
   
-  productionName  ::=  [name]
+  rules              ::=  rule
+  
+  rule               ::=  part+
+  
+  part               ::=  productionName  
+                
+                       |  regularExpression 
+                
+                       |  terminalSymbol 
+                
+                       |  wildcard 
+  
+                       |  endOfLine 
+                
+                       |  significantToken 
+                
+                       |  OptionalPart 
+                
+                       |  oneOrMoreParts 
+                
+                       |  zeroOrMoreParts 
+  
+  productionName     ::=  [name]
 
-  rules           ::=  rule
-  
-  rule            ::=  part+
-  
-  part            ::=  regularExpression 
-                
-                    |  productionName  
-                
-                    |  wildcard 
-  
-                    |  endOfLine 
-                
-                    |  significantToken 
-                
-                    |  terminalSymbol 
-                
-                    |  OptionalPart 
-                
-                    |  oneOrMoreParts 
-                
-                    |  zeroOrMoreParts 
-  
+  regularExpression  ::=  [regularExpression]
   
 `;
 

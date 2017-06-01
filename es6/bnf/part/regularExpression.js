@@ -1,10 +1,6 @@
 'use strict';
 
-const lexers = require('occam-lexers');
-
 const TerminalNode = require('../../common/node/terminal');
-
-const { BNFLexer } = lexers;
 
 class RegularExpressionPart {
   constructor(noWhitespace) {

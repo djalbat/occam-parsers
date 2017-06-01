@@ -1,9 +1,9 @@
 'use strict';
 
-const Rule = require('../../rule'),
-      TerminalSymbolPart = require('../../part/terminalSymbol');
+const Rule = require('../rule'),
+      TerminalSymbolPart = require('../part/terminalSymbol');
 
-class TerminalSymbolPartRule extends Rule {
+class TerminalSymbolRule extends Rule {
   constructor() {
     const noWhitespace = false,
           terminalSymbolPart = new TerminalSymbolPart(noWhitespace),
@@ -15,4 +15,4 @@ class TerminalSymbolPartRule extends Rule {
   }
 }
 
-module.exports = TerminalSymbolPartRule;
+module.exports = TerminalSymbolRule;

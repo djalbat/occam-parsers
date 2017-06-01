@@ -1,16 +1,17 @@
 'use strict';
 
 const Rule = require('../rule'),
-      RegularExpressionPart = require('../part/regularExpression');
+    SignificantTokenTypePart = require('../part/significantTokenType');
 
 class RegularExpressionRule extends Rule {
   constructor() {
     const noWhitespace = false,
-          regularExpressionPart = new RegularExpressionPart(noWhitespace),
+          regularExpressionSignificantTokenType = 'regularExpression',
+          regularExpressionSignificantTokenTypePart = new SignificantTokenTypePart(regularExpressionSignificantTokenType, noWhitespace),
           parts = [
-            regularExpressionPart
+            regularExpressionSignificantTokenTypePart
           ];
-    
+
     super(parts)
   }
 }

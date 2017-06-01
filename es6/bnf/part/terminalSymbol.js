@@ -12,7 +12,7 @@ class TerminalSymbolPart {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
     let terminalNode = null;
-    
+
     const savedIndex = context.savedIndex(),
       nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
       significantToken = nextNonWhitespaceSignificantToken; ///
