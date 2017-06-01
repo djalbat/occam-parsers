@@ -46,8 +46,8 @@ class RegularExpressionPart {
 
     if (matches !== null) {
       const secondMatch = second(matches),
-            regExpPattern = secondMatch,  ///
-            regExp = new RegExp(regExpPattern);
+            pattern = secondMatch,  ///
+            regExp = new RegExp(pattern);
 
       regularExpressionPart = new RegularExpressionPart(regExp, noWhitespace);
     }
