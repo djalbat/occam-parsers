@@ -1,20 +1,21 @@
 'use strict';
 
 const Production = require('../production'),
-      NonTerminalNode = require('../../common/node/nonTerminal'),
-      EndOfLineProductionNameRule = require('../rule/productionName/endOfLine'),
-      NoWhitespaceProductionNameRule = require('../rule/productionName/noWhitespace'),
-      TerminalSymbolProductionNameRule = require('../rule/productionName/terminalSymbol'),
-      ProductionNameProductionNameRule = require('../rule/productionName/productionName'),
-      RegularExpressionProductionNameRule = require('../rule/productionName/regularExpression');
+      ProductionNameRule = require('../rule/productionName'),
+      NonTerminalNode = require('../../common/node/nonTerminal');
 
 class PartProduction extends Production {
   constructor() {
-    const endOfLineProductionNameRule = new EndOfLineProductionNameRule(),
-          noWhitespaceProductionNameRule = new NoWhitespaceProductionNameRule(),
-          terminalSymbolProductionNameRule = new TerminalSymbolProductionNameRule(),
-          productionNameProductionNameRule = new ProductionNameProductionNameRule(),
-          regularExpressionProductionNameRule = new RegularExpressionProductionNameRule(),
+    const endOfLineProductionName = 'endOfLine',
+          noWhitespaceProductionName = 'noWhitespace',
+          terminalSymbolProductionName = 'terminalSymbol',
+          productionNameProductionName = 'productionName',
+          regularExpressionProductionName = 'regularExpression',
+          endOfLineProductionNameRule = new ProductionNameRule(endOfLineProductionName),
+          noWhitespaceProductionNameRule = new ProductionNameRule(noWhitespaceProductionName),
+          terminalSymbolProductionNameRule = new ProductionNameRule(terminalSymbolProductionName),
+          productionNameProductionNameRule = new ProductionNameRule(productionNameProductionName),
+          regularExpressionProductionNameRule = new ProductionNameRule(regularExpressionProductionName),
           name = 'part',
           rules = [
             regularExpressionProductionNameRule,

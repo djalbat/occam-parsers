@@ -3,18 +3,18 @@
 const Rule = require('../rule'),
       TerminalSymbolPart = require('../part/terminalSymbol'),
       ProductionNamePart = require('../part/productionName'),
-      SignificantTokenTypePart = require('../part/significantTokenType');
+      SignificantTokenTypePart = require('../../common/part/significantTokenType');
 
 class ProductionRule extends Rule {
   constructor() {
     const noWhitespace = false,
-          productionNameProductionNameContent = 'productionName',
+          productionNameProductionName = 'productionName',
           separatorTerminalSymbolContent = '::=',
-          rulesProductionNameContent = 'rules',
+          rulesProductionName = 'rules',
           endOfLineSignificantTokenType = 'endOfLine',
-          productionNameProductionNamePart = new ProductionNamePart(productionNameProductionNameContent, noWhitespace),
+          productionNameProductionNamePart = new ProductionNamePart(productionNameProductionName, noWhitespace),
           separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent, noWhitespace),
-          rulesProductionNamePart = new ProductionNamePart(rulesProductionNameContent, noWhitespace),
+          rulesProductionNamePart = new ProductionNamePart(rulesProductionName, noWhitespace),
           endOfLineSignificantTokenTypePart = new SignificantTokenTypePart(endOfLineSignificantTokenType, noWhitespace),
           parts = [
             productionNameProductionNamePart,

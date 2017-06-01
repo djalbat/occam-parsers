@@ -2,11 +2,12 @@
 
 const Production = require('../production'),
       NonTerminalNode = require('../../common/node/nonTerminal'),
-      RegularExpressionSignificantTokenTypeRule = require('../rule/significantTokenType/regularExpression');
+      SignificantTokenTypeRule = require('../rule/significantTokenType');
 
 class RegularExpressionProduction extends Production {
   constructor() {
-    const regularExpressionSignificantTokenTypeRule = new RegularExpressionSignificantTokenTypeRule(),
+    const regularExpressionSignificantTokenType = 'regularExpression',
+          regularExpressionSignificantTokenTypeRule = new SignificantTokenTypeRule(regularExpressionSignificantTokenType),
           name = 'regularExpression',
           rules = [
             regularExpressionSignificantTokenTypeRule

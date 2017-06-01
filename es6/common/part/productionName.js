@@ -1,8 +1,8 @@
 'use strict';
 
 class ProductionNamePart {
-  constructor(name, noWhitespace) {
-    this.name = name;
+  constructor(productionName, noWhitespace) {
+    this.productionName = productionName;
     this.noWhitespace = noWhitespace;
   }
   
@@ -12,7 +12,7 @@ class ProductionNamePart {
     let nodeOrNodes = null;
     
     const productions = context.getProductions(),
-          production = ProductionNamePart.findProduction(this.name, productions);
+          production = ProductionNamePart.findProduction(this.productionName, productions);
 
     if (production !== null) {
       nodeOrNodes = production.parse(context, noWhitespace);
@@ -21,13 +21,15 @@ class ProductionNamePart {
     return nodeOrNodes;
   }
 
-  static findProduction(name, productions) {
+  static findProduction(productionName, productions) {
+    const name = productionName;  ///
+    
     let foundProduction = null;
 
     productions.some(function(production) {
-      const productionNamePart = production.getName();
+      const productionName = production.getName();
 
-      if (name === productionNamePart) {
+      if (name === productionName) {
         foundProduction = production;
 
         return true;
@@ -42,8 +44,8 @@ class ProductionNamePart {
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
-    const name = symbol,  ///
-          productionNamePart = new ProductionNamePart(name, noWhitespace);
+    const productionName = symbol,  ///
+          productionNamePart = new ProductionNamePart(productionName, noWhitespace);
   
     return productionNamePart;
   }
