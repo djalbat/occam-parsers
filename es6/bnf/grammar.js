@@ -10,7 +10,9 @@ const grammar = `
   
   rule                  ::=  part+
   
-  part                  ::=  productionName  
+  part                  ::=  group  
+                
+                          |  productionName  
                 
                           |  regularExpression 
                 
@@ -20,7 +22,9 @@ const grammar = `
                         
                           |  noWhitespace 
                 
-                          |  endOfLine 
+                          |  endOfLine
+                           
+  group                 ::=  "(" rules ")"
   
   productionName        ::=  [name]
 

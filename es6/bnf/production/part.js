@@ -6,12 +6,14 @@ const Production = require('../production'),
 
 class PartProduction extends Production {
   constructor() {
-    const endOfLineProductionName = 'endOfLine',
+    const groupProductionName = 'group',
+          endOfLineProductionName = 'endOfLine',
           noWhitespaceProductionName = 'noWhitespace',
           terminalSymbolProductionName = 'terminalSymbol',
           productionNameProductionName = 'productionName',
           regularExpressionProductionName = 'regularExpression',
           significantTokenTypeProductionName = 'significantTokenType',
+          groupProductionNameRule = new ProductionNameRule(groupProductionName),
           endOfLineProductionNameRule = new ProductionNameRule(endOfLineProductionName),
           noWhitespaceProductionNameRule = new ProductionNameRule(noWhitespaceProductionName),
           terminalSymbolProductionNameRule = new ProductionNameRule(terminalSymbolProductionName),
@@ -20,6 +22,7 @@ class PartProduction extends Production {
           significantTokenTypeProductionNameRule = new ProductionNameRule(significantTokenTypeProductionName),
           name = 'part',
           rules = [
+            groupProductionNameRule,
             productionNameProductionNameRule,
             regularExpressionProductionNameRule,
             significantTokenTypeProductionNameRule,
