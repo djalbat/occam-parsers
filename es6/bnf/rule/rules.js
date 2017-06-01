@@ -1,20 +1,15 @@
 'use strict';
 
 const Rule = require('../rule'),
-      ProductionNamePart = require('../part/productionName'),
-      ZeroOrMorePartsPart = require('../part/zeroOrMoreParts');
+      ProductionNamePart = require('../part/productionName');
 
 class RulesRule extends Rule {
   constructor() {
-    const terminalPart = null,
-          noWhitespace = false,
+    const noWhitespace = false,
           ruleProductionName = 'rule',
           ruleProductionNamePart = new ProductionNamePart(ruleProductionName, noWhitespace),
-          orThenRuleProductionName = 'orThenRule',
-          zeroOrMoreOrThenRuleProductionNamePartsPart = new ZeroOrMorePartsPart(terminalPart, orThenRuleProductionName, noWhitespace),
           parts = [
-            ruleProductionNamePart/*,
-            zeroOrMoreOrThenRuleProductionNamePartsPart*/
+            ruleProductionNamePart
           ];
     
     super(parts)

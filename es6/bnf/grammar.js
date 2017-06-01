@@ -8,7 +8,7 @@ const grammar = `
   
   productionName  ::=  [name]
 
-  rules           ::=  rule ("|" rule)*
+  rules           ::=  rule
   
   rule            ::=  part+
   
