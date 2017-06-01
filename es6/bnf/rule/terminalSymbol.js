@@ -1,18 +1,19 @@
 'use strict';
 
 const Rule = require('../rule'),
-      TerminalSymbolPart = require('../part/terminalSymbol');
+      SignificantTokenTypePart = require('../part/significantTokenType');
 
-class TerminalSymbolRule extends Rule {
+class ProductionNameRule extends Rule {
   constructor() {
     const noWhitespace = false,
-          terminalSymbolPart = new TerminalSymbolPart(noWhitespace),
+          stringSignificantTokenType = 'string',
+          stringSignificantTokenTypePart = new SignificantTokenTypePart(stringSignificantTokenType, noWhitespace),
           parts = [
-            terminalSymbolPart
+            stringSignificantTokenTypePart
           ];
-    
+
     super(parts)
   }
 }
 
-module.exports = TerminalSymbolRule;
+module.exports = ProductionNameRule;

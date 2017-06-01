@@ -3,6 +3,7 @@
 const Production = require('../production'),
       RegularExpressionProductionNameRule = require('../rule/regularExpressionProductionName'),
       ProductionNameProductionNameRule = require('../rule/productionNameProductionName'),
+      TerminalSymbolProductionNameRule = require('../rule/terminalSymbolProductionName'),
       TerminalSymbolRule = require('../rule/terminalSymbol'),
       WildcardPartRule = require('../rule/part/wildcard'),
       EndOfLinePartRule = require('../rule/part/endOfLine'),
@@ -16,6 +17,7 @@ class PartProduction extends Production {
   constructor() {
     const regularExpressionProductionNameRule = new RegularExpressionProductionNameRule(),
           productionNameProductionNameRule = new ProductionNameProductionNameRule(),
+          terminalSymbolProductionNameRule = new TerminalSymbolProductionNameRule(),
           terminalSymbolRule = new TerminalSymbolRule(),
           wildcardPartRule = new WildcardPartRule(),
           endOfLinePartRule = new EndOfLinePartRule(),
@@ -27,7 +29,7 @@ class PartProduction extends Production {
           rules = [
             regularExpressionProductionNameRule,
             productionNameProductionNameRule,
-            terminalSymbolRule/*,
+            terminalSymbolProductionNameRule/*,
             wildcardPartRule,
             endOfLinePartRule,
             optionalPartPartRule,

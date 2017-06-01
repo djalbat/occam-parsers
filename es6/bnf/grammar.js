@@ -31,6 +31,8 @@ const grammar = `
   productionName     ::=  [name]
 
   regularExpression  ::=  [regularExpression]
+
+  terminalSymbol     ::=  [string]
   
 `;
 
