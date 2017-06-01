@@ -3,16 +3,16 @@ textarea#content {
   margin-bottom: 1rem;
 }
 
-textarea#bnfGrammar {
-  height: 36rem;
-}
-
 textarea#lexicalGrammar {
   height: 16rem;
   margin-bottom: 1rem;
 }
 
+textarea#bnfGrammar {
+  height: 24rem;
+}
+
 textarea#parseTree {
-  height: 15rem;
+  height: 12rem;
   margin-bottom: 1rem;
 }

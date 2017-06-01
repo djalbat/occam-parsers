@@ -55,7 +55,7 @@ class Example {
       contentTextarea.removeClass('error');
     } catch (error) {
       contentTextarea.addClass('error');
-    
+
       Example.clearParseTreeTextarea();
     }
   }

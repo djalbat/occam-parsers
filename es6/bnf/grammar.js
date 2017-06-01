@@ -12,6 +12,8 @@ const grammar = `
   
   part                  ::=  group  
                 
+                          |  optionalPart  
+                
                           |  productionName  
                 
                           |  regularExpression 
@@ -26,6 +28,8 @@ const grammar = `
                            
   group                 ::=  "(" rules ")"
   
+  optionalPart          ::=  part<NO_WHITESPACE>"?"
+
   productionName        ::=  [name]
 
   regularExpression     ::=  [regularExpression]
