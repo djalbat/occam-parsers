@@ -8,7 +8,9 @@ const CommonParser = require('../common/parser'),
       PartProduction = require('./production/part'),
       ProductionNameProduction = require('./production/productionName'),
       RegularExpressionProduction = require('./production/regularExpression'),
-      TerminalSymbolProduction = require('./production/terminalSymbol');
+      TerminalSymbolProduction = require('./production/terminalSymbol'),
+      NoWhitespaceProduction = require('./production/noWhitespace'),
+      EndOfLineProduction = require('./production/endOfLine');
 
 class BNFParser extends CommonParser {
   static fromNothing() {
@@ -20,6 +22,8 @@ class BNFParser extends CommonParser {
           productionNameProduction = new ProductionNameProduction(),
           regularExpressionProduction = new RegularExpressionProduction(),
           terminalSymbolProduction = new TerminalSymbolProduction(),
+          noWhitespaceProduction = new NoWhitespaceProduction(),
+          endOfLineProduction = new EndOfLineProduction(),
           productions = [
             productionsProduction,
             productionProduction,
@@ -28,7 +32,9 @@ class BNFParser extends CommonParser {
             partProduction,
             productionNameProduction,
             regularExpressionProduction,
-            terminalSymbolProduction
+            terminalSymbolProduction,
+            noWhitespaceProduction,
+            endOfLineProduction
           ],
           bnfParser = new BNFParser(productions);
     

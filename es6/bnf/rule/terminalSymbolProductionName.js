@@ -3,7 +3,7 @@
 const Rule = require('../rule'),
       ProductionNamePart = require('../part/productionName');
 
-class TerminalSybmolProductionNameRule extends Rule {
+class TerminalSymbolProductionNameRule extends Rule {
   constructor() {
     const noWhitespace = false,
           terminalSymbolProductionName = 'terminalSymbol',
@@ -16,4 +16,4 @@ class TerminalSybmolProductionNameRule extends Rule {
   }
 }
 
-module.exports = TerminalSybmolProductionNameRule;
+module.exports = TerminalSymbolProductionNameRule;

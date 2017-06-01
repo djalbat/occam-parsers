@@ -14,14 +14,12 @@ const grammar = `
                 
                        |  regularExpression 
                 
-                       |  terminalSymbol 
+                       |  terminalSymbol
+                        
+                       |  noWhitespace 
                 
-                       |  wildcard 
-  
                        |  endOfLine 
-                
-                       |  significantToken 
-                
+  
                        |  OptionalPart 
                 
                        |  oneOrMoreParts 
@@ -34,6 +32,10 @@ const grammar = `
 
   terminalSymbol     ::=  [string]
   
+  noWhitespace       ::=  "<NO_WHITESPACE>"
+  
+  endOfLine          ::=  "<END_OF_LINE>"
+
 `;
 
 module.exports = grammar;

@@ -3,7 +3,7 @@
 const Rule = require('../rule'),
       SignificantTokenTypePart = require('../part/significantTokenType');
 
-class ProductionNameRule extends Rule {
+class TerminalSymbolRule extends Rule {
   constructor() {
     const noWhitespace = false,
           stringSignificantTokenType = 'string',
@@ -16,4 +16,4 @@ class ProductionNameRule extends Rule {
   }
 }
 
-module.exports = ProductionNameRule;
+module.exports = TerminalSymbolRule;
