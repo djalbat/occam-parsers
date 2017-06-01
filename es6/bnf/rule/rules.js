@@ -1,7 +1,7 @@
 'use strict';
 
 const Rule = require('../rule'),
-      ProductionNamePart = require('../part/productionName');
+      ProductionNamePart = require('../../common/part/productionName');
 
 class RulesRule extends Rule {
   constructor() {

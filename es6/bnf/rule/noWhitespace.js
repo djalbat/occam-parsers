@@ -1,7 +1,7 @@
 'use strict';
 
 const Rule = require('../rule'),
-      TerminalSymbolPart = require('../part/terminalSymbol');
+      TerminalSymbolPart = require('../../common/part/terminalSymbol');
 
 class NoWhitespaceRule extends Rule {
   constructor() {

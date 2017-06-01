@@ -1,8 +1,8 @@
 'use strict';
 
 const Rule = require('../rule'),
-      TerminalSymbolPart = require('../part/terminalSymbol'),
-      ProductionNamePart = require('../part/productionName'),
+      TerminalSymbolPart = require('../../common/part/terminalSymbol'),
+      ProductionNamePart = require('../../common/part/productionName'),
       SignificantTokenTypePart = require('../../common/part/significantTokenType');
 
 class ProductionRule extends Rule {

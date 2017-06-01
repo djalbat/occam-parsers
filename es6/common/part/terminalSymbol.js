@@ -3,8 +3,8 @@
 const TerminalNode = require('../../common/node/terminal');
 
 class TerminalSymbolPart {
-  constructor(symbol, noWhitespace) {
-    this.symbol = symbol;
+  constructor(content, noWhitespace) {
+    this.content = content;
     this.noWhitespace = noWhitespace;
   }
 
@@ -14,12 +14,12 @@ class TerminalSymbolPart {
     let terminalNode = null;
     
     const savedIndex = context.savedIndex(),
-      nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
-      significantToken = nextNonWhitespaceSignificantToken; ///
+        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+        significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
       const content = significantToken.getContent(),
-          parsed = (content === this.symbol);  ///
+            parsed = (content === this.content);
 
       if (parsed) {
         terminalNode = TerminalNode.fromSignificantToken(significantToken);
@@ -40,11 +40,10 @@ class TerminalSymbolPart {
           matches = symbol.match(terminalSymbolPartRegExp);
 
     if (matches !== null) {
-      const secondMatch = second(matches);
-      
-      symbol = secondMatch; ///
+      const secondMatch = second(matches),      
+            content = secondMatch; ///
 
-      terminalSymbolPart = new TerminalSymbolPart(symbol, noWhitespace);
+      terminalSymbolPart = new TerminalSymbolPart(content, noWhitespace);
     }
 
     return terminalSymbolPart;
