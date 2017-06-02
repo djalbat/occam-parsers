@@ -1,6 +1,6 @@
 'use strict';
 
-const TerminalNode = require('../../common/node/terminal');
+const TerminalNode = require('../node/terminal');
 
 class WildcardPart {
   constructor(noWhitespace) {

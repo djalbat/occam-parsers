@@ -1,7 +1,7 @@
 'use strict';
 
 const Rule = require('./rule'),
-      NonTerminalNode = require('../common/node/nonTerminal');
+      NonTerminalNode = require('./node/nonTerminal');
 
 class Production {
   constructor(name, rules, Node) {
@@ -13,7 +13,46 @@ class Production {
   getName() {
     return this.name;
   }
+  
+  getRule() {
+    return this.rules;
+  }
+  
+  getNode() {
+    return this.Node;
+  }
+  
+  isLeftRecursive() {
+    const leftRecursiveRules = this.getLeftRecursiveRules(),
+          leftRecursiveRulesLength = leftRecursiveRules.length,
+          leftRecursive = (leftRecursiveRulesLength > 0);
+    
+    return leftRecursive;
+  }
+  
+  getLeftRecursiveRules() {
+    const productionName = this.name, ///
+          leftRecursiveRules = this.rules.filter(function(rule) {
+            const ruleLeftRecursive = rule.isLeftRecursive(productionName);
+      
+            return ruleLeftRecursive;
+          });
 
+    return leftRecursiveRules;
+  }
+
+  getNonLeftRecursiveRules() {
+    const productionName = this.name, ///
+          leftNonRecursiveRules = this.rules.filter(function(rule) {
+            const ruleLeftRecursive = rule.isLeftRecursive(productionName),
+                  ruleNonLeftRecursive = !ruleLeftRecursive;
+  
+            return ruleNonLeftRecursive;
+          });
+
+    return leftNonRecursiveRules;
+  }
+  
   parse(context, noWhitespace) {
     let nodeOrNodes = null;
 

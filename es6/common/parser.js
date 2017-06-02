@@ -1,10 +1,12 @@
 'use strict';
 
-const Context = require('./context');
+const Context = require('./context'),
+      RightRecursiveProduction = require('./production/rightRecursive'),
+      NonLeftRecursiveProduction = require('./production/nonLeftRecursive');
 
 class CommonParser {
   constructor(productions) {
-    this.productions = productions;
+    this.productions = eliminateLeftRecursiveProductions(productions); ///
   }
 
   getProductions() {
@@ -79,6 +81,26 @@ class CommonParser {
 }
 
 module.exports = CommonParser;
+
+function eliminateLeftRecursiveProductions(productions) {
+  productions = productions.reduce(function(productions, production) {
+    const productionLeftRecursive = production.isLeftRecursive();
+
+    if (productionLeftRecursive) {
+      const nonLeftRecursiveProduction = NonLeftRecursiveProduction.fromProduction(production),
+            rightRecursiveProduction = RightRecursiveProduction.fromProduction(production);
+
+      productions.push(nonLeftRecursiveProduction);      
+      productions.push(rightRecursiveProduction);
+    } else {
+      productions.push(production);
+    }
+
+    return productions;
+  }, []);
+
+  return productions;
+}
 
 function tokensFromLines(lines) {
   const tokens = lines.reduce(function(tokens, line) {

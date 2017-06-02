@@ -2,7 +2,8 @@
 
 const lexers = require('occam-lexers');
 
-const Parts = require('./parts');
+const Parts = require('./parts'),
+      ProductionNamePart = require('./part/productionName');
 
 const { specialSymbols } = lexers;
 
@@ -13,6 +14,26 @@ class Rule {
 
   getParts() {
     return this.parts;
+  }
+  
+  getAllButFirstParts() {
+    const allButFirstParts = this.parts.slice(1);
+
+    return allButFirstParts;
+  }
+  
+  isLeftRecursive(productionName) {
+    let leftRecursive = false;
+    
+    const firstPart = first(this.parts);
+    
+    if (firstPart instanceof ProductionNamePart) {
+      const productionNamePart = firstPart; ///
+
+      leftRecursive = productionNamePart.isLeftRecursive(productionName);
+    }
+    
+    return leftRecursive;
   }
 
   parse(context, noWhitespace) {
@@ -78,3 +99,5 @@ function partFromSymbol(symbol, significantTokenTypes, noWhitespace) {
 
   return part;
 }
+
+function first(array) { return array[0]; }

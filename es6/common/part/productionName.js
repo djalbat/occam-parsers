@@ -6,6 +6,12 @@ class ProductionNamePart {
     this.noWhitespace = noWhitespace;
   }
   
+  isLeftRecursive(productionName) {
+    const leftRecursive = (this.productionName === productionName);
+    
+    return leftRecursive;
+  }
+  
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
