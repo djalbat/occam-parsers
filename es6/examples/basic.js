@@ -78,7 +78,7 @@ function updateBasicLexer() {
 
 function updateBasicParser() {
   const bnfGrammarTextareaValue = Example.getBNFGrammarTextareaValue(),
-        bnfGrammar = bnfGrammarTextareaValue; ///
+        grammar = bnfGrammarTextareaValue; ///
 
-  basicParser = BasicParser.fromGrammar(bnfGrammar);
+  basicParser = BasicParser.fromGrammar(grammar);
 }

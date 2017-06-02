@@ -2,15 +2,17 @@
 
 const grammar = `
 
-    expression               ::=  term & (operator term)* 
+    expression               ::=  term operatorThenTerm*
+
+    operatorThenTerm         ::=  operator term
     
-    operator                 ::=  "+" | "-" | "*" | "/"
+    operator                 ::=  '+' | '-' | '*' | '/'
     
     term                     ::=  naturalNumber | parenthesizedExpression
     
-    naturalNumber            ::=  /\d+/
+    naturalNumber            ::=  /\\d+/
     
-    parenthesizedExpression  ::=  "(" expression ")"
+    parenthesizedExpression  ::=  '(' expression ')'
                             
 `;
 

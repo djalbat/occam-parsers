@@ -32,6 +32,30 @@ class SignificantTokenTypePart {
 
     return terminalNode;
   }
+
+  static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
+    let significantTokenTypePart = null;
+
+    const significantTokenTypePartRegExp = /^\[([^/]+)\]$/,
+        matches = symbol.match(significantTokenTypePartRegExp);
+
+    if (matches !== null) {
+      const secondMatch = second(matches),
+            type = secondMatch, ///
+            foundType = significantTokenTypes.find(function(significantTokenType) {
+              const found = (type === significantTokenType);
+
+              return found;
+            }),
+            found = (foundType !== undefined);
+
+      if (found) {
+        significantTokenTypePart = new SignificantTokenTypePart(type, noWhitespace);
+      }
+    }
+
+    return significantTokenTypePart;
+  }
 }
 
 module.exports = SignificantTokenTypePart;

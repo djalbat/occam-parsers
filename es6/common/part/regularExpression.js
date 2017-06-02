@@ -41,7 +41,7 @@ class RegularExpressionPart {
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     let regularExpressionPart = null;
     
-    const regularExpressionPartRegExp = /^(\/[^/]+\/)$/,
+    const regularExpressionPartRegExp = /^\/([^/]+)\/$/,
           matches = symbol.match(regularExpressionPartRegExp);
 
     if (matches !== null) {

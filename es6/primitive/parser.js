@@ -17,7 +17,7 @@ class PrimitiveParser {
 
         return production;
       });
-    } catch(exception) {
+    } catch(error) {
       productions = [];
     }
 
