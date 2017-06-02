@@ -2,18 +2,30 @@
 
 const grammar = `
 
-    expression               ::=  term operatorThenTerm*
+  expression               ::=  term expression'
 
-    operatorThenTerm         ::=  operator term
+  expression'              ::=  '+' term expression' | ε
+
+  term                     ::=  naturalNumber
+  
+  naturalNumber            ::=  /\\d+/
     
-    operator                 ::=  '+' | '-' | '*' | '/'
-    
-    term                     ::=  naturalNumber | parenthesizedExpression
-    
-    naturalNumber            ::=  /\\d+/
-    
-    parenthesizedExpression  ::=  '(' expression ')'
-                            
 `;
 
 module.exports = grammar;
+
+/*
+
+  expression               ::=  term operatorThenTerm*
+  
+  operatorThenTerm         ::=  operator term
+  
+  operator                 ::=  '+' | '-' | '*' | '/'
+  
+  term                     ::=  naturalNumber | parenthesizedExpression
+  
+  naturalNumber            ::=  /\\d+/
+  
+  parenthesizedExpression  ::=  '(' expression ')'
+
+*/
