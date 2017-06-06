@@ -176,8 +176,9 @@ Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have
 
 ## Resources
 
+* [Gate Lectures on Compiler Design by Ravindrababu Ravula](https://www.youtube.com/watch?v=Qkwj65l_96I&list=PLEbnTDJUr_IcPtUXFy2b1sGRPsLFMghhS)
+* [Eliminating left-recursion: three steps by Hudson Turner](http://www.d.umn.edu/~hudson/5641/l11m.pdf)
 * [Notes on Formal Language Theory and Parsing by James Power](http://www.cs.nuim.ie/~jpower/Courses/Previous/parsing)
-* [Gate lectures on Compiler Design by Ravindrababu Ravula](https://www.youtube.com/watch?v=Qkwj65l_96I&list=PLEbnTDJUr_IcPtUXFy2b1sGRPsLFMghhS)
 * [Eliminating ambiguity in context free grammars by Rasmus Ejlers Møgelberg](http://itu.dk/people/mogel/SPLC2012/lectures/eliminatingAmbiguity.pdf)
 * [BNF and EBNF: What are they and how do they work? by Lars Marius Garshol](http://www.garshol.priv.no/download/text/bnf.html#id2.3.)
 * [Compiler Theory: Syntax Analysis - Elimination of left recursion by Marc Moreno Maza](http://www.csd.uwo.ca/~moreno/CS447/Lectures/Syntax.html/node8.html)
