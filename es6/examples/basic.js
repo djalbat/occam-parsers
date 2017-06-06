@@ -46,6 +46,8 @@ function update() {
 
   updateBasicParser();
 
+  updateAdjustedBNFGrammar();
+
   if (basicLexer !== null) {
     const production = null;  ///
 
@@ -84,7 +86,9 @@ function updateBasicParser() {
         grammar = bnfGrammarTextareaValue; ///
 
   basicParser = BasicParser.fromGrammar(grammar);
+}
 
+function updateAdjustedBNFGrammar() {
   const productions = basicParser.getProductions(),
         maximumProductionNameLength = productions.reduce(function(maximumProductionNameLength, production) {
           const productionName = production.getName(),
