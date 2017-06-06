@@ -1,6 +1,6 @@
 'use strict';
 
-const arrayUtil = require('../../../arrayUtil');
+const arrayUtil = require('../../../util/array');
 
 class TransparentThenKeepSecondNode {
   static fromNodesAndProductionName(nodes, productionName) {

@@ -1,13 +1,11 @@
 'use strict';
 
 const Context = require('./context'),
-      RightRecursiveProduction = require('./production/rightRecursive'),
-      NonLeftRecursiveProduction = require('./production/nonLeftRecursive'),
-      NonImplicitlyLeftRecursiveProduction = require('./production/nonImplicitlyLeftRecursive');
+      parserUtil = require('../util/parser');
 
 class CommonParser {
   constructor(productions) {
-    productions = eliminateLeftRecursiveProductions(productions); ///
+    productions = parserUtil.eliminateLeftRecursiveProductions(productions); ///
 
     this.productions = productions;
   }
@@ -17,7 +15,7 @@ class CommonParser {
   }
   
   nodeFromLines(lines, production = null) {
-    const tokens = tokensFromLines(lines),
+    const tokens = parserUtil.tokensFromLines(lines),
           node = this.parse(tokens, production);
     
     return node;
@@ -84,55 +82,5 @@ class CommonParser {
 }
 
 module.exports = CommonParser;
-
-function eliminateLeftRecursiveProductions(productions) {
-  const nonLeftRecursiveProductions = [],
-        rightRecursiveProductions = [];
-
-  productions.forEach(function(production, index) {
-    const begin = 0,
-          end = index,  ///
-          previousNonLeftRecursiveProductions = nonLeftRecursiveProductions.slice(begin, end),
-          previousProductions = previousNonLeftRecursiveProductions,  ///
-          productionImplicitlyLeftRecursive = production.isImplicitlyLeftRecursive(previousProductions);
-    
-    if (productionImplicitlyLeftRecursive) {
-      const nonImplicitlyLeftRecursiveProduction = NonImplicitlyLeftRecursiveProduction.fromProductionAndPreviousProductions(production, previousProductions);
-      
-      production = nonImplicitlyLeftRecursiveProduction;  ///
-    }
-    
-    const productionLeftRecursive = production.isLeftRecursive();
-
-    if (productionLeftRecursive) {
-      const nonLeftRecursiveProduction = NonLeftRecursiveProduction.fromProduction(production),
-            rightRecursiveProduction = RightRecursiveProduction.fromProduction(production);
-
-      nonLeftRecursiveProductions.push(nonLeftRecursiveProduction);
-
-      rightRecursiveProductions.push(rightRecursiveProduction);
-    } else {
-      const nonLeftRecursiveProduction = production;  ///
-
-      nonLeftRecursiveProductions.push(nonLeftRecursiveProduction);
-    }
-  });
-
-  productions = [].concat(nonLeftRecursiveProductions).concat(rightRecursiveProductions);
-
-  return productions;
-}
-
-function tokensFromLines(lines) {
-  const tokens = lines.reduce(function(tokens, line) {
-   const lineTokens = line.getTokens();
-
-    tokens = tokens.concat(lineTokens);
-
-    return tokens;
-  }, []);
-
-  return tokens;
-}
 
 function first(array) { return array[0]; }

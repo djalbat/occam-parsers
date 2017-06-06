@@ -1,6 +1,6 @@
 'use strict';
 
-const arrayUtil = require('../../../arrayUtil'),
+const arrayUtil = require('../../../util/array'),
       NonTerminalNode = require('../nonTerminal');
 
 class KeepFirstChildNode extends NonTerminalNode {

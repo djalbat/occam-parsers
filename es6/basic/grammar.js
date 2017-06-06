@@ -2,16 +2,20 @@
 
 const grammar = `
 
-  A1 ::= A2 'a' | 'b'
-
-  A2 ::= A1 'c' | 'd'
+  S ::= X | X 'b' | S S
   
+  X ::= S | a
+
 `;
 
 module.exports = grammar;
 
 /*
 
+
+ A1 ::= A2 'a' | 'b'
+
+ A2 ::= A1 'c' | 'd'
 
  expression               ::=  expression '+' term | term
 
