@@ -2,7 +2,8 @@
 
 const Context = require('./context'),
       RightRecursiveProduction = require('./production/rightRecursive'),
-      NonLeftRecursiveProduction = require('./production/nonLeftRecursive');
+      NonLeftRecursiveProduction = require('./production/nonLeftRecursive'),
+      NonImplicitlyLeftRecursiveProduction = require('./production/nonImplicitlyLeftRecursive');
 
 class CommonParser {
   constructor(productions) {
@@ -85,21 +86,39 @@ class CommonParser {
 module.exports = CommonParser;
 
 function eliminateLeftRecursiveProductions(productions) {
-  productions = productions.reduce(function(productions, production) {
+  const nonLeftRecursiveProductions = [],
+        rightRecursiveProductions = [];
+
+  productions.forEach(function(production, index) {
+    const begin = 0,
+          end = index,  ///
+          previousNonLeftRecursiveProductions = nonLeftRecursiveProductions.slice(begin, end),
+          previousProductions = previousNonLeftRecursiveProductions,  ///
+          productionImplicitlyLeftRecursive = production.isImplicitlyLeftRecursive(previousProductions);
+    
+    if (productionImplicitlyLeftRecursive) {
+      const nonImplicitlyLeftRecursiveProduction = NonImplicitlyLeftRecursiveProduction.fromProductionAndPreviousProductions(production, previousProductions);
+      
+      production = nonImplicitlyLeftRecursiveProduction;  ///
+    }
+    
     const productionLeftRecursive = production.isLeftRecursive();
 
     if (productionLeftRecursive) {
       const nonLeftRecursiveProduction = NonLeftRecursiveProduction.fromProduction(production),
             rightRecursiveProduction = RightRecursiveProduction.fromProduction(production);
 
-      productions.push(nonLeftRecursiveProduction);      
-      productions.push(rightRecursiveProduction);
-    } else {
-      productions.push(production);
-    }
+      nonLeftRecursiveProductions.push(nonLeftRecursiveProduction);
 
-    return productions;
-  }, []);
+      rightRecursiveProductions.push(rightRecursiveProduction);
+    } else {
+      const nonLeftRecursiveProduction = production;  ///
+
+      nonLeftRecursiveProductions.push(nonLeftRecursiveProduction);
+    }
+  });
+
+  productions = [].concat(nonLeftRecursiveProductions).concat(rightRecursiveProductions);
 
   return productions;
 }

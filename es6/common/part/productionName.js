@@ -6,6 +6,10 @@ class ProductionNamePart {
     this.noWhitespace = noWhitespace;
   }
   
+  getProductionName() {
+    return this.productionName;
+  }
+  
   isLeftRecursive(productionName) {
     const leftRecursive = (this.productionName === productionName);
     

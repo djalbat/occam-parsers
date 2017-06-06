@@ -14,7 +14,7 @@ class Production {
     return this.name;
   }
   
-  getRule() {
+  getRules() {
     return this.rules;
   }
   
@@ -28,6 +28,16 @@ class Production {
           leftRecursive = (leftRecursiveRulesLength > 0);
     
     return leftRecursive;
+  }
+  
+  isImplicitlyLeftRecursive(previousProductions) {
+    const implicitlyLeftRecursive = this.rules.some(function(rule) {
+      const implicitlyLeftRecursive = rule.isImplicitlyLeftRecursive(previousProductions);
+      
+      return implicitlyLeftRecursive;
+    });
+    
+    return implicitlyLeftRecursive;
   }
   
   getLeftRecursiveRules() {

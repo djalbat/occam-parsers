@@ -23,9 +23,9 @@ function rulesFromProduction(production) {
   const productionNonLeftRecursiveRules = production.getNonLeftRecursiveRules(),
         rules = productionNonLeftRecursiveRules.map(function(productionNonLeftRecursiveRule) {
           const productionNonLeftRecursiveRuleParts = productionNonLeftRecursiveRule.getParts(),
-              productionNamePart = RightRecursiveProduction.productionNamePartFromProduction(production),
-              parts = [].concat(productionNonLeftRecursiveRuleParts).concat(productionNamePart),
-              rule = new Rule(parts);
+                productionNamePart = RightRecursiveProduction.productionNamePartFromProduction(production),
+                parts = [].concat(productionNonLeftRecursiveRuleParts).concat(productionNamePart),
+                rule = new Rule(parts);
   
           return rule;
         });

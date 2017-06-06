@@ -22,20 +22,61 @@ class Rule {
     return allButFirstParts;
   }
   
+  getFirstProductionNamePart() {
+    let firstProductionNamePart = null;
+
+    const firstPart = first(this.parts);
+
+    if (firstPart instanceof ProductionNamePart) {
+      firstProductionNamePart = firstPart; ///
+    }
+    
+    return firstProductionNamePart;
+  }
+
   isLeftRecursive(productionName) {
     let leftRecursive = false;
     
-    const firstPart = first(this.parts);
+    const firstProductionNamePart = this.getFirstProductionNamePart();    
     
-    if (firstPart instanceof ProductionNamePart) {
-      const productionNamePart = firstPart; ///
-
-      leftRecursive = productionNamePart.isLeftRecursive(productionName);
+    if (firstProductionNamePart !== null) {
+      leftRecursive = firstProductionNamePart.isLeftRecursive(productionName);
     }
     
     return leftRecursive;
   }
-  
+
+  isImplicitlyLeftRecursive(previousProductions) {
+    const implicitlyLeftRecursivePreviousProduction = this.implicitlyLeftRecursivePreviousProduction(previousProductions),
+          implicitlyLeftRecursive = (implicitlyLeftRecursivePreviousProduction !== null);
+    
+    return implicitlyLeftRecursive;
+  }
+
+  implicitlyLeftRecursivePreviousProduction(previousProductions) {
+    let implicitlyLeftRecursivePreviousProduction = null;
+
+    const firstProductionNamePart = this.getFirstProductionNamePart();
+
+    if (firstProductionNamePart !== null) {
+      const firstProductionNamePartProductionName = firstProductionNamePart.getProductionName(),
+            firstProductionName = firstProductionNamePartProductionName;  ///
+
+      previousProductions.some(function(previousProduction) {
+        const previousProductionName = previousProduction.getName(),
+              previousProductionImplicitlyLeftRecursive = (previousProductionName === firstProductionName);
+
+        if (previousProductionImplicitlyLeftRecursive) {
+          implicitlyLeftRecursivePreviousProduction = previousProduction;
+
+          return true;
+        }
+      });
+    }
+
+    return implicitlyLeftRecursivePreviousProduction;
+  }
+
   toString() {
     const partsString = this.parts.reduce(function(partsString, part) {
             const partString = part.toString();

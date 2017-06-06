@@ -2,19 +2,29 @@
 
 const grammar = `
 
-  expression               ::=  expression '+' term | term
+  A1 ::= A2 'a' | 'b'
 
-  term                     ::=  naturalNumber
+  A2 ::= A1 'c' | 'd'
   
-  naturalNumber            ::=  /\\d+/
-    
 `;
 
 module.exports = grammar;
 
 /*
 
-  expression               ::=  term operatorThenTerm*
+
+ expression               ::=  expression '+' term | term
+
+ term                     ::=  naturalNumber
+
+ naturalNumber            ::=  /\\d+/
+
+
+
+
+
+
+ expression               ::=  term operatorThenTerm*
   
   operatorThenTerm         ::=  operator term
   
