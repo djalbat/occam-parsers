@@ -24,13 +24,30 @@ class SequenceOfPartsPart {
     return this.noWhitespace;
   }
 
-  terminalPartOrProduction(productions) {
+  getTerminalPartOrProduction(productions) {
     const production = ProductionNamePart.findProduction(this.productionName, productions),
           terminalPartOrProduction = (this.terminalPart !== null) ?
                                         this.terminalPart :
                                           production;
 
     return terminalPartOrProduction;
+  }
+
+  toString(operatorString) {
+    let string;
+
+    const productionName = this.getProductionName();
+
+    if (productionName !== null) {
+      string = `${productionName}${operatorString}`;
+    } else {
+      const terminalPart = this.getTerminalPart(),
+          terminalPartString = terminalPart.toString();
+
+      string = `${terminalPartString}${operatorString}`;
+    }
+
+    return string;
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace, regExp, Class) {

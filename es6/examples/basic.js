@@ -11,15 +11,18 @@ const { Textarea } = easy,
       { BasicLexer } = lexers;
 
 const lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
+      adjustedBNFGrammarTextareaSelector = 'textarea#adjustedBNFGrammar',
       lexicalGrammar = BasicLexer.grammar;
 
 let lexicalGrammarTextarea,
+    adjustedBNFGrammarTextarea,
     basicLexer = null,
     basicParser = null;
 
 class BasicExample {
   static run() {
     lexicalGrammarTextarea = new Textarea(lexicalGrammarTextareaSelector);
+    adjustedBNFGrammarTextarea = new Textarea(adjustedBNFGrammarTextareaSelector);
 
     const bnfGrammarTextareaValue = grammar, ///
           lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '); ///
@@ -81,4 +84,23 @@ function updateBasicParser() {
         grammar = bnfGrammarTextareaValue; ///
 
   basicParser = BasicParser.fromGrammar(grammar);
+
+  const productions = basicParser.getProductions(),
+        maximumProductionNameLength = productions.reduce(function(maximumProductionNameLength, production) {
+          const productionName = production.getName(),
+                productionNameLength = productionName.length;
+
+          maximumProductionNameLength = Math.max(maximumProductionNameLength, productionNameLength);
+
+          return maximumProductionNameLength;
+        }, 0),
+        adjustedBNFGrammarTextareaValue = productions.reduce(function(adjustedBNFGrammarTextarea, production) {
+          const productionString = production.toString(maximumProductionNameLength);
+          
+          adjustedBNFGrammarTextarea += productionString;
+
+          return adjustedBNFGrammarTextarea;
+        }, []);
+
+  adjustedBNFGrammarTextarea.setValue(adjustedBNFGrammarTextareaValue);
 }

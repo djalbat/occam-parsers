@@ -3,13 +3,20 @@
 const SequenceOfPartsPart = require('./sequenceOfParts');
 
 class ZeroOrMorePartsPart extends SequenceOfPartsPart {
+  toString() {
+    const operatorString = '*',
+          string = super.toString(operatorString);
+
+    return string;
+  }
+
   parse(context, noWhitespace) {
     noWhitespace = this.getNoWhitespace();  ///
 
     let nodes = [];
     
     const productions = context.getProductions(),
-          terminalPartOrProduction = this.terminalPartOrProduction(productions);
+          terminalPartOrProduction = this.getTerminalPartOrProduction(productions);
 
     if (terminalPartOrProduction !== null) {
       for(;;) {

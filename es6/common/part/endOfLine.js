@@ -10,7 +10,7 @@ class EndOfLinePart {
   constructor(noWhitespace) {
     this.noWhitespace = noWhitespace;
   }
-
+  
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
@@ -34,6 +34,12 @@ class EndOfLinePart {
     }
 
     return terminalNode;
+  }
+
+  toString() {
+    const string = '<END_OF_LINE>';
+
+    return string;
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {

@@ -7,7 +7,7 @@ class RegularExpressionPart {
     this.regExp = regExp;
     this.noWhitespace = noWhitespace;
   }
-
+  
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
@@ -36,6 +36,13 @@ class RegularExpressionPart {
     }
 
     return terminalNode;
+  }
+
+  toString() {
+    const regExpString = this.regExp.toString(),
+          string = regExpString;  //
+
+    return string;
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {

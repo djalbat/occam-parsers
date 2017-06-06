@@ -32,6 +32,12 @@ class TerminalSymbolPart {
 
     return terminalNode;
   }
+  
+  toString() {
+    const string = `'${this.content}'`;
+    
+    return string;
+  }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     let terminalSymbolPart = null;

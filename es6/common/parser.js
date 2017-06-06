@@ -6,7 +6,9 @@ const Context = require('./context'),
 
 class CommonParser {
   constructor(productions) {
-    this.productions = eliminateLeftRecursiveProductions(productions); ///
+    productions = eliminateLeftRecursiveProductions(productions); ///
+
+    this.productions = productions;
   }
 
   getProductions() {

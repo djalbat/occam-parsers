@@ -7,7 +7,7 @@ class SignificantTokenTypePart {
     this.significantTokenType = significantTokenType;
     this.noWhitespace = noWhitespace;
   }
-
+  
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
     
@@ -31,6 +31,12 @@ class SignificantTokenTypePart {
     }
 
     return terminalNode;
+  }
+
+  toString() {
+    const string = `[${this.significantTokenType}]`;
+    
+    return string;
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {

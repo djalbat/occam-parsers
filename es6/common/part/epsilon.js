@@ -8,6 +8,12 @@ class EpsilonPart {
 
     return epsilonTerminalNode;
   }
+  
+  toString() {
+    const string = 'ε';
+    
+    return string;
+  }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     let  epsilonPart = null;

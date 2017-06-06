@@ -10,7 +10,7 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
     let nodes = null;
     
     const productions = context.getProductions(),
-          terminalPartOrProduction = this.terminalPartOrProduction(productions);
+          terminalPartOrProduction = this.getTerminalPartOrProduction(productions);
 
     if (terminalPartOrProduction !== null) {
       const terminalPartOrProductionNodeOrNodes = terminalPartOrProduction.parse(context, noWhitespace),
@@ -29,6 +29,13 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
     }
 
     return nodes;
+  }
+
+  toString() {
+    const operatorString = '+',
+          string = super.toString(operatorString);
+
+    return string;
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {

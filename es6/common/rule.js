@@ -35,6 +35,23 @@ class Rule {
     
     return leftRecursive;
   }
+  
+  toString() {
+    const partsString = this.parts.reduce(function(partsString, part) {
+            const partString = part.toString();
+            
+            if (partsString === null) {
+              partsString = partString;
+            } else {
+              partsString = `${partsString} ${partString}`;
+            }
+            
+            return partsString;
+          }, null),
+          string = partsString; ///
+    
+    return string;
+  }
 
   parse(context, noWhitespace) {
     let nodes = [];

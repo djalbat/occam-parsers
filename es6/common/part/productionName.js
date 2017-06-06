@@ -27,6 +27,12 @@ class ProductionNamePart {
     return nodeOrNodes;
   }
 
+  toString() {
+    const string = this.productionName;
+
+    return string;
+  }
+
   static findProduction(productionName, productions) {
     const name = productionName;  ///
     

@@ -53,6 +53,26 @@ class Production {
     return leftNonRecursiveRules;
   }
   
+  toString(maximumProductionNameLength) {
+    const rulesString = this.rules.reduce(function(rulesString, rule) {
+            const ruleString = rule.toString();
+            
+            if (rulesString === null) {
+              rulesString = ruleString;
+            } else {
+              rulesString = `${rulesString} | ${ruleString}`;
+            }
+            
+            return rulesString;
+          }, null),
+          productionNameLength = this.name.length,  ///
+          paddingLength = maximumProductionNameLength - productionNameLength,
+          padding = paddingFromPaddingLength(paddingLength),
+          string = `\n  ${this.name}${padding} ::= ${rulesString}\n`;
+    
+    return string;
+  }
+  
   parse(context, noWhitespace) {
     let nodeOrNodes = null;
 
@@ -107,3 +127,13 @@ class Production {
 }
 
 module.exports = Production;
+
+function paddingFromPaddingLength(paddingLength) {
+  let padding = '';
+  
+  for (var position = 0; position < paddingLength; position++) {
+    padding += ' ';
+  }
+  
+  return padding;
+}

@@ -9,7 +9,7 @@ class OptionalPartPart extends SequenceOfPartsPart {
     let nodes = [];
     
     const productions = context.getProductions(),
-          terminalPartOrProduction = this.terminalPartOrProduction(productions);
+          terminalPartOrProduction = this.getTerminalPartOrProduction(productions);
     
     if (terminalPartOrProduction !== null) {
       const terminalPartOrProductionNodeOrNodes = terminalPartOrProduction.parse(context, noWhitespace),
@@ -22,7 +22,14 @@ class OptionalPartPart extends SequenceOfPartsPart {
 
     return nodes;
   }
-  
+
+  toString() {
+    const operatorString = '?',
+          string = super.toString(operatorString);
+
+    return string;
+  }
+
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     const regExp = /([^*]+)\?$/,
           Class = OptionalPartPart,
