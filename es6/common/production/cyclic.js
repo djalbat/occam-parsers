@@ -47,17 +47,13 @@ function rulesFromProduction(production) {
           const productionRuleFirstProductionNamePart = productionRule.getFirstProductionNamePart();
           
           if (productionRuleFirstProductionNamePart !== null) {
-            const productionRulePartsLength = productionRule.getPartsLength();
-            
-            if (productionRulePartsLength === 1) {
-              const cyclicPart = productionRuleFirstProductionNamePart,
-                    cyclicParts = [
-                      cyclicPart
-                    ],
-                    cyclicRule = new Rule(cyclicParts);
+            const cyclicPart = productionRuleFirstProductionNamePart,
+                  cyclicParts = [
+                    cyclicPart
+                  ],
+                  cyclicRule = new Rule(cyclicParts);
 
-              cyclicRules.push(cyclicRule);
-            }
+            cyclicRules.push(cyclicRule);
           }
           
           return cyclicRules;

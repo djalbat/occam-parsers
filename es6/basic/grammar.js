@@ -2,9 +2,9 @@
 
 const grammar = `
 
-  S ::= X | X 'b' | S S
+  S ::= X 'b' | Y 
   
-  Y ::= S | 'a'
+  Y ::= X | 'a'
   
   X ::= Y | 'c'
 
