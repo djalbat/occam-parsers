@@ -3,7 +3,7 @@
 const Cycle = require('./graph/cycle'),
       Stack = require('./graph/stack'),
       Vertex = require('./graph/vertex'),
-      StronglyConnectedComponent = require('./graph/stronglyConnectedComponent');
+      Component = require('./graph/component');
 
 class Graph {
   constructor () {
@@ -11,12 +11,12 @@ class Graph {
   }
   
   getCycles() {
-    const stronglyConnectedComponents = this.getStronglyConnectedComponents(),
-          cycles = stronglyConnectedComponents.reduce(function(cycles, stronglyConnectedComponent) {
-            const stronglyConnectedComponentCyclic = stronglyConnectedComponent.isCyclic();
+    const components = this.getComponents(),
+          cycles = components.reduce(function(cycles, component) {
+            const componentCyclic = component.isCyclic();
             
-            if (stronglyConnectedComponentCyclic) {
-              const cycle = Cycle.fromStronglyConnectedComponent(stronglyConnectedComponent);
+            if (componentCyclic) {
+              const cycle = Cycle.fromComponent(component);
               
               cycles.push(cycle);
             }
@@ -38,10 +38,10 @@ class Graph {
     return vertices;        
   }
 
-  getStronglyConnectedComponents() {
+  getComponents() {
     const stack = new Stack(),
           vertices = this.getVertices(),
-          stronglyConnectedComponents = [];
+          components = [];
 
     let index = 0;
 
@@ -82,9 +82,9 @@ class Graph {
       const vertexLowest = vertex.isLowest();
 
       if (vertexLowest) {
-        const stronglyConnectedComponent = StronglyConnectedComponent.fromStackUpToAndIncludingVertex(stack, vertex);
+        const component = Component.fromStackAndVertex(stack, vertex);
 
-        stronglyConnectedComponents.push(stronglyConnectedComponent);
+        components.push(component);
       }
     }
 
@@ -96,7 +96,7 @@ class Graph {
       }
     });
 
-    return stronglyConnectedComponents;
+    return components;
   }
 
   addVertex(name, descendantVertexNames) {

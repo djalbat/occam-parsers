@@ -1,6 +1,6 @@
 'use strict';
 
-class StronglyConnectedComponent {
+class Component {
   constructor(vertices) {
     this.vertices = vertices;
   }
@@ -16,7 +16,7 @@ class StronglyConnectedComponent {
     return cyclic;
   }
   
-  static fromStackUpToAndIncludingVertex(stack, vertex) {
+  static fromStackAndVertex(stack, vertex) {
     const stackVertices = [];
     
     let stackVertex;
@@ -28,10 +28,10 @@ class StronglyConnectedComponent {
     } while (stackVertex !== vertex);
     
     const vertices = stackVertices, /// 
-          stronglyConnectedComponent = new StronglyConnectedComponent(vertices);
+          component = new Component(vertices);
 
-    return stronglyConnectedComponent;
+    return component;
   }
 }
 
-module.exports = StronglyConnectedComponent;
+module.exports = Component;
