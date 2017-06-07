@@ -8,7 +8,8 @@ const Rule = require('../rule'),
 
 class RightRecursiveProduction extends Production {
   static productionNamePartFromProduction(production) {
-    const name = nameFromProduction(production),
+    const productionName = production.getName(),
+          name = productionName, ///
           noWhitespace = false, ///
           productionNamePart = new ProductionNamePart(name, noWhitespace);
     
