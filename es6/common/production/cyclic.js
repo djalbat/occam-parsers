@@ -3,7 +3,7 @@
 const Rule = require('../rule'),
       Production = require('../production');
 
-class PossiblyCyclicProduction extends Production {
+class CyclicProduction extends Production {
   getRulesProductionNames() {
     const rules = this.getRules(),
           rulesProductionNames = rules.map(function(rule) {
@@ -20,7 +20,7 @@ class PossiblyCyclicProduction extends Production {
   }
   
   static fromProduction(production) {
-    let possiblyCyclicProduction = null;
+    let cyclicProduction = null;
     
     const rules = rulesFromProduction(production);
     
@@ -30,42 +30,42 @@ class PossiblyCyclicProduction extends Production {
             name = productionName, ///
             Node = productionNode;
 
-      possiblyCyclicProduction = new PossiblyCyclicProduction(name, rules, Node);
+      cyclicProduction = new CyclicProduction(name, rules, Node);
     }
     
-    return possiblyCyclicProduction;
+    return cyclicProduction;
   }
 }
 
-module.exports = PossiblyCyclicProduction;
+module.exports = CyclicProduction;
 
 function rulesFromProduction(production) {
   let rules = null;
   
   const productionRules = production.getRules(),
-        possiblyCyclicRules = productionRules.reduce(function(possiblyCyclicRules, productionRule) {
+        cyclicRules = productionRules.reduce(function(cyclicRules, productionRule) {
           const productionRuleFirstProductionNamePart = productionRule.getFirstProductionNamePart();
           
           if (productionRuleFirstProductionNamePart !== null) {
             const productionRulePartsLength = productionRule.getPartsLength();
             
             if (productionRulePartsLength === 1) {
-              const possiblyCyclicPart = productionRuleFirstProductionNamePart,
-                    possiblyCyclicParts = [
-                      possiblyCyclicPart
+              const cyclicPart = productionRuleFirstProductionNamePart,
+                    cyclicParts = [
+                      cyclicPart
                     ],
-                    possiblyCyclicRule = new Rule(possiblyCyclicParts);
+                    cyclicRule = new Rule(cyclicParts);
 
-              possiblyCyclicRules.push(possiblyCyclicRule);
+              cyclicRules.push(cyclicRule);
             }
           }
           
-          return possiblyCyclicRules;
+          return cyclicRules;
         }, []),
-        possiblyCyclicRulesLength = possiblyCyclicRules.length;
+        cyclicRulesLength = cyclicRules.length;
   
-  if (possiblyCyclicRulesLength > 0) {
-    rules = possiblyCyclicRules;
+  if (cyclicRulesLength > 0) {
+    rules = cyclicRules;
   }
 
   return rules;

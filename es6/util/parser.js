@@ -1,8 +1,8 @@
 'use strict';
 
 const Graph = require('../graph'),
+      CyclicProduction = require('../common/production/cyclic'),
       RightRecursiveProduction = require('../common/production/rightRecursive'),
-      PossiblyCyclicProduction = require('../common/production/possiblyCyclic'),
       NonLeftRecursiveProduction = require('../common/production/nonLeftRecursive'),
       NonImplicitlyLeftRecursiveProduction = require('../common/production/nonImplicitlyLeftRecursive');
 
@@ -20,8 +20,8 @@ class parserUtil {
   }
 
   static eliminateCycles(productions) {
-    const possiblyCyclicProductions = possiblyCyclicProductionsFromProductions(productions),
-          graph = graphFromPossiblyCyclicProductions(possiblyCyclicProductions),
+    const cyclicProductions = cyclicProductionsFromProductions(productions),
+          graph = graphFromCyclicProductions(cyclicProductions),
           cycles = graph.getCycles();
 
     return productions;
@@ -68,28 +68,28 @@ class parserUtil {
 
 module.exports = parserUtil;
 
-function possiblyCyclicProductionsFromProductions(productions) {
-  const possiblyCyclicProductions = productions.reduce(function(possiblyCyclicProductions, production) {
-    const possiblyCyclicProduction = PossiblyCyclicProduction.fromProduction(production);
+function cyclicProductionsFromProductions(productions) {
+  const cyclicProductions = productions.reduce(function(cyclicProductions, production) {
+    const cyclicProduction = CyclicProduction.fromProduction(production);
 
-    if (possiblyCyclicProduction !== null) {
-      possiblyCyclicProductions.push(possiblyCyclicProduction);
+    if (cyclicProduction !== null) {
+      cyclicProductions.push(cyclicProduction);
     }
 
-    return possiblyCyclicProductions;
+    return cyclicProductions;
   }, []);
 
-  return possiblyCyclicProductions;
+  return cyclicProductions;
 }
 
-function graphFromPossiblyCyclicProductions(possiblyCyclicProductions) {
+function graphFromCyclicProductions(cyclicProductions) {
   const graph = new Graph();
 
-  possiblyCyclicProductions.forEach(function(possiblyCyclicProduction) {
-    const possiblyCyclicProductionName = possiblyCyclicProduction.getName(),
-          possiblyCyclicProductionRulesProductionNames = possiblyCyclicProduction.getRulesProductionNames(),
-          vertexName = possiblyCyclicProductionName,  ///
-          descendantVertexNames = possiblyCyclicProductionRulesProductionNames; ///
+  cyclicProductions.forEach(function(cyclicProduction) {
+    const cyclicProductionName = cyclicProduction.getName(),
+          cyclicProductionRulesProductionNames = cyclicProduction.getRulesProductionNames(),
+          vertexName = cyclicProductionName,  ///
+          descendantVertexNames = cyclicProductionRulesProductionNames; ///
 
     graph.addVertex(vertexName, descendantVertexNames);
   });
