@@ -1,6 +1,7 @@
 'use strict';
 
-const RightRecursiveProduction = require('../common/production/rightRecursive'),
+const Tuple = require('../common/tuple'),
+      RightRecursiveProduction = require('../common/production/rightRecursive'),
       PossiblyCyclicProduction = require('../common/production/possiblyCyclic'),
       NonLeftRecursiveProduction = require('../common/production/nonLeftRecursive'),
       NonImplicitlyLeftRecursiveProduction = require('../common/production/nonImplicitlyLeftRecursive');
@@ -19,33 +20,10 @@ class parserUtil {
   }
 
   static eliminateCycles(productions) {
+    const possiblyCyclicProductions = possiblyCyclicProductionsFromProductions(productions),
+          tuples = tuplesFromPossiblyCyclicProductions(possiblyCyclicProductions);
+
     debugger
-
-    const possiblyCyclicProductions = productions.reduce(function(possiblyCyclicProductions, production) {
-      const possiblyCyclicProduction = PossiblyCyclicProduction.fromProduction(production);
-
-      if (possiblyCyclicProduction !== null) {
-        possiblyCyclicProductions.push(possiblyCyclicProduction);
-      }
-
-      return possiblyCyclicProductions;
-    }, []);
-
-    // const firstProduction = first(productions),
-    //       production = firstProduction, ///
-    //       productionName = production.getName(),
-    //       productionNames = [productionName],
-    //       productionRules = production.getRules();
-    //
-    // productionRules.forEach(function(productionRule) {
-    //   const productionRuleFirstProductionNamePart = productionRule.getFirstProductionNamePart();
-    //
-    //   if (productionRuleFirstProductionNamePart !== null) {
-    //     const productionRuleFirstProductionNamePartProductionName = productionRuleFirstProductionNamePart.getProductionName(),
-    //           productionRuleFirstProductionName = productionRuleFirstProductionNamePartProductionName;  ///
-    //
-    //   }
-    // });
 
     return productions;
   }
@@ -91,4 +69,35 @@ class parserUtil {
 
 module.exports = parserUtil;
 
-// function first(array) { return array[0]; }
+function possiblyCyclicProductionsFromProductions(productions) {
+  const possiblyCyclicProductions = productions.reduce(function(possiblyCyclicProductions, production) {
+    const possiblyCyclicProduction = PossiblyCyclicProduction.fromProduction(production);
+
+    if (possiblyCyclicProduction !== null) {
+      possiblyCyclicProductions.push(possiblyCyclicProduction);
+    }
+
+    return possiblyCyclicProductions;
+  }, []);
+
+  return possiblyCyclicProductions;
+}
+
+function tuplesFromPossiblyCyclicProductions(possiblyCyclicProductions) {
+  const tuples = possiblyCyclicProductions.reduce(function(tuples, possiblyCyclicProduction) {
+    const possiblyCyclicProductionName = possiblyCyclicProduction.getName(),
+          possiblyCyclicProductionRulesProductionNames = possiblyCyclicProduction.getRulesProductionNames();
+
+    possiblyCyclicProductionRulesProductionNames.forEach(function(possiblyCyclicProductionRuleProductionName) {
+      const firstElement = possiblyCyclicProductionName,  ///
+            secondElement = possiblyCyclicProductionRuleProductionName, ///
+            tuple = new Tuple(firstElement, secondElement);
+
+      tuples.push(tuple);
+    });
+
+    return tuples;
+  }, []);
+
+  return tuples;
+}

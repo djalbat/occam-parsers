@@ -4,6 +4,21 @@ const Rule = require('../rule'),
       Production = require('../production');
 
 class PossiblyCyclicProduction extends Production {
+  getRulesProductionNames() {
+    const rules = this.getRules(),
+          rulesProductionNames = rules.map(function(rule) {
+            const ruleParts = rule.getParts(),
+                  ruleFirstPart = first(ruleParts),
+                  ruleFirstProductionNamePart = ruleFirstPart,  ///
+                  ruleFirstProductionNamePartProductionName = ruleFirstProductionNamePart.getProductionName(),
+                  ruleProductionName = ruleFirstProductionNamePartProductionName; ///
+            
+            return ruleProductionName;
+          });
+    
+    return rulesProductionNames;
+  }
+  
   static fromProduction(production) {
     let possiblyCyclicProduction = null;
     
@@ -15,7 +30,7 @@ class PossiblyCyclicProduction extends Production {
             name = productionName, ///
             Node = productionNode;
 
-      possiblyCyclicProduction = new Production(name, rules, Node);
+      possiblyCyclicProduction = new PossiblyCyclicProduction(name, rules, Node);
     }
     
     return possiblyCyclicProduction;
@@ -55,3 +70,5 @@ function rulesFromProduction(production) {
 
   return rules;
 }
+
+function first(array) { return array[0]; }
