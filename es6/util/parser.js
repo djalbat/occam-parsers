@@ -22,7 +22,7 @@ class parserUtil {
   static eliminateCycles(productions) {
     const possiblyCyclicProductions = possiblyCyclicProductionsFromProductions(productions),
           graph = graphFromPossiblyCyclicProductions(possiblyCyclicProductions),
-          stronglyConnectedComponents = graph.getStronglyConnectedComponents();
+          cycles = graph.getCycles();
 
     debugger
 

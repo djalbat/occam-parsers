@@ -6,7 +6,7 @@ class Vertex {
     this.successorVertices = successorVertices;
 
     this.index = undefined;
-    this.lowLink = undefined;
+    this.lowestIndex = undefined;
     this.onStack = undefined;
     this.visited = undefined;
 
@@ -25,8 +25,8 @@ class Vertex {
     return this.index;
   }
 
-  getLowLink() {
-    return this.lowLink;
+  getLowestIndex() {
+    return this.lowestIndex;
   }
 
   isOnStack() {
@@ -45,8 +45,8 @@ class Vertex {
     this.index = index;
   }
 
-  setLowLink(lowLink) {
-    this.lowLink = lowLink;
+  setLowestIndex(lowestIndex) {
+    this.lowestIndex = lowestIndex;
   }
 
   setOnStack(onStack) {
@@ -59,7 +59,7 @@ class Vertex {
 
   reset() {
     this.index = -1;
-    this.lowLink = -1;
+    this.lowestIndex = -1;
     this.onStack = false;
     this.visited = false;
   }

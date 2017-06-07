@@ -4,61 +4,74 @@ const Vertex = require('./graph/vertex');
 
 class Graph {
   constructor () {
-    this.descendantVertexMap = {};
+    this.vertexmap = {};
   }
   
-  addVertex(vertexName, descendantVertexNames) {
-    descendantVertexNames = guaranteeArray(descendantVertexNames);  ///
+  addVertex(name, descendantVertexNames) {
+    let successorVertices = descendantVertexNames.map(function(descendantVertexName) {
+      const successorVertexName = descendantVertexName;  ///
 
-    const successorVertices = descendantVertexNames.map(function(descendantVertexName) {
-      let successorVertex = this.descendantVertexMap[descendantVertexName];
+      let successorVertex = this.vertexmap[successorVertexName];
 
       if (successorVertex === undefined) {
-        const successorVertexName = descendantVertexName;  ///
-
         successorVertex = Vertex.fromName(successorVertexName);
 
-        this.descendantVertexMap[successorVertexName] = successorVertex;
+        this.vertexmap[successorVertexName] = successorVertex;
       }
 
       return successorVertex;
     }.bind(this));
 
-    let vertex = this.descendantVertexMap[vertexName];
+    let vertex = this.vertexmap[name];
 
     if (vertex === undefined) {
-      vertex = Vertex.fromName(vertexName);
+      vertex = Vertex.fromName(name);
 
-      this.descendantVertexMap[vertexName] = vertex;
+      this.vertexmap[name] = vertex;
     }
 
-    const vertexSuccessVertices = successorVertices.concat([]).reverse(); ///
+    successorVertices = successorVertices.concat([]).reverse(); ///
 
-    vertex.setSuccessorVertices(vertexSuccessVertices);
-
-    return this;  ///
+    vertex.setSuccessorVertices(successorVertices);
+  }
+  
+  getCycles() {
+    const stronglyConnectedComponents = this.getStronglyConnectedComponents(),
+          cycles = stronglyConnectedComponents.reduce(function(cycles, stronglyConnectedComponent) {
+            const stronglyConnectedComponentLength = stronglyConnectedComponent.length;
+            
+            if (stronglyConnectedComponentLength > 1) {
+              const cycle = stronglyConnectedComponent;
+              
+              cycles.push(cycle);
+            }
+            
+            return cycles;
+          }, []);
+    
+    return cycles;
   }
 
   getStronglyConnectedComponents() {
-    const descendantVertexNames = Object.keys(this.descendantVertexMap),
-          descendantVertices = descendantVertexNames.map(function(descendantVertexName) {
-            const descendantVertex = this.descendantVertexMap[descendantVertexName];
+    const names = Object.keys(this.vertexmap),
+          vertices = names.map(function(name) {
+            const vertex = this.vertexmap[name];
 
-            descendantVertex.reset();
+            vertex.reset();
 
-            return descendantVertex;
-          }.bind(this));
+            return vertex;
+          }.bind(this)),
+          stack = [],
+          stronglyConnectedComponents = [];
 
-    var index = 0,
-        stack = [],
-        stronglyConnectedComponents = [];
+    let index = 0;
 
     function stronglyConnect(vertex) {
-      const lowLink = index;  ///
+      const lowestIndex = index;  ///
 
       vertex.setIndex(index);
 
-      vertex.setLowLink(lowLink);
+      vertex.setLowestIndex(lowestIndex);
 
       index++;
 
@@ -80,20 +93,20 @@ class Graph {
         }
 
         if ((successVertexUnindexed) || successorVertexOnStack){
-          const successorVertexLowLink = successorVertex.getLowLink();
+          const successorVertexLowestIndex = successorVertex.getLowestIndex();
 
-          let vertexLowLink = vertex.getLowLink();
+          let vertexLowestIndex = vertex.getLowestIndex();
 
-          vertexLowLink = Math.min(vertexLowLink, successorVertexLowLink);
+          vertexLowestIndex = Math.min(vertexLowestIndex, successorVertexLowestIndex);
 
-          vertex.setLowLink(vertexLowLink);
+          vertex.setLowestIndex(vertexLowestIndex);
         }
       });
 
       const vertexIndex = vertex.getIndex(),
-            vertexLowLink = vertex.getLowLink() ;
+            vertexLowestIndex = vertex.getLowestIndex() ;
 
-      if (vertexIndex === vertexLowLink) {
+      if (vertexIndex === vertexLowestIndex) {
         const stronglyConnectedComponent = [];
 
         let stackVertex;
@@ -112,12 +125,12 @@ class Graph {
       }
     }
 
-    descendantVertices.forEach(function(descendantVertex) {
-      const descendantVertexIndex = descendantVertex.getIndex(),
-            descendantVertexUnindexed = (descendantVertexIndex < 0);
+    vertices.forEach(function(vertex) {
+      const vertexIndex = vertex.getIndex(),
+            vertexUnindexed = (vertexIndex < 0);
 
-      if (descendantVertexUnindexed) {
-        stronglyConnect(descendantVertex);
+      if (vertexUnindexed) {
+        stronglyConnect(vertex);
       }
     });
 
@@ -126,9 +139,3 @@ class Graph {
 }
 
 module.exports = Graph;
-
-function guaranteeArray(arrayOrElement) {
-  return (arrayOrElement instanceof Array) ?
-            arrayOrElement :
-              [arrayOrElement];
-}
