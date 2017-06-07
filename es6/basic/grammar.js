@@ -4,9 +4,9 @@ const grammar = `
 
   S ::= X | X 'b' | S S
   
-  Y ::= X | 'a'
+  Y ::= S | 'a'
   
-  X ::= S
+  X ::= Y
 
 `;
 

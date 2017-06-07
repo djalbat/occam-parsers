@@ -1,6 +1,6 @@
 'use strict';
 
-const Tuple = require('../common/tuple'),
+const Graph = require('../graph'),
       RightRecursiveProduction = require('../common/production/rightRecursive'),
       PossiblyCyclicProduction = require('../common/production/possiblyCyclic'),
       NonLeftRecursiveProduction = require('../common/production/nonLeftRecursive'),
@@ -21,7 +21,8 @@ class parserUtil {
 
   static eliminateCycles(productions) {
     const possiblyCyclicProductions = possiblyCyclicProductionsFromProductions(productions),
-          tuples = tuplesFromPossiblyCyclicProductions(possiblyCyclicProductions);
+          graph = graphFromPossiblyCyclicProductions(possiblyCyclicProductions),
+          stronglyConnectedComponents = graph.getStronglyConnectedComponents();
 
     debugger
 
@@ -83,21 +84,17 @@ function possiblyCyclicProductionsFromProductions(productions) {
   return possiblyCyclicProductions;
 }
 
-function tuplesFromPossiblyCyclicProductions(possiblyCyclicProductions) {
-  const tuples = possiblyCyclicProductions.reduce(function(tuples, possiblyCyclicProduction) {
+function graphFromPossiblyCyclicProductions(possiblyCyclicProductions) {
+  const graph = new Graph();
+
+  possiblyCyclicProductions.forEach(function(possiblyCyclicProduction) {
     const possiblyCyclicProductionName = possiblyCyclicProduction.getName(),
-          possiblyCyclicProductionRulesProductionNames = possiblyCyclicProduction.getRulesProductionNames();
+          possiblyCyclicProductionRulesProductionNames = possiblyCyclicProduction.getRulesProductionNames(),
+          vertexName = possiblyCyclicProductionName,  ///
+          descendantVertexNames = possiblyCyclicProductionRulesProductionNames; ///
 
-    possiblyCyclicProductionRulesProductionNames.forEach(function(possiblyCyclicProductionRuleProductionName) {
-      const firstElement = possiblyCyclicProductionName,  ///
-            secondElement = possiblyCyclicProductionRuleProductionName, ///
-            tuple = new Tuple(firstElement, secondElement);
+    graph.addVertex(vertexName, descendantVertexNames);
+  });
 
-      tuples.push(tuple);
-    });
-
-    return tuples;
-  }, []);
-
-  return tuples;
+  return graph;
 }
