@@ -16,9 +16,10 @@ class RightRecursiveProduction extends Production {
   }
   
   static fromProduction(production) {
-    const name = nameFromProduction(production),
+    const productionName = production.getName(),
+          name = productionName, ///
           rules = rulesFromProduction(production),
-          Node = NonTerminalNode,
+          Node = NonTerminalNode, ///
           rightRecursiveProduction = new Production(name, rules, Node);
     
     return rightRecursiveProduction;
@@ -37,13 +38,6 @@ function rulesFromProduction(production) {
         rules = [].concat(rightRecursiveRules).concat(epsilonPartRule);
 
   return rules;
-}
-
-function nameFromProduction(production) {
-  const productionName = production.getName(),
-        name = `${productionName}'`;
-
-  return name;
 }
 
 function rightRecursiveRulesFromProduction(production) {
