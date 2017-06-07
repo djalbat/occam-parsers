@@ -1,72 +1,84 @@
 'use strict';
 
 class Vertex {
-  constructor(name, successorVertices) {
+  constructor(name, index, stacked, visited, lowestIndex, successorVertices) {
     this.name = name;
+    this.index = index;
+    this.stacked = stacked;
+    this.visited = visited;
+    this.lowestIndex = lowestIndex;
     this.successorVertices = successorVertices;
-
-    this.index = undefined;
-    this.lowestIndex = undefined;
-    this.onStack = undefined;
-    this.visited = undefined;
-
-    this.reset(); ///
   }
 
   getName() {
     return this.name;
   }
 
-  getSuccessorVertices() {
-    return this.successorVertices;
-  }
-
   getIndex() {
     return this.index;
   }
 
-  getLowestIndex() {
-    return this.lowestIndex;
-  }
-
-  isOnStack() {
-    return this.onStack;
+  isStacked() {
+    return this.stacked;
   }
 
   isVisited() {
     return this.visited;
   }
 
-  setSuccessorVertices(successorVertices) {
-    this.successorVertices =  successorVertices;
+  getLowestIndex() {
+    return this.lowestIndex;
+  }
+
+  getSuccessorVertices() {
+    return this.successorVertices;
+  }
+  
+  isUnindexed() {
+    const unindexed = (this.index < 0); ///
+    
+    return unindexed;
+  }
+  
+  isLowest() {
+    const lowest = (this.index === this.lowestIndex); ///
+    
+    return lowest;
   }
 
   setIndex(index) {
     this.index = index;
   }
 
-  setLowestIndex(lowestIndex) {
-    this.lowestIndex = lowestIndex;
-  }
-
-  setOnStack(onStack) {
-    this.onStack = onStack;
+  setStacked(stacked) {
+    this.stacked = stacked;
   }
 
   setVisited(visited) {
     this.visited = visited;
   }
+  
+  setLowestIndex(lowestIndex) {
+    this.lowestIndex = lowestIndex;
+  }
 
-  reset() {
-    this.index = -1;
-    this.lowestIndex = -1;
-    this.onStack = false;
-    this.visited = false;
+  setSuccessorVertices(successorVertices) {
+    this.successorVertices =  successorVertices;
+  }
+  
+  updateLowestIndex(lowestIndex) {
+    if (lowestIndex < this.lowestIndex) {
+      this.lowestIndex = lowestIndex;
+    }
   }
 
   static fromName(name) {
-    const successorVertices = [],
-          vertex = new Vertex(name, successorVertices);
+    const index = -1,
+          stacked = false,
+          visited = false,
+          lowestIndex = -1,
+          successorVertices = [],
+          vertex = new Vertex(name, index, stacked, visited, lowestIndex, successorVertices);
 
     return vertex;
   }

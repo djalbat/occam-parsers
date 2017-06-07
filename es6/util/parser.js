@@ -24,8 +24,6 @@ class parserUtil {
           graph = graphFromPossiblyCyclicProductions(possiblyCyclicProductions),
           cycles = graph.getCycles();
 
-    debugger
-
     return productions;
   }
 
