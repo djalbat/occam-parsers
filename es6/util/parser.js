@@ -1,7 +1,8 @@
 'use strict';
 
 const Graph = require('../graph'),
-      CyclicProduction = require('../common/production/cyclic'),
+      CyclicProduction = require('../common/production/unitRules'),
+      NonUnitProduction = require('../common/production/nonUnit'),
       RightRecursiveProduction = require('../common/production/rightRecursive'),
       NonLeftRecursiveProduction = require('../common/production/nonLeftRecursive'),
       NonImplicitlyLeftRecursiveProduction = require('../common/production/nonImplicitlyLeftRecursive');
@@ -150,7 +151,8 @@ function nonCyclicProductionsFromCyclicComponent(cyclicComponent, productions) {
 
           return cyclicProduction;
         }),
-        unitProductions = unitProductionsFromCyclicProductions(cyclicProductions);
+        unitProductions = unitProductionsFromCyclicProductions(cyclicProductions),
+        nonUnitProductions = nonUnitProductionsFromCyclicProductions(cyclicProductions);
 
   debugger
 }
@@ -165,6 +167,16 @@ function unitProductionsFromCyclicProductions(cyclicProductions) {
   }, []);
 
   return unitProductions;
+}
+
+function nonUnitProductionsFromCyclicProductions(cyclicProductions) {
+  const nonUnitProductions = cyclicProductions.map(function(cyclicProduction) {
+    const nonUnitProduction = NonUnitProduction.fromCyclicProduction(cyclicProduction);
+    
+    return nonUnitProduction;
+  });
+  
+  return nonUnitProductions;
 }
 
 function productionFromNonCyclicComponent(nonCyclicComponent, productions) {

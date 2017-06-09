@@ -21,6 +21,12 @@ class Rule {
     
     return partsLength;
   }
+
+  getFirstPart() {
+    const firstPart = first(this.parts);
+
+    return firstPart;
+  }
   
   getAllButFirstParts() {
     const allButFirstParts = this.parts.slice(1);
