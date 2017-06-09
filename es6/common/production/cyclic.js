@@ -1,7 +1,8 @@
 'use strict';
 
 const Rule = require('../rule'),
-      Production = require('../production');
+      Production = require('../production'),
+      UnitProduction = require('../production/unit');
 
 class CyclicProduction extends Production {
   getRulesProductionNames() {
@@ -17,6 +18,40 @@ class CyclicProduction extends Production {
           });
     
     return rulesProductionNames;
+  }
+  
+  getUnitProductionPartProductionNames() {
+    const rules = this.getRules(),
+          unitProductionPartProductionNames = rules.reduce(function(unitProductionPartProductionNames, rule) {
+            const rulePartsLength = rule.getPartsLength();
+            
+            if (rulePartsLength === 1) {
+              const ruleFirstProductionNamePart = rule.getFirstProductionNamePart(),
+                    ruleFirstProductionNamePartProductionName = ruleFirstProductionNamePart.getProductionName(),
+                    unitProductionPartProductionName = ruleFirstProductionNamePartProductionName; ///
+
+              unitProductionPartProductionNames = unitProductionPartProductionNames.concat(unitProductionPartProductionName);
+            }
+            
+            return unitProductionPartProductionNames;
+          }, []);
+    
+    return unitProductionPartProductionNames;
+  }
+  
+  getUnitProductions() {
+    const name = this.getName(),
+          unitProductionsName = name, ///
+          unitProductionPartProductionNames = this.getUnitProductionPartProductionNames(),
+          unitProductions = unitProductionPartProductionNames.map(function(unitProductionPartProductionName) {
+            const name = unitProductionsName, ///
+                  partProductionName = unitProductionPartProductionName,  ///
+                  unitProduction = UnitProduction.fromNameAndPartProductionName(name, partProductionName);
+  
+            return unitProduction;
+          });
+    
+    return unitProductions;
   }
   
   static fromProduction(production) {

@@ -51,36 +51,7 @@ class CommonParser {
     return node;
   }
 
-  findProduction(productionName) {
-    const name = productionName,  ///
-          index = this.indexOfProductionByName(name),
-          production = (index !== null) ?
-                         this.productions[index] :
-                           null;
-
-    return production;
-  }
-
-  indexOfProductionByName(name) {
-    let index,
-        foundIndex = null;
-
-    this.productions.some(function(production, index) {
-      const productionName = production.getName();
-
-      if (productionName === name) {
-        foundIndex = index;
-
-        return true;
-      } else {
-        return false;
-      }
-    });
-
-    index = foundIndex; ///
-
-    return index;
-  }
+  findProduction(productionName) { return parserUtil.findProduction(productionName, this.productions); }
 }
 
 module.exports = CommonParser;

@@ -16,6 +16,12 @@ class Rule {
     return this.parts;
   }
   
+  getPartsLength() {
+    const partsLength = this.parts.length;
+    
+    return partsLength;
+  }
+  
   getAllButFirstParts() {
     const allButFirstParts = this.parts.slice(1);
 
@@ -33,7 +39,7 @@ class Rule {
     
     return firstProductionNamePart;
   }
-
+  
   isLeftRecursive(productionName) {
     let leftRecursive = false;
     

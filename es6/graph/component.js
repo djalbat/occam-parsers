@@ -8,6 +8,12 @@ class Component {
   getVertices() {
     return this.vertices;
   }
+
+  getFirstVertex() {
+    const firstVertex = first(this.vertices);
+    
+    return firstVertex;
+  }
   
   isCyclic() {
     const verticesLength = this.vertices.length,
@@ -15,6 +21,8 @@ class Component {
     
     return cyclic;
   }
+  
+  mapVertex(callback) { return this.vertices.map(callback); }
   
   static fromStackAndVertex(stack, vertex) {
     const stackVertices = [];
@@ -35,3 +43,5 @@ class Component {
 }
 
 module.exports = Component;
+
+function first(array) { return array[0]; }

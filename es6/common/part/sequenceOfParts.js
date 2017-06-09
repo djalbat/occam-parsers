@@ -1,7 +1,7 @@
 'use strict';
 
 const EndOfLinePart = require('./endOfLine'),
-      ProductionNamePart = require('./productionName'),
+      parserUtil = require('../../util/parser'),
       TerminalSymbolPart = require('./terminalSymbol'),
       SignificantTokenTypePart = require('./significantTokenType');
 
@@ -25,7 +25,7 @@ class SequenceOfPartsPart {
   }
 
   getTerminalPartOrProduction(productions) {
-    const production = ProductionNamePart.findProduction(this.productionName, productions),
+    const production = parserUtil.findProduction(this.productionName, productions),
           terminalPartOrProduction = (this.terminalPart !== null) ?
                                         this.terminalPart :
                                           production;

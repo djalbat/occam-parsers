@@ -1,5 +1,7 @@
 'use strict';
 
+const parserUtil = require('../../util/parser');
+
 class ProductionNamePart {
   constructor(productionName, noWhitespace) {
     this.productionName = productionName;
@@ -22,7 +24,7 @@ class ProductionNamePart {
     let nodeOrNodes = null;
     
     const productions = context.getProductions(),
-          production = ProductionNamePart.findProduction(this.productionName, productions);
+          production = parserUtil.findProduction(this.productionName, productions);
 
     if (production !== null) {
       nodeOrNodes = production.parse(context, noWhitespace);
@@ -35,28 +37,6 @@ class ProductionNamePart {
     const string = this.productionName;
 
     return string;
-  }
-
-  static findProduction(productionName, productions) {
-    const name = productionName;  ///
-    
-    let foundProduction = null;
-
-    productions.some(function(production) {
-      const productionName = production.getName();
-
-      if (name === productionName) {
-        foundProduction = production;
-
-        return true;
-      } else {
-        return false;
-      }
-    });
-
-    const production = foundProduction;
-
-    return production;
   }
 
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {

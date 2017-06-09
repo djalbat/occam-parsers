@@ -22,7 +22,9 @@ class parserUtil {
   static eliminateCycles(productions) {
     const cyclicProductions = cyclicProductionsFromProductions(productions),
           graph = graphFromCyclicProductions(cyclicProductions),
-          cycles = graph.getCycles();
+          components = graph.getComponents();
+
+    productions = productionsFromComponents(components, productions);
 
     return productions;
   }
@@ -64,6 +66,24 @@ class parserUtil {
 
     return productions;
   }
+
+  static findProduction(productionName, productions) {
+    let foundProduction = null;
+
+    productions.some(function(production) {
+      const name = production.getName();
+
+      if (name === productionName) {
+        foundProduction = production;
+
+        return true;
+      }
+    });
+
+    const production = foundProduction;
+
+    return production;
+  }
 }
 
 module.exports = parserUtil;
@@ -95,4 +115,63 @@ function graphFromCyclicProductions(cyclicProductions) {
   });
 
   return graph;
+}
+
+function productionsFromComponents(components, productions) {
+  const componentProductions = components.reduce(function(componentProductions, component) {
+    const componentCyclic = component.isCyclic();
+
+    if (componentCyclic) {
+      const cyclicComponent = component,  ///
+            nonCyclicProductions = nonCyclicProductionsFromCyclicComponent(cyclicComponent, productions);
+
+      componentProductions = componentProductions.concat(nonCyclicProductions);
+    } else {
+      const nonCyclicComponent = component,  ///
+            production = productionFromNonCyclicComponent(nonCyclicComponent, productions);
+
+      componentProductions.push(production);
+    }
+
+    return componentProductions;
+  }, []);
+
+  productions = componentProductions; ///
+
+  return productions;
+}
+
+function nonCyclicProductionsFromCyclicComponent(cyclicComponent, productions) {
+  const cyclicProductions = cyclicComponent.mapVertex(function(vertex) {
+          const vertexName = vertex.getName(),
+                cyclicProductionName = vertexName,  ///
+                production = parserUtil.findProduction(cyclicProductionName, productions),
+                cyclicProduction = CyclicProduction.fromProduction(production);
+
+          return cyclicProduction;
+        }),
+        unitProductions = unitProductionsFromCyclicProductions(cyclicProductions);
+
+  debugger
+}
+
+function unitProductionsFromCyclicProductions(cyclicProductions) {
+  const unitProductions = cyclicProductions.reduce(function(unitProductions, cyclicProduction) {
+    const cyclicProductionEdges = cyclicProduction.getUnitProductions();
+
+    unitProductions = unitProductions.concat(cyclicProductionEdges);
+
+    return unitProductions;
+  }, []);
+
+  return unitProductions;
+}
+
+function productionFromNonCyclicComponent(nonCyclicComponent, productions) {
+  const nonCyclicComponentFirstVertex = nonCyclicComponent.getFirstVertex(),
+        nonCyclicComponentFirstVertexName = nonCyclicComponentFirstVertex.getName(),
+        productionName = nonCyclicComponentFirstVertexName,  ///
+        production = parserUtil.findProduction(productionName, productions);
+
+  return production;
 }
