@@ -1,6 +1,6 @@
 'use strict';
 
-const Production = require('../production');
+const Production = require('../../common/production');
 
 class UnitRuleProduction extends Production {
   static fromNameAndUnitRule(name, unitRule) {

@@ -1,6 +1,6 @@
 'use strict';
 
-const Rule = require('../rule');
+const Rule = require('../../common/rule');
 
 class NonUnitRule extends Rule {
   getPart() {

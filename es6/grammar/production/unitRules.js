@@ -1,8 +1,8 @@
 'use strict';
 
 const UnitRule = require('../rule/unit'),
-      Production = require('../production'),
-      UnitRuleProduction = require('./unitRule');
+      Production = require('../../common/production'),
+      UnitRuleProduction = require('../production/unitRule');
 
 class UnitRulesProduction extends Production {
   getRulesProductionNames() {

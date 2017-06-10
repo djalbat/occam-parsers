@@ -1,7 +1,7 @@
 'use strict';
 
 const UnitRule = require('../rule/unit'),
-      Production = require('../production');
+      Production = require('../../common/production');
 
 class NonUnitProduction extends Production {
   static fromCyclicProduction(cyclicProduction) {

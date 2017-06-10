@@ -1,8 +1,8 @@
 'use strict';
 
-const Rule = require('../rule'),
-      Production = require('../production'),
-      RightRecursiveProduction = require('./rightRecursive');
+const Rule = require('../../common/rule'),
+      Production = require('../../common/production'),
+      RightRecursiveProduction = require('../production/rightRecursive');
 
 class NonLeftRecursiveProduction extends Production {
   static fromProduction(production) {

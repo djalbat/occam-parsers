@@ -5,10 +5,6 @@ const Context = require('./context'),
 
 class CommonParser {
   constructor(productions) {
-    productions = parserUtil.eliminateCycles(productions); ///
-
-    productions = parserUtil.eliminateLeftRecursion(productions); ///
-
     this.productions = productions;
   }
 
