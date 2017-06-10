@@ -14,7 +14,15 @@ class UnitRulesProduction extends Production {
           });
     
     return productionNames;
-  } 
+  }
+  
+  mapUnitRules(callback) {
+    const rules = this.getRules(),
+          unitRules = rules,  ///
+          result = unitRules.map(callback);
+    
+    return result;
+  }
   
   static fromProduction(production) {
     let unitRulesProduction = null;

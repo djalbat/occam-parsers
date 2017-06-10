@@ -7,7 +7,7 @@ class NonUnitRule extends Rule {
   static fromRule(rule) {
     let nonUnitRule = null;
 
-    const unitRule = UnitRule.fromRule();
+    const unitRule = UnitRule.fromRule(rule);
     
     if (unitRule === null) {
       const parts = rule.getParts();

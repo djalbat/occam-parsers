@@ -2,8 +2,9 @@
 
 const Graph = require('./graph'),
       parserUtil = require('../util/parser'),
-      NonUnitProduction = require('./production/nonUnit'),
+      UnitRuleProduction = require('./production/unitRule'),
       UnitRulesProduction = require('./production/unitRules'),
+      NonUnitRulesProduction = require('./production/nonUnitRules'),
       RightRecursiveProduction = require('./production/rightRecursive'),
       NonLeftRecursiveProduction = require('./production/nonLeftRecursive'),
       NonImplicitlyLeftRecursiveProduction = require('./production/nonImplicitlyLeftRecursive');
@@ -12,9 +13,9 @@ class grammarUtil {
   static eliminateCycles(productions) {
     const unitRulesProductions = unitRulesProductionsFromProductions(productions),
           graph = graphFromUnitRulesProductions(unitRulesProductions),
-          components = graph.getComponents();
+          nonCyclicProductions = nonCyclicProductionsFromGraph(graph, productions);
 
-    productions = productionsFromComponents(components, productions);
+    productions = nonCyclicProductions; ///
 
     return productions;
   }
@@ -89,60 +90,80 @@ function graphFromUnitRulesProductions(unitRulesProductions) {
   return graph;
 }
 
-function productionsFromComponents(components, productions) {
-  const componentProductions = components.reduce(function(componentProductions, component) {
-    const componentCyclic = component.isCyclic();
+function nonCyclicProductionsFromGraph(graph, productions) {
+  const components = graph.getComponents(),
+        nonCyclicProductions = components.reduce(function(nonCyclicProductions, component) {
+          const componentNonCyclic = component.isNonCyclic();
 
-    if (componentCyclic) {
-      const cyclicComponent = component,  ///
-            nonCyclicProductions = nonCyclicProductionsFromCyclicComponent(cyclicComponent, productions);
+          if (componentNonCyclic) {
+            const nonCyclicComponent = component, ///
+                  nonCyclicComponentNonCyclicProduction = nonCyclicProductionFromNonCyclicComponent(nonCyclicComponent, productions);
 
-      componentProductions = componentProductions.concat(nonCyclicProductions);
-    } else {
-      const nonCyclicComponent = component,  ///
-            production = productionFromNonCyclicComponent(nonCyclicComponent, productions);
+            nonCyclicProductions.push(nonCyclicComponentNonCyclicProduction);
+          } else {
+            const cyclicComponent = component,  ///
+                  cyclicComponentNonCyclicProductions = nonCyclicProductionsFromCyclicComponent(cyclicComponent, productions);
 
-      componentProductions.push(production);
-    }
+            nonCyclicProductions = nonCyclicProductions.concat(cyclicComponentNonCyclicProductions);
+          }
 
-    return componentProductions;
-  }, []);
+          return nonCyclicProductions;
+        }, []);
 
-  productions = componentProductions; ///
+  return nonCyclicProductions;
+}
 
-  return productions;
+function nonCyclicProductionFromNonCyclicComponent(nonCyclicComponent, productions) {
+  const firstVertex = nonCyclicComponent.getFirstVertex(),
+        firstVertexName = firstVertex.getName(),
+        nonCyclicProductionName = firstVertexName,  ///
+        nonCyclicProduction = parserUtil.findProduction(nonCyclicProductionName, productions);
+
+  return nonCyclicProduction;
 }
 
 function nonCyclicProductionsFromCyclicComponent(cyclicComponent, productions) {
-  const cyclicProductions = cyclicComponent.mapVertex(function(vertex) {
-          const vertexName = vertex.getName(),
-                cyclicProductionName = vertexName,  ///
-                production = parserUtil.findProduction(cyclicProductionName, productions),
-                cyclicProduction = UnitRulesProduction.fromProduction(production);
+  productions = productionsFromCyclicComponent(cyclicComponent, productions); ///
 
-          return cyclicProduction;
-        }),
-        unitProductions = unitProductionsFromCyclicProductions(cyclicProductions),
-        nonUnitProductions = nonUnitProductionsFromCyclicProductions(cyclicProductions);
+  const unitRuleProductions = unitRuleProductionsFromProductions(productions),
+        nonUnitRulesProductions = nonUnitRulesProductionsFromProductions(productions);
 
   debugger
 }
 
-function unitProductionsFromCyclicProductions(cyclicProductions) {
-  const unitProductions = cyclicProductions.reduce(function(unitProductions, cyclicProduction) {
-    const cyclicProductionEdges = cyclicProduction.getUnitProductions();
+function productionsFromCyclicComponent(cyclicComponent, productions) {
+  productions = cyclicComponent.mapVertices(function(vertex) {
+    const vertexName = vertex.getName(),
+          productionName = vertexName,  ///
+          production = parserUtil.findProduction(productionName, productions);
 
-    unitProductions = unitProductions.concat(cyclicProductionEdges);
+    return production;
+  });
 
-    return unitProductions;
-  }, []);
-
-  return unitProductions;
+  return productions;
 }
 
-function nonUnitProductionsFromCyclicProductions(cyclicProductions) {
-  const nonUnitProductions = cyclicProductions.map(function(cyclicProduction) {
-    const nonUnitProduction = NonUnitProduction.fromCyclicProduction(cyclicProduction);
+function unitRuleProductionsFromProductions(productions) {
+  const unitRuleProductions = productions.reduce(function(unitRuleProductions, production) {
+    const name = production.getName(),
+          unitRulesProduction = UnitRulesProduction.fromProduction(production),
+          unitRulesProductionUnitRuleProductions = unitRulesProduction.mapUnitRules(function(unitRule) {
+            const unitRulesProductionUnitRuleProduction = UnitRuleProduction.fromNameAndUnitRule(name, unitRule);
+            
+            return unitRulesProductionUnitRuleProduction;
+          });
+
+    unitRuleProductions = unitRuleProductions.concat(unitRulesProductionUnitRuleProductions);
+
+    return unitRuleProductions;
+  }, []);
+
+  return unitRuleProductions;
+}
+
+function nonUnitRulesProductionsFromProductions(productions) {
+  const nonUnitProductions = productions.map(function(production) {
+    const nonUnitProduction = NonUnitRulesProduction.fromProduction(production);
     
     return nonUnitProduction;
   });
@@ -150,11 +171,3 @@ function nonUnitProductionsFromCyclicProductions(cyclicProductions) {
   return nonUnitProductions;
 }
 
-function productionFromNonCyclicComponent(nonCyclicComponent, productions) {
-  const nonCyclicComponentFirstVertex = nonCyclicComponent.getFirstVertex(),
-        nonCyclicComponentFirstVertexName = nonCyclicComponentFirstVertex.getName(),
-        productionName = nonCyclicComponentFirstVertexName,  ///
-        production = parserUtil.findProduction(productionName, productions);
-
-  return production;
-}

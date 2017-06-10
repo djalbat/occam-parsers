@@ -21,8 +21,15 @@ class Component {
     
     return cyclic;
   }
+
+  isNonCyclic() {
+    const cyclic = this.isCyclic(),
+          nonCyclic = !cyclic;
+    
+    return nonCyclic;
+  }
   
-  mapVertex(callback) { return this.vertices.map(callback); }
+  mapVertices(callback) { return this.vertices.map(callback); }
   
   static fromStackAndVertex(stack, vertex) {
     const stackVertices = [];
