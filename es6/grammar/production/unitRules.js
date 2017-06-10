@@ -16,12 +16,11 @@ class UnitRulesProduction extends Production {
     return productionNames;
   }
   
-  mapUnitRules(callback) {
+  forEachUnitRule(callback) {
     const rules = this.getRules(),
-          unitRules = rules,  ///
-          result = unitRules.map(callback);
+          unitRules = rules;  ///
     
-    return result;
+    unitRules.forEach(callback);
   }
   
   static fromProduction(production) {

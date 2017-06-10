@@ -65,8 +65,8 @@ function nonCyclicProductionFromComponent(component, productions, nonCyclicProdu
 function nonCyclicProductionsFromComponent(component, productions, nonCyclicProductions) {
   productions = productionsFromComponent(component, productions); ///
 
-  const unitRuleProductions = unitRuleProductionsFromProductions(productions),
-        nonUnitRulesProductions = nonUnitRulesProductionsFromProductions(productions),
+  const fixedNonUnitRulesProductions = fixedNonUnitRulesProductionsFromProductions(productions),
+        unitRuleProductions = unitRuleProductionsFromProductions(productions),
         removedUnitRuleProductions = [],
         addedNonUnitRulesProductions = [];
 
@@ -79,11 +79,11 @@ function nonCyclicProductionsFromComponent(component, productions, nonCyclicProd
 
     const removedUnitRuleProductionName = removedUnitRuleProduction.getName(),
           removedUnitRuleProductionUnitRuleProductionName = removedUnitRuleProduction.getUnitRuleProductionName(),
-          nonUnitRulesProductionName = removedUnitRuleProductionUnitRuleProductionName,  ///
-          nonUnitRulesProduction = parserUtil.findProduction(nonUnitRulesProductionName, nonUnitRulesProductions),
-          nonUnitRulesProductionRules = nonUnitRulesProduction.getRules(),
+          fixedNonUnitRulesProductionName = removedUnitRuleProductionUnitRuleProductionName,  ///
+          fixedNonUnitRulesProduction = parserUtil.findProduction(fixedNonUnitRulesProductionName, fixedNonUnitRulesProductions),
+          fixedNonUnitRulesProductionRules = fixedNonUnitRulesProduction.getRules(),
           addedNonUnitRulesProductionName = removedUnitRuleProductionName,  ///
-          addedNonUnitRulesProductionRules = nonUnitRulesProductionRules; ///
+          addedNonUnitRulesProductionRules = fixedNonUnitRulesProductionRules; ///
 
     let addedNonUnitRulesProduction = parserUtil.findProduction(addedNonUnitRulesProductionName, addedNonUnitRulesProductions);
 
@@ -95,7 +95,7 @@ function nonCyclicProductionsFromComponent(component, productions, nonCyclicProd
 
       addedNonUnitRulesProductions.push(addedNonUnitRulesProduction);
     } else {
-      addedNonUnitRulesProduction.concatRules(nonUnitRulesProductionRules);
+      addedNonUnitRulesProduction.concatRules(fixedNonUnitRulesProductionRules);
     }
 
     let unitRuleProductionName = removedUnitRuleProductionUnitRuleProductionName, ///
@@ -120,7 +120,7 @@ function nonCyclicProductionsFromComponent(component, productions, nonCyclicProd
     unitRuleProductionsLength = unitRuleProductions.length;
   }
 
-  nonCyclicProductionsFromFixedAndAddedNonUnitRulesProductions(nonUnitRulesProductions, addedNonUnitRulesProductions, nonCyclicProductions);
+  nonCyclicProductionsFromFixedAndAddedNonUnitRulesProductions(fixedNonUnitRulesProductions, addedNonUnitRulesProductions, nonCyclicProductions);
 }
 
 function nonCyclicProductionsFromFixedAndAddedNonUnitRulesProductions(fixedNonUnitRulesProductions, addedNonUnitRulesProductions, nonCyclicProductions) {
@@ -155,14 +155,13 @@ function productionsFromComponent(component, productions) {
 function unitRuleProductionsFromProductions(productions) {
   const unitRuleProductions = productions.reduce(function(unitRuleProductions, production) {
     const name = production.getName(),
-          unitRulesProduction = UnitRulesProduction.fromProduction(production),
-          unitRulesProductionUnitRuleProductions = unitRulesProduction.mapUnitRules(function(unitRule) {
-            const unitRulesProductionUnitRuleProduction = UnitRuleProduction.fromNameAndUnitRule(name, unitRule);
-            
-            return unitRulesProductionUnitRuleProduction;
-          });
+          unitRulesProduction = UnitRulesProduction.fromProduction(production);
 
-    unitRuleProductions = unitRuleProductions.concat(unitRulesProductionUnitRuleProductions);
+    unitRulesProduction.forEachUnitRule(function(unitRule) {
+      const unitRuleProduction = UnitRuleProduction.fromNameAndUnitRule(name, unitRule);
+
+      unitRuleProductions.push(unitRuleProduction);
+    });
 
     return unitRuleProductions;
   }, []);
@@ -170,14 +169,15 @@ function unitRuleProductionsFromProductions(productions) {
   return unitRuleProductions;
 }
 
-function nonUnitRulesProductionsFromProductions(productions) {
-  const nonUnitProductions = productions.map(function(production) {
-    const nonUnitProduction = NonUnitRulesProduction.fromProduction(production);
+function fixedNonUnitRulesProductionsFromProductions(productions) {
+  const fixedNonUnitProductions = productions.map(function(production) {
+    const nonUnitProduction = NonUnitRulesProduction.fromProduction(production),
+          fixedNonUnitProduction = nonUnitProduction; ///
     
-    return nonUnitProduction;
+    return fixedNonUnitProduction;
   });
   
-  return nonUnitProductions;
+  return fixedNonUnitProductions;
 }
 
 function findUnitRuleProduction(productionName, unitRuleProductionName, unitRuleProductions) {
