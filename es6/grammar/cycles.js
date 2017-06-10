@@ -1,66 +1,27 @@
 'use strict';
 
 const Graph = require('./graph'),
+      arrayUtil = require('../util/array'),
       parserUtil = require('../util/parser'),
       Production = require('../common/production'),
       UnitRuleProduction = require('./production/unitRule'),
       UnitRulesProduction = require('./production/unitRules'),
-      NonUnitRulesProduction = require('./production/nonUnitRules'),
-      RightRecursiveProduction = require('./production/rightRecursive'),
-      NonLeftRecursiveProduction = require('./production/nonLeftRecursive'),
-      NonImplicitlyLeftRecursiveProduction = require('./production/nonImplicitlyLeftRecursive');
+      NonUnitRulesProduction = require('./production/nonUnitRules');
 
-class grammarUtil {
-  static eliminateCycles(productions) {
+class cycles {
+  static eliminate(productions) {
     const unitRulesProductions = unitRulesProductionsFromProductions(productions),
-          graph = graphFromUnitRulesProductions(unitRulesProductions),
-          nonCyclicProductions = nonCyclicProductionsFromGraph(graph, productions);
+          graph = Graph.fromUnitRulesProductions(unitRulesProductions),
+          components = graph.getComponents(),
+          nonCyclicProductions = nonCyclicProductionsFromComponents(components, productions);
 
     productions = nonCyclicProductions; ///
 
     return productions;
   }
-
-  static eliminateLeftRecursion(productions) {
-    const nonLeftRecursiveProductions = [],
-          rightRecursiveProductions = [];
-
-    productions.forEach(function(production, index) {
-      const begin = 0,
-            end = index,  ///
-            previousNonLeftRecursiveProductions = nonLeftRecursiveProductions.slice(begin, end),
-            previousProductions = previousNonLeftRecursiveProductions,  ///
-            productionImplicitlyLeftRecursive = production.isImplicitlyLeftRecursive(previousProductions);
-
-      if (productionImplicitlyLeftRecursive) {
-        const nonImplicitlyLeftRecursiveProduction = NonImplicitlyLeftRecursiveProduction.fromProductionAndPreviousProductions(production, previousProductions);
-
-        production = nonImplicitlyLeftRecursiveProduction;  ///
-      }
-
-      const productionLeftRecursive = production.isLeftRecursive();
-
-      if (productionLeftRecursive) {
-        const nonLeftRecursiveProduction = NonLeftRecursiveProduction.fromProduction(production),
-              rightRecursiveProduction = RightRecursiveProduction.fromProduction(production);
-
-        nonLeftRecursiveProductions.push(nonLeftRecursiveProduction);
-
-        rightRecursiveProductions.push(rightRecursiveProduction);
-      } else {
-        const nonLeftRecursiveProduction = production;  ///
-
-        nonLeftRecursiveProductions.push(nonLeftRecursiveProduction);
-      }
-    });
-
-    productions = [].concat(nonLeftRecursiveProductions).concat(rightRecursiveProductions);
-
-    return productions;
-  }
 }
 
-module.exports = grammarUtil;
+module.exports = cycles;
 
 function unitRulesProductionsFromProductions(productions) {
   const unitRulesProductions = productions.reduce(function(unitRulesProductions, production) {
@@ -76,36 +37,14 @@ function unitRulesProductionsFromProductions(productions) {
   return unitRulesProductions;
 }
 
-function graphFromUnitRulesProductions(unitRulesProductions) {
-  const graph = new Graph();
-
-  unitRulesProductions.forEach(function(unitRulesProduction) {
-    const productionName = unitRulesProduction.getName(),
-          productionNames = unitRulesProduction.getProductionNames(),
-          vertexName = productionName,  ///
-          descendantVertexNames = productionNames; ///
-
-    graph.addVertex(vertexName, descendantVertexNames);
-  });
-
-  return graph;
-}
-
-function nonCyclicProductionsFromGraph(graph, productions) {
-  const components = graph.getComponents(),
-        nonCyclicProductions = components.reduce(function(nonCyclicProductions, component) {
+function nonCyclicProductionsFromComponents(components, productions) {
+  const nonCyclicProductions = components.reduce(function(nonCyclicProductions, component) {
           const componentNonCyclic = component.isNonCyclic();
 
           if (componentNonCyclic) {
-            const nonCyclicComponent = component, ///
-                  nonCyclicComponentNonCyclicProduction = nonCyclicProductionFromNonCyclicComponent(nonCyclicComponent, productions);
-
-            nonCyclicProductions.push(nonCyclicComponentNonCyclicProduction);
+            nonCyclicProductionFromComponent(component, productions, nonCyclicProductions);
           } else {
-            const cyclicComponent = component,  ///
-                  cyclicComponentNonCyclicProductions = nonCyclicProductionsFromCyclicComponent(cyclicComponent, productions);
-
-            nonCyclicProductions = nonCyclicProductions.concat(cyclicComponentNonCyclicProductions);
+            nonCyclicProductionsFromComponent(component, productions, nonCyclicProductions);
           }
 
           return nonCyclicProductions;
@@ -114,17 +53,17 @@ function nonCyclicProductionsFromGraph(graph, productions) {
   return nonCyclicProductions;
 }
 
-function nonCyclicProductionFromNonCyclicComponent(nonCyclicComponent, productions) {
-  const firstVertex = nonCyclicComponent.getFirstVertex(),
+function nonCyclicProductionFromComponent(component, productions, nonCyclicProductions) {
+  const firstVertex = component.getFirstVertex(),
         firstVertexName = firstVertex.getName(),
         nonCyclicProductionName = firstVertexName,  ///
         nonCyclicProduction = parserUtil.findProduction(nonCyclicProductionName, productions);
 
-  return nonCyclicProduction;
+  nonCyclicProductions.push(nonCyclicProduction);
 }
 
-function nonCyclicProductionsFromCyclicComponent(cyclicComponent, productions) {
-  productions = productionsFromCyclicComponent(cyclicComponent, productions); ///
+function nonCyclicProductionsFromComponent(component, productions, nonCyclicProductions) {
+  productions = productionsFromComponent(component, productions); ///
 
   const unitRuleProductions = unitRuleProductionsFromProductions(productions),
         nonUnitRulesProductions = nonUnitRulesProductionsFromProductions(productions),
@@ -193,13 +132,15 @@ function nonCyclicProductionsFromCyclicComponent(cyclicComponent, productions) {
     }
   });
 
-  productions = nonUnitRulesProductions;  ///
+  const nonCyclicProductionsLength = nonCyclicProductions.length,
+        start = nonCyclicProductionsLength, ///
+        deleteCount = 0;
 
-  return productions;
+  arrayUtil.splice(nonCyclicProductions, start, deleteCount, nonUnitRulesProductions);
 }
 
-function productionsFromCyclicComponent(cyclicComponent, productions) {
-  productions = cyclicComponent.mapVertices(function(vertex) {
+function productionsFromComponent(component, productions) {
+  productions = component.mapVertices(function(vertex) {
     const vertexName = vertex.getName(),
           productionName = vertexName,  ///
           production = parserUtil.findProduction(productionName, productions);

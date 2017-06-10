@@ -12,6 +12,13 @@ class arrayUtil {
   static discardSecond(array) { return discardNth(array, 1); }
 
   static discardLast(array) { return discardNth(array, -1); }
+
+  static splice(array, start, deleteCount, itemsArray = []) {
+    const args = [start, deleteCount, ...itemsArray],
+          deletedItemsArray = Array.prototype.splice.apply(array, args);
+  
+    return deletedItemsArray;
+  }
 }
 
 module.exports = arrayUtil;

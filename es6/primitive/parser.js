@@ -1,8 +1,9 @@
 'use strict';
 
-const Production = require('../common/production'),
-      ErrorNode = require('../common/node/nonTerminal/error'),
-      grammarUtil = require('../grammar/util');
+const cycles = require('../grammar/cycles'),
+      leftRecursion = require('../grammar/leftRecursion'),
+      Production = require('../common/production'),
+      ErrorNode = require('../common/node/nonTerminal/error');
 
 class PrimitiveParser {
   static parse(lines, significantTokenTypes, mappings) {
@@ -22,9 +23,9 @@ class PrimitiveParser {
       productions = [];
     }
     
-    productions = grammarUtil.eliminateCycles(productions);
+    productions = cycles.eliminate(productions);  ///
     
- // productions = grammarUtil.eliminateLeftRecursion(productions);
+ // productions = leftRecursion.eliminate(productions);
 
     return productions;
   }

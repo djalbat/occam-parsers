@@ -126,6 +126,21 @@ class Graph {
 
     vertex.setSuccessorVertices(successorVertices);
   }
+
+  static fromUnitRulesProductions(unitRulesProductions) {
+    const graph = new Graph();
+  
+    unitRulesProductions.forEach(function(unitRulesProduction) {
+      const productionName = unitRulesProduction.getName(),
+            productionNames = unitRulesProduction.getProductionNames(),
+            vertexName = productionName,  ///
+            descendantVertexNames = productionNames; ///
+  
+      graph.addVertex(vertexName, descendantVertexNames);
+    });
+  
+    return graph;
+  }  
 }
 
 module.exports = Graph;
