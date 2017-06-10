@@ -1,7 +1,6 @@
 'use strict';
 
 const Graph = require('./graph'),
-      arrayUtil = require('../util/array'),
       parserUtil = require('../util/parser'),
       Production = require('../common/production'),
       UnitRuleProduction = require('./production/unitRule'),
