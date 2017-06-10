@@ -120,23 +120,24 @@ function nonCyclicProductionsFromComponent(component, productions, nonCyclicProd
     unitRuleProductionsLength = unitRuleProductions.length;
   }
 
-  nonUnitRulesProductions.forEach(function(nonUnitRulesProduction) {
-    const nonUnitRulesProductionName = nonUnitRulesProduction.getName(),
-          addedNonUnitRulesProductionName = nonUnitRulesProductionName,
+  nonCyclicProductionsFromFixedAndAddedNonUnitRulesProductions(nonUnitRulesProductions, addedNonUnitRulesProductions, nonCyclicProductions);
+}
+
+function nonCyclicProductionsFromFixedAndAddedNonUnitRulesProductions(fixedNonUnitRulesProductions, addedNonUnitRulesProductions, nonCyclicProductions) {
+  fixedNonUnitRulesProductions.forEach(function(fixedNonUnitRulesProduction) {
+    const nonCyclicProduction = fixedNonUnitRulesProduction, ///
+          nonCyclicProductionName = nonCyclicProduction.getName(),
+          addedNonUnitRulesProductionName = nonCyclicProductionName, ///
           addedNonUnitRulesProduction = parserUtil.findProduction(addedNonUnitRulesProductionName, addedNonUnitRulesProductions);
 
     if (addedNonUnitRulesProduction !== null) {
       const addedNonUnitRulesProductionRules = addedNonUnitRulesProduction.getRules();
 
-      nonUnitRulesProduction.concatRules(addedNonUnitRulesProductionRules);
+      nonCyclicProduction.concatRules(addedNonUnitRulesProductionRules);
     }
+
+    nonCyclicProductions.push(nonCyclicProduction);
   });
-
-  const nonCyclicProductionsLength = nonCyclicProductions.length,
-        start = nonCyclicProductionsLength, ///
-        deleteCount = 0;
-
-  arrayUtil.splice(nonCyclicProductions, start, deleteCount, nonUnitRulesProductions);
 }
 
 function productionsFromComponent(component, productions) {
