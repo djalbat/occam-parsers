@@ -21,6 +21,12 @@ class Production {
   getNode() {
     return this.Node;
   }
+
+  isFoundByProductionName(productionName) {
+    const found = (this.name === productionName);
+    
+    return found;
+  }
   
   isLeftRecursive() {
     const leftRecursiveRules = this.getLeftRecursiveRules(),
@@ -61,6 +67,10 @@ class Production {
           });
 
     return leftNonRecursiveRules;
+  }
+  
+  concatRules(rules) {
+    this.rules = this.rules.concat(rules);
   }
   
   toString(maximumProductionNameLength) {
@@ -134,6 +144,16 @@ class Production {
 
     return production;
   }
+  
+  static fromProduction(production) {
+    const name = production.getName(),
+          rules = production.getRules(),
+          Node = production.getNode();
+    
+    production = new Production(name, rules, Node); ///
+    
+    return production;
+  }
 }
 
 module.exports = Production;
@@ -141,7 +161,7 @@ module.exports = Production;
 function paddingFromPaddingLength(paddingLength) {
   let padding = '';
   
-  for (var position = 0; position < paddingLength; position++) {
+  for (let position = 0; position < paddingLength; position++) {
     padding += ' ';
   }
   

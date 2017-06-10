@@ -2,6 +2,7 @@
 
 const Graph = require('./graph'),
       parserUtil = require('../util/parser'),
+      Production = require('../common/production'),
       UnitRuleProduction = require('./production/unitRule'),
       UnitRulesProduction = require('./production/unitRules'),
       NonUnitRulesProduction = require('./production/nonUnitRules'),
@@ -126,9 +127,75 @@ function nonCyclicProductionsFromCyclicComponent(cyclicComponent, productions) {
   productions = productionsFromCyclicComponent(cyclicComponent, productions); ///
 
   const unitRuleProductions = unitRuleProductionsFromProductions(productions),
-        nonUnitRulesProductions = nonUnitRulesProductionsFromProductions(productions);
+        nonUnitRulesProductions = nonUnitRulesProductionsFromProductions(productions),
+        removedUnitRuleProductions = [],
+        addedNonUnitRulesProductions = [];
 
-  debugger
+  let unitRuleProductionsLength = unitRuleProductions.length;
+
+  while (unitRuleProductionsLength > 0) {
+    const removedUnitRuleProduction = unitRuleProductions.shift();
+
+    removedUnitRuleProductions.push(removedUnitRuleProduction);
+
+    const removedUnitRuleProductionName = removedUnitRuleProduction.getName(),
+          removedUnitRuleProductionUnitRuleProductionName = removedUnitRuleProduction.getUnitRuleProductionName(),
+          nonUnitRulesProductionName = removedUnitRuleProductionUnitRuleProductionName,  ///
+          nonUnitRulesProduction = parserUtil.findProduction(nonUnitRulesProductionName, nonUnitRulesProductions),
+          nonUnitRulesProductionRules = nonUnitRulesProduction.getRules(),
+          addedNonUnitRulesProductionName = removedUnitRuleProductionName,  ///
+          addedNonUnitRulesProductionRules = nonUnitRulesProductionRules; ///
+
+    let addedNonUnitRulesProduction = parserUtil.findProduction(addedNonUnitRulesProductionName, addedNonUnitRulesProductions);
+
+    if (addedNonUnitRulesProduction === null) {
+      const removedUnitRuleProductionNode = removedUnitRuleProduction.getNode(),
+            addedNonUnitRulesProductionNode = removedUnitRuleProductionNode;
+
+      addedNonUnitRulesProduction = new Production(addedNonUnitRulesProductionName, addedNonUnitRulesProductionRules, addedNonUnitRulesProductionNode);
+
+      addedNonUnitRulesProductions.push(addedNonUnitRulesProduction);
+    } else {
+      addedNonUnitRulesProduction.concatRules(nonUnitRulesProductionRules);
+    }
+
+    let unitRuleProductionName = removedUnitRuleProductionUnitRuleProductionName, ///
+        unitRuleProduction = parserUtil.findProduction(unitRuleProductionName, unitRuleProductions);
+
+    if (unitRuleProduction !== null) {
+      const unitRuleProductionUnitRuleProductionName = unitRuleProduction.getUnitRuleProductionName();
+
+      unitRuleProductionName = removedUnitRuleProductionName; ///
+
+      if (unitRuleProductionName !== unitRuleProductionUnitRuleProductionName) {
+        unitRuleProduction = findUnitRuleProduction(unitRuleProductionName, unitRuleProductionUnitRuleProductionName, removedUnitRuleProductions);
+
+        if (unitRuleProduction === null) {
+          unitRuleProduction = UnitRuleProduction.fromNameAndUnitRuleProductionName(unitRuleProductionName, unitRuleProductionUnitRuleProductionName);
+
+          unitRuleProductions.unshift(unitRuleProduction);
+        }
+      }
+    }
+
+    unitRuleProductionsLength = unitRuleProductions.length;
+  }
+
+  nonUnitRulesProductions.forEach(function(nonUnitRulesProduction) {
+    const nonUnitRulesProductionName = nonUnitRulesProduction.getName(),
+          addedNonUnitRulesProductionName = nonUnitRulesProductionName,
+          addedNonUnitRulesProduction = parserUtil.findProduction(addedNonUnitRulesProductionName, addedNonUnitRulesProductions);
+
+    if (addedNonUnitRulesProduction !== null) {
+      const addedNonUnitRulesProductionRules = addedNonUnitRulesProduction.getRules();
+
+      nonUnitRulesProduction.concatRules(addedNonUnitRulesProductionRules);
+    }
+  });
+
+  productions = nonUnitRulesProductions;  ///
+
+  return productions;
 }
 
 function productionsFromCyclicComponent(cyclicComponent, productions) {
@@ -171,3 +238,23 @@ function nonUnitRulesProductionsFromProductions(productions) {
   return nonUnitProductions;
 }
 
+function findUnitRuleProduction(productionName, unitRuleProductionName, unitRuleProductions) {
+  const firstProductionName = productionName, ///
+        secondProductionName = unitRuleProductionName;  ///
+
+  let foundUnitRuleProduction = null;
+
+  unitRuleProductions.some(function(unitRuleProduction) {
+    const unitRuleProductionFound = unitRuleProduction.isFoundByProductionNames(firstProductionName, secondProductionName);
+
+    if (unitRuleProductionFound) {
+      foundUnitRuleProduction = unitRuleProduction;
+
+      return true;
+    }
+  });
+
+  const unitRuleProduction = foundUnitRuleProduction; ///
+
+  return unitRuleProduction;
+}

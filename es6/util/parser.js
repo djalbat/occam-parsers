@@ -17,16 +17,16 @@ class parserUtil {
     let foundProduction = null;
 
     productions.some(function(production) {
-      const name = production.getName();
-
-      if (name === productionName) {
+      const productionFound = production.isFoundByProductionName(productionName);
+      
+      if (productionFound) {
         foundProduction = production;
 
         return true;
       }
     });
 
-    const production = foundProduction;
+    const production = foundProduction; ///
 
     return production;
   }

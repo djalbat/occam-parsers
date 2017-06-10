@@ -11,7 +11,18 @@ class UnitRule extends Rule {
     
     return productionName;
   }
-  
+
+  static fromProductionName(productionName) {
+    const noWhitespace = false, ///
+          productionNamePart = new ProductionNamePart(productionName, noWhitespace),
+          parts = [
+            productionNamePart
+          ],
+          unitRule = new UnitRule(parts);
+
+    return unitRule;
+  }
+
   static fromRule(rule) {
     let unitRule = null;
 
