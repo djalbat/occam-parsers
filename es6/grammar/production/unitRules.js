@@ -1,58 +1,27 @@
 'use strict';
 
 const UnitRule = require('../rule/unit'),
-      Production = require('../../common/production'),
-      UnitRuleProduction = require('../production/unitRule');
+      Production = require('../../common/production');
 
 class UnitRulesProduction extends Production {
-  getRulesProductionNames() {
+  getProductionNames() {
     const rules = this.getRules(),
-          rulesProductionNames = rules.map(function(rule) {
-            const ruleParts = rule.getParts(),
-                  ruleFirstPart = first(ruleParts),
-                  ruleFirstProductionNamePart = ruleFirstPart,  ///
-                  ruleFirstProductionNamePartProductionName = ruleFirstProductionNamePart.getProductionName(),
-                  ruleProductionName = ruleFirstProductionNamePartProductionName; ///
+          unitRules = rules,  ///
+          productionNames = unitRules.map(function(unitRule) {
+            const productionName = unitRule.getProductionName();
             
-            return ruleProductionName;
+            return productionName;
           });
     
-    return rulesProductionNames;
-  }
-  
-  getUnitRules() {
-    const rules = this.getRules(),
-          unitRules = rules.reduce(function(unitRules, rule) {
-            const unitRule = UnitRule.fromRule(rule);
-            
-            if (unitRule !== null) {
-              unitRules = unitRules.concat(unitRule);
-            }
-            
-            return unitRules;
-          }, []);
-    
-    return unitRules;
-  }
-  
-  getUnitRuleProductions() {
-    const name = this.getName(),
-          unitRules = this.getUnitRules(),
-          unitRulesProductions = unitRules.map(function(unitRule) {
-            const unitRulesProduction = UnitRuleProduction.fromNameAndUnitRule(name, unitRule);
-            
-            return unitRulesProduction;
-          }); 
-    
-    return unitRulesProductions;
-  }
+    return productionNames;
+  } 
   
   static fromProduction(production) {
     let unitRulesProduction = null;
 
-    const productionRules = production.getRules(),
-          unitRules = productionRules.reduce(function(unitRules, productionRule) {
-            const unitRule = UnitRule.fromRule(productionRule);
+    const rules = production.getRules(),
+          unitRules = rules.reduce(function(unitRules, rule) {
+            const unitRule = UnitRule.fromRule(rule);
 
             if (unitRule !== null) {
               unitRules = unitRules.concat(unitRule);
@@ -62,12 +31,10 @@ class UnitRulesProduction extends Production {
           }, []),
           unitRulesLength = unitRules.length;
 
-    if (unitRulesLength) {
-      const productionName = production.getName(),
-            productionNode = production.getNode(),
-            name = productionName, ///
+    if (unitRulesLength > 0) {
+      const name = production.getName(),
             rules = unitRules,  ///
-            Node = productionNode;
+            Node = production.getNode();
 
       unitRulesProduction = new UnitRulesProduction(name, rules, Node);
     }
@@ -77,5 +44,3 @@ class UnitRulesProduction extends Production {
 }
 
 module.exports = UnitRulesProduction;
-
-function first(array) { return array[0]; }

@@ -2,16 +2,16 @@
 
 const Graph = require('./graph'),
       parserUtil = require('../util/parser'),
-      CyclicProduction = require('./production/unitRules'),
       NonUnitProduction = require('./production/nonUnit'),
+      UnitRulesProduction = require('./production/unitRules'),
       RightRecursiveProduction = require('./production/rightRecursive'),
       NonLeftRecursiveProduction = require('./production/nonLeftRecursive'),
       NonImplicitlyLeftRecursiveProduction = require('./production/nonImplicitlyLeftRecursive');
 
 class grammarUtil {
   static eliminateCycles(productions) {
-    const cyclicProductions = cyclicProductionsFromProductions(productions),
-          graph = graphFromCyclicProductions(cyclicProductions),
+    const unitRulesProductions = unitRulesProductionsFromProductions(productions),
+          graph = graphFromUnitRulesProductions(unitRulesProductions),
           components = graph.getComponents();
 
     productions = productionsFromComponents(components, productions);
@@ -60,28 +60,28 @@ class grammarUtil {
 
 module.exports = grammarUtil;
 
-function cyclicProductionsFromProductions(productions) {
-  const cyclicProductions = productions.reduce(function(cyclicProductions, production) {
-    const cyclicProduction = CyclicProduction.fromProduction(production);
+function unitRulesProductionsFromProductions(productions) {
+  const unitRulesProductions = productions.reduce(function(unitRulesProductions, production) {
+    const unitRulesProduction = UnitRulesProduction.fromProduction(production);
 
-    if (cyclicProduction !== null) {
-      cyclicProductions.push(cyclicProduction);
+    if (unitRulesProduction !== null) {
+      unitRulesProductions.push(unitRulesProduction);
     }
 
-    return cyclicProductions;
+    return unitRulesProductions;
   }, []);
 
-  return cyclicProductions;
+  return unitRulesProductions;
 }
 
-function graphFromCyclicProductions(cyclicProductions) {
+function graphFromUnitRulesProductions(unitRulesProductions) {
   const graph = new Graph();
 
-  cyclicProductions.forEach(function(cyclicProduction) {
-    const cyclicProductionName = cyclicProduction.getName(),
-          cyclicProductionRulesProductionNames = cyclicProduction.getRulesProductionNames(),
-          vertexName = cyclicProductionName,  ///
-          descendantVertexNames = cyclicProductionRulesProductionNames; ///
+  unitRulesProductions.forEach(function(unitRulesProduction) {
+    const productionName = unitRulesProduction.getName(),
+          productionNames = unitRulesProduction.getProductionNames(),
+          vertexName = productionName,  ///
+          descendantVertexNames = productionNames; ///
 
     graph.addVertex(vertexName, descendantVertexNames);
   });
@@ -118,7 +118,7 @@ function nonCyclicProductionsFromCyclicComponent(cyclicComponent, productions) {
           const vertexName = vertex.getName(),
                 cyclicProductionName = vertexName,  ///
                 production = parserUtil.findProduction(cyclicProductionName, productions),
-                cyclicProduction = CyclicProduction.fromProduction(production);
+                cyclicProduction = UnitRulesProduction.fromProduction(production);
 
           return cyclicProduction;
         }),

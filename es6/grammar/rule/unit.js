@@ -1,33 +1,34 @@
 'use strict';
 
-const Rule = require('../../common/rule');
+const Rule = require('../../common/rule'),
+      ProductionNamePart = require('../../common/part/productionName');
 
-class NonUnitRule extends Rule {
-  getPart() {
+class UnitRule extends Rule {
+  getProductionName () {
     const firstPart = this.getFirstPart(),
-          part = firstPart; ///
+          productionNamePart = firstPart, ///
+          productionName = productionNamePart.getProductionName();
     
-    return part;
+    return productionName;
   }
   
   static fromRule(rule) {
-    let nonUnitRule = null;
-    
-    const rulePartsLength = rule.getPartsLength(),
-          ruleFirstProductionNamePart = rule.getFirstProductionNamePart();
-    
-    if ((rulePartsLength > 1) || (ruleFirstProductionNamePart === null)) {
-      if (ruleFirstProductionNamePart !== null) {
-        const ruleParts = rule.getParts(),
-              parts = ruleParts;  ///
-        
-        nonUnitRule = new NonUnitRule(parts);            
+    let unitRule = null;
+
+    const partsLength = rule.getPartsLength();
+
+    if (partsLength === 1) {
+      const firstPart = rule.getFirstPart();
+      
+      if (firstPart instanceof ProductionNamePart) {
+        const parts = rule.getParts();
+
+        unitRule = new UnitRule(parts);
       }
     }
-    
-    return nonUnitRule;
+
+    return unitRule;
   }
 }
 
-module.exports = NonUnitRule;
-
+module.exports = UnitRule;
