@@ -28,6 +28,18 @@ class Production {
     return found;
   }
   
+  setName(name) {
+    this.name = name;
+  }
+  
+  setRules(rules) {
+    this.rules = rules;
+  }
+  
+  setNode(node) {
+    this.node = node;
+  }
+  
   isLeftRecursive() {
     const leftRecursiveRules = this.getLeftRecursiveRules(),
           leftRecursiveRulesLength = leftRecursiveRules.length,
