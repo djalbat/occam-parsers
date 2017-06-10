@@ -103,9 +103,10 @@ function nonCyclicProductionsFromComponent(component, productions, nonCyclicProd
 
     if (intermediateProduction !== null) {
       const intermediateProductionUnitRuleProductionName = intermediateProduction.getUnitRuleProductionName(),
-            unitRuleProductionUnitRuleProductionName = intermediateProductionUnitRuleProductionName;  ///
+            unitRuleProductionUnitRuleProductionName = intermediateProductionUnitRuleProductionName,  ///
+            unitRuleProductionNonCyclic = (unitRuleProductionName !== unitRuleProductionUnitRuleProductionName);
 
-      if (unitRuleProductionName !== unitRuleProductionUnitRuleProductionName) {
+      if (unitRuleProductionNonCyclic) {
         unitRuleProduction = findUnitRuleProduction(unitRuleProductionName, unitRuleProductionUnitRuleProductionName, removedProductions);
 
         if (unitRuleProduction === null) {
