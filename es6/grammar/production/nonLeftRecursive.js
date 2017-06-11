@@ -11,7 +11,7 @@ class NonLeftRecursiveProduction extends Production {
           name = productionName,  ///
           rules = rulesFromLeftRecursiveProduction(leftRecursiveProduction),
           Node = productionNode,  ///
-          nonLeftRecursiveProduction = new Production(name, rules, Node);
+          nonLeftRecursiveProduction = new NonLeftRecursiveProduction(name, rules, Node);
     
     return nonLeftRecursiveProduction;
   }

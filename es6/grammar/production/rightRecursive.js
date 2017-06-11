@@ -19,7 +19,7 @@ class RightRecursiveProduction extends Production {
     const name = nameFromLeftRecursiveProduction(leftRecursiveProduction),
           rules = rulesFromLeftRecursiveProduction(leftRecursiveProduction),
           Node = NonTerminalNode, ///
-          rightRecursiveProduction = new Production(name, rules, Node);
+          rightRecursiveProduction = new RightRecursiveProduction(name, rules, Node);
     
     return rightRecursiveProduction;
   }
@@ -55,7 +55,7 @@ function rightRecursiveRulesFromLeftRecursiveProduction(leftRecursiveProduction)
 
 function nameFromLeftRecursiveProduction(leftRecursiveProduction) {
   const leftRecursiveProductionName = leftRecursiveProduction.getName(),
-        name = `${leftRecursiveProductionName}´`;
+        name = `${leftRecursiveProductionName}~`;
 
   return name;
 }

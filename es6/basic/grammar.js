@@ -2,11 +2,11 @@
 
 const grammar = `
 
- expression               ::=  expression '+' term | term
+ A ::= A 'a' | B 'b' | 'd'
 
- term                     ::=  naturalNumber
+ B ::= C 'c'
 
- naturalNumber            ::=  /\\d+/
+ C ::= A 'e' | B 'f'
 
 
 `;
@@ -15,12 +15,11 @@ module.exports = grammar;
 
 /*
 
- A ::= A 'a' | B 'b' | 'd'
+ expression               ::=  expression '+' term | term
 
- B ::= C 'c'
+ term                     ::=  naturalNumber
 
- C ::= A 'e' | B 'f'
-
+ naturalNumber            ::=  /\\d+/
 
 
 
@@ -32,19 +31,11 @@ module.exports = grammar;
 
 
 
-
-
-
-
-
  A ::= B | 'a'
 
  B ::= C 'b' | 'c'
 
  C ::= d | A 'e'
-
-
-
 
 
 
@@ -56,18 +47,13 @@ module.exports = grammar;
 
 
 
-
-
  A1 ::= A2 'a' | 'b'
 
  A2 ::= A1 'c' | 'd'
 
 
 
-
-
-
- expression               ::=  term operatorThenTerm*
+  expression               ::=  term operatorThenTerm*
   
   operatorThenTerm         ::=  operator term
   
