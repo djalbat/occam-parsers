@@ -14,11 +14,9 @@ class leftRecursion {
             end = index,  ///
             previousNonLeftRecursiveProductions = nonLeftRecursiveProductions.slice(begin, end),
             previousProductions = previousNonLeftRecursiveProductions,  ///
-            productionImplicitlyLeftRecursive = production.isImplicitlyLeftRecursive(previousProductions);
+            nonImplicitlyLeftRecursiveProduction = NonImplicitlyLeftRecursiveProduction.fromProductionAndPreviousProductions(production, previousProductions);
 
-      if (productionImplicitlyLeftRecursive) {
-        const nonImplicitlyLeftRecursiveProduction = NonImplicitlyLeftRecursiveProduction.fromProductionAndPreviousProductions(production, previousProductions);
-
+      if (nonImplicitlyLeftRecursiveProduction !== null) {
         production = nonImplicitlyLeftRecursiveProduction;  ///
       }
 

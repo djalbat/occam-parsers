@@ -24,8 +24,8 @@ class PrimitiveParser {
     }
     
     productions = cycles.eliminate(productions);  ///
-    
- // productions = leftRecursion.eliminate(productions);
+
+    // productions = leftRecursion.eliminate(productions);  ///
 
     return productions;
   }

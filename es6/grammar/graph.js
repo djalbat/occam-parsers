@@ -10,23 +10,6 @@ class Graph {
     this.vertexmap = {};
   }
   
-  getCycles() {
-    const components = this.getComponents(),
-          cycles = components.reduce(function(cycles, component) {
-            const componentCyclic = component.isCyclic();
-            
-            if (componentCyclic) {
-              const cycle = Cycle.fromComponent(component);
-              
-              cycles.push(cycle);
-            }
-            
-            return cycles;
-          }, []);
-    
-    return cycles;
-  }
-  
   getVertices() {
     const names = Object.keys(this.vertexmap),
           vertices = names.map(function(name) {
@@ -38,7 +21,24 @@ class Graph {
     return vertices;        
   }
 
-  getComponents() {
+  generateCycles() {
+    const components = this.generateComponents(),
+          cycles = components.reduce(function(cycles, component) {
+            const componentCyclic = component.isCyclic();
+  
+            if (componentCyclic) {
+              const cycle = Cycle.fromComponent(component);
+  
+              cycles.push(cycle);
+            }
+  
+            return cycles;
+          }, []);
+
+    return cycles;
+  }
+
+  generateComponents() {
     const stack = new Stack(),
           vertices = this.getVertices(),
           components = [];
@@ -99,6 +99,12 @@ class Graph {
     return components;
   }
 
+  isVertexPresent(vertexName) {
+    const vertexPresent = (this.vertexmap[vertexName] !== undefined);
+
+    return vertexPresent;
+  }
+
   addVertex(name, descendantVertexNames) {
     let successorVertices = descendantVertexNames.map(function(descendantVertexName) {
       const successorVertexName = descendantVertexName;  ///
@@ -126,21 +132,6 @@ class Graph {
 
     vertex.setSuccessorVertices(successorVertices);
   }
-
-  static fromUnitRulesProductions(unitRulesProductions) {
-    const graph = new Graph();
-  
-    unitRulesProductions.forEach(function(unitRulesProduction) {
-      const productionName = unitRulesProduction.getName(),
-            productionNames = unitRulesProduction.getProductionNames(),
-            vertexName = productionName,  ///
-            descendantVertexNames = productionNames; ///
-  
-      graph.addVertex(vertexName, descendantVertexNames);
-    });
-  
-    return graph;
-  }  
 }
 
 module.exports = Graph;

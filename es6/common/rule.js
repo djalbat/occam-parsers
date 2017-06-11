@@ -45,13 +45,6 @@ class Rule {
     return leftRecursive;
   }
 
-  isImplicitlyLeftRecursive(previousProductions) {
-    const implicitlyLeftRecursivePreviousProduction = this.implicitlyLeftRecursivePreviousProduction(previousProductions),
-          implicitlyLeftRecursive = (implicitlyLeftRecursivePreviousProduction !== null);
-    
-    return implicitlyLeftRecursive;
-  }
-
   implicitlyLeftRecursivePreviousProduction(previousProductions) {
     let implicitlyLeftRecursivePreviousProduction = null;
 

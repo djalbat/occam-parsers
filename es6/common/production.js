@@ -48,16 +48,6 @@ class Production {
     return leftRecursive;
   }
   
-  isImplicitlyLeftRecursive(previousProductions) {
-    const implicitlyLeftRecursive = this.rules.some(function(rule) {
-      const implicitlyLeftRecursive = rule.isImplicitlyLeftRecursive(previousProductions);
-      
-      return implicitlyLeftRecursive;
-    });
-    
-    return implicitlyLeftRecursive;
-  }
-  
   getLeftRecursiveRules() {
     const productionName = this.name, ///
           leftRecursiveRules = this.rules.filter(function(rule) {

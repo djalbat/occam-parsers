@@ -9,18 +9,25 @@ const Graph = require('./graph'),
 
 class cycles {
   static eliminate(productions) {
-    const unitRulesProductions = unitRulesProductionsFromProductions(productions),
-          graph = Graph.fromUnitRulesProductions(unitRulesProductions),
-          components = graph.getComponents(),
-          nonCyclicProductions = nonCyclicProductionsFromComponents(components, productions);
+    const graph = graphFromProductions(productions),
+          components = graph.generateComponents(),
+          nonCyclicProductions = nonCyclicProductionsFromComponents(components, productions),
+          alreadyNonCyclicProductions = alreadyNonCyclicProductionsFromGraph(graph, productions);
 
-    productions = nonCyclicProductions; ///
+    productions = [].concat(nonCyclicProductions).concat(alreadyNonCyclicProductions);
 
     return productions;
   }
 }
 
 module.exports = cycles;
+
+function graphFromProductions(productions) {
+  const unitRulesProductions = unitRulesProductionsFromProductions(productions),
+        graph = graphFromUnitRulesProductions(unitRulesProductions);
+
+  return graph;
+}
 
 function unitRulesProductionsFromProductions(productions) {
   const unitRulesProductions = productions.reduce(function(unitRulesProductions, production) {
@@ -34,6 +41,21 @@ function unitRulesProductionsFromProductions(productions) {
   }, []);
 
   return unitRulesProductions;
+}
+
+function graphFromUnitRulesProductions(unitRulesProductions) {
+  const graph = new Graph();
+
+  unitRulesProductions.forEach(function(unitRulesProduction) {
+    const productionName = unitRulesProduction.getName(),
+          productionNames = unitRulesProduction.getProductionNames(),
+          vertexName = productionName,  ///
+          descendantVertexNames = productionNames; ///
+
+    graph.addVertex(vertexName, descendantVertexNames);
+  });
+
+  return graph;
 }
 
 function nonCyclicProductionsFromComponents(components, productions) {
@@ -50,6 +72,19 @@ function nonCyclicProductionsFromComponents(components, productions) {
         }, []);
 
   return nonCyclicProductions;
+}
+
+function alreadyNonCyclicProductionsFromGraph(graph, productions) {
+  const alreadyNonCyclicProductions = productions.filter(function(production) {
+    const productionName = production.getName(),
+          vertexName = productionName,  ///
+          vertexPresent = graph.isVertexPresent(vertexName),
+          productionAlreadyNonCyclic = !vertexPresent; ///
+    
+    return productionAlreadyNonCyclic;
+  });
+
+  return alreadyNonCyclicProductions;
 }
 
 function nonCyclicProductionFromComponent(component, productions, nonCyclicProductions) {
