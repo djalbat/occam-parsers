@@ -16,7 +16,7 @@ class LeftRecursiveRule extends Rule {
       if (ruleFirstProductionNamePartProductionName === productionName) {
         const parts = rule.getParts();
 
-        leftRecursiveRule = new Rule(parts);
+        leftRecursiveRule = new LeftRecursiveRule(parts);
       }
     }
 

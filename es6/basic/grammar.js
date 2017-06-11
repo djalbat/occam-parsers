@@ -6,7 +6,7 @@ const grammar = `
 
  B ::= C 'c'
 
- C ::= A 'e'
+ C ::= A 'e' | B 'f'
 
 `;
 
