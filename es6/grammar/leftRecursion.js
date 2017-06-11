@@ -1,6 +1,7 @@
 'use strict';
 
-const RightRecursiveProduction = require('./production/rightRecursive'),
+const LeftRecursiveProduction = require('./production/leftRecursive'),
+      RightRecursiveProduction = require('./production/rightRecursive'),
       NonLeftRecursiveProduction = require('./production/nonLeftRecursive'),
       NonImplicitlyLeftRecursiveProduction = require('./production/nonImplicitlyLeftRecursive');
 
@@ -10,30 +11,40 @@ class leftRecursion {
           rightRecursiveProductions = [];
 
     productions.forEach(function(production, index) {
-      const begin = 0,
-            end = index,  ///
-            previousNonLeftRecursiveProductions = nonLeftRecursiveProductions.slice(begin, end),
-            previousProductions = previousNonLeftRecursiveProductions,  ///
-            nonImplicitlyLeftRecursiveProduction = NonImplicitlyLeftRecursiveProduction.fromProductionAndPreviousProductions(production, previousProductions);
+      const leftRecursiveProduction = LeftRecursiveProduction.fromProduction(production);
+      
+      if (leftRecursiveProduction !== null) {
+        debugger
 
-      if (nonImplicitlyLeftRecursiveProduction !== null) {
-        production = nonImplicitlyLeftRecursiveProduction;  ///
-      }
-
-      const productionLeftRecursive = production.isLeftRecursive();
-
-      if (productionLeftRecursive) {
-        const nonLeftRecursiveProduction = NonLeftRecursiveProduction.fromProduction(production),
-              rightRecursiveProduction = RightRecursiveProduction.fromProduction(production);
+        const nonLeftRecursiveProduction = NonLeftRecursiveProduction.fromLeftRecursiveProduction(leftRecursiveProduction),
+              rightRecursiveProduction = RightRecursiveProduction.fromLeftRecursiveProduction(leftRecursiveProduction);
 
         nonLeftRecursiveProductions.push(nonLeftRecursiveProduction);
 
         rightRecursiveProductions.push(rightRecursiveProduction);
-      } else {
-        const nonLeftRecursiveProduction = production;  ///
-
-        nonLeftRecursiveProductions.push(nonLeftRecursiveProduction);
       }
+      
+      // const begin = 0,
+      //       end = index,  ///
+      //       previousNonLeftRecursiveProductions = nonLeftRecursiveProductions.slice(begin, end),
+      //       previousProductions = previousNonLeftRecursiveProductions,  ///
+      //       nonImplicitlyLeftRecursiveProduction = NonImplicitlyLeftRecursiveProduction.fromProductionAndPreviousProductions(production, previousProductions);
+      //
+      // if (nonImplicitlyLeftRecursiveProduction !== null) {
+      //   production = nonImplicitlyLeftRecursiveProduction;  ///
+      // }
+      //
+      // const productionLeftRecursive = production.isLeftRecursive();
+      //
+      // if (productionLeftRecursive) {
+      //   const nonLeftRecursiveProduction = NonLeftRecursiveProduction.fromProduction(production),
+      //         rightRecursiveProduction = RightRecursiveProduction.fromProduction(production);
+      //
+      // } else {
+      //   const nonLeftRecursiveProduction = production;  ///
+      //
+      //   nonLeftRecursiveProductions.push(nonLeftRecursiveProduction);
+      // }
     });
 
     productions = [].concat(nonLeftRecursiveProductions).concat(rightRecursiveProductions);

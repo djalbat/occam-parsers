@@ -7,19 +7,18 @@ const Rule = require('../../common/rule'),
       ProductionNamePart = require('../../common/part/productionName');
 
 class RightRecursiveProduction extends Production {
-  static productionNamePartFromProduction(production) {
-    const productionName = production.getName(),
-          name = productionName, ///
+  static productionNamePartFromLeftRecursiveProduction(leftRecursiveProduction) {
+    const leftRecursiveProductionName = leftRecursiveProduction.getName(),
+          name = `${leftRecursiveProductionName}'`,
           noWhitespace = false, ///
           productionNamePart = new ProductionNamePart(name, noWhitespace);
     
     return productionNamePart;
   }
   
-  static fromProduction(production) {
-    const productionName = production.getName(),
-          name = productionName, ///
-          rules = rulesFromProduction(production),
+  static fromLeftRecursiveProduction(leftRecursiveProduction) {
+    const name = nameFromLeftRecursiveProduction(leftRecursiveProduction),
+          rules = rulesFromLeftRecursiveProduction(leftRecursiveProduction),
           Node = NonTerminalNode, ///
           rightRecursiveProduction = new Production(name, rules, Node);
     
@@ -29,23 +28,23 @@ class RightRecursiveProduction extends Production {
 
 module.exports = RightRecursiveProduction;
 
-function rulesFromProduction(production) {
-  const rightRecursiveRules = rightRecursiveRulesFromProduction(production),
-        epsilonPart = new EpsilonPart(),
-        epsilonParts = [
-          epsilonPart
-        ],
-        epsilonPartRule = new Rule(epsilonParts),
-        rules = [].concat(rightRecursiveRules).concat(epsilonPartRule);
+function rulesFromLeftRecursiveProduction(leftRecursiveProduction) {
+  const rightRecursiveRules = rightRecursiveRulesFromLeftRecursiveProduction(leftRecursiveProduction),
+          epsilonPart = new EpsilonPart(),
+          epsilonParts = [
+            epsilonPart
+          ],
+          epsilonPartRule = new Rule(epsilonParts),
+          rules = [].concat(rightRecursiveRules).concat(epsilonPartRule);
 
   return rules;
 }
 
-function rightRecursiveRulesFromProduction(production) {
-  const productionLeftRecursiveRules = production.getLeftRecursiveRules(),
+function rightRecursiveRulesFromLeftRecursiveProduction(leftRecursiveProduction) {
+  const productionLeftRecursiveRules = leftRecursiveProduction.getLeftRecursiveRules(),
+        productionNamePart = RightRecursiveProduction.productionNamePartFromLeftRecursiveProduction(leftRecursiveProduction),
         rightRecursiveRules = productionLeftRecursiveRules.map(function(productionLeftRecursiveRule) {
           const productionLeftRecursiveRuleAllButFirstParts = productionLeftRecursiveRule.getAllButFirstParts(),
-                productionNamePart = RightRecursiveProduction.productionNamePartFromProduction(production),
                 rightRecursiveRuleParts = [].concat(productionLeftRecursiveRuleAllButFirstParts).concat(productionNamePart),
                 rightRecursiveRule = new Rule(rightRecursiveRuleParts);
 
@@ -53,4 +52,11 @@ function rightRecursiveRulesFromProduction(production) {
         });
 
   return rightRecursiveRules;
+}
+
+function nameFromLeftRecursiveProduction(leftRecursiveProduction) {
+  const leftRecursiveProductionName = leftRecursiveProduction.getName(),
+        name = `${leftRecursiveProductionName}'`;
+
+  return name;
 }

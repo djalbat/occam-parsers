@@ -5,11 +5,11 @@ const Rule = require('../../common/rule'),
       RightRecursiveProduction = require('../production/rightRecursive');
 
 class NonLeftRecursiveProduction extends Production {
-  static fromProduction(production) {
-    const productionName = production.getName(),
-          productionNode = production.getNode(),
+  static fromLeftRecursiveProduction(leftRecursiveProduction) {
+    const productionName = leftRecursiveProduction.getName(),
+          productionNode = leftRecursiveProduction.getNode(),
           name = productionName,  ///
-          rules = rulesFromProduction(production),
+          rules = rulesFromLeftRecursiveProduction(leftRecursiveProduction),
           Node = productionNode,  ///
           nonLeftRecursiveProduction = new Production(name, rules, Node);
     
@@ -19,11 +19,11 @@ class NonLeftRecursiveProduction extends Production {
 
 module.exports = NonLeftRecursiveProduction;
 
-function rulesFromProduction(production) {
-  const productionNonLeftRecursiveRules = production.getNonLeftRecursiveRules(),
+function rulesFromLeftRecursiveProduction(leftRecursiveProduction) {
+  const productionNonLeftRecursiveRules = leftRecursiveProduction.getNonLeftRecursiveRules(),
+        productionNamePart = RightRecursiveProduction.productionNamePartFromLeftRecursiveProduction(leftRecursiveProduction),
         rules = productionNonLeftRecursiveRules.map(function(productionNonLeftRecursiveRule) {
           const productionNonLeftRecursiveRuleParts = productionNonLeftRecursiveRule.getParts(),
-                productionNamePart = RightRecursiveProduction.productionNamePartFromProduction(production),
                 parts = [].concat(productionNonLeftRecursiveRuleParts).concat(productionNamePart),
                 rule = new Rule(parts);
   

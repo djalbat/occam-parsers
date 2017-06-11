@@ -33,18 +33,6 @@ class Rule {
     return allButFirstParts;
   }
   
-  isLeftRecursive(productionName) {
-    let leftRecursive = false;
-    
-    const firstProductionNamePart = this.getFirstProductionNamePart();    
-    
-    if (firstProductionNamePart !== null) {
-      leftRecursive = firstProductionNamePart.isLeftRecursive(productionName);
-    }
-    
-    return leftRecursive;
-  }
-
   implicitlyLeftRecursivePreviousProduction(previousProductions) {
     let implicitlyLeftRecursivePreviousProduction = null;
 

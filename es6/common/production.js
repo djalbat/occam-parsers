@@ -40,38 +40,7 @@ class Production {
     this.node = node;
   }
   
-  isLeftRecursive() {
-    const leftRecursiveRules = this.getLeftRecursiveRules(),
-          leftRecursiveRulesLength = leftRecursiveRules.length,
-          leftRecursive = (leftRecursiveRulesLength > 0);
-    
-    return leftRecursive;
-  }
-  
-  getLeftRecursiveRules() {
-    const productionName = this.name, ///
-          leftRecursiveRules = this.rules.filter(function(rule) {
-            const ruleLeftRecursive = rule.isLeftRecursive(productionName);
-      
-            return ruleLeftRecursive;
-          });
-
-    return leftRecursiveRules;
-  }
-
-  getNonLeftRecursiveRules() {
-    const productionName = this.name, ///
-          leftNonRecursiveRules = this.rules.filter(function(rule) {
-            const ruleLeftRecursive = rule.isLeftRecursive(productionName),
-                  ruleNonLeftRecursive = !ruleLeftRecursive;
-  
-            return ruleNonLeftRecursive;
-          });
-
-    return leftNonRecursiveRules;
-  }
-  
-  concatRules(rules) {
+  addRules(rules) {
     this.rules = this.rules.concat(rules);
   }
   
@@ -147,12 +116,12 @@ class Production {
     return production;
   }
   
-  static fromProduction(production) {
+  static fromProduction(production, Class = Production) {
     const name = production.getName(),
           rules = production.getRules(),
           Node = production.getNode();
     
-    production = new Production(name, rules, Node); ///
+    production = new Class(name, rules, Node); ///
     
     return production;
   }

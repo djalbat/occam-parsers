@@ -133,7 +133,7 @@ function nonCyclicProductionsFromComponent(component, productions, nonCyclicProd
     } else {
       const fixedProductionRules = fixedProduction.getRules();
 
-      addedProduction.concatRules(fixedProductionRules);
+      addedProduction.addRules(fixedProductionRules);
     }
 
     const intermediateProductionName = unitRuleProductionUnitRuleProductionName, ///
@@ -171,7 +171,7 @@ function nonCyclicProductionsFromFixedAndAddedProductions(fixedProductions, adde
     if (addedProduction !== null) {
       const addedProductionRules = addedProduction.getRules();
 
-      nonCyclicProduction.concatRules(addedProductionRules);
+      nonCyclicProduction.addRules(addedProductionRules);
     }
 
     nonCyclicProductions.push(nonCyclicProduction);

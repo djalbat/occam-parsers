@@ -2,13 +2,11 @@
 
 const grammar = `
 
- A ::= B 'x' 'y' | 'x'
+ A ::= A 'a' | B 'b' | 'd'
 
- B ::= C D
+ B ::= C 'c'
 
- C ::= A | 'c'
-
- D ::= 'd'
+ C ::= A 'e'
 
 `;
 
