@@ -36,7 +36,7 @@ class NonTerminalNode {
     return this.lastSignificantToken;
   }
 
-  parseTree(lines) {
+  generateParseTree(lines) {
     const nonTerminalNode = this,  ///
           nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNode(nonTerminalNode, lines),
           parseTree = nonTerminalNodeParseTree;  ///

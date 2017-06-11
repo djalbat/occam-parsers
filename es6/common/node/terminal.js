@@ -40,7 +40,7 @@ class TerminalNode {
     return lastLine;
   }
   
-  parseTree(lines) {
+  generateParseTree(lines) {
     const terminalNode = this,  ///
           terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNode(terminalNode, lines),
           parseTree = terminalNodeParseTree;  ///

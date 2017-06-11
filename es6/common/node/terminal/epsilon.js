@@ -10,7 +10,7 @@ class EpsilonTerminalNode extends TerminalNode {
     return content;
   }
 
-  parseTree(lines) {
+  generateParseTree(lines) {
     const epsilonTerminalNode = this,  ///
           epsilonTerminalNodeParseTree = EpsilonTerminalNodeParseTree.fromEpsilonTerminalNode(epsilonTerminalNode, lines),
           parseTree = epsilonTerminalNodeParseTree;  ///

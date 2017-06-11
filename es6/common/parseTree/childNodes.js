@@ -7,7 +7,7 @@ const EmptyParseTree = require('./empty'),
 class ChildNodesParseTree extends VerticalBranchParseTree {
   static fromChildNodes(childNodes, lines) {
     const childNodeParseTrees = childNodes.map(function(childNode) {
-            const childNodeParseTree = childNode.parseTree(lines);
+            const childNodeParseTree = childNode.generateParseTree(lines);
   
             return childNodeParseTree;
           }),

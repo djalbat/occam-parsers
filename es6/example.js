@@ -43,7 +43,7 @@ class Example {
         throw new Error('The document cannot be parsed for some reason.');
       }
 
-      const parseTree = documentNode.parseTree(lines);
+      const parseTree = documentNode.generateParseTree(lines);
 
       parseTree.shiftLine();  //
 
