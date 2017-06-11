@@ -1,11 +1,14 @@
 'use strict';
 
-const Graph = require('./graph'),
-      parserUtil = require('../util/parser'),
+const tarjan = require('occam-tarjan');
+
+const parserUtil = require('../util/parser'),
       Production = require('../common/production'),
       UnitRuleProduction = require('./production/unitRule'),
       UnitRulesProduction = require('./production/unitRules'),
       NonUnitRulesProduction = require('./production/nonUnitRules');
+
+const { Graph } = tarjan;
 
 class cycles {
   static eliminate(productions) {
