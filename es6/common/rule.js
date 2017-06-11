@@ -33,30 +33,6 @@ class Rule {
     return allButFirstParts;
   }
   
-  implicitlyLeftRecursivePreviousProduction(previousProductions) {
-    let implicitlyLeftRecursivePreviousProduction = null;
-
-    const firstProductionNamePart = this.getFirstProductionNamePart();
-
-    if (firstProductionNamePart !== null) {
-      const firstProductionNamePartProductionName = firstProductionNamePart.getProductionName(),
-            firstProductionName = firstProductionNamePartProductionName;  ///
-
-      previousProductions.some(function(previousProduction) {
-        const previousProductionName = previousProduction.getName(),
-              previousProductionImplicitlyLeftRecursive = (previousProductionName === firstProductionName);
-
-        if (previousProductionImplicitlyLeftRecursive) {
-          implicitlyLeftRecursivePreviousProduction = previousProduction;
-
-          return true;
-        }
-      });
-    }
-
-    return implicitlyLeftRecursivePreviousProduction;
-  }
-
   toString() {
     const partsString = this.parts.reduce(function(partsString, part) {
             const partString = part.toString();

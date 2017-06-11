@@ -15,7 +15,7 @@ class TerminalNodeParseTree extends VerticalBranchParseTree {
           description = (significantTokenError === true) ?
                           'error' :
                             significantTokenType,
-          string = `${content}[${description}] (${lineNumber})`,
+          string = `${content}[${description}](${lineNumber})`,
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),

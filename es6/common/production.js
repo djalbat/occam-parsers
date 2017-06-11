@@ -1,7 +1,8 @@
 'use strict';
 
 const Rule = require('./rule'),
-      NonTerminalNode = require('./node/nonTerminal');
+      NonTerminalNode = require('./node/nonTerminal'),
+      EpsilonTerminalNode = require('./node/terminal/epsilon');
 
 class Production {
   constructor(name, rules, Node) {
@@ -89,8 +90,17 @@ class Production {
       const ruleNodesLength = ruleNodes.length;
 
       if (ruleNodesLength > 0) {
-        const nodes = ruleNodes,  ///
-              productionName = this.name; ///
+        const productionName = this.name,
+              nodes = ruleNodes,  ///
+              lastNode = last(nodes),
+              lastNodeNullified = isNodeNullified(lastNode);
+
+        if (lastNodeNullified) {
+          const start = -1,
+                deleteCount = 1;
+
+          nodes.splice(start, deleteCount);
+        }
 
         nodeOrNodes = this.Node.fromNodesAndProductionName(nodes, productionName);  ///
       }
@@ -138,3 +148,25 @@ function paddingFromPaddingLength(paddingLength) {
   
   return padding;
 }
+
+function isNodeNullified(node) {
+  let nullified = false;
+
+  if (node instanceof NonTerminalNode) {
+    const nonTerminalNode = node, ///
+          childNodes = nonTerminalNode.getChildNodes(),
+          childNodesLength = childNodes.length;
+
+    if (childNodesLength === 1) {
+      const childNode = first(childNodes);
+
+      nullified = (childNode instanceof EpsilonTerminalNode); ///
+    }
+  }
+
+  return nullified;
+}
+
+function first(array) { return array[0]; }
+
+function last(array) { return array[array.length - 1]; }
