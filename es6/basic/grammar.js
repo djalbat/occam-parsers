@@ -2,17 +2,23 @@
 
 const grammar = `
 
- A ::= A 'a' | B 'b' | 'd'
+ A ::= B | 'a'
 
- B ::= C 'c'
-
- C ::= A 'e' | B 'f'
+ B ::= A | 'b'
 
 `;
 
 module.exports = grammar;
 
 /*
+
+ A ::= A 'a' | B 'b' | 'd'
+
+ B ::= C 'c'
+
+ C ::= A 'e' | B 'f'
+
+
 
  A ::= B | 'a'
 

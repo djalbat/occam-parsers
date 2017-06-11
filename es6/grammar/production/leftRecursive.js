@@ -1,7 +1,6 @@
 'use strict';
 
-const parserUtil = require('../../util/parser'),
-      Production = require('../../common/production'),
+const Production = require('../../common/production'),
       LeftRecursiveRule = require('../rule/leftRecursive'),
       ImplicitlyLeftRecursiveRule = require('../rule/implicitlyLeftRecursive');
 
