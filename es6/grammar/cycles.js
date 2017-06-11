@@ -17,7 +17,15 @@ class cycles {
           nonCyclicProductions = nonCyclicProductionsFromComponents(components, productions),
           alreadyNonCyclicProductions = alreadyNonCyclicProductionsFromGraph(graph, productions);
 
-    productions = [].concat(nonCyclicProductions).concat(alreadyNonCyclicProductions);
+    productions = productions.map(function(production) {
+      const productionName = production.getName(),
+            nonCyclicProduction = parserUtil.findProduction(productionName, nonCyclicProductions),
+            alreadyNonCyclicProduction = parserUtil.findProduction(productionName, alreadyNonCyclicProductions);
+
+      production = nonCyclicProduction || alreadyNonCyclicProduction; ///
+
+      return production;
+    });
 
     return productions;
   }

@@ -2,11 +2,11 @@
 
 const grammar = `
 
- A ::= A 'a' | B 'b' | 'd'
+ expression               ::=  expression '+' term | term
 
- B ::= C 'c'
+ term                     ::=  naturalNumber
 
- C ::= A 'e' | B 'f'
+ naturalNumber            ::=  /\\d+/
 
 
 `;
@@ -15,13 +15,11 @@ module.exports = grammar;
 
 /*
 
- formula                  ::=  expression
+ A ::= A 'a' | B 'b' | 'd'
 
- expression               ::=  expression '+' term | term
+ B ::= C 'c'
 
- term                     ::=  naturalNumber
-
- naturalNumber            ::=  /\\d+/
+ C ::= A 'e' | B 'f'
 
 
 
