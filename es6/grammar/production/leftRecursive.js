@@ -56,9 +56,17 @@ class LeftRecursiveProduction extends Production {
   
   static fromImplicitlyLeftRecursiveProductionAndPreviousProductions(implicitlyLeftRecursiveProduction, previousProductions) {
     const name = implicitlyLeftRecursiveProduction.getName(),
-          rules = rulesFromImplicitlyLeftRecursiveProductionAndPreviousProductions(implicitlyLeftRecursiveProduction, previousProductions),
-          Node = implicitlyLeftRecursiveProduction.getNode(),
-          leftRecursiveProduction = new LeftRecursiveProduction(name, rules, Node);
+          Node = implicitlyLeftRecursiveProduction.getNode();
+
+    let rules = implicitlyLeftRecursiveProduction.getRules();
+
+    previousProductions.forEach(function(previousProduction) {
+      const leftRecursiveRules = leftRecursiveRulesFromRulesAndPreviousProduction(rules, previousProduction);
+
+      rules = leftRecursiveRules;
+    });
+
+    const leftRecursiveProduction = new LeftRecursiveProduction(name, rules, Node);
 
     return leftRecursiveProduction;
   }
@@ -66,32 +74,26 @@ class LeftRecursiveProduction extends Production {
 
 module.exports = LeftRecursiveProduction;
 
-function rulesFromImplicitlyLeftRecursiveProductionAndPreviousProductions(implicitlyLeftRecursiveProduction, previousProductions) {
-  let rules = [];
+function leftRecursiveRulesFromRulesAndPreviousProduction(rules, previousProduction) {
+  let leftRecursiveRules = [];
 
-  const implicitlyLeftRecursiveProductionRules = implicitlyLeftRecursiveProduction.getRules();
-
-  implicitlyLeftRecursiveProductionRules.forEach(function(implicitlyLeftRecursiveProductionRule) {
-    let rule = implicitlyLeftRecursiveProductionRule; ///
-
-    const implicitlyLeftRecursiveRule = ImplicitlyLeftRecursiveRule.fromRuleAndPreviousProductions(rule, previousProductions);
+  rules.forEach(function(rule) {
+    const implicitlyLeftRecursiveRule = ImplicitlyLeftRecursiveRule.fromRuleAndPreviousProduction(rule, previousProduction);
 
     if (implicitlyLeftRecursiveRule === null) {
-      rules.push(rule);
-    } else {
-      const leftRecursiveRules = leftRecursiveRulesFromImplicitlyLeftRecursiveRuleAndPreviousProductions(implicitlyLeftRecursiveRule, previousProductions);
+      const leftRecursiveRule = rule; ///
 
-      rules = rules.concat(leftRecursiveRules);
+      leftRecursiveRules.push(leftRecursiveRule);
+    } else {
+      leftRecursiveRules = leftRecursiveRules.concat(leftRecursiveRulesFromImplicitlyLeftRecursiveRuleAndPreviousProduction(implicitlyLeftRecursiveRule, previousProduction));  ///
     }
   });
 
-  return rules;
+  return leftRecursiveRules;
 }
 
-function leftRecursiveRulesFromImplicitlyLeftRecursiveRuleAndPreviousProductions(implicitlyLeftRecursiveRule, previousProductions) {
-  const previousProductionName = implicitlyLeftRecursiveRule.getPreviousProductionName(),
-        previousProduction = parserUtil.findProduction(previousProductionName, previousProductions),
-        previousProductionRules = previousProduction.getRules(),
+function leftRecursiveRulesFromImplicitlyLeftRecursiveRuleAndPreviousProduction(implicitlyLeftRecursiveRule, previousProduction) {
+  const previousProductionRules = previousProduction.getRules(),
         implicitlyLeftRecursiveRuleAllButFirstParts = implicitlyLeftRecursiveRule.getAllButFirstParts(),
         leftRecursiveRules = previousProductionRules.map(function(previousProductionRule) {
           const previousProductionRuleParts = previousProductionRule.getParts(),

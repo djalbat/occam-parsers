@@ -13,27 +13,50 @@ class ImplicitlyLeftRecursiveRule extends Rule {
     return previousProductionName;
   }
   
-  static fromRuleAndPreviousProductions(rule, previousProductions) {
+  static fromRule(rule, callback) {
     let implicitlyLeftRecursiveRule = null;
-    
-    const previousProductionNames = previousProductions.map(function(previousProduction) {
-            const previousProductionName = previousProduction.getName();
 
-            return previousProductionName;
-          }),
-          ruleFirstPart = rule.getFirstPart();
-    
+    const ruleFirstPart = rule.getFirstPart();
+
     if (ruleFirstPart instanceof ProductionNamePart) {
       const ruleFirstProductionNamePart = ruleFirstPart,  ///
             ruleFirstProductionNamePartProductionName = ruleFirstProductionNamePart.getProductionName(),
-            ruleImplicitlyLeftRecursive = previousProductionNames.includes(ruleFirstProductionNamePartProductionName);
-      
+            productionName = ruleFirstProductionNamePartProductionName, ///
+            ruleImplicitlyLeftRecursive = callback(productionName);
+
       if (ruleImplicitlyLeftRecursive) {
         const parts = rule.getParts();
 
         implicitlyLeftRecursiveRule = new ImplicitlyLeftRecursiveRule(parts);
       }
     }
+
+    return implicitlyLeftRecursiveRule;
+  }
+
+  static fromRuleAndPreviousProduction(rule, previousProduction) {
+    const previousProductionName = previousProduction.getName(),
+          implicitlyLeftRecursiveRule = ImplicitlyLeftRecursiveRule.fromRule(rule, function(productionName) {
+            const ruleImplicitlyLeftRecursive = (previousProductionName === productionName);
+            
+            return ruleImplicitlyLeftRecursive
+          });
+    
+
+    return implicitlyLeftRecursiveRule;
+  }
+  
+  static fromRuleAndPreviousProductions(rule, previousProductions) {
+    const previousProductionNames = previousProductions.map(function(previousProduction) {
+            const previousProductionName = previousProduction.getName();
+  
+            return previousProductionName;
+          }),
+          implicitlyLeftRecursiveRule = ImplicitlyLeftRecursiveRule.fromRule(rule, function(productionName) {
+            const ruleImplicitlyLeftRecursive = previousProductionNames.includes(productionName);
+  
+            return ruleImplicitlyLeftRecursive
+          });
 
     return implicitlyLeftRecursiveRule;
   }

@@ -8,8 +8,7 @@ const Rule = require('../../common/rule'),
 
 class RightRecursiveProduction extends Production {
   static productionNamePartFromLeftRecursiveProduction(leftRecursiveProduction) {
-    const leftRecursiveProductionName = leftRecursiveProduction.getName(),
-          name = `${leftRecursiveProductionName}'`,
+    const name = nameFromLeftRecursiveProduction(leftRecursiveProduction),
           noWhitespace = false, ///
           productionNamePart = new ProductionNamePart(name, noWhitespace);
     
@@ -56,7 +55,7 @@ function rightRecursiveRulesFromLeftRecursiveProduction(leftRecursiveProduction)
 
 function nameFromLeftRecursiveProduction(leftRecursiveProduction) {
   const leftRecursiveProductionName = leftRecursiveProduction.getName(),
-        name = `${leftRecursiveProductionName}'`;
+        name = `${leftRecursiveProductionName}´`;
 
   return name;
 }
