@@ -1,19 +1,19 @@
 'use strict';
 
 const Production = require('../production'),
-      OptionalPartRule = require('../rule/optionalPart'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+      NonTerminalNode = require('../../common/node/nonTerminal'),
+      OptionalPartDefinition = require('../definition/optionalPart');
 
 class OptionalPartProduction extends Production {
   constructor() {
-    const optionalPartRule = new OptionalPartRule(),
+    const optionalPartDefinition = new OptionalPartDefinition(),
           name = 'optionalPart',
-          rules = [
-            optionalPartRule
+          definitions = [
+            optionalPartDefinition
           ],
           Node = NonTerminalNode;
     
-    super(name, rules, Node)
+    super(name, definitions, Node)
   }
 }
 

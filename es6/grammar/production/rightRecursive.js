@@ -1,6 +1,6 @@
 'use strict';
 
-const Rule = require('../../common/rule'),
+const Definition = require('../../common/definition'),
       Production = require('../../common/production'),
       EpsilonPart = require('../../common/part/epsilon'),
       NonTerminalNode = require('../../common/node/nonTerminal'),
@@ -17,9 +17,9 @@ class RightRecursiveProduction extends Production {
   
   static fromLeftRecursiveProduction(leftRecursiveProduction) {
     const name = nameFromLeftRecursiveProduction(leftRecursiveProduction),
-          rules = rulesFromLeftRecursiveProduction(leftRecursiveProduction),
+          definitions = definitionsFromLeftRecursiveProduction(leftRecursiveProduction),
           Node = NonTerminalNode, ///
-          rightRecursiveProduction = new RightRecursiveProduction(name, rules, Node);
+          rightRecursiveProduction = new RightRecursiveProduction(name, definitions, Node);
     
     return rightRecursiveProduction;
   }
@@ -27,30 +27,30 @@ class RightRecursiveProduction extends Production {
 
 module.exports = RightRecursiveProduction;
 
-function rulesFromLeftRecursiveProduction(leftRecursiveProduction) {
-  const rightRecursiveRules = rightRecursiveRulesFromLeftRecursiveProduction(leftRecursiveProduction),
+function definitionsFromLeftRecursiveProduction(leftRecursiveProduction) {
+  const rightRecursiveDefinitions = rightRecursiveDefinitionsFromLeftRecursiveProduction(leftRecursiveProduction),
           epsilonPart = new EpsilonPart(),
           epsilonParts = [
             epsilonPart
           ],
-          epsilonPartRule = new Rule(epsilonParts),
-          rules = [].concat(rightRecursiveRules).concat(epsilonPartRule);
+          epsilonPartDefinition = new Definition(epsilonParts),
+          definitions = [].concat(rightRecursiveDefinitions).concat(epsilonPartDefinition);
 
-  return rules;
+  return definitions;
 }
 
-function rightRecursiveRulesFromLeftRecursiveProduction(leftRecursiveProduction) {
-  const productionLeftRecursiveRules = leftRecursiveProduction.getLeftRecursiveRules(),
+function rightRecursiveDefinitionsFromLeftRecursiveProduction(leftRecursiveProduction) {
+  const productionLeftRecursiveDefinitions = leftRecursiveProduction.getLeftRecursiveDefinitions(),
         productionNamePart = RightRecursiveProduction.productionNamePartFromLeftRecursiveProduction(leftRecursiveProduction),
-        rightRecursiveRules = productionLeftRecursiveRules.map(function(productionLeftRecursiveRule) {
-          const productionLeftRecursiveRuleAllButFirstParts = productionLeftRecursiveRule.getAllButFirstParts(),
-                rightRecursiveRuleParts = [].concat(productionLeftRecursiveRuleAllButFirstParts).concat(productionNamePart),
-                rightRecursiveRule = new Rule(rightRecursiveRuleParts);
+        rightRecursiveDefinitions = productionLeftRecursiveDefinitions.map(function(productionLeftRecursiveDefinition) {
+          const productionLeftRecursiveDefinitionAllButFirstParts = productionLeftRecursiveDefinition.getAllButFirstParts(),
+                rightRecursiveDefinitionParts = [].concat(productionLeftRecursiveDefinitionAllButFirstParts).concat(productionNamePart),
+                rightRecursiveDefinition = new Definition(rightRecursiveDefinitionParts);
 
-          return rightRecursiveRule;
+          return rightRecursiveDefinition;
         });
 
-  return rightRecursiveRules;
+  return rightRecursiveDefinitions;
 }
 
 function nameFromLeftRecursiveProduction(leftRecursiveProduction) {

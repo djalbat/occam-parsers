@@ -1,8 +1,8 @@
 'use strict';
 
 const Production = require('../production'),
-      ProductionNameRule = require('../rule/productionName'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+      NonTerminalNode = require('../../common/node/nonTerminal'),
+      ProductionNameDefinition = require('../definition/productionName');
 
 class PartProduction extends Production {
   constructor() {
@@ -14,28 +14,28 @@ class PartProduction extends Production {
           productionNameProductionName = 'productionName',
           regularExpressionProductionName = 'regularExpression',
           significantTokenTypeProductionName = 'significantTokenType',
-          groupProductionNameRule = new ProductionNameRule(groupProductionName),
-          endOfLineProductionNameRule = new ProductionNameRule(endOfLineProductionName),
-          optionalPartProductionNameRule = new ProductionNameRule(optionalPartProductionName),
-          noWhitespaceProductionNameRule = new ProductionNameRule(noWhitespaceProductionName),
-          terminalSymbolProductionNameRule = new ProductionNameRule(terminalSymbolProductionName),
-          productionNameProductionNameRule = new ProductionNameRule(productionNameProductionName),
-          regularExpressionProductionNameRule = new ProductionNameRule(regularExpressionProductionName),
-          significantTokenTypeProductionNameRule = new ProductionNameRule(significantTokenTypeProductionName),
+          groupProductionNameDefinition = new ProductionNameDefinition(groupProductionName),
+          endOfLineProductionNameDefinition = new ProductionNameDefinition(endOfLineProductionName),
+          optionalPartProductionNameDefinition = new ProductionNameDefinition(optionalPartProductionName),
+          noWhitespaceProductionNameDefinition = new ProductionNameDefinition(noWhitespaceProductionName),
+          terminalSymbolProductionNameDefinition = new ProductionNameDefinition(terminalSymbolProductionName),
+          productionNameProductionNameDefinition = new ProductionNameDefinition(productionNameProductionName),
+          regularExpressionProductionNameDefinition = new ProductionNameDefinition(regularExpressionProductionName),
+          significantTokenTypeProductionNameDefinition = new ProductionNameDefinition(significantTokenTypeProductionName),
           name = 'part',
-          rules = [
-            groupProductionNameRule,
-            optionalPartProductionNameRule,
-            productionNameProductionNameRule,
-            regularExpressionProductionNameRule,
-            significantTokenTypeProductionNameRule,
-            terminalSymbolProductionNameRule,
-            noWhitespaceProductionNameRule,
-            endOfLineProductionNameRule
+          definitions = [
+            groupProductionNameDefinition,
+            optionalPartProductionNameDefinition,
+            productionNameProductionNameDefinition,
+            regularExpressionProductionNameDefinition,
+            significantTokenTypeProductionNameDefinition,
+            terminalSymbolProductionNameDefinition,
+            noWhitespaceProductionNameDefinition,
+            endOfLineProductionNameDefinition
           ],
           Node = NonTerminalNode;
     
-    super(name, rules, Node)
+    super(name, definitions, Node)
   }
 }
 

@@ -1,9 +1,9 @@
 'use strict';
 
 class Production {
-  constructor(name, rules, Node) {
+  constructor(name, definitions, Node) {
     this.name = name;
-    this.rules = rules;
+    this.definitions = definitions;
     this.Node = Node;
   }
 
@@ -22,21 +22,21 @@ class Production {
       throw new Error(`The parse tree is too deep at production '${this.name}'`);
     }
 
-    let ruleNodes = null;
+    let definitionNodes = null;
     
-    const someRuleParsed = this.rules.some(function(rule) {
-            ruleNodes = rule.parse(context, noWhitespace);
+    const someDefinitionParsed = this.definitions.some(function(definition) {
+            definitionNodes = definition.parse(context, noWhitespace);
   
-            const ruleParsed = (ruleNodes !== null);
+            const definitionParsed = (definitionNodes !== null);
   
-            return ruleParsed;
+            return definitionParsed;
           });
 
-    if (someRuleParsed) {
-      const ruleNodesLength = ruleNodes.length;
+    if (someDefinitionParsed) {
+      const definitionNodesLength = definitionNodes.length;
 
-      if (ruleNodesLength > 0) {
-        const nodes = ruleNodes,  ///
+      if (definitionNodesLength > 0) {
+        const nodes = definitionNodes,  ///
               productionName = this.name; ///
 
         nodeOrNodes = this.Node.fromNodesAndProductionName(nodes, productionName);  ///

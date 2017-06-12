@@ -1,52 +1,52 @@
 'use strict';
 
 const Production = require('../../common/production'),
-      LeftRecursiveRule = require('../rule/leftRecursive'),
-      ImplicitlyLeftRecursiveRule = require('../rule/implicitlyLeftRecursive');
+      LeftRecursiveDefinition = require('../definition/leftRecursive'),
+      ImplicitlyLeftRecursiveDefinition = require('../definition/implicitlyLeftRecursive');
 
 class LeftRecursiveProduction extends Production {
-  getLeftRecursiveRules() {
+  getLeftRecursiveDefinitions() {
     const name = this.getName(),
-          rules = this.getRules(),
+          definitions = this.getDefinitions(),
           productionName = name,  ///
-          leftRecursiveRules = rules.filter(function(rule) {
-            const leftRecursiveRule = LeftRecursiveRule.fromRuleAndProductionName(rule, productionName),
-                  ruleLeftRecursive = (leftRecursiveRule !== null);
+          leftRecursiveDefinitions = definitions.filter(function(definition) {
+            const leftRecursiveDefinition = LeftRecursiveDefinition.fromDefinitionAndProductionName(definition, productionName),
+                  definitionLeftRecursive = (leftRecursiveDefinition !== null);
   
-            return ruleLeftRecursive;
+            return definitionLeftRecursive;
           });
 
-    return leftRecursiveRules;
+    return leftRecursiveDefinitions;
   }
 
-  getNonLeftRecursiveRules() {
+  getNonLeftRecursiveDefinitions() {
     const name = this.getName(),
-          rules = this.getRules(),
+          definitions = this.getDefinitions(),
           productionName = name,  ///
-          nonLeftRecursiveRules = rules.filter(function(rule) {
-            const leftRecursiveRule = LeftRecursiveRule.fromRuleAndProductionName(rule, productionName),
-                  ruleNonLeftRecursive = (leftRecursiveRule === null);
+          nonLeftRecursiveDefinitions = definitions.filter(function(definition) {
+            const leftRecursiveDefinition = LeftRecursiveDefinition.fromDefinitionAndProductionName(definition, productionName),
+                  definitionNonLeftRecursive = (leftRecursiveDefinition === null);
             
-            return ruleNonLeftRecursive;
+            return definitionNonLeftRecursive;
           });
 
-    return nonLeftRecursiveRules;
+    return nonLeftRecursiveDefinitions;
   }
 
   static fromProduction(production) {
     let leftRecursiveProduction = null;
     
     const productionName = production.getName(),
-          productionRules = production.getRules(),
-          someProductionRuleLeftRecursive = productionRules.some(function(productionRule) {
-            const rule = productionRule, ///
-                  leftRecursiveRule = LeftRecursiveRule.fromRuleAndProductionName(rule, productionName),
-                  productionRuleLeftRecursive = (leftRecursiveRule !== null);
+          productionDefinitions = production.getDefinitions(),
+          someProductionDefinitionLeftRecursive = productionDefinitions.some(function(productionDefinition) {
+            const definition = productionDefinition, ///
+                  leftRecursiveDefinition = LeftRecursiveDefinition.fromDefinitionAndProductionName(definition, productionName),
+                  productionDefinitionLeftRecursive = (leftRecursiveDefinition !== null);
 
-            return productionRuleLeftRecursive;
+            return productionDefinitionLeftRecursive;
           });
 
-    if (someProductionRuleLeftRecursive) {
+    if (someProductionDefinitionLeftRecursive) {
       leftRecursiveProduction = Production.fromProduction(production, LeftRecursiveProduction);
     }
     
@@ -57,15 +57,15 @@ class LeftRecursiveProduction extends Production {
     const name = implicitlyLeftRecursiveProduction.getName(),
           Node = implicitlyLeftRecursiveProduction.getNode();
 
-    let rules = implicitlyLeftRecursiveProduction.getRules();
+    let definitions = implicitlyLeftRecursiveProduction.getDefinitions();
 
     previousProductions.forEach(function(previousProduction) {
-      const leftRecursiveRules = leftRecursiveRulesFromRulesAndPreviousProduction(rules, previousProduction);
+      const leftRecursiveDefinitions = leftRecursiveDefinitionsFromDefinitionsAndPreviousProduction(definitions, previousProduction);
 
-      rules = leftRecursiveRules;
+      definitions = leftRecursiveDefinitions;
     });
 
-    const leftRecursiveProduction = new LeftRecursiveProduction(name, rules, Node);
+    const leftRecursiveProduction = new LeftRecursiveProduction(name, definitions, Node);
 
     return leftRecursiveProduction;
   }
@@ -73,34 +73,34 @@ class LeftRecursiveProduction extends Production {
 
 module.exports = LeftRecursiveProduction;
 
-function leftRecursiveRulesFromRulesAndPreviousProduction(rules, previousProduction) {
-  let leftRecursiveRules = [];
+function leftRecursiveDefinitionsFromDefinitionsAndPreviousProduction(definitions, previousProduction) {
+  let leftRecursiveDefinitions = [];
 
-  rules.forEach(function(rule) {
-    const implicitlyLeftRecursiveRule = ImplicitlyLeftRecursiveRule.fromRuleAndPreviousProduction(rule, previousProduction);
+  definitions.forEach(function(definition) {
+    const implicitlyLeftRecursiveDefinition = ImplicitlyLeftRecursiveDefinition.fromDefinitionAndPreviousProduction(definition, previousProduction);
 
-    if (implicitlyLeftRecursiveRule === null) {
-      const leftRecursiveRule = rule; ///
+    if (implicitlyLeftRecursiveDefinition === null) {
+      const leftRecursiveDefinition = definition; ///
 
-      leftRecursiveRules.push(leftRecursiveRule);
+      leftRecursiveDefinitions.push(leftRecursiveDefinition);
     } else {
-      leftRecursiveRules = leftRecursiveRules.concat(leftRecursiveRulesFromImplicitlyLeftRecursiveRuleAndPreviousProduction(implicitlyLeftRecursiveRule, previousProduction));  ///
+      leftRecursiveDefinitions = leftRecursiveDefinitions.concat(leftRecursiveDefinitionsFromImplicitlyLeftRecursiveDefinitionAndPreviousProduction(implicitlyLeftRecursiveDefinition, previousProduction));  ///
     }
   });
 
-  return leftRecursiveRules;
+  return leftRecursiveDefinitions;
 }
 
-function leftRecursiveRulesFromImplicitlyLeftRecursiveRuleAndPreviousProduction(implicitlyLeftRecursiveRule, previousProduction) {
-  const previousProductionRules = previousProduction.getRules(),
-        implicitlyLeftRecursiveRuleAllButFirstParts = implicitlyLeftRecursiveRule.getAllButFirstParts(),
-        leftRecursiveRules = previousProductionRules.map(function(previousProductionRule) {
-          const previousProductionRuleParts = previousProductionRule.getParts(),
-                leftRecursiveRuleParts = [].concat(previousProductionRuleParts).concat(implicitlyLeftRecursiveRuleAllButFirstParts),
-                leftRecursiveRule = new LeftRecursiveRule(leftRecursiveRuleParts);
+function leftRecursiveDefinitionsFromImplicitlyLeftRecursiveDefinitionAndPreviousProduction(implicitlyLeftRecursiveDefinition, previousProduction) {
+  const previousProductionDefinitions = previousProduction.getDefinitions(),
+        implicitlyLeftRecursiveDefinitionAllButFirstParts = implicitlyLeftRecursiveDefinition.getAllButFirstParts(),
+        leftRecursiveDefinitions = previousProductionDefinitions.map(function(previousProductionDefinition) {
+          const previousProductionDefinitionParts = previousProductionDefinition.getParts(),
+                leftRecursiveDefinitionParts = [].concat(previousProductionDefinitionParts).concat(implicitlyLeftRecursiveDefinitionAllButFirstParts),
+                leftRecursiveDefinition = new LeftRecursiveDefinition(leftRecursiveDefinitionParts);
 
-          return leftRecursiveRule;
+          return leftRecursiveDefinition;
         });
 
-  return leftRecursiveRules;
+  return leftRecursiveDefinitions;
 }

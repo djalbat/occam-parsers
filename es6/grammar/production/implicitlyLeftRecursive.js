@@ -1,15 +1,15 @@
 'use strict';
 
 const Production = require('../../common/production'),
-      ImplicitlyLeftRecursiveRule = require('../rule/implicitlyLeftRecursive');
+      ImplicitlyLeftRecursiveDefinition = require('../definition/implicitlyLeftRecursive');
 
 class ImplicitlyLeftRecursiveProduction extends Production {
   static fromProductionAndPreviousProductions(production, previousProductions) {
     let implicitlyLeftRecursiveProduction = null;
     
-    const implicitlyLeftRecursiveRules = implicitlyLeftRecursiveRulesFromProductionAndPreviousProductions(production, previousProductions),
-          implicitlyLeftRecursiveRulesLength = implicitlyLeftRecursiveRules.length,
-          productionImplicitlyLeftRecursive = (implicitlyLeftRecursiveRulesLength > 0); 
+    const implicitlyLeftRecursiveDefinitions = implicitlyLeftRecursiveDefinitionsFromProductionAndPreviousProductions(production, previousProductions),
+          implicitlyLeftRecursiveDefinitionsLength = implicitlyLeftRecursiveDefinitions.length,
+          productionImplicitlyLeftRecursive = (implicitlyLeftRecursiveDefinitionsLength > 0); 
     
     if (productionImplicitlyLeftRecursive) {
       implicitlyLeftRecursiveProduction = Production.fromProduction(production, ImplicitlyLeftRecursiveProduction); ///
@@ -21,18 +21,18 @@ class ImplicitlyLeftRecursiveProduction extends Production {
 
 module.exports = ImplicitlyLeftRecursiveProduction;
 
-function implicitlyLeftRecursiveRulesFromProductionAndPreviousProductions(production, previousProductions) {
-  const productionRules = production.getRules(),
-        implicitlyLeftRecursiveRules = productionRules.reduce(function(implicitlyLeftRecursiveRules, productionRule) {
-          const rule = productionRule,  ///
-                implicitlyLeftRecursiveRule = ImplicitlyLeftRecursiveRule.fromRuleAndPreviousProductions(rule, previousProductions);
+function implicitlyLeftRecursiveDefinitionsFromProductionAndPreviousProductions(production, previousProductions) {
+  const productionDefinitions = production.getDefinitions(),
+        implicitlyLeftRecursiveDefinitions = productionDefinitions.reduce(function(implicitlyLeftRecursiveDefinitions, productionDefinition) {
+          const definition = productionDefinition,  ///
+                implicitlyLeftRecursiveDefinition = ImplicitlyLeftRecursiveDefinition.fromDefinitionAndPreviousProductions(definition, previousProductions);
           
-          if (implicitlyLeftRecursiveRule !== null) {
-            implicitlyLeftRecursiveRules.push(implicitlyLeftRecursiveRule);
+          if (implicitlyLeftRecursiveDefinition !== null) {
+            implicitlyLeftRecursiveDefinitions.push(implicitlyLeftRecursiveDefinition);
           }
 
-          return implicitlyLeftRecursiveRules;
+          return implicitlyLeftRecursiveDefinitions;
         }, []);
 
-  return implicitlyLeftRecursiveRules;
+  return implicitlyLeftRecursiveDefinitions;
 }

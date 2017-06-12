@@ -1,19 +1,19 @@
 'use strict';
 
 const Production = require('../production'),
-      NoWhitespaceRule = require('../rule/noWhitespace'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+      NonTerminalNode = require('../../common/node/nonTerminal'),
+      NoWhitespaceDefinition = require('../definition/noWhitespace');
 
 class NoWhitespaceProduction extends Production {
   constructor() {
-    const noWhitespaceRule = new NoWhitespaceRule(),
+    const noWhitespaceDefinition = new NoWhitespaceDefinition(),
           name = 'noWhitespace',
-          rules = [
-            noWhitespaceRule
+          definitions = [
+            noWhitespaceDefinition
           ],
           Node = NonTerminalNode;
 
-    super(name, rules, Node)
+    super(name, definitions, Node)
   }
 }
 

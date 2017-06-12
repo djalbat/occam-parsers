@@ -1,19 +1,19 @@
 'use strict';
 
 const Production = require('../production'),
-      ProductionRule = require('../rule/production'),
+      ProductionDefinition = require('../definition/production'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class ProductionProduction extends Production {
   constructor() {
-    const productionRule = new ProductionRule(),
+    const productionDefinition = new ProductionDefinition(),
           name = 'production',
-          rules = [
-            productionRule
+          definitions = [
+            productionDefinition
           ],
           Node = NonTerminalNode;
     
-    super(name, rules, Node)
+    super(name, definitions, Node)
   }
 }
 

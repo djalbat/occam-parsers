@@ -1,13 +1,13 @@
 'use strict';
 
-const Rule = require('./rule'),
+const Definition = require('./definition'),
       NonTerminalNode = require('./node/nonTerminal'),
       EpsilonTerminalNode = require('./node/terminal/epsilon');
 
 class Production {
-  constructor(name, rules, Node) {
+  constructor(name, definitions, Node) {
     this.name = name;
-    this.rules = rules;
+    this.definitions = definitions;
     this.Node = Node;
   }
 
@@ -15,8 +15,8 @@ class Production {
     return this.name;
   }
   
-  getRules() {
-    return this.rules;
+  getDefinitions() {
+    return this.definitions;
   }
   
   getNode() {
@@ -33,34 +33,34 @@ class Production {
     this.name = name;
   }
   
-  setRules(rules) {
-    this.rules = rules;
+  setDefinitions(definitions) {
+    this.definitions = definitions;
   }
   
   setNode(node) {
     this.node = node;
   }
   
-  addRules(rules) {
-    this.rules = this.rules.concat(rules);
+  addDefinitions(definitions) {
+    this.definitions = this.definitions.concat(definitions);
   }
   
   toString(maximumProductionNameLength) {
-    const rulesString = this.rules.reduce(function(rulesString, rule) {
-            const ruleString = rule.toString();
+    const definitionsString = this.definitions.reduce(function(definitionsString, definition) {
+            const definitionString = definition.toString();
             
-            if (rulesString === null) {
-              rulesString = ruleString;
+            if (definitionsString === null) {
+              definitionsString = definitionString;
             } else {
-              rulesString = `${rulesString} | ${ruleString}`;
+              definitionsString = `${definitionsString} | ${definitionString}`;
             }
             
-            return rulesString;
+            return definitionsString;
           }, null),
           productionNameLength = this.name.length,  ///
           paddingLength = maximumProductionNameLength - productionNameLength,
           padding = paddingFromPaddingLength(paddingLength),
-          string = `\n  ${this.name}${padding} ::= ${rulesString}\n`;
+          string = `\n  ${this.name}${padding} ::= ${definitionsString}\n`;
     
     return string;
   }
@@ -76,22 +76,22 @@ class Production {
       throw new Error(`The parse tree is too deep at production '${this.name}'`);
     }
 
-    let ruleNodes = null;
+    let definitionNodes = null;
     
-    const someRuleParsed = this.rules.some(function(rule) {
-            ruleNodes = rule.parse(context, noWhitespace);
+    const someDefinitionParsed = this.definitions.some(function(definition) {
+            definitionNodes = definition.parse(context, noWhitespace);
   
-            const ruleParsed = (ruleNodes !== null);
+            const definitionParsed = (definitionNodes !== null);
   
-            return ruleParsed;
+            return definitionParsed;
           });
 
-    if (someRuleParsed) {
-      const ruleNodesLength = ruleNodes.length;
+    if (someDefinitionParsed) {
+      const definitionNodesLength = definitionNodes.length;
 
-      if (ruleNodesLength > 0) {
+      if (definitionNodesLength > 0) {
         const productionName = this.name,
-              nodes = ruleNodes,  ///
+              nodes = definitionNodes,  ///
               lastNode = last(nodes),
               lastNodeNullified = isNodeNullified(lastNode);
 
@@ -113,25 +113,25 @@ class Production {
 
   static fromLine(line, significantTokenTypes, mappings) {
     const name = line.getName(),
-          rules = line.mapSymbolSequences(function(symbolSequence) {
-            const rule = Rule.fromSymbolSequence(symbolSequence, significantTokenTypes);
+          definitions = line.mapSymbolSequences(function(symbolSequence) {
+            const definition = Definition.fromSymbolSequence(symbolSequence, significantTokenTypes);
   
-            return rule;
+            return definition;
           }),
           Node = mappings.hasOwnProperty(name) ?
                    mappings[name] :
                      NonTerminalNode, ///
-          production = new Production(name, rules, Node);
+          production = new Production(name, definitions, Node);
 
     return production;
   }
   
   static fromProduction(production, Class = Production) {
     const name = production.getName(),
-          rules = production.getRules(),
+          definitions = production.getDefinitions(),
           Node = production.getNode();
     
-    production = new Class(name, rules, Node); ///
+    production = new Class(name, definitions, Node); ///
     
     return production;
   }

@@ -1,19 +1,19 @@
 'use strict';
 
 const Production = require('../production'),
-      EndOfLineRule = require('../rule/endOfLine'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+      NonTerminalNode = require('../../common/node/nonTerminal'),
+      EndOfLineDefinition = require('../definition/endOfLine');
 
 class EndOfLineProduction extends Production {
   constructor() {
-    const endOfLineRule = new EndOfLineRule(),
+    const endOfLineDefinition = new EndOfLineDefinition(),
           name = 'endOfLine',
-          rules = [
-            endOfLineRule
+          definitions = [
+            endOfLineDefinition
           ],
           Node = NonTerminalNode;
     
-    super(name, rules, Node)
+    super(name, definitions, Node)
   }
 }
 
