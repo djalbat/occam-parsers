@@ -13,7 +13,8 @@ const CommonParser = require('../common/parser'),
       ProductionNameProduction = require('./production/productionName'),
       TerminalSymbolProduction = require('./production/terminalSymbol'),
       RegularExpressionProduction = require('./production/regularExpression'),
-      SignificantTokenTypeProduction = require('./production/significantTokenType');
+      SignificantTokenTypeProduction = require('./production/significantTokenType'),
+      RightRecursiveOptionalPartProduction = require('./production/rightRecursiveOptionalPart');
 
 class BNFParser extends CommonParser {
   static fromNothing() {
@@ -30,14 +31,16 @@ class BNFParser extends CommonParser {
           terminalSymbolProduction = new TerminalSymbolProduction(),
           regularExpressionProduction = new RegularExpressionProduction(),
           significantTokenTypeProduction = new SignificantTokenTypeProduction(),
+          rightRecursiveOptionalPartProduction = new RightRecursiveOptionalPartProduction(),
           productions = [
             productionsProduction,
             productionProduction,
             definitionsProduction,
             definitionProduction,
             partProduction,
-            groupProduction,
             optionalPartProduction,
+            rightRecursiveOptionalPartProduction,
+            groupProduction,
             productionNameProduction,
             regularExpressionProduction,
             significantTokenTypeProduction,

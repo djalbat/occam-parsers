@@ -46,13 +46,14 @@ class Production {
   }
   
   toString(maximumProductionNameLength) {
-    const definitionsString = this.definitions.reduce(function(definitionsString, definition) {
+    const maximumPadding = paddingFromPaddingLength(maximumProductionNameLength),
+          definitionsString = this.definitions.reduce(function(definitionsString, definition) {
             const definitionString = definition.toString();
             
             if (definitionsString === null) {
               definitionsString = definitionString;
             } else {
-              definitionsString = `${definitionsString} | ${definitionString}`;
+              definitionsString = `${definitionsString}\n\n${maximumPadding}     | ${definitionString}`;
             }
             
             return definitionsString;
@@ -60,7 +61,7 @@ class Production {
           productionNameLength = this.name.length,  ///
           paddingLength = maximumProductionNameLength - productionNameLength,
           padding = paddingFromPaddingLength(paddingLength),
-          string = `\n  ${this.name}${padding} ::= ${definitionsString}\n`;
+          string = `\n\n  ${this.name}${padding} ::= ${definitionsString}`;
     
     return string;
   }

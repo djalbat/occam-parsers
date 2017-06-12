@@ -26,10 +26,24 @@ const grammar = `
                 
                           |  endOfLine
                            
+  optionalPart          ::=  group "?" optionalPart~
+
+                          |  productionName "?" optionalPart~
+        
+                          |  regularExpression "?" optionalPart~
+        
+                          |  significantTokenType "?" optionalPart~
+        
+                          |  terminalSymbol "?" optionalPart~
+        
+                          |  noWhitespace "?" optionalPart~
+        
+                          |  endOfLine "?" optionalPart~
+                          
+  optionalPart~         ::=  "?" optionalPart~ | ε
+                          
   group                 ::=  "(" definitions ")"
   
-  optionalPart          ::=  part<NO_WHITESPACE>"?"
-
   productionName        ::=  [name]
 
   regularExpression     ::=  [regularExpression]
