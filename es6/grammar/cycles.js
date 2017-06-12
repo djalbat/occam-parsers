@@ -104,7 +104,9 @@ function nonCyclicProductionFromComponent(component, productions, nonCyclicProdu
         nonCyclicProductionName = firstVertexName,  ///
         nonCyclicProduction = parserUtil.findProduction(nonCyclicProductionName, productions);
 
-  nonCyclicProductions.push(nonCyclicProduction);
+  if (nonCyclicProduction !== null) {
+    nonCyclicProductions.push(nonCyclicProduction);
+  }
 }
 
 function nonCyclicProductionsFromComponent(component, productions, nonCyclicProductions) {
