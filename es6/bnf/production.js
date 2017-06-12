@@ -11,6 +11,36 @@ class Production {
     return this.name;
   }
 
+  getDefinitions() {
+    return this.definitions;
+  }
+
+  getNode() {
+    return this.Node;
+  }
+
+  isFoundByProductionName(productionName) {
+    const found = (this.name === productionName);
+
+    return found;
+  }
+
+  setName(name) {
+    this.name = name;
+  }
+
+  setDefinitions(definitions) {
+    this.definitions = definitions;
+  }
+
+  setNode(node) {
+    this.node = node;
+  }
+
+  addDefinitions(definitions) {
+    this.definitions = this.definitions.concat(definitions);
+  }
+
   parse(context, noWhitespace) {
     let nodeOrNodes = null;
 

@@ -4,11 +4,11 @@ const grammar = `
 
   productions           ::=  production+
   
-  production            ::=  productionName "::=" rules [endOfLine]
+  production            ::=  productionName "::=" definitions [endOfLine]
   
-  rules                 ::=  rule
+  definitions           ::=  definition
   
-  rule                  ::=  part+
+  definition            ::=  part+
   
   part                  ::=  group  
                 
@@ -26,7 +26,7 @@ const grammar = `
                 
                           |  endOfLine
                            
-  group                 ::=  "(" rules ")"
+  group                 ::=  "(" definitions ")"
   
   optionalPart          ::=  part<NO_WHITESPACE>"?"
 
