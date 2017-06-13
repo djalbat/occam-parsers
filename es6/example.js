@@ -40,7 +40,7 @@ class Example {
             documentNode = node;  ///
 
       if (documentNode === null) {
-        throw new Error('The document cannot be parsed for some reason.');
+        throw new Error('The document cannot be parsed for some reason.');  ///
       }
 
       const parseTree = documentNode.generateParseTree(lines);

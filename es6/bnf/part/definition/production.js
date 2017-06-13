@@ -2,7 +2,8 @@
 
 const Definition = require('../definition'),
       TerminalSymbolPart = require('../../common/part/terminalSymbol'),
-      ProductionNamePart = require('../../common/part/productionName');
+      ProductionNamePart = require('../../common/part/productionName'),
+      SignificantTokenTypePart = require('../../common/part/significantTokenType');
 
 class ProductionDefinition extends Definition {
   constructor() {
@@ -10,13 +11,16 @@ class ProductionDefinition extends Definition {
           productionNameProductionName = 'productionName',
           separatorTerminalSymbolContent = '::=',
           definitionsProductionName = 'definitions',
+          endOfLineSignificantTokenType = 'endOfLine',
           productionNameProductionNamePart = new ProductionNamePart(productionNameProductionName, noWhitespace),
           separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent, noWhitespace),
           definitionsProductionNamePart = new ProductionNamePart(definitionsProductionName, noWhitespace),
+          endOfLineSignificantTokenTypePart = new SignificantTokenTypePart(endOfLineSignificantTokenType, noWhitespace),
           parts = [
             productionNameProductionNamePart,
             separatorTerminalSymbolPart,
-            definitionsProductionNamePart
+            definitionsProductionNamePart,
+            endOfLineSignificantTokenTypePart
           ];
     
     super(parts)

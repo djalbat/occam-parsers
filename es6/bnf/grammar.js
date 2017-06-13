@@ -2,9 +2,9 @@
 
 const grammar = `
 
-  productions           ::=  production+
+  productions           ::=  verticalSpace? production+
   
-  production            ::=  productionName "::=" definitions [endOfLine]
+  production            ::=  productionName "::=" definitions
   
   definitions           ::=  definition
   

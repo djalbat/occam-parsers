@@ -1,17 +1,19 @@
 'use strict';
 
 const Definition = require('../definition'),
-      OptionalPartPart = require('../../common/part/optionalPart'),
-      OneOrMorePartsPart = require('../../common/part/oneOrMoreParts');
+      OptionalPartPart = require('../part/optionalPart'),
+      OneOrMorePartsPart = require('../part/oneOrMoreParts'),
+      ProductionNamePart = require('../../common/part/productionName');
 
 class DefinitionDefinition extends Definition {
   constructor() {
-    const terminalPart = null,
-          noWhitespace = false,
+    const noWhitespace = false,
           partProductionName = 'part',
           verticalSpaceProductionName = 'verticalSpace',
-          oneOrMorePartProductionNamePartsPart = new OneOrMorePartsPart(terminalPart, partProductionName, noWhitespace),
-          optionalVerticalSpaceProductionNamePartPart = new OptionalPartPart(terminalPart, verticalSpaceProductionName, noWhitespace),
+          partProductionNamePart = new ProductionNamePart(partProductionName, noWhitespace),
+          verticalSpaceProductionNamePart = new ProductionNamePart(verticalSpaceProductionName, noWhitespace),
+          oneOrMorePartProductionNamePartsPart = new OneOrMorePartsPart(partProductionNamePart, noWhitespace),
+          optionalVerticalSpaceProductionNamePartPart = new OptionalPartPart(verticalSpaceProductionNamePart, noWhitespace),
           parts = [
             oneOrMorePartProductionNamePartsPart,
             optionalVerticalSpaceProductionNamePartPart
