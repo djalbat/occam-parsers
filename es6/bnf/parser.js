@@ -5,7 +5,6 @@ const cycles = require('../grammar/cycles'),
       CommonParser = require('../common/parser'),
       PartProduction = require('./production/part'),
       GroupProduction = require('./production/group'),
-      EndOfLineProduction = require('./production/endOfLine'),
       DefinitionProduction = require('./production/definition'),
       DefinitionsProduction = require('./production/definitions'),
       ProductionProduction = require('./production/production'),
@@ -13,7 +12,6 @@ const cycles = require('../grammar/cycles'),
       OptionalPartProduction = require('./production/optionalPart'),
       OneOrMorePartsProduction = require('./production/oneOrMoreParts'),
       ZeroOrMorePartsProduction = require('./production/zeroOrMoreParts'),
-      NoWhitespaceProduction = require('./production/noWhitespace'),
       VerticalSpaceProduction = require('./production/verticalSpace'),
       ProductionNameProduction = require('./production/productionName'),
       TerminalSymbolProduction = require('./production/terminalSymbol'),
@@ -24,7 +22,6 @@ class BNFParser extends CommonParser {
   static fromNothing() {
     const partProduction = new PartProduction(),
           groupProduction = new GroupProduction(),
-          endOfLineProduction = new EndOfLineProduction(),
           definitionProduction = new DefinitionProduction(),
           definitionsProduction = new DefinitionsProduction(),
           productionProduction = new ProductionProduction(),
@@ -32,7 +29,6 @@ class BNFParser extends CommonParser {
           optionalPartProduction = new OptionalPartProduction(),
           oneOrMorePartsProduction = new OneOrMorePartsProduction(),
           zeroOrMorePartsProduction = new ZeroOrMorePartsProduction(),
-          noWhitespaceProduction = new NoWhitespaceProduction(),
           verticalSpaceProduction = new VerticalSpaceProduction(),
           productionNameProduction = new ProductionNameProduction(),
           terminalSymbolProduction = new TerminalSymbolProduction(),
@@ -53,9 +49,7 @@ class BNFParser extends CommonParser {
           regularExpressionProduction,
           significantTokenTypeProduction,
           terminalSymbolProduction,
-          verticalSpaceProduction,
-          noWhitespaceProduction,
-          endOfLineProduction
+          verticalSpaceProduction
         ];
 
     productions = cycles.eliminate(productions);  ///

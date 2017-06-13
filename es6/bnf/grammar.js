@@ -30,11 +30,11 @@ const grammar = `
                 
                           |  endOfLine
                 
-  optionalPart          ::=  part "?"
+  optionalPart          ::=  part<NO_WHITESPACE>"?"
                           
-  zeroOrMoreParts       ::=  part "*"
+  zeroOrMoreParts       ::=  part<NO_WHITESPACE>"*"
                           
-  oneOrMoreParts        ::=  part "+"
+  oneOrMoreParts        ::=  part<NO_WHITESPACE>"+"
                           
   group                 ::=  "(" part+ ")"
   
@@ -47,10 +47,6 @@ const grammar = `
   terminalSymbol        ::=  [string]
   
   verticalSpace         ::=  [endOfLine]+
-
-  noWhitespace          ::=  "<NO_WHITESPACE>"
-  
-  endOfLine             ::=  "<END_OF_LINE>"
   
 `;
 
