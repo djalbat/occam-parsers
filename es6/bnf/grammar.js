@@ -10,7 +10,9 @@ const grammar = `
   
   definition            ::=  part+ verticalSpace?
   
-  part                  ::=  optionalPart  
+  part                  ::=  noWhitespacePart  
+                
+                          |  optionalPart  
                 
                           |  zeroOrMoreParts  
                 
@@ -25,16 +27,14 @@ const grammar = `
                           |  significantTokenType 
 
                           |  terminalSymbol
-                        
-                          |  noWhitespace 
                 
-                          |  endOfLine
-                
-  optionalPart          ::=  part<NO_WHITESPACE>"?"
+  noWhitespacePart      ::=  "<NO_WHITESPACE>" part
+
+  optionalPart          ::=  part "?"
                           
-  zeroOrMoreParts       ::=  part<NO_WHITESPACE>"*"
+  zeroOrMoreParts       ::=  part "*"
                           
-  oneOrMoreParts        ::=  part<NO_WHITESPACE>"+"
+  oneOrMoreParts        ::=  part "+"
                           
   group                 ::=  "(" part+ ")"
   

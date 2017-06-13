@@ -7,27 +7,26 @@ const Production = require('../production'),
 class PartProduction extends Production {
   constructor() {
     const groupProductionName = 'group',
-          endOfLineProductionName = 'endOfLine',
           optionalPartProductionName = 'optionalPart',
           oneOrMorePartsProductionName = 'oneOrMoreParts',
           zeroOrMorePartsProductionName = 'zeroOrMoreParts',
-          noWhitespaceProductionName = 'noWhitespace',
           terminalSymbolProductionName = 'terminalSymbol',
           productionNameProductionName = 'productionName',
+          noWhitespacePartProductionName = 'noWhitespacePart',
           regularExpressionProductionName = 'regularExpression',
           significantTokenTypeProductionName = 'significantTokenType',
           groupProductionNameDefinition = new ProductionNameDefinition(groupProductionName),
-          endOfLineProductionNameDefinition = new ProductionNameDefinition(endOfLineProductionName),
           optionalPartProductionNameDefinition = new ProductionNameDefinition(optionalPartProductionName),
           oneOrMorePartsProductionNameDefinition = new ProductionNameDefinition(oneOrMorePartsProductionName),
           zeroOrMorePartsProductionNameDefinition = new ProductionNameDefinition(zeroOrMorePartsProductionName),
-          noWhitespaceProductionNameDefinition = new ProductionNameDefinition(noWhitespaceProductionName),
           terminalSymbolProductionNameDefinition = new ProductionNameDefinition(terminalSymbolProductionName),
           productionNameProductionNameDefinition = new ProductionNameDefinition(productionNameProductionName),
+          noWhitespacePartProductionNameDefinition = new ProductionNameDefinition(noWhitespacePartProductionName),
           regularExpressionProductionNameDefinition = new ProductionNameDefinition(regularExpressionProductionName),
           significantTokenTypeProductionNameDefinition = new ProductionNameDefinition(significantTokenTypeProductionName),
           name = 'part',
           definitions = [
+            noWhitespacePartProductionNameDefinition,
             optionalPartProductionNameDefinition,
             oneOrMorePartsProductionNameDefinition,
             zeroOrMorePartsProductionNameDefinition,
@@ -35,9 +34,7 @@ class PartProduction extends Production {
             productionNameProductionNameDefinition,
             regularExpressionProductionNameDefinition,
             significantTokenTypeProductionNameDefinition,
-            terminalSymbolProductionNameDefinition,
-            noWhitespaceProductionNameDefinition,
-            endOfLineProductionNameDefinition
+            terminalSymbolProductionNameDefinition
           ],
           Node = NonTerminalNode;
     

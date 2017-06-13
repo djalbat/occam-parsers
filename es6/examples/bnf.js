@@ -23,11 +23,7 @@ class BNFExample {
 
     const lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
           bnfGrammarTextareaValue = grammar, ///
-          contentTextareaValue = `
-
-    naturalNumber            ::=  /\d+/
-                            
-`;
+          contentTextareaValue = `parenthesisedVariables ::= "("<NO_WHITESPACE>variables<NO_WHITESPACE>")"`;
 
     lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
 
