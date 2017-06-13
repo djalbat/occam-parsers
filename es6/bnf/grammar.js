@@ -27,6 +27,8 @@ const grammar = `
                           |  significantTokenType 
 
                           |  terminalSymbol
+                          
+                          |  endOfLineSymbol
                 
   noWhitespacePart      ::=  "<NO_WHITESPACE>" part
 
@@ -46,6 +48,8 @@ const grammar = `
 
   terminalSymbol        ::=  [string]
   
+  endOfLineSymbol       ::=  "<END_OF_LINE>"
+
   verticalSpace         ::=  [endOfLine]+
   
 `;

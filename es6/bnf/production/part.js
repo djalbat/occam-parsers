@@ -11,6 +11,7 @@ class PartProduction extends Production {
           oneOrMorePartsProductionName = 'oneOrMoreParts',
           zeroOrMorePartsProductionName = 'zeroOrMoreParts',
           terminalSymbolProductionName = 'terminalSymbol',
+          endOfLineSymbolProductionName = 'endOfLineSymbol',
           productionNameProductionName = 'productionName',
           noWhitespacePartProductionName = 'noWhitespacePart',
           regularExpressionProductionName = 'regularExpression',
@@ -20,6 +21,7 @@ class PartProduction extends Production {
           oneOrMorePartsProductionNameDefinition = new ProductionNameDefinition(oneOrMorePartsProductionName),
           zeroOrMorePartsProductionNameDefinition = new ProductionNameDefinition(zeroOrMorePartsProductionName),
           terminalSymbolProductionNameDefinition = new ProductionNameDefinition(terminalSymbolProductionName),
+          endOfLineSymbolProductionNameDefinition = new ProductionNameDefinition(endOfLineSymbolProductionName),
           productionNameProductionNameDefinition = new ProductionNameDefinition(productionNameProductionName),
           noWhitespacePartProductionNameDefinition = new ProductionNameDefinition(noWhitespacePartProductionName),
           regularExpressionProductionNameDefinition = new ProductionNameDefinition(regularExpressionProductionName),
@@ -34,7 +36,8 @@ class PartProduction extends Production {
             productionNameProductionNameDefinition,
             regularExpressionProductionNameDefinition,
             significantTokenTypeProductionNameDefinition,
-            terminalSymbolProductionNameDefinition
+            terminalSymbolProductionNameDefinition,
+            endOfLineSymbolProductionNameDefinition
           ],
           Node = NonTerminalNode;
     

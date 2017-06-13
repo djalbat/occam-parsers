@@ -16,6 +16,7 @@ const cycles = require('../grammar/cycles'),
       VerticalSpaceProduction = require('./production/verticalSpace'),
       ProductionNameProduction = require('./production/productionName'),
       TerminalSymbolProduction = require('./production/terminalSymbol'),
+      EndOfLineSymbolProduction = require('./production/endOfLineSymbol'),
       RegularExpressionProduction = require('./production/regularExpression'),
       SignificantTokenTypeProduction = require('./production/significantTokenType');
 
@@ -34,6 +35,7 @@ class BNFParser extends CommonParser {
           verticalSpaceProduction = new VerticalSpaceProduction(),
           productionNameProduction = new ProductionNameProduction(),
           terminalSymbolProduction = new TerminalSymbolProduction(),
+          endOfLineSymbolProduction = new EndOfLineSymbolProduction(),
           regularExpressionProduction = new RegularExpressionProduction(),
           significantTokenTypeProduction = new SignificantTokenTypeProduction();
 
@@ -52,6 +54,7 @@ class BNFParser extends CommonParser {
           regularExpressionProduction,
           significantTokenTypeProduction,
           terminalSymbolProduction,
+          endOfLineSymbolProduction,
           verticalSpaceProduction
         ];
 
