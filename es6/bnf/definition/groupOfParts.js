@@ -5,7 +5,7 @@ const Definition = require('../definition'),
       TerminalSymbolPart = require('../../common/part/terminalSymbol'),
       ProductionNamePart = require('../../common/part/productionName');
 
-class GroupDefinition extends Definition {
+class GroupOfPartsDefinition extends Definition {
   constructor() {
     const partProductionName = 'part',
           openBracketTerminalSymbolContent = '(',
@@ -24,4 +24,4 @@ class GroupDefinition extends Definition {
   }
 }
 
-module.exports = GroupDefinition;
+module.exports = GroupOfPartsDefinition;

@@ -7,6 +7,7 @@ const Production = require('../production'),
 class PartProduction extends Production {
   constructor() {
     const groupProductionName = 'group',
+          negatedPartProductionName = 'negatedPart',
           optionalPartProductionName = 'optionalPart',
           oneOrMorePartsProductionName = 'oneOrMoreParts',
           zeroOrMorePartsProductionName = 'zeroOrMoreParts',
@@ -17,6 +18,7 @@ class PartProduction extends Production {
           regularExpressionProductionName = 'regularExpression',
           significantTokenTypeProductionName = 'significantTokenType',
           groupProductionNameDefinition = new ProductionNameDefinition(groupProductionName),
+          negatedPartProductionNameDefinition = new ProductionNameDefinition(negatedPartProductionName),
           optionalPartProductionNameDefinition = new ProductionNameDefinition(optionalPartProductionName),
           oneOrMorePartsProductionNameDefinition = new ProductionNameDefinition(oneOrMorePartsProductionName),
           zeroOrMorePartsProductionNameDefinition = new ProductionNameDefinition(zeroOrMorePartsProductionName),
@@ -29,6 +31,7 @@ class PartProduction extends Production {
           name = 'part',
           definitions = [
             noWhitespacePartProductionNameDefinition,
+            negatedPartProductionNameDefinition,
             optionalPartProductionNameDefinition,
             oneOrMorePartsProductionNameDefinition,
             zeroOrMorePartsProductionNameDefinition,

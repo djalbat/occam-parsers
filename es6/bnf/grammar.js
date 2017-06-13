@@ -2,55 +2,61 @@
 
 const grammar = `
 
-  productions           ::=  verticalSpace? production+
+  productions              ::=  verticalSpace? production+
   
-  production            ::=  productionName "::=" definitions
+  production               ::=  productionName "::=" definitions
   
-  definitions           ::=  definition ( "|" definition )*
+  definitions              ::=  definition ( "|" definition )*
   
-  definition            ::=  part+ verticalSpace?
+  definition               ::=  part+ verticalSpace?
   
-  part                  ::=  noWhitespacePart  
+  part                     ::=  noWhitespacePart  
                 
-                          |  optionalPart  
+                             |  negatedPart  
+
+                             |  optionalPart  
                 
-                          |  zeroOrMoreParts  
+                             |  zeroOrMoreParts  
                 
-                          |  oneOrMoreParts  
+                             |  oneOrMoreParts  
                 
-                          |  group  
+                             |  groupOfParts  
                            
-                          |  productionName  
+                             |  productionName  
                 
-                          |  regularExpression 
+                             |  regularExpression 
                 
-                          |  significantTokenType 
+                             |  significantTokenType 
 
-                          |  terminalSymbol
+                             |  terminalSymbol
                           
-                          |  endOfLineSymbol
+                             |  endOfLineSymbol
                 
-  noWhitespacePart      ::=  "<NO_WHITESPACE>" part
+  noWhitespacePart         ::=  "<NO_WHITESPACE>" part
 
-  optionalPart          ::=  part<NO_WHITESPACE>"?"
+  negatedPart              ::=  "!"<NO_WHITESPACE>part
+
+  optionalPart             ::=  part<NO_WHITESPACE>"?" optionalLazyQuantifier
                           
-  zeroOrMoreParts       ::=  part<NO_WHITESPACE>"*"
+  zeroOrMoreParts          ::=  part<NO_WHITESPACE>"*" optionalLazyQuantifier
                           
-  oneOrMoreParts        ::=  part<NO_WHITESPACE>"+"
+  oneOrMoreParts           ::=  part<NO_WHITESPACE>"+" optionalLazyQuantifier
+  
+  optionalLazyQuantifier   ::=  <NO_WHITESPACE>"?"?
                           
-  group                 ::=  "(" part+ ")"
+  groupOfParts             ::=  "(" part+ ")"
   
-  productionName        ::=  [name]
+  productionName           ::=  [name]
 
-  regularExpression     ::=  [regularExpression]
+  regularExpression        ::=  [regularExpression]
   
-  significantTokenType  ::=  [type]
+  significantTokenType     ::=  [type]
 
-  terminalSymbol        ::=  [string]
+  terminalSymbol           ::=  [string]
   
-  endOfLineSymbol       ::=  "<END_OF_LINE>"
+  endOfLineSymbol          ::=  "<END_OF_LINE>"
 
-  verticalSpace         ::=  [endOfLine]+
+  verticalSpace            ::=  [endOfLine]+
   
 `;
 
