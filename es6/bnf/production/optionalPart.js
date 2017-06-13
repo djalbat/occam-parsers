@@ -2,7 +2,7 @@
 
 const Production = require('../production'),
       NonTerminalNode = require('../../common/node/nonTerminal'),
-      OptionalPartProductionDefinition = require('../definition/optionalPartProduction');
+      ProductionNameDefinition = require('../definition/productionName');
 
 class OptionalPartProduction extends Production {
   constructor() {
@@ -13,13 +13,13 @@ class OptionalPartProduction extends Production {
           productionNameProductionName = 'productionName',
           regularExpressionProductionName = 'regularExpression',
           significantTokenTypeProductionName = 'significantTokenType',
-          groupProductionNameDefinition = new OptionalPartProductionDefinition(groupProductionName),
-          endOfLineProductionNameDefinition = new OptionalPartProductionDefinition(endOfLineProductionName),
-          noWhitespaceProductionNameDefinition = new OptionalPartProductionDefinition(noWhitespaceProductionName),
-          terminalSymbolProductionNameDefinition = new OptionalPartProductionDefinition(terminalSymbolProductionName),
-          productionNameProductionNameDefinition = new OptionalPartProductionDefinition(productionNameProductionName),
-          regularExpressionProductionNameDefinition = new OptionalPartProductionDefinition(regularExpressionProductionName),
-          significantTokenTypeProductionNameDefinition = new OptionalPartProductionDefinition(significantTokenTypeProductionName),
+          groupProductionNameDefinition = new ProductionNameDefinition(groupProductionName),
+          endOfLineProductionNameDefinition = new ProductionNameDefinition(endOfLineProductionName),
+          noWhitespaceProductionNameDefinition = new ProductionNameDefinition(noWhitespaceProductionName),
+          terminalSymbolProductionNameDefinition = new ProductionNameDefinition(terminalSymbolProductionName),
+          productionNameProductionNameDefinition = new ProductionNameDefinition(productionNameProductionName),
+          regularExpressionProductionNameDefinition = new ProductionNameDefinition(regularExpressionProductionName),
+          significantTokenTypeProductionNameDefinition = new ProductionNameDefinition(significantTokenTypeProductionName),
           name = 'optionalPart',
           definitions = [
             groupProductionNameDefinition,

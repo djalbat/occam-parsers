@@ -24,8 +24,8 @@ class PartProduction extends Production {
           significantTokenTypeProductionNameDefinition = new ProductionNameDefinition(significantTokenTypeProductionName),
           name = 'part',
           definitions = [
-            groupProductionNameDefinition,
             optionalPartProductionNameDefinition,
+            groupProductionNameDefinition,
             productionNameProductionNameDefinition,
             regularExpressionProductionNameDefinition,
             significantTokenTypeProductionNameDefinition,
