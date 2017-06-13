@@ -1,6 +1,7 @@
 'use strict';
 
 const Definition = require('../definition'),
+      OptionalPartPart = require('../../common/part/optionalPart'),
       OneOrMorePartsPart = require('../../common/part/oneOrMoreParts');
 
 class DefinitionDefinition extends Definition {
@@ -8,9 +9,12 @@ class DefinitionDefinition extends Definition {
     const terminalPart = null,
           noWhitespace = false,
           partProductionName = 'part',
+          verticalSpaceProductionName = 'verticalSpace',
           oneOrMorePartProductionNamePartsPart = new OneOrMorePartsPart(terminalPart, partProductionName, noWhitespace),
+          optionalVerticalSpaceProductionNamePartPart = new OptionalPartPart(terminalPart, verticalSpaceProductionName, noWhitespace),
           parts = [
-            oneOrMorePartProductionNamePartsPart
+            oneOrMorePartProductionNamePartsPart,
+            optionalVerticalSpaceProductionNamePartPart
           ];
 
     super(parts)

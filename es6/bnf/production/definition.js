@@ -1,8 +1,8 @@
 'use strict';
 
 const Production = require('../production'),
-      DefinitionDefinition = require('../definition/definition'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+      NonTerminalNode = require('../../common/node/nonTerminal'),
+      DefinitionDefinition = require('../definition/definition');
 
 class DefinitionProduction extends Production {
   constructor() {

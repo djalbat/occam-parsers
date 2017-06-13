@@ -9,6 +9,24 @@ class Definition {
     return this.parts;
   }
 
+  getFirstPart() {
+    const firstPart = first(this.parts);
+
+    return firstPart;
+  }
+
+  getPartsLength() {
+    const partsLength = this.parts.length;
+
+    return partsLength;
+  }
+
+  getAllButFirstParts() {
+    const allButFirstParts = this.parts.slice(1);
+
+    return allButFirstParts;
+  }
+
   parse(context, noWhitespace) {
     let nodes = [];
     
@@ -37,3 +55,5 @@ class Definition {
 }
 
 module.exports = Definition;
+
+function first(array) { return array[0]; }

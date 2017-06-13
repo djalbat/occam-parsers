@@ -8,11 +8,11 @@ const grammar = `
   
   definitions           ::=  definition
   
-  definition            ::=  part+
+  definition            ::=  part+ verticalSpace?
   
-  part                  ::=  group  
+  part                  ::=  optionalPart  
                 
-                          |  optionalPart  
+                          |  group  
                 
                           |  productionName  
                 
@@ -26,21 +26,7 @@ const grammar = `
                 
                           |  endOfLine
                            
-  optionalPart          ::=  group "?" optionalPart~
-
-                          |  productionName "?" optionalPart~
-        
-                          |  regularExpression "?" optionalPart~
-        
-                          |  significantTokenType "?" optionalPart~
-        
-                          |  terminalSymbol "?" optionalPart~
-        
-                          |  noWhitespace "?" optionalPart~
-        
-                          |  endOfLine "?" optionalPart~
-                          
-  optionalPart~         ::=  "?" optionalPart~ | ε
+  optionalPart          ::=  optionalPart "?"
                           
   group                 ::=  "(" definitions ")"
   
@@ -52,10 +38,12 @@ const grammar = `
 
   terminalSymbol        ::=  [string]
   
+  verticalSpace         ::=  [endOfLine]+
+
   noWhitespace          ::=  "<NO_WHITESPACE>"
   
   endOfLine             ::=  "<END_OF_LINE>"
-
+  
 `;
 
 module.exports = grammar;

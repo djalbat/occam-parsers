@@ -1,6 +1,8 @@
 'use strict';
 
-const CommonParser = require('../common/parser'),
+const cycles = require('../grammar/cycles'),
+      leftRecursion = require('../grammar/leftRecursion'),
+      CommonParser = require('../common/parser'),
       PartProduction = require('./production/part'),
       GroupProduction = require('./production/group'),
       EndOfLineProduction = require('./production/endOfLine'),
@@ -10,11 +12,11 @@ const CommonParser = require('../common/parser'),
       ProductionsProduction = require('./production/productions'),
       OptionalPartProduction = require('./production/optionalPart'),
       NoWhitespaceProduction = require('./production/noWhitespace'),
+      VerticalSpaceProduction = require('./production/verticalSpace'),
       ProductionNameProduction = require('./production/productionName'),
       TerminalSymbolProduction = require('./production/terminalSymbol'),
       RegularExpressionProduction = require('./production/regularExpression'),
-      SignificantTokenTypeProduction = require('./production/significantTokenType'),
-      RightRecursiveOptionalPartProduction = require('./production/rightRecursiveOptionalPart');
+      SignificantTokenTypeProduction = require('./production/significantTokenType');
 
 class BNFParser extends CommonParser {
   static fromNothing() {
@@ -27,28 +29,34 @@ class BNFParser extends CommonParser {
           productionsProduction = new ProductionsProduction(),
           optionalPartProduction = new OptionalPartProduction(),
           noWhitespaceProduction = new NoWhitespaceProduction(),
+          verticalSpaceProduction = new VerticalSpaceProduction(),
           productionNameProduction = new ProductionNameProduction(),
           terminalSymbolProduction = new TerminalSymbolProduction(),
           regularExpressionProduction = new RegularExpressionProduction(),
-          significantTokenTypeProduction = new SignificantTokenTypeProduction(),
-          rightRecursiveOptionalPartProduction = new RightRecursiveOptionalPartProduction(),
-          productions = [
-            productionsProduction,
-            productionProduction,
-            definitionsProduction,
-            definitionProduction,
-            partProduction,
-            optionalPartProduction,
-            rightRecursiveOptionalPartProduction,
-            groupProduction,
-            productionNameProduction,
-            regularExpressionProduction,
-            significantTokenTypeProduction,
-            terminalSymbolProduction,
-            noWhitespaceProduction,
-            endOfLineProduction
-          ],
-          bnfParser = new BNFParser(productions);
+          significantTokenTypeProduction = new SignificantTokenTypeProduction();
+
+    let productions = [
+          productionsProduction,
+          productionProduction,
+          definitionsProduction,
+          definitionProduction,
+          partProduction,
+          optionalPartProduction,
+          groupProduction,
+          productionNameProduction,
+          regularExpressionProduction,
+          significantTokenTypeProduction,
+          terminalSymbolProduction,
+          verticalSpaceProduction,
+          noWhitespaceProduction,
+          endOfLineProduction
+        ];
+
+    productions = cycles.eliminate(productions);  ///
+
+    productions = leftRecursion.eliminate(productions);  ///
+
+    const bnfParser = new BNFParser(productions);
     
     return bnfParser;
   }
