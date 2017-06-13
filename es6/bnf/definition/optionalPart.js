@@ -6,11 +6,11 @@ const Definition = require('../definition'),
 
 class OptionalPartDefinition extends Definition {
   constructor() {
-    const noWhitespace = true,
-          partProductionName = 'part',
+    const partProductionName = 'part',
           questionMarkTerminalSymbolContent = '?',
-          partProductionNamePart = new ProductionNamePart(partProductionName, noWhitespace),
-          questionMarkTerminalSymbolPart = new TerminalSymbolPart(questionMarkTerminalSymbolContent, noWhitespace),
+          questionMarkTerminalSymbolNoWhitespace = true,
+          partProductionNamePart = new ProductionNamePart(partProductionName),
+          questionMarkTerminalSymbolPart = new TerminalSymbolPart(questionMarkTerminalSymbolContent, questionMarkTerminalSymbolNoWhitespace),
           parts = [
             partProductionNamePart,
             questionMarkTerminalSymbolPart

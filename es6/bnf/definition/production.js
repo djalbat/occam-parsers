@@ -6,13 +6,12 @@ const Definition = require('../definition'),
 
 class ProductionDefinition extends Definition {
   constructor() {
-    const noWhitespace = false,
-          productionNameProductionName = 'productionName',
-          separatorTerminalSymbolContent = '::=',
+    const separatorTerminalSymbolContent = '::=',
           definitionsProductionName = 'definitions',
-          productionNameProductionNamePart = new ProductionNamePart(productionNameProductionName, noWhitespace),
-          separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent, noWhitespace),
-          definitionsProductionNamePart = new ProductionNamePart(definitionsProductionName, noWhitespace),
+          productionNameProductionName = 'productionName',
+          productionNameProductionNamePart = new ProductionNamePart(productionNameProductionName),
+          separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent),
+          definitionsProductionNamePart = new ProductionNamePart(definitionsProductionName),
           parts = [
             productionNameProductionNamePart,
             separatorTerminalSymbolPart,

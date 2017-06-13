@@ -6,14 +6,14 @@ const Definition = require('../definition'),
 
 class ZeroOrMorePartsDefinition extends Definition {
   constructor() {
-    const noWhitespace = true,
-          partProductionName = 'part',
-          questionMarkTerminalSymbolContent = '*',
-          partProductionNamePart = new ProductionNamePart(partProductionName, noWhitespace),
-          questionMarkTerminalSymbolPart = new TerminalSymbolPart(questionMarkTerminalSymbolContent, noWhitespace),
+    const partProductionName = 'part',
+          asteriskTerminalSymbolContent = '*',
+          asteriskTerminalSymbolNoWhitespace = true,
+          partProductionNamePart = new ProductionNamePart(partProductionName),
+          asteriskTerminalSymbolPart = new TerminalSymbolPart(asteriskTerminalSymbolContent, asteriskTerminalSymbolNoWhitespace),
           parts = [
             partProductionNamePart,
-            questionMarkTerminalSymbolPart
+            asteriskTerminalSymbolPart
           ];
     
     super(parts)

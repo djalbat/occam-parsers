@@ -7,14 +7,13 @@ const Definition = require('../definition'),
 
 class GroupDefinition extends Definition {
   constructor() {
-    const noWhitespace = false,
+    const partProductionName = 'part',
           openBracketTerminalSymbolContent = '(',
-          partProductionName = 'part',
           closeBracketTerminalSymbolContent = ')',
-          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent, noWhitespace),
-          partProductionNamePart = new ProductionNamePart(partProductionName, noWhitespace),
-          oneOrMorePartProductionNamePartsPart = new OneOrMorePartsPart(partProductionNamePart, noWhitespace),
-          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent, noWhitespace),
+          partProductionNamePart = new ProductionNamePart(partProductionName),
+          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent),
+          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent),
+          oneOrMorePartProductionNamePartsPart = new OneOrMorePartsPart(partProductionNamePart),
           parts = [
             openBracketTerminalSymbolPart,
             oneOrMorePartProductionNamePartsPart,

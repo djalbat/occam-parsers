@@ -30,11 +30,11 @@ const grammar = `
                 
   noWhitespacePart      ::=  "<NO_WHITESPACE>" part
 
-  optionalPart          ::=  part "?"
+  optionalPart          ::=  part<NO_WHITESPACE>"?"
                           
-  zeroOrMoreParts       ::=  part "*"
+  zeroOrMoreParts       ::=  part<NO_WHITESPACE>"*"
                           
-  oneOrMoreParts        ::=  part "+"
+  oneOrMoreParts        ::=  part<NO_WHITESPACE>"+"
                           
   group                 ::=  "(" part+ ")"
   

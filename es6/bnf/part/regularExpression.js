@@ -3,7 +3,7 @@
 const TerminalNode = require('../../common/node/terminal');
 
 class RegularExpressionPart {
-  constructor(noWhitespace) {
+  constructor(noWhitespace = false) {
     this.noWhitespace = noWhitespace;
   }
 

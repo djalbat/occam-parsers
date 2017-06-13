@@ -7,13 +7,12 @@ const Definition = require('../definition'),
 
 class ProductionsDefinition extends Definition {
   constructor() {
-    const noWhitespace = false, 
-          productionProductionName = 'production',
+    const productionProductionName = 'production',
           verticalSpaceProductionName = 'verticalSpace',
-          productionProductionNamePart = new ProductionNamePart(productionProductionName, noWhitespace),
-          verticalSpaceProductionNamePart = new ProductionNamePart(verticalSpaceProductionName, noWhitespace),
-          optionalVerticalSpaceProductionNamePartPart = new OptionalPartPart(verticalSpaceProductionNamePart, noWhitespace),
-          oneOrMoreProductionProductionNamePartsPart = new OneOrMorePartsPart(productionProductionNamePart, noWhitespace),
+          productionProductionNamePart = new ProductionNamePart(productionProductionName),
+          verticalSpaceProductionNamePart = new ProductionNamePart(verticalSpaceProductionName),
+          optionalVerticalSpaceProductionNamePartPart = new OptionalPartPart(verticalSpaceProductionNamePart),
+          oneOrMoreProductionProductionNamePartsPart = new OneOrMorePartsPart(productionProductionNamePart),
           parts = [
             optionalVerticalSpaceProductionNamePartPart,
             oneOrMoreProductionProductionNamePartsPart

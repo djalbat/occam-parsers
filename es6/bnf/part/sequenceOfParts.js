@@ -1,7 +1,7 @@
 'use strict';
 
 class SequenceOfPartsPart {
-  constructor(part, noWhitespace) {
+  constructor(part, noWhitespace = false) {
     this.part = part;
     this.noWhitespace = noWhitespace;
   }

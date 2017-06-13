@@ -8,11 +8,10 @@ const Definition = require('../definition'),
 
 class DefinitionsDefinition extends Definition {
   constructor() {
-    const noWhitespace = false,
-          definitionProductionName = 'definition',
+    const definitionProductionName = 'definition',
           verticalBarTerminalSymbolContent = '|',
-          definitionProductionNamePart = new ProductionNamePart(definitionProductionName, noWhitespace),
-          verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent, noWhitespace),
+          definitionProductionNamePart = new ProductionNamePart(definitionProductionName),
+          verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent),
           verticalBarTerminalSymbolThenDefinitionProductionNameParts = [
             verticalBarTerminalSymbolPart,
             definitionProductionNamePart

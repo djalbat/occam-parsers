@@ -5,8 +5,7 @@ const Definition = require('../definition'),
 
 class ProductionNameDefinition extends Definition {
   constructor(productionName) {
-    const noWhitespace = false,
-          productionNamePart = new ProductionNamePart(productionName, noWhitespace),
+    const productionNamePart = new ProductionNamePart(productionName),
           parts = [
             productionNamePart
           ];

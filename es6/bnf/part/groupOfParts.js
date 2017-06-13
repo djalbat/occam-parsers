@@ -1,7 +1,7 @@
 'use strict';
 
 class GroupOfPartsPart {
-  constructor(parts, noWhitespace) {
+  constructor(parts, noWhitespace = false) {
     this.parts = parts;
     this.noWhitespace = noWhitespace;
   }
