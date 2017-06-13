@@ -12,8 +12,12 @@ const grammar = `
   
   part                  ::=  optionalPart  
                 
-                          |  group  
+                          |  zeroOrMoreParts  
                 
+                          |  oneOrMoreParts  
+                
+                          |  group  
+                           
                           |  productionName  
                 
                           |  regularExpression 
@@ -25,8 +29,12 @@ const grammar = `
                           |  noWhitespace 
                 
                           |  endOfLine
-                           
-  optionalPart          ::=  optionalPart "?"
+                
+  optionalPart          ::=  part "?"
+                          
+  zeroOrMoreParts       ::=  part "*"
+                          
+  oneOrMoreParts        ::=  part "+"
                           
   group                 ::=  "(" definitions ")"
   
