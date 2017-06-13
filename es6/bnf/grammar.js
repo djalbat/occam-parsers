@@ -12,8 +12,6 @@ const grammar = `
   
   part                     ::=  noWhitespacePart  
                 
-                             |  negatedPart  
-
                              |  optionalPart  
                 
                              |  zeroOrMoreParts  
@@ -33,8 +31,6 @@ const grammar = `
                              |  endOfLineSymbol
                 
   noWhitespacePart         ::=  "<NO_WHITESPACE>" part
-
-  negatedPart              ::=  "!"<NO_WHITESPACE>part
 
   optionalPart             ::=  part<NO_WHITESPACE>"?" optionalLazyQuantifier
                           
