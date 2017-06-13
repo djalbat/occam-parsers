@@ -6,7 +6,7 @@ const grammar = `
   
   production            ::=  productionName "::=" definitions
   
-  definitions           ::=  definition
+  definitions           ::=  definition ( "|" definition )*
   
   definition            ::=  part+ verticalSpace?
   
@@ -36,7 +36,7 @@ const grammar = `
                           
   oneOrMoreParts        ::=  part "+"
                           
-  group                 ::=  "(" definitions ")"
+  group                 ::=  "(" part+ ")"
   
   productionName        ::=  [name]
 
