@@ -30,8 +30,8 @@ class PartProduction extends Production {
           definitions = [
             noWhitespacePartProductionNameDefinition,
             optionalPartProductionNameDefinition,
-            oneOrMorePartsProductionNameDefinition,
             zeroOrMorePartsProductionNameDefinition,
+            oneOrMorePartsProductionNameDefinition,
             groupOfPartsProductionNameDefinition,
             productionNameProductionNameDefinition,
             regularExpressionProductionNameDefinition,

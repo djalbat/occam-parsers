@@ -14,6 +14,9 @@ const lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
       adjustedBNFGrammarTextareaSelector = 'textarea#adjustedBNFGrammar',
       lexicalGrammar = [
         {
+          "string": "\"[^\"]*\""
+        },
+        {
           "regularExpression": "\\/[^/]+\\/"
         },
         {

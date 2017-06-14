@@ -7,7 +7,7 @@ const grammar = `
   
   production               ::=  productionName "::=" definitions
   
-  definitions              ::=  definition ( "|" definition )*
+  definitions              ::=  definition
   
   definition               ::=  part+ verticalSpace?
   
@@ -31,13 +31,13 @@ const grammar = `
                           
                              |  endOfLineSymbol
                 
-  noWhitespacePart         ::=  "<NO_WHITESPACE>" part
+  noWhitespacePart         ::=  "NO_WHITESPACE" part
 
-  optionalPart             ::=  part<NO_WHITESPACE>"?"
+  optionalPart             ::=  part "?"
                           
-  zeroOrMoreParts          ::=  part<NO_WHITESPACE>"*"
+  zeroOrMoreParts          ::=  part "*"
                           
-  oneOrMoreParts           ::=  part<NO_WHITESPACE>"+"
+  oneOrMoreParts           ::=  part "+"
   
   groupOfParts             ::=  "(" part+ ")"
   

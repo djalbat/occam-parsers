@@ -46,6 +46,8 @@ class Production {
   }
   
   parse(context, noWhitespace) {
+    console.log(this.name)
+
     let nodeOrNodes = null;
 
     context.increaseDepth();

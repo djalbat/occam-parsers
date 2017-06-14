@@ -7,7 +7,7 @@ const Definition = require('../definition'),
 class NoWhitespacePartDefinition extends Definition {
   constructor() {
     const partProductionName = 'part',
-          noWhitespaceTerminalSymbolContent = '<NO_WHITESPACE>',
+          noWhitespaceTerminalSymbolContent = 'NO_WHITESPACE',
           noWhitespaceTerminalSymbolPart = new TerminalSymbolPart(noWhitespaceTerminalSymbolContent),
           partProductionNamePart = new ProductionNamePart(partProductionName),
           parts = [
