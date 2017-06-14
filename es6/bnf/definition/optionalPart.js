@@ -1,22 +1,12 @@
 'use strict';
 
-const Definition = require('../definition'),
-      TerminalSymbolPart = require('../part/terminalSymbol'),
-      ProductionNamePart = require('../../common/part/productionName');
+const SequenceOfPartsDefinition = require('../definition/sequenceOfParts');
 
-class OptionalPartDefinition extends Definition {
+class OptionalPartDefinition extends SequenceOfPartsDefinition {
   constructor() {
-    const partProductionName = 'part',
-          questionMarkTerminalSymbolContent = '?',
-          questionMarkTerminalSymbolNoWhitespace = true,
-          partProductionNamePart = new ProductionNamePart(partProductionName),
-          questionMarkTerminalSymbolPart = new TerminalSymbolPart(questionMarkTerminalSymbolContent, questionMarkTerminalSymbolNoWhitespace),
-          parts = [
-            partProductionNamePart,
-            questionMarkTerminalSymbolPart
-          ];
+    const questionMarkTerminalSymbolContent = '?';
     
-    super(parts)
+    super(questionMarkTerminalSymbolContent);
   }
 }
 

@@ -4,19 +4,19 @@ const Definition = require('../definition'),
       TerminalSymbolPart = require('../part/terminalSymbol'),
       ProductionNamePart = require('../part/productionName');
 
-class NoWhitespacePartDefinition extends Definition {
-  constructor() {
+class SequenceOfPartsDefinition extends Definition {
+  constructor(terminalSymbolContent) {
     const partProductionName = 'part',
-          noWhitespaceTerminalSymbolContent = '<NO_WHITESPACE>',
-          noWhitespaceTerminalSymbolPart = new TerminalSymbolPart(noWhitespaceTerminalSymbolContent),
+          terminalSymbolNoWhitespace = true,
           partProductionNamePart = new ProductionNamePart(partProductionName),
+          terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, terminalSymbolNoWhitespace),
           parts = [
-            noWhitespaceTerminalSymbolPart,
-            partProductionNamePart
+            partProductionNamePart,
+            terminalSymbolPart
           ];
     
     super(parts)
   }
 }
 
-module.exports = NoWhitespacePartDefinition;
+module.exports = SequenceOfPartsDefinition;
