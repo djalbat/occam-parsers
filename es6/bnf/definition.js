@@ -1,6 +1,6 @@
 'use strict';
 
-const SequenceOfPartsPart = require('./part/sequenceOfParts');
+const ProductionNamePart = require('./part/productionName');
 
 class Definition {
   constructor(parts) {
@@ -29,6 +29,13 @@ class Definition {
     return allButFirstParts;
   }
 
+  isFirstPartProductionNamePart() {
+    const firstPart = this.getFirstPart(),
+          firstPartProductionNamePart = (firstPart instanceof ProductionNamePart);
+
+    return firstPartProductionNamePart;
+  }
+
   parse(context, noWhitespace) {
     let nodes = [];
 
@@ -53,6 +60,23 @@ class Definition {
     }
 
     return nodes;
+  }
+
+  toString() {
+    const partsString = this.parts.reduce(function(partsString, part) {
+          const partString = part.toString();
+
+          if (partsString === null) {
+            partsString = partString;
+          } else {
+            partsString = `${partsString} ${partString}`;
+          }
+
+          return partsString;
+        }, null),
+        string = partsString; ///
+
+    return string;
   }
 }
 

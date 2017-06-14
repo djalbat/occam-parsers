@@ -2,7 +2,7 @@
 
 const Definition = require('../definition'),
       OneOrMorePartsPart = require('../part/oneOrMoreParts'),
-      SignificantTokenTypePart = require('../../common/part/significantTokenType');
+      SignificantTokenTypePart = require('../part/significantTokenType');
 
 class VerticalSpaceDefinition extends Definition {
   constructor() {

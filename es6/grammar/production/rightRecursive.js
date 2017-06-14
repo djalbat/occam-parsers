@@ -1,10 +1,10 @@
 'use strict';
 
-const Definition = require('../../common/definition'),
-      Production = require('../../common/production'),
-      EpsilonPart = require('../../common/part/epsilon'),
-      NonTerminalNode = require('../../common/node/nonTerminal'),
-      ProductionNamePart = require('../../common/part/productionName');
+const Definition = require('../../bnf/definition'),
+      Production = require('../../bnf/production'),
+      EpsilonPart = require('../../bnf/part/epsilon'),
+      ProductionNamePart = require('../../bnf/part/productionName'),
+      NonTerminalNode = require('../../common/node/nonTerminal');
 
 class RightRecursiveProduction extends Production {
   static productionNamePartFromLeftRecursiveProduction(leftRecursiveProduction) {

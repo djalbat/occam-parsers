@@ -1,8 +1,8 @@
 'use strict';
 
 const Definition = require('../definition'),
-      TerminalSymbolPart = require('../../common/part/terminalSymbol'),
-      ProductionNamePart = require('../../common/part/productionName');
+      TerminalSymbolPart = require('../part/terminalSymbol'),
+      ProductionNamePart = require('../part/productionName');
 
 class ProductionDefinition extends Definition {
   constructor() {

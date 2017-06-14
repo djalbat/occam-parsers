@@ -20,8 +20,11 @@ class SequenceOfPartsPart {
   }
 
   toString(operatorString) {
-    const partString = part.toString(),
-          string = `${partString}${operatorString}`;
+    const noWhitespaceString = this.noWhitespace ?
+                                '<NO_WHITESPACE>' :
+                                  '',
+          partString = this.part.toString(),
+          string = `${noWhitespaceString}${partString}${operatorString}`;
 
     return string;
   }

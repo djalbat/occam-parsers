@@ -28,8 +28,8 @@ class PartProduction extends Production {
           significantTokenTypeProductionNameDefinition = new ProductionNameDefinition(significantTokenTypeProductionName),
           name = 'part',
           definitions = [
-            noWhitespacePartProductionNameDefinition,
-            optionalPartProductionNameDefinition,
+            /*noWhitespacePartProductionNameDefinition,*/
+            optionalPartProductionNameDefinition/*,
             oneOrMorePartsProductionNameDefinition,
             zeroOrMorePartsProductionNameDefinition,
             groupOfPartsProductionNameDefinition,
@@ -37,7 +37,7 @@ class PartProduction extends Production {
             regularExpressionProductionNameDefinition,
             significantTokenTypeProductionNameDefinition,
             terminalSymbolProductionNameDefinition,
-            endOfLineSymbolProductionNameDefinition
+            endOfLineSymbolProductionNameDefinition*/
           ],
           Node = NonTerminalNode;
     

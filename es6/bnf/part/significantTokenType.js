@@ -2,14 +2,15 @@
 
 const TerminalNode = require('../../common/node/terminal');
 
-class RegularExpressionPart {
-  constructor(noWhitespace = false) {
+class SignificantTokenTypePart {
+  constructor(significantTokenType, noWhitespace) {
+    this.significantTokenType = significantTokenType;
     this.noWhitespace = noWhitespace;
   }
-
+  
   parse(context, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
-
+    
     let terminalNode = null;
     
     const savedIndex = context.savedIndex(),
@@ -18,7 +19,7 @@ class RegularExpressionPart {
 
     if (significantToken !== null) {
       const significantTokenType = significantToken.getType(),
-            parsed = (significantTokenType === 'regularExpression');  ///
+            parsed = (significantTokenType === this.significantTokenType);  ///
 
       if (parsed) {
         terminalNode = TerminalNode.fromSignificantToken(significantToken);
@@ -36,10 +37,10 @@ class RegularExpressionPart {
     const noWhitespaceString = this.noWhitespace ?
                                 '<NO_WHITESPACE>' :
                                   '',
-          string = `${noWhitespaceString}[regularExpression]`;
-
+          string = `${noWhitespaceString}[${this.significantTokenType}]`;
+    
     return string;
   }
 }
 
-module.exports = RegularExpressionPart;
+module.exports = SignificantTokenTypePart;

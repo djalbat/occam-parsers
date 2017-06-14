@@ -1,7 +1,6 @@
 'use strict';
 
-const Definition = require('../../common/definition'),
-      ProductionNamePart = require('../../common/part/productionName');
+const Definition = require('../../bnf/definition');
 
 class ImplicitlyLeftRecursiveDefinition extends Definition {
   getPreviousProductionName() {
@@ -16,10 +15,11 @@ class ImplicitlyLeftRecursiveDefinition extends Definition {
   static fromDefinition(definition, callback) {
     let implicitlyLeftRecursiveDefinition = null;
 
-    const definitionFirstPart = definition.getFirstPart();
+    const definitionFirstPartProductionNamePart = definition.isFirstPartProductionNamePart();
 
-    if (definitionFirstPart instanceof ProductionNamePart) {
-      const definitionFirstProductionNamePart = definitionFirstPart,  ///
+    if (definitionFirstPartProductionNamePart) {
+      const definitionFirstPart = definition.getFirstPart(),
+            definitionFirstProductionNamePart = definitionFirstPart,  ///
             definitionFirstProductionNamePartProductionName = definitionFirstProductionNamePart.getProductionName(),
             productionName = definitionFirstProductionNamePartProductionName, ///
             definitionImplicitlyLeftRecursive = callback(productionName);

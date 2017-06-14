@@ -1,6 +1,6 @@
 'use strict';
 
-const Production = require('../../common/production'),
+const Production = require('../../bnf/production'),
       LeftRecursiveDefinition = require('../definition/leftRecursive'),
       ImplicitlyLeftRecursiveDefinition = require('../definition/implicitlyLeftRecursive');
 

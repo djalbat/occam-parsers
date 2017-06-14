@@ -1,7 +1,7 @@
 'use strict';
 
 const Definition = require('../definition'),
-      ProductionNamePart = require('../../common/part/productionName');
+      ProductionNamePart = require('../part/productionName');
 
 class ProductionNameDefinition extends Definition {
   constructor(productionName) {

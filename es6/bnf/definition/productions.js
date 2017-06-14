@@ -3,7 +3,7 @@
 const Definition = require('../definition'),
       OptionalPartPart = require('../part/optionalPart'),
       OneOrMorePartsPart = require('../part/oneOrMoreParts'),
-      ProductionNamePart = require('../../common/part/productionName');
+      ProductionNamePart = require('../part/productionName');
 
 class ProductionsDefinition extends Definition {
   constructor() {

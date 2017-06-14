@@ -45,27 +45,6 @@ class Production {
     this.definitions = this.definitions.concat(definitions);
   }
   
-  toString(maximumProductionNameLength) {
-    const maximumPadding = paddingFromPaddingLength(maximumProductionNameLength),
-          definitionsString = this.definitions.reduce(function(definitionsString, definition) {
-            const definitionString = definition.toString();
-            
-            if (definitionsString === null) {
-              definitionsString = definitionString;
-            } else {
-              definitionsString = `${definitionsString}\n\n${maximumPadding}     | ${definitionString}`;
-            }
-            
-            return definitionsString;
-          }, null),
-          productionNameLength = this.name.length,  ///
-          paddingLength = maximumProductionNameLength - productionNameLength,
-          padding = paddingFromPaddingLength(paddingLength),
-          string = `\n\n  ${this.name}${padding} ::= ${definitionsString}`;
-    
-    return string;
-  }
-  
   parse(context, noWhitespace) {
     let nodeOrNodes = null;
 
@@ -112,6 +91,28 @@ class Production {
     return nodeOrNodes;
   }
 
+
+  toString(maximumProductionNameLength) {
+    const maximumPadding = paddingFromPaddingLength(maximumProductionNameLength),
+          definitionsString = this.definitions.reduce(function(definitionsString, definition) {
+            const definitionString = definition.toString();
+  
+            if (definitionsString === null) {
+              definitionsString = definitionString;
+            } else {
+              definitionsString = `${definitionsString}\n\n${maximumPadding}     | ${definitionString}`;
+            }
+  
+            return definitionsString;
+          }, null),
+          productionNameLength = this.name.length,  ///
+          paddingLength = maximumProductionNameLength - productionNameLength,
+          padding = paddingFromPaddingLength(paddingLength),
+          string = `\n\n  ${this.name}${padding} ::= ${definitionsString}`;
+
+    return string;
+  }
+
   static fromLine(line, significantTokenTypes, mappings) {
     const name = line.getName(),
           definitions = line.mapSymbolSequences(function(symbolSequence) {
@@ -126,27 +127,17 @@ class Production {
 
     return production;
   }
-  
-  static fromProduction(production, Class = Production) {
-    const name = production.getName(),
-          definitions = production.getDefinitions(),
-          Node = production.getNode();
-    
-    production = new Class(name, definitions, Node); ///
-    
-    return production;
-  }
 }
 
 module.exports = Production;
 
 function paddingFromPaddingLength(paddingLength) {
   let padding = '';
-  
+
   for (let position = 0; position < paddingLength; position++) {
     padding += ' ';
   }
-  
+
   return padding;
 }
 
@@ -169,5 +160,4 @@ function isNodeNullified(node) {
 }
 
 function first(array) { return array[0]; }
-
 function last(array) { return array[array.length - 1]; }

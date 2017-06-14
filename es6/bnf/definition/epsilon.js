@@ -1,7 +1,7 @@
 'use strict';
 
 const Definition = require('../definition'),
-      EpsilonPart = require('../../common/part/epsilon');
+      EpsilonPart = require('../part/epsilon');
 
 class EpsilonDefinition extends Definition {
   constructor() {

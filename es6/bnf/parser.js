@@ -40,13 +40,13 @@ class BNFParser extends CommonParser {
           significantTokenTypeProduction = new SignificantTokenTypeProduction();
 
     let productions = [
-          productionsProduction,
+          /*productionsProduction,
           productionProduction,
           definitionsProduction,
-          definitionProduction,
-          partProduction,
-          noWhitespacePartProduction,
-          optionalPartProduction,
+          definitionProduction,*/
+          partProduction/*,
+          noWhitespacePartProduction*/,
+          optionalPartProduction/*,
           zeroOrMorePartsProduction,
           oneOrMorePartsProduction,
           groupOfPartsProduction,
@@ -55,7 +55,7 @@ class BNFParser extends CommonParser {
           significantTokenTypeProduction,
           terminalSymbolProduction,
           endOfLineSymbolProduction,
-          verticalSpaceProduction
+          verticalSpaceProduction*/
         ];
 
     productions = cycles.eliminate(productions);  ///

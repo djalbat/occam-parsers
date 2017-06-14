@@ -1,16 +1,16 @@
 'use strict';
 
-const Definition = require('../../common/definition'),
-      ProductionNamePart = require('../../common/part/productionName');
+const Definition = require('../../bnf/definition');
 
 class LeftRecursiveDefinition extends Definition {
   static fromDefinitionAndProductionName(definition, productionName) {
     let leftRecursiveDefinition = null;
     
-    const definitionFirstPart = definition.getFirstPart();
+    const definitionFirstPartProductionNamePart = definition.isFirstPartProductionNamePart();
     
-    if (definitionFirstPart instanceof ProductionNamePart) {
-      const definitionFirstProductionNamePart = definitionFirstPart,  ///
+    if (definitionFirstPartProductionNamePart) {
+      const definitionFirstPart = definition.getFirstPart(),
+            definitionFirstProductionNamePart = definitionFirstPart,  ///
             definitionFirstProductionNamePartProductionName = definitionFirstProductionNamePart.getProductionName();
       
       if (definitionFirstProductionNamePartProductionName === productionName) {

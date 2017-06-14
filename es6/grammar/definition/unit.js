@@ -1,7 +1,6 @@
 'use strict';
 
-const Definition = require('../../common/definition'),
-      ProductionNamePart = require('../../common/part/productionName');
+const Definition = require('../../bnf/definition');
 
 class UnitDefinition extends Definition {
   getProductionName () {
@@ -29,9 +28,9 @@ class UnitDefinition extends Definition {
     const partsLength = definition.getPartsLength();
 
     if (partsLength === 1) {
-      const firstPart = definition.getFirstPart();
+      const firstPartProductionNamePart = definition.isFirstPartProductionNamePart();
       
-      if (firstPart instanceof ProductionNamePart) {
+      if (firstPartProductionNamePart) {
         const parts = definition.getParts();
 
         unitDefinition = new UnitDefinition(parts);

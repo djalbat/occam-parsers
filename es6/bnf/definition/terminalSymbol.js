@@ -1,7 +1,7 @@
 'use strict';
 
 const Definition = require('../definition'),
-      TerminalSymbolPart = require('../../common/part/terminalSymbol');
+      TerminalSymbolPart = require('../part/terminalSymbol');
 
 class TerminalSymbolDefinition extends Definition {
   constructor(content) {

@@ -30,17 +30,18 @@ class GroupOfPartsPart {
   }
 
   toString() {
-    const string = this.parts.reduce(function(string, part) {
-      const partString = part.toString();
+    const partsString = this.parts.reduce(function(partsString, part) {
+            const partString = part.toString();
 
-      if (string === null) {
-        string = partString;
-      } else {
-        string = `${string} ${partString}`;
-      }
+            if (partsString === null) {
+              partsString = partString;
+            } else {
+              partsString = `${partsString} ${partString}`;
+            }
 
-      return string;
-    }, null);
+            return partsString;
+          }, null),
+          string = `( ${partsString} )`;
 
     return string;
   }

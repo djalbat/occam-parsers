@@ -28,7 +28,7 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
 
   toString() {
     const operatorString = '*',
-        string = super.toString(operatorString);
+          string = super.toString(operatorString);
 
     return string;
   }

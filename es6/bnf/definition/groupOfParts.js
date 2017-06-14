@@ -2,8 +2,8 @@
 
 const Definition = require('../definition'),
       OneOrMorePartsPart = require('../part/oneOrMoreParts'),
-      TerminalSymbolPart = require('../../common/part/terminalSymbol'),
-      ProductionNamePart = require('../../common/part/productionName');
+      TerminalSymbolPart = require('../part/terminalSymbol'),
+      ProductionNamePart = require('../part/productionName');
 
 class GroupOfPartsDefinition extends Definition {
   constructor() {

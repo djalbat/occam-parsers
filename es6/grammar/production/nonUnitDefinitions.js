@@ -1,7 +1,7 @@
 'use strict';
 
-const NonUnitDefinition = require('../definition/nonUnit'),
-      Production = require('../../common/production');
+const Production = require('../../bnf/production'),
+      NonUnitDefinition = require('../definition/nonUnit');
 
 class NonUnitDefinitionsProduction extends Production {
   static fromProduction(production) {

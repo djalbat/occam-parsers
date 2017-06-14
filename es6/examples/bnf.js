@@ -11,19 +11,22 @@ const { Textarea } = easy,
       { BNFLexer } = lexers;
 
 const lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
+      adjustedBNFGrammarTextareaSelector = 'textarea#adjustedBNFGrammar',
       lexicalGrammar = BNFLexer.grammar;
 
 let lexicalGrammarTextarea,
+    adjustedBNFGrammarTextarea,
     bnfLexer = null,
     bnfParser = null;
 
 class BNFExample {
   static run() {
     lexicalGrammarTextarea = new Textarea(lexicalGrammarTextareaSelector);
+    adjustedBNFGrammarTextarea = new Textarea(adjustedBNFGrammarTextareaSelector);
 
     const lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
           bnfGrammarTextareaValue = grammar, ///
-          contentTextareaValue = `  definitions              ::=  <NO_WHITESPACE>definition*?`;
+          contentTextareaValue = 'a ::= b'; ///
 
     lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
 
@@ -45,6 +48,8 @@ function update() {
   updateBNFLexer();
 
   updateBNFParser();
+
+  updateAdjustedBNFGrammar();
 
   if (bnfLexer !== null) {
     const production = null;  ///
@@ -81,4 +86,25 @@ function updateBNFLexer() {
 
 function updateBNFParser() {
   bnfParser = BNFParser.fromNothing();
+}
+
+function updateAdjustedBNFGrammar() {
+  const productions = bnfParser.getProductions(),
+        maximumProductionNameLength = productions.reduce(function(maximumProductionNameLength, production) {
+          const productionName = production.getName(),
+                productionNameLength = productionName.length;
+  
+          maximumProductionNameLength = Math.max(maximumProductionNameLength, productionNameLength);
+  
+          return maximumProductionNameLength;
+        }, 0),
+        adjustedBNFGrammarTextareaValue = productions.reduce(function(adjustedBNFGrammarTextarea, production) {
+          const productionString = production.toString(maximumProductionNameLength);
+  
+          adjustedBNFGrammarTextarea += productionString;
+  
+          return adjustedBNFGrammarTextarea;
+        }, []);
+
+  adjustedBNFGrammarTextarea.setValue(adjustedBNFGrammarTextareaValue);
 }

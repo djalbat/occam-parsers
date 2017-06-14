@@ -2,7 +2,8 @@
 
 const lexers = require('occam-lexers');
 
-const Parts = require('./parts');
+const Parts = require('./parts'),
+      ProductionNamePart = require('./part/productionName');
 
 const { specialSymbols } = lexers;
 
@@ -33,23 +34,13 @@ class Definition {
     return allButFirstParts;
   }
   
-  toString() {
-    const partsString = this.parts.reduce(function(partsString, part) {
-            const partString = part.toString();
-            
-            if (partsString === null) {
-              partsString = partString;
-            } else {
-              partsString = `${partsString} ${partString}`;
-            }
-            
-            return partsString;
-          }, null),
-          string = partsString; ///
+  isFirstPartProductionNamePart() {
+    const firstPart = this.getFirstPart(),
+          firstPartProductionNamePart = (firstPart instanceof ProductionNamePart);
     
-    return string;
+    return firstPartProductionNamePart;
   }
-
+  
   parse(context, noWhitespace) {
     let nodes = [];
     
@@ -74,6 +65,23 @@ class Definition {
     }
 
     return nodes;
+  }
+
+  toString() {
+    const partsString = this.parts.reduce(function(partsString, part) {
+          const partString = part.toString();
+
+          if (partsString === null) {
+            partsString = partString;
+          } else {
+            partsString = `${partsString} ${partString}`;
+          }
+
+          return partsString;
+        }, null),
+        string = partsString; ///
+
+    return string;
   }
 
   static fromSymbolSequence(symbolSequence, significantTokenTypes) {

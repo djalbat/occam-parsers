@@ -1,7 +1,7 @@
 'use strict';
 
-const UnitDefinition = require('../definition/unit'),
-      Production = require('../../common/production');
+const Production = require('../../bnf/production'),
+      UnitDefinition = require('../definition/unit');
 
 class UnitDefinitionsProduction extends Production {
   getProductionNames() {
