@@ -8,7 +8,7 @@ class ZeroOrMorePartsDefinition extends Definition {
   constructor() {
     const partProductionName = 'part',
           asteriskTerminalSymbolContent = '*',
-          asteriskTerminalSymbolNoWhitespace = false/*true*/,
+          asteriskTerminalSymbolNoWhitespace = true,
           partProductionNamePart = new ProductionNamePart(partProductionName),
           asteriskTerminalSymbolPart = new TerminalSymbolPart(asteriskTerminalSymbolContent, asteriskTerminalSymbolNoWhitespace),
           parts = [

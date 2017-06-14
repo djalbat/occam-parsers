@@ -19,8 +19,8 @@ class DefinitionsDefinition extends Definition {
           verticalBarTerminalSymbolThenDefinitionProductionNameGroupOfPartsPart = new GroupOfPartsPart(verticalBarTerminalSymbolThenDefinitionProductionNameParts),
           zeroOrMoreVerticalBarTerminalSymbolThenDefinitionProductionNameGroupOfPartsPartsPart = new ZeroOrMorePartsPart(verticalBarTerminalSymbolThenDefinitionProductionNameGroupOfPartsPart),
           parts = [
-            definitionProductionNamePart/*,
-            zeroOrMoreVerticalBarTerminalSymbolThenDefinitionProductionNameGroupOfPartsPartsPart*/
+            definitionProductionNamePart,
+            zeroOrMoreVerticalBarTerminalSymbolThenDefinitionProductionNameGroupOfPartsPartsPart
           ];
     
     super(parts)

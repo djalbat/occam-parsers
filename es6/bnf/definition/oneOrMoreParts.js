@@ -8,7 +8,7 @@ class OneOrMorePartsDefinition extends Definition {
   constructor() {
     const partProductionName = 'part',
           plusTerminalSymbolContent = '+',
-          plusTerminalSymbolNoWhitespace = false/*true*/,
+          plusTerminalSymbolNoWhitespace = true,
           partProductionNamePart = new ProductionNamePart(partProductionName),
           plusTerminalSymbolPart = new TerminalSymbolPart(plusTerminalSymbolContent, plusTerminalSymbolNoWhitespace),
           parts = [

@@ -8,7 +8,7 @@ class OptionalPartDefinition extends Definition {
   constructor() {
     const partProductionName = 'part',
           questionMarkTerminalSymbolContent = '?',
-          questionMarkTerminalSymbolNoWhitespace = false/*true*/,
+          questionMarkTerminalSymbolNoWhitespace = true,
           partProductionNamePart = new ProductionNamePart(partProductionName),
           questionMarkTerminalSymbolPart = new TerminalSymbolPart(questionMarkTerminalSymbolContent, questionMarkTerminalSymbolNoWhitespace),
           parts = [

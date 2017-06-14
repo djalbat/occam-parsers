@@ -10,6 +10,16 @@ const grammar = `
   
   definition               ::=  part+ verticalSpace?
   
+  noWhitespacePart         ::=  "<NO_WHITESPACE>" part
+
+  optionalPart             ::=  part<NO_WHITESPACE>"?"
+                          
+  zeroOrMoreParts          ::=  part<NO_WHITESPACE>"*"
+                          
+  oneOrMoreParts           ::=  part<NO_WHITESPACE>"+"
+  
+  groupOfParts             ::=  "(" part+ ")"
+  
   part                     ::=  noWhitespacePart  
                 
                              |  optionalPart  
@@ -30,16 +40,6 @@ const grammar = `
                           
                              |  endOfLineSymbol
                 
-  noWhitespacePart         ::=  "<NO_WHITESPACE>" part
-
-  optionalPart             ::=  part<NO_WHITESPACE>"?"
-                          
-  zeroOrMoreParts          ::=  part<NO_WHITESPACE>"*"
-                          
-  oneOrMoreParts           ::=  part<NO_WHITESPACE>"+"
-  
-  groupOfParts             ::=  "(" part+ ")"
-  
   productionName           ::=  [name]
 
   regularExpression        ::=  [regularExpression]
