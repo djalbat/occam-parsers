@@ -6,9 +6,9 @@ const Definition = require('../definition'),
 
 class ProductionDefinition extends Definition {
   constructor() {
-    const separatorTerminalSymbolContent = '::=',
+    const productionNameProductionName = 'productionName',
+          separatorTerminalSymbolContent = '::=',
           definitionsProductionName = 'definitions',
-          productionNameProductionName = 'productionName',
           productionNameProductionNamePart = new ProductionNamePart(productionNameProductionName),
           separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent),
           definitionsProductionNamePart = new ProductionNamePart(definitionsProductionName),

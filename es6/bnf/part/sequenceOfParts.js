@@ -1,9 +1,10 @@
 'use strict';
 
 class SequenceOfPartsPart {
-  constructor(part, noWhitespace = false) {
+  constructor(part, noWhitespace = false, backtrackingDirection = null) {
     this.part = part;
     this.noWhitespace = noWhitespace;
+    this.backtrackingDirection = backtrackingDirection;
   }
 
   getPart() {
@@ -12,6 +13,10 @@ class SequenceOfPartsPart {
 
   getNoWhitespace() {
     return this.noWhitespace;
+  }
+  
+  getBacktrackingDirection() {
+    return this.backtrackingDirection;
   }
 
   toString(operatorString) {

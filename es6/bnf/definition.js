@@ -1,5 +1,7 @@
 'use strict';
 
+const SequenceOfPartsPart = require('./part/sequenceOfParts');
+
 class Definition {
   constructor(parts) {
     this.parts = parts;
@@ -29,18 +31,18 @@ class Definition {
 
   parse(context, noWhitespace) {
     let nodes = [];
-    
+
     const savedIndex = context.savedIndex(),
           everyPartParsed = this.parts.every(function(part) {
             const partNodeOrNodes = part.parse(context, noWhitespace),
                   partParsed = (partNodeOrNodes !== null);
-  
+
             if (partParsed) {
               nodes = nodes.concat(partNodeOrNodes);
-  
+
               noWhitespace = false;
             }
-  
+
             return partParsed;
           });
 

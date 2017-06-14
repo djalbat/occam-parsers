@@ -12,7 +12,9 @@ class DefinitionDefinition extends Definition {
           partProductionNamePart = new ProductionNamePart(partProductionName),
           verticalSpaceProductionNamePart = new ProductionNamePart(verticalSpaceProductionName),
           oneOrMorePartProductionNamePartsPart = new OneOrMorePartsPart(partProductionNamePart),
-          optionalVerticalSpaceProductionNamePartPart = new OptionalPartPart(verticalSpaceProductionNamePart),
+          optionalVerticalSpaceProductionNamePartNoWhitespace = false,
+          optionalVerticalSpaceProductionNamePartLazy = true,
+          optionalVerticalSpaceProductionNamePartPart = new OptionalPartPart(verticalSpaceProductionNamePart, optionalVerticalSpaceProductionNamePartNoWhitespace, optionalVerticalSpaceProductionNamePartLazy),
           parts = [
             oneOrMorePartProductionNamePartsPart,
             optionalVerticalSpaceProductionNamePartPart

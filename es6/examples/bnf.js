@@ -23,7 +23,7 @@ class BNFExample {
 
     const lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
           bnfGrammarTextareaValue = grammar, ///
-          contentTextareaValue = `parenthesisedVariables ::= "("<NO_WHITESPACE>variables<NO_WHITESPACE>")"`;
+          contentTextareaValue = `  definitions              ::=  <NO_WHITESPACE>definition*?`;
 
     lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
 
