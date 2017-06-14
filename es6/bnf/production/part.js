@@ -6,7 +6,7 @@ const Production = require('../production'),
 
 class PartProduction extends Production {
   constructor() {
-    const groupProductionName = 'group',
+    const groupOfPartsProductionName = 'groupOfParts',
           optionalPartProductionName = 'optionalPart',
           oneOrMorePartsProductionName = 'oneOrMoreParts',
           zeroOrMorePartsProductionName = 'zeroOrMoreParts',
@@ -16,7 +16,7 @@ class PartProduction extends Production {
           noWhitespacePartProductionName = 'noWhitespacePart',
           regularExpressionProductionName = 'regularExpression',
           significantTokenTypeProductionName = 'significantTokenType',
-          groupProductionNameDefinition = new ProductionNameDefinition(groupProductionName),
+          groupOfPartsProductionNameDefinition = new ProductionNameDefinition(groupOfPartsProductionName),
           optionalPartProductionNameDefinition = new ProductionNameDefinition(optionalPartProductionName),
           oneOrMorePartsProductionNameDefinition = new ProductionNameDefinition(oneOrMorePartsProductionName),
           zeroOrMorePartsProductionNameDefinition = new ProductionNameDefinition(zeroOrMorePartsProductionName),
@@ -32,7 +32,7 @@ class PartProduction extends Production {
             optionalPartProductionNameDefinition,
             oneOrMorePartsProductionNameDefinition,
             zeroOrMorePartsProductionNameDefinition,
-            groupProductionNameDefinition,
+            groupOfPartsProductionNameDefinition,
             productionNameProductionNameDefinition,
             regularExpressionProductionNameDefinition,
             significantTokenTypeProductionNameDefinition,
