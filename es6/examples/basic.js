@@ -12,23 +12,7 @@ const { Textarea } = easy,
 
 const lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
       adjustedBNFGrammarTextareaSelector = 'textarea#adjustedBNFGrammar',
-      lexicalGrammar = [
-        {
-          "string": "\"[^\"]*\""
-        },
-        {
-          "regularExpression": "\\/[^/]+\\/"
-        },
-        {
-          "special": "::=|\\||<NO_WHITESPACE>|<END_OF_LINE>|\\(|\\)|\\?|\\*|\\+|\\-"
-        },
-        {
-          "type": "\\[[^/]+\\]"
-        },
-        {
-          "name": "\\w+"
-        }
-      ];
+      lexicalGrammar = BasicLexer.grammar;
 
 let lexicalGrammarTextarea,
     adjustedBNFGrammarTextarea,
