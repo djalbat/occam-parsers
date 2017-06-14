@@ -42,7 +42,7 @@ class TerminalSymbolPart {
   static fromSymbol(symbol, significantTokenTypes, noWhitespace) {
     let terminalSymbolPart = null;
     
-    const terminalSymbolPartRegExp = /^'([^']+)'$/,
+    const terminalSymbolPartRegExp = /^"([^']+)"$/,
           matches = symbol.match(terminalSymbolPartRegExp);
 
     if (matches !== null) {

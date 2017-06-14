@@ -11,11 +11,3 @@ const grammar = `
 `;
 
 module.exports = grammar;
-
-/*
-
- A               ::=  B
-
- B               ::=  A "a"
-
- */

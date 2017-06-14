@@ -3,7 +3,8 @@
 const lexers = require('occam-lexers');
 
 const Parts = require('./parts'),
-      ProductionNamePart = require('./part/productionName');
+      ProductionNamePart = require('./part/productionName'),
+      BNFProductionNamePart = require('../bnf/part/productionName');
 
 const { specialSymbols } = lexers;
 
@@ -36,7 +37,7 @@ class Definition {
   
   isFirstPartProductionNamePart() {
     const firstPart = this.getFirstPart(),
-          firstPartProductionNamePart = (firstPart instanceof ProductionNamePart);
+          firstPartProductionNamePart = (firstPart instanceof ProductionNamePart) || (firstPart instanceof BNFProductionNamePart);  ///
     
     return firstPartProductionNamePart;
   }

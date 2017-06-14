@@ -1,6 +1,7 @@
 'use strict';
 
-const ProductionNamePart = require('./part/productionName');
+const ProductionNamePart = require('./part/productionName'),
+      CommonProductionNamePart = require('../common/part/productionName');
 
 class Definition {
   constructor(parts) {
@@ -31,7 +32,7 @@ class Definition {
 
   isFirstPartProductionNamePart() {
     const firstPart = this.getFirstPart(),
-          firstPartProductionNamePart = (firstPart instanceof ProductionNamePart);
+          firstPartProductionNamePart = (firstPart instanceof ProductionNamePart) || (firstPart instanceof CommonProductionNamePart);
 
     return firstPartProductionNamePart;
   }

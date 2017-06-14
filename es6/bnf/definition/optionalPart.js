@@ -2,7 +2,7 @@
 
 const Definition = require('../definition'),
       TerminalSymbolPart = require('../part/terminalSymbol'),
-      ProductionNamePart = require('../part/productionName');
+      ProductionNamePart = require('../../common/part/productionName');
 
 class OptionalPartDefinition extends Definition {
   constructor() {
