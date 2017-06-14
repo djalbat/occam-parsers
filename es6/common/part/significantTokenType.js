@@ -43,21 +43,13 @@ class SignificantTokenTypePart {
     let significantTokenTypePart = null;
 
     const significantTokenTypePartRegExp = /^\[([^/]+)\]$/,
-        matches = symbol.match(significantTokenTypePartRegExp);
+          matches = symbol.match(significantTokenTypePartRegExp);
 
     if (matches !== null) {
       const secondMatch = second(matches),
-            type = secondMatch, ///
-            foundType = significantTokenTypes.find(function(significantTokenType) {
-              const found = (type === significantTokenType);
+            type = secondMatch; ///
 
-              return found;
-            }),
-            found = (foundType !== undefined);
-
-      if (found) {
-        significantTokenTypePart = new SignificantTokenTypePart(type, noWhitespace);
-      }
+      significantTokenTypePart = new SignificantTokenTypePart(type, noWhitespace);
     }
 
     return significantTokenTypePart;
@@ -65,3 +57,5 @@ class SignificantTokenTypePart {
 }
 
 module.exports = SignificantTokenTypePart;
+
+function second(array) { return array[1]; }

@@ -34,7 +34,7 @@ class TerminalSymbolPart {
   }
   
   toString() {
-    const string = `'${this.content}'`;
+    const string = `"${this.content}"`;
     
     return string;
   }
