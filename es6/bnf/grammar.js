@@ -32,13 +32,13 @@ const grammar = `
                 
   noWhitespacePart         ::=  "<NO_WHITESPACE>" part
 
-  optionalPart             ::=  part<NO_WHITESPACE>"?" optionalLazyQuantifier
+  optionalPart             ::=  part<NO_WHITESPACE>"?" lazyQuantifier?
                           
-  zeroOrMoreParts          ::=  part<NO_WHITESPACE>"*" optionalLazyQuantifier
+  zeroOrMoreParts          ::=  part<NO_WHITESPACE>"*" lazyQuantifier?
                           
-  oneOrMoreParts           ::=  part<NO_WHITESPACE>"+" optionalLazyQuantifier
+  oneOrMoreParts           ::=  part<NO_WHITESPACE>"+" lazyQuantifier?
   
-  optionalLazyQuantifier   ::=  <NO_WHITESPACE>"?"?
+  lazyQuantifier           ::=  <NO_WHITESPACE>"?"
                           
   groupOfParts             ::=  "(" part+ ")"
   
