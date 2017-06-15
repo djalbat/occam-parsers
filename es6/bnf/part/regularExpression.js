@@ -34,10 +34,11 @@ class RegularExpressionPart {
   }
 
   toString() {
-    const noWhitespaceString = this.noWhitespace ?
+    const regExpString = this.regExp.toString(),
+          noWhitespaceString = this.noWhitespace ?
                                 '<NO_WHITESPACE>' :
                                   '',
-          string = `${noWhitespaceString}[regularExpression]`;
+          string = `${noWhitespaceString}${regExpString}`;
 
     return string;
   }
