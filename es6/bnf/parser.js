@@ -21,6 +21,10 @@ const cycles = require('../grammar/cycles'),
       SignificantTokenTypeProduction = require('./production/significantTokenType');
 
 class BNFParser extends CommonParser {
+  generateProductions(productionsNode) {
+    debugger
+  }
+
   static fromNothing() {
     const partProduction = new PartProduction(),
           definitionProduction = new DefinitionProduction(),

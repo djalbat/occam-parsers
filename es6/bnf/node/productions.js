@@ -11,7 +11,7 @@ class ProductionsNode extends NonTerminalNode {
             arrayUtil.discardFirst(nodes) :
               nodes;
 
-    const productionsNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes);
+    const productionsNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, ProductionsNode);
 
     return productionsNode;
   }

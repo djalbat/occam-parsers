@@ -32,18 +32,20 @@ class Example {
   static onContentTextareaKeyUp(handler) { contentTextarea.onKeyUp(handler); }
 
   static updateParseTreeTextarea(lexer, parser, production) {
+    let node = null;
+    
     try {
       const contentTextareaValue = contentTextarea.getValue(),
             content = contentTextareaValue, ///
-            lines = lexer.linesFromContent(content),
-            node = parser.nodeFromLines(lines, production),
-            documentNode = node;  ///
+            lines = lexer.linesFromContent(content);
 
-      if (documentNode === null) {
+      node = parser.nodeFromLines(lines, production);
+      
+      if (node === null) {
         throw new Error('The document cannot be parsed for some reason.');  ///
       }
 
-      const parseTree = documentNode.generateParseTree(lines);
+      const parseTree = node.generateParseTree(lines);
 
       parseTree.shiftLine();  //
 
@@ -58,6 +60,8 @@ class Example {
 
       Example.clearParseTreeTextarea();
     }
+    
+    return node;
   }
 
   static clearParseTreeTextarea() {

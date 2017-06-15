@@ -52,9 +52,11 @@ function update() {
   updateAdjustedBNFGrammar();
 
   if (bnfLexer !== null) {
-    const production = null;  ///
-
-    Example.updateParseTreeTextarea(bnfLexer, bnfParser, production);
+    const production = null,
+          node = Example.updateParseTreeTextarea(bnfLexer, bnfParser, production),
+          productionsNode = node; ///
+          
+    bnfParser.generateProductions(productionsNode);    
   } else {
     Example.clearParseTreeTextarea();
   }
