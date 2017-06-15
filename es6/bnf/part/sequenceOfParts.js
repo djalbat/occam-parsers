@@ -1,7 +1,5 @@
 'use strict';
 
-const arrayUtil = require('../../util/array');
-
 class SequenceOfPartsPart {
   constructor(part) {
     this.part = part;
@@ -61,42 +59,7 @@ class SequenceOfPartsPart {
 
     return sequenceOfPartsPart;
   }
-
-  static fromNodeAndQuantifiersNode(node, quantifiersNode, Parts, noWhitespace) {
-    const part = node.generatePart(Parts, noWhitespace),
-          quantifiers = quantifiersFromQuantifiersNode(quantifiersNode),
-          sequenceOfPartsPart = SequenceOfPartsPart.fromPartAndQuantifiers(part, quantifiers, Parts);
-
-    return sequenceOfPartsPart;
-  }
 }
 
 module.exports = SequenceOfPartsPart;
 
-function quantifiersFromQuantifiersNode(quantifiersNode, quantifiers = []) {
-  const quantifier = quantifierFromQuantifiersNode(quantifiersNode);
-
-  quantifiers.push(quantifier);
-
-  const quantifiersNodeChildNodes = quantifiersNode.getChildNodes(),
-        quantifiersNodeChildNodesLength =  quantifiersNodeChildNodes.length;
-
-  if (quantifiersNodeChildNodesLength === 2) {
-    const secondQuantifiersNodeChildNode = arrayUtil.second(quantifiersNodeChildNodes);
-
-    quantifiersNode = secondQuantifiersNodeChildNode; ///
-
-    quantifiers = quantifiersFromQuantifiersNode(quantifiersNode, quantifiers);
-  }
-
-  return quantifiers;
-}
-
-function quantifierFromQuantifiersNode(quantifiersNode) {
-  const quantifiersNodeChildNodes = quantifiersNode.getChildNodes(),
-        firstQuantifiersNodeChildNode = arrayUtil.first(quantifiersNodeChildNodes),
-        firstQuantifiersNodeChildNodeContent = firstQuantifiersNodeChildNode.getContent(),
-        quantifier = firstQuantifiersNodeChildNodeContent;
-
-  return quantifier;
-}
