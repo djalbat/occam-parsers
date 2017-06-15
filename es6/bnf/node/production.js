@@ -17,7 +17,8 @@ class ProductionNode extends NonTerminalNode {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           productionNameNode = firstChildNode,  ///
-          name = productionNameNode.getName();
+          productionNameNodeProductionName = productionNameNode.getProductionName(),
+          name = productionNameNodeProductionName;
     
     return name;
   }

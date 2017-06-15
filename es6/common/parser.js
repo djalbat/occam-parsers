@@ -34,7 +34,7 @@ class CommonParser {
 
     if (production !== null) {
       const context = new Context(tokens, this.productions),
-            noWhitespace = false,
+            noWhitespace = false, ///
             nodeOrNodes = production.parse(context, noWhitespace);
 
       if (nodeOrNodes !== null) {

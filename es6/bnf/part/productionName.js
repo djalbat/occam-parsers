@@ -3,7 +3,7 @@
 const parserUtil = require('../../util/parser');
 
 class ProductionNamePart {
-  constructor(productionName, noWhitespace) {
+  constructor(productionName, noWhitespace = false) {
     this.productionName = productionName;
     this.noWhitespace = noWhitespace;
   }

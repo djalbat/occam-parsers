@@ -3,14 +3,22 @@
 const NonTerminalNode = require('../../common/node/nonTerminal');
 
 class ProductionNameNode extends NonTerminalNode {
-  getName() {
+  generatePart(Parts, noWhitespace) {
+    const productionName = this.getProductionName(),
+          ProductionNamePart = Parts['ProductionNamePart'],
+          productionNamePart = new ProductionNamePart(productionName, noWhitespace);
+
+    return productionNamePart;
+  }
+
+  getProductionName() {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
-          name = terminalNodeContent; ///
+          productionName = terminalNodeContent; ///
     
-    return name;
+    return productionName;
   }
   
   static fromNodesAndProductionName(nodes, productionName) { return NonTerminalNode.fromNodesAndProductionName(nodes, productionName, ProductionNameNode); }

@@ -4,8 +4,8 @@ const SequenceOfPartsPart = require('./sequenceOfParts');
 
 class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   parse(context, noWhitespace) {
-    noWhitespace = this.getNoWhitespace();  ///
-
+    noWhitespace = false; ///
+    
     let nodes = [];
     
     const part = this.getPart();
@@ -35,8 +35,7 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
 
   static fromOneOrMorePartsPart(oneOrMorePartsPart) {
     const part = oneOrMorePartsPart.getPart(),
-          noWhitespace = oneOrMorePartsPart.getNoWhitespace(),
-          zeroOrMorePartsPart = new ZeroOrMorePartsPart(part, noWhitespace);
+          zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
 
     return zeroOrMorePartsPart;
   }

@@ -3,7 +3,7 @@
 const TerminalNode = require('../../common/node/terminal');
 
 class TerminalSymbolPart {
-  constructor(content, noWhitespace) {
+  constructor(content, noWhitespace = false) {
     this.content = content;
     this.noWhitespace = noWhitespace;
   }

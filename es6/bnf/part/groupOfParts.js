@@ -1,13 +1,12 @@
 'use strict';
 
 class GroupOfPartsPart {
-  constructor(parts, noWhitespace = false) {
+  constructor(parts) {
     this.parts = parts;
-    this.noWhitespace = noWhitespace;
   }
 
   parse(context, noWhitespace) {
-    noWhitespace = this.noWhitespace; ///
+    noWhitespace = false; ///
 
     let nodes = [];
 

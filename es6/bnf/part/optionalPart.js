@@ -4,7 +4,7 @@ const SequenceOfPartsPart = require('./sequenceOfParts');
 
 class OptionalPartPart extends SequenceOfPartsPart {
   parse(context, noWhitespace) {
-    noWhitespace = this.getNoWhitespace();  ///
+    noWhitespace = false; ///
 
     let nodes = [];
     

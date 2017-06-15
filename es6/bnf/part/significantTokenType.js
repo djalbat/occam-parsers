@@ -3,7 +3,7 @@
 const TerminalNode = require('../../common/node/terminal');
 
 class SignificantTokenTypePart {
-  constructor(significantTokenType, noWhitespace) {
+  constructor(significantTokenType, noWhitespace = false) {
     this.significantTokenType = significantTokenType;
     this.noWhitespace = noWhitespace;
   }

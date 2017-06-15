@@ -1,6 +1,6 @@
 'use strict';
 
-const TerminalNode = require('../../common/node/terminal'),
+const nodeUtil = require('../../util/node'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class PartNode extends NonTerminalNode {
@@ -11,7 +11,7 @@ class PartNode extends NonTerminalNode {
 
     if (!noWhitespace) {
       const firstChildNode = first(childNodes),
-            firstChildNodeNoWhitespaceNode = isNodeNoWhitespaceNode(firstChildNode);
+            firstChildNodeNoWhitespaceNode = nodeUtil.isNodeNoWhitespaceNode(firstChildNode);
 
       if (firstChildNodeNoWhitespaceNode) {
         const start = 0,
@@ -19,17 +19,19 @@ class PartNode extends NonTerminalNode {
 
         childNodes.splice(start, deleteCount);
 
-        noWhitespace = firstChildNodeNoWhitespaceNode;  ///
+        noWhitespace = true;
       }
     }
 
-    const childNodesLength = childNodes.length;
+    const firstChildNode = first(childNodes),
+          childNodesLength = childNodes.length;
 
     if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes),
-            childNode = firstChildNode; ///
+      const childNode = firstChildNode; ///
 
-      part = childNode.generatePart(Parts, noWhitespace)
+      part = partFromChildNode(childNode, Parts, noWhitespace)
+    } else {
+      part = partFromChildNodes(childNodes, Parts, noWhitespace)
     }
     
     return part;
@@ -40,19 +42,50 @@ class PartNode extends NonTerminalNode {
 
 module.exports = PartNode;
 
-function first(array) { return array[0]; }
+function partFromChildNode(childNode, Parts, noWhitespace) {
+  const part = childNode.generatePart(Parts, noWhitespace);
 
-function isNodeNoWhitespaceNode(node) {
-  let nodeNoWhitespaceNode = false;
+  return part;
+}
 
-  const nodeTerminalNode = (node instanceof TerminalNode);
+function partFromChildNodes(childNodes, Parts, noWhitespace) {
+  let part;
 
-  if (nodeTerminalNode) {
-    const terminalNode = node,
-          terminalNodeContent = terminalNode.getContent();
+  const firstChildNode = first(childNodes),
+        secondChildNode = second(childNodes),
+        secondChildNodeQuantifierNode = nodeUtil.isNodeQuantifierNode(secondChildNode);
 
-    nodeNoWhitespaceNode = (terminalNodeContent === "<NO_WHITESPACE>"); ///
+  if (secondChildNodeQuantifierNode) {
+    const node = firstChildNode,  ///
+          quantifierNode = secondChildNode;
+
+    part = partFromNodeAndQuantifierNode(node, quantifierNode, Parts, noWhitespace);
   }
 
-  return nodeNoWhitespaceNode;
+  return part;
 }
+
+function partFromNodeAndQuantifierNode(node, quantifierNode, Parts, noWhitespace) {
+  let part = node.generatePart(Parts, noWhitespace);
+
+  const quantifierNodeContent = nodeUtil.contentFromQuantifierNode(quantifierNode),
+        quantifier = quantifierNodeContent; ///
+
+  let Part;
+
+  switch (quantifier) {
+    case '+':
+      const OneOrMorePartsPart = Parts['OneOrMorePartsPart'];
+
+      Part = OneOrMorePartsPart;
+      break;
+  }
+
+  part = new Part(part);  ///
+
+  return part;
+}
+
+function first(array) { return array[0]; }
+
+function second(array) { return array[1]; }

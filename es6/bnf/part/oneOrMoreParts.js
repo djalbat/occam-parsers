@@ -5,7 +5,7 @@ const SequenceOfPartsPart = require('./sequenceOfParts'),
 
 class OneOrMorePartsPart extends SequenceOfPartsPart {
   parse(context, noWhitespace) {
-    noWhitespace = this.getNoWhitespace();  ///
+    noWhitespace = false; ///
 
     let nodes = null;
     
