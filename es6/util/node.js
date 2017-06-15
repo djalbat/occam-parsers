@@ -49,6 +49,14 @@ class nodeUtil {
 
     return quantifiers;
   }
+
+  static sequenceOfPartsPartFromNodeAndQuantifiersNode(node, quantifiersNode, Parts, noWhitespace) {
+    const part = node.generatePart(Parts, noWhitespace),
+          quantifiers = nodeUtil.quantifiersFromQuantifiersNode(quantifiersNode),
+          sequenceOfPartsPart = sequenceOfPartsPartFromPartAndQuantifiers(part, quantifiers, Parts);
+
+    return sequenceOfPartsPart;
+  }
 }
 
 module.exports = nodeUtil;
@@ -62,5 +70,50 @@ function quantifierFromQuantifiersNode(quantifiersNode) {
   return quantifier;
 }
 
+function sequenceOfPartsPartFromPartAndQuantifiers(part, quantifiers, Parts) {
+  const quantifier = quantifiers.shift(),
+        quantifiersLength = quantifiers.length;
+
+  let sequenceOfPartsPart = sequenceOfPartsPartFromPartAndQuantifier(part, quantifier, Parts);
+
+  if (quantifiersLength > 0) {
+    part = sequenceOfPartsPart; ///
+
+    sequenceOfPartsPart = sequenceOfPartsPartFromPartAndQuantifiers(part, quantifiers, Parts);
+  }
+
+  return sequenceOfPartsPart;
+}
+
+function sequenceOfPartsPartFromPartAndQuantifier(part, quantifier, Parts) {
+  let sequenceOfPartsPart;
+
+  switch (quantifier) {
+    case '?':
+      const OptionalPartPart = Parts['OptionalPartPart'],
+          optionalPartPart = new OptionalPartPart(part);
+
+      sequenceOfPartsPart = optionalPartPart;
+      break;
+
+    case '*':
+      const ZeroOrMorePartsPart = Parts['ZeroOrMorePartsPart'],
+          zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
+
+      sequenceOfPartsPart = zeroOrMorePartsPart;
+      break;
+
+    case '+':
+      const OneOrMorePartsPart = Parts['OneOrMorePartsPart'],
+          oneOrMorePartsPart = new OneOrMorePartsPart(part);
+
+      sequenceOfPartsPart = oneOrMorePartsPart;
+      break;
+  }
+
+  return sequenceOfPartsPart;
+}
+
 function first(array) { return array[0]; }
+
 function second(array) { return array[1]; }
