@@ -1,10 +1,11 @@
 'use strict';
 
-const TerminalNode = require('../terminal');
+const arrayUtil = require('../../../util/array'),
+      TerminalNode = require('../terminal');
 
 class ErrorNode extends TerminalNode {
   static fromNodesAndProductionName(nodes, productionName) {
-    const firstNode = first(nodes),
+    const firstNode = arrayUtil.first(nodes),
           terminalNode = firstNode,  ///
           significantToken = terminalNode.getSignificantToken(),
           errorNode = TerminalNode.fromSignificantToken(significantToken, ErrorNode),
@@ -17,5 +18,3 @@ class ErrorNode extends TerminalNode {
 }
 
 module.exports = ErrorNode;
-
-function first(array) { return array[0]; }

@@ -18,7 +18,7 @@ class ProductionsNode extends NonTerminalNode {
   }
   
   static fromNodesAndProductionName(nodes, productionName) {
-    const firstNode = first(nodes),
+    const firstNode = arrayUtil.first(nodes),
           childNodes = (firstNode instanceof VerticalSpaceNode) ?
                          arrayUtil.discardFirst(nodes) :
                            nodes,
@@ -29,5 +29,3 @@ class ProductionsNode extends NonTerminalNode {
 }
 
 module.exports = ProductionsNode;
-
-function first(array) { return array[0]; }

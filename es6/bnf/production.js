@@ -1,6 +1,7 @@
 'use strict';
 
-const NonTerminalNode = require('../common/node/nonTerminal'),
+const arrayUtil = require('../util/array'),
+      NonTerminalNode = require('../common/node/nonTerminal'),
       EpsilonTerminalNode = require('../common/node/terminal/epsilon');
 
 class Production {
@@ -71,7 +72,7 @@ class Production {
       if (definitionNodesLength > 0) {
         const productionName = this.name,
               nodes = definitionNodes,  ///
-              lastNode = last(nodes),
+              lastNode = arrayUtil.last(nodes),
               lastNodeNullified = isNodeNullified(lastNode);
 
         if (lastNodeNullified) {
@@ -143,7 +144,7 @@ function isNodeNullified(node) {
         childNodesLength = childNodes.length;
 
     if (childNodesLength === 1) {
-      const childNode = first(childNodes);
+      const childNode = arrayUtil.first(childNodes);
 
       nullified = (childNode instanceof EpsilonTerminalNode); ///
     }
@@ -151,7 +152,3 @@ function isNodeNullified(node) {
 
   return nullified;
 }
-
-function first(array) { return array[0]; }
-
-function last(array) { return array[array.length - 1]; }

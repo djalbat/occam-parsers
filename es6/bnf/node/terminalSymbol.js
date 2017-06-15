@@ -1,6 +1,7 @@
 'use strict';
 
-const NonTerminalNode = require('../../common/node/nonTerminal');
+const arrayUtil = require('../../util/array'),
+      NonTerminalNode = require('../../common/node/nonTerminal');
 
 class TerminalSymbolNode extends NonTerminalNode {
   generatePart(Parts, noWhitespace) {
@@ -13,7 +14,7 @@ class TerminalSymbolNode extends NonTerminalNode {
 
   getContent() {
     const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
+          firstChildNode = arrayUtil.first(childNodes),
           terminalNode = firstChildNode,  ///
           content = terminalNode.getContent();
 
@@ -24,5 +25,3 @@ class TerminalSymbolNode extends NonTerminalNode {
 }
 
 module.exports = TerminalSymbolNode;
-
-function first(array) { return array[0]; }

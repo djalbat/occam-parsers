@@ -1,12 +1,13 @@
 'use strict';
 
-const Production = require('../../bnf/production'),
+const arrayUtil = require('../../util/array'),
+      Production = require('../../bnf/production'),
       UnitDefinition = require('../definition/unit');
 
 class UnitDefinitionProduction extends Production {
   getUnitDefinitionProductionName() {
     const definitions = this.getDefinitions(),
-          firstDefinition = first(definitions),
+          firstDefinition = arrayUtil.first(definitions),
           unitDefinition = firstDefinition, ///
           unitDefinitionProductionName = unitDefinition.getProductionName();
     
@@ -41,5 +42,3 @@ class UnitDefinitionProduction extends Production {
 }
 
 module.exports = UnitDefinitionProduction;
-
-function first(array) { return array[0]; }

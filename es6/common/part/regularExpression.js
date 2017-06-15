@@ -1,6 +1,7 @@
 'use strict';
 
-const TerminalNode = require('..//node/terminal');
+const arrayUtil = require('../../util/array'),
+      TerminalNode = require('..//node/terminal');
 
 class RegularExpressionPart {
   constructor(regExp, noWhitespace) {
@@ -22,7 +23,7 @@ class RegularExpressionPart {
             matches = content.match(this.regExp);
 
       if (matches !== null) {
-        const firstMatch = first(matches),
+        const firstMatch = arrayUtil.first(matches),
               parsed = (firstMatch === content);
 
         if (parsed) {
@@ -52,7 +53,7 @@ class RegularExpressionPart {
           matches = symbol.match(regularExpressionPartRegExp);
 
     if (matches !== null) {
-      const secondMatch = second(matches),
+      const secondMatch = arrayUtil.second(matches),
             pattern = secondMatch,  ///
             regExp = new RegExp(pattern);
 
@@ -64,6 +65,3 @@ class RegularExpressionPart {
 }
 
 module.exports = RegularExpressionPart;
-
-function first(array) { return array[0]; }
-function second(array) { return array[1]; }

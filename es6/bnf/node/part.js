@@ -8,20 +8,22 @@ class PartNode extends NonTerminalNode {
   generatePart(Parts, noWhitespace) {
     let part,
         childNodes = this.getChildNodes();
+    
+    let firstChildNode = arrayUtil.first(childNodes);
+    
+    const firstChildNodeNoWhitespaceNode = nodeUtil.isNodeNoWhitespaceNode(firstChildNode);
 
-    if (!noWhitespace) {
-      const firstChildNode = first(childNodes),
-            firstChildNodeNoWhitespaceNode = nodeUtil.isNodeNoWhitespaceNode(firstChildNode);
-
-      if (firstChildNodeNoWhitespaceNode) {
-        childNodes = arrayUtil.discardFirst(childNodes);
-
-        noWhitespace = true;
-      }
+    if (firstChildNodeNoWhitespaceNode) {
+      childNodes = arrayUtil.discardFirst(childNodes);
+  
+      noWhitespace = true;
     }
+    
+    const lastChildNode = arrayUtil.last(childNodes);
 
-    const firstChildNode = first(childNodes),
-          childNodesLength = childNodes.length;
+    firstChildNode = arrayUtil.first(childNodes);
+    
+    const childNodesLength = childNodes.length;
 
     if (childNodesLength === 1) {
       const childNode = firstChildNode; ///
@@ -46,16 +48,14 @@ function partFromChildNode(childNode, Parts, noWhitespace) {
 }
 
 function partFromChildNodes(childNodes, Parts, noWhitespace) {
-  const firstChildNode = first(childNodes),
-        secondChildNode = second(childNodes),
+  const firstChildNode = arrayUtil.first(childNodes),
+        secondChildNode = arrayUtil.second(childNodes),
         node = firstChildNode,  ///
         quantifiersNode = secondChildNode, ///
-        sequenceOfPartsPart = nodeUtil.sequenceOfPartsPartFromNodeAndQuantifiersNode(node, quantifiersNode, Parts, noWhitespace),
+        SequenceOfPartsPart = Parts['SequenceOfPartsPart'],
+        sequenceOfPartsPart = SequenceOfPartsPart.fromNodeAndQuantifiersNode(node, quantifiersNode, Parts, noWhitespace),
         part = sequenceOfPartsPart; ///
 
   return part;
 }
 
-function first(array) { return array[0]; }
-
-function second(array) { return array[1]; }

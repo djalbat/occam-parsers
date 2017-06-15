@@ -3,6 +3,7 @@
 const lexers = require('occam-lexers');
 
 const Parts = require('./parts'),
+      arrayUtil = require('../util/array'),
       ProductionNamePart = require('./part/productionName'),
       BNFProductionNamePart = require('../bnf/part/productionName');
 
@@ -18,7 +19,7 @@ class Definition {
   }
   
   getFirstPart() {
-    const firstPart = first(this.parts);
+    const firstPart = arrayUtil.first(this.parts);
 
     return firstPart;
   }
@@ -122,5 +123,3 @@ function partFromSymbol(symbol, significantTokenTypes, noWhitespace) {
 
   return part;
 }
-
-function first(array) { return array[0]; }

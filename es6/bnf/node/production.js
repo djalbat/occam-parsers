@@ -15,7 +15,7 @@ class ProductionNode extends NonTerminalNode {
 
   getName() {
     const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
+          firstChildNode = arrayUtil.first(childNodes),
           productionNameNode = firstChildNode,  ///
           productionNameNodeProductionName = productionNameNode.getProductionName(),
           name = productionNameNodeProductionName;
@@ -25,7 +25,7 @@ class ProductionNode extends NonTerminalNode {
   
   generateDefinitions(Definition, Parts) {
     const childNodes = this.getChildNodes(),
-          lastChildNode = last(childNodes),
+          lastChildNode = arrayUtil.last(childNodes),
           definitionsNode = lastChildNode,  ///
           definitions = definitionsNode.generateDefinitions(Definition, Parts);
     
@@ -41,7 +41,3 @@ class ProductionNode extends NonTerminalNode {
 }
 
 module.exports = ProductionNode;
-
-function first(array) { return array[0]; }
-
-function last(array) { return array[array.length - 1]; }

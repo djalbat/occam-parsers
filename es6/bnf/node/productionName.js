@@ -1,6 +1,7 @@
 'use strict';
 
-const NonTerminalNode = require('../../common/node/nonTerminal');
+const arrayUtil = require('../../util/array'),
+      NonTerminalNode = require('../../common/node/nonTerminal');
 
 class ProductionNameNode extends NonTerminalNode {
   generatePart(Parts, noWhitespace) {
@@ -13,7 +14,7 @@ class ProductionNameNode extends NonTerminalNode {
 
   getProductionName() {
     const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
+          firstChildNode = arrayUtil.first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
           productionName = terminalNodeContent; ///
@@ -25,5 +26,3 @@ class ProductionNameNode extends NonTerminalNode {
 }
 
 module.exports = ProductionNameNode;
-
-function first(array) { return array[0]; }

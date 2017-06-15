@@ -1,6 +1,7 @@
 'use strict';
 
-const NonTerminalNode = require('../../common/node/nonTerminal');
+const arrayUtil = require('../../util/array'),
+      NonTerminalNode = require('../../common/node/nonTerminal');
 
 class RegularExpressionNode extends NonTerminalNode {
   generatePart(Parts, noWhitespace) {
@@ -15,11 +16,11 @@ class RegularExpressionNode extends NonTerminalNode {
     let regExp = /^\/([^/]+)\/$/; ///
 
     const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
+          firstChildNode = arrayUtil.first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
           matches = terminalNodeContent.match(regExp),
-          secondMatch = second(matches),
+          secondMatch = arrayUtil.second(matches),
           pattern = secondMatch; ///
 
     regExp = new RegExp(pattern);
@@ -31,6 +32,3 @@ class RegularExpressionNode extends NonTerminalNode {
 }
 
 module.exports = RegularExpressionNode;
-
-function first(array) { return array[0]; }
-function second(array) { return array[1]; }

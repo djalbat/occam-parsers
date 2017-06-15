@@ -1,6 +1,7 @@
 'use strict';
 
-const EmptyParseTree = require('./empty'),
+const arrayUtil = require('../../util/array'),
+      EmptyParseTree = require('./empty'),
       ChildNodesParseTree = require('./childNodes'),
       VerticalBranchParseTree = require('./verticalBranch'),
       ProductionNameParseTree = require('./productionName');
@@ -8,7 +9,7 @@ const EmptyParseTree = require('./empty'),
 class NonTerminalNodeParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNode(nonTerminalNode, lines) {
     const childNodes = nonTerminalNode.getChildNodes(),
-          firstChildNode = first(childNodes),
+          firstChildNode = arrayUtil.first(childNodes),
           childNode = firstChildNode,
           childNodesLength = childNodes.length,
           childNodeOrNodesParseTree = (childNodesLength === 1) ?
@@ -68,5 +69,3 @@ class NonTerminalNodeParseTree extends VerticalBranchParseTree {
 }
 
 module.exports = NonTerminalNodeParseTree;
-
-function first(array) { return array[0]; }

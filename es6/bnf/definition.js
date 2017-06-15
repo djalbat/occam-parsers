@@ -1,6 +1,7 @@
 'use strict';
 
-const ProductionNamePart = require('./part/productionName'),
+const arrayUtil = require('../util/array'),
+      ProductionNamePart = require('./part/productionName'),
       CommonProductionNamePart = require('../common/part/productionName');
 
 class Definition {
@@ -13,7 +14,7 @@ class Definition {
   }
 
   getFirstPart() {
-    const firstPart = first(this.parts);
+    const firstPart = arrayUtil.first(this.parts);
 
     return firstPart;
   }
@@ -82,5 +83,3 @@ class Definition {
 }
 
 module.exports = Definition;
-
-function first(array) { return array[0]; }

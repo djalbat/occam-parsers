@@ -1,25 +1,27 @@
 'use strict';
 
-const OptionalPartPart = require('./part/optionalPart'),
-      ZeroOrMorePartsPart = require('./part/zeroOrMoreParts'),
-      OneOrMorePartsPart = require('./part/oneOrMoreParts'),
+const EpsilonPart = require('./part/epsilon'),
+      OptionalPartPart = require('./part/optionalPart'),
       GroupOfPartsPart = require('./part/groupOfParts'),
-      ProductionNamePart = require('./part/productionName'),
-      RegularExpressionPart = require('./part/regularExpression'),
-      SignificantTokenTypePart = require('./part/significantTokenType'),
       TerminalSymbolPart = require('./part/terminalSymbol'),
-      EpsilonPart = require('./part/epsilon');
+      ProductionNamePart = require('./part/productionName'),
+      OneOrMorePartsPart = require('./part/oneOrMoreParts'),
+      SequenceOfPartsPart = require('./part/sequenceOfParts'),
+      ZeroOrMorePartsPart = require('./part/zeroOrMoreParts'),
+      RegularExpressionPart = require('./part/regularExpression'),
+      SignificantTokenTypePart = require('./part/significantTokenType');
 
 const Parts = {
+  'EpsilonPart' : EpsilonPart,
   'OptionalPartPart' : OptionalPartPart,
-  'ZeroOrMorePartsPart' : ZeroOrMorePartsPart,
-  'OneOrMorePartsPart' : OneOrMorePartsPart,
   'GroupOfPartsPart' : GroupOfPartsPart,
-  'ProductionNamePart' : ProductionNamePart,
-  'RegularExpressionPart' : RegularExpressionPart,
-  'SignificantTokenTypePart' : SignificantTokenTypePart,
   'TerminalSymbolPart' : TerminalSymbolPart,
-  'EpsilonPart' : EpsilonPart
+  'ProductionNamePart' : ProductionNamePart,
+  'OneOrMorePartsPart' : OneOrMorePartsPart,
+  'SequenceOfPartsPart' : SequenceOfPartsPart,
+  'ZeroOrMorePartsPart' : ZeroOrMorePartsPart,
+  'RegularExpressionPart' : RegularExpressionPart,
+  'SignificantTokenTypePart' : SignificantTokenTypePart
 };
 
 module.exports = Parts;

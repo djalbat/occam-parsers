@@ -1,6 +1,7 @@
 'use strict';
 
 const Context = require('./context'),
+      arrayUtil = require('../util/array'),
       parserUtil = require('../util/parser');
 
 class CommonParser {
@@ -26,7 +27,7 @@ class CommonParser {
       const productionsLength = this.productions.length;
 
       if (productionsLength > 0) {
-        const firstProduction = first(this.productions);
+        const firstProduction = arrayUtil.first(this.productions);
 
         production = firstProduction; ///
       }
@@ -39,7 +40,7 @@ class CommonParser {
 
       if (nodeOrNodes !== null) {
         node = (nodeOrNodes instanceof Array) ?
-                 first(nodeOrNodes) :
+                 arrayUtil.first(nodeOrNodes) :
                    nodeOrNodes;
       }
     }
@@ -51,5 +52,3 @@ class CommonParser {
 }
 
 module.exports = CommonParser;
-
-function first(array) { return array[0]; }

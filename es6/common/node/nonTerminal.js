@@ -1,6 +1,7 @@
 'use strict';
 
-const NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
+const arrayUtil = require('../../util/array'),
+      NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
 
 class NonTerminalNode {
   constructor(productionName, childNodes, firstLine, lastLine, firstSignificantToken, lastSignificantToken) {
@@ -56,8 +57,8 @@ class NonTerminalNode {
   }
 
   static fromProductionNameAndChildNodes(productionName, childNodes, Class = NonTerminalNode) {
-    const firstChildNode = first(childNodes),
-          lastChildNode = last(childNodes),
+    const firstChildNode = arrayUtil.first(childNodes),
+          lastChildNode = arrayUtil.last(childNodes),
           firstChildNodeFirstLine = firstChildNode.getFirstLine(),
           lastChildNodeFirstLine = lastChildNode.getLastLine(),
           firstChildNodeFirstSignificantToken = firstChildNode.getFirstSignificantToken(),
@@ -73,6 +74,3 @@ class NonTerminalNode {
 }
 
 module.exports = NonTerminalNode;
-
-function first(array) { return array[0]; }
-function last(array) { return array[array.length - 1]; }
