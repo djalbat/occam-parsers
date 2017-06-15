@@ -1,7 +1,7 @@
 'use strict';
 
 const Production = require('../production'),
-      NonTerminalNode = require('../../common/node/nonTerminal'),
+      GroupOfPartsNode = require('../node/groupOfParts'),
       GroupOfPartsDefinition = require('../definition/groupOfParts');
 
 class GroupOfPartsProduction extends Production {
@@ -11,7 +11,7 @@ class GroupOfPartsProduction extends Production {
           definitions = [
             groupOfPartsDefinition
           ],
-          Node = NonTerminalNode;
+          Node = GroupOfPartsNode;
     
     super(name, definitions, Node)
   }

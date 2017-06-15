@@ -1,7 +1,7 @@
 'use strict';
 
 const Production = require('../production'),
-      NonTerminalNode = require('../../common/node/nonTerminal'),
+      ProductionNameNode = require('../node/productionName'),
       SignificantTokenTypeDefinition = require('../definition/significantTokenType');
 
 class ProductionNameProduction extends Production {
@@ -12,7 +12,7 @@ class ProductionNameProduction extends Production {
           definitions = [
             nameSignificantTokenTypeDefinition
           ],
-          Node = NonTerminalNode;
+          Node = ProductionNameNode;
     
     super(name, definitions, Node)
   }

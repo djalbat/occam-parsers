@@ -45,8 +45,6 @@ class Production {
   }
 
   parse(context, noWhitespace) {
-    console.log(this.name)
-    
     let nodeOrNodes = null;
 
     context.increaseDepth();
@@ -83,7 +81,7 @@ class Production {
           nodes.splice(start, deleteCount);
         }
 
-        nodeOrNodes = this.Node.fromNodesAndProductionName(nodes, productionName);  ///
+        nodeOrNodes = this.Node.fromNodesAndProductionName(nodes, productionName);
       }
     }
 

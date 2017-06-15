@@ -1,7 +1,7 @@
 'use strict';
 
 const Production = require('../production'),
-      NonTerminalNode = require('../../common/node/nonTerminal'),
+      VerticalSpaceNode = require('../node/verticalSpace'),
       VerticalSpaceDefinition = require('../definition/verticalSpace');
 
 class VerticalSpaceProduction extends Production {
@@ -11,7 +11,7 @@ class VerticalSpaceProduction extends Production {
           definitions = [
             verticalSpaceDefinition
           ],
-          Node = NonTerminalNode;
+          Node = VerticalSpaceNode;
     
     super(name, definitions, Node)
   }

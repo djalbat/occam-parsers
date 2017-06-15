@@ -1,7 +1,7 @@
 'use strict';
 
 const Production = require('../production'),
-      NonTerminalNode = require('../../common/node/nonTerminal'),
+      RegularExpressionNode = require('../node/regularExpression'),
       SignificantTokenTypeDefinition = require('../definition/significantTokenType');
 
 class RegularExpressionProduction extends Production {
@@ -12,7 +12,7 @@ class RegularExpressionProduction extends Production {
           definitions = [
             regularExpressionSignificantTokenTypeDefinition
           ],
-          Node = NonTerminalNode;
+          Node = RegularExpressionNode;
     
     super(name, definitions, Node)
   }

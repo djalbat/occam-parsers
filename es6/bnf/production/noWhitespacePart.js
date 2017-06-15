@@ -1,7 +1,7 @@
 'use strict';
 
 const Production = require('../production'),
-      NonTerminalNode = require('../../common/node/nonTerminal'),
+      NoWhitespacePartNode = require('../node/noWhitespacePart'),
       NoWhitespacePartDefinition = require('../definition/noWhitespacePart');
 
 class NoWhitespacePartProduction extends Production {
@@ -11,7 +11,7 @@ class NoWhitespacePartProduction extends Production {
           noWhitespacePart = [
             noWhitespacePartDefinition
           ],
-          Node = NonTerminalNode;
+          Node = NoWhitespacePartNode;
 
     super(name, noWhitespacePart, Node)
   }
