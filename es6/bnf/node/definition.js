@@ -5,11 +5,12 @@ const arrayUtil = require('../../util/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class DefinitionNode extends NonTerminalNode {
-  generateDefinition(Definition, Parts, mappings) {
+  generateDefinition(Definition, Parts) {
     const childNodes = this.getChildNodes(),
           partNodes = childNodes, ///
           parts = partNodes.map(function(partNode) {
-            const part = partNode.generatePart(Parts, mappings);
+            const noWhitespace = false, ///
+                  part = partNode.generatePart(Parts, noWhitespace);
   
             return part;
           }),

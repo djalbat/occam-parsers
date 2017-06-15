@@ -26,7 +26,13 @@ class BNFExample {
 
     const lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
           bnfGrammarTextareaValue = grammar, ///
-          contentTextareaValue = grammar; ///
+          contentTextareaValue = `
+
+  A ::= "a" | B+
+  
+  B ::= "b"
+  
+  `; ///
 
     lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
 

@@ -6,7 +6,7 @@ const arrayUtil = require('../../util/array'),
 class ProductionNode extends NonTerminalNode {
   generateProduction(Production, Definition, Parts, mappings) {
     const name = this.getName(),
-          definitions = this.generateDefinitions(Definition, Parts, mappings),
+          definitions = this.generateDefinitions(Definition, Parts),
           Node = mappings[name] || NonTerminalNode,
           production = new Production(name, definitions, Node);
 
@@ -22,11 +22,11 @@ class ProductionNode extends NonTerminalNode {
     return name;
   }
   
-  generateDefinitions(Definition, Parts, mappings) {
+  generateDefinitions(Definition, Parts) {
     const childNodes = this.getChildNodes(),
           lastChildNode = last(childNodes),
           definitionsNode = lastChildNode,  ///
-          definitions = definitionsNode.generateDefinitions(Definition, Parts, mappings);
+          definitions = definitionsNode.generateDefinitions(Definition, Parts);
     
     return definitions;
   }
