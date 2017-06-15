@@ -12,6 +12,8 @@ class arrayUtil {
   static discardSecond(array) { return discardNth(array, 1); }
 
   static discardLast(array) { return discardNth(array, -1); }
+
+  static discardOdd(array) { return array.filter(function(entry, index) { return isEven(index); }); }
 }
 
 module.exports = arrayUtil;
@@ -28,4 +30,10 @@ function discardNth(array, n) {
   array.splice(n, 1);
 
   return array;
+}
+
+function isEven(index) {
+  const even = (Math.floor(index/2) === index/2);
+
+  return even;
 }

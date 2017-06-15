@@ -55,8 +55,8 @@ function update() {
     const production = null,
           node = Example.updateParseTreeTextarea(bnfLexer, bnfParser, production),
           productionsNode = node; ///
-          
-    bnfParser.generateProductions(productionsNode);    
+
+    bnfParser.generateProductions(productionsNode);
   } else {
     Example.clearParseTreeTextarea();
   }

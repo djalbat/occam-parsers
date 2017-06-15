@@ -1,6 +1,9 @@
 'use strict';
 
-const cycles = require('../grammar/cycles'),
+const Parts = require('./parts'),
+      Definition = require('./definition'),
+      Production = require('./production'),
+      cycles = require('../grammar/cycles'),
       leftRecursion = require('../grammar/leftRecursion'),
       CommonParser = require('../common/parser'),
       PartProduction = require('./production/part'),
@@ -21,8 +24,8 @@ const cycles = require('../grammar/cycles'),
       SignificantTokenTypeProduction = require('./production/significantTokenType');
 
 class BNFParser extends CommonParser {
-  generateProductions(productionsNode) {
-    debugger
+  generateProductions(productionsNode, mappings = {}) {
+    productionsNode.generateProductions(Production, Definition, Parts, mappings);
   }
 
   static fromNothing() {

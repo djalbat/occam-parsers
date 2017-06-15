@@ -4,6 +4,15 @@ const arrayUtil = require('../../util/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class ProductionNode extends NonTerminalNode {
+  generateProduction(Production, Definition, Parts, mappings) {
+    const name = this.getName(),
+          definitions = this.generateDefinitions(Definition, Parts, mappings),
+          Node = mappings[name] || NonTerminalNode,
+          production = new Production(name, definitions, Node);
+
+    return production;
+  }
+
   getName() {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
@@ -13,11 +22,11 @@ class ProductionNode extends NonTerminalNode {
     return name;
   }
   
-  getDefinitions() {
+  generateDefinitions(Definition, Parts, mappings) {
     const childNodes = this.getChildNodes(),
           lastChildNode = last(childNodes),
           definitionsNode = lastChildNode,  ///
-          definitions = definitionsNode.getDefinitions();
+          definitions = definitionsNode.generateDefinitions(Definition, Parts, mappings);
     
     return definitions;
   }
@@ -33,4 +42,5 @@ class ProductionNode extends NonTerminalNode {
 module.exports = ProductionNode;
 
 function first(array) { return array[0]; }
+
 function last(array) { return array[array.length - 1]; }

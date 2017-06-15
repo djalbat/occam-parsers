@@ -39,6 +39,8 @@ class TerminalNode {
 
     return lastLine;
   }
+
+  getContent() { return this.significantToken.getContent(); }
   
   generateParseTree(lines) {
     const terminalNode = this,  ///
