@@ -31,54 +31,36 @@ class nodeUtil {
     return nodeNoWhitespaceNode;
   }
   
-  static isNodeQuantifierNode(node) {
-    let nodeQuantifierNode = false;
+  static quantifiersFromQuantifiersNode(quantifiersNode, quantifiers = []) {
+    const quantifier = quantifierFromQuantifiersNode(quantifiersNode);
 
-    const loneGrandChildTerminalNode = nodeUtil.loneGrandChildTerminalNodeFromNode(node);
-    
-    if (loneGrandChildTerminalNode !== null) {
-      const loneGrandChildTerminalNodeContent = loneGrandChildTerminalNode.getContent();
+    quantifiers.push(quantifier);
 
-      nodeQuantifierNode = (loneGrandChildTerminalNodeContent === "?") ||
-                           (loneGrandChildTerminalNodeContent === "*") ||
-                           (loneGrandChildTerminalNodeContent === "+");
+    const quantifiersNodeChildNodes = quantifiersNode.getChildNodes(),
+          quantifiersNodeChildNodesLength =  quantifiersNodeChildNodes.length;
+
+    if (quantifiersNodeChildNodesLength === 2) {
+      const secondQuantifiersNodeChildNode = second(quantifiersNodeChildNodes);
+
+      quantifiersNode = secondQuantifiersNodeChildNode; ///
+
+      quantifiers = nodeUtil.quantifiersFromQuantifiersNode(quantifiersNode, quantifiers);
     }
 
-    return nodeQuantifierNode;
-  }
-
-  static contentFromQuantifierNode(quantifierNode) {
-    const quantifierNodeLoneGrandChildTerminalNode = nodeUtil.loneGrandChildTerminalNodeFromNode(quantifierNode),
-          quantifierNodeLoneGrandChildTerminalNodeContent = quantifierNodeLoneGrandChildTerminalNode.getContent(),
-          content = quantifierNodeLoneGrandChildTerminalNodeContent;  ///
-
-    return content;
-  }
-  
-  static loneGrandChildTerminalNodeFromNode(node) {
-    let loneGrandChildTerminalNode = null;
-
-    const nodeNonTerminalNode = nodeUtil.isNodeNonTerminalNode(node);
-
-    if (nodeNonTerminalNode) {
-      const nonTerminalNode = node, ///
-            nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes(),
-            nonTerminalNodeChildNodesLength = nonTerminalNodeChildNodes.length;
-
-      if (nonTerminalNodeChildNodesLength === 1) {
-        const firstNonTerminalNodeChildNode = first(nonTerminalNodeChildNodes),
-              firstNonTerminalNodeChildNodeTerminalNode = nodeUtil.isNodeTerminalNode(firstNonTerminalNodeChildNode);
-        
-        if (firstNonTerminalNodeChildNodeTerminalNode) {
-          loneGrandChildTerminalNode = firstNonTerminalNodeChildNode;
-        }
-      }
-    }
-
-    return loneGrandChildTerminalNode;
+    return quantifiers;
   }
 }
 
 module.exports = nodeUtil;
 
+function quantifierFromQuantifiersNode(quantifiersNode) {
+  const quantifiersNodeChildNodes = quantifiersNode.getChildNodes(),
+        firstQuantifiersNodeChildNode = first(quantifiersNodeChildNodes),
+        firstQuantifiersNodeChildNodeContent = firstQuantifiersNodeChildNode.getContent(),
+        quantifier = firstQuantifiersNodeChildNodeContent;
+
+  return quantifier;
+}
+
 function first(array) { return array[0]; }
+function second(array) { return array[1]; }

@@ -49,43 +49,67 @@ function partFromChildNode(childNode, Parts, noWhitespace) {
 }
 
 function partFromChildNodes(childNodes, Parts, noWhitespace) {
-  let part;
-
   const firstChildNode = first(childNodes),
         secondChildNode = second(childNodes),
-        secondChildNodeQuantifierNode = nodeUtil.isNodeQuantifierNode(secondChildNode);
-
-  if (secondChildNodeQuantifierNode) {
-    const node = firstChildNode,  ///
-          quantifierNode = secondChildNode;
-
-    part = partFromNodeAndQuantifierNode(node, quantifierNode, Parts, noWhitespace);
-  }
+        node = firstChildNode,  ///
+        quantifiersNode = secondChildNode, ///
+        sequenceOfPartsPart = sequenceOfPartsPartFromNodeAndQuantifiersNode(node, quantifiersNode, Parts, noWhitespace),
+        part = sequenceOfPartsPart; ///
 
   return part;
 }
 
-function partFromNodeAndQuantifierNode(node, quantifierNode, Parts, noWhitespace) {
-  let part = node.generatePart(Parts, noWhitespace);
+function sequenceOfPartsPartFromNodeAndQuantifiersNode(node, quantifiersNode, Parts, noWhitespace) {
+  const part = node.generatePart(Parts, noWhitespace),
+        quantifiers = nodeUtil.quantifiersFromQuantifiersNode(quantifiersNode),
+        sequenceOfPartsPart = sequenceOfPartsPartFromPartAndQuantifiers(part, quantifiers, Parts);
 
-  const quantifierNodeContent = nodeUtil.contentFromQuantifierNode(quantifierNode),
-        quantifier = quantifierNodeContent; ///
+  return sequenceOfPartsPart;
+}
 
-  let Part;
+function sequenceOfPartsPartFromPartAndQuantifiers(part, quantifiers, Parts) {
+  const quantifier = quantifiers.shift(),
+        quantifiersLength = quantifiers.length;
+
+  let sequenceOfPartsPart = sequenceOfPartsPartFromPartAndQuantifier(part, quantifier, Parts);
+
+  if (quantifiersLength > 0) {
+    part = sequenceOfPartsPart; ///
+
+    sequenceOfPartsPart = sequenceOfPartsPartFromPartAndQuantifiers(part, quantifiers, Parts);
+  }
+
+  return sequenceOfPartsPart;
+}
+
+function sequenceOfPartsPartFromPartAndQuantifier(part, quantifier, Parts) {
+  let sequenceOfPartsPart;
 
   switch (quantifier) {
-    case '+':
-      const OneOrMorePartsPart = Parts['OneOrMorePartsPart'];
+    case '?':
+      const OptionalPartPart = Parts['OptionalPartPart'],
+            optionalPartPart = new OptionalPartPart(part);
 
-      Part = OneOrMorePartsPart;
+      sequenceOfPartsPart = optionalPartPart;
+      break;
+
+    case '*':
+      const ZeroOrMorePartsPart = Parts['ZeroOrMorePartsPart'],
+            zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
+
+      sequenceOfPartsPart = zeroOrMorePartsPart;
+      break;
+
+    case '+':
+      const OneOrMorePartsPart = Parts['OneOrMorePartsPart'],
+            oneOrMorePartsPart = new OneOrMorePartsPart(part);
+
+      sequenceOfPartsPart = oneOrMorePartsPart;
       break;
   }
 
-  part = new Part(part);  ///
-
-  return part;
+  return sequenceOfPartsPart;
 }
 
 function first(array) { return array[0]; }
-
 function second(array) { return array[1]; }
