@@ -50,7 +50,7 @@ const grammar = `
   
   endOfLineSymbol          ::=  "<END_OF_LINE>"
 
-  verticalSpace            ::=  [endOfLine]+
+  verticalSpace            ::=  <END_OF_LINE>+
   
 `;
 

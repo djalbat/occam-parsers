@@ -1,16 +1,15 @@
 'use strict';
 
 const Definition = require('../definition'),
-      OneOrMorePartsPart = require('../part/oneOrMoreParts'),
-      SignificantTokenTypePart = require('../part/significantTokenType');
+      EndOfLinePart = require('../part/endOfLine'),
+      OneOrMorePartsPart = require('../part/oneOrMoreParts');
 
 class VerticalSpaceDefinition extends Definition {
   constructor() {
-    const endOfLineSignificantTokenType = 'endOfLine',
-          endOfLineSignificantTokenTypePart = new SignificantTokenTypePart(endOfLineSignificantTokenType),
-          oneOrMoreEndOfLineSignificantTokenTypePartsPart = new OneOrMorePartsPart(endOfLineSignificantTokenTypePart),
+    const endOfLinePart = new EndOfLinePart(),
+          oneOrMoreEndOfLinePartsPart = new OneOrMorePartsPart(endOfLinePart),
           parts = [
-            oneOrMoreEndOfLineSignificantTokenTypePartsPart
+            oneOrMoreEndOfLinePartsPart
           ];
 
     super(parts)
