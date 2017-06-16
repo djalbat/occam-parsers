@@ -13,7 +13,7 @@ class RegularExpressionNode extends NonTerminalNode {
   }
 
   getRegExp() {
-    let regExp = /^\/([^/]+)\/$/; ///
+    let regExp = /^\/([^\/]+)\/$/; ///
 
     const childNodes = this.getChildNodes(),
           firstChildNode = arrayUtil.first(childNodes),
