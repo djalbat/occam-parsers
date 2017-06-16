@@ -12,15 +12,15 @@ const { Graph } = tarjan;
 
 class cycles {
   static eliminate(productions) {
-    const graph = graphFromProductions(productions),
+    const unitDefinitionsProductions = unitDefinitionsProductionsFromProductions(productions),
+          graph = graphFromUnitDefinitionsProductions(unitDefinitionsProductions),
           components = graph.generateComponents(),
-          nonCyclicProductions = nonCyclicProductionsFromComponents(components, productions),
-          alreadyNonCyclicProductions = alreadyNonCyclicProductionsFromGraph(graph, productions);
+          nonCyclicProductions = nonCyclicProductionsFromComponents(components, unitDefinitionsProductions);
 
     productions = productions.map(function(production) {
       const productionName = production.getName(),
             nonCyclicProduction = parserUtil.findProduction(productionName, nonCyclicProductions),
-            alreadyNonCyclicProduction = parserUtil.findProduction(productionName, alreadyNonCyclicProductions);
+            alreadyNonCyclicProduction = parserUtil.findProduction(productionName, productions);  ///
 
       production = nonCyclicProduction || alreadyNonCyclicProduction; ///
 
@@ -32,13 +32,6 @@ class cycles {
 }
 
 module.exports = cycles;
-
-function graphFromProductions(productions) {
-  const unitDefinitionsProductions = unitDefinitionsProductionsFromProductions(productions),
-        graph = graphFromUnitDefinitionsProductions(unitDefinitionsProductions);
-
-  return graph;
-}
 
 function unitDefinitionsProductionsFromProductions(productions) {
   const unitDefinitionsProductions = productions.reduce(function(unitDefinitionsProductions, production) {
@@ -60,8 +53,9 @@ function graphFromUnitDefinitionsProductions(unitDefinitionsProductions) {
   unitDefinitionsProductions.forEach(function(unitDefinitionsProduction) {
     const productionName = unitDefinitionsProduction.getName(),
           productionNames = unitDefinitionsProduction.getProductionNames(),
+          unitDefinitionProductionNames = unitDefinitionProductionNamesFromProductionNames(productionNames, unitDefinitionsProductions),
           vertexName = productionName,  ///
-          descendantVertexNames = productionNames; ///
+          descendantVertexNames = unitDefinitionProductionNames; ///
 
     graph.addVertex(vertexName, descendantVertexNames);
   });
@@ -69,14 +63,30 @@ function graphFromUnitDefinitionsProductions(unitDefinitionsProductions) {
   return graph;
 }
 
-function nonCyclicProductionsFromComponents(components, productions) {
+function unitDefinitionProductionNamesFromProductionNames(productionNames, unitDefinitionProductions) {
+  const unitDefinitionProductionNames = productionNames.reduce(function(unitDefinitionProductionNames, productionName) {
+    const unitDefinitionProduction = parserUtil.findProduction(productionName, unitDefinitionProductions);
+    
+    if (unitDefinitionProduction !== null) {
+      const unitDefinitionProductionName = productionName;  ///
+
+      unitDefinitionProductionNames.push(unitDefinitionProductionName);
+    }    
+    
+    return unitDefinitionProductionNames;
+  }, []);
+
+  return unitDefinitionProductionNames;
+}
+
+function nonCyclicProductionsFromComponents(components, unitDefinitionsProductions) {
   const nonCyclicProductions = components.reduce(function(nonCyclicProductions, component) {
           const componentNonCyclic = component.isNonCyclic();
 
           if (componentNonCyclic) {
-            nonCyclicProductionFromComponent(component, productions, nonCyclicProductions);
+            nonCyclicProductionFromComponent(component, unitDefinitionsProductions, nonCyclicProductions);
           } else {
-            nonCyclicProductionsFromComponent(component, productions, nonCyclicProductions);
+            nonCyclicProductionsFromComponent(component, unitDefinitionsProductions, nonCyclicProductions);
           }
 
           return nonCyclicProductions;
@@ -85,35 +95,22 @@ function nonCyclicProductionsFromComponents(components, productions) {
   return nonCyclicProductions;
 }
 
-function alreadyNonCyclicProductionsFromGraph(graph, productions) {
-  const alreadyNonCyclicProductions = productions.filter(function(production) {
-    const productionName = production.getName(),
-          vertexName = productionName,  ///
-          vertexPresent = graph.isVertexPresent(vertexName),
-          productionAlreadyNonCyclic = !vertexPresent; ///
-    
-    return productionAlreadyNonCyclic;
-  });
-
-  return alreadyNonCyclicProductions;
-}
-
-function nonCyclicProductionFromComponent(component, productions, nonCyclicProductions) {
+function nonCyclicProductionFromComponent(component, unitDefinitionsProductions, nonCyclicProductions) {
   const firstVertex = component.getFirstVertex(),
         firstVertexName = firstVertex.getName(),
         nonCyclicProductionName = firstVertexName,  ///
-        nonCyclicProduction = parserUtil.findProduction(nonCyclicProductionName, productions);
+        nonCyclicProduction = parserUtil.findProduction(nonCyclicProductionName, unitDefinitionsProductions);
 
-  if (nonCyclicProduction !== null) {
+  if (nonCyclicProduction !== null) { ///
     nonCyclicProductions.push(nonCyclicProduction);
   }
 }
 
-function nonCyclicProductionsFromComponent(component, productions, nonCyclicProductions) {
-  productions = productionsFromComponent(component, productions); ///
-
-  const fixedProductions = fixedProductionsFromProductions(productions),
-        unitDefinitionProductions = unitDefinitionProductionsFromProductions(productions),
+function nonCyclicProductionsFromComponent(component, unitDefinitionsProductions, nonCyclicProductions) {
+  unitDefinitionsProductions = unitDefinitionsProductionsFromComponent(component, unitDefinitionsProductions);  ///
+  
+  const unitDefinitionProductions = unitDefinitionProductionsFromUnitDefinitionsProductions(unitDefinitionsProductions),
+        fixedProductions = fixedProductionsFromUnitDefinitionsProductions(unitDefinitionsProductions),
         removedProductions = [],
         addedProductions = [];
 
@@ -188,25 +185,27 @@ function nonCyclicProductionsFromFixedAndAddedProductions(fixedProductions, adde
   });
 }
 
-function productionsFromComponent(component, productions) {
-  productions = component.mapVertices(function(vertex) {
+function unitDefinitionsProductionsFromComponent(component, unitDefinitionsProductions) {
+  const componentUnitDefinitionProductions = component.mapVertices(function(vertex) {
     const vertexName = vertex.getName(),
-          productionName = vertexName,  ///
-          production = parserUtil.findProduction(productionName, productions);
+          componentUnitDefinitionName = vertexName,  ///
+          componentUnitDefinitionProduction = parserUtil.findProduction(componentUnitDefinitionName, unitDefinitionsProductions);
 
-    return production;
+    return componentUnitDefinitionProduction;
   });
 
-  return productions;
+  unitDefinitionsProductions = componentUnitDefinitionProductions;  ///
+
+  return unitDefinitionsProductions;
 }
 
-function unitDefinitionProductionsFromProductions(productions) {
-  const unitDefinitionProductions = productions.reduce(function(unitDefinitionProductions, production) {
-    const name = production.getName(),
-          unitDefinitionsProduction = UnitDefinitionsProduction.fromProduction(production);
-
+function unitDefinitionProductionsFromUnitDefinitionsProductions(unitDefinitionsProductions) {
+  const unitDefinitionProductions = unitDefinitionsProductions.reduce(function(unitDefinitionProductions, unitDefinitionsProduction) {
+    const unitDefinitionsProductionName = unitDefinitionsProduction.getName();
+    
     unitDefinitionsProduction.forEachUnitDefinition(function(unitDefinition) {
-      const unitDefinitionProduction = UnitDefinitionProduction.fromNameAndUnitDefinition(name, unitDefinition);
+      const name = unitDefinitionsProductionName, ///
+            unitDefinitionProduction = UnitDefinitionProduction.fromNameAndUnitDefinition(name, unitDefinition);
 
       unitDefinitionProductions.push(unitDefinitionProduction);
     });
@@ -217,9 +216,9 @@ function unitDefinitionProductionsFromProductions(productions) {
   return unitDefinitionProductions;
 }
 
-function fixedProductionsFromProductions(productions) {
-  const fixedProductions = productions.map(function(production) {
-    const nonUnitProduction = NonUnitDefinitionsProduction.fromProduction(production),
+function fixedProductionsFromUnitDefinitionsProductions(unitDefinitionsProductions) {
+  const fixedProductions = unitDefinitionsProductions.map(function(unitDefinitionsProduction) {
+    const nonUnitProduction = NonUnitDefinitionsProduction.fromUnitDefinitionsProduction(unitDefinitionsProduction),
           fixedProduction = nonUnitProduction; ///
     
     return fixedProduction;
