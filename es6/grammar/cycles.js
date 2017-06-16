@@ -3,7 +3,7 @@
 const tarjan = require('occam-tarjan');
 
 const parserUtil = require('../util/parser'),
-      Production = require('../common/production'),
+      Production = require('../bnf/production'),
       UnitDefinitionProduction = require('./production/unitDefinition'),
       UnitDefinitionsProduction = require('./production/unitDefinitions'),
       NonUnitDefinitionsProduction = require('./production/nonUnitDefinitions');

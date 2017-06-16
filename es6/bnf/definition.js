@@ -1,8 +1,7 @@
 'use strict';
 
 const arrayUtil = require('../util/array'),
-      ProductionNamePart = require('./part/productionName'),
-      CommonProductionNamePart = require('../common/part/productionName');
+      ProductionNamePart = require('./part/productionName');
 
 class Definition {
   constructor(parts) {
@@ -33,7 +32,7 @@ class Definition {
 
   isFirstPartProductionNamePart() {
     const firstPart = this.getFirstPart(),
-          firstPartProductionNamePart = (firstPart instanceof ProductionNamePart) || (firstPart instanceof CommonProductionNamePart);
+          firstPartProductionNamePart = (firstPart instanceof ProductionNamePart);
 
     return firstPartProductionNamePart;
   }
