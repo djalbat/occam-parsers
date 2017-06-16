@@ -24,10 +24,14 @@ const Parts = require('./parts'),
       SignificantTokenTypeProduction = require('./production/significantTokenType');
 
 class BNFParser extends CommonParser {
-  generateProductions(productionsNode, mappings = {}) {
-    const productions = (productionsNode !== null) ?
-                          productionsNode.generateProductions(Production, Definition, Parts, mappings) :
-                            [];
+  static generateProductions(node, mappings = {}) {
+    let productions = (node !== null) ?
+                        node.generateProductions(Production, Definition, Parts, mappings) :
+                          [];
+
+    productions = cycles.eliminate(productions);  ///
+
+    productions = leftRecursion.eliminate(productions);  ///
 
     return productions;
   }

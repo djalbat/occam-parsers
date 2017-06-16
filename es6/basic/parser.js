@@ -3,10 +3,10 @@
 const lexers = require('occam-lexers');
 
 const grammar = require('./grammar'),
-      CommonParser = require('../common/parser'),
-      PrimitiveParser = require('../primitive/parser');
+      BNFParser = require('../bnf/parser'),
+      CommonParser = require('../common/parser');
 
-const { PrimitiveLexer, BasicLexer } = lexers;
+const { BNFLexer } = lexers;
 
 class BasicParser extends CommonParser {
   static fromNothing() {
@@ -16,10 +16,11 @@ class BasicParser extends CommonParser {
   }
   
   static fromGrammar(grammar) {
-    const lines = PrimitiveLexer.linesFromGrammar(grammar),
-          significantTokenTypes = BasicLexer.significantTokenTypes(),
-          mappings = {},
-          productions = PrimitiveParser.parse(lines, significantTokenTypes, mappings),
+    const bnfLexer = BNFLexer.fromNothing(),
+          bnfParser = BNFParser.fromNothing(),
+          lines = bnfLexer.linesFromGrammar(grammar),
+          node = bnfParser.nodeFromLines(lines),
+          productions = BNFParser.generateProductions(node),
           basicParser = new BasicParser(productions);
 
     return basicParser;

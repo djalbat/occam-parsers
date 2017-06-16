@@ -26,13 +26,7 @@ class BNFExample {
 
     const lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
           bnfGrammarTextareaValue = grammar, ///
-          contentTextareaValue = `
-
-  A ::= "a" | B+
-  
-  B ::= "b"
-  
-  `; ///
+          contentTextareaValue = grammar; ///
 
     lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
 
@@ -62,7 +56,7 @@ function update() {
           node = Example.updateParseTreeTextarea(bnfLexer, bnfParser, production),
           productionsNode = node; ///
 
-    bnfParser.generateProductions(productionsNode);
+    BNFParser.generateProductions(productionsNode);
   } else {
     Example.clearParseTreeTextarea();
   }

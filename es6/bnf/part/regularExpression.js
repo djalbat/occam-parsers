@@ -1,6 +1,7 @@
 'use strict';
 
-const TerminalNode = require('../../common/node/terminal');
+const arrayUtil = require('../../util/array'),
+      TerminalNode = require('../../common/node/terminal');
 
 class RegularExpressionPart {
   constructor(regExp, noWhitespace = false) {
@@ -18,11 +19,16 @@ class RegularExpressionPart {
           significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      const significantTokenType = significantToken.getType(),
-            parsed = (significantTokenType === 'regularExpression');  ///
+      const content = significantToken.getContent(),
+            matches = content.match(this.regExp);
 
-      if (parsed) {
-        terminalNode = TerminalNode.fromSignificantToken(significantToken);
+      if (matches !== null) {
+        const firstMatch = arrayUtil.first(matches),
+              parsed = (firstMatch === content);
+
+        if (parsed) {
+          terminalNode = TerminalNode.fromSignificantToken(significantToken);
+        }
       }
     }
 

@@ -13,14 +13,14 @@ class CommonParser {
     return this.productions;
   }
   
-  nodeFromLines(lines, production = null) {
+  nodeFromLines(lines, production) {
     const tokens = parserUtil.tokensFromLines(lines),
           node = this.parse(tokens, production);
     
     return node;
   }
 
-  parse(tokens, production) {
+  parse(tokens, production = null) {
     let node = null;
 
     if (production === null) {

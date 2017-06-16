@@ -13,10 +13,14 @@ class TerminalSymbolNode extends NonTerminalNode {
   }
 
   getContent() {
-    const childNodes = this.getChildNodes(),
+    const regExp = /^"([^"]+)"$/,
+          childNodes = this.getChildNodes(),
           firstChildNode = arrayUtil.first(childNodes),
           terminalNode = firstChildNode,  ///
-          content = terminalNode.getContent();
+          terminalNodeContent = terminalNode.getContent(),
+          matches = terminalNodeContent.match(regExp),
+          secondMatch = arrayUtil.second(matches),
+          content = secondMatch; ///
 
     return content;
   }

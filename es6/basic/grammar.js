@@ -2,7 +2,7 @@
 
 const grammar = `
 
- expression               ::=  expression '+' term | term
+ expression               ::=  expression "+" term | term
 
  term                     ::=  naturalNumber
 
