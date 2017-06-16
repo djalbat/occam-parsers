@@ -2,241 +2,226 @@
 
 const grammar = `
 
-
-    document                                                      ::=   header? verticalSpace? body?   
-                                              
-                                              
-                                              
-    header                                                        ::=   includeDirective+
-    
-    includeDirective                                              ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE>
-                                              
-        
-                                              
-    body                                                          ::=   part+  
-        
-    part                                                          ::=   type(s)Declaration
-    
-                                                                    |   typedConstructor(s)Declaration 
-                                                        
-                                                                    |   (typed)Variable(s)Declaration
-                                                        
-                                                                    |   (qualified)Metavariable(s)Declaration
-
-                                                                    |   rule 
-                                                        
-                                                                    |   axiom
-                                                         
-                                                                    |   theorem 
-                                                        
-                                                                    |   lemma 
-                                                        
-                                                                    |   verticalSpace 
-                                                        
-                                                                    |   error
-                                                        
-                                                        
-                                                        
-    type(s)Declaration                                            ::=   typesDeclaration | typeDeclaration 
-    
-    typedConstructor(s)Declaration                                ::=   typedConstructorsDeclaration | typedConstructorDeclaration 
-    
-    (typed)Variable(s)Declaration                                 ::=   (typed)VariableDeclaration | (typed)VariablesDeclaration
-    
-    (qualified)Metavariable(s)Declaration                         ::=   (qualified)MetavariablesDeclaration | (qualified)MetavariableDeclaration
-
-    rule                                                          ::=   "Rule" parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
-    
-    axiom                                                         ::=   "Axiom" parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion
-    
-    theorem                                                       ::=   "Theorem" parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
-        
-    lemma                                                         ::=   "Lemma" parenthesisedLabelList? <END_OF_LINE> premise(s)? conclusion proof?
+     document                                                      ::=   header? verticalSpace? body?
 
 
 
-    typesDeclaration                                              ::=   "Types" typeList
-    
-    typeDeclaration                                               ::=   "Type" type
-    
-    typeList                                                      ::=   type<NO_WHITESPACE>commaThenType*
-    
-    commaThenType                                                 ::=   ","<NO_WHITESPACE>type
-    
-    type                                                          ::=   typeName
+     header                                                        ::=   includeDirective+
 
-    typeName                                                      ::=   name
+     body                                                          ::=   part+
 
-    
-    
-    typedConstructorsDeclaration                                  ::=   "Constructors" typedConstructorList
-    
-    typedConstructorDeclaration                                   ::=   "Constructor" typedConstructor
-
-    typedConstructorList                                          ::=   typedConstructor<NO_WHITESPACE>commaThenTypedConstructor*
-    
-    commaThenTypedConstructor                                     ::=   ","<NO_WHITESPACE>typedConstructor
-    
-    typedConstructor                                              ::=   constructor<NO_WHITESPACE>":"<NO_WHITESPACE>type
-    
-    constructor                                                   ::=   constructorName<NO_WHITESPACE>parenthesisedTypeList?
-    
-    parenthesisedTypeList                                         ::=   "("<NO_WHITESPACE>typeList<NO_WHITESPACE>")"
-
-    constructorName                                               ::=   name
+     verticalSpace                                                 ::=   <END_OF_LINE>+
 
 
 
-    (typed)VariablesDeclaration                                   ::=   "Variables" (typed)VariableList
-    
-    (typed)VariableDeclaration                                    ::=   "Variable" (typed)Variable
+     rule                                                          ::=   "Rule" parenthesisedLabels? <END_OF_LINE> premiseOrPremises? conclusion proof?
 
-    (typed)VariableList                                           ::=   (typed)Variable<NO_WHITESPACE>commaThen(typed)Variable*
-    
-    commaThen(typed)Variable                                      ::=   ","<NO_WHITESPACE>(typed)Variable
-    
-    (typed)Variable                                               ::=   typedVariable | variable
-    
-    typedVariable                                                 ::=   variable<NO_WHITESPACE>":"<NO_WHITESPACE>type
-    
-    variable                                                      ::=   variableName
-    
-    variableName                                                  ::=   name
-    
-    
-    
-    (qualified)MetavariablesDeclaration                           ::=   "Metavariables" (qualified)MetavariableList
-    
-    (qualified)MetavariableDeclaration                            ::=   "Metavariable" (qualified)Metavariable
-    
-    (qualified)MetavariableList                                   ::=   (qualified)Metavariable<NO_WHITESPACE>commaThen(qualified)Metavariable+
+     axiom                                                         ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement
 
-    commaThen(qualified)Metavariable                              ::=   ","<NO_WHITESPACE>(qualified)Metavariable
+     lemma                                                         ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement proof?
 
-    (qualified)Metavariable                                       ::=   qualifiedMetavariable | metavariable
-    
-    qualifiedMetavariable                                         ::=   metavariable<NO_WHITESPACE>parenthesisedTypeOrTerm
-
-    metavariable                                                  ::=   metavariableName
-
-    parenthesisedTypeOrTerm                                       ::=   "("<NO_WHITESPACE>typeOrTerm<NO_WHITESPACE>")"
-    
-    typeOrTerm                                                    ::=   type | term
-    
-    metavariableName                                              ::=   name
-    
-    
-
-    parenthesisedLabelList                                        ::=   "("<NO_WHITESPACE>labelList<NO_WHITESPACE>")"
-    
-    labelList                                                     ::=   label<NO_WHITESPACE>commaThenLabel*
-    
-    commaThenLabel                                                ::=   ","<NO_WHITESPACE>label
-    
-    label                                                         ::=   labelName<NO_WHITESPACE>parenthesisedTermList?
-    
-    labelName                                                     ::=   name
-
-    
-    
-    premise(s)                                                    ::=   premise | premises
-    
-    premise                                                       ::=   "Premise" <END_OF_LINE> unjustifiedStatementOrUnknown
-    
-    premises                                                      ::=   "Premises" <END_OF_LINE> unjustifiedStatementOrUnknown unjustifiedStatementOrUnknown+
-    
-    conclusion                                                    ::=   "Conclusion" <END_OF_LINE> (un)justifiedStatementOrUnknown
-    
+     theorem                                                       ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement proof?
 
 
-    proof                                                         ::=   "Proof" <END_OF_LINE> (abridged)ProofDerivation
-    
-    (abridged)ProofDerivation                                     ::=   proofDerivation | abridgedProofDerivation
-    
-    abridgedProofDerivation                                       ::=   (un)justifiedStatementOrUnknown
-    
-    proofDerivation                                               ::=   derivation therefore
-    
-    derivation                                                    ::=   subDerivation+    
-    
-    therefore                                                     ::=   "Therefore" <END_OF_LINE> (un)justifiedStatementOrUnknown
-    
-    subDerivation                                                 ::=   subLemma | (un)justifiedStatementOrUnknown
-    
-    
-    
-    subLemma                                                      ::=   suppose then? hence unjustifiedStatementOrUnknown? verticalSpace?    
-    
-    suppose                                                       ::=   "Suppose" <END_OF_LINE> unjustifiedStatementOrUnknown+
-    
-    then                                                          ::=   "Then" <END_OF_LINE> derivation
-    
-    hence                                                         ::=   "Hence" <END_OF_LINE> (un)justifiedStatementOrUnknown
-    
-    
-    
-    (un)justifiedStatementOrUnknown                               ::=   justifiedStatement | unjustifiedStatement | unknown
-    
-    unjustifiedStatementOrUnknown                                 ::=   unjustifiedStatement | unknown
-    
-    unjustifiedStatement                                          ::=   statement <END_OF_LINE>
-    
-    justifiedStatement                                            ::=   statement justification <END_OF_LINE>
-      
-    justification                                                 ::=   byOrFrom reference
+
+     typeDeclaration                                               ::=   "Type" type
+
+     typesDeclaration                                              ::=   "Types" types
+
+     dependentTypeDeclaration                                      ::=   "DependentType" dependentType
+
+     dependentTypesDeclaration                                     ::=   "DependentTypes" dependentTypes 
+
+     constructorDeclaration                                        ::=   "Constructor" constructor
+
+     constructorsDeclaration                                       ::=   "Constructors" constructors
+
+     variableDeclaration                                           ::=   "Variable" variable
+
+     variablesDeclaration                                          ::=   "Variables" variables
+
+     metaVariableDeclaration                                       ::=   "MetaVariable" metaVariable
+
+     metaVariablesDeclaration                                      ::=   "MetaVariables" metaVariables
+
+     qualifiedMetaVariableDeclaration                              ::=   "QualifiedMetaVariable" qualifiedMetaVariable
+
+     qualifiedMetaVariablesDeclaration                             ::=   "QualifiedMetaVariables" qualifiedMetaVariables
      
-    byOrFrom                                                      ::=   "by" | "from"
      
-    reference                                                     ::=   referenceName<NO_WHITESPACE>parenthesisedTermList?
+     
+     part                                                          ::=   verticalSpace
 
-    referenceName                                                 ::=   name
-
-    
-
-    statement                                                     ::=   proofAssertion | typeAssertion | equality | expression     
-    
-    
-    
-    proofAssertion                                                ::=   (qualified)Metavariable "::" (qualified)Metavariable
-
-    typeAssertion                                                 ::=   expression ":" type
-    
-    equality                                                      ::=   expression "=" expression    
-    
-    expression                                                    ::=   term | (qualified)Metavariable
-    
-    
-
-    term                                                          ::=   compoundTerm | variableName
-    
-    compoundTerm                                                  ::=   constructorName<NO_WHITESPACE>parenthesisedTermList?
-    
-    
-
-    parenthesisedTermList                                         ::=   "("<NO_WHITESPACE>termList<NO_WHITESPACE>")"
-
-    termList                                                      ::=   term<NO_WHITESPACE>commaThenTerm*
-    
-    commaThenTerm                                                 ::=   ","<NO_WHITESPACE>term
-    
-
-
-    name                                                          ::=   /\\w+/
-    
-    
-
-    unknown                                                       ::=   specialUnassignedOrMinorKeywords+ <END_OF_LINE>
-
-    specialUnassignedOrMinorKeywords                              ::=   [special] | [unassigned] | "by" | "from"
+                                                                     |   rule
+                                                                
+                                                                     |   axiom
+                                                                
+                                                                     |   lemma
+                                                                
+                                                                     |   theorem
+                                                                
+                                                                     |   typeDeclaration
+                                                                
+                                                                     |   typesDeclaration
+                                                                
+                                                                     |   dependentTypeDeclaration
+                                                                
+                                                                     |   dependentTypesDeclaration
+                                                                
+                                                                     |   constructorDeclaration
+                                                                
+                                                                     |   constructorsDeclaration
+                                                                
+                                                                     |   variableDeclaration
+                                                                
+                                                                     |   variablesDeclaration
+                                                                
+                                                                     |   metavariableDeclaration
+                                                                
+                                                                     |   metavariablesDeclaration
+                                                                
+                                                                     |   qualifiedMetavariableDeclaration
+                                                                
+                                                                     |   qualifiedMetavariablesDeclaration
+                                                                     
+                                                                                                                                          
+                                                                     
+     includeDirective                                              ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE>
 
 
 
-    verticalSpace                                                 ::=   <END_OF_LINE>+
-    
-    
-    
-    error                                                         ::=   *
-    
+     premiseOrPremises                                             ::=   premise | premises
+
+     premise                                                       ::=   "Premise" <END_OF_LINE> unjustifiedStatement
+
+     premises                                                      ::=   "Premises" <END_OF_LINE> unjustifiedStatement unjustifiedStatement+
+
+     conclusion                                                    ::=   "Conclusion" <END_OF_LINE> unjustifiedStatementOrJustifiedStatement
+
+
+
+     proof                                                         ::=   "Proof" <END_OF_LINE> proofDerivationOrAbridgedProofDerivation
+
+     proofDerivationOrAbridgedProofDerivation                      ::=   proofDerivation | abridgedProofDerivation
+
+     abridgedProofDerivation                                       ::=   unjustifiedStatementOrJustifiedStatement
+
+     proofDerivation                                               ::=   derivation therefore
+
+     derivation                                                    ::=   subDerivation+
+
+     therefore                                                     ::=   "Therefore" <END_OF_LINE> unjustifiedStatementOrJustifiedStatement
+
+     subDerivation                                                 ::=   subLemma | unjustifiedStatementOrJustifiedStatement
+
+
+
+     subLemma                                                      ::=   suppose then? hence unjustifiedStatementOrJustifiedStatement? verticalSpace?
+
+     suppose                                                       ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+
+
+     then                                                          ::=   "Then" <END_OF_LINE> derivation
+
+     hence                                                         ::=   "Hence" <END_OF_LINE> unjustifiedStatementOrJustifiedStatement
+
+
+
+     type                                                          ::=   typeName
+   
+     types                                                         ::=   type(<NO_WHITESPACE>","<NO_WHITESPACE>type)*
+
+     dependentType                                                 ::=   dependentTypeName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")"
+   
+     dependentTypes                                                ::=   dependentType(<NO_WHITESPACE>","<NO_WHITESPACE>dependentType)*
+   
+     constructor                                                   ::=   constructorName<NO_WHITESPACE>parenthesisedTypes
+   
+     constructors                                                  ::=   constructor(<NO_WHITESPACE>","<NO_WHITESPACE>constructor)*
+   
+     variable                                                      ::=   variableName(<NO_WHITESPACE>":"type)?
+   
+     variables                                                     ::=   variable(<NO_WHITESPACE>","<NO_WHITESPACE>variable)*
+   
+     metaVariable                                                  ::=   metaVariableName
+
+     metaVariables                                                 ::=   metaVariable(<NO_WHITESPACE>","<NO_WHITESPACE>metaVariable)*
+   
+     qualifiedMetaVariable                                         ::=   qualifiedMetaVariableName
+   
+     qualifiedMetaVariables                                        ::=   qualifiedMetaVariable(<NO_WHITESPACE>","<NO_WHITESPACE>qualifiedMetaVariable)*
+   
+   
+   
+     unjustifiedStatementOrJustifiedStatement                      ::=   unjustifiedStatement | JustifiedStatement
+
+     unjustifiedStatement                                          ::=   statement <END_OF_LINE>
+
+     justifiedStatement                                            ::=   statement justification <END_OF_LINE>
+
+     justification                                                 ::=   byOrFrom reference
+
+     byOrFrom                                                      ::=   "by" | "from"
+
+     reference                                                     ::=   referenceName<NO_WHITESPACE>parenthesisedTerms?
+
+     referenceName                                                 ::=   name
+
+
+
+     statement                                                     ::=   proofAssertion | typeAssertion | equality | expression
+
+
+
+     proofAssertion                                                ::=   metaVariableOrQualifiedMetavariable "::" metaVariableOrQualifiedMetavariable
+
+     typeAssertion                                                 ::=   expression ":" typeName
+
+     equality                                                      ::=   expression "=" expression
+
+     expression                                                    ::=   term | metaVariableOrQualifiedMetavariable
+
+
+
+     metaVariableOrQualifiedMetavariable                           ::=   metaVariable | qualifiedMetaVariable
+     
+     
+
+     terms                                                         ::=   term(<NO_WHITESPACE>","<NO_WHITESPACE>term)*
+     
+     term                                                          ::=   compoundTerm | variableName
+
+     compoundTerm                                                  ::=   constructorName<NO_WHITESPACE>parenthesisedTerms?
+
+
+
+     label                                                         ::=   labelName<NO_WHITESPACE>parenthesisedTerms?
+     
+          
+     
+     parenthesisedLabels                                           ::=   "("<NO_WHITESPACE>labels<NO_WHITESPACE>")"                         
+
+     parenthesisedTerms                                            ::=   "("<NO_WHITESPACE>terms<NO_WHITESPACE>")"
+     
+     parenthesisedTypes                                            ::=   "("<NO_WHITESPACE>types<NO_WHITESPACE>")"
+
+
+
+     typeName                                                      ::=   name
+
+     dependentTypeName                                             ::=   name
+
+     constructorName                                               ::=   name
+
+     variableName                                                  ::=   name
+
+     metaVariableName                                              ::=   name
+
+     qualifiedMetaVariableName                                     ::=   name
+   
+     labelName                                                     ::=   name
+
+     name                                                          ::=   /\\w+/
+       
 `;
 
 module.exports = grammar;
