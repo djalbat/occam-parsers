@@ -8,33 +8,43 @@ class PartNode extends NonTerminalNode {
   generatePart(Parts, noWhitespace) {
     let part,
         childNodes = this.getChildNodes(),
-        quantifiers = null,
-        firstChildNode = arrayUtil.first(childNodes);
+        nodes = childNodes; ///
     
-    const firstChildNodeNoWhitespaceNode = nodeUtil.isNodeNoWhitespaceNode(firstChildNode);
+    const firstNode = arrayUtil.first(nodes),
+          firstNodeNoWhitespaceNode = nodeUtil.isNodeNoWhitespaceNode(firstNode);
 
-    if (firstChildNodeNoWhitespaceNode) {
+    if (firstNodeNoWhitespaceNode) {
       noWhitespace = true;
 
-      childNodes = arrayUtil.discardFirst(childNodes);
-      
-      firstChildNode = arrayUtil.first(childNodes);
+      nodes = arrayUtil.discardFirst(nodes);
     }
-    
-    const lastChildNode = arrayUtil.last(childNodes),
-          lastChildNodeQuantifiersNode = nodeUtil.isNodeQuantifiersNode(lastChildNode);
 
-    if (lastChildNodeQuantifiersNode) {
-      const quantifiersNode = lastChildNode;  ///
+    let  quantifiers = null;
+
+    const lastNode = arrayUtil.last(nodes),
+          lastNodeQuantifiersNode = nodeUtil.isNodeQuantifiersNode(lastNode);
+    
+    if (lastNodeQuantifiersNode) {
+      const quantifiersNode = lastNode;  ///
       
       quantifiers = nodeUtil.quantifiersFromQuantifiersNode(quantifiersNode);
-      
-      arrayUtil.discardLast(childNodes);
+
+      nodes = arrayUtil.discardLast(nodes);
     }
     
-    const remainingChildNode = firstChildNode; ///
-
-    part = remainingChildNode.generatePart(Parts, noWhitespace);
+    const nodesLength = nodes.length;
+    
+    if (nodesLength > 1) {
+      const GroupOfPartsPart = Parts['GroupOfPartsPart'],
+            groupOfPartsPart = GroupOfPartsPart.fromNodes(nodes, Parts);
+      
+      part = groupOfPartsPart;  ///
+    } else {
+      const firstNode = arrayUtil.first(nodes),
+            remainingNode = firstNode;  ///
+      
+      part = remainingNode.generatePart(Parts, noWhitespace);
+    }
     
     if (quantifiers !== null) {
       const SequenceOfPartsPart = Parts['SequenceOfPartsPart'],

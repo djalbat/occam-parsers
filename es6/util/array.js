@@ -18,6 +18,8 @@ class arrayUtil {
   static discardSecond(array) { return discardNth(array, 1); }
 
   static discardLast(array) { return discardNth(array, -1); }
+  
+  static discardFirstAndLast(array) { return discardNth(discardNth(array, 0), -1); }
 
   static discardOdd(array) { return array.filter(function(entry, index) { return isEven(index); }); }
 }

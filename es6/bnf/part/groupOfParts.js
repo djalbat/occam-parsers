@@ -1,5 +1,7 @@
 'use strict';
 
+const arrayUtil = require('../../util/array');
+
 class GroupOfPartsPart {
   constructor(parts) {
     this.parts = parts;
@@ -7,21 +9,23 @@ class GroupOfPartsPart {
 
   parse(context, noWhitespace) {
     noWhitespace = false; ///
-
     let nodes = [];
 
-    const everyPartParsed = this.parts.every(function(part) {
-      const partNodeOrNodes = part.parse(context, noWhitespace),
-            partParsed = (partNodeOrNodes !== null);
+    const savedIndex = context.savedIndex(),
+          everyPartParsed = this.parts.every(function(part) {
+            const partNodeOrNodes = part.parse(context, noWhitespace),
+                  partParsed = (partNodeOrNodes !== null);
 
-      if (partParsed) {
-        nodes = nodes.concat(partNodeOrNodes);
+            if (partParsed) {
+              nodes = nodes.concat(partNodeOrNodes);
+            }
 
-        return true;
-      }
-    });
-    
+            return partParsed;
+          });
+
     if (!everyPartParsed) {
+      context.backtrack(savedIndex);
+
       nodes = null;
     }
 
@@ -43,6 +47,20 @@ class GroupOfPartsPart {
           string = `( ${partsString} )`;
 
     return string;
+  }
+
+  static fromNodes(nodes, Parts) {
+    nodes = arrayUtil.discardFirstAndLast(nodes);
+
+    const noWhitespace = false,
+          parts = nodes.map(function(node) {
+            const part = node.generatePart(Parts, noWhitespace);
+
+            return part;
+          }),
+          groupOfPartsPart = new GroupOfPartsPart(parts);
+
+    return groupOfPartsPart;
   }
 }
 
