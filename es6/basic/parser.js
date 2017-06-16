@@ -16,12 +16,19 @@ class BasicParser extends CommonParser {
   }
   
   static fromGrammar(grammar) {
-    const bnfLexer = BNFLexer.fromNothing(),
-          bnfParser = BNFParser.fromNothing(),
-          lines = bnfLexer.linesFromGrammar(grammar),
-          node = bnfParser.nodeFromLines(lines),
-          productions = BNFParser.generateProductions(node),
-          basicParser = new BasicParser(productions);
+    let basicParser = null;
+
+    try {
+      const bnfLexer = BNFLexer.fromNothing(),
+            bnfParser = BNFParser.fromNothing(),
+            lines = bnfLexer.linesFromGrammar(grammar),
+            node = bnfParser.nodeFromLines(lines),
+            productions = BNFParser.generateProductions(node);
+
+      basicParser = new BasicParser(productions);
+    } catch (error) {
+      
+    }
 
     return basicParser;
   }

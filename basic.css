@@ -1,21 +1,14 @@
-textarea#lexicalGrammar {
-  height: 6rem;
-  margin-bottom: 1rem;
-}
+textarea#lexicalGrammar { height: 6rem; }
+textarea#bnfGrammar { height: 15rem; }
+textarea#adjustedBNFGrammar { height: 21rem; }
+textarea#parseTree { height: 15rem; }
+textarea#content { height: 12rem; }
 
+textarea#lexicalGrammar,
 textarea#bnfGrammar,
-textarea#adjustedBNFGrammar {
-  height: 12rem;
-  margin-bottom: 1rem;
-}
-
-textarea#parseTree {
-  height: 15rem;
-  margin-bottom: 1rem;
-}
-
+textarea#adjustedBNFGrammar,
+textarea#parseTree,
 textarea#content {
-  height: 12rem;
   margin-bottom: 1rem;
 }
 

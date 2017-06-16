@@ -46,9 +46,9 @@ function update() {
 
   updateBasicParser();
 
-  updateAdjustedBNFGrammar();
+  if ((basicLexer !== null) && (basicParser !== null)) {
+    updateAdjustedBNFGrammar();
 
-  if (basicLexer !== null) {
     const production = null;  ///
 
     Example.updateParseTreeTextarea(basicLexer, basicParser, production);

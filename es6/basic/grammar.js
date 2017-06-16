@@ -1,12 +1,18 @@
 'use strict';
 
 const grammar = `
+  
+   expression               ::=  "(" expression ")" 
+  
+                              | expression operator expression 
+  
+                              | term
 
- expression               ::=  expression "+" term | term
-
- term                     ::=  naturalNumber
-
- naturalNumber            ::=  /\\d+/
+   operator                 ::=  "+" | "-" | "/" | "*"
+  
+   term                     ::=  naturalNumber
+  
+   naturalNumber            ::=  /\\d+/
 
 `;
 
