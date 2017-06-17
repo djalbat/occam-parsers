@@ -40,6 +40,10 @@ const grammar = `
                           
                              |  endOfLineSymbol
                 
+                             |  wildcardSymbol
+
+  verticalSpace            ::=  <END_OF_LINE>+
+  
   productionName           ::=  [name]
 
   regularExpression        ::=  [regularExpression]
@@ -49,9 +53,9 @@ const grammar = `
   terminalSymbol           ::=  [string]
   
   endOfLineSymbol          ::=  "<END_OF_LINE>"
-
-  verticalSpace            ::=  <END_OF_LINE>+
   
+  wildcardSymbol           ::=  "*"
+
 `;
 
 module.exports = grammar;
