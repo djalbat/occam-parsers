@@ -200,6 +200,8 @@ const grammar = `
 
 
 
+     labels                                     ::=   label(<NO_WHITESPACE>","<NO_WHITESPACE>label)*
+
      label                                      ::=   labelName<NO_WHITESPACE>parenthesisedTerms?
      
           
