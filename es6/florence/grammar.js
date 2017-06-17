@@ -228,7 +228,7 @@ const grammar = `
    
      labelName                                  ::=   name
 
-     name                                       ::=   /\\w+/
+     name                                       ::=   [unassigned]
        
 `;
 

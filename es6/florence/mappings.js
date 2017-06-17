@@ -6,53 +6,23 @@ const TransparentNode = require('../common/node/nonTerminal/transparent'),
 
 const mappings = {
 
-  'name': TransparentNode,
   'part': TransparentNode,
-  'statement': TransparentNode,
-  'subDerivation': TransparentNode,
-  'proofDerivation': TransparentNode,
-  'parenthesisedType': TransparentNode,
-  'abridgedProofDerivation': TransparentNode,
+  'name': TransparentNode,
 
-  'typeName': TransparentNode,
-  'labelName': TransparentNode,
-  'variableName': TransparentNode,
-  'referenceName': TransparentNode,
-  'constructorName': TransparentNode,
-  'metavariableName': TransparentNode,
-
-  'premise(s)': TransparentNode,
-  'type(s)Declaration': TransparentNode,
-  '(typed)Variable(s)Declaration': TransparentNode,
-  'typedConstructor(s)Declaration': TransparentNode,
-  '(qualified)Metavariable(s)Declaration': TransparentNode,
-
-  '(typed)Variable': TransparentNode,
-  '(qualified)Metavariable': TransparentNode,
-  '(abridged)ProofDerivation': TransparentNode,
-
-  'byOrFrom': TransparentNode,
-  'typeOrTerm': TransparentNode,
-  'unjustifiedStatementOrUnknown': TransparentNode,
-  '(un)justifiedStatementOrUnknown': TransparentNode,
-  'specialUnassignedOrMinorKeywords': TransparentNode,
-
-  'commaThenTerm': TransparentThenKeepSecondNode,
-  'commaThenType': TransparentThenKeepSecondNode,
-  'commaThenLabel': TransparentThenKeepSecondNode,
-  'commaThenMetavariable': TransparentThenKeepSecondNode,
-  'commaThen(typed)Variable': TransparentThenKeepSecondNode,
-  'commaThenTypedConstructor': TransparentThenKeepSecondNode,
-  'commaThen(qualified)Metavariable': TransparentThenKeepSecondNode,
-
-  'parenthesisedTermList': TransparentThenKeepSecondNode,
-  'parenthesisedTypeList': TransparentThenKeepSecondNode,
-  'parenthesisedLabelList': TransparentThenKeepSecondNode,
-
+  'premise': DiscardSecondChildNode,
+  'premises': DiscardSecondChildNode,
   'conclusion': DiscardSecondChildNode,
-  'typedVariable': DiscardSecondChildNode,
-  'typedConstructor': DiscardSecondChildNode
 
+  'byOrFrom' : TransparentNode,
+  'premiseOrPremises' : TransparentNode,
+  'metaVariableOrQualifiedMetavariable' : TransparentNode,
+  'unjustifiedStatementOrJustifiedStatement' : TransparentNode,
+  'proofDerivationOrAbridgedProofDerivation' : TransparentNode,
+
+  'parenthesisedLabels' : TransparentThenKeepSecondNode,
+  'parenthesisedTerms' : TransparentThenKeepSecondNode,
+  'parenthesisedTypes' : TransparentThenKeepSecondNode
+  
 };
 
-module.exports = {};  ///
+module.exports = mappings;

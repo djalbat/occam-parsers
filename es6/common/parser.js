@@ -67,8 +67,6 @@ class CommonParser {
     
     return string;
   }
-
-  findProduction(productionName) { return parserUtil.findProduction(productionName, this.productions); }
 }
 
 module.exports = CommonParser;

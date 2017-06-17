@@ -44,20 +44,21 @@ class FlorenceExample {
 module.exports = FlorenceExample;
 
 function update() {
+  let florenceParser;
+  
   const mappingsCheckboxChecked = mappingsCheckbox.isChecked();
 
   if (mappingsCheckboxChecked) {
-    const productionNameTextareaValue = productionNameTextarea.getValue(),
-          productionName = productionNameTextareaValue, ///
-          mappings = {},
-          florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings),
-          production = florenceParser.findProduction(productionName);
-
-    Example.updateParseTreeTextarea(florenceLexer, florenceParser, production);
+    florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings);
   } else {
-    const florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings);
-
-    Example.updateParseTreeTextarea(florenceLexer, florenceParser);
+    const mappings = {};
+    
+    florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings);
   }
-}
 
+  const productionNameTextareaValue = productionNameTextarea.getValue(),
+        productionName = productionNameTextareaValue, ///
+        production = florenceParser.findProduction(productionName);
+
+  Example.updateParseTreeTextarea(florenceLexer, florenceParser, production);
+}
