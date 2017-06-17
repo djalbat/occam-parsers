@@ -84,11 +84,11 @@ const grammar = `
      
      rule                                       ::=   "Rule" parenthesisedLabels? <END_OF_LINE> ( premise | premises )? conclusion proof?
 
-     axiom                                      ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement
+     axiom                                      ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | argument ) 
 
-     lemma                                      ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement proof?
+     lemma                                      ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | argument ) proof?
 
-     theorem                                    ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement proof?
+     theorem                                    ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | argument ) proof?
 
 
 
@@ -117,6 +117,8 @@ const grammar = `
      subDerivation                              ::=   subLemma | unjustifiedStatementOrJustifiedStatement
 
 
+
+     argument                                   ::=   suppose hence unjustifiedStatementOrJustifiedStatement?
 
      subLemma                                   ::=   suppose then? hence unjustifiedStatementOrJustifiedStatement? verticalSpace?
 
