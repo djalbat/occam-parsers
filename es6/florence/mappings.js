@@ -9,8 +9,13 @@ const mappings = {
   'part': TransparentNode,
   'name': TransparentNode,
 
+  'then': DiscardSecondChildNode,
+  'hence': DiscardSecondChildNode,
+  'proof': DiscardSecondChildNode,
+  'suppose': DiscardSecondChildNode,
   'premise': DiscardSecondChildNode,
   'premises': DiscardSecondChildNode,
+  'therefore': DiscardSecondChildNode,
   'conclusion': DiscardSecondChildNode,
 
   'byOrFrom' : TransparentNode,

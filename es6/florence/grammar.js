@@ -158,7 +158,7 @@ const grammar = `
    
    
    
-     unjustifiedStatementOrJustifiedStatement   ::=   unjustifiedStatement | JustifiedStatement
+     unjustifiedStatementOrJustifiedStatement   ::=   unjustifiedStatement | justifiedStatement
 
      unjustifiedStatement                       ::=   statement <END_OF_LINE>
 
