@@ -8,12 +8,10 @@ const { Textarea } = easy,
 
 const contentTextareaSelector = 'textarea#content',
       parseTreeTextareaSelector = 'textarea#parseTree',
-      bnfGrammarTextareaSelector = 'textarea#bnfGrammar',
       sizeableElementSelector = '#sizeableElement',
       verticalSplitterSelector = '#verticalSplitter',
       contentTextarea = new Textarea(contentTextareaSelector),
       parseTreeTextarea = new Textarea(parseTreeTextareaSelector),
-      bnfGrammarTextarea = new Textarea(bnfGrammarTextareaSelector),
       sizeableElement = new SizeableElement(sizeableElementSelector),
       beforeSizeableElement = false,
       afterSizeableElement = true;
@@ -26,8 +24,6 @@ class Example {
   static setBNFGrammarTextareaValue(value) { bnfGrammarTextarea.setValue(value); }
 
   static setContentTextareaValue(value) { contentTextarea.setValue(value); }
-
-  static onBNFGrammarTextareaKeyUp(handler) { bnfGrammarTextarea.onKeyUp(handler); }
 
   static onContentTextareaKeyUp(handler) { contentTextarea.onKeyUp(handler); }
 

@@ -55,4 +55,4 @@ const mappings = {
 
 };
 
-module.exports = mappings;
+module.exports = {};  ///

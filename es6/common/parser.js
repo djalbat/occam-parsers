@@ -47,6 +47,26 @@ class CommonParser {
 
     return node;
   }
+  
+  toString() {
+    const maximumProductionNameLength = this.productions.reduce(function(maximumProductionNameLength, production) {
+            const productionName = production.getName(),
+                  productionNameLength = productionName.length;
+  
+            maximumProductionNameLength = Math.max(maximumProductionNameLength, productionNameLength);
+  
+            return maximumProductionNameLength;
+          }, 0),
+          string = this.productions.reduce(function(string, production) {
+            const productionString = production.toString(maximumProductionNameLength);
+  
+            string += productionString;
+  
+            return string;
+          }, '');
+    
+    return string;
+  }
 
   findProduction(productionName) { return parserUtil.findProduction(productionName, this.productions); }
 }

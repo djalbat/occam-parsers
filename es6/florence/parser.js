@@ -15,7 +15,7 @@ class FlorenceParser extends CommonParser {
 
     return florenceParser;
   }
-
+  
   static fromGrammarAndMappings(grammar, mappings) {
     const bnfLexer = BNFLexer.fromNothing(),
           bnfParser = BNFParser.fromNothing(),

@@ -25,16 +25,11 @@ class BNFExample {
     adjustedBNFGrammarTextarea = new Textarea(adjustedBNFGrammarTextareaSelector);
 
     const lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
-          bnfGrammarTextareaValue = grammar, ///
           contentTextareaValue = grammar; ///
 
     lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
 
-    Example.setBNFGrammarTextareaValue(bnfGrammarTextareaValue);
-
     Example.setContentTextareaValue(contentTextareaValue);
-
-    Example.onBNFGrammarTextareaKeyUp(update);
 
     Example.onContentTextareaKeyUp(update);
 
@@ -91,22 +86,8 @@ function updateBNFParser() {
 }
 
 function updateAdjustedBNFGrammar() {
-  const productions = bnfParser.getProductions(),
-        maximumProductionNameLength = productions.reduce(function(maximumProductionNameLength, production) {
-          const productionName = production.getName(),
-                productionNameLength = productionName.length;
-  
-          maximumProductionNameLength = Math.max(maximumProductionNameLength, productionNameLength);
-  
-          return maximumProductionNameLength;
-        }, 0),
-        adjustedBNFGrammarTextareaValue = productions.reduce(function(adjustedBNFGrammarTextarea, production) {
-          const productionString = production.toString(maximumProductionNameLength);
-  
-          adjustedBNFGrammarTextarea += productionString;
-  
-          return adjustedBNFGrammarTextarea;
-        }, []);
+  const bnfParserString = bnfParser.toString(),
+        adjustedBNFGrammarTextareaValue = bnfParserString;  ///
 
   adjustedBNFGrammarTextarea.setValue(adjustedBNFGrammarTextareaValue);
 }

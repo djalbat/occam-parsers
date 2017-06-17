@@ -14,13 +14,45 @@ const grammar = `
 
 
 
-     rule                                       ::=   "Rule" parenthesisedLabels? <END_OF_LINE> premiseOrPremises? conclusion proof?
+     part                                       ::=   verticalSpace
 
-     axiom                                      ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement
-
-     lemma                                      ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement proof?
-
-     theorem                                    ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement proof?
+                                                  |   typeDeclaration
+                                                                
+                                                  |   typesDeclaration
+                                                                
+                                                  |   dependentTypeDeclaration
+                                                                
+                                                  |   dependentTypesDeclaration
+                                                                
+                                                  |   constructorDeclaration
+                                                                
+                                                  |   constructorsDeclaration
+                                                                
+                                                  |   variableDeclaration
+                                                                
+                                                  |   variablesDeclaration
+                                                                
+                                                  |   metavariableDeclaration
+                                                                
+                                                  |   metavariablesDeclaration
+                                                                
+                                                  |   qualifiedMetavariableDeclaration
+                                                                
+                                                  |   qualifiedMetavariablesDeclaration
+                                                                
+                                                  |   rule
+                                                                
+                                                  |   axiom
+                                                                
+                                                  |   lemma
+                                                                
+                                                  |   theorem
+                                                                
+                                                  |   error
+                                                                     
+                                                                                                                                          
+                                                                     
+     includeDirective                           ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE>
 
 
 
@@ -50,52 +82,20 @@ const grammar = `
      
      
      
+     rule                                       ::=   "Rule" parenthesisedLabels? <END_OF_LINE> premiseOrPremises? conclusion proof?
+
+     axiom                                      ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement
+
+     lemma                                      ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement proof?
+
+     theorem                                    ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement proof?
+
+
+
      error                                      ::=   .
      
      
      
-     part                                       ::=   verticalSpace
-
-                                                  |   rule
-                                                                
-                                                  |   axiom
-                                                                
-                                                  |   lemma
-                                                                
-                                                  |   theorem
-                                                                
-                                                  |   typeDeclaration
-                                                                
-                                                  |   typesDeclaration
-                                                                
-                                                  |   dependentTypeDeclaration
-                                                                
-                                                  |   dependentTypesDeclaration
-                                                                
-                                                  |   constructorDeclaration
-                                                                
-                                                  |   constructorsDeclaration
-                                                                
-                                                  |   variableDeclaration
-                                                                
-                                                  |   variablesDeclaration
-                                                                
-                                                  |   metavariableDeclaration
-                                                                
-                                                  |   metavariablesDeclaration
-                                                                
-                                                  |   qualifiedMetavariableDeclaration
-                                                                
-                                                  |   qualifiedMetavariablesDeclaration
-                                                                
-                                                  |   error
-                                                                     
-                                                                                                                                          
-                                                                     
-     includeDirective                           ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE>
-
-
-
      premiseOrPremises                          ::=   premise | premises
 
      premise                                    ::=   "Premise" <END_OF_LINE> unjustifiedStatement
