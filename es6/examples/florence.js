@@ -12,25 +12,28 @@ const { Checkbox, Textarea } = easy,
       { FlorenceLexer } = lexers;
 
 const mappingsCheckboxSelector = '#mappings',
-      productionNameTextareaSelector = '#productionName',
-      adjustedBNFGrammarTextareaSelector = 'textarea#adjustedBNFGrammar';
+      productionNameTextareaSelector = '#productionName';
 
 const florenceLexer = FlorenceLexer.fromNothing();
 
 let productionName,
     mappingsCheckbox,
-    productionNameTextarea,
-    adjustedBNFGrammarTextarea;
+    productionNameTextarea;
 
 class FlorenceExample {
   static run() {
     mappingsCheckbox = new Checkbox(mappingsCheckboxSelector);
     productionNameTextarea = new Textarea(productionNameTextareaSelector);
-    adjustedBNFGrammarTextarea = new Textarea(adjustedBNFGrammarTextareaSelector);
+
+    const bnfGrammarTextareaValue = grammar;  ///
+
+    Example.setBNFGrammarTextareaValue(bnfGrammarTextareaValue);
 
     mappingsCheckbox.onChange(update);
 
     productionNameTextarea.onKeyUp(update);
+
+    Example.onBNFGrammarTextareaKeyUp(update);
 
     Example.onContentTextareaKeyUp(update);
 
@@ -50,22 +53,11 @@ function update() {
           florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings),
           production = florenceParser.findProduction(productionName);
 
-    updateAdjustedBNFGrammar(florenceParser);
-
     Example.updateParseTreeTextarea(florenceLexer, florenceParser, production);
   } else {
     const florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings);
 
-    updateAdjustedBNFGrammar(florenceParser);
-
     Example.updateParseTreeTextarea(florenceLexer, florenceParser);
   }
-}
-
-function updateAdjustedBNFGrammar(florenceParser) {
-  const florenceParserString = florenceParser.toString(),
-        adjustedBNFGrammarTextareaValue = florenceParserString;  ///
-
-  adjustedBNFGrammarTextarea.setValue(adjustedBNFGrammarTextareaValue);
 }
 

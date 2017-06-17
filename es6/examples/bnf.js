@@ -25,13 +25,18 @@ class BNFExample {
     adjustedBNFGrammarTextarea = new Textarea(adjustedBNFGrammarTextareaSelector);
 
     const lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
+          bnfGrammarTextareaValue = grammar,  ///
           contentTextareaValue = grammar; ///
 
     lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
 
+    Example.setBNFGrammarTextareaValue(bnfGrammarTextareaValue);
+
     Example.setContentTextareaValue(contentTextareaValue);
 
     Example.onContentTextareaKeyUp(update);
+
+    Example.onBNFGrammarTextareaKeyUp(update);
 
     lexicalGrammarTextarea.onKeyUp(update);
 
