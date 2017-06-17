@@ -4,10 +4,10 @@ const Production = require('../../bnf/production'),
       NonUnitDefinition = require('../definition/nonUnit');
 
 class NonUnitDefinitionsProduction extends Production {
-  static fromUnitDefinitionsProduction(unitDefinitionsProduction) {
-    const nonUnitDefinitions = nonUnitDefinitionsFromUnitDefinitionsProduction(unitDefinitionsProduction),
-          unitDefinitionsProductionName = unitDefinitionsProduction.getName(),
-          unitDefinitionsProductionNode = unitDefinitionsProduction.getNode(),
+  static fromProduction(production) {
+    const nonUnitDefinitions = nonUnitDefinitionsFromProduction(production),
+          unitDefinitionsProductionName = production.getName(),
+          unitDefinitionsProductionNode = production.getNode(),
           name = unitDefinitionsProductionName, ///
           definitions = nonUnitDefinitions, ///
           Node = unitDefinitionsProductionNode, ///
@@ -19,7 +19,7 @@ class NonUnitDefinitionsProduction extends Production {
 
 module.exports = NonUnitDefinitionsProduction;
 
-function nonUnitDefinitionsFromUnitDefinitionsProduction(unitDefinitionsProduction) {
+function nonUnitDefinitionsFromProduction(unitDefinitionsProduction) {
   const definitions = unitDefinitionsProduction.getDefinitions(),
         nonUnitDefinitions = definitions.reduce(function(nonUnitDefinitions, definition) {
           const nonUnitDefinition = NonUnitDefinition.fromDefinition(definition);

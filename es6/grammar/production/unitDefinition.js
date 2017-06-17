@@ -26,17 +26,24 @@ class UnitDefinitionProduction extends Production {
     const definitions = [
             unitDefinition
           ],
-          Node = null,
+          Node = null,  ///
           unitDefinitionProduction = new UnitDefinitionProduction(name, definitions, Node);
     
     return unitDefinitionProduction;          
   }
   
-  static fromNameAndUnitDefinitionProductionName(name, unitDefinitionProductionName) {
-    const productionName = unitDefinitionProductionName,  ///
-          unitDefinition = UnitDefinition.fromProductionName(productionName),
+  static fromNameAndProductionName(name, productionName) {
+    const unitDefinition = UnitDefinition.fromProductionName(productionName),
           unitDefinitionProduction = UnitDefinitionProduction.fromNameAndUnitDefinition(name, unitDefinition);
     
+    return unitDefinitionProduction;
+  }
+  
+  static fromProductionNames(firstProductionName, secondProductionName) {
+    const name = firstProductionName,  ///
+          productionName = secondProductionName,  ///
+          unitDefinitionProduction = UnitDefinitionProduction.fromNameAndProductionName(name, productionName);
+
     return unitDefinitionProduction;
   }
 }

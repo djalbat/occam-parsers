@@ -22,6 +22,13 @@ class Production {
   getNode() {
     return this.Node;
   }
+  
+  doDefinitionsExist() {
+    const definitionsLength = this.definitions.length,
+          definitionsExist = (definitionsLength > 0);
+    
+    return definitionsExist;
+  }
 
   isFoundByProductionName(productionName) {
     const found = (this.name === productionName);
