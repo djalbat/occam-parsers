@@ -82,7 +82,7 @@ const grammar = `
      
      
      
-     rule                                       ::=   "Rule" parenthesisedLabels? <END_OF_LINE> premiseOrPremises? conclusion proof?
+     rule                                       ::=   "Rule" parenthesisedLabels? <END_OF_LINE> ( premise | premises )? conclusion proof?
 
      axiom                                      ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> unjustifiedStatement
 
@@ -96,8 +96,6 @@ const grammar = `
      
      
      
-     premiseOrPremises                          ::=   premise | premises
-
      premise                                    ::=   "Premise" <END_OF_LINE> unjustifiedStatement
 
      premises                                   ::=   "Premises" <END_OF_LINE> unjustifiedStatement unjustifiedStatement+
@@ -106,9 +104,7 @@ const grammar = `
 
 
 
-     proof                                      ::=   "Proof" <END_OF_LINE> proofDerivationOrAbridgedProofDerivation
-
-     proofDerivationOrAbridgedProofDerivation   ::=   proofDerivation | abridgedProofDerivation
+     proof                                      ::=   "Proof" <END_OF_LINE> ( proofDerivation | abridgedProofDerivation )
 
      abridgedProofDerivation                    ::=   unjustifiedStatementOrJustifiedStatement
 
@@ -162,33 +158,31 @@ const grammar = `
 
      unjustifiedStatement                       ::=   statement <END_OF_LINE>
 
-     justifiedStatement                         ::=   statement justification <END_OF_LINE>
-
-     justification                              ::=   byOrFrom reference
-
-     byOrFrom                                   ::=   "by" | "from"
+     justifiedStatement                         ::=   statement ( "by" | "from" ) reference <END_OF_LINE>
 
      reference                                  ::=   referenceName<NO_WHITESPACE>parenthesisedTerms?
 
 
 
-     statement                                  ::=   proofAssertion | typeAssertion | equality | expression
+     statement                                  ::=   proofAssertion 
+     
+                                                  |   typeAssertion 
+                                                  
+                                                  |   equality 
+                                                  
+                                                  |   expression
 
 
 
-     proofAssertion                             ::=   metaVariableOrQualifiedMetavariable "::" metaVariableOrQualifiedMetavariable
+     proofAssertion                             ::=   ( metaVariable | qualifiedMetaVariable ) "::" ( metaVariable | qualifiedMetaVariable )
 
      typeAssertion                              ::=   expression ":" typeName
 
      equality                                   ::=   expression "=" expression
 
-     expression                                 ::=   term | metaVariableOrQualifiedMetavariable
+     expression                                 ::=   term | ( metaVariable | qualifiedMetaVariable )
 
 
-
-     metaVariableOrQualifiedMetavariable        ::=   metaVariable | qualifiedMetaVariable
-     
-     
 
      terms                                      ::=   term(<NO_WHITESPACE>","<NO_WHITESPACE>term)*
      
