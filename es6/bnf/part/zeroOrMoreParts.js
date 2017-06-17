@@ -10,16 +10,14 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
     
     const part = this.getPart();
 
-    if (part !== null) {
-      for(;;) {
-        const partNodeOrNodes = part.parse(context, noWhitespace),
-              partParsed = (partNodeOrNodes !== null);
+    for(;;) {
+      const partNodeOrNodes = part.parse(context, noWhitespace),
+            partParsed = (partNodeOrNodes !== null);
 
-        if (partParsed) {
-          nodes = nodes.concat(partNodeOrNodes);
-        } else {
-          break;
-        }
+      if (partParsed) {
+        nodes = nodes.concat(partNodeOrNodes);
+      } else {
+        break;
       }
     }
 

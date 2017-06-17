@@ -28,7 +28,7 @@ class WildcardPart {
   }
 
   toString() {
-    const string = '*';
+    const string = '.';
 
     return string;
   }

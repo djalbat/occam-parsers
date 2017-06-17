@@ -8,15 +8,12 @@ class OptionalPartPart extends SequenceOfPartsPart {
 
     let nodes = [];
     
-    const part = this.getPart();
-    
-    if (part !== null) {
-      const partNodeOrNodes = part.parse(context, noWhitespace),
-            partParsed = (partNodeOrNodes !== null);
+    const part = this.getPart(),
+          partNodeOrNodes = part.parse(context, noWhitespace),
+          partParsed = (partNodeOrNodes !== null);
 
-      if (partParsed) {
-        nodes = partNodeOrNodes;
-      }
+    if (partParsed) {
+      nodes = partNodeOrNodes;
     }
 
     return nodes;

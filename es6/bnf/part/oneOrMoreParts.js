@@ -9,22 +9,19 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
 
     let nodes = null;
     
-    const part = this.getPart();
+    const part = this.getPart(),
+          partNodeOrNodes = part.parse(context, noWhitespace),
+          partParsed = (partNodeOrNodes !== null);
 
-    if (part !== null) {
-      const partNodeOrNodes = part.parse(context, noWhitespace),
-            partParsed = (partNodeOrNodes !== null);
+    if (partParsed) {
+      nodes = (partNodeOrNodes instanceof Array) ?
+                partNodeOrNodes :
+                  [partNodeOrNodes];
 
-      if (partParsed) {
-        nodes = (partNodeOrNodes instanceof Array) ?
-                  partNodeOrNodes :
-                    [partNodeOrNodes];
+      const zeroOrMorePartsPart = ZeroOrMorePartsPart.fromOneOrMorePartsPart(this), ///
+            zeroOrMorePartsPartNodeOrNodes = zeroOrMorePartsPart.parse(context, noWhitespace);
 
-        const zeroOrMorePartsPart = ZeroOrMorePartsPart.fromOneOrMorePartsPart(this), ///
-              zeroOrMorePartsPartNodeOrNodes = zeroOrMorePartsPart.parse(context, noWhitespace);
-
-        nodes = nodes.concat(zeroOrMorePartsPartNodeOrNodes);
-      }
+      nodes = nodes.concat(zeroOrMorePartsPartNodeOrNodes);
     }
 
     return nodes;

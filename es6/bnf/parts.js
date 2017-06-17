@@ -1,6 +1,7 @@
 'use strict';
 
 const EpsilonPart = require('./part/epsilon'),
+      WildcardPart = require('./part/wildcard'),
       EndOfLinePart = require('./part/endOfLine'),
       OptionalPartPart = require('./part/optionalPart'),
       GroupOfPartsPart = require('./part/groupOfParts'),
@@ -14,6 +15,7 @@ const EpsilonPart = require('./part/epsilon'),
 
 const Parts = {
   'EpsilonPart' : EpsilonPart,
+  'WildcardPart' : WildcardPart,
   'EndOfLinePart' : EndOfLinePart,
   'OptionalPartPart' : OptionalPartPart,
   'GroupOfPartsPart' : GroupOfPartsPart,

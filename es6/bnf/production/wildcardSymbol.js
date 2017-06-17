@@ -6,7 +6,7 @@ const Production = require('../production'),
 
 class WildcardSymbolProduction extends Production {
   constructor() {
-    const wildcardTerminalSymbolContent = '*',
+    const wildcardTerminalSymbolContent = '.',
           wildcardTerminalSymbolDefinition = new TerminalSymbolDefinition(wildcardTerminalSymbolContent),
           name = 'wildcardSymbol',
           definitions = [

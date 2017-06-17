@@ -50,6 +50,10 @@ const grammar = `
      
      
      
+     error                                      ::=   .
+     
+     
+     
      part                                       ::=   verticalSpace
 
                                                   |   rule
@@ -83,6 +87,8 @@ const grammar = `
                                                   |   qualifiedMetavariableDeclaration
                                                                 
                                                   |   qualifiedMetavariablesDeclaration
+                                                                
+                                                  |   error
                                                                      
                                                                                                                                           
                                                                      
