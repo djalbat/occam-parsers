@@ -4,7 +4,7 @@ const Definition = require('../../bnf/definition'),
       ProductionNamePart = require('../../bnf/part/productionName');
 
 class UnitDefinition extends Definition {
-  getProductionName () {
+  getProductionName() {
     const firstPart = this.getFirstPart(),
           productionNamePart = firstPart, ///
           productionName = productionNamePart.getProductionName();

@@ -4,6 +4,7 @@ const tarjan = require('occam-tarjan');
 
 const parserUtil = require('../util/parser'),
       Production = require('../bnf/production'),
+      NonCyclicProduction = require('./production/nonCyclic'),
       UnitDefinitionProduction = require('./production/unitDefinition'),
       UnitDefinitionsProduction = require('./production/unitDefinitions'),
       NonUnitDefinitionsProduction = require('./production/nonUnitDefinitions');
@@ -101,10 +102,12 @@ function nonCyclicProductionsFromComponents(components, productions) {
 function nonCyclicProductionFromComponent(component, productions, nonCyclicProductions) {
   const firstVertex = component.getFirstVertex(),
         firstVertexName = firstVertex.getName(),
-        nonCyclicProductionName = firstVertexName,  ///
-        nonCyclicProduction = parserUtil.findProduction(nonCyclicProductionName, productions);
+        productionName = firstVertexName,  ///
+        production = parserUtil.findProduction(productionName, productions);
 
-  if (nonCyclicProduction !== null) { ///
+  if (production !== null) {
+    const nonCyclicProduction = NonCyclicProduction.fromProduction(production);
+
     nonCyclicProductions.push(nonCyclicProduction);
   }
 }
@@ -191,7 +194,7 @@ function nonCyclicProductionsFromFixedAndAddedProductions(fixedNonUnitDefinition
   });
 }
 
-function unitDefinitionProductionsFromComponent(component, productions, nonCyclicProductions) {
+function unitDefinitionProductionsFromComponent(component, productions) {
   const unitDefinitionsProductions = unitDefinitionsProductionsFromComponent(component, productions),
         unitDefinitionProductions = unitDefinitionProductionsFromUnitDefinitionsProductions(unitDefinitionsProductions);
 
