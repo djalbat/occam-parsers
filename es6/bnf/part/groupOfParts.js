@@ -9,6 +9,7 @@ class GroupOfPartsPart {
 
   parse(context, noWhitespace) {
     noWhitespace = false; ///
+    
     let nodes = [];
 
     const savedIndex = context.savedIndex(),

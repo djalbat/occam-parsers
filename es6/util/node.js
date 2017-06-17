@@ -26,10 +26,25 @@ class nodeUtil {
       const terminalNode = node,
             terminalNodeContent = terminalNode.getContent();
   
-      nodeNoWhitespaceNode = (terminalNodeContent === "<NO_WHITESPACE>"); ///
+      nodeNoWhitespaceNode = (terminalNodeContent === '<NO_WHITESPACE>'); ///
     }
   
     return nodeNoWhitespaceNode;
+  }
+
+  static isNodeChoiceNode(node) {
+    let nodeNoChoiceNode = false;
+
+    const nodeTerminalNode = nodeUtil.isNodeTerminalNode(node);
+
+    if (nodeTerminalNode) {
+      const terminalNode = node,
+            terminalNodeContent = terminalNode.getContent();
+
+      nodeNoChoiceNode = (terminalNodeContent === '|');
+    }
+
+    return nodeNoChoiceNode;
   }
 
   static isNodeQuantifiersNode(node) {

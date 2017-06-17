@@ -1,8 +1,9 @@
 'use strict';
 
-const TransparentNode = require('../common/node/nonTerminal/transparent'),
-      DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChild'),
-      TransparentThenKeepSecondNode = require('../common/node/nonTerminal/transparentThenKeepSecond');
+const TransparentNode = require('../common/node/nonTerminal/transparentNode'),
+      DiscardOddChildNodes = require('../common/node/nonTerminal/discardOddChildNodes'),
+      DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChildNode'),
+      TransparentThenKeepSecondNode = require('../common/node/nonTerminal/transparentThenKeepSecondNode');
 
 const mappings = {
 
@@ -17,6 +18,17 @@ const mappings = {
   'premises': DiscardSecondChildNode,
   'therefore': DiscardSecondChildNode,
   'conclusion': DiscardSecondChildNode,
+
+  'terms': DiscardOddChildNodes,
+  'types': DiscardOddChildNodes,
+  'labels': DiscardOddChildNodes,
+  'variables': DiscardOddChildNodes,
+  'constructors': DiscardOddChildNodes,
+  'metaVariables': DiscardOddChildNodes,
+  'dependentTypes': DiscardOddChildNodes,
+  'qualifiedMetaVariables': DiscardOddChildNodes,
+
+  'includeDirective': DiscardOddChildNodes,
 
   'byOrFrom' : TransparentNode,
   'premiseOrPremises' : TransparentNode,

@@ -170,8 +170,6 @@ const grammar = `
 
      reference                                  ::=   referenceName<NO_WHITESPACE>parenthesisedTerms?
 
-     referenceName                              ::=   name
-
 
 
      statement                                  ::=   proofAssertion | typeAssertion | equality | expression
@@ -213,6 +211,8 @@ const grammar = `
      parenthesisedTypes                         ::=   "("<NO_WHITESPACE>types<NO_WHITESPACE>")"
 
 
+
+     referenceName                              ::=   name
 
      typeName                                   ::=   name
 

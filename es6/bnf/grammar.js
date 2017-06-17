@@ -20,6 +20,8 @@ const grammar = `
   
   groupOfParts             ::=  "(" part+ ")"
   
+  choiceOfParts            ::=  "(" part ( "|" part )+ ")"
+
   part                     ::=  noWhitespacePart  
                 
                              |  optionalPart  
@@ -29,6 +31,8 @@ const grammar = `
                              |  oneOrMoreParts  
                 
                              |  groupOfParts  
+                           
+                             |  choiceOfParts  
                            
                              |  productionName  
                 

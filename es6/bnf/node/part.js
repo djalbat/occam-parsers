@@ -35,10 +35,17 @@ class PartNode extends NonTerminalNode {
     const nodesLength = nodes.length;
     
     if (nodesLength > 1) {
-      const GroupOfPartsPart = Parts['GroupOfPartsPart'],
-            groupOfPartsPart = GroupOfPartsPart.fromNodes(nodes, Parts);
+      const ChoiceOfPartsPart = Parts['ChoiceOfPartsPart'],
+            choiceOfPartsPart = ChoiceOfPartsPart.fromNodes(nodes, Parts);
       
-      part = groupOfPartsPart;  ///
+      if (choiceOfPartsPart !== null) {
+        part = choiceOfPartsPart; ///
+      } else {
+        const GroupOfPartsPart = Parts['GroupOfPartsPart'],
+              groupOfPartsPart = GroupOfPartsPart.fromNodes(nodes, Parts);
+
+        part = groupOfPartsPart;  ///
+      }
     } else {
       const firstNode = arrayUtil.first(nodes),
             remainingNode = firstNode;  ///
