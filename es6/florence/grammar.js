@@ -16,25 +16,25 @@ const grammar = `
 
      part                                       ::=   verticalSpace
 
-                                                  |   typeDeclaration
+                                                  |   typeDefinition
                                                                 
-                                                  |   typesDeclaration
-                                                                
-                                                  |   dependentTypeDeclaration
-                                                                
-                                                  |   dependentTypesDeclaration
-                                                                
-                                                  |   constructorDeclaration
-                                                                
-                                                  |   constructorsDeclaration
+                                                  |   typesDefinition
                                                                 
                                                   |   variableDeclaration
                                                                 
                                                   |   variablesDeclaration
                                                                 
+                                                  |   constructorDefinition
+                                                                
+                                                  |   constructorsDefinition
+                                                                
                                                   |   metavariableDeclaration
                                                                 
                                                   |   metavariablesDeclaration
+                                                                
+                                                  |   dependentTypeDefinition
+                                                                
+                                                  |   dependentTypesDefinition
                                                                 
                                                   |   qualifiedMetavariableDeclaration
                                                                 
@@ -56,21 +56,21 @@ const grammar = `
 
 
 
-     typeDeclaration                            ::=   "Type" type
+     typeDefinition                             ::=   "Type" type
 
-     typesDeclaration                           ::=   "Types" types
-
-     dependentTypeDeclaration                   ::=   "DependentType" dependentType
-
-     dependentTypesDeclaration                  ::=   "DependentTypes" dependentTypes 
-
-     constructorDeclaration                     ::=   "Constructor" constructor
-
-     constructorsDeclaration                    ::=   "Constructors" constructors
+     typesDefinition                            ::=   "Types" types
 
      variableDeclaration                        ::=   "Variable" variable
 
      variablesDeclaration                       ::=   "Variables" variables
+
+     dependentTypeDefinition                    ::=   "DependentType" dependentType
+
+     dependentTypesDefinition                   ::=   "DependentTypes" dependentTypes
+
+     constructorDefinition                      ::=   "Constructor" constructor
+
+     constructorsDefinition                     ::=   "Constructors" constructors<NO_WHITESPACE>(";"constructors)*
 
      metaVariableDeclaration                    ::=   "MetaVariable" metaVariable
 
@@ -82,6 +82,32 @@ const grammar = `
      
      
      
+     type                                       ::=   typeName
+   
+     types                                      ::=   typeNames   
+
+     variable                                   ::=   variableName(<NO_WHITESPACE>":"typeName)?
+   
+     variables                                  ::=   variable(<NO_WHITESPACE>","<NO_WHITESPACE>variable)+
+   
+     constructor                                ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames?<NO_WHITESPACE>":"<NO_WHITESPACE>typeName
+   
+     constructors                               ::=   constructor(<NO_WHITESPACE>","<NO_WHITESPACE>constructor)+
+   
+     dependentType                              ::=   dependentTypeName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")"
+   
+     dependentTypes                             ::=   dependentType(<NO_WHITESPACE>","<NO_WHITESPACE>dependentType)*
+   
+     metaVariable                               ::=   metaVariableName
+
+     metaVariables                              ::=   metaVariable(<NO_WHITESPACE>","<NO_WHITESPACE>metaVariable)*
+   
+     qualifiedMetaVariable                      ::=   qualifiedMetaVariableName
+   
+     qualifiedMetaVariables                     ::=   qualifiedMetaVariable(<NO_WHITESPACE>","<NO_WHITESPACE>qualifiedMetaVariable)*
+   
+   
+   
      rule                                       ::=   "Rule" parenthesisedLabels? <END_OF_LINE> ( premise | premises )? conclusion proof?
 
      axiom                                      ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | argument ) 
@@ -130,32 +156,6 @@ const grammar = `
 
 
 
-     type                                       ::=   typeName
-   
-     types                                      ::=   type(<NO_WHITESPACE>","<NO_WHITESPACE>type)*
-
-     dependentType                              ::=   dependentTypeName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")"
-   
-     dependentTypes                             ::=   dependentType(<NO_WHITESPACE>","<NO_WHITESPACE>dependentType)*
-   
-     constructor                                ::=   constructorName<NO_WHITESPACE>parenthesisedTypes?
-   
-     constructors                               ::=   constructor(<NO_WHITESPACE>","<NO_WHITESPACE>constructor)*
-   
-     variable                                   ::=   variableName(<NO_WHITESPACE>":"type)?
-   
-     variables                                  ::=   variable(<NO_WHITESPACE>","<NO_WHITESPACE>variable)*
-   
-     metaVariable                               ::=   metaVariableName
-
-     metaVariables                              ::=   metaVariable(<NO_WHITESPACE>","<NO_WHITESPACE>metaVariable)*
-   
-     qualifiedMetaVariable                      ::=   qualifiedMetaVariableName
-   
-     qualifiedMetaVariables                     ::=   qualifiedMetaVariable(<NO_WHITESPACE>","<NO_WHITESPACE>qualifiedMetaVariable)*
-   
-   
-   
      unjustifiedStatementOrJustifiedStatement   ::=   unjustifiedStatement | justifiedStatement
 
      unjustifiedStatement                       ::=   statement <END_OF_LINE>
@@ -186,25 +186,31 @@ const grammar = `
 
 
 
-     terms                                      ::=   term(<NO_WHITESPACE>","<NO_WHITESPACE>term)*
-     
      term                                       ::=   compoundTerm | variableName
 
      compoundTerm                               ::=   constructorName<NO_WHITESPACE>parenthesisedTerms?
 
 
 
-     labels                                     ::=   label(<NO_WHITESPACE>","<NO_WHITESPACE>label)*
 
      label                                      ::=   labelName<NO_WHITESPACE>parenthesisedTerms?
      
           
      
+     typeNames                                  ::=   typeName(<NO_WHITESPACE>","<NO_WHITESPACE>typeName)*
+
+     labels                                     ::=   label(<NO_WHITESPACE>","<NO_WHITESPACE>label)*
+
+     terms                                      ::=   term(<NO_WHITESPACE>","<NO_WHITESPACE>term)*
+     
+
+
+     parenthesisedTypeNames                     ::=   "("<NO_WHITESPACE>typeNames<NO_WHITESPACE>")"
+
      parenthesisedLabels                        ::=   "("<NO_WHITESPACE>labels<NO_WHITESPACE>")"                         
 
      parenthesisedTerms                         ::=   "("<NO_WHITESPACE>terms<NO_WHITESPACE>")"
      
-     parenthesisedTypes                         ::=   "("<NO_WHITESPACE>types<NO_WHITESPACE>")"
 
 
 

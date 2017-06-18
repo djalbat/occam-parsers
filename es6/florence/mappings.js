@@ -31,10 +31,10 @@ const mappings = {
   'metaVariables': DiscardOddChildNodes,
   'dependentTypes': DiscardOddChildNodes,
   'qualifiedMetaVariables': DiscardOddChildNodes,
-
+  
+  'parenthesisedTypeNames' : TransparentThenKeepSecondNode,
   'parenthesisedLabels' : TransparentThenKeepSecondNode,
-  'parenthesisedTerms' : TransparentThenKeepSecondNode,
-  'parenthesisedTypes' : TransparentThenKeepSecondNode
+  'parenthesisedTerms' : TransparentThenKeepSecondNode
   
 };
 
