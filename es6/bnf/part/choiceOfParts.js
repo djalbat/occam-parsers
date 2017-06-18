@@ -1,6 +1,6 @@
 'use strict';
 
-const nodeUtil = require('../../util/node'),
+const bnfUtil = require('../../util/bnf'),
       arrayUtil = require('../../util/array');
 
 class ChoiceOfPartsPart {
@@ -50,7 +50,7 @@ class ChoiceOfPartsPart {
     nodes = arrayUtil.discardFirstAndLast(nodes);
     
     const secondNode = arrayUtil.second(nodes),
-          secondNodeChoiceNode = nodeUtil.isNodeChoiceNode(secondNode);
+          secondNodeChoiceNode = bnfUtil.isNodeChoiceNode(secondNode);
     
     if (secondNodeChoiceNode) {
       nodes = arrayUtil.discardOdd(nodes);

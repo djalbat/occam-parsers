@@ -1,6 +1,6 @@
 'use strict';
 
-const nodeUtil = require('../../util/node'),
+const bnfUtil = require('../../util/bnf'),
       arrayUtil = require('../../util/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
@@ -11,7 +11,7 @@ class PartNode extends NonTerminalNode {
         nodes = childNodes; ///
     
     const firstNode = arrayUtil.first(nodes),
-          firstNodeNoWhitespaceNode = nodeUtil.isNodeNoWhitespaceNode(firstNode);
+          firstNodeNoWhitespaceNode = bnfUtil.isNodeNoWhitespaceNode(firstNode);
 
     if (firstNodeNoWhitespaceNode) {
       noWhitespace = true;
@@ -22,12 +22,12 @@ class PartNode extends NonTerminalNode {
     let  quantifiers = null;
 
     const lastNode = arrayUtil.last(nodes),
-          lastNodeQuantifiersNode = nodeUtil.isNodeQuantifiersNode(lastNode);
+          lastNodeQuantifiersNode = bnfUtil.isNodeQuantifiersNode(lastNode);
     
     if (lastNodeQuantifiersNode) {
       const quantifiersNode = lastNode;  ///
       
-      quantifiers = nodeUtil.quantifiersFromQuantifiersNode(quantifiersNode);
+      quantifiers = bnfUtil.quantifiersFromQuantifiersNode(quantifiersNode);
 
       nodes = arrayUtil.discardLast(nodes);
     }

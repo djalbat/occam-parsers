@@ -1,6 +1,12 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const TerminalNode = require('../../common/node/terminal');
+
+const { BNFLexer } = lexers,
+      { specialSymbols } = BNFLexer,
+      { NO_WHITESPACE } = specialSymbols;
 
 class SignificantTokenTypePart {
   constructor(significantTokenType, noWhitespace = false) {
@@ -35,8 +41,8 @@ class SignificantTokenTypePart {
 
   toString() {
     const noWhitespaceString = this.noWhitespace ?
-                                '<NO_WHITESPACE>' :
-                                  '',
+                                 NO_WHITESPACE :
+                                   '',
           string = `${noWhitespaceString}[${this.significantTokenType}]`;
     
     return string;

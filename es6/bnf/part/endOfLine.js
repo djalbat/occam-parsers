@@ -2,9 +2,11 @@
 
 const lexers = require('occam-lexers');
 
-const { EndOfLineToken } = lexers;
-
 const TerminalNode = require('../../common/node/terminal');
+
+const { BNFLexer, EndOfLineToken } = lexers,
+      { specialSymbols } = BNFLexer,
+      { END_OF_LINE } = specialSymbols;
 
 class EndOfLinePart {
   constructor(noWhitespace) {
@@ -37,7 +39,7 @@ class EndOfLinePart {
   }
 
   toString() {
-    const string = '<END_OF_LINE>';
+    const string = END_OF_LINE;
 
     return string;
   }

@@ -1,13 +1,19 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const Definition = require('../definition'),
       TerminalSymbolPart = require('../part/terminalSymbol'),
       ProductionNamePart = require('../part/productionName');
 
+const { BNFLexer } = lexers,
+      { specialSymbols } = BNFLexer,
+      { NO_WHITESPACE } = specialSymbols;
+
 class NoWhitespacePartDefinition extends Definition {
   constructor() {
     const partProductionName = 'part',
-          noWhitespaceTerminalSymbolContent = '<NO_WHITESPACE>',
+          noWhitespaceTerminalSymbolContent = NO_WHITESPACE,
           noWhitespaceTerminalSymbolPart = new TerminalSymbolPart(noWhitespaceTerminalSymbolContent),
           partProductionNamePart = new ProductionNamePart(partProductionName),
           parts = [

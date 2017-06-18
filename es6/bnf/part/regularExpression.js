@@ -1,7 +1,13 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const arrayUtil = require('../../util/array'),
       TerminalNode = require('../../common/node/terminal');
+
+const { BNFLexer } = lexers,
+      { specialSymbols } = BNFLexer,
+      { NO_WHITESPACE } = specialSymbols;
 
 class RegularExpressionPart {
   constructor(regExp, noWhitespace = false) {
@@ -42,8 +48,8 @@ class RegularExpressionPart {
   toString() {
     const regExpString = this.regExp.toString(),
           noWhitespaceString = this.noWhitespace ?
-                                '<NO_WHITESPACE>' :
-                                  '',
+                                 NO_WHITESPACE :
+                                   '',
           string = `${noWhitespaceString}${regExpString}`;
 
     return string;

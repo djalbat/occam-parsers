@@ -1,10 +1,16 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const arrayUtil = require('../util/array'),
       TerminalNode = require('../common/node/terminal'),
       NonTerminalNode = require('../common/node/nonTerminal');
 
-class nodeUtil {
+const { BNFLexer } = lexers,
+      { specialSymbols } = BNFLexer,
+      { NO_WHITESPACE } = specialSymbols;
+
+class bnfUtil {
   static isNodeTerminalNode(node) {
     const nodeTerminalNode = (node instanceof TerminalNode);
 
@@ -20,13 +26,13 @@ class nodeUtil {
   static isNodeNoWhitespaceNode(node) {
     let nodeNoWhitespaceNode = false;
   
-    const nodeTerminalNode = nodeUtil.isNodeTerminalNode(node);
+    const nodeTerminalNode = bnfUtil.isNodeTerminalNode(node);
   
     if (nodeTerminalNode) {
       const terminalNode = node,
             terminalNodeContent = terminalNode.getContent();
   
-      nodeNoWhitespaceNode = (terminalNodeContent === '<NO_WHITESPACE>'); ///
+      nodeNoWhitespaceNode = (terminalNodeContent === NO_WHITESPACE);
     }
   
     return nodeNoWhitespaceNode;
@@ -35,7 +41,7 @@ class nodeUtil {
   static isNodeChoiceNode(node) {
     let nodeNoChoiceNode = false;
 
-    const nodeTerminalNode = nodeUtil.isNodeTerminalNode(node);
+    const nodeTerminalNode = bnfUtil.isNodeTerminalNode(node);
 
     if (nodeTerminalNode) {
       const terminalNode = node,
@@ -50,13 +56,13 @@ class nodeUtil {
   static isNodeQuantifiersNode(node) {
     let nodeQuantifiersNode = false;
 
-    const nodeNonTerminalNode = nodeUtil.isNodeNonTerminalNode(node);
+    const nodeNonTerminalNode = bnfUtil.isNodeNonTerminalNode(node);
 
     if (nodeNonTerminalNode) {
       const nonTerminalNode = node, ///
             childNodes = nonTerminalNode.getChildNodes(),
             firstChildNode = arrayUtil.first(childNodes),
-            firstChildNodeTerminalNode = nodeUtil.isNodeTerminalNode(firstChildNode);
+            firstChildNodeTerminalNode = bnfUtil.isNodeTerminalNode(firstChildNode);
 
       if (firstChildNodeTerminalNode) {
         const terminalNode = firstChildNode,  ///
@@ -85,14 +91,14 @@ class nodeUtil {
 
       quantifiersNode = secondQuantifiersNodeChildNode; ///
 
-      quantifiers = nodeUtil.quantifiersFromQuantifiersNode(quantifiersNode, quantifiers);
+      quantifiers = bnfUtil.quantifiersFromQuantifiersNode(quantifiersNode, quantifiers);
     }
 
     return quantifiers;
   }
 }
 
-module.exports = nodeUtil;
+module.exports = bnfUtil;
 
 function quantifierFromQuantifiersNode(quantifiersNode) {
   const quantifiersNodeChildNodes = quantifiersNode.getChildNodes(),

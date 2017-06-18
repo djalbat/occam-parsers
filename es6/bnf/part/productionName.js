@@ -1,6 +1,12 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const parserUtil = require('../../util/parser');
+
+const { BNFLexer } = lexers,
+      { specialSymbols } = BNFLexer,
+      { NO_WHITESPACE } = specialSymbols;
 
 class ProductionNamePart {
   constructor(productionName, noWhitespace = false) {
@@ -35,8 +41,8 @@ class ProductionNamePart {
 
   toString() {
     const noWhitespaceString = this.noWhitespace ?
-                                '<NO_WHITESPACE>' :
-                                  '',
+                                 NO_WHITESPACE :
+                                   '',
           string = `${noWhitespaceString}${this.productionName}`;
 
     return string;

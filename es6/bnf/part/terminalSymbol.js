@@ -1,6 +1,12 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const TerminalNode = require('../../common/node/terminal');
+
+const { BNFLexer } = lexers,
+      { specialSymbols } = BNFLexer,
+      { NO_WHITESPACE } = specialSymbols;
 
 class TerminalSymbolPart {
   constructor(content, noWhitespace = false) {
@@ -35,7 +41,7 @@ class TerminalSymbolPart {
   
   toString() {
     const noWhitespaceString = this.noWhitespace ?
-                                 '<NO_WHITESPACE>' :
+                                 NO_WHITESPACE :
                                    '',
           string = `${noWhitespaceString}"${this.content}"`;
     
