@@ -7,7 +7,10 @@ class ProductionNode extends NonTerminalNode {
   generateProduction(Production, Definition, Parts, mappings) {
     const name = this.getName(),
           definitions = this.generateDefinitions(Definition, Parts),
-          Node = mappings[name] || NonTerminalNode,
+          mappingsNodeExists = mappings.hasOwnProperty(name),
+          Node = mappingsNodeExists ?
+                   mappings[name] :
+                     NonTerminalNode,
           production = new Production(name, definitions, Node);
 
     return production;
