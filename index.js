@@ -6,7 +6,7 @@ var parsers = {
   'FlorenceParser': require('./lib/florence/parser'),
   'TerminalNode': require('./lib/common/node/terminal'),
   'NonTerminalNode': require('./lib/common/node/nonTerminal'),
-  'ErrorNode': require('./lib/common/node/nonTerminal/error')
+  'ErrorNode': require('./lib/common/node/terminal/error')
 };
 
 module.exports = parsers;
