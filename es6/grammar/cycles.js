@@ -4,10 +4,10 @@ const tarjan = require('occam-tarjan');
 
 const parserUtil = require('../util/parser'),
       Production = require('../bnf/production'),
-      NonCyclicProduction = require('./production/nonCyclic'),
-      UnitDefinitionProduction = require('./production/unitDefinition'),
-      UnitDefinitionsProduction = require('./production/unitDefinitions'),
-      NonUnitDefinitionsProduction = require('./production/nonUnitDefinitions');
+      UnitProduction = require('./production/unit'),
+      UnitsProduction = require('./production/units'),
+      FixedProduction = require('./production/fixed'),
+      NonCyclicProduction = require('./production/nonCyclic');
 
 const { Graph } = tarjan;
 
@@ -20,11 +20,16 @@ class cycles {
     productions = productions.map(function(production) {
       const productionName = production.getName(),
             nonCyclicProductionName = productionName, ///
-            alreadyNonCyclicProductionName = productionName,  ///
-            nonCyclicProduction = parserUtil.findProduction(nonCyclicProductionName, nonCyclicProductions),
-            alreadyNonCyclicProduction = parserUtil.findProduction(alreadyNonCyclicProductionName, productions);  ///
+            nonCyclicProduction = parserUtil.findProduction(nonCyclicProductionName, nonCyclicProductions);
+      
+      if (nonCyclicProduction !== null) {
+        production = nonCyclicProduction; ///
+      } else {
+        const alreadyNonCyclicProductionName = productionName,  ///
+              alreadyNonCyclicProduction = parserUtil.findProduction(alreadyNonCyclicProductionName, productions);  ///
 
-      production = nonCyclicProduction || alreadyNonCyclicProduction; ///
+        production = alreadyNonCyclicProduction; ///
+      }
 
       return production;
     });
@@ -37,14 +42,13 @@ module.exports = cycles;
 
 function graphFromProductions(productions) {
   const graph = new Graph(),
-        unitDefinitionsProductions = unitDefinitionsProductionsFromProductions(productions);
+        unitsProductions = unitsProductionsFromProductions(productions);
 
-  unitDefinitionsProductions.forEach(function(unitDefinitionsProduction) {
-    const productionName = unitDefinitionsProduction.getName(),
-          productionNames = unitDefinitionsProduction.getProductionNames(),
-          unitDefinitionProductionNames = unitDefinitionProductionNamesFromProductionNames(productionNames, unitDefinitionsProductions),
+  unitsProductions.forEach(function(unitsProduction) {
+    const productionName = unitsProduction.getName(),
+          unitDefinitionsProductionNames = unitsProduction.getUnitDefinitionProductionNames(),
           vertexName = productionName,  ///
-          descendantVertexNames = unitDefinitionProductionNames; ///
+          descendantVertexNames = unitDefinitionsProductionNames; ///
 
     graph.addVertex(vertexName, descendantVertexNames);
   });
@@ -52,35 +56,18 @@ function graphFromProductions(productions) {
   return graph;
 }
 
-function unitDefinitionsProductionsFromProductions(productions) {
-  const unitDefinitionsProductions = productions.reduce(function(unitDefinitionsProductions, production) {
-    const unitDefinitionsProduction = UnitDefinitionsProduction.fromProduction(production);
+function unitsProductionsFromProductions(productions) {
+  const unitsProductions = productions.reduce(function(unitsProductions, production) {
+    const unitsProduction = UnitsProduction.fromProduction(production);
 
-    if (unitDefinitionsProduction !== null) {
-      unitDefinitionsProductions.push(unitDefinitionsProduction);
+    if (unitsProduction !== null) {
+      unitsProductions.push(unitsProduction);
     }
 
-    return unitDefinitionsProductions;
+    return unitsProductions;
   }, []);
 
-  return unitDefinitionsProductions;
-}
-
-function unitDefinitionProductionNamesFromProductionNames(productionNames, unitDefinitionProductions) {
-  const unitDefinitionProductionNames = productionNames.reduce(function(unitDefinitionProductionNames, productionName) {
-    const unitDefinitionProductionName = productionName,  ///
-          unitDefinitionProduction = parserUtil.findProduction(unitDefinitionProductionName, unitDefinitionProductions);
-    
-    if (unitDefinitionProduction !== null) {
-      const unitDefinitionProductionName = productionName;  ///
-
-      unitDefinitionProductionNames.push(unitDefinitionProductionName);
-    }    
-    
-    return unitDefinitionProductionNames;
-  }, []);
-
-  return unitDefinitionProductionNames;
+  return unitsProductions;
 }
 
 function nonCyclicProductionsFromComponents(components, productions) {
@@ -100,8 +87,7 @@ function nonCyclicProductionsFromComponents(components, productions) {
 }
 
 function nonCyclicProductionFromComponent(component, productions, nonCyclicProductions) {
-  const firstVertex = component.getFirstVertex(),
-        firstVertexName = firstVertex.getName(),
+  const firstVertexName = component.getFirstVertexName(),
         productionName = firstVertexName,  ///
         production = parserUtil.findProduction(productionName, productions);
 
@@ -113,77 +99,83 @@ function nonCyclicProductionFromComponent(component, productions, nonCyclicProdu
 }
 
 function nonCyclicProductionsFromComponent(component, productions, nonCyclicProductions) {
-  const unitDefinitionProductions = unitDefinitionProductionsFromComponent(component, productions),
-        fixedNonUnitDefinitionsProductions = fixedNonUnitDefinitionsProductionsFromProductions(productions),
-        addedNonUnitDefinitionsProductions = [],
-        removedUnitDefinitionProductions = [];
+  const unitProductions = unitProductionsFromComponent(component, productions),
+        fixedProductions = fixedProductionsFromComponent(component, productions),
+        addedProductions = addedProductionsFromUnitProductionsAndFixedProductions(unitProductions, fixedProductions);
 
-  let unitDefinitionProductionsLength = unitDefinitionProductions.length;
+  nonCyclicProductionsFromFixedProductionsAndAddedProductions(fixedProductions, addedProductions, nonCyclicProductions);
+}
 
-  while (unitDefinitionProductionsLength > 0) {
-    let unitDefinitionProduction = unitDefinitionProductions.shift(),
-        unitDefinitionProductionName = unitDefinitionProduction.getName();
+function addedProductionsFromUnitProductionsAndFixedProductions(unitProductions, fixedProductions) {
+  const addedProductions = [],
+        removedUnitProductions = [];
 
-    const removedUnitDefinitionProduction = unitDefinitionProduction; ///
+  let unitProductionsLength = unitProductions.length;
 
-    removedUnitDefinitionProductions.push(removedUnitDefinitionProduction);
+  while (unitProductionsLength > 0) {
+    let unitProduction = unitProductions.shift(),
+        unitProductionName = unitProduction.getName();
 
-    const unitDefinitionProductionUnitDefinitionProductionName = unitDefinitionProduction.getUnitDefinitionProductionName(),
-          fixedNonUnitDefinitionsProductionName = unitDefinitionProductionUnitDefinitionProductionName,  ///
-          fixedNonUnitDefinitionsProduction = parserUtil.findProduction(fixedNonUnitDefinitionsProductionName, fixedNonUnitDefinitionsProductions),
-          addedNonUnitDefinitionsProductionName = unitDefinitionProductionName;  ///
+    const removedUnitProduction = unitProduction; ///
 
-    let addedNonUnitDefinitionsProduction = parserUtil.findProduction(addedNonUnitDefinitionsProductionName, addedNonUnitDefinitionsProductions);
+    removedUnitProductions.push(removedUnitProduction);
 
-    if (addedNonUnitDefinitionsProduction === null) {
-      addedNonUnitDefinitionsProduction = Production.fromProduction(fixedNonUnitDefinitionsProduction);
+    const unitProductionUnitProductionName = unitProduction.getUnitProductionName(),
+          fixedProductionName = unitProductionUnitProductionName,  ///
+          fixedProduction = parserUtil.findProduction(fixedProductionName, fixedProductions),
+          addedProductionName = unitProductionName;  ///
 
-      addedNonUnitDefinitionsProduction.setName(addedNonUnitDefinitionsProductionName);
+    let addedProduction = parserUtil.findProduction(addedProductionName, addedProductions);
 
-      addedNonUnitDefinitionsProductions.push(addedNonUnitDefinitionsProduction);
+    if (addedProduction === null) {
+      addedProduction = Production.fromProduction(fixedProduction);
+
+      addedProduction.setName(addedProductionName);
+
+      addedProductions.push(addedProduction);
     } else {
-      const fixedNonUnitDefinitionsProductionDefinitions = fixedNonUnitDefinitionsProduction.getDefinitions();
+      const fixedProductionDefinitions = fixedProduction.getDefinitions();
 
-      addedNonUnitDefinitionsProduction.addDefinitions(fixedNonUnitDefinitionsProductionDefinitions);
+      addedProduction.addDefinitions(fixedProductionDefinitions);
     }
 
-    const intermediateUnitDefinitionProductionName = unitDefinitionProductionUnitDefinitionProductionName, ///
-          intermediateUnitDefinitionProduction = parserUtil.findProduction(intermediateUnitDefinitionProductionName, unitDefinitionProductions);
+    const intermediateUnitProductionName = unitProductionUnitProductionName, ///
+          intermediateUnitProduction = parserUtil.findProduction(intermediateUnitProductionName, unitProductions);
 
-    if (intermediateUnitDefinitionProduction !== null) {
-      const intermediateUnitDefinitionProductionUnitDefinitionProductionName = intermediateUnitDefinitionProduction.getUnitDefinitionProductionName(),
-            firstProductionName = unitDefinitionProductionName,  ///
-            secondProductionName = intermediateUnitDefinitionProductionUnitDefinitionProductionName,  ///
-            unitDefinitionProductionNonCyclic = (firstProductionName !== secondProductionName);
+    if (intermediateUnitProduction !== null) {
+      const intermediateUnitProductionUnitProductionName = intermediateUnitProduction.getUnitProductionName(),
+            firstProductionName = unitProductionName,  ///
+            secondProductionName = intermediateUnitProductionUnitProductionName,  ///
+            unitProductionNonCyclic = (firstProductionName !== secondProductionName);
 
-      if (unitDefinitionProductionNonCyclic) {
-        unitDefinitionProduction = findUnitDefinitionProduction(firstProductionName, secondProductionName, removedUnitDefinitionProductions);
+      if (unitProductionNonCyclic) {
+        unitProduction = findUnitProduction(firstProductionName, secondProductionName, removedUnitProductions);
 
-        if (unitDefinitionProduction === null) {
-          unitDefinitionProduction = UnitDefinitionProduction.fromProductionNames(firstProductionName, secondProductionName);
+        if (unitProduction === null) {
+          unitProduction = UnitProduction.fromProductionNames(firstProductionName, secondProductionName);
 
-          unitDefinitionProductions.unshift(unitDefinitionProduction);
+          unitProductions.unshift(unitProduction);
         }
       }
     }
 
-    unitDefinitionProductionsLength = unitDefinitionProductions.length;
+    unitProductionsLength = unitProductions.length;
   }
 
-  nonCyclicProductionsFromFixedAndAddedProductions(fixedNonUnitDefinitionsProductions, addedNonUnitDefinitionsProductions, nonCyclicProductions);
+  return addedProductions;
 }
 
-function nonCyclicProductionsFromFixedAndAddedProductions(fixedNonUnitDefinitionsProductions, addedNonUnitDefinitionsProductions, nonCyclicProductions) {
-  fixedNonUnitDefinitionsProductions.forEach(function(fixedNonUnitDefinitionsProduction) {
-    const nonCyclicProduction = fixedNonUnitDefinitionsProduction, ///
+function nonCyclicProductionsFromFixedProductionsAndAddedProductions(fixedProductions, addedProductions, nonCyclicProductions) {
+  fixedProductions.forEach(function(fixedProduction) {
+    const nonCyclicProduction = fixedProduction, ///
           nonCyclicProductionName = nonCyclicProduction.getName(),
-          addedNonUnitDefinitionsProductionName = nonCyclicProductionName, ///
-          addedNonUnitDefinitionsProduction = parserUtil.findProduction(addedNonUnitDefinitionsProductionName, addedNonUnitDefinitionsProductions);
+          addedProductionName = nonCyclicProductionName, ///
+          addedProduction = parserUtil.findProduction(addedProductionName, addedProductions);
 
-    if (addedNonUnitDefinitionsProduction !== null) {
-      const addedNonUnitDefinitionsProductionDefinitions = addedNonUnitDefinitionsProduction.getDefinitions();
+    if (addedProduction !== null) {
+      const addedProductionDefinitions = addedProduction.getDefinitions();
 
-      nonCyclicProduction.addDefinitions(addedNonUnitDefinitionsProductionDefinitions);
+      nonCyclicProduction.addDefinitions(addedProductionDefinitions);
     }
 
     const nonCyclicProductionDefinitionsExist = nonCyclicProduction.doDefinitionsExist();
@@ -194,68 +186,80 @@ function nonCyclicProductionsFromFixedAndAddedProductions(fixedNonUnitDefinition
   });
 }
 
-function unitDefinitionProductionsFromComponent(component, productions) {
-  const unitDefinitionsProductions = unitDefinitionsProductionsFromComponent(component, productions),
-        unitDefinitionProductions = unitDefinitionProductionsFromUnitDefinitionsProductions(unitDefinitionsProductions);
+function unitProductionsFromComponent(component, productions) {
+  const componentVertexNames = component.getVertexNames(),
+        unitsProductions = unitsProductionsFromComponent(component, productions),
+        productionNames = componentVertexNames,  ///
+        unitProductions = unitProductionsFromUnitsProductionsAndProductionNames(unitsProductions, productionNames);
 
-  return unitDefinitionProductions;
+  return unitProductions;
 }
 
-function unitDefinitionsProductionsFromComponent(component, productions) {
-  const unitDefinitionsProductions = component.mapVertices(function(vertex) {
-    const vertexName = vertex.getName(),
-          productionName = vertexName,  ///
+function unitsProductionsFromComponent(component, productions) {
+  const unitsProductions = component.reduceVertexNames(function(unitsProductions, vertexName) {
+    const productionName = vertexName,  ///
           production = parserUtil.findProduction(productionName, productions),
-          unitDefinitionsProduction = UnitDefinitionsProduction.fromProduction(production);
+          unitsProduction = UnitsProduction.fromProduction(production);
 
-    return unitDefinitionsProduction;
-  });
+    if (unitsProduction !== null) {
+      unitsProductions.push(unitsProduction);
+    }
 
-  return unitDefinitionsProductions;
-}
-
-function fixedNonUnitDefinitionsProductionsFromProductions(productions) {
-  const fixedNonUnitDefinitionsProductions = productions.map(function(production) {
-    const nonUnitDefinitionsProduction = NonUnitDefinitionsProduction.fromProduction(production),
-          fixedNonUnitDefinitionsProduction = nonUnitDefinitionsProduction; ///
-
-    return fixedNonUnitDefinitionsProduction;
-  });
-
-  return fixedNonUnitDefinitionsProductions;
-}
-
-function unitDefinitionProductionsFromUnitDefinitionsProductions(unitDefinitionsProductions) {
-  const unitDefinitionProductions = unitDefinitionsProductions.reduce(function(unitDefinitionProductions, unitDefinitionsProduction) {
-    const unitDefinitionsProductionName = unitDefinitionsProduction.getName();
-    
-    unitDefinitionsProduction.forEachUnitDefinition(function(unitDefinition) {
-      const name = unitDefinitionsProductionName, ///
-            unitDefinitionProduction = UnitDefinitionProduction.fromNameAndUnitDefinition(name, unitDefinition);
-
-      unitDefinitionProductions.push(unitDefinitionProduction);
-    });
-
-    return unitDefinitionProductions;
+    return unitsProductions;
   }, []);
 
-  return unitDefinitionProductions;
+  return unitsProductions;
 }
 
-function findUnitDefinitionProduction(firstProductionName, secondProductionName, unitDefinitionProductions) {
-  let foundUnitDefinitionProduction = null;
+function unitProductionsFromUnitsProductionsAndProductionNames(unitsProductions, productionNames) {
+  const unitProductions = unitsProductions.reduce(function(unitProductions, unitsProduction) {
+    const unitsProductionName = unitsProduction.getName();
 
-  unitDefinitionProductions.some(function(unitDefinitionProduction) {
-    const unitDefinitionProductionFound = unitDefinitionProduction.isFoundByProductionNames(firstProductionName, secondProductionName);
+    unitsProduction.forEachUnitDefinition(function(unitDefinition) {
+      const name = unitsProductionName, ///
+            unitProduction = UnitProduction.fromNameAndUnitDefinition(name, unitDefinition),
+            unitProductionNotCyclic = unitProduction.isNotCyclic(),
+            unitProductionIncludedInProductionNames = unitProduction.isIncludedInProductionNames(productionNames);
+      
+      if (unitProductionNotCyclic && unitProductionIncludedInProductionNames) {
+        unitProductions.push(unitProduction);
+      }
+    });
 
-    if (unitDefinitionProductionFound) {
-      foundUnitDefinitionProduction = unitDefinitionProduction;
+    return unitProductions;
+  }, []);
+
+  return unitProductions;
+}
+
+function fixedProductionsFromComponent(component, productions) {
+  const componentVertexNames = component.getVertexNames(),
+        productionNames = componentVertexNames, ///
+        fixedProductions = component.mapVertexNames(function(vertexName) {
+    const productionName = vertexName,  ///
+          production = parserUtil.findProduction(productionName, productions),
+          fixedProduction = FixedProduction.fromProductionAndProductionNames(production, productionNames);
+
+    return fixedProduction;
+  });
+
+  return fixedProductions;
+}
+
+function findUnitProduction(firstProductionName, secondProductionName, unitProductions) {
+  let foundUnitProduction = null;
+
+  unitProductions.some(function(unitProduction) {
+    const unitProductionFound = unitProduction.isFoundByProductionNames(firstProductionName, secondProductionName);
+
+    if (unitProductionFound) {
+      foundUnitProduction = unitProduction;
 
       return true;
     }
   });
 
-  const unitDefinitionProduction = foundUnitDefinitionProduction; ///
+  const unitProduction = foundUnitProduction; ///
 
-  return unitDefinitionProduction;
+  return unitProduction;
 }

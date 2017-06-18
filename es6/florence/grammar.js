@@ -138,7 +138,7 @@ const grammar = `
    
      dependentTypes                             ::=   dependentType(<NO_WHITESPACE>","<NO_WHITESPACE>dependentType)*
    
-     constructor                                ::=   constructorName<NO_WHITESPACE>parenthesisedTypes
+     constructor                                ::=   constructorName<NO_WHITESPACE>parenthesisedTypes?
    
      constructors                               ::=   constructor(<NO_WHITESPACE>","<NO_WHITESPACE>constructor)*
    

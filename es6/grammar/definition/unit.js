@@ -12,6 +12,13 @@ class UnitDefinition extends Definition {
     return productionName;
   }
 
+  isIncludedInProductionNames(productionNames) {
+    const productionName = this.getProductionName(),
+          includedInProductionNames = productionNames.includes(productionName);
+
+    return includedInProductionNames;
+  }
+
   static fromProductionName(productionName) {
     const noWhitespace = false, ///
           productionNamePart = new ProductionNamePart(productionName, noWhitespace),

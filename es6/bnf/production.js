@@ -111,7 +111,8 @@ class Production {
   
             return definitionsString;
           }, null),
-          productionNameLength = this.name.length,  ///
+          productionName = this.name, ///
+          productionNameLength = productionName.length,
           paddingLength = maximumProductionNameLength - productionNameLength,
           padding = paddingFromPaddingLength(paddingLength),
           string = `\n\n  ${this.name}${padding} ::= ${definitionsString}`;
@@ -124,7 +125,7 @@ class Production {
           definitions = production.getDefinitions(),
           Node = production.getNode();
 
-    production = new Class(name, definitions, Node); ///
+    production = new Class(name, definitions, Node);
 
     return production;
   }
