@@ -7,7 +7,8 @@ const TransparentNode = require('../common/node/nonTerminal/transparentNode'),
 
 const mappings = {
 
-  'unjustifiedStatementOrJustifiedStatement' : TransparentNode,
+  'unjustifiedOrJustifiedMetastatement' : TransparentNode,
+  'unjustifiedOrJustifiedStatement' : TransparentNode,
 
   'part': TransparentNode,
   'name': TransparentNode,
@@ -26,9 +27,10 @@ const mappings = {
   'types': DiscardOddChildNodes,
   'variables': DiscardOddChildNodes,
   'constructors': DiscardOddChildNodes,
+  'abbreviations': DiscardOddChildNodes,
   'dependentTypes': DiscardOddChildNodes,
-  'metaVariables': DiscardOddChildNodes,
-  'qualifiedMetaVariables': DiscardOddChildNodes,
+  'metavariables': DiscardOddChildNodes,
+  'qualifiedMetavariables': DiscardOddChildNodes,
 
   'labels': DiscardOddChildNodes,
   'terms': DiscardOddChildNodes,
