@@ -14,7 +14,7 @@ const grammar = `
 
  naturalNumber            ::=  /\\d+/
 
- 
+
 `;
 
 module.exports = grammar;

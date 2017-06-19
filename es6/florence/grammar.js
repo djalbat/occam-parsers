@@ -82,29 +82,29 @@ const grammar = `
      
      
      
-     type                                       ::=   typeName
-   
      types                                      ::=   typeNames   
 
-     variable                                   ::=   variableName(<NO_WHITESPACE>":"typeName)?
+     type                                       ::=   typeName
    
      variables                                  ::=   variable(<NO_WHITESPACE>","<NO_WHITESPACE>variable)+
    
-     constructor                                ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames?<NO_WHITESPACE>":"<NO_WHITESPACE>typeName
+     variable                                   ::=   variableName(<NO_WHITESPACE>":"typeName)?
    
      constructors                               ::=   constructor(<NO_WHITESPACE>","<NO_WHITESPACE>constructor)+
    
-     dependentType                              ::=   dependentTypeName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")"
+     constructor                                ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames?<NO_WHITESPACE>":"<NO_WHITESPACE>typeName
    
      dependentTypes                             ::=   dependentType(<NO_WHITESPACE>","<NO_WHITESPACE>dependentType)*
    
-     metaVariable                               ::=   metaVariableName
-
+     dependentType                              ::=   dependentTypeName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")"
+   
      metaVariables                              ::=   metaVariable(<NO_WHITESPACE>","<NO_WHITESPACE>metaVariable)*
    
-     qualifiedMetaVariable                      ::=   qualifiedMetaVariableName
-   
+     metaVariable                               ::=   metaVariableName
+
      qualifiedMetaVariables                     ::=   qualifiedMetaVariable(<NO_WHITESPACE>","<NO_WHITESPACE>qualifiedMetaVariable)*
+   
+     qualifiedMetaVariable                      ::=   qualifiedMetaVariableName
    
    
    
