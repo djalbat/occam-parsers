@@ -176,7 +176,7 @@ const grammar = `
 
 
 
-     proofAssertion                             ::=   ( metaVariable | qualifiedMetaVariable ) "::" ( metaVariable | qualifiedMetaVariable )
+     proofAssertion                             ::=   context "⊢" ( qualifiedMetaVariable | metaVariable ) "::" ( qualifiedMetaVariable | metaVariable )
 
      typeAssertion                              ::=   expression ":" typeName
 
