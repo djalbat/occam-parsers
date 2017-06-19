@@ -23,14 +23,15 @@ const mappings = {
 
   'includeDirective': DiscardOddChildNodes,
 
-  'terms': DiscardOddChildNodes,
   'types': DiscardOddChildNodes,
-  'labels': DiscardOddChildNodes,
   'variables': DiscardOddChildNodes,
   'constructors': DiscardOddChildNodes,
-  'metaVariables': DiscardOddChildNodes,
   'dependentTypes': DiscardOddChildNodes,
+  'metaVariables': DiscardOddChildNodes,
   'qualifiedMetaVariables': DiscardOddChildNodes,
+
+  'labels': DiscardOddChildNodes,
+  'terms': DiscardOddChildNodes,
   
   'parenthesisedTypeNames' : TransparentThenKeepSecondNode,
   'parenthesisedLabels' : TransparentThenKeepSecondNode,
