@@ -11,18 +11,15 @@ const { Textarea } = easy,
       { BNFLexer } = lexers;
 
 const lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
-      adjustedBNFGrammarTextareaSelector = 'textarea#adjustedBNFGrammar',
       lexicalGrammar = BNFLexer.grammar;
 
 let lexicalGrammarTextarea,
-    adjustedBNFGrammarTextarea,
     bnfLexer = null,
     bnfParser = null;
 
 class BNFExample {
   static run() {
     lexicalGrammarTextarea = new Textarea(lexicalGrammarTextareaSelector);
-    adjustedBNFGrammarTextarea = new Textarea(adjustedBNFGrammarTextareaSelector);
 
     const lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
           bnfGrammarTextareaValue = grammar,  ///
@@ -48,8 +45,6 @@ function update() {
   updateBNFLexer();
 
   updateBNFParser();
-
-  updateAdjustedBNFGrammar();
 
   if (bnfLexer !== null) {
     const production = null,
@@ -88,11 +83,4 @@ function updateBNFLexer() {
 
 function updateBNFParser() {
   bnfParser = BNFParser.fromNothing();
-}
-
-function updateAdjustedBNFGrammar() {
-  const bnfParserString = bnfParser.toString(),
-        adjustedBNFGrammarTextareaValue = bnfParserString;  ///
-
-  adjustedBNFGrammarTextarea.setValue(adjustedBNFGrammarTextareaValue);
 }

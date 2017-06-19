@@ -14,8 +14,9 @@ textarea#content {
   height: 12rem;
 }
 
-textarea#bnfGrammar {
-  height: 21rem;
+textarea#bnfGrammar,
+textarea#adjustedBNFGrammar {
+  height: 12rem;
   margin-bottom: 1rem;
 }
 
@@ -24,4 +25,3 @@ textarea#productionName {
   resize: none;
   margin-bottom: 1rem;
 }
-

@@ -9,11 +9,13 @@ const { Textarea } = easy,
 const contentTextareaSelector = 'textarea#content',
       parseTreeTextareaSelector = 'textarea#parseTree',
       bnfGrammarTextareaSelector = 'textarea#bnfGrammar',
+      adjustedBNFGrammarTextareaSelector = 'textarea#adjustedBNFGrammar',
       sizeableElementSelector = '#sizeableElement',
       verticalSplitterSelector = '#verticalSplitter',
       contentTextarea = new Textarea(contentTextareaSelector),
       parseTreeTextarea = new Textarea(parseTreeTextareaSelector),
       bnfGrammarTextarea = new Textarea(bnfGrammarTextareaSelector),
+      adjustedBNFGrammarTextarea = new Textarea(adjustedBNFGrammarTextareaSelector),
       sizeableElement = new SizeableElement(sizeableElementSelector),
       beforeSizeableElement = false,
       afterSizeableElement = true;
@@ -32,6 +34,11 @@ class Example {
   static onContentTextareaKeyUp(handler) { contentTextarea.onKeyUp(handler); }
 
   static updateParseTreeTextarea(lexer, parser, production) {
+    const bnfParserString = parser.toString(),
+          adjustedBNFGrammarTextareaValue = bnfParserString;  ///
+
+    adjustedBNFGrammarTextarea.setValue(adjustedBNFGrammarTextareaValue);
+
     let node = null;
     
     try {
@@ -72,4 +79,3 @@ class Example {
 }
 
 module.exports = Example;
-
