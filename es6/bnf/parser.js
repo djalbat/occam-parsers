@@ -27,13 +27,9 @@ const Parts = require('./parts'),
 
 class BNFParser extends CommonParser {
   static generateProductions(node, mappings = {}) {
-    let productions = (node !== null) ?
-                        node.generateProductions(Production, Definition, Parts, mappings) :
-                          [];
-
-    productions = cycles.eliminate(productions);  ///
-
-    productions = leftRecursion.eliminate(productions);  ///
+    const productions = (node !== null) ?
+                          node.generateProductions(Production, Definition, Parts, mappings) :
+                            [];
 
     return productions;
   }

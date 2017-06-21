@@ -11,12 +11,10 @@ const mappings = {
   'unjustifiedOrJustifiedStatement' : TransparentNode,
 
   'part': TransparentNode,
+  
   'name': TransparentNode,
 
-  'then': DiscardSecondChildNode,
-  'hence': DiscardSecondChildNode,
   'proof': DiscardSecondChildNode,
-  'suppose': DiscardSecondChildNode,
   'premise': DiscardSecondChildNode,
   'premises': DiscardSecondChildNode,
   'therefore': DiscardSecondChildNode,
@@ -24,14 +22,15 @@ const mappings = {
 
   'includeDirective': DiscardOddChildNodes,
 
-  'types': DiscardOddChildNodes,
-  'variables': DiscardOddChildNodes,
-  'constructors': DiscardOddChildNodes,
-  'abbreviations': DiscardOddChildNodes,
-  'dependentTypes': DiscardOddChildNodes,
-  'metavariables': DiscardOddChildNodes,
-  'qualifiedMetavariables': DiscardOddChildNodes,
+  'typesDefinition': DiscardOddChildNodes,
+  'variablesDefinition': DiscardOddChildNodes,
+  'constructorsDefinition': DiscardOddChildNodes,
+  'abbreviationsDefinition': DiscardOddChildNodes,
+  'dependentTypesDefinition': DiscardOddChildNodes,
+  'metavariablesDefinition': DiscardOddChildNodes,
+  'qualifiedMetavariablesDefinition': DiscardOddChildNodes,
 
+  'typeNames': DiscardOddChildNodes,
   'labels': DiscardOddChildNodes,
   'terms': DiscardOddChildNodes,
   

@@ -3,6 +3,7 @@
 const grammar = `
 
 
+
      document                             ::=   header? verticalSpace? body?
 
 
@@ -102,9 +103,9 @@ const grammar = `
      qualifiedMetavariableDefinition      ::=   qualifiedMetavariableName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")"
    
    
-   
+        
      error                                ::=   .
-     
+
      
      
      premise                              ::=   "Premise" <END_OF_LINE> unjustifiedMetastatement
@@ -112,13 +113,39 @@ const grammar = `
      premises                             ::=   "Premises" <END_OF_LINE> unjustifiedMetastatement unjustifiedMetastatement+
 
      conclusion                           ::=   "Conclusion" <END_OF_LINE> unjustifiedOrJustifiedMetastatement
-     
-     metaProof                            ::=   "Proof" <END_OF_LINE> metaderivation "Therefore" <END_OF_LINE> unjustifiedOrJustifiedMetastatement
 
-     subRule                              ::=   "Suppose" <END_OF_LINE> unjustifiedMetastatement+ "Then" <END_OF_LINE> metaderivation "Hence" <END_OF_LINE> unjustifiedOrJustifiedMetastatement
      
-     metaderivation                       ::=   ( subRule | unjustifiedOrJustifiedMetastatement )+
      
+     metaProof                            ::=   "Proof" <END_OF_LINE> ( subRule | unjustifiedOrJustifiedMetastatement )+ 
+                                                
+                                                "Therefore" <END_OF_LINE> unjustifiedOrJustifiedMetastatement
+
+     subRule                              ::=   "Suppose" <END_OF_LINE> unjustifiedMetastatement+ 
+     
+                                                ( "Then" <END_OF_LINE> unjustifiedOrJustifiedMetastatement+ )?
+                                                
+                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedMetastatement verticalSpace?
+     
+
+
+     proof                                ::=   "Proof" <END_OF_LINE> ( subLemma | unjustifiedOrJustifiedStatement )+ 
+     
+                                                "Therefore" <END_OF_LINE> unjustifiedOrJustifiedStatement
+
+     subLemma                             ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+ 
+     
+                                                ( "Then" <END_OF_LINE> unjustifiedOrJustifiedStatement+ )? 
+                                                
+                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement verticalSpace?
+
+
+
+     indicativeConditional                ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+ 
+     
+                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement
+
+
+
      unjustifiedOrJustifiedMetastatement  ::=   unjustifiedMetastatement | justifiedMetastatement
      
      unjustifiedMetastatement             ::=   metastatement <END_OF_LINE>
@@ -127,73 +154,19 @@ const grammar = `
 
 
 
-     metastatement                        ::=   proofAssertion
-
-      
-      
-     proofAssertion                       ::=   context "⊢" ( qualifiedMetavariable | metavariable ) "::" ( qualifiedMetavariable | metavariable )
-
-
-
-     qualifiedMetavariable                ::=   qualifiedMetavariableName<NO_WHITESPACE>parenthesisedTerms
-     
-     metavariable                         ::=   metavariableName
-     
-     
-
-     proof                                ::=   "Proof" <END_OF_LINE> ( proofDerivation | abridgedProofDerivation )
-
-     abridgedProofDerivation              ::=   unjustifiedOrJustifiedStatement
-
-     proofDerivation                      ::=   derivation therefore
-
-     derivation                           ::=   subDerivation+
-
-     therefore                            ::=   "Therefore" <END_OF_LINE> unjustifiedOrJustifiedStatement
-
-     subDerivation                        ::=   subLemma | unjustifiedOrJustifiedStatement
-
-
-
-     indicativeConditional                ::=   suppose hence unjustifiedOrJustifiedStatement?
-
-     subLemma                             ::=   suppose then? hence unjustifiedOrJustifiedStatement? verticalSpace?
-
-     suppose                              ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+
-
-     then                                 ::=   "Then" <END_OF_LINE> derivation
-
-     hence                                ::=   "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement
-
-
-
      unjustifiedOrJustifiedStatement      ::=   unjustifiedStatement | justifiedStatement
 
      unjustifiedStatement                 ::=   statement <END_OF_LINE>
 
      justifiedStatement                   ::=   statement ( "by" | "from" ) reference <END_OF_LINE>
+     
+     
 
      reference                            ::=   referenceName<NO_WHITESPACE>parenthesisedTerms?
 
-
-
-     statement                            ::=   typeAssertion 
-                                                  
-                                            |   equality 
-                                                  
-                                            |   expression
-
-
-
-     typeAssertion                        ::=   expression ":" typeName
-
-     equality                             ::=   expression "=" expression
-
-     expression                           ::=   term
-
-
-
      context                              ::=   contextName<NO_WHITESPACE>parenthesisedTerms?
+
+     label                                ::=   labelName<NO_WHITESPACE>parenthesisedTerms?
 
 
 
@@ -212,23 +185,7 @@ const grammar = `
      terms                                ::=   term ( "," term)*
      
 
-
-     label                                ::=   labelName<NO_WHITESPACE>parenthesisedTerms?
-     
-          
-     
-     term                                 ::=   compoundTerm | variableName
-
-     compoundTerm                         ::=   constructorName<NO_WHITESPACE>parenthesisedTerms?
-
-
-
-     referenceName                        ::=   name
-
-     contextName                          ::=   name
-
-     typeName                             ::=   name
-
+              
      variableName                         ::=   name
 
      constructorName                      ::=   name
@@ -238,10 +195,20 @@ const grammar = `
      metavariableName                     ::=   name
 
      qualifiedMetavariableName            ::=   name
-   
+
+     referenceName                        ::=   name
+
+     contextName                          ::=   name
+
      labelName                            ::=   name
 
+     typeName                             ::=   name
+     
+     
+   
      name                                 ::=   [unassigned]
+       
+       
        
 `;
 
