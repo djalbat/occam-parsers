@@ -1,16 +1,6 @@
 'use strict';
 
-const Production = require('../../bnf/production');
-
-class StatementProduction extends Production {
-  static fromGrammar(grammar) {
-    
-  }
-}
-
-module.exports = StatementProduction;
-
-const defaultGrammar = `
+const statementDefaultCustomGrammar = `
 
 
 
@@ -31,3 +21,5 @@ const defaultGrammar = `
 
 
 `;
+
+module.exports = statementDefaultCustomGrammar;

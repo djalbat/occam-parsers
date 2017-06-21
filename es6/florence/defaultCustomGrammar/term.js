@@ -1,16 +1,6 @@
 'use strict';
 
-const Production = require('../../bnf/production');
-
-class TermProduction extends Production {
-  static fromGrammar(grammar) {
-    
-  }
-}
-
-module.exports = TermProduction;
-
-const defaultGrammar = `
+const termDefaultCustomGrammar = `
 
 
      term                                 ::=   compoundTerm 
@@ -28,3 +18,5 @@ const defaultGrammar = `
      
 
 `;
+
+module.exports = termDefaultCustomGrammar;

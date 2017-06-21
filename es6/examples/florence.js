@@ -20,6 +20,8 @@ let productionName,
     mappingsCheckbox,
     productionNameTextarea;
 
+const defaultMappings = mappings; ///
+
 class FlorenceExample {
   static run() {
     mappingsCheckbox = new Checkbox(mappingsCheckboxSelector);
@@ -44,19 +46,12 @@ class FlorenceExample {
 module.exports = FlorenceExample;
 
 function update() {
-  let florenceParser;
-  
-  const mappingsCheckboxChecked = mappingsCheckbox.isChecked();
-
-  if (mappingsCheckboxChecked) {
-    florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings);
-  } else {
-    const mappings = {};
-    
-    florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings);
-  }
-
-  const productionNameTextareaValue = productionNameTextarea.getValue(),
+  const mappingsCheckboxChecked = mappingsCheckbox.isChecked(),
+        mappings = mappingsCheckboxChecked ?
+          defaultMappings :
+            {},
+        florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings),
+        productionNameTextareaValue = productionNameTextarea.getValue(),
         productionName = productionNameTextareaValue, ///
         production = florenceParser.findProduction(productionName);
 

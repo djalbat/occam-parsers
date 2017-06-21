@@ -5,25 +5,36 @@ const lexers = require('occam-lexers');
 const grammar = require('./grammar'),
       mappings = require('./mappings'),
       BNFParser = require('../bnf/parser'),
+      parserUtil = require('../util/parser'),
+      grammarUtil = require('../util/grammar'),
       CommonParser = require('../common/parser'),
-      parserUtil = require('../util/parser');
+      defaultCustomGrammars = require('./defaultCustomGrammars'),
+      defaultAdditionalMappings = require('./defaultAdditionalMappings');
 
 const { BNFLexer } = lexers;
 
-class FlorenceParser extends CommonParser {
-  static fromAdditionalMappings(additionalMappings) {
-    const florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, Object.assign(mappings, additionalMappings)); ///
+const bnfLexer = BNFLexer.fromNothing(),
+      bnfParser = BNFParser.fromNothing();
 
+class FlorenceParser extends CommonParser {
+  static fromCustomGrammarsAdditionalMappings(customGrammars, additionalMappings) {
+    const florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings, customGrammars, additionalMappings);
+  
     return florenceParser;
   }
   
-  static fromGrammarAndMappings(grammar, mappings) {
-    const bnfLexer = BNFLexer.fromNothing(),
-          bnfParser = BNFParser.fromNothing(),
+  static fromGrammarAndMappings(grammar, mappings, customGrammars = defaultCustomGrammars, additionalMappings = defaultAdditionalMappings) {
+    mappings = Object.assign(mappings, additionalMappings); ///
+
+    const customProductions = customProductionsFromCustomGrammars(customGrammars, bnfLexer, bnfParser),
           lines = bnfLexer.linesFromGrammar(grammar),
-          node = bnfParser.nodeFromLines(lines),
-          productions = BNFParser.generateProductions(node, mappings),
-          florenceParser = new FlorenceParser(productions);
+          node = bnfParser.nodeFromLines(lines);
+    
+    let productions = BNFParser.generateProductions(node, mappings);
+    
+    productions = productions.concat(customProductions);
+    
+    const florenceParser = new FlorenceParser(productions);
 
     return florenceParser;
   }
@@ -37,6 +48,14 @@ class FlorenceParser extends CommonParser {
 
 module.exports = FlorenceParser;
 
-FlorenceParser.grammar = grammar;
+function customProductionsFromCustomGrammars(customGrammars, bnfLexer, bnfParser) {
+  const customProductions = customGrammars.reduce(function(customProductions, customGrammar) {
+    const customGrammarProductions = grammarUtil.productionsFromGrammar(customGrammar, bnfLexer, bnfParser);
 
-FlorenceParser.mappings = mappings;
+    customProductions = customProductions.concat(customGrammarProductions);
+    
+    return customProductions;
+  }, []);
+  
+  return customProductions;
+}
