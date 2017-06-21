@@ -29,13 +29,13 @@ class FlorenceExample {
 
     const bnfGrammarTextareaValue = grammar;  ///
 
-    Example.setBNFGrammarTextareaValue(bnfGrammarTextareaValue);
+    Example.setExtendedBNFGrammarTextareaValue(bnfGrammarTextareaValue);
 
     mappingsCheckbox.onChange(update);
 
     productionNameTextarea.onKeyUp(update);
 
-    Example.onBNFGrammarTextareaKeyUp(update);
+    Example.onExtendedBNFGrammarTextareaKeyUp(update);
 
     Example.onContentTextareaKeyUp(update);
 

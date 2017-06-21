@@ -1,7 +1,7 @@
 'use strict';
 
-const Definition = require('../../bnf/definition'),
-      ProductionNamePart = require('../../bnf/part/productionName');
+const Definition = require('../../extendedBNF/definition'),
+      ProductionNamePart = require('../../extendedBNF/part/productionName');
 
 class UnitDefinition extends Definition {
   getProductionName() {

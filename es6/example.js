@@ -8,14 +8,14 @@ const { Textarea } = easy,
 
 const contentTextareaSelector = 'textarea#content',
       parseTreeTextareaSelector = 'textarea#parseTree',
-      bnfGrammarTextareaSelector = 'textarea#bnfGrammar',
-      adjustedBNFGrammarTextareaSelector = 'textarea#adjustedBNFGrammar',
+      extendedBNFGrammarTextareaSelector = 'textarea#extendedBNFGrammar',
+      adjustedExtendedBNFGrammarTextareaSelector = 'textarea#adjustedExtendedBNFGrammar',
       sizeableElementSelector = '#sizeableElement',
       verticalSplitterSelector = '#verticalSplitter',
       contentTextarea = new Textarea(contentTextareaSelector),
       parseTreeTextarea = new Textarea(parseTreeTextareaSelector),
-      bnfGrammarTextarea = new Textarea(bnfGrammarTextareaSelector),
-      adjustedBNFGrammarTextarea = new Textarea(adjustedBNFGrammarTextareaSelector),
+      extendedBNFGrammarTextarea = new Textarea(extendedBNFGrammarTextareaSelector),
+      adjustedExtendedBNFGrammarTextarea = new Textarea(adjustedExtendedBNFGrammarTextareaSelector),
       sizeableElement = new SizeableElement(sizeableElementSelector),
       beforeSizeableElement = false,
       afterSizeableElement = true;
@@ -23,21 +23,21 @@ const contentTextareaSelector = 'textarea#content',
 new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
 
 class Example {
-  static getBNFGrammarTextareaValue() { return bnfGrammarTextarea.getValue(); }
+  static getExtendedBNFGrammarTextareaValue() { return extendedBNFGrammarTextarea.getValue(); }
 
-  static setBNFGrammarTextareaValue(value) { bnfGrammarTextarea.setValue(value); }
+  static setExtendedBNFGrammarTextareaValue(value) { extendedBNFGrammarTextarea.setValue(value); }
 
   static setContentTextareaValue(value) { contentTextarea.setValue(value); }
 
-  static onBNFGrammarTextareaKeyUp(handler) { bnfGrammarTextarea.onKeyUp(handler); }
+  static onExtendedBNFGrammarTextareaKeyUp(handler) { extendedBNFGrammarTextarea.onKeyUp(handler); }
 
   static onContentTextareaKeyUp(handler) { contentTextarea.onKeyUp(handler); }
 
   static updateParseTreeTextarea(lexer, parser, production) {
-    const bnfParserString = parser.toString(),
-          adjustedBNFGrammarTextareaValue = bnfParserString;  ///
+    const extendedBNFParserString = parser.toString(),
+          adjustedExtendedBNFGrammarTextareaValue = extendedBNFParserString;  ///
 
-    adjustedBNFGrammarTextarea.setValue(adjustedBNFGrammarTextareaValue);
+    adjustedExtendedBNFGrammarTextarea.setValue(adjustedExtendedBNFGrammarTextareaValue);
 
     let node = null;
     

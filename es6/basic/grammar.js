@@ -2,18 +2,31 @@
 
 const grammar = `
 
- expression               ::=  "(" expression ")"
+  expression    ::= "(" expression ")" expressionRR
 
- | expression operator expression
+                  | term expressionRR 
+                  
+                  ;
 
- | term
+  operator      ::= "+"
 
- operator                 ::=  "+" | "-" | "/" | "*"
+                  | "-"
 
- term                     ::=  naturalNumber
+                  | "/"
 
- naturalNumber            ::=  /\\d+/
+                  | "*" 
+                  
+                  ;
 
+  term          ::= naturalNumber ;
+
+  naturalNumber ::= /\d+/ ;
+
+  expressionRR  ::= operator expression expressionRR
+
+                  | ε 
+                  
+                  ;
 
 `;
 

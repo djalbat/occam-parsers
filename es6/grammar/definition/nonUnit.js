@@ -1,6 +1,6 @@
 'use strict';
 
-const Definition = require('../../bnf/definition'),
+const Definition = require('../../extendedBNF/definition'),
       UnitDefinition = require('../definition/unit');
 
 class NonUnitDefinition extends Definition {

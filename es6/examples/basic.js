@@ -26,9 +26,9 @@ class BasicExample {
 
     lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
 
-    Example.setBNFGrammarTextareaValue(bnfGrammarTextareaValue);
+    Example.setExtendedBNFGrammarTextareaValue(bnfGrammarTextareaValue);
 
-    Example.onBNFGrammarTextareaKeyUp(update);
+    Example.onExtendedBNFGrammarTextareaKeyUp(update);
 
     Example.onContentTextareaKeyUp(update);
 
@@ -77,7 +77,7 @@ function updateBasicLexer() {
 }
 
 function updateBasicParser() {
-  const bnfGrammarTextareaValue = Example.getBNFGrammarTextareaValue(),
+  const bnfGrammarTextareaValue = Example.getExtendedBNFGrammarTextareaValue(),
         grammar = bnfGrammarTextareaValue; ///
 
   basicParser = BasicParser.fromGrammar(grammar);

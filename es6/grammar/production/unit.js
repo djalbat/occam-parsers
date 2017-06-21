@@ -1,7 +1,7 @@
 'use strict';
 
 const arrayUtil = require('../../util/array'),
-      Production = require('../../bnf/production'),
+      Production = require('../../extendedBNF/production'),
       UnitDefinition = require('../definition/unit');
 
 class UnitProduction extends Production {

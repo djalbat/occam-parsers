@@ -1,6 +1,6 @@
 'use strict';
 
-const Production = require('../../bnf/production'),
+const Production = require('../../extendedBNF/production'),
       UnitDefinition = require('../definition/unit'),
       NonUnitDefinition = require('../definition/nonUnit');
 

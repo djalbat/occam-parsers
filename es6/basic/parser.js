@@ -3,8 +3,8 @@
 const lexers = require('occam-lexers');
 
 const grammar = require('./grammar'),
-      BNFParser = require('../bnf/parser'),
-      CommonParser = require('../common/parser');
+      CommonParser = require('../common/parser'),
+      ExtendedBNFParser = require('../extendedBNF/parser');
 
 const { BNFLexer } = lexers;
 
@@ -20,10 +20,10 @@ class BasicParser extends CommonParser {
 
     try {
       const bnfLexer = BNFLexer.fromNothing(),
-            bnfParser = BNFParser.fromNothing(),
+            extendedBNFParser = ExtendedBNFParser.fromNothing(),
             lines = bnfLexer.linesFromGrammar(grammar),
-            node = bnfParser.nodeFromLines(lines),
-            productions = BNFParser.generateProductions(node);
+            node = extendedBNFParser.nodeFromLines(lines),
+            productions = ExtendedBNFParser.generateProductions(node);
 
       basicParser = new BasicParser(productions);
     } catch (error) {

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Extended BNF example</title>
+    <link href="../examples.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../extendedBNF.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+  <body>
+    <h1>Extended BNF example</h1>
+    <div class="columns">
+      <div id="sizeableElement" class="sizeable">
+        <h2>Lexical grammar</h2>
+        <textarea id="lexicalGrammar" spellcheck="false"> </textarea>
+        <h2>Extended BNF grammar</h2>
+        <textarea id="extendedBNFGrammar" spellcheck="false"> </textarea>
+        <h2>Adjusted extended BNF grammar</h2>
+        <textarea id="adjustedExtendedBNFGrammar" spellcheck="false" readonly> </textarea>
+      </div><div id="verticalSplitter" class="vertical splitter"></div>
+      <div class="column">
+        <h2>Parse tree</h2>
+        <textarea id="parseTree" readonly></textarea>
+        <h2>Content</h2>
+        <textarea id="content" spellcheck="false"></textarea>
+      </div>
+    </div>
+    <p>
+      <a href="../examples.html">...back</a>
+    </p>
+
+    <script src="../examples.js"> </script>
+    <script>
+
+      var ExtendedBNFExample = examples.ExtendedBNFExample;
+
+      ExtendedBNFExample.run();
+
+    </script>
+  </body>
+</html>

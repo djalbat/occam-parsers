@@ -1,6 +1,6 @@
 'use strict';
 
-const Definition = require('../../bnf/definition');
+const Definition = require('../../extendedBNF/definition');
 
 class ImplicitlyLeftRecursiveDefinition extends Definition {
   getPreviousProductionName() {

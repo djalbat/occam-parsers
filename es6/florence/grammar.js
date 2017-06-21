@@ -4,19 +4,19 @@ const grammar = `
 
 
 
-     document                             ::=   header? verticalSpace? body?
+     document                             ::=   header? verticalSpace? body? ;
 
 
 
-     header                               ::=   includeDirective+
+     header                               ::=   includeDirective+ ;
 
-     body                                 ::=   part+
+     body                                 ::=   part+ ;
 
-     verticalSpace                        ::=   <END_OF_LINE>+
+     verticalSpace                        ::=   <END_OF_LINE>+ ;
 
 
 
-     includeDirective                     ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE>
+     includeDirective                     ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE> ;
 
 
 
@@ -59,154 +59,156 @@ const grammar = `
                                             |   "QualifiedMetavariables" qualifiedMetavariablesDefinition
                                                                 
                                             |   error
+                                            
+                                            ;
                                                                      
                                                                                                                                           
                                                                      
-     rule                                 ::=   "Rule" parenthesisedLabels? <END_OF_LINE> ( premise | premises )? conclusion metaProof?
+     rule                                 ::=   "Rule" parenthesisedLabels? <END_OF_LINE> ( premise | premises )? conclusion metaProof? ;
 
-     axiom                                ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) 
+     axiom                                ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) ; 
 
-     lemma                                ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) proof?
+     lemma                                ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) proof? ;
 
-     theorem                              ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) proof?
+     theorem                              ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) proof? ;
 
 
 
-     typesDefinition                      ::=   typeDefinition ( "," typeDefinition)+
+     typesDefinition                      ::=   typeDefinition ( "," typeDefinition)+ ;
 
-     variablesDefinition                  ::=   variableDefinition ( "," variableDefinition)+
+     variablesDefinition                  ::=   variableDefinition ( "," variableDefinition)+ ;
    
-     constructorsDefinition               ::=   constructorDefinition ( "," constructorDefinition)+
+     constructorsDefinition               ::=   constructorDefinition ( "," constructorDefinition)+ ;
    
-     abbreviationsDefinition              ::=   abbreviationDefinition ( "," abbreviationDefinition)+
+     abbreviationsDefinition              ::=   abbreviationDefinition ( "," abbreviationDefinition)+ ;
    
-     dependentTypesDefinition             ::=   dependentTypeDefinition ( "," dependentTypeDefinition)*
+     dependentTypesDefinition             ::=   dependentTypeDefinition ( "," dependentTypeDefinition)* ;
    
-     metavariablesDefinition              ::=   metavariableDefinition ( "," metavariableDefinition)*
+     metavariablesDefinition              ::=   metavariableDefinition ( "," metavariableDefinition)* ;
    
-     qualifiedMetavariablesDefinition     ::=   qualifiedMetavariableDefinition ( "," qualifiedMetavariableDefinition)*
+     qualifiedMetavariablesDefinition     ::=   qualifiedMetavariableDefinition ( "," qualifiedMetavariableDefinition)* ;
    
 
 
-     typeDefinition                       ::=   typeName
+     typeDefinition                       ::=   typeName ;
    
-     variableDefinition                   ::=   variableName(<NO_WHITESPACE>":"typeName)?
+     variableDefinition                   ::=   variableName(<NO_WHITESPACE>":"typeName)? ;
    
-     constructorDefinition                ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames?<NO_WHITESPACE>":"<NO_WHITESPACE>typeName
+     constructorDefinition                ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames?<NO_WHITESPACE>":"<NO_WHITESPACE>typeName ;
    
-     abbreviationDefinition               ::=   typeName "for" typeName | constructorName "for" constructorName
+     abbreviationDefinition               ::=   typeName "for" typeName | constructorName "for" constructorName ;
 
-     dependentTypeDefinition              ::=   dependentTypeName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")"
+     dependentTypeDefinition              ::=   dependentTypeName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
    
-     metavariableDefinition               ::=   metavariableName
+     metavariableDefinition               ::=   metavariableName ;
 
-     qualifiedMetavariableDefinition      ::=   qualifiedMetavariableName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")"
+     qualifiedMetavariableDefinition      ::=   qualifiedMetavariableName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
    
    
         
-     error                                ::=   .
+     error                                ::=   . ;
 
      
      
-     premise                              ::=   "Premise" <END_OF_LINE> unjustifiedMetastatement
+     premise                              ::=   "Premise" <END_OF_LINE> unjustifiedMetastatement ;
 
-     premises                             ::=   "Premises" <END_OF_LINE> unjustifiedMetastatement unjustifiedMetastatement+
+     premises                             ::=   "Premises" <END_OF_LINE> unjustifiedMetastatement unjustifiedMetastatement+ ;
 
-     conclusion                           ::=   "Conclusion" <END_OF_LINE> unjustifiedOrJustifiedMetastatement
+     conclusion                           ::=   "Conclusion" <END_OF_LINE> unjustifiedOrJustifiedMetastatement ;
 
      
      
      metaProof                            ::=   "Proof" <END_OF_LINE> ( subRule | unjustifiedOrJustifiedMetastatement )+ 
                                                 
-                                                "Therefore" <END_OF_LINE> unjustifiedOrJustifiedMetastatement
+                                                "Therefore" <END_OF_LINE> unjustifiedOrJustifiedMetastatement ;
 
      subRule                              ::=   "Suppose" <END_OF_LINE> unjustifiedMetastatement+ 
      
                                                 ( "Then" <END_OF_LINE> unjustifiedOrJustifiedMetastatement+ )?
                                                 
-                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedMetastatement verticalSpace?
+                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedMetastatement verticalSpace? ;
      
 
 
      proof                                ::=   "Proof" <END_OF_LINE> ( subLemma | unjustifiedOrJustifiedStatement )+ 
      
-                                                "Therefore" <END_OF_LINE> unjustifiedOrJustifiedStatement
+                                                "Therefore" <END_OF_LINE> unjustifiedOrJustifiedStatement ;
 
      subLemma                             ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+ 
      
                                                 ( "Then" <END_OF_LINE> unjustifiedOrJustifiedStatement+ )? 
                                                 
-                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement verticalSpace?
+                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement verticalSpace? ;
 
 
 
      indicativeConditional                ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+ 
      
-                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement
+                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement ;
 
 
 
-     unjustifiedOrJustifiedMetastatement  ::=   unjustifiedMetastatement | justifiedMetastatement
+     unjustifiedOrJustifiedMetastatement  ::=   unjustifiedMetastatement | justifiedMetastatement ;
      
-     unjustifiedMetastatement             ::=   metastatement <END_OF_LINE>
+     unjustifiedMetastatement             ::=   metastatement <END_OF_LINE> ;
      
-     justifiedMetastatement               ::=   metastatement "by" reference <END_OF_LINE>
+     justifiedMetastatement               ::=   metastatement "by" reference <END_OF_LINE> ;
 
 
 
-     unjustifiedOrJustifiedStatement      ::=   unjustifiedStatement | justifiedStatement
+     unjustifiedOrJustifiedStatement      ::=   unjustifiedStatement | justifiedStatement ;
 
-     unjustifiedStatement                 ::=   statement <END_OF_LINE>
+     unjustifiedStatement                 ::=   statement <END_OF_LINE> ;
 
-     justifiedStatement                   ::=   statement ( "by" | "from" ) reference <END_OF_LINE>
+     justifiedStatement                   ::=   statement ( "by" | "from" ) reference <END_OF_LINE> ;
      
      
 
-     reference                            ::=   referenceName<NO_WHITESPACE>parenthesisedTerms?
+     reference                            ::=   referenceName<NO_WHITESPACE>parenthesisedTerms? ;
 
-     context                              ::=   contextName<NO_WHITESPACE>parenthesisedTerms?
+     context                              ::=   contextName<NO_WHITESPACE>parenthesisedTerms? ;
 
-     label                                ::=   labelName<NO_WHITESPACE>parenthesisedTerms?
-
-
-
-     parenthesisedTypeNames               ::=   "("<NO_WHITESPACE>typeNames<NO_WHITESPACE>")"
-
-     parenthesisedLabels                  ::=   "("<NO_WHITESPACE>labels<NO_WHITESPACE>")"                         
-
-     parenthesisedTerms                   ::=   "("<NO_WHITESPACE>terms<NO_WHITESPACE>")"     
+     label                                ::=   labelName<NO_WHITESPACE>parenthesisedTerms? ;
 
 
 
-     typeNames                            ::=   typeName ( "," typeName)*
+     parenthesisedTypeNames               ::=   "("<NO_WHITESPACE>typeNames<NO_WHITESPACE>")" ;
 
-     labels                               ::=   label ( "," label)*
+     parenthesisedLabels                  ::=   "("<NO_WHITESPACE>labels<NO_WHITESPACE>")" ;                    
 
-     terms                                ::=   term ( "," term)*
+     parenthesisedTerms                   ::=   "("<NO_WHITESPACE>terms<NO_WHITESPACE>")" ;   
+
+
+
+     typeNames                            ::=   typeName ( "," typeName)* ;
+
+     labels                               ::=   label ( "," label)* ;
+
+     terms                                ::=   term ( "," term)* ;
      
 
               
-     variableName                         ::=   name
+     variableName                         ::=   name ;
 
-     constructorName                      ::=   name
+     constructorName                      ::=   name ;
 
-     dependentTypeName                    ::=   name
+     dependentTypeName                    ::=   name ;
 
-     metavariableName                     ::=   name
+     metavariableName                     ::=   name ;
 
-     qualifiedMetavariableName            ::=   name
+     qualifiedMetavariableName            ::=   name ;
 
-     referenceName                        ::=   name
+     referenceName                        ::=   name ;
 
-     contextName                          ::=   name
+     contextName                          ::=   name ;
 
-     labelName                            ::=   name
+     labelName                            ::=   name ;
 
-     typeName                             ::=   name
+     typeName                             ::=   name ;
      
      
    
-     name                                 ::=   [unassigned]
+     name                                 ::=   [unassigned] ;
        
        
        

@@ -4,17 +4,17 @@ const lexers = require('occam-lexers');
 
 const grammar = require('./grammar'),
       mappings = require('./mappings'),
-      BNFParser = require('../bnf/parser'),
       parserUtil = require('../util/parser'),
       grammarUtil = require('../util/grammar'),
       CommonParser = require('../common/parser'),
+      ExtendedBNFParser = require('../extendedBNF/parser'),
       defaultCustomGrammars = require('./defaultCustomGrammars'),
       defaultAdditionalMappings = require('./defaultAdditionalMappings');
 
 const { BNFLexer } = lexers;
 
 const bnfLexer = BNFLexer.fromNothing(),
-      bnfParser = BNFParser.fromNothing();
+      extendedBNFParser = ExtendedBNFParser.fromNothing();
 
 class FlorenceParser extends CommonParser {
   static fromCustomGrammarsAdditionalMappings(customGrammars, additionalMappings) {
@@ -26,11 +26,11 @@ class FlorenceParser extends CommonParser {
   static fromGrammarAndMappings(grammar, mappings, customGrammars = defaultCustomGrammars, additionalMappings = defaultAdditionalMappings) {
     mappings = Object.assign(mappings, additionalMappings); ///
 
-    const customProductions = customProductionsFromCustomGrammars(customGrammars, bnfLexer, bnfParser),
+    const customProductions = customProductionsFromCustomGrammars(customGrammars, bnfLexer, extendedBNFParser),
           lines = bnfLexer.linesFromGrammar(grammar),
-          node = bnfParser.nodeFromLines(lines);
+          node = extendedBNFParser.nodeFromLines(lines);
     
-    let productions = BNFParser.generateProductions(node, mappings);
+    let productions = ExtendedBNFParser.generateProductions(node, mappings);
     
     productions = productions.concat(customProductions);
     
@@ -48,9 +48,9 @@ class FlorenceParser extends CommonParser {
 
 module.exports = FlorenceParser;
 
-function customProductionsFromCustomGrammars(customGrammars, bnfLexer, bnfParser) {
+function customProductionsFromCustomGrammars(customGrammars, bnfLexer, extendedBNFParser) {
   const customProductions = customGrammars.reduce(function(customProductions, customGrammar) {
-    const customGrammarProductions = grammarUtil.productionsFromGrammar(customGrammar, bnfLexer, bnfParser);
+    const customGrammarProductions = grammarUtil.productionsFromGrammar(customGrammar, bnfLexer, extendedBNFParser);
 
     customProductions = customProductions.concat(customGrammarProductions);
     

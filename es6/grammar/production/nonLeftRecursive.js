@@ -1,7 +1,7 @@
 'use strict';
 
-const Definition = require('../../bnf/definition'),
-      Production = require('../../bnf/production'),
+const Definition = require('../../extendedBNF/definition'),
+      Production = require('../../extendedBNF/production'),
       RightRecursiveProduction = require('../production/rightRecursive');
 
 class NonLeftRecursiveProduction extends Production {

@@ -1,8 +1,8 @@
 'use strict';
 
-const BNFParser = require('../bnf/parser'),
-      cycles = require('../grammar/cycles'),
-      leftRecursion = require('../grammar/leftRecursion');
+const cycles = require('../grammar/cycles'),
+      leftRecursion = require('../grammar/leftRecursion'),
+      ExtendedBNFParser = require('../extendedBNF/parser');
 
 class grammarUtil {
   static productionsFromGrammar(grammar, bnfLexer, bnfParser) {
@@ -11,7 +11,7 @@ class grammarUtil {
     const lines = bnfLexer.linesFromGrammar(grammar),
           node = bnfParser.nodeFromLines(lines);
     
-    productions = BNFParser.generateProductions(node);
+    productions = ExtendedBNFParser.generateProductions(node);
 
     productions = cycles.eliminate(productions);  ///
 
