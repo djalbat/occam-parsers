@@ -1,10 +1,10 @@
 'use strict';
 
 const easy = require('easy'),
-      easylayout = require('easy-layout');
+      easyLayout = require('easy-layout');
 
 const { Textarea } = easy,
-      { SizeableElement, VerticalSplitter } = easylayout;
+      { SizeableElement, VerticalSplitter } = easyLayout;
 
 const contentTextareaSelector = 'textarea#content',
       parseTreeTextareaSelector = 'textarea#parseTree',

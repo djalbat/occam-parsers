@@ -36,3 +36,7 @@ class FlorenceParser extends CommonParser {
 }
 
 module.exports = FlorenceParser;
+
+FlorenceParser.grammar = grammar;
+
+FlorenceParser.mappings = mappings;
