@@ -1,8 +1,6 @@
 'use strict';
 
-const arrayUtil = require('../../util/array'),
-      VerticalSpaceNode = require('../node/verticalSpace'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+const NonTerminalNode = require('../../common/node/nonTerminal');
 
 class DefinitionNode extends NonTerminalNode {
   generateDefinition(Definition, Parts) {
@@ -20,10 +18,7 @@ class DefinitionNode extends NonTerminalNode {
   }
 
   static fromNodesAndProductionName(nodes, productionName) {
-    const lastNode = last(nodes),
-          childNodes = (lastNode instanceof VerticalSpaceNode) ?
-                         arrayUtil.discardLast(nodes) :
-                           nodes,
+    const childNodes = nodes, ///
           productionsNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, DefinitionNode);
 
     return productionsNode;
@@ -31,5 +26,3 @@ class DefinitionNode extends NonTerminalNode {
 }
 
 module.exports = DefinitionNode;
-
-function last(array) { return array[array.length - 1]; }

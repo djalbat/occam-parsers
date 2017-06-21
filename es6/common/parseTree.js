@@ -1,5 +1,7 @@
 'use strict';
 
+const arrayUtil = require('../util/array');
+
 class ParseTree {
   constructor(lines) {
     this.lines = lines;
@@ -19,7 +21,7 @@ class ParseTree {
     if (linesLength === 0) {
       width = 0;
     } else {
-      const lastLine = last(this.lines),
+      const lastLine = arrayUtil.last(this.lines),
             lastLineLength = lastLine.length;
 
       width = lastLineLength; ///
@@ -121,8 +123,6 @@ class ParseTree {
 }
 
 module.exports = ParseTree;
-
-function last(array) { return array[array.length - 1]; }
 
 function marginStringFromMarginWidth(marginWidth, spaceCharacter) {
   spaceCharacter = spaceCharacter || ' ';

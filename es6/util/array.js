@@ -7,6 +7,8 @@ class arrayUtil {
 
   static last(array) { return array[array.length - 1]; }
 
+  static lastButOne(array) { return array[array.length - 2]; }
+
   static keepFirst(array) { return keepNth(array, 0); }
 
   static keepSecond(array) { return keepNth(array, 1); }

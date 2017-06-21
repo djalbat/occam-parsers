@@ -1,14 +1,12 @@
 'use strict';
 
-const arrayUtil = require('../../util/array'),
-      VerticalSpaceNode = require('../node/verticalSpace'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+const NonTerminalNode = require('../../common/node/nonTerminal');
 
 class ProductionsNode extends NonTerminalNode {
   generateProductions(Production, Definition, Parts, mappings) {
     const childNodes = this.getChildNodes(),
-          productionsNodes = childNodes,  ///
-          productions = productionsNodes.map(function(productionNode) {
+          productionNodes = childNodes,  ///
+          productions = productionNodes.map(function(productionNode) {
             const production = productionNode.generateProduction(Production, Definition, Parts, mappings);
             
             return production;
@@ -18,10 +16,7 @@ class ProductionsNode extends NonTerminalNode {
   }
   
   static fromNodesAndProductionName(nodes, productionName) {
-    const firstNode = arrayUtil.first(nodes),
-          childNodes = (firstNode instanceof VerticalSpaceNode) ?
-                         arrayUtil.discardFirst(nodes) :
-                           nodes,
+    const childNodes = nodes, ///
           productionsNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, ProductionsNode);
 
     return productionsNode;

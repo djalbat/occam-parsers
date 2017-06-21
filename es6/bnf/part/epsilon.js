@@ -8,10 +8,10 @@ class EpsilonPart {
 
     return epsilonTerminalNode;
   }
-  
+
   toString() {
     const string = 'ε';
-    
+
     return string;
   }
 }

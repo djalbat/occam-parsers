@@ -16,11 +16,11 @@ class DefinitionsDefinition extends Definition {
             verticalBarTerminalSymbolPart,
             definitionProductionNamePart
           ],
-          verticalBarTerminalSymbolThenDefinitionProductionNameGroupOfPartsPart = new GroupOfPartsPart(verticalBarTerminalSymbolThenDefinitionProductionNameParts),
-          zeroOrMoreVerticalBarTerminalSymbolThenDefinitionProductionNameGroupOfPartsPartsPart = new ZeroOrMorePartsPart(verticalBarTerminalSymbolThenDefinitionProductionNameGroupOfPartsPart),
+          groupOfPartsPart = new GroupOfPartsPart(verticalBarTerminalSymbolThenDefinitionProductionNameParts),
+          zeroOrMoreGroupOfPartsPart = new ZeroOrMorePartsPart(groupOfPartsPart),
           parts = [
             definitionProductionNamePart,
-            zeroOrMoreVerticalBarTerminalSymbolThenDefinitionProductionNameGroupOfPartsPartsPart
+            zeroOrMoreGroupOfPartsPart
           ];
     
     super(parts)

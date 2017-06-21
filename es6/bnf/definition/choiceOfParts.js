@@ -20,12 +20,12 @@ class ChoiceOfPartsDefinition extends Definition {
             verticalBarTerminalSymbolPart,
             partProductionNamePart
           ],
-          verticalBarTerminalSymbolThenPartProductionNameGroupOfPartsPart = new GroupOfPartsPart(verticalBarTerminalSymbolThenPartProductionNameParts),
-          oneOrMoreVerticalBarTerminalSymbolThenPartProductionNameGroupOfPartsPartsPart = new OneOrMorePartsPart(verticalBarTerminalSymbolThenPartProductionNameGroupOfPartsPart),
+          groupOfPartsPart = new GroupOfPartsPart(verticalBarTerminalSymbolThenPartProductionNameParts),
+          oneOrMoreGroupOfPartsPart = new OneOrMorePartsPart(groupOfPartsPart),
           parts = [
             openBracketTerminalSymbolPart,
             partProductionNamePart,
-            oneOrMoreVerticalBarTerminalSymbolThenPartProductionNameGroupOfPartsPartsPart,
+            oneOrMoreGroupOfPartsPart,
             closeBracketTerminalSymbolPart
           ];
     

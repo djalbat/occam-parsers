@@ -1,19 +1,19 @@
 'use strict';
 
 const TerminalNode = require('../terminal'),
-      EpsilonTerminalNodeParseTree = require('../../parseTree/terminalNode/epsilon');
+    EpsilonTerminalNodeParseTree = require('../../parseTree/terminalNode/epsilon');
 
 class EpsilonTerminalNode extends TerminalNode {
   constructor() {
     const significantToken = null,
           line = null;
-    
+
     super(significantToken, line);
   }
 
   getContent() {
     const content = 'ε';
-    
+
     return content;
   }
 

@@ -2,27 +2,27 @@
 
 const grammar = `
 
-  productions              ::=  verticalSpace? production+
+  productions              ::=  production+ ;
   
-  production               ::=  productionName "::=" definitions
+  production               ::=  productionName "::=" definitions ";" ;
   
-  definitions              ::=  definition ( "|" definition )*
+  definitions              ::=  definition ( "|" definition )* ;
   
-  definition               ::=  part+ verticalSpace?
+  definition               ::=  part+ ;
   
-  noWhitespacePart         ::=  "<NO_WHITESPACE>" part
+  noWhitespacePart         ::=  "<NO_WHITESPACE>" part ;
 
-  optionalPart             ::=  part<NO_WHITESPACE>"?"
+  optionalPart             ::=  part<NO_WHITESPACE>"?" ;
                           
-  zeroOrMoreParts          ::=  part<NO_WHITESPACE>"*"
+  zeroOrMoreParts          ::=  part<NO_WHITESPACE>"*" ;
                           
-  oneOrMoreParts           ::=  part<NO_WHITESPACE>"+"
+  oneOrMoreParts           ::=  part<NO_WHITESPACE>"+" ;
   
-  groupOfParts             ::=  "(" part+ ")"
+  groupOfParts             ::=  "(" part+ ")" ;
   
-  choiceOfParts            ::=  "(" part ( "|" part )+ ")"
+  choiceOfParts            ::=  "(" part ( "|" part )+ ")" ;
 
-  part                     ::=  noWhitespacePart  
+  part                     ::=  noWhitespacePart
                 
                              |  optionalPart  
                 
@@ -45,20 +45,20 @@ const grammar = `
                              |  endOfLineSymbol
                 
                              |  wildcardSymbol
+                              
+                             ;
 
-  verticalSpace            ::=  <END_OF_LINE>+
-  
-  productionName           ::=  [name]
+  productionName           ::=  [name] ;
 
-  regularExpression        ::=  [regularExpression]
+  regularExpression        ::=  [regularExpression] ;
   
-  significantTokenType     ::=  [type]
+  significantTokenType     ::=  [type] ;
 
-  terminalSymbol           ::=  [string]
+  terminalSymbol           ::=  [string] ;
   
-  endOfLineSymbol          ::=  "<END_OF_LINE>"
+  endOfLineSymbol          ::=  "<END_OF_LINE>" ;
   
-  wildcardSymbol           ::=  "*"
+  wildcardSymbol           ::=  "." ;
 
 `;
 

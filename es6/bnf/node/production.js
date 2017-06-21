@@ -28,8 +28,8 @@ class ProductionNode extends NonTerminalNode {
   
   generateDefinitions(Definition, Parts) {
     const childNodes = this.getChildNodes(),
-          lastChildNode = arrayUtil.last(childNodes),
-          definitionsNode = lastChildNode,  ///
+          lastButOneChildNode = arrayUtil.lastButOne(childNodes),
+          definitionsNode = lastButOneChildNode,  ///
           definitions = definitionsNode.generateDefinitions(Definition, Parts);
     
     return definitions;

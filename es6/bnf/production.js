@@ -84,7 +84,7 @@ class Production {
 
         if (lastNodeNullified) {
           const start = -1,
-              deleteCount = 1;
+                deleteCount = 1;
 
           nodes.splice(start, deleteCount);
         }
@@ -115,7 +115,7 @@ class Production {
           productionNameLength = productionName.length,
           paddingLength = maximumProductionNameLength - productionNameLength,
           padding = paddingFromPaddingLength(paddingLength),
-          string = `\n\n  ${this.name}${padding} ::= ${definitionsString}`;
+          string = `\n\n  ${this.name}${padding} ::= ${definitionsString} ;`;
 
     return string;
   }
