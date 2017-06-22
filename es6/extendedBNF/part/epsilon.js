@@ -1,6 +1,12 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const EpsilonTerminalNode = require('../../common/node/terminal/epsilon');
+
+const { ExtendedBNFLexer } = lexers,
+      { specialSymbols } = ExtendedBNFLexer,
+      { epsilon } = specialSymbols;
 
 class EpsilonPart {
   parse(context, noWhitespace) {
@@ -10,7 +16,7 @@ class EpsilonPart {
   }
 
   toString() {
-    const string = 'ε';
+    const string = epsilon;
 
     return string;
   }

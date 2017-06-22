@@ -4,8 +4,8 @@ const lexers = require('occam-lexers');
 
 const TerminalNode = require('../../common/node/terminal');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { ExtendedBNFLexer } = lexers,
+      { specialSymbols } = ExtendedBNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 
 class TerminalSymbolPart {

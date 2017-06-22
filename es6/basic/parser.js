@@ -6,7 +6,7 @@ const grammar = require('./grammar'),
       CommonParser = require('../common/parser'),
       ExtendedBNFParser = require('../extendedBNF/parser');
 
-const { BNFLexer } = lexers;
+const { ExtendedBNFLexer } = lexers;
 
 class BasicParser extends CommonParser {
   static fromNothing() {
@@ -19,9 +19,9 @@ class BasicParser extends CommonParser {
     let basicParser = null;
 
     try {
-      const bnfLexer = BNFLexer.fromNothing(),
+      const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
             extendedBNFParser = ExtendedBNFParser.fromNothing(),
-            lines = bnfLexer.linesFromGrammar(grammar),
+            lines = extendedBNFLexer.linesFromGrammar(grammar),
             node = extendedBNFParser.nodeFromLines(lines),
             productions = ExtendedBNFParser.generateProductions(node);
 

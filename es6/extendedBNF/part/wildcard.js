@@ -1,6 +1,12 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const TerminalNode = require('../../common/node/terminal');
+
+const { ExtendedBNFLexer } = lexers,
+      { specialSymbols } = ExtendedBNFLexer,
+      { wildcard } = specialSymbols;
 
 class WildcardPart {
   constructor(noWhitespace) {
@@ -28,7 +34,7 @@ class WildcardPart {
   }
 
   toString() {
-    const string = '.';
+    const string = wildcard;
 
     return string;
   }

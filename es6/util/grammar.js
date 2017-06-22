@@ -5,11 +5,11 @@ const cycles = require('../grammar/cycles'),
       ExtendedBNFParser = require('../extendedBNF/parser');
 
 class grammarUtil {
-  static productionsFromGrammar(grammar, bnfLexer, bnfParser) {
+  static productionsFromGrammar(grammar, extendedBNFLexer, extendedBNFParser) {
     let productions;
     
-    const lines = bnfLexer.linesFromGrammar(grammar),
-          node = bnfParser.nodeFromLines(lines);
+    const lines = extendedBNFLexer.linesFromGrammar(grammar),
+          node = extendedBNFParser.nodeFromLines(lines);
     
     productions = ExtendedBNFParser.generateProductions(node);
 

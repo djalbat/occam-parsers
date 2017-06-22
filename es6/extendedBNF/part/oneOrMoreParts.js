@@ -1,7 +1,13 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const SequenceOfPartsPart = require('./sequenceOfParts'),
       ZeroOrMorePartsPart = require('./zeroOrMoreParts');
+
+const { ExtendedBNFLexer } = lexers,
+      { specialSymbols } = ExtendedBNFLexer,
+      { plus } = specialSymbols;
 
 class OneOrMorePartsPart extends SequenceOfPartsPart {
   parse(context, noWhitespace) {
@@ -28,7 +34,7 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
   }
 
   toString() {
-    const operatorString = '+',
+    const operatorString = plus,  ///
           string = super.toString(operatorString);
 
     return string;

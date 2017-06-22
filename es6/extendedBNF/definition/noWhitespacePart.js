@@ -6,8 +6,8 @@ const Definition = require('../definition'),
       TerminalSymbolPart = require('../part/terminalSymbol'),
       ProductionNamePart = require('../part/productionName');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { ExtendedBNFLexer } = lexers,
+      { specialSymbols } = ExtendedBNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 
 class NoWhitespacePartDefinition extends Definition {

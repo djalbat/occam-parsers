@@ -5,8 +5,8 @@ const lexers = require('occam-lexers');
 const arrayUtil = require('../../util/array'),
       TerminalNode = require('../../common/node/terminal');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { ExtendedBNFLexer } = lexers,
+      { specialSymbols } = ExtendedBNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 
 class RegularExpressionPart {

@@ -8,13 +8,13 @@ const Example = require('../example'),
       ExtendedBNFParser = require('../extendedBNF/parser');
 
 const { Textarea } = easy,
-      { BNFLexer } = lexers;
+      { ExtendedBNFLexer } = lexers;
 
 const lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
-      lexicalGrammar = BNFLexer.grammar;
+      lexicalGrammar = ExtendedBNFLexer.grammar;
 
 let lexicalGrammarTextarea,
-    bnfLexer = null,
+    extendedBNFLexer = null,
     extendedBNFParser = null;
 
 class ExtendedBNFExample {
@@ -42,13 +42,13 @@ class ExtendedBNFExample {
 }
 
 function update() {
-  updateBNFLexer();
+  EpdateextendedBNFLexer();
 
   updateExtendedBNFParser();
 
-  if (bnfLexer !== null) {
+  if (extendedBNFLexer !== null) {
     const production = null,
-          node = Example.updateParseTreeTextarea(bnfLexer, extendedBNFParser, production),
+          node = Example.updateParseTreeTextarea(extendedBNFLexer, extendedBNFParser, production),
           productionsNode = node; ///
 
     ExtendedBNFParser.generateProductions(productionsNode);
@@ -59,7 +59,7 @@ function update() {
 
 module.exports = ExtendedBNFExample;
 
-function updateBNFLexer() {
+function EpdateextendedBNFLexer() {
   const lexicalGrammarTextareaValue = lexicalGrammarTextarea.getValue();
 
   let lexicalGrammar = null;
@@ -71,13 +71,13 @@ function updateBNFLexer() {
   const lexicalGrammarValid = (lexicalGrammar !== null);
 
   if (lexicalGrammarValid) {
-    bnfLexer = BNFLexer.fromGrammar(lexicalGrammar);
+    extendedBNFLexer = ExtendedBNFLexer.fromGrammar(lexicalGrammar);
 
     lexicalGrammarTextarea.removeClass('error');
   } else {
     lexicalGrammarTextarea.addClass('error');
 
-    bnfLexer = null;
+    extendedBNFLexer = null;
   }
 }
 

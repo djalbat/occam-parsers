@@ -4,8 +4,8 @@ const lexers = require('occam-lexers');
 
 const TerminalNode = require('../../common/node/terminal');
 
-const { BNFLexer, EndOfLineToken } = lexers,
-      { specialSymbols } = BNFLexer,
+const { ExtendedBNFLexer, EndOfLineToken } = lexers,
+      { specialSymbols } = ExtendedBNFLexer,
       { END_OF_LINE } = specialSymbols;
 
 class EndOfLinePart {

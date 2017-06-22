@@ -1,6 +1,12 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const SequenceOfPartsPart = require('./sequenceOfParts');
+
+const { ExtendedBNFLexer } = lexers,
+      { specialSymbols } = ExtendedBNFLexer,
+      { asterisk } = specialSymbols;
 
 class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   parse(context, noWhitespace) {
@@ -25,7 +31,7 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   }
 
   toString() {
-    const operatorString = '*',
+    const operatorString = asterisk,  ///
           string = super.toString(operatorString);
 
     return string;

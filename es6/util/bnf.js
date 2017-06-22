@@ -6,8 +6,8 @@ const arrayUtil = require('../util/array'),
       TerminalNode = require('../common/node/terminal'),
       NonTerminalNode = require('../common/node/nonTerminal');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { ExtendedBNFLexer } = lexers,
+      { specialSymbols } = ExtendedBNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 
 class bnfUtil {

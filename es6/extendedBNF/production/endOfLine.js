@@ -6,8 +6,8 @@ const Production = require('../production'),
       EndOfLineNode = require('../node/endOfLine'),
       TerminalSymbolDefinition = require('../definition/terminalSymbol');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { ExtendedBNFLexer } = lexers,
+      { specialSymbols } = ExtendedBNFLexer,
       { END_OF_LINE } = specialSymbols;
 
 class EndOfLineProduction extends Production {
