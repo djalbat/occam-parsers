@@ -42,9 +42,11 @@ const grammar = `
 
                              |  terminalSymbol
                           
-                             |  endOfLineSymbol
+                             |  endOfLine
                 
-                             |  wildcardSymbol
+                             |  epsilon
+
+                             |  wildcard
                               
                              ;
 
@@ -56,9 +58,11 @@ const grammar = `
 
   terminalSymbol           ::=  [string] ;
   
-  endOfLineSymbol          ::=  "<END_OF_LINE>" ;
+  endOfLine                ::=  "<END_OF_LINE>" ;
   
-  wildcardSymbol           ::=  "." ;
+  epsilon                  ::=  "ε" ;
+
+  wildcard                 ::=  "." ;
 
 `;
 

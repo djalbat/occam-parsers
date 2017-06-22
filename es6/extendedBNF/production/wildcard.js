@@ -1,21 +1,21 @@
 'use strict';
 
 const Production = require('../production'),
-      WildcardSymbolNode = require('../node/wildcardSymbol'),
+      WildcardNode = require('../node/wildcard'),
       TerminalSymbolDefinition = require('../definition/terminalSymbol');
 
-class WildcardSymbolProduction extends Production {
+class WildcardProduction extends Production {
   constructor() {
     const wildcardTerminalSymbolContent = '.',
           wildcardTerminalSymbolDefinition = new TerminalSymbolDefinition(wildcardTerminalSymbolContent),
-          name = 'wildcardSymbol',
+          name = 'wildcard',
           definitions = [
             wildcardTerminalSymbolDefinition
           ],
-          Node = WildcardSymbolNode;
+          Node = WildcardNode;
 
     super(name, definitions, Node)
   }
 }
 
-module.exports = WildcardSymbolProduction;
+module.exports = WildcardProduction;

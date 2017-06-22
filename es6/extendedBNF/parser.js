@@ -7,6 +7,9 @@ const Parts = require('./parts'),
       leftRecursion = require('../grammar/leftRecursion'),
       CommonParser = require('../common/parser'),
       PartProduction = require('./production/part'),
+      EpsilonProduction = require('./production/epsilon'),
+      WildcardProduction = require('./production/wildcard'),
+      EndOfLineProduction = require('./production/endOfLine'),
       DefinitionProduction = require('./production/definition'),
       ProductionProduction = require('./production/production'),
       DefinitionsProduction = require('./production/definitions'),
@@ -17,9 +20,7 @@ const Parts = require('./parts'),
       ZeroOrMorePartsProduction = require('./production/zeroOrMoreParts'),
       OneOrMorePartsProduction = require('./production/oneOrMoreParts'),
       ProductionNameProduction = require('./production/productionName'),
-      WildcardSymbolProduction = require('./production/wildcardSymbol'),
       TerminalSymbolProduction = require('./production/terminalSymbol'),
-      EndOfLineSymbolProduction = require('./production/endOfLineSymbol'),
       NoWhitespacePartProduction = require('./production/noWhitespacePart'),
       RegularExpressionProduction = require('./production/regularExpression'),
       SignificantTokenTypeProduction = require('./production/significantTokenType');
@@ -35,6 +36,9 @@ class ExtetendedBNFParser extends CommonParser {
 
   static fromNothing() {
     const partProduction = new PartProduction(),
+          epsilonProduction = new EpsilonProduction(),
+          wildcardProduction = new WildcardProduction(),
+          endOfLineProduction = new EndOfLineProduction(),
           definitionProduction = new DefinitionProduction(),
           productionProduction = new ProductionProduction(),
           definitionsProduction = new DefinitionsProduction(),
@@ -45,9 +49,7 @@ class ExtetendedBNFParser extends CommonParser {
           zeroOrMorePartsProduction = new ZeroOrMorePartsProduction(),
           oneOrMorePartsProduction = new OneOrMorePartsProduction(),
           productionNameProduction = new ProductionNameProduction(),
-          wildcardSymbolProduction = new WildcardSymbolProduction(),
           terminalSymbolProduction = new TerminalSymbolProduction(),
-          endOfLineSymbolProduction = new EndOfLineSymbolProduction(),
           noWhitespacePartProduction = new NoWhitespacePartProduction(),
           regularExpressionProduction = new RegularExpressionProduction(),
           significantTokenTypeProduction = new SignificantTokenTypeProduction();
@@ -68,8 +70,9 @@ class ExtetendedBNFParser extends CommonParser {
           regularExpressionProduction,
           significantTokenTypeProduction,
           terminalSymbolProduction,
-          endOfLineSymbolProduction,
-          wildcardSymbolProduction
+          endOfLineProduction,
+          epsilonProduction,
+          wildcardProduction
         ];
 
     productions = cycles.eliminate(productions);  ///

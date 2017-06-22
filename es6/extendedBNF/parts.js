@@ -2,7 +2,7 @@
 
 const EpsilonPart = require('./part/epsilon'),
       WildcardPart = require('./part/wildcard'),
-      EndOfLinePart = require('./part/endOfLine'),
+      EndOfLinePart = require('./part/endOfLine'),    
       OptionalPartPart = require('./part/optionalPart'),
       GroupOfPartsPart = require('./part/groupOfParts'),
       ChoiceOfPartsPart = require('./part/choiceOfParts'),

@@ -31,3 +31,21 @@ const grammar = `
 `;
 
 module.exports = grammar;
+
+/*
+
+ expression               ::=  expression operator expression
+
+                            |  "(" expression ")"
+
+                            |  term
+
+                            ;
+
+ operator                 ::=  "+" | "-" | "/" | "*" ;
+
+ term                     ::=  naturalNumber ;
+
+ naturalNumber            ::=  /\\d+/ ;
+
+ */

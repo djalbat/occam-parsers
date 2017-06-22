@@ -3,7 +3,7 @@
 const WildcardPart = require('../part/wildcard'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
-class WildcardSymbolNode extends NonTerminalNode {
+class WildcardNode extends NonTerminalNode {
   generatePart(Parts, noWhitespace) {
     const WildcardPart = Parts['WildcardPart'],
           wildcardPart = new WildcardPart(noWhitespace);
@@ -11,7 +11,7 @@ class WildcardSymbolNode extends NonTerminalNode {
     return wildcardPart;
   }
 
-  static fromNodesAndProductionName(nodes, productionName) { return NonTerminalNode.fromNodesAndProductionName(nodes, productionName, WildcardSymbolNode); }
+  static fromNodesAndProductionName(nodes, productionName) { return NonTerminalNode.fromNodesAndProductionName(nodes, productionName, WildcardNode); }
 }
 
-module.exports = WildcardSymbolNode;
+module.exports = WildcardNode;
