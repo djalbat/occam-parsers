@@ -2,11 +2,9 @@
 
 const grammar = `
 
-  expression    ::= "(" expression ")" expressionRR
+  expression    ::= "(" expression ")" expression~
 
-                  | term expressionRR 
-                  
-                  ;
+                  | term expression~ ;
 
   operator      ::= "+"
 
@@ -14,38 +12,16 @@ const grammar = `
 
                   | "/"
 
-                  | "*" 
-                  
-                  ;
+                  | "*" ;
 
   term          ::= naturalNumber ;
 
-  naturalNumber ::= /\d+/ ;
+  naturalNumber ::= /\\d+/ ;
 
-  expressionRR  ::= operator expression expressionRR
+  expression~   ::= operator expression expression~
 
-                  | ε 
-                  
-                  ;
+                  | ε ;
 
 `;
 
 module.exports = grammar;
-
-/*
-
- expression               ::=  expression operator expression
-
-                            |  "(" expression ")"
-
-                            |  term
-
-                            ;
-
- operator                 ::=  "+" | "-" | "/" | "*" ;
-
- term                     ::=  naturalNumber ;
-
- naturalNumber            ::=  /\\d+/ ;
-
- */
