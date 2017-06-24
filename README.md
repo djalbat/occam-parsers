@@ -160,7 +160,29 @@ Both the lexical grammar and extended BNF grammar textareas are read-only. The c
 
 ### Basic example
 
-Both the lexical and BNF grammars as well as the content can be changed. Here is the parse tree produced by the basic parser corresponding to the expression `1+2/3`, given the grammar in the introduction:
+Both the lexical and BNF grammars as well as the content can be changed. Given the following grammar...
+
+      expression    ::= "(" expression ")" expression~
+    
+                      | term expression~ ;
+    
+      operator      ::= "+"
+    
+                      | "-"
+    
+                      | "/"
+    
+                      | "*" ;
+    
+      term          ::= naturalNumber ;
+    
+      naturalNumber ::= /\\d+/ ;
+    
+      expression~   ::= operator expression expression~
+    
+                      | ε ;
+    
+...the expression `1+2/3` gives the following parse tree:
 
                           expression(1-1)                                                     
                                  |                                                            
