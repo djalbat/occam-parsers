@@ -137,13 +137,13 @@ This can be done with the `<NO_WHITESPACE>` special symbol. For example:
 
      parenthesisedTerms         ::=   "("<NO_WHITESPACE>terms<NO_WHITESPACE>")" ;
         
-### Grouping
+### Grouping parts
 
 This can be done with the brackets. For example:
 
      terms                      ::=   term ( "," term)* ;
 
-### Choice
+### Choosing between parts
 
 The vertical bar symbol `|` is overloaded and can be used in conjunction with brackets to choose between parts as opposed to definitions. For example:
   
@@ -162,29 +162,29 @@ Both the lexical grammar and extended BNF grammar textareas are read-only. The c
 
 Both the lexical and BNF grammars as well as the content can be changed. Here is the parse tree produced by the basic parser corresponding to the expression `1+2/3`, given the grammar in the introduction:
 
-                      expression(1-1)                                                     
-                             |                                                            
-             ---------------------------------                                            
-             |                               |                                            
-         term(1-1)                   expression~(1-1)                                     
-             |                               |                                            
-    naturalNumber(1-1)        -------------------------------                             
-             |                |                             |                             
-      1[terminal](1)    operator(1-1)                expression(1-1)                      
-                              |                             |                             
-                       +[terminal](1)          ---------------------------                
-                                               |                         |                
-                                           term(1-1)             expression~(1-1)         
-                                               |                         |                
-                                      naturalNumber(1-1)        ------------------        
-                                               |                |                |        
-                                        2[terminal](1)    operator(1-1)   expression(1-1) 
-                                                                |                |        
-                                                         /[terminal](1)      term(1-1)    
-                                                                                 |        
-                                                                        naturalNumber(1-1)
-                                                                                 |        
-                                                                          3[terminal](1)  
+                          expression(1-1)                                                     
+                                 |                                                            
+                 ---------------------------------                                            
+                 |                               |                                            
+             term(1-1)                   expression~(1-1)                                     
+                 |                               |                                            
+        naturalNumber(1-1)        -------------------------------                             
+                 |                |                             |                             
+          1[terminal](1)    operator(1-1)                expression(1-1)                      
+                                  |                             |                             
+                           +[terminal](1)          ---------------------------                
+                                                   |                         |                
+                                               term(1-1)             expression~(1-1)         
+                                                   |                         |                
+                                          naturalNumber(1-1)        ------------------        
+                                                   |                |                |        
+                                            2[terminal](1)    operator(1-1)   expression(1-1) 
+                                                                    |                |        
+                                                             /[terminal](1)      term(1-1)    
+                                                                                     |        
+                                                                            naturalNumber(1-1)
+                                                                                     |        
+                                                                              3[terminal](1)  
 
 ### Florence example
 
