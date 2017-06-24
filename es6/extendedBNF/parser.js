@@ -25,7 +25,7 @@ const Parts = require('./parts'),
       RegularExpressionProduction = require('./production/regularExpression'),
       SignificantTokenTypeProduction = require('./production/significantTokenType');
 
-class ExtetendedBNFParser extends CommonParser {
+class ExtendedBNFParser extends CommonParser {
   static generateProductions(node, mappings = {}) {
     const productions = (node !== null) ?
                           node.generateProductions(Production, Definition, Parts, mappings) :
@@ -79,10 +79,10 @@ class ExtetendedBNFParser extends CommonParser {
 
     productions = leftRecursion.eliminate(productions);  ///
 
-    const extendedBNFParser = new ExtetendedBNFParser(productions);
+    const extendedBNFParser = new ExtendedBNFParser(productions);
     
     return extendedBNFParser;
   }
 }
 
-module.exports = ExtetendedBNFParser;
+module.exports = ExtendedBNFParser;

@@ -32,7 +32,9 @@ function updateHandler() {
     return parser;
   });
 
-  Example.updateParseTree(productionName);
+  const node = Example.updateParseTree(productionName);
+
+  ExtendedBNFParser.generateProductions(node);
 }
 
 module.exports = ExtendedBNFExample;

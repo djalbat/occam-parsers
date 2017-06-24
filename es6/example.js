@@ -74,9 +74,9 @@ class Example {
   }
 
   static updateParseTree(productionName) {
-    if ((lexer !== null) && (parser !== null)) {
-      let node = null;
+    let node = null;
 
+    if ((lexer !== null) && (parser !== null)) {
       try {
         const contentTextareaValue = contentTextarea.getValue(),
               content = contentTextareaValue, ///
@@ -109,6 +109,8 @@ class Example {
 
       parseTreeTextarea.html(parseTreeTextareaHTML);
     }
+    
+    return node;
   }
 }
 
