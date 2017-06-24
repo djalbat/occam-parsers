@@ -7,13 +7,14 @@ const grammar = require('./grammar'),
       grammarUtil = require('../util/grammar'),
       CommonParser = require('../common/parser'),
       ExtendedBNFParser = require('../extendedBNF/parser'),
-      defaultCustomGrammars = require('./defaultCustomGrammars'),
+      defaultCustomGrammarsMap = require('./defaultCustomGrammarsMap'),
       defaultAdditionalMappings = require('./defaultAdditionalMappings');
 
 const { ExtendedBNFLexer } = lexers;
 
 const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
-      extendedBNFParser = ExtendedBNFParser.fromNothing();
+      extendedBNFParser = ExtendedBNFParser.fromNothing(),
+      defaultCustomGrammars = grammarsFromGrammarsMap(defaultCustomGrammarsMap);
 
 class FlorenceParser extends CommonParser {
   static fromCustomGrammarsAdditionalMappings(customGrammars, additionalMappings) {
@@ -45,7 +46,7 @@ FlorenceParser.grammar = grammar;
 
 FlorenceParser.mappings = mappings;
 
-FlorenceParser.defaultCustomGrammars = defaultCustomGrammars;
+FlorenceParser.defaultCustomGrammarsMap = defaultCustomGrammarsMap;
 
 function customProductionsFromCustomGrammars(customGrammars, extendedBNFLexer, extendedBNFParser) {
   const customProductions = customGrammars.reduce(function(customProductions, customGrammar) {
@@ -57,4 +58,17 @@ function customProductionsFromCustomGrammars(customGrammars, extendedBNFLexer, e
   }, []);
   
   return customProductions;
+}
+
+function grammarsFromGrammarsMap(grammarsMap) {
+  const names = Object.keys(grammarsMap),
+        grammars = names.reduce(function(grammars, name) {
+          const grammar = grammarsMap[name];
+
+          grammars.push(grammar);
+
+          return grammar;
+        }, []);
+
+  return grammars;
 }

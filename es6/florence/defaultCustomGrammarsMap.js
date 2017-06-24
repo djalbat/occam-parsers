@@ -4,10 +4,10 @@ const metastatementDefaultCustomGrammar = require('./defaultCustomGrammar/metast
       statementDefaultCustomGrammar = require('./defaultCustomGrammar/statement'),
       termDefaultCustomGrammar = require('./defaultCustomGrammar/term');
 
-const defaultCustomGrammars = [
-  metastatementDefaultCustomGrammar,
-  statementDefaultCustomGrammar,
-  termDefaultCustomGrammar    
-];
+const defaultCustomGrammarsMap = {
+  metastatement: metastatementDefaultCustomGrammar,
+  statement: statementDefaultCustomGrammar,
+  term: termDefaultCustomGrammar
+};
 
-module.exports = defaultCustomGrammars;
+module.exports = defaultCustomGrammarsMap;
