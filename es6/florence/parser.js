@@ -14,7 +14,7 @@ const { ExtendedBNFLexer } = lexers;
 
 const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
       extendedBNFParser = ExtendedBNFParser.fromNothing(),
-      defaultCustomGrammars = grammarsFromGrammarsMap(defaultCustomGrammarsMap);
+      defaultCustomGrammars = grammarsUtil.grammarsFromGrammarsMap(defaultCustomGrammarsMap);
 
 class FlorenceParser extends CommonParser {
   static fromCustomGrammarsAdditionalMappings(customGrammars, additionalMappings) {
@@ -26,7 +26,7 @@ class FlorenceParser extends CommonParser {
   static fromGrammarAndMappings(grammar, mappings, customGrammars = defaultCustomGrammars, additionalMappings = defaultAdditionalMappings) {
     mappings = Object.assign(mappings, additionalMappings); ///
 
-    const customProductions = customProductionsFromCustomGrammars(customGrammars, extendedBNFLexer, extendedBNFParser),
+    const customProductions = grammarUtil.productionsFromGrammars(customGrammars, extendedBNFLexer, extendedBNFParser),
           lines = extendedBNFLexer.linesFromGrammar(grammar),
           node = extendedBNFParser.nodeFromLines(lines);
     
@@ -47,28 +47,3 @@ FlorenceParser.grammar = grammar;
 FlorenceParser.mappings = mappings;
 
 FlorenceParser.defaultCustomGrammarsMap = defaultCustomGrammarsMap;
-
-function customProductionsFromCustomGrammars(customGrammars, extendedBNFLexer, extendedBNFParser) {
-  const customProductions = customGrammars.reduce(function(customProductions, customGrammar) {
-    const customGrammarProductions = grammarUtil.productionsFromGrammar(customGrammar, extendedBNFLexer, extendedBNFParser);
-
-    customProductions = customProductions.concat(customGrammarProductions);
-    
-    return customProductions;
-  }, []);
-  
-  return customProductions;
-}
-
-function grammarsFromGrammarsMap(grammarsMap) {
-  const names = Object.keys(grammarsMap),
-        grammars = names.reduce(function(grammars, name) {
-          const grammar = grammarsMap[name];
-
-          grammars.push(grammar);
-
-          return grammars;
-        }, []);
-
-  return grammars;
-}

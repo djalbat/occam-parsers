@@ -8,6 +8,9 @@ const grammar = require('./grammar'),
 
 const { ExtendedBNFLexer } = lexers;
 
+const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
+      extendedBNFParser = ExtendedBNFParser.fromNothing();
+
 class BasicParser extends CommonParser {
   static fromNothing() {
     const basicParser = BasicParser.fromGrammar(grammar);
@@ -19,9 +22,7 @@ class BasicParser extends CommonParser {
     let basicParser = null;
 
     try {
-      const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
-            extendedBNFParser = ExtendedBNFParser.fromNothing(),
-            lines = extendedBNFLexer.linesFromGrammar(grammar),
+      const lines = extendedBNFLexer.linesFromGrammar(grammar),
             node = extendedBNFParser.nodeFromLines(lines),
             productions = ExtendedBNFParser.generateProductions(node);
 
