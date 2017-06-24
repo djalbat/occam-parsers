@@ -12,11 +12,11 @@ const { Checkbox, Input } = easy,
       { FlorenceLexer } = lexers;
 
 const mappingsCheckboxSelector = '#mappings',
-      productionNameInputSelector = '#productionName';
+      ruleNameInputSelector = '#ruleName';
 
-let productionName,
+let ruleName,
     mappingsCheckbox,
-    productionNameInput;
+    ruleNameInput;
 
 const defaultMappings = mappings; ///
 
@@ -24,11 +24,11 @@ class FlorenceExample {
   static run() {
     mappingsCheckbox = new Checkbox(mappingsCheckboxSelector);
 
-    productionNameInput = new Input(productionNameInputSelector);
+    ruleNameInput = new Input(ruleNameInputSelector);
 
     mappingsCheckbox.onChange(updateHandler);
 
-    productionNameInput.onKeyUp(updateHandler);
+    ruleNameInput.onKeyUp(updateHandler);
 
     const content = '',
           lexicalGrammar = FlorenceLexer.grammar,
@@ -43,8 +43,8 @@ class FlorenceExample {
 module.exports = FlorenceExample;
 
 function updateHandler() {
-  const productionNameInputValue = productionNameInput.getValue(),
-        productionName = productionNameInputValue;
+  const ruleNameInputValue = ruleNameInput.getValue(),
+        ruleName = ruleNameInputValue;
 
   Example.updateLexer(FlorenceLexer);
 
@@ -59,5 +59,5 @@ function updateHandler() {
     return parser;
   });
 
-  Example.updateParseTree(productionName);
+  Example.updateParseTree(ruleName);
 }

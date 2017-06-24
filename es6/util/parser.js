@@ -13,22 +13,22 @@ class parserUtil {
     return tokens;
   }
 
-  static findProduction(productionName, productions) {
-    let foundProduction = null;
+  static findRule(ruleName, rules) {
+    let foundRule = null;
 
-    productions.some(function(production) {
-      const productionFound = production.isFoundByProductionName(productionName);
+    rules.some(function(rule) {
+      const ruleFound = rule.isFoundByRuleName(ruleName);
       
-      if (productionFound) {
-        foundProduction = production;
+      if (ruleFound) {
+        foundRule = rule;
 
         return true;
       }
     });
 
-    const production = foundProduction; ///
+    const rule = foundRule; ///
 
-    return production;
+    return rule;
   }
 }
 

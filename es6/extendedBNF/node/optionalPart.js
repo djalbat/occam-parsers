@@ -3,7 +3,7 @@
 const NonTerminalNode = require('../../common/node/nonTerminal');
 
 class OptionalPartNode extends NonTerminalNode {
-  static fromNodesAndProductionName(nodes, productionName) { return NonTerminalNode.fromNodesAndProductionName(nodes, productionName, OptionalPartNode); }
+  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(nodes, ruleName, OptionalPartNode); }
 }
 
 module.exports = OptionalPartNode;

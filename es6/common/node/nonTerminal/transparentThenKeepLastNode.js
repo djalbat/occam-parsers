@@ -3,7 +3,7 @@
 const arrayUtil = require('../../../util/array');
 
 class TransparentThenKeepLastNode {
-  static fromNodesAndProductionName(nodes, productionName) {
+  static fromNodesAndRuleName(nodes, ruleName) {
     nodes = arrayUtil.keepLast(nodes);
 
     return nodes;

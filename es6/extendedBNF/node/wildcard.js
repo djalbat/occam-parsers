@@ -10,7 +10,7 @@ class WildcardNode extends NonTerminalNode {
     return wildcardPart;
   }
 
-  static fromNodesAndProductionName(nodes, productionName) { return NonTerminalNode.fromNodesAndProductionName(nodes, productionName, WildcardNode); }
+  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(nodes, ruleName, WildcardNode); }
 }
 
 module.exports = WildcardNode;

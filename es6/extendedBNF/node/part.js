@@ -36,7 +36,7 @@ class PartNode extends NonTerminalNode {
     return part;
   }
   
-  static fromNodesAndProductionName(nodes, productionName) { return NonTerminalNode.fromNodesAndProductionName(nodes, productionName, PartNode); }
+  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(nodes, ruleName, PartNode); }
 }
 
 module.exports = PartNode;

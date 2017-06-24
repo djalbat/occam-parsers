@@ -2,88 +2,88 @@
 
 const grammar = require('./grammar'),
       Definition = require('./definition'),
-      Production = require('./production'),
+      Rule = require('./rule'),
       cycles = require('../grammar/cycles'),
       leftRecursion = require('../grammar/leftRecursion'),
       CommonParser = require('../common/parser'),
-      PartProduction = require('./production/part'),
-      EpsilonProduction = require('./production/epsilon'),
-      WildcardProduction = require('./production/wildcard'),
-      EndOfLineProduction = require('./production/endOfLine'),
-      DefinitionProduction = require('./production/definition'),
-      ProductionProduction = require('./production/production'),
-      DefinitionsProduction = require('./production/definitions'),
-      ProductionsProduction = require('./production/productions'),
-      GroupOfPartsProduction = require('./production/groupOfParts'),
-      ChoiceOfPartsProduction = require('./production/choiceOfParts'),
-      OptionalPartProduction = require('./production/optionalPart'),
-      ZeroOrMorePartsProduction = require('./production/zeroOrMoreParts'),
-      OneOrMorePartsProduction = require('./production/oneOrMoreParts'),
-      ProductionNameProduction = require('./production/productionName'),
-      TerminalSymbolProduction = require('./production/terminalSymbol'),
-      NoWhitespacePartProduction = require('./production/noWhitespacePart'),
-      RegularExpressionProduction = require('./production/regularExpression'),
-      SignificantTokenTypeProduction = require('./production/significantTokenType');
+      PartRule = require('./rule/part'),
+      EpsilonRule = require('./rule/epsilon'),
+      WildcardRule = require('./rule/wildcard'),
+      EndOfLineRule = require('./rule/endOfLine'),
+      DefinitionRule = require('./rule/definition'),
+      RuleRule = require('./rule/rule'),
+      DefinitionsRule = require('./rule/definitions'),
+      RulesRule = require('./rule/rules'),
+      GroupOfPartsRule = require('./rule/groupOfParts'),
+      ChoiceOfPartsRule = require('./rule/choiceOfParts'),
+      OptionalPartRule = require('./rule/optionalPart'),
+      ZeroOrMorePartsRule = require('./rule/zeroOrMoreParts'),
+      OneOrMorePartsRule = require('./rule/oneOrMoreParts'),
+      RuleNameRule = require('./rule/ruleName'),
+      TerminalSymbolRule = require('./rule/terminalSymbol'),
+      NoWhitespacePartRule = require('./rule/noWhitespacePart'),
+      RegularExpressionRule = require('./rule/regularExpression'),
+      SignificantTokenTypeRule = require('./rule/significantTokenType');
 
 class ExtendedBNFParser extends CommonParser {
-  static generateProductions(node, mappings = {}) {
-    let productions = (node !== null) ?
-                        node.generateProductions(Production, Definition, mappings) :
+  static generateRules(node, mappings = {}) {
+    let rules = (node !== null) ?
+                        node.generateRules(Rule, Definition, mappings) :
                           [];
 
-    productions = cycles.eliminate(productions);  ///
+    rules = cycles.eliminate(rules);  ///
 
-    productions = leftRecursion.eliminate(productions);  ///
+    rules = leftRecursion.eliminate(rules);  ///
 
-    return productions;
+    return rules;
   }
 
   static fromNothing() {
-    const partProduction = new PartProduction(),
-          epsilonProduction = new EpsilonProduction(),
-          wildcardProduction = new WildcardProduction(),
-          endOfLineProduction = new EndOfLineProduction(),
-          definitionProduction = new DefinitionProduction(),
-          productionProduction = new ProductionProduction(),
-          definitionsProduction = new DefinitionsProduction(),
-          productionsProduction = new ProductionsProduction(),
-          groupOfPartsProduction = new GroupOfPartsProduction(),
-          choiceOfPartsProduction = new ChoiceOfPartsProduction(),
-          optionalPartProduction = new OptionalPartProduction(),
-          zeroOrMorePartsProduction = new ZeroOrMorePartsProduction(),
-          oneOrMorePartsProduction = new OneOrMorePartsProduction(),
-          productionNameProduction = new ProductionNameProduction(),
-          terminalSymbolProduction = new TerminalSymbolProduction(),
-          noWhitespacePartProduction = new NoWhitespacePartProduction(),
-          regularExpressionProduction = new RegularExpressionProduction(),
-          significantTokenTypeProduction = new SignificantTokenTypeProduction();
+    const partRule = new PartRule(),
+          epsilonRule = new EpsilonRule(),
+          wildcardRule = new WildcardRule(),
+          endOfLineRule = new EndOfLineRule(),
+          definitionRule = new DefinitionRule(),
+          ruleRule = new RuleRule(),
+          definitionsRule = new DefinitionsRule(),
+          rulesRule = new RulesRule(),
+          groupOfPartsRule = new GroupOfPartsRule(),
+          choiceOfPartsRule = new ChoiceOfPartsRule(),
+          optionalPartRule = new OptionalPartRule(),
+          zeroOrMorePartsRule = new ZeroOrMorePartsRule(),
+          oneOrMorePartsRule = new OneOrMorePartsRule(),
+          ruleNameRule = new RuleNameRule(),
+          terminalSymbolRule = new TerminalSymbolRule(),
+          noWhitespacePartRule = new NoWhitespacePartRule(),
+          regularExpressionRule = new RegularExpressionRule(),
+          significantTokenTypeRule = new SignificantTokenTypeRule();
 
-    let productions = [
-          productionsProduction,
-          productionProduction,
-          definitionsProduction,
-          definitionProduction,
-          noWhitespacePartProduction,
-          optionalPartProduction,
-          zeroOrMorePartsProduction,
-          oneOrMorePartsProduction,
-          groupOfPartsProduction,
-          choiceOfPartsProduction,
-          partProduction,
-          productionNameProduction,
-          regularExpressionProduction,
-          significantTokenTypeProduction,
-          terminalSymbolProduction,
-          endOfLineProduction,
-          epsilonProduction,
-          wildcardProduction
-        ];
+    let rules = [
+      rulesRule,
+      ruleRule,
+      definitionsRule,
+      definitionRule,
+      noWhitespacePartRule,
+      optionalPartRule,
+      zeroOrMorePartsRule,
+      oneOrMorePartsRule,
+      groupOfPartsRule,
+      choiceOfPartsRule,
+      partRule,
+      ruleNameRule,
+      regularExpressionRule,
+      significantTokenTypeRule,
+      terminalSymbolRule,
+      endOfLineRule,
+      epsilonRule,
+      wildcardRule
+    ];
 
-    productions = cycles.eliminate(productions);  ///
+    rules = cycles.eliminate(rules);  ///
 
-    productions = leftRecursion.eliminate(productions);  ///
+    rules = leftRecursion.eliminate(rules);  ///
 
-    const extendedBNFParser = new ExtendedBNFParser(productions);
+    const extendedBNFParser = new ExtendedBNFParser(rules);
     
     return extendedBNFParser;
   }

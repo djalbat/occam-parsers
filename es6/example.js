@@ -73,7 +73,7 @@ class Example {
     parser = callback(grammar);
   }
 
-  static updateParseTree(productionName) {
+  static updateParseTree(ruleName) {
     let node = null,
         parseTreeTextareaHTML = '';
 
@@ -81,10 +81,10 @@ class Example {
       try {
         const contentTextareaValue = contentTextarea.getValue(),
               content = contentTextareaValue, ///
-              production = parser.findProduction(productionName),
+              rule = parser.findRule(ruleName),
               lines = lexer.linesFromContent(content);
 
-        node = parser.nodeFromLines(lines, production);
+        node = parser.nodeFromLines(lines, rule);
 
         if (node === null) {
           throw new Error('The document cannot be parsed for some reason.');  ///

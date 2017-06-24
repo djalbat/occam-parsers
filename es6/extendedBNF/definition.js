@@ -1,7 +1,7 @@
 'use strict';
 
 const arrayUtil = require('../util/array'),
-      ProductionNamePart = require('./part/productionName');
+      RuleNamePart = require('./part/ruleName');
 
 class Definition {
   constructor(parts) {
@@ -30,11 +30,11 @@ class Definition {
     return allButFirstParts;
   }
 
-  isFirstPartProductionNamePart() {
+  isFirstPartRuleNamePart() {
     const firstPart = this.getFirstPart(),
-          firstPartProductionNamePart = (firstPart instanceof ProductionNamePart);
+          firstPartRuleNamePart = (firstPart instanceof RuleNamePart);
 
-    return firstPartProductionNamePart;
+    return firstPartRuleNamePart;
   }
 
   parse(context, noWhitespace) {

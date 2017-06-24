@@ -7,10 +7,10 @@ const { SignificantToken, WhitespaceToken } = lexers;
 const DEFAULT_MAXIMUM_DEPTH = 99;
 
 class Context {
-  constructor(tokens, productions, maximumDepth = DEFAULT_MAXIMUM_DEPTH) {
+  constructor(tokens, rules, maximumDepth = DEFAULT_MAXIMUM_DEPTH) {
     this.tokens = tokens;
 
-    this.productions = productions;
+    this.rules = rules;
 
     this.maximumDepth = maximumDepth;
 
@@ -19,8 +19,8 @@ class Context {
     this.index = 0;
   }
 
-  getProductions() {
-    return this.productions;
+  getRules() {
+    return this.rules;
   }
 
   getMaximumDepth() {

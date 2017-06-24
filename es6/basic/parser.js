@@ -24,9 +24,9 @@ class BasicParser extends CommonParser {
     try {
       const lines = extendedBNFLexer.linesFromGrammar(grammar),
             node = extendedBNFParser.nodeFromLines(lines),
-            productions = ExtendedBNFParser.generateProductions(node);
+            rules = ExtendedBNFParser.generateRules(node);
 
-      basicParser = new BasicParser(productions);
+      basicParser = new BasicParser(rules);
     } catch (error) {
       
     }

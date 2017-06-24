@@ -3,17 +3,17 @@
 const Definition = require('../../extendedBNF/definition');
 
 class LeftRecursiveDefinition extends Definition {
-  static fromDefinitionAndProductionName(definition, productionName) {
+  static fromDefinitionAndRuleName(definition, ruleName) {
     let leftRecursiveDefinition = null;
     
-    const definitionFirstPartProductionNamePart = definition.isFirstPartProductionNamePart();
+    const definitionFirstPartRuleNamePart = definition.isFirstPartRuleNamePart();
     
-    if (definitionFirstPartProductionNamePart) {
+    if (definitionFirstPartRuleNamePart) {
       const definitionFirstPart = definition.getFirstPart(),
-            definitionFirstProductionNamePart = definitionFirstPart,  ///
-            definitionFirstProductionNamePartProductionName = definitionFirstProductionNamePart.getProductionName();
+            definitionFirstRuleNamePart = definitionFirstPart,  ///
+            definitionFirstRuleNamePartRuleName = definitionFirstRuleNamePart.getRuleName();
       
-      if (definitionFirstProductionNamePartProductionName === productionName) {
+      if (definitionFirstRuleNamePartRuleName === ruleName) {
         const parts = definition.getParts();
 
         leftRecursiveDefinition = new LeftRecursiveDefinition(parts);

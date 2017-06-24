@@ -21,7 +21,7 @@ class ExtendedBNFExample {
 }
 
 function updateHandler() {
-  const productionName = null;
+  const ruleName = null;
 
   Example.updateLexer(ExtendedBNFLexer);
 
@@ -32,9 +32,9 @@ function updateHandler() {
     return parser;
   });
 
-  const node = Example.updateParseTree(productionName);
+  const node = Example.updateParseTree(ruleName);
 
-  ExtendedBNFParser.generateProductions(node);
+  ExtendedBNFParser.generateRules(node);
 }
 
 module.exports = ExtendedBNFExample;

@@ -3,7 +3,7 @@
 const arrayUtil = require('../../../util/array');
 
 class TransparentThenKeepSecondNode {
-  static fromNodesAndProductionName(nodes, productionName) {
+  static fromNodesAndRuleName(nodes, ruleName) {
     nodes = arrayUtil.keepSecond(nodes);
 
     return nodes;

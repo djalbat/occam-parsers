@@ -1,16 +1,16 @@
 'use strict';
 
 const Definition = require('../definition'),
-      OneOrMorePartsPart = require('../part/oneOrMoreParts'),
-      ProductionNamePart = require('../part/productionName');
+      RuleNamePart = require('../part/ruleName'),
+      OneOrMorePartsPart = require('../part/oneOrMoreParts');
 
 class DefinitionDefinition extends Definition {
   constructor() {
-    const partProductionName = 'part',
-          partProductionNamePart = new ProductionNamePart(partProductionName),
-          oneOrMoreProductionNamePartsPart = new OneOrMorePartsPart(partProductionNamePart),
+    const partRuleName = 'part',
+          partRuleNamePart = new RuleNamePart(partRuleName),
+          oneOrMoreRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart),
           parts = [
-            oneOrMoreProductionNamePartsPart
+            oneOrMoreRuleNamePartsPart
           ];
 
     super(parts)

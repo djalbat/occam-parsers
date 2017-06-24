@@ -4,7 +4,7 @@ const arrayUtil = require('../../../util/array'),
       TerminalNode = require('../terminal');
 
 class ErrorNode extends TerminalNode {
-  static fromNodesAndProductionName(nodes, productionName) {
+  static fromNodesAndRuleName(nodes, ruleName) {
     const firstNode = arrayUtil.first(nodes),
           terminalNode = firstNode,  ///
           significantToken = terminalNode.getSignificantToken(),

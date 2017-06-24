@@ -3,10 +3,10 @@
 const lexers = require('occam-lexers');
 
 const Definition = require('../definition'),
+      RuleNamePart = require('../part/ruleName'),
       GroupOfPartsPart = require('../part/groupOfParts'),
       OneOrMorePartsPart = require('../part/oneOrMoreParts'),
-      TerminalSymbolPart = require('../part/terminalSymbol'),
-      ProductionNamePart = require('../part/productionName');
+      TerminalSymbolPart = require('../part/terminalSymbol');
 
 const { ExtendedBNFLexer } = lexers,
       { specialSymbols } = ExtendedBNFLexer,
@@ -14,23 +14,23 @@ const { ExtendedBNFLexer } = lexers,
 
 class ChoiceOfPartsDefinition extends Definition {
   constructor() {
-    const partProductionName = 'part',
+    const partRuleName = 'part',
           verticalBarTerminalSymbolContent = verticalBar,
           openBracketTerminalSymbolContent = openBracket,
           closeBracketTerminalSymbolContent = closeBracket,
-          partProductionNamePart = new ProductionNamePart(partProductionName),
+          partRuleNamePart = new RuleNamePart(partRuleName),
           verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent),
           openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent),
           closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent),
-          verticalBarTerminalSymbolThenPartProductionNameParts = [
+          verticalBarTerminalSymbolThenPartRuleNameParts = [
             verticalBarTerminalSymbolPart,
-            partProductionNamePart
+            partRuleNamePart
           ],
-          groupOfPartsPart = new GroupOfPartsPart(verticalBarTerminalSymbolThenPartProductionNameParts),
+          groupOfPartsPart = new GroupOfPartsPart(verticalBarTerminalSymbolThenPartRuleNameParts),
           oneOrMoreGroupOfPartsPart = new OneOrMorePartsPart(groupOfPartsPart),
           parts = [
             openBracketTerminalSymbolPart,
-            partProductionNamePart,
+            partRuleNamePart,
             oneOrMoreGroupOfPartsPart,
             closeBracketTerminalSymbolPart
           ];

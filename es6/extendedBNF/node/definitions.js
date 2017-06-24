@@ -16,11 +16,11 @@ class DefinitionsNode extends NonTerminalNode {
     return definitions;
   }
 
-  static fromNodesAndProductionName(nodes, productionName) {
+  static fromNodesAndRuleName(nodes, ruleName) {
     const childNodes = arrayUtil.discardOdd(nodes),
-          productionsNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, DefinitionsNode);
+          rulesNode = NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes, DefinitionsNode);
 
-    return productionsNode;
+    return rulesNode;
   }
 }
 

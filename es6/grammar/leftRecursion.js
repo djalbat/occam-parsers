@@ -1,47 +1,47 @@
 'use strict';
 
-const LeftRecursiveProduction = require('./production/leftRecursive'),
-      RightRecursiveProduction = require('./production/rightRecursive'),
-      NonLeftRecursiveProduction = require('./production/nonLeftRecursive'),
-      ImplicitlyLeftRecursiveProduction = require('./production/implicitlyLeftRecursive');
+const LeftRecursiveRule = require('./rule/leftRecursive'),
+      RightRecursiveRule = require('./rule/rightRecursive'),
+      NonLeftRecursiveRule = require('./rule/nonLeftRecursive'),
+      ImplicitlyLeftRecursiveRule = require('./rule/implicitlyLeftRecursive');
 
 class leftRecursion {
-  static eliminate(productions) {
-    const nonLeftRecursiveProductions = [],
-          rightRecursiveProductions = [];
+  static eliminate(rules) {
+    const nonLeftRecursiveRules = [],
+          rightRecursiveRules = [];
 
-    productions.forEach(function(production, index) {
+    rules.forEach(function(rule, index) {
       const begin = 0,
             end = index,  ///
-            previousNonLeftRecursiveProductions = nonLeftRecursiveProductions.slice(begin, end),
-            previousProductions = previousNonLeftRecursiveProductions,  ///
-            implicitlyLeftRecursiveProduction = ImplicitlyLeftRecursiveProduction.fromProductionAndPreviousProductions(production, previousProductions);
+            previousNonLeftRecursiveRules = nonLeftRecursiveRules.slice(begin, end),
+            previousRules = previousNonLeftRecursiveRules,  ///
+            implicitlyLeftRecursiveRule = ImplicitlyLeftRecursiveRule.fromRuleAndPreviousRules(rule, previousRules);
 
-      if (implicitlyLeftRecursiveProduction !== null) {
-        const leftRecursiveProduction = LeftRecursiveProduction.fromImplicitlyLeftRecursiveProductionAndPreviousProductions(implicitlyLeftRecursiveProduction, previousProductions);
+      if (implicitlyLeftRecursiveRule !== null) {
+        const leftRecursiveRule = LeftRecursiveRule.fromImplicitlyLeftRecursiveRuleAndPreviousRules(implicitlyLeftRecursiveRule, previousRules);
         
-        production = leftRecursiveProduction; ///
+        rule = leftRecursiveRule; ///
       }
       
-      const leftRecursiveProduction = LeftRecursiveProduction.fromProduction(production);
+      const leftRecursiveRule = LeftRecursiveRule.fromRule(rule);
       
-      if (leftRecursiveProduction === null) {
-        const nonLeftRecursiveProduction = production;  ///
+      if (leftRecursiveRule === null) {
+        const nonLeftRecursiveRule = rule;  ///
 
-        nonLeftRecursiveProductions.push(nonLeftRecursiveProduction);
+        nonLeftRecursiveRules.push(nonLeftRecursiveRule);
       } else {
-        const rightRecursiveProduction = RightRecursiveProduction.fromLeftRecursiveProduction(leftRecursiveProduction),
-              nonLeftRecursiveProduction = NonLeftRecursiveProduction.fromLeftRecursiveProduction(leftRecursiveProduction);
+        const rightRecursiveRule = RightRecursiveRule.fromLeftRecursiveRule(leftRecursiveRule),
+              nonLeftRecursiveRule = NonLeftRecursiveRule.fromLeftRecursiveRule(leftRecursiveRule);
 
-        rightRecursiveProductions.push(rightRecursiveProduction);
+        rightRecursiveRules.push(rightRecursiveRule);
 
-        nonLeftRecursiveProductions.push(nonLeftRecursiveProduction);
+        nonLeftRecursiveRules.push(nonLeftRecursiveRule);
       }
     });
 
-    productions = [].concat(nonLeftRecursiveProductions).concat(rightRecursiveProductions);
+    rules = [].concat(nonLeftRecursiveRules).concat(rightRecursiveRules);
 
-    return productions;
+    return rules;
   }
 }
 

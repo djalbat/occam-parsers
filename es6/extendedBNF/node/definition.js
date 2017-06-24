@@ -17,11 +17,11 @@ class DefinitionNode extends NonTerminalNode {
     return definition;
   }
 
-  static fromNodesAndProductionName(nodes, productionName) {
+  static fromNodesAndRuleName(nodes, ruleName) {
     const childNodes = nodes, ///
-          productionsNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, DefinitionNode);
+          rulesNode = NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes, DefinitionNode);
 
-    return productionsNode;
+    return rulesNode;
   }
 }
 

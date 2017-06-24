@@ -4,8 +4,8 @@ const arrayUtil = require('../../util/array'),
       NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
 
 class NonTerminalNode {
-  constructor(productionName, childNodes, firstLine, lastLine, firstSignificantToken, lastSignificantToken) {
-    this.productionName = productionName;
+  constructor(ruleName, childNodes, firstLine, lastLine, firstSignificantToken, lastSignificantToken) {
+    this.ruleName = ruleName;
     this.childNodes = childNodes;
     this.firstLine = firstLine;
     this.lastLine = lastLine;
@@ -13,8 +13,8 @@ class NonTerminalNode {
     this.lastSignificantToken = lastSignificantToken;
   }
 
-  getProductionName() {
-    return this.productionName;
+  getRuleName() {
+    return this.ruleName;
   }
 
   getChildNodes() {
@@ -49,14 +49,14 @@ class NonTerminalNode {
     this.childNodes = childNodes;
   }
   
-  static fromNodesAndProductionName(nodes, productionName, Class = NonTerminalNode) {
+  static fromNodesAndRuleName(nodes, ruleName, Class = NonTerminalNode) {
     const childNodes = nodes, ///
-          nonTerminalNode = Class.fromProductionNameAndChildNodes(productionName, childNodes, Class);
+          nonTerminalNode = Class.fromRuleNameAndChildNodes(ruleName, childNodes, Class);
 
     return nonTerminalNode;
   }
 
-  static fromProductionNameAndChildNodes(productionName, childNodes, Class = NonTerminalNode) {
+  static fromRuleNameAndChildNodes(ruleName, childNodes, Class = NonTerminalNode) {
     const firstChildNode = arrayUtil.first(childNodes),
           lastChildNode = arrayUtil.last(childNodes),
           firstChildNodeFirstLine = firstChildNode.getFirstLine(),
@@ -67,7 +67,7 @@ class NonTerminalNode {
           lastLine = lastChildNodeFirstLine,  ///
           firstSignificantToken = firstChildNodeFirstSignificantToken, ///
           lastSignificantToken = lastChildNodeLastSignificantToken, ///
-          nonTerminalNode = new Class(productionName, childNodes, firstLine, lastLine, firstSignificantToken, lastSignificantToken);
+          nonTerminalNode = new Class(ruleName, childNodes, firstLine, lastLine, firstSignificantToken, lastSignificantToken);
 
     return nonTerminalNode;
   }

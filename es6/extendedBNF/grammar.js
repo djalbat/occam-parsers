@@ -2,9 +2,9 @@
 
 const grammar = `
 
-  productions              ::=  production+ ;
-  
-  production               ::=  productionName "::=" definitions ";" ;
+  rules                    ::=  rule+ ;
+   
+  rule                     ::=  ruleName "::=" definitions ";" ;
   
   definitions              ::=  definition ( "|" definition )* ;
   
@@ -34,7 +34,7 @@ const grammar = `
                            
                              |  choiceOfParts  
                            
-                             |  productionName  
+                             |  ruleName  
                 
                              |  regularExpression 
                 
@@ -50,7 +50,7 @@ const grammar = `
                               
                              ;
 
-  productionName           ::=  [name] ;
+  ruleName                 ::=  [name] ;
 
   regularExpression        ::=  [regularExpression] ;
   

@@ -5,38 +5,38 @@ const Context = require('./context'),
       parserUtil = require('../util/parser');
 
 class CommonParser {
-  constructor(productions) {
-    this.productions = productions;
+  constructor(rules) {
+    this.rules = rules;
   }
 
-  getProductions() {
-    return this.productions;
+  getRules() {
+    return this.rules;
   }
   
-  nodeFromLines(lines, production) {
+  nodeFromLines(lines, rule) {
     const tokens = parserUtil.tokensFromLines(lines),
-          node = this.parse(tokens, production);
+          node = this.parse(tokens, rule);
     
     return node;
   }
 
-  parse(tokens, production = null) {
+  parse(tokens, rule = null) {
     let node = null;
 
-    if (production === null) {
-      const productionsLength = this.productions.length;
+    if (rule === null) {
+      const rulesLength = this.rules.length;
 
-      if (productionsLength > 0) {
-        const firstProduction = arrayUtil.first(this.productions);
+      if (rulesLength > 0) {
+        const firstRule = arrayUtil.first(this.rules);
 
-        production = firstProduction; ///
+        rule = firstRule; ///
       }
     }
 
-    if (production !== null) {
-      const context = new Context(tokens, this.productions),
+    if (rule !== null) {
+      const context = new Context(tokens, this.rules),
             noWhitespace = false, ///
-            nodeOrNodes = production.parse(context, noWhitespace);
+            nodeOrNodes = rule.parse(context, noWhitespace);
 
       if (nodeOrNodes !== null) {
         node = (nodeOrNodes instanceof Array) ?
@@ -49,18 +49,18 @@ class CommonParser {
   }
   
   toString() {
-    const maximumProductionNameLength = this.productions.reduce(function(maximumProductionNameLength, production) {
-            const productionName = production.getName(),
-                  productionNameLength = productionName.length;
+    const maximumRuleNameLength = this.rules.reduce(function(maximumRuleNameLength, rule) {
+            const ruleName = rule.getName(),
+                  ruleNameLength = ruleName.length;
   
-            maximumProductionNameLength = Math.max(maximumProductionNameLength, productionNameLength);
+            maximumRuleNameLength = Math.max(maximumRuleNameLength, ruleNameLength);
   
-            return maximumProductionNameLength;
+            return maximumRuleNameLength;
           }, 0),
-          string = this.productions.reduce(function(string, production) {
-            const productionString = production.toString(maximumProductionNameLength);
+          string = this.rules.reduce(function(string, rule) {
+            const ruleString = rule.toString(maximumRuleNameLength);
   
-            string += productionString;
+            string += ruleString;
   
             return string;
           }, '');
@@ -68,10 +68,10 @@ class CommonParser {
     return string;
   }
 
-  findProduction(productionName) {
-    const productions = this.getProductions();
+  findRule(ruleName) {
+    const rules = this.getRules();
 
-    return parserUtil.findProduction(productionName, productions);
+    return parserUtil.findRule(ruleName, rules);
   }
 }
 

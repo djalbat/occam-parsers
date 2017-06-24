@@ -26,15 +26,15 @@ class FlorenceParser extends CommonParser {
   static fromGrammarAndMappings(grammar, mappings, customGrammars = defaultCustomGrammars, additionalMappings = defaultAdditionalMappings) {
     mappings = Object.assign(mappings, additionalMappings); ///
 
-    const customProductions = grammarUtil.productionsFromGrammars(customGrammars, extendedBNFLexer, extendedBNFParser),
+    const customRules = grammarUtil.rulesFromGrammars(customGrammars, extendedBNFLexer, extendedBNFParser),
           lines = extendedBNFLexer.linesFromGrammar(grammar),
           node = extendedBNFParser.nodeFromLines(lines);
     
-    let productions = ExtendedBNFParser.generateProductions(node, mappings);
+    let rules = ExtendedBNFParser.generateRules(node, mappings);
     
-    productions = productions.concat(customProductions);
+    rules = rules.concat(customRules);
     
-    const florenceParser = new FlorenceParser(productions);
+    const florenceParser = new FlorenceParser(rules);
 
     return florenceParser;
   }

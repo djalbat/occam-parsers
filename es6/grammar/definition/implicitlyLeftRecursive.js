@@ -3,26 +3,26 @@
 const Definition = require('../../extendedBNF/definition');
 
 class ImplicitlyLeftRecursiveDefinition extends Definition {
-  getPreviousProductionName() {
+  getPreviousRuleName() {
     const firstPart = this.getFirstPart(),
-          productionNamePart = firstPart, ///
-          productionNamePartProductionName = productionNamePart.getProductionName(),
-          previousProductionName = productionNamePartProductionName;  ///
+          ruleNamePart = firstPart, ///
+          ruleNamePartRuleName = ruleNamePart.getRuleName(),
+          previousRuleName = ruleNamePartRuleName;  ///
     
-    return previousProductionName;
+    return previousRuleName;
   }
   
   static fromDefinition(definition, callback) {
     let implicitlyLeftRecursiveDefinition = null;
 
-    const definitionFirstPartProductionNamePart = definition.isFirstPartProductionNamePart();
+    const definitionFirstPartRuleNamePart = definition.isFirstPartRuleNamePart();
 
-    if (definitionFirstPartProductionNamePart) {
+    if (definitionFirstPartRuleNamePart) {
       const definitionFirstPart = definition.getFirstPart(),
-            definitionFirstProductionNamePart = definitionFirstPart,  ///
-            definitionFirstProductionNamePartProductionName = definitionFirstProductionNamePart.getProductionName(),
-            productionName = definitionFirstProductionNamePartProductionName, ///
-            definitionImplicitlyLeftRecursive = callback(productionName);
+            definitionFirstRuleNamePart = definitionFirstPart,  ///
+            definitionFirstRuleNamePartRuleName = definitionFirstRuleNamePart.getRuleName(),
+            ruleName = definitionFirstRuleNamePartRuleName, ///
+            definitionImplicitlyLeftRecursive = callback(ruleName);
 
       if (definitionImplicitlyLeftRecursive) {
         const parts = definition.getParts();
@@ -34,10 +34,10 @@ class ImplicitlyLeftRecursiveDefinition extends Definition {
     return implicitlyLeftRecursiveDefinition;
   }
 
-  static fromDefinitionAndPreviousProduction(definition, previousProduction) {
-    const previousProductionName = previousProduction.getName(),
-          implicitlyLeftRecursiveDefinition = ImplicitlyLeftRecursiveDefinition.fromDefinition(definition, function(productionName) {
-            const definitionImplicitlyLeftRecursive = (previousProductionName === productionName);
+  static fromDefinitionAndPreviousRule(definition, previousRule) {
+    const previousRuleName = previousRule.getName(),
+          implicitlyLeftRecursiveDefinition = ImplicitlyLeftRecursiveDefinition.fromDefinition(definition, function(ruleName) {
+            const definitionImplicitlyLeftRecursive = (previousRuleName === ruleName);
             
             return definitionImplicitlyLeftRecursive
           });
@@ -46,14 +46,14 @@ class ImplicitlyLeftRecursiveDefinition extends Definition {
     return implicitlyLeftRecursiveDefinition;
   }
   
-  static fromDefinitionAndPreviousProductions(definition, previousProductions) {
-    const previousProductionNames = previousProductions.map(function(previousProduction) {
-            const previousProductionName = previousProduction.getName();
+  static fromDefinitionAndPreviousRules(definition, previousRules) {
+    const previousRuleNames = previousRules.map(function(previousRule) {
+            const previousRuleName = previousRule.getName();
   
-            return previousProductionName;
+            return previousRuleName;
           }),
-          implicitlyLeftRecursiveDefinition = ImplicitlyLeftRecursiveDefinition.fromDefinition(definition, function(productionName) {
-            const definitionImplicitlyLeftRecursive = previousProductionNames.includes(productionName);
+          implicitlyLeftRecursiveDefinition = ImplicitlyLeftRecursiveDefinition.fromDefinition(definition, function(ruleName) {
+            const definitionImplicitlyLeftRecursive = previousRuleNames.includes(ruleName);
   
             return definitionImplicitlyLeftRecursive
           });

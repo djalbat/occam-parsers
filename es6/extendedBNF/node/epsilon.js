@@ -10,7 +10,7 @@ class EpsilonNode extends NonTerminalNode {
     return epsilonPart;
   }
 
-  static fromNodesAndProductionName(nodes, productionName) { return NonTerminalNode.fromNodesAndProductionName(nodes, productionName, EpsilonNode); }
+  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(nodes, ruleName, EpsilonNode); }
 }
 
 module.exports = EpsilonNode;

@@ -1,29 +1,29 @@
 'use strict';
 
 const Definition = require('../../extendedBNF/definition'),
-      ProductionNamePart = require('../../extendedBNF/part/productionName');
+      RuleNamePart = require('../../extendedBNF/part/ruleName');
 
 class UnitDefinition extends Definition {
-  getProductionName() {
+  getRuleName() {
     const firstPart = this.getFirstPart(),
-          productionNamePart = firstPart, ///
-          productionName = productionNamePart.getProductionName();
+          ruleNamePart = firstPart, ///
+          ruleName = ruleNamePart.getRuleName();
     
-    return productionName;
+    return ruleName;
   }
 
-  isIncludedInProductionNames(productionNames) {
-    const productionName = this.getProductionName(),
-          includedInProductionNames = productionNames.includes(productionName);
+  isIncludedInRuleNames(ruleNames) {
+    const ruleName = this.getRuleName(),
+          includedInRuleNames = ruleNames.includes(ruleName);
 
-    return includedInProductionNames;
+    return includedInRuleNames;
   }
 
-  static fromProductionName(productionName) {
+  static fromRuleName(ruleName) {
     const noWhitespace = false, ///
-          productionNamePart = new ProductionNamePart(productionName, noWhitespace),
+          ruleNamePart = new RuleNamePart(ruleName, noWhitespace),
           parts = [
-            productionNamePart
+            ruleNamePart
           ],
           unitDefinition = new UnitDefinition(parts);
 
@@ -36,9 +36,9 @@ class UnitDefinition extends Definition {
     const partsLength = definition.getPartsLength();
 
     if (partsLength === 1) {
-      const firstPartProductionNamePart = definition.isFirstPartProductionNamePart();
+      const firstPartRuleNamePart = definition.isFirstPartRuleNamePart();
       
-      if (firstPartProductionNamePart) {
+      if (firstPartRuleNamePart) {
         const parts = definition.getParts();
 
         unitDefinition = new UnitDefinition(parts);

@@ -1,7 +1,7 @@
 'use strict';
 
 class TransparentNode {
-  static fromNodesAndProductionName(nodes, productionName) {
+  static fromNodesAndRuleName(nodes, ruleName) {
     return nodes;
   }
 }

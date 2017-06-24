@@ -21,7 +21,7 @@ class BasicExample {
 }
 
 function updateHandler() {
-  const productionName = null;
+  const ruleName = null;
   
   Example.updateLexer(BasicLexer);
 
@@ -32,7 +32,7 @@ function updateHandler() {
     return parser; 
   });
   
-  Example.updateParseTree(productionName);
+  Example.updateParseTree(ruleName);
 }
 
 module.exports = BasicExample;

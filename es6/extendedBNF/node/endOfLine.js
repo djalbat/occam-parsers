@@ -10,7 +10,7 @@ class EndOfLineNode extends NonTerminalNode {
     return endOfLinePart;
   }
 
-  static fromNodesAndProductionName(nodes, productionName) { return NonTerminalNode.fromNodesAndProductionName(nodes, productionName, EndOfLineNode); }
+  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(nodes, ruleName, EndOfLineNode); }
 }
 
 module.exports = EndOfLineNode;

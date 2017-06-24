@@ -170,11 +170,11 @@ const grammar = `
 
 
 
-     typeNames                            ::=   typeName ( "," typeName)* ;
+     typeNames                            ::=   typeName ( "," typeName )* ;
 
-     labels                               ::=   label ( "," label)* ;
+     labels                               ::=   label ( "," label )* ;
 
-     terms                                ::=   term ( "," term)* ;
+     terms                                ::=   term ( "," term )* ;
      
 
               

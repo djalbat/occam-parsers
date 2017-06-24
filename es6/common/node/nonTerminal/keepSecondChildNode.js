@@ -4,9 +4,9 @@ const arrayUtil = require('../../../util/array'),
       NonTerminalNode = require('../nonTerminal');
 
 class KeepSecondChildNode extends NonTerminalNode {
-  static fromNodesAndProductionName(nodes, productionName) {
+  static fromNodesAndRuleName(nodes, ruleName) {
     const childNodes = arrayUtil.keepSecond(nodes),
-          keepSecondChildNode = NonTerminalNode.fromProductionNameAndChildNodes(productionName, childNodes, KeepSecondChildNode);
+          keepSecondChildNode = NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes, KeepSecondChildNode);
 
     return keepSecondChildNode;
   }

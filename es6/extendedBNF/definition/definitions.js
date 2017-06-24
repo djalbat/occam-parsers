@@ -3,9 +3,9 @@
 const lexers = require('occam-lexers');
 
 const Definition = require('../definition'),
+      RuleNamePart = require('../part/ruleName'),
       GroupOfPartsPart = require('../part/groupOfParts'),
       TerminalSymbolPart = require('../part/terminalSymbol'),
-      ProductionNamePart = require('../part/productionName'),
       ZeroOrMorePartsPart = require('../part/zeroOrMoreParts');
 
 const { ExtendedBNFLexer } = lexers,
@@ -14,18 +14,18 @@ const { ExtendedBNFLexer } = lexers,
 
 class DefinitionsDefinition extends Definition {
   constructor() {
-    const definitionProductionName = 'definition',
+    const definitionRuleName = 'definition',
           verticalBarTerminalSymbolContent = verticalBar,
-          definitionProductionNamePart = new ProductionNamePart(definitionProductionName),
+          definitionRuleNamePart = new RuleNamePart(definitionRuleName),
           verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent),
-          verticalBarTerminalSymbolThenDefinitionProductionNameParts = [
+          verticalBarTerminalSymbolThenDefinitionRuleNameParts = [
             verticalBarTerminalSymbolPart,
-            definitionProductionNamePart
+            definitionRuleNamePart
           ],
-          groupOfPartsPart = new GroupOfPartsPart(verticalBarTerminalSymbolThenDefinitionProductionNameParts),
+          groupOfPartsPart = new GroupOfPartsPart(verticalBarTerminalSymbolThenDefinitionRuleNameParts),
           zeroOrMoreGroupOfPartsPart = new ZeroOrMorePartsPart(groupOfPartsPart),
           parts = [
-            definitionProductionNamePart,
+            definitionRuleNamePart,
             zeroOrMoreGroupOfPartsPart
           ];
     

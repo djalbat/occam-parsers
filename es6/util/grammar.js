@@ -5,19 +5,19 @@ const cycles = require('../grammar/cycles'),
       ExtendedBNFParser = require('../extendedBNF/parser');
 
 class grammarUtil {
-  static productionsFromGrammar(grammar, extendedBNFLexer, extendedBNFParser) {
-    let productions;
+  static rulesFromGrammar(grammar, extendedBNFLexer, extendedBNFParser) {
+    let rules;
     
     const lines = extendedBNFLexer.linesFromGrammar(grammar),
           node = extendedBNFParser.nodeFromLines(lines);
     
-    productions = ExtendedBNFParser.generateProductions(node);
+    rules = ExtendedBNFParser.generateRules(node);
 
-    productions = cycles.eliminate(productions);  ///
+    rules = cycles.eliminate(rules);  ///
 
-    productions = leftRecursion.eliminate(productions);  ///
+    rules = leftRecursion.eliminate(rules);  ///
 
-    return productions;
+    return rules;
   }
 
   static grammarsFromGrammarsMap(grammarsMap) {
@@ -33,16 +33,16 @@ class grammarUtil {
     return grammars;
   }
 
-  static productionsFromGrammars(grammars, extendedBNFLexer, extendedBNFParser) {
-    const productions = grammars.reduce(function(productions, grammar) {
-      const grammarProductions = grammarUtil.productionsFromGrammar(grammar, extendedBNFLexer, extendedBNFParser);
+  static rulesFromGrammars(grammars, extendedBNFLexer, extendedBNFParser) {
+    const rules = grammars.reduce(function(rules, grammar) {
+      const grammarRules = grammarUtil.rulesFromGrammar(grammar, extendedBNFLexer, extendedBNFParser);
 
-      productions = productions.concat(grammarProductions);
+      rules = rules.concat(grammarRules);
 
-      return productions;
+      return rules;
     }, []);
 
-    return productions;
+    return rules;
   }
 }
 
