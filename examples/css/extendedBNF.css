@@ -1,0 +1,23 @@
+textarea#content {
+  height: 18rem;
+  margin-bottom: 1rem;
+}
+
+textarea#lexicalGrammar {
+  height: 15rem;
+  margin-bottom: 1rem;
+}
+
+textarea#extendedBNFGrammar {
+  height: 24rem;
+  margin-bottom: 1rem;
+}
+
+textarea#parseTree {
+  height: 21rem;
+  margin-bottom: 1rem;
+}
+
+#sizeableElement {
+  width: 50rem;
+}

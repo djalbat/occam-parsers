@@ -4,17 +4,20 @@ textarea#content {
 }
 
 textarea#lexicalGrammar {
-  height: 16rem;
+  height: 15rem;
   margin-bottom: 1rem;
 }
 
-textarea#bnfGrammar,
-textarea#adjustedBNFGrammar {
-  height: 12rem;
+textarea#extendedBNFGrammar {
+  height: 24rem;
   margin-bottom: 1rem;
 }
 
 textarea#parseTree {
-  height: 18rem;
+  height: 21rem;
   margin-bottom: 1rem;
+}
+
+#sizeableElement {
+  width: 50rem;
 }

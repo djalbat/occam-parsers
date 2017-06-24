@@ -1,86 +1,49 @@
 'use strict';
 
-const easy = require('easy'),
-      lexers = require('occam-lexers');
+const lexers = require('occam-lexers');
 
 const Example = require('../example'),
       grammar = require('../extendedBNF/grammar'),
       ExtendedBNFParser = require('../extendedBNF/parser');
 
-const { Textarea } = easy,
-      { ExtendedBNFLexer } = lexers;
-
-const lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
-      lexicalGrammar = ExtendedBNFLexer.grammar;
-
-let lexicalGrammarTextarea,
-    extendedBNFLexer = null,
-    extendedBNFParser = null;
+const { ExtendedBNFLexer } = lexers;
 
 class ExtendedBNFExample {
   static run() {
-    lexicalGrammarTextarea = new Textarea(lexicalGrammarTextareaSelector);
-
-    const lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
+    const lexicalGrammar = ExtendedBNFLexer.grammar,
+          lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
           bnfGrammarTextareaValue = grammar,  ///
           contentTextareaValue = grammar; ///
 
-    lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
+    Example.setContentTextareaValue(contentTextareaValue);
+
+    Example.setLexicalGrammarTextareaValue(lexicalGrammarTextareaValue);
 
     Example.setExtendedBNFGrammarTextareaValue(bnfGrammarTextareaValue);
 
-    Example.setContentTextareaValue(contentTextareaValue);
-
     Example.onContentTextareaKeyUp(update);
 
-    Example.onExtendedBNFGrammarTextareaKeyUp(update);
+    Example.onLexicalGrammarTextareaKeyUp(update);
 
-    lexicalGrammarTextarea.onKeyUp(update);
+    Example.onExtendedBNFGrammarTextareaKeyUp(update);
 
     update();
   }
 }
 
 function update() {
-  EpdateextendedBNFLexer();
+  const productionName = null;
 
-  updateExtendedBNFParser();
+  Example.updateLexer(ExtendedBNFLexer);
 
-  if (extendedBNFLexer !== null) {
-    const production = null,
-          node = Example.updateParseTreeTextarea(extendedBNFLexer, extendedBNFParser, production),
-          productionsNode = node; ///
+  Example.updateParser(function(grammar) {
+    const extendedBNFParser = ExtendedBNFParser.fromNothing(),
+          parser = extendedBNFParser; ///
+    
+    return parser;
+  });
 
-    ExtendedBNFParser.generateProductions(productionsNode);
-  } else {
-    Example.clearParseTreeTextarea();
-  }
+  Example.updateParseTree(productionName);
 }
 
 module.exports = ExtendedBNFExample;
-
-function EpdateextendedBNFLexer() {
-  const lexicalGrammarTextareaValue = lexicalGrammarTextarea.getValue();
-
-  let lexicalGrammar = null;
-
-  try {
-    lexicalGrammar = JSON.parse(lexicalGrammarTextareaValue);
-  } catch (error) {}
-
-  const lexicalGrammarValid = (lexicalGrammar !== null);
-
-  if (lexicalGrammarValid) {
-    extendedBNFLexer = ExtendedBNFLexer.fromGrammar(lexicalGrammar);
-
-    lexicalGrammarTextarea.removeClass('error');
-  } else {
-    lexicalGrammarTextarea.addClass('error');
-
-    extendedBNFLexer = null;
-  }
-}
-
-function updateExtendedBNFParser() {
-  extendedBNFParser = ExtendedBNFParser.fromNothing();
-}

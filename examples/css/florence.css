@@ -1,0 +1,35 @@
+textarea#content {
+  height: 18rem;
+}
+
+textarea#lexicalGrammar {
+  height: 12rem;
+  margin-bottom: 1rem;
+}
+
+textarea#extendedBNFGrammar {
+  height: 18rem;
+  margin-bottom: 1rem;
+}
+
+textarea#parseTree {
+  height: 12rem;
+}
+
+input#mappings {
+  margin: 1rem 0 1rem 0;
+  height: 1rem;
+}
+
+input#productionName {
+  margin-bottom: 1rem;
+}
+
+#sizeableElement {
+  width: 60rem;
+}
+
+.container {
+  margin: 1rem;
+}
+

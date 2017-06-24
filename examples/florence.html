@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8">
     <title>Florence example</title>
-    <link href="../examples.css" rel="stylesheet" type="text/css" media="all">
-    <link href="../florence.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/examples.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/florence.css" rel="stylesheet" type="text/css" media="all">
   </head>
-  <body class="florence">
+  <body>
     <h1>Florence example</h1>
     <div class="container">
       <h2>Parse tree</h2>
@@ -14,24 +14,23 @@
     </div>
     <div class="columns">
       <div id="sizeableElement" class="sizeable">
+        <h2>Lexical grammar</h2>
+        <textarea id="lexicalGrammar" spellcheck="false"> </textarea>
         <h2>Extended BNF grammar</h2>
         <textarea id="extendedBNFGrammar" spellcheck="false"> </textarea>
-        <h2>Adjusted extended BNF grammar</h2>
-        <textarea id="adjustedExtendedBNFGrammar" spellcheck="false" readonly> </textarea>
       </div><div id="verticalSplitter" class="vertical splitter"></div>
       <div class="column">
         <h2>Mappings</h2>
         <input type="checkbox" id="mappings" checked="checked" />
         <h2>Production name</h2>
-        <textarea id="productionName" spellcheck="false"></textarea>
+        <input type="text" id="productionName" spellcheck="false" />
         <h2>Content</h2>
         <textarea id="content" spellcheck="false"></textarea>
       </div>
     </div>
     <p>
-      <a href="../examples.html">...back</a>
+      <a href="index.html">...back</a>
     </p>
-
     <script src="../examples.js"> </script>
     <script>
 

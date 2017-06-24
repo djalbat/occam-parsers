@@ -1,84 +1,49 @@
 'use strict';
 
-const easy = require('easy'),
-      lexers = require('occam-lexers');
+const lexers = require('occam-lexers');
 
 const Example = require('../example'),
       grammar = require('../basic/grammar'),
       BasicParser = require('../basic/parser');
 
-const { Textarea } = easy,
-      { BasicLexer } = lexers;
-
-const lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
-      lexicalGrammar = BasicLexer.grammar;
-
-let lexicalGrammarTextarea,
-    basicLexer = null,
-    basicParser = null;
+const { BasicLexer } = lexers;
 
 class BasicExample {
   static run() {
-    lexicalGrammarTextarea = new Textarea(lexicalGrammarTextareaSelector);
+    const lexicalGrammar = BasicLexer.grammar,
+          lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '),
+          bnfGrammarTextareaValue = grammar, ///
+          contentTextareaValue = '1+(2/3)';
 
-    const bnfGrammarTextareaValue = grammar, ///
-          lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '); ///
+    Example.setContentTextareaValue(contentTextareaValue);
 
-    lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
+    Example.setLexicalGrammarTextareaValue(lexicalGrammarTextareaValue);
 
     Example.setExtendedBNFGrammarTextareaValue(bnfGrammarTextareaValue);
 
-    Example.onExtendedBNFGrammarTextareaKeyUp(update);
-
     Example.onContentTextareaKeyUp(update);
 
-    lexicalGrammarTextarea.onKeyUp(update);
+    Example.onLexicalGrammarTextareaKeyUp(update);
+
+    Example.onExtendedBNFGrammarTextareaKeyUp(update);
 
     update();
   }
 }
 
 function update() {
-  updateBasicLexer();
+  const productionName = null;
+  
+  Example.updateLexer(BasicLexer);
 
-  updateBasicParser();
-
-  if ((basicLexer !== null) && (basicParser !== null)) {
-    const production = null;  ///
-
-    Example.updateParseTreeTextarea(basicLexer, basicParser, production);
-  } else {
-    Example.clearParseTreeTextarea();
-  }
+  Example.updateParser(function(grammar) {
+    const basicParser = BasicParser.fromGrammar(grammar),
+          parser = basicParser; //'
+    
+    return parser; 
+  });
+  
+  Example.updateParseTree(productionName);
 }
 
 module.exports = BasicExample;
-
-function updateBasicLexer() {
-  const lexicalGrammarTextareaValue = lexicalGrammarTextarea.getValue();
-
-  let lexicalGrammar = null;
-
-  try {
-    lexicalGrammar = JSON.parse(lexicalGrammarTextareaValue);
-  } catch (error) {}
-
-  const lexicalGrammarValid = (lexicalGrammar !== null);
-
-  if (lexicalGrammarValid) {
-    basicLexer = BasicLexer.fromGrammar(lexicalGrammar);
-
-    lexicalGrammarTextarea.removeClass('error');
-  } else {
-    lexicalGrammarTextarea.addClass('error');
-
-    basicLexer = null;
-  }
-}
-
-function updateBasicParser() {
-  const bnfGrammarTextareaValue = Example.getExtendedBNFGrammarTextareaValue(),
-        grammar = bnfGrammarTextareaValue; ///
-
-  basicParser = BasicParser.fromGrammar(grammar);
-}

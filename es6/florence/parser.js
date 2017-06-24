@@ -4,7 +4,6 @@ const lexers = require('occam-lexers');
 
 const grammar = require('./grammar'),
       mappings = require('./mappings'),
-      parserUtil = require('../util/parser'),
       grammarUtil = require('../util/grammar'),
       CommonParser = require('../common/parser'),
       ExtendedBNFParser = require('../extendedBNF/parser'),
@@ -37,12 +36,6 @@ class FlorenceParser extends CommonParser {
     const florenceParser = new FlorenceParser(productions);
 
     return florenceParser;
-  }
-
-  findProduction(productionName) {
-    const productions = this.getProductions();
-
-    return parserUtil.findProduction(productionName, productions);
   }
 }
 

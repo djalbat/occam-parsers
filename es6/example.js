@@ -8,37 +8,41 @@ const { Textarea } = easy,
 
 const contentTextareaSelector = 'textarea#content',
       parseTreeTextareaSelector = 'textarea#parseTree',
+      lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
       extendedBNFGrammarTextareaSelector = 'textarea#extendedBNFGrammar',
-      adjustedExtendedBNFGrammarTextareaSelector = 'textarea#adjustedExtendedBNFGrammar',
       sizeableElementSelector = '#sizeableElement',
       verticalSplitterSelector = '#verticalSplitter',
       contentTextarea = new Textarea(contentTextareaSelector),
       parseTreeTextarea = new Textarea(parseTreeTextareaSelector),
+      lexicalGrammarTextarea =new Textarea(lexicalGrammarTextareaSelector),
       extendedBNFGrammarTextarea = new Textarea(extendedBNFGrammarTextareaSelector),
-      adjustedExtendedBNFGrammarTextarea = new Textarea(adjustedExtendedBNFGrammarTextareaSelector),
       sizeableElement = new SizeableElement(sizeableElementSelector),
       beforeSizeableElement = false,
       afterSizeableElement = true;
 
+let lexer = null,
+    parser = null;
+
 new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
 
 class Example {
+  static getLexicalGrammarTextareaValue() { return lexicalGrammarTextarea.getValue(); }
+
   static getExtendedBNFGrammarTextareaValue() { return extendedBNFGrammarTextarea.getValue(); }
+
+  static setLexicalGrammarTextareaValue(value) { lexicalGrammarTextarea.setValue(value); }
 
   static setExtendedBNFGrammarTextareaValue(value) { extendedBNFGrammarTextarea.setValue(value); }
 
   static setContentTextareaValue(value) { contentTextarea.setValue(value); }
 
+  static onLexicalGrammarTextareaKeyUp(handler) { lexicalGrammarTextarea.onKeyUp(handler); }
+
   static onExtendedBNFGrammarTextareaKeyUp(handler) { extendedBNFGrammarTextarea.onKeyUp(handler); }
 
   static onContentTextareaKeyUp(handler) { contentTextarea.onKeyUp(handler); }
 
-  static updateParseTreeTextarea(lexer, parser, production) {
-    const extendedBNFParserString = parser.toString(),
-          adjustedExtendedBNFGrammarTextareaValue = extendedBNFParserString;  ///
-
-    adjustedExtendedBNFGrammarTextarea.setValue(adjustedExtendedBNFGrammarTextareaValue);
-
+  static updateParseTreeTextarea(production) {
     let node = null;
     
     try {
@@ -75,6 +79,45 @@ class Example {
     const parseTreeTextareaHTML = '';
 
     parseTreeTextarea.html(parseTreeTextareaHTML);
+  }
+
+  static updateLexer(Lexer) {
+    const lexicalGrammarTextareaValue = Example.getLexicalGrammarTextareaValue();
+
+    let lexicalGrammar = null;
+
+    try {
+      lexicalGrammar = JSON.parse(lexicalGrammarTextareaValue);
+    } catch (error) {}
+
+    const lexicalGrammarValid = (lexicalGrammar !== null);
+
+    if (lexicalGrammarValid) {
+      lexer = Lexer.fromGrammar(lexicalGrammar);
+
+      lexicalGrammarTextarea.removeClass('error');
+    } else {
+      lexer = null;
+
+      lexicalGrammarTextarea.addClass('error');
+    }
+  }
+
+  static updateParser(callback) {
+    const bnfGrammarTextareaValue = Example.getExtendedBNFGrammarTextareaValue(),
+          grammar = bnfGrammarTextareaValue; ///
+
+    parser = callback(grammar);
+  }
+
+  static updateParseTree(productionName) {
+    if ((lexer !== null) && (parser !== null)) {
+      const production = parser.findProduction(productionName);
+
+      Example.updateParseTreeTextarea(production);
+    } else {
+      Example.clearParseTreeTextarea();
+    }
   }
 }
 

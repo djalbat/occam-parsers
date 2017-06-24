@@ -16,33 +16,76 @@ The Occam proof assistant's parsers.
 
 There are three parsers in all:
 
-* A primitive to parse a variant of extended [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form), hardly a parser at all in fact.
+
+* An [extended BNF](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form) parser.
 * A basic parser, for illustrative purposes, and for developing new grammars.
-* The main parser, namely the parser for the BNF grammar part of Occam's vernacular, called Florence.
+* The main parser, namely the parser for the extended BNF part of Occam's vernacular, called Florence.
 
-All parsers bar the primitive parser share common patterns and functionality. The last two parse content according to productions defined in the aforementioned variant of extended BNF. The following, taken from the basic example, shows some features of this variant:
+All parsers share common patterns and functionality. The last two parse content according to productions defined in a variant of extended BNF. The extended BNF parser on the other hand has its productions hard-coded,  in line with the following grammar: 
 
-    expression                 ::= term operatorThenTerm*
+      productions              ::=  production+ ;
+      
+      production               ::=  productionName "::=" definitions ";" ;
+      
+      definitions              ::=  definition ( "|" definition )* ;
+      
+      definition               ::=  part+ ;
+      
+      noWhitespacePart         ::=  "<NO_WHITESPACE>" part ;
     
-    operatorThenTerm           ::= operator term
+      optionalPart             ::=  part<NO_WHITESPACE>"?" ;
+                              
+      zeroOrMoreParts          ::=  part<NO_WHITESPACE>"*" ;
+                              
+      oneOrMoreParts           ::=  part<NO_WHITESPACE>"+" ;
+      
+      groupOfParts             ::=  "(" part+ ")" ;
+      
+      choiceOfParts            ::=  "(" part ( "|" part )+ ")" ;
     
-    operator                   ::= '+' | '-' | '*' | '/'
+      part                     ::=  noWhitespacePart
+                    
+                                 |  optionalPart  
+                    
+                                 |  zeroOrMoreParts  
+                    
+                                 |  oneOrMoreParts  
+                    
+                                 |  groupOfParts  
+                               
+                                 |  choiceOfParts  
+                               
+                                 |  productionName  
+                    
+                                 |  regularExpression 
+                    
+                                 |  significantTokenType 
     
-    term                       ::= naturalNumber | parenthesizedExpression
+                                 |  terminalSymbol
+                              
+                                 |  endOfLine
+                    
+                                 |  epsilon
     
-    naturalNumber              ::= /^\\d+$/
+                                 |  wildcard
+                                  
+                                 ;
     
-    parenthesizedExpression    ::= '(' expression ')'
+      productionName           ::=  [name] ;
+    
+      regularExpression        ::=  [regularExpression] ;
+      
+      significantTokenType     ::=  [type] ;
+    
+      terminalSymbol           ::=  [string] ;
+      
+      endOfLine                ::=  "<END_OF_LINE>" ;
+      
+      epsilon                  ::=  "ε" ;
+    
+      wildcard                 ::=  "." ;
 
-Note that grouping is not allowed. You cannot do this:
-
-    expression                 ::= term (operator term)*
-
-Instead you have to do this:
-
-    expression                 ::= term operatorThenTerm*
-    
-    operatorThenTerm           ::= operator term
+This grammar is itself written in the variant of extended BNF it describes, as is usual.
 
 ## Installation
 
@@ -62,73 +105,50 @@ You will need to do this if you want to look at the examples.
 
 ## Examples
 
-There are two examples. To view them, open the `examples.html` file in the project's root directory. Each example shows a representation of the parse tree, which is useful for writing and debugging grammars.
+There are three examples, one for each parser. To view them, open the `index.html` file in the `examples` directory. Each example shows a representation of the parse tree, which is useful for writing and debugging grammars.
+
+### Extended BNF example
+
+Both the lexical grammar and extended BNF grammar textareas are read-only. The content textarea initially shows the extended BNF parser's own grammar and so the example demonstrates, initially at least, that the extended BNF parser can parse its own grammar. Other grammars can be substituted into the content textarea, the two obvious candidates being those for the basic and Florence parsers. 
 
 ### Basic example
 
-Both the lexical and BNF grammars as well as the content can be changed dynamically. Here is the parse tree produced by the basic parser corresponding to the expression `1+(2*3)`, given the grammar in the introduction:
+Both the lexical and BNF grammars as well as the content can be changed. Here is the parse tree produced by the basic parser corresponding to the expression `1+(2/3)`, given the grammar in the introduction:
 
-                              expression
-                                  |
-                  ---------------------------------
-                  |                               |
-                term                      operatorThenTerm
-                  |                               |
-            naturalNumber      ---------------------------------------
-                  |            |                                     |
-             1[terminal]   operator                                term
-                               |                                     |
-                          +[terminal]                     parenthesizedExpression
-                                                                     |
-                                           -----------------------------------------------------
-                                           |                      |                            |
-                                      ([terminal]             expression                  )[terminal]
-                                                                  |
-                                                        ---------------------
-                                                        |                   |
-                                                      term          operatorThenTerm
-                                                        |                   |
-                                                  naturalNumber      --------------
-                                                        |            |            |
-                                                   2[terminal]   operator       term
-                                                                     |            |
-                                                                *[terminal] naturalNumber
-                                                                                  |
-                                                                             3[terminal]
+                           expression(1-1)                                                                              
+                                  |                                                                                     
+             -------------------------------------------                                                                
+             |                                         |                                                                
+         term(1-1)                             expression~(1-1)                                                         
+             |                                         |                                                                
+    naturalNumber(1-1)        --------------------------------------------------                                        
+             |                |                                                |                                        
+      1[terminal](1)    operator(1-1)                                   expression(1-1)                                 
+                              |                                                |                                        
+                       +[terminal](1)        ---------------------------------------------------------------------      
+                                             |                             |                                     |      
+                                      ([terminal](1)                expression(1-1)                       )[terminal](1)
+                                                                           |                                            
+                                                              ---------------------------                               
+                                                              |                         |                               
+                                                          term(1-1)             expression~(1-1)                        
+                                                              |                         |                               
+                                                     naturalNumber(1-1)        ------------------                       
+                                                              |                |                |                       
+                                                       2[terminal](1)    operator(1-1)   expression(1-1)                
+                                                                               |                |                       
+                                                                        /[terminal](1)      term(1-1)                   
+                                                                                                |                       
+                                                                                       naturalNumber(1-1)               
+                                                                                                |                       
+                                                                                         3[terminal](1)                 
 
 ### Florence example
 
-This uses the [BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/grammar.js) of Occam's vernacular, called Florence. The following inference rule and proof from propositional logic should parse, for example:
+This uses the [extended BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/grammar.js) of Occam's vernacular, called Florence. The following inference rule and proof from propositional logic should parse, for example:
 
-    Rule (NegationOfConjunctionOfNegationsImpliesDisjunction)
-      Premise
-        ¬(¬P∧¬Q)
-      Conclusion
-        P∨Q
-      Proof
-        Suppose
-          Q
-        Hence
-          P∨Q
-        Q=>P∨Q
-        Suppose
-          ¬Q
-        Then
-          Suppose
-            ¬P
-          Hence
-            ¬P∧¬Q
-          ¬P=>(¬P∧¬Q)
-          ¬(¬P∧¬Q)
-          ¬¬P by ModusTollens
-          P by DoubleNegationElimination
-        Hence
-          P∨Q
-        ¬Q=>P∨Q
-        Q∨¬Q by LawOfTheExcludedMiddle
-      Therefore
-        P∨Q by DisjunctionElimination
-        
+
+
 ## Features
 
 ### Operators

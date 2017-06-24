@@ -37,7 +37,6 @@
 }
 
 #sizeableElement {
-  width: 60rem;
   min-width: 20rem;
   max-width: 120rem;
 }
@@ -58,13 +57,17 @@ ul {
 }
 
 textarea {
+  height: 16rem;
+  resize: vertical;
+}
+
+input[type=text],
+textarea {
+  border: 1px solid darkgray;
+  font-family: monospace;
   width: 100%;
   font-size: 1rem;
   padding: 0.25rem;
-  font-family: monospace;
-  border: 1px solid darkgray;
-  height: 16rem;
-  resize: vertical;
   margin-top: 0.5rem;
   white-space: pre;
 }
@@ -73,8 +76,9 @@ textarea.error {
   border-color: red;
 }
 
-textarea#bnfGrammar,
-textarea#parseTree {
+textarea#parseTree,
+textarea#lexicalGrammar,
+textarea#extendedBNFGrammar {
   overflow-wrap: normal;
 }
 

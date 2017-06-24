@@ -10,9 +10,7 @@ const grammar = `
 
      header                               ::=   includeDirective+ ;
 
-     body                                 ::=   part+ ;
-
-     verticalSpace                        ::=   <END_OF_LINE>+ ;
+     body                                 ::=   ( verticalSpace | assertion | error )+ ;
 
 
 
@@ -20,9 +18,7 @@ const grammar = `
 
 
 
-     part                                 ::=   verticalSpace
-
-                                            |   rule
+     assertion                            ::=   rule
                                                                 
                                             |   axiom
                                                                 
@@ -58,8 +54,6 @@ const grammar = `
 
                                             |   "QualifiedMetavariables" qualifiedMetavariablesDefinition
                                                                 
-                                            |   error
-                                            
                                             ;
                                                                      
                                                                                                                                           
@@ -106,10 +100,6 @@ const grammar = `
    
    
         
-     error                                ::=   . ;
-
-     
-     
      premise                              ::=   "Premise" <END_OF_LINE> unjustifiedMetastatement ;
 
      premises                             ::=   "Premises" <END_OF_LINE> unjustifiedMetastatement unjustifiedMetastatement+ ;
@@ -121,13 +111,13 @@ const grammar = `
      metaProof                            ::=   "Proof" <END_OF_LINE> ( subRule | unjustifiedOrJustifiedMetastatement )+ 
                                                 
                                                 "Therefore" <END_OF_LINE> unjustifiedOrJustifiedMetastatement ;
-
+     
      subRule                              ::=   "Suppose" <END_OF_LINE> unjustifiedMetastatement+ 
      
-                                                ( "Then" <END_OF_LINE> unjustifiedOrJustifiedMetastatement+ )?
+                                                ( "Then" <END_OF_LINE> ( subRule | unjustifiedOrJustifiedMetastatement )+ )? 
                                                 
                                                 "Hence" <END_OF_LINE> unjustifiedOrJustifiedMetastatement verticalSpace? ;
-     
+
 
 
      proof                                ::=   "Proof" <END_OF_LINE> ( subLemma | unjustifiedOrJustifiedStatement )+ 
@@ -136,7 +126,7 @@ const grammar = `
 
      subLemma                             ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+ 
      
-                                                ( "Then" <END_OF_LINE> unjustifiedOrJustifiedStatement+ )? 
+                                                ( "Then" <END_OF_LINE> ( subLemma | unjustifiedOrJustifiedStatement )+ )? 
                                                 
                                                 "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement verticalSpace? ;
 
@@ -210,8 +200,16 @@ const grammar = `
    
      name                                 ::=   [unassigned] ;
        
+
+       
+     verticalSpace                        ::=   <END_OF_LINE>+ ;
+
        
        
+     error                                ::=   . ;
+
+     
+     
 `;
 
 module.exports = grammar;
