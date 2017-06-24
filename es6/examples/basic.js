@@ -10,7 +10,7 @@ const { BasicLexer } = lexers;
 
 class BasicExample {
   static run() {
-    const content = '1+(2/3)',
+    const content = '1+2/3',
           lexicalGrammar = BasicLexer.grammar,
           extendedBNFGrammar = grammar; ///
     
