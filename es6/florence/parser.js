@@ -67,7 +67,7 @@ function grammarsFromGrammarsMap(grammarsMap) {
 
           grammars.push(grammar);
 
-          return grammar;
+          return grammars;
         }, []);
 
   return grammars;
