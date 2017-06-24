@@ -18,27 +18,11 @@ class PartNode extends NonTerminalNode {
     
     if (nodesLength === 1) {
       const firstNode = arrayUtil.first(nodes),
-            remainingNode = firstNode;  ///
+            node = firstNode;  ///
 
-      part = remainingNode.generatePart(Parts, noWhitespace);
+      part = partFromNode(node, Parts, noWhitespace);
     } else {
-      if (part === null) {
-        const ChoiceOfPartsPart = Parts['ChoiceOfPartsPart'],
-              choiceOfPartsPart = ChoiceOfPartsPart.fromNodes(nodes, Parts);
-
-        if (choiceOfPartsPart !== null) {
-          part = choiceOfPartsPart; ///
-        }
-      }
-
-      if (part === null) {
-        const GroupOfPartsPart = Parts['GroupOfPartsPart'],
-              groupOfPartsPart = GroupOfPartsPart.fromNodes(nodes, Parts);
-
-        if (groupOfPartsPart !== null) {
-          part = groupOfPartsPart;  ///
-        }
-      }
+      part = partFromNodes(nodes, Parts);
     }
     
     part = partFromPartAndQuantifiers(part, quantifiers, Parts);
@@ -85,6 +69,36 @@ function quantifiersFromNodes(nodes) {
   }
 
   return quantifiers;
+}
+
+function partFromNode(node, Parts, noWhitespace) {
+  const part = node.generatePart(Parts, noWhitespace);
+
+  return part;
+}
+
+function partFromNodes(nodes, Parts) {
+  let part = null;
+
+  if (part === null) {
+    const ChoiceOfPartsPart = Parts['ChoiceOfPartsPart'],
+        choiceOfPartsPart = ChoiceOfPartsPart.fromNodes(nodes, Parts);
+
+    if (choiceOfPartsPart !== null) {
+      part = choiceOfPartsPart; ///
+    }
+  }
+
+  if (part === null) {
+    const GroupOfPartsPart = Parts['GroupOfPartsPart'],
+        groupOfPartsPart = GroupOfPartsPart.fromNodes(nodes, Parts);
+
+    if (groupOfPartsPart !== null) {
+      part = groupOfPartsPart;  ///
+    }
+  }
+
+  return part;
 }
 
 function partFromPartAndQuantifiers(part, quantifiers, Parts) {

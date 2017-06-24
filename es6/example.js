@@ -74,7 +74,8 @@ class Example {
   }
 
   static updateParseTree(productionName) {
-    let node = null;
+    let node = null,
+        parseTreeTextareaHTML = '';
 
     if ((lexer !== null) && (parser !== null)) {
       try {
@@ -93,23 +94,18 @@ class Example {
 
         parseTree.shiftLine();  //
 
-        const parseTreeString = parseTree.toString(),
-              parseTreeTextareaHTML = parseTreeString;  ///
+        const parseTreeString = parseTree.toString();
 
-        parseTreeTextarea.html(parseTreeTextareaHTML);
+        parseTreeTextareaHTML = parseTreeString;  ///
 
         contentTextarea.removeClass('error');
       } catch (error) {
-        Example.clearParseTreeTextarea();
-
         contentTextarea.addClass('error');
       }
-    } else {
-      const parseTreeTextareaHTML = '';
-
-      parseTreeTextarea.html(parseTreeTextareaHTML);
     }
-    
+
+    parseTreeTextarea.html(parseTreeTextareaHTML);
+
     return node;
   }
 }
