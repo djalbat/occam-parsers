@@ -26,63 +26,26 @@ let lexer = null,
 new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
 
 class Example {
-  static getLexicalGrammarTextareaValue() { return lexicalGrammarTextarea.getValue(); }
+  static run(content, lexicalGrammar, extendedBNFGrammar, updateHandler) {
+    const contentTextareaValue = content, ///
+          extendedBNFGrammarTextareaValue = extendedBNFGrammar,  ///
+          lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  ');
 
-  static getExtendedBNFGrammarTextareaValue() { return extendedBNFGrammarTextarea.getValue(); }
+    contentTextarea.setValue(contentTextareaValue);
 
-  static setLexicalGrammarTextareaValue(value) { lexicalGrammarTextarea.setValue(value); }
+    lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
 
-  static setExtendedBNFGrammarTextareaValue(value) { extendedBNFGrammarTextarea.setValue(value); }
+    extendedBNFGrammarTextarea.setValue(extendedBNFGrammarTextareaValue);
 
-  static setContentTextareaValue(value) { contentTextarea.setValue(value); }
+    contentTextarea.onKeyUp(updateHandler);
 
-  static onLexicalGrammarTextareaKeyUp(handler) { lexicalGrammarTextarea.onKeyUp(handler); }
+    lexicalGrammarTextarea.onKeyUp(updateHandler);
 
-  static onExtendedBNFGrammarTextareaKeyUp(handler) { extendedBNFGrammarTextarea.onKeyUp(handler); }
-
-  static onContentTextareaKeyUp(handler) { contentTextarea.onKeyUp(handler); }
-
-  static updateParseTreeTextarea(production) {
-    let node = null;
-    
-    try {
-      const contentTextareaValue = contentTextarea.getValue(),
-            content = contentTextareaValue, ///
-            lines = lexer.linesFromContent(content);
-
-      node = parser.nodeFromLines(lines, production);
-      
-      if (node === null) {
-        throw new Error('The document cannot be parsed for some reason.');  ///
-      }
-
-      const parseTree = node.generateParseTree(lines);
-
-      parseTree.shiftLine();  //
-
-      const parseTreeString = parseTree.toString(),
-            parseTreeTextareaHTML = parseTreeString;  ///
-
-      parseTreeTextarea.html(parseTreeTextareaHTML);
-
-      contentTextarea.removeClass('error');
-    } catch (error) {
-      contentTextarea.addClass('error');
-
-      Example.clearParseTreeTextarea();
-    }
-    
-    return node;
-  }
-
-  static clearParseTreeTextarea() {
-    const parseTreeTextareaHTML = '';
-
-    parseTreeTextarea.html(parseTreeTextareaHTML);
+    extendedBNFGrammarTextarea.onKeyUp(updateHandler);
   }
 
   static updateLexer(Lexer) {
-    const lexicalGrammarTextareaValue = Example.getLexicalGrammarTextareaValue();
+    const lexicalGrammarTextareaValue = lexicalGrammarTextarea.getValue();
 
     let lexicalGrammar = null;
 
@@ -104,7 +67,7 @@ class Example {
   }
 
   static updateParser(callback) {
-    const bnfGrammarTextareaValue = Example.getExtendedBNFGrammarTextareaValue(),
+    const bnfGrammarTextareaValue = extendedBNFGrammarTextarea.getValue(),
           grammar = bnfGrammarTextareaValue; ///
 
     parser = callback(grammar);
@@ -112,11 +75,39 @@ class Example {
 
   static updateParseTree(productionName) {
     if ((lexer !== null) && (parser !== null)) {
-      const production = parser.findProduction(productionName);
+      let node = null;
 
-      Example.updateParseTreeTextarea(production);
+      try {
+        const contentTextareaValue = contentTextarea.getValue(),
+              content = contentTextareaValue, ///
+              production = parser.findProduction(productionName),
+              lines = lexer.linesFromContent(content);
+
+        node = parser.nodeFromLines(lines, production);
+
+        if (node === null) {
+          throw new Error('The document cannot be parsed for some reason.');  ///
+        }
+
+        const parseTree = node.generateParseTree(lines);
+
+        parseTree.shiftLine();  //
+
+        const parseTreeString = parseTree.toString(),
+              parseTreeTextareaHTML = parseTreeString;  ///
+
+        parseTreeTextarea.html(parseTreeTextareaHTML);
+
+        contentTextarea.removeClass('error');
+      } catch (error) {
+        Example.clearParseTreeTextarea();
+
+        contentTextarea.addClass('error');
+      }
     } else {
-      Example.clearParseTreeTextarea();
+      const parseTreeTextareaHTML = '';
+
+      parseTreeTextarea.html(parseTreeTextareaHTML);
     }
   }
 }

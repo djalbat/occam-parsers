@@ -23,36 +23,26 @@ const defaultMappings = mappings; ///
 class FlorenceExample {
   static run() {
     mappingsCheckbox = new Checkbox(mappingsCheckboxSelector);
+
     productionNameInput = new Input(productionNameInputSelector);
 
-    const lexicalGrammar = FlorenceLexer.grammar,
-          lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
-          bnfGrammarTextareaValue = grammar,  ///
-          contentTextareaValue = ''; ///
+    mappingsCheckbox.onChange(updateHandler);
 
-    Example.setContentTextareaValue(contentTextareaValue);
+    productionNameInput.onKeyUp(updateHandler);
 
-    Example.setLexicalGrammarTextareaValue(lexicalGrammarTextareaValue);
+    const content = '',
+          lexicalGrammar = FlorenceLexer.grammar,
+          extendedBNFGrammar = grammar; ///
 
-    Example.setExtendedBNFGrammarTextareaValue(bnfGrammarTextareaValue);
+    Example.run(content, lexicalGrammar, extendedBNFGrammar, updateHandler);
 
-    mappingsCheckbox.onChange(update);
-
-    productionNameInput.onKeyUp(update);
-
-    Example.onContentTextareaKeyUp(update);
-
-    Example.onLexicalGrammarTextareaKeyUp(update);
-
-    Example.onExtendedBNFGrammarTextareaKeyUp(update);
-
-    update();
+    updateHandler();
   }
 }
 
 module.exports = FlorenceExample;
 
-function update() {
+function updateHandler() {
   const productionNameInputValue = productionNameInput.getValue(),
         productionName = productionNameInputValue;
 

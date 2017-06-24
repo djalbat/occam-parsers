@@ -10,28 +10,17 @@ const { ExtendedBNFLexer } = lexers;
 
 class ExtendedBNFExample {
   static run() {
-    const lexicalGrammar = ExtendedBNFLexer.grammar,
-          lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '), ///
-          bnfGrammarTextareaValue = grammar,  ///
-          contentTextareaValue = grammar; ///
+    const content = grammar,
+          lexicalGrammar = ExtendedBNFLexer.grammar,
+          extendedBNFGrammar = grammar; ///
+  
+    Example.run(content, lexicalGrammar, extendedBNFGrammar, updateHandler);
 
-    Example.setContentTextareaValue(contentTextareaValue);
-
-    Example.setLexicalGrammarTextareaValue(lexicalGrammarTextareaValue);
-
-    Example.setExtendedBNFGrammarTextareaValue(bnfGrammarTextareaValue);
-
-    Example.onContentTextareaKeyUp(update);
-
-    Example.onLexicalGrammarTextareaKeyUp(update);
-
-    Example.onExtendedBNFGrammarTextareaKeyUp(update);
-
-    update();
+    updateHandler();
   }
 }
 
-function update() {
+function updateHandler() {
   const productionName = null;
 
   Example.updateLexer(ExtendedBNFLexer);

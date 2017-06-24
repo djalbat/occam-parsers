@@ -10,28 +10,17 @@ const { BasicLexer } = lexers;
 
 class BasicExample {
   static run() {
-    const lexicalGrammar = BasicLexer.grammar,
-          lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  '),
-          bnfGrammarTextareaValue = grammar, ///
-          contentTextareaValue = '1+(2/3)';
+    const content = '1+(2/3)',
+          lexicalGrammar = BasicLexer.grammar,
+          extendedBNFGrammar = grammar; ///
+    
+    Example.run(content, lexicalGrammar, extendedBNFGrammar, updateHandler);
 
-    Example.setContentTextareaValue(contentTextareaValue);
-
-    Example.setLexicalGrammarTextareaValue(lexicalGrammarTextareaValue);
-
-    Example.setExtendedBNFGrammarTextareaValue(bnfGrammarTextareaValue);
-
-    Example.onContentTextareaKeyUp(update);
-
-    Example.onLexicalGrammarTextareaKeyUp(update);
-
-    Example.onExtendedBNFGrammarTextareaKeyUp(update);
-
-    update();
+    updateHandler();
   }
 }
 
-function update() {
+function updateHandler() {
   const productionName = null;
   
   Example.updateLexer(BasicLexer);
