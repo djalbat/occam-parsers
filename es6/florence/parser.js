@@ -45,6 +45,8 @@ FlorenceParser.grammar = grammar;
 
 FlorenceParser.mappings = mappings;
 
+FlorenceParser.defaultCustomGrammars = defaultCustomGrammars;
+
 function customProductionsFromCustomGrammars(customGrammars, extendedBNFLexer, extendedBNFParser) {
   const customProductions = customGrammars.reduce(function(customProductions, customGrammar) {
     const customGrammarProductions = grammarUtil.productionsFromGrammar(customGrammar, extendedBNFLexer, extendedBNFParser);
