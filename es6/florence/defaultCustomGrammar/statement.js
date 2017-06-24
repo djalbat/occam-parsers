@@ -9,14 +9,16 @@ const statementDefaultCustomGrammar = `
                                             |   equality 
                                                   
                                             |   expression
+                                            
+                                            ;
 
 
 
-     typeAssertion                        ::=   expression ":" typeName
+     typeAssertion                        ::=   expression ":" typeName ;
 
-     equality                             ::=   expression "=" expression
+     equality                             ::=   expression "=" expression ;
 
-     expression                           ::=   term
+     expression                           ::=   term ;
 
 
 

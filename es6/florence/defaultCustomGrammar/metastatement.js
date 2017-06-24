@@ -8,17 +8,19 @@ const metastatementDefaultCustomGrammar = `
            
                                             |   qualifiedMetavariable 
                                             
-                                            |   metavariable 
+                                            |   metavariable
+                                             
+                                            ;
       
       
       
-     proofAssertion                       ::=   context "⊢" metastatement "::" metastatement
+     proofAssertion                       ::=   context "⊢" metastatement "::" metastatement ;
 
 
 
-     qualifiedMetavariable                ::=   qualifiedMetavariableName<NO_WHITESPACE>parenthesisedTerms
+     qualifiedMetavariable                ::=   qualifiedMetavariableName<NO_WHITESPACE>parenthesisedTerms ;
      
-     metavariable                         ::=   metavariableName
+     metavariable                         ::=   metavariableName ;
 
      
 
