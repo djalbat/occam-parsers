@@ -4,9 +4,9 @@ const arrayUtil = require('../../util/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class ProductionNode extends NonTerminalNode {
-  generateProduction(Production, Definition, Parts, mappings) {
+  generateProduction(Production, Definition, mappings) {
     const name = this.getName(),
-          definitions = this.generateDefinitions(Definition, Parts),
+          definitions = this.generateDefinitions(Definition),
           mappingsNodeExists = mappings.hasOwnProperty(name),
           Node = mappingsNodeExists ?
                    mappings[name] :
@@ -26,11 +26,11 @@ class ProductionNode extends NonTerminalNode {
     return name;
   }
   
-  generateDefinitions(Definition, Parts) {
+  generateDefinitions(Definition) {
     const childNodes = this.getChildNodes(),
           lastButOneChildNode = arrayUtil.lastButOne(childNodes),
           definitionsNode = lastButOneChildNode,  ///
-          definitions = definitionsNode.generateDefinitions(Definition, Parts);
+          definitions = definitionsNode.generateDefinitions(Definition);
     
     return definitions;
   }

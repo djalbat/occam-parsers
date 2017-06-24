@@ -44,7 +44,7 @@ class ChoiceOfPartsPart {
     return string;
   }
 
-  static fromNodes(nodes, Parts) {
+  static fromNodes(nodes) {
     let choiceOfPartsPart = null;
     
     nodes = arrayUtil.discardFirstAndLast(nodes);
@@ -57,7 +57,7 @@ class ChoiceOfPartsPart {
 
       const noWhitespace = false,
             parts = nodes.map(function(node) {
-              const part = node.generatePart(Parts, noWhitespace);
+              const part = node.generatePart(noWhitespace);
   
               return part;
             });

@@ -3,12 +3,12 @@
 const NonTerminalNode = require('../../common/node/nonTerminal');
 
 class DefinitionNode extends NonTerminalNode {
-  generateDefinition(Definition, Parts) {
+  generateDefinition(Definition) {
     const childNodes = this.getChildNodes(),
           partNodes = childNodes, ///
           parts = partNodes.map(function(partNode) {
             const noWhitespace = false, ///
-                  part = partNode.generatePart(Parts, noWhitespace);
+                  part = partNode.generatePart(noWhitespace);
   
             return part;
           }),

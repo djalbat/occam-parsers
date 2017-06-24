@@ -4,9 +4,8 @@ const WildcardPart = require('../part/wildcard'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class WildcardNode extends NonTerminalNode {
-  generatePart(Parts, noWhitespace) {
-    const WildcardPart = Parts['WildcardPart'],
-          wildcardPart = new WildcardPart(noWhitespace);
+  generatePart(noWhitespace) {
+    const wildcardPart = new WildcardPart(noWhitespace);
 
     return wildcardPart;
   }

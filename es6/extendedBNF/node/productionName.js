@@ -1,12 +1,12 @@
 'use strict';
 
 const arrayUtil = require('../../util/array'),
+      ProductionNamePart = require('../part/productionName'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class ProductionNameNode extends NonTerminalNode {
-  generatePart(Parts, noWhitespace) {
+  generatePart(noWhitespace) {
     const productionName = this.getProductionName(),
-          ProductionNamePart = Parts['ProductionNamePart'],
           productionNamePart = new ProductionNamePart(productionName, noWhitespace);
 
     return productionNamePart;

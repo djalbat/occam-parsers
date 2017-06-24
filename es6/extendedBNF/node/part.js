@@ -2,10 +2,16 @@
 
 const bnfUtil = require('../../util/bnf'),
       arrayUtil = require('../../util/array'),
+      GroupOfPartsPart = require('../part/groupOfParts'),
+      ChoiceOfPartsPart = require('../part/choiceOfParts'),
+      OptionalPartPart = require('../part/optionalPart'),
+      ZeroOrMorePartsPart = require('../part/zeroOrMoreParts'),
+      OneOrMorePartsPart = require('../part/oneOrMoreParts'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
+
 class PartNode extends NonTerminalNode {
-  generatePart(Parts, noWhitespace) {
+  generatePart(noWhitespace) {
     let part = null;
 
     const childNodes = this.getChildNodes(),
@@ -20,12 +26,12 @@ class PartNode extends NonTerminalNode {
       const firstNode = arrayUtil.first(nodes),
             node = firstNode;  ///
 
-      part = partFromNode(node, Parts, noWhitespace);
+      part = partFromNode(node, noWhitespace);
     } else {
-      part = partFromNodes(nodes, Parts);
+      part = partFromNodes(nodes);
     }
     
-    part = partFromPartAndQuantifiers(part, quantifiers, Parts);
+    part = partFromPartAndQuantifiers(part, quantifiers);
 
     return part;
   }
@@ -71,74 +77,53 @@ function quantifiersFromNodes(nodes) {
   return quantifiers;
 }
 
-function partFromNode(node, Parts, noWhitespace) {
-  const part = node.generatePart(Parts, noWhitespace);
+function partFromNode(node, noWhitespace) {
+  const part = node.generatePart(noWhitespace);
 
   return part;
 }
 
-function partFromNodes(nodes, Parts) {
-  let part = null;
-
-  if (part === null) {
-    const ChoiceOfPartsPart = Parts['ChoiceOfPartsPart'],
-        choiceOfPartsPart = ChoiceOfPartsPart.fromNodes(nodes, Parts);
-
-    if (choiceOfPartsPart !== null) {
-      part = choiceOfPartsPart; ///
-    }
-  }
-
-  if (part === null) {
-    const GroupOfPartsPart = Parts['GroupOfPartsPart'],
-        groupOfPartsPart = GroupOfPartsPart.fromNodes(nodes, Parts);
-
-    if (groupOfPartsPart !== null) {
-      part = groupOfPartsPart;  ///
-    }
-  }
+function partFromNodes(nodes) {
+  const part = ChoiceOfPartsPart.fromNodes(nodes) || GroupOfPartsPart.fromNodes(nodes); /// 
 
   return part;
 }
 
-function partFromPartAndQuantifiers(part, quantifiers, Parts) {
+function partFromPartAndQuantifiers(part, quantifiers) {
   const quantifiersLength = quantifiers.length;
 
   if (quantifiersLength > 0) {
     const quantifier = quantifiers.shift(),
-          sequenceOfPartsPart = sequenceOfPartsPartFromPartAndQuantifier(part, quantifier, Parts);
+          sequenceOfPartsPart = sequenceOfPartsPartFromPartAndQuantifier(part, quantifier);
 
     part = sequenceOfPartsPart; ///
 
-    part = partFromPartAndQuantifiers(part, quantifiers, Parts);
+    part = partFromPartAndQuantifiers(part, quantifiers);
   }
 
   return part;
 }
 
-function sequenceOfPartsPartFromPartAndQuantifier(part, quantifier, Parts) {
+function sequenceOfPartsPartFromPartAndQuantifier(part, quantifier) {
   let sequenceOfPartsPart;
 
   switch (quantifier) {
     case '?':
-      const OptionalPartPart = Parts['OptionalPartPart'],
-            optionalPartPart = new OptionalPartPart(part);
+      const optionalPartPart = new OptionalPartPart(part);
 
-      sequenceOfPartsPart = optionalPartPart;
+      sequenceOfPartsPart = optionalPartPart; ///
       break;
 
     case '*':
-      const ZeroOrMorePartsPart = Parts['ZeroOrMorePartsPart'],
-            zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
+      const zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
 
-      sequenceOfPartsPart = zeroOrMorePartsPart;
+      sequenceOfPartsPart = zeroOrMorePartsPart;  ///
       break;
 
     case '+':
-      const OneOrMorePartsPart = Parts['OneOrMorePartsPart'],
-            oneOrMorePartsPart = new OneOrMorePartsPart(part);
+      const oneOrMorePartsPart = new OneOrMorePartsPart(part);
 
-      sequenceOfPartsPart = oneOrMorePartsPart;
+      sequenceOfPartsPart = oneOrMorePartsPart; ///
       break;
   }
 

@@ -1,12 +1,12 @@
 'use strict';
 
 const arrayUtil = require('../../util/array'),
+      RegularExpressionPart = require('../part/regularExpression'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class RegularExpressionNode extends NonTerminalNode {
-  generatePart(Parts, noWhitespace) {
+  generatePart(noWhitespace) {
     const regExp = this.getRegExp(),
-          RegularExpressionPart = Parts['RegularExpressionPart'],
           regularExpressionPart = new RegularExpressionPart(regExp, noWhitespace);
 
     return regularExpressionPart;

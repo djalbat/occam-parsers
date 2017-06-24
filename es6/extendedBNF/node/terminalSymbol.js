@@ -1,12 +1,12 @@
 'use strict';
 
 const arrayUtil = require('../../util/array'),
+      TerminalSymbolPart = require('../part/terminalSymbol'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class TerminalSymbolNode extends NonTerminalNode {
-  generatePart(Parts, noWhitespace) {
+  generatePart(noWhitespace) {
     const content = this.getContent(),
-          TerminalSymbolPart = Parts['TerminalSymbolPart'],
           terminalSymbolPart = new TerminalSymbolPart(content, noWhitespace);
 
     return terminalSymbolPart;

@@ -1,12 +1,12 @@
 'use strict';
 
 const arrayUtil = require('../../util/array'),
+      SignificantTokenTypePart = require('../part/significantTokenType'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class SignificantTokenTypeNode extends NonTerminalNode {
-  generatePart(Parts, noWhitespace) {
+  generatePart(noWhitespace) {
     const significantTokenType = this.getSignificantTokenType(),
-          SignificantTokenTypePart = Parts['SignificantTokenTypePart'],
           significantTokenTypePart = new SignificantTokenTypePart(significantTokenType, noWhitespace);
 
     return significantTokenTypePart;

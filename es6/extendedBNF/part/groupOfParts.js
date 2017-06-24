@@ -50,12 +50,12 @@ class GroupOfPartsPart {
     return string;
   }
 
-  static fromNodes(nodes, Parts) {
+  static fromNodes(nodes) {
     nodes = arrayUtil.discardFirstAndLast(nodes);
 
     const noWhitespace = false,
           parts = nodes.map(function(node) {
-            const part = node.generatePart(Parts, noWhitespace);
+            const part = node.generatePart(noWhitespace);
 
             return part;
           }),

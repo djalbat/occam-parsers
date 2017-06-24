@@ -1,7 +1,6 @@
 'use strict';
 
-const Parts = require('./parts'),
-      Definition = require('./definition'),
+const Definition = require('./definition'),
       Production = require('./production'),
       cycles = require('../grammar/cycles'),
       leftRecursion = require('../grammar/leftRecursion'),
@@ -28,7 +27,7 @@ const Parts = require('./parts'),
 class ExtendedBNFParser extends CommonParser {
   static generateProductions(node, mappings = {}) {
     const productions = (node !== null) ?
-                          node.generateProductions(Production, Definition, Parts, mappings) :
+                          node.generateProductions(Production, Definition, mappings) :
                             [];
 
     return productions;

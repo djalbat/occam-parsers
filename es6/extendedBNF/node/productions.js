@@ -3,11 +3,11 @@
 const NonTerminalNode = require('../../common/node/nonTerminal');
 
 class ProductionsNode extends NonTerminalNode {
-  generateProductions(Production, Definition, Parts, mappings) {
+  generateProductions(Production, Definition, mappings) {
     const childNodes = this.getChildNodes(),
           productionNodes = childNodes,  ///
           productions = productionNodes.map(function(productionNode) {
-            const production = productionNode.generateProduction(Production, Definition, Parts, mappings);
+            const production = productionNode.generateProduction(Production, Definition, mappings);
             
             return production;
           });
