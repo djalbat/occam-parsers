@@ -27,9 +27,13 @@ const grammar = require('./grammar'),
 
 class ExtendedBNFParser extends CommonParser {
   static generateProductions(node, mappings = {}) {
-    const productions = (node !== null) ?
-                          node.generateProductions(Production, Definition, mappings) :
-                            [];
+    let productions = (node !== null) ?
+                        node.generateProductions(Production, Definition, mappings) :
+                          [];
+
+    productions = cycles.eliminate(productions);  ///
+
+    productions = leftRecursion.eliminate(productions);  ///
 
     return productions;
   }
