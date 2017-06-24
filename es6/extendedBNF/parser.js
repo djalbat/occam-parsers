@@ -1,6 +1,7 @@
 'use strict';
 
-const Definition = require('./definition'),
+const grammar = require('./grammar'),
+      Definition = require('./definition'),
       Production = require('./production'),
       cycles = require('../grammar/cycles'),
       leftRecursion = require('../grammar/leftRecursion'),
