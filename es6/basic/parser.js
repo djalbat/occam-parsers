@@ -35,3 +35,5 @@ class BasicParser extends CommonParser {
 }
 
 module.exports = BasicParser;
+
+BasicParser.grammar = grammar;

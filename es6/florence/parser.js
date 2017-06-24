@@ -41,6 +41,8 @@ class FlorenceParser extends CommonParser {
 
 module.exports = FlorenceParser;
 
+FlorenceParser.grammar = grammar;
+
 function customProductionsFromCustomGrammars(customGrammars, extendedBNFLexer, extendedBNFParser) {
   const customProductions = customGrammars.reduce(function(customProductions, customGrammar) {
     const customGrammarProductions = grammarUtil.productionsFromGrammar(customGrammar, extendedBNFLexer, extendedBNFParser);

@@ -85,3 +85,5 @@ class ExtendedBNFParser extends CommonParser {
 }
 
 module.exports = ExtendedBNFParser;
+
+ExtendedBNFParser.grammar = grammar;
