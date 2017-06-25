@@ -20,10 +20,10 @@ class grammarUtil {
     return rules;
   }
 
-  static grammarsFromGrammarsMap(grammarsMap) {
-    const names = Object.keys(grammarsMap),
+  static grammarsFromGrammarMap(grammarMap) {
+    const names = Object.keys(grammarMap),
           grammars = names.reduce(function(grammars, name) {
-            const grammar = grammarsMap[name];
+            const grammar = grammarMap[name];
   
             grammars.push(grammar);
   
