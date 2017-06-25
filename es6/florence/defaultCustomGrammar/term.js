@@ -2,7 +2,6 @@
 
 const termDefaultCustomGrammar = `
 
-
      term                                 ::=   compoundTerm 
      
                                             |   variable
@@ -16,8 +15,6 @@ const termDefaultCustomGrammar = `
 
 
      variable                             ::=   variableName ;
-     
-     
 
 `;
 

@@ -2,8 +2,6 @@
 
 const metastatementDefaultCustomGrammar = `
 
-
-
      metastatement                        ::=   proofAssertion
            
                                             |   qualifiedMetavariable 
@@ -21,8 +19,6 @@ const metastatementDefaultCustomGrammar = `
      qualifiedMetavariable                ::=   qualifiedMetavariableName<NO_WHITESPACE>parenthesisedTerms ;
      
      metavariable                         ::=   metavariableName ;
-
-     
 
 `;
 

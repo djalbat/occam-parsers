@@ -2,8 +2,6 @@
 
 const statementDefaultCustomGrammar = `
 
-
-
      statement                            ::=   typeAssertion 
                                                   
                                             |   equality 
@@ -19,8 +17,6 @@ const statementDefaultCustomGrammar = `
      equality                             ::=   expression "=" expression ;
 
      expression                           ::=   term ;
-
-
 
 `;
 
