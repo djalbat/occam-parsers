@@ -17,7 +17,7 @@ const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
       defaultCustomGrammars = grammarUtil.grammarsFromGrammarsMap(defaultCustomGrammarMap);
 
 class FlorenceParser extends CommonParser {
-  static fromCustomGrammarsAdditionalMappings(customGrammars, additionalMappings) {
+  static fromCustomGrammarsAndAdditionalMappings(customGrammars, additionalMappings) {
     const florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings, customGrammars, additionalMappings);
   
     return florenceParser;
