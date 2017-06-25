@@ -7,14 +7,14 @@ const grammar = require('./grammar'),
       grammarUtil = require('../util/grammar'),
       CommonParser = require('../common/parser'),
       ExtendedBNFParser = require('../extendedBNF/parser'),
-      defaultCustomGrammarsMap = require('./defaultCustomGrammarsMap'),
+      defaultCustomGrammarMap = require('./defaultCustomGrammarMap'),
       defaultAdditionalMappings = require('./defaultAdditionalMappings');
 
 const { ExtendedBNFLexer } = lexers;
 
 const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
       extendedBNFParser = ExtendedBNFParser.fromNothing(),
-      defaultCustomGrammars = grammarUtil.grammarsFromGrammarsMap(defaultCustomGrammarsMap);
+      defaultCustomGrammars = grammarUtil.grammarsFromGrammarsMap(defaultCustomGrammarMap);
 
 class FlorenceParser extends CommonParser {
   static fromCustomGrammarsAdditionalMappings(customGrammars, additionalMappings) {
@@ -46,4 +46,4 @@ FlorenceParser.grammar = grammar;
 
 FlorenceParser.mappings = mappings;
 
-FlorenceParser.defaultCustomGrammarsMap = defaultCustomGrammarsMap;
+FlorenceParser.defaultCustomGrammarMap = defaultCustomGrammarMap;
