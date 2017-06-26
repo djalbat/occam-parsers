@@ -4,7 +4,7 @@ const metastatementDefaultCustomGrammar = `
 
      proofAssertion                       ::=   context "⊢" metastatement "::" metastatement ;
 
-     derivation                           ::=   supposition "..." metastatement ;
+     subproof                             ::=   supposition "..." metastatement ;
 
      supposition                          ::=   "[" metastatement "]" ;
 
@@ -12,7 +12,7 @@ const metastatementDefaultCustomGrammar = `
 
      metastatement                        ::=   proofAssertion
            
-                                            |   derivation
+                                            |   subproof
                                             
                                             |   metavariable
 
