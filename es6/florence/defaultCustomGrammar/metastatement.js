@@ -2,6 +2,14 @@
 
 const metastatementDefaultCustomGrammar = `
 
+     proofAssertion                       ::=   context "⊢" metastatement "::" metastatement ;
+
+     subproof                             ::=   supposition "..." metastatement ;
+
+     supposition                          ::=   "[" metastatement "]" ;
+
+
+
      metastatement                        ::=   proofAssertion
            
                                             |   subproof
@@ -12,14 +20,6 @@ const metastatementDefaultCustomGrammar = `
                                              
                                             ;
       
-      
-      
-     proofAssertion                       ::=   context "⊢" metastatement "::" metastatement ;
-
-     subproof                             ::=   supposition "..." metastatement ;
-
-     supposition                          ::=   "[" metastatement "]" ;
-
 `;
 
 module.exports = metastatementDefaultCustomGrammar;
