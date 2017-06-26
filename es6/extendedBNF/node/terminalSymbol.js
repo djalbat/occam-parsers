@@ -13,7 +13,7 @@ class TerminalSymbolNode extends NonTerminalNode {
   }
 
   getContent() {
-    const regExp = /^"([^"]+)"$/,
+    const regExp = /^"([^"]*)"$/,
           childNodes = this.getChildNodes(),
           firstChildNode = arrayUtil.first(childNodes),
           terminalNode = firstChildNode,  ///
