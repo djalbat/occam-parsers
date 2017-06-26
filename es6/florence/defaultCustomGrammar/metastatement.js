@@ -4,9 +4,11 @@ const metastatementDefaultCustomGrammar = `
 
      metastatement                        ::=   proofAssertion
            
-                                            |   qualifiedMetavariable 
+                                            |   subproof
                                             
                                             |   metavariable
+
+                                            |   qualifiedMetavariable 
                                              
                                             ;
       
@@ -14,11 +16,9 @@ const metastatementDefaultCustomGrammar = `
       
      proofAssertion                       ::=   context "⊢" metastatement "::" metastatement ;
 
+     subproof                             ::=   supposition "..." metastatement ;
 
-
-     qualifiedMetavariable                ::=   qualifiedMetavariableName<NO_WHITESPACE>parenthesisedTerms ;
-     
-     metavariable                         ::=   metavariableName ;
+     supposition                          ::=   "[" metastatement "]" ;
 
 `;
 

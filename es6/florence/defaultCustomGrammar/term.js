@@ -8,14 +8,6 @@ const termDefaultCustomGrammar = `
                                             
                                             ;
 
-
-
-     compoundTerm                         ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
-
-
-
-     variable                             ::=   variableName ;
-
 `;
 
 module.exports = termDefaultCustomGrammar;

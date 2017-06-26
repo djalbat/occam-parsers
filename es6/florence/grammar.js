@@ -108,25 +108,25 @@ const grammar = `
 
      
      
-     metaProof                            ::=   "Proof" <END_OF_LINE> ( subRule | unjustifiedOrJustifiedMetastatement )+ 
+     metaProof                            ::=   "Proof" <END_OF_LINE> ( subrule | unjustifiedOrJustifiedMetastatement )+ 
                                                 
                                                 "Therefore" <END_OF_LINE> unjustifiedOrJustifiedMetastatement ;
      
-     subRule                              ::=   "Suppose" <END_OF_LINE> unjustifiedMetastatement+ 
+     subrule                              ::=   "Suppose" <END_OF_LINE> unjustifiedMetastatement+ 
      
-                                                ( "Then" <END_OF_LINE> ( subRule | unjustifiedOrJustifiedMetastatement )+ )? 
+                                                ( "Then" <END_OF_LINE> ( subrule | unjustifiedOrJustifiedMetastatement )+ )? 
                                                 
                                                 "Hence" <END_OF_LINE> unjustifiedOrJustifiedMetastatement verticalSpace? ;
 
 
 
-     proof                                ::=   "Proof" <END_OF_LINE> ( subLemma | unjustifiedOrJustifiedStatement )+ 
+     proof                                ::=   "Proof" <END_OF_LINE> ( sublemma | unjustifiedOrJustifiedStatement )+ 
      
                                                 "Therefore" <END_OF_LINE> unjustifiedOrJustifiedStatement ;
 
-     subLemma                             ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+ 
+     sublemma                             ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+ 
      
-                                                ( "Then" <END_OF_LINE> ( subLemma | unjustifiedOrJustifiedStatement )+ )? 
+                                                ( "Then" <END_OF_LINE> ( sublemma | unjustifiedOrJustifiedStatement )+ )? 
                                                 
                                                 "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement verticalSpace? ;
 
@@ -154,11 +154,21 @@ const grammar = `
      
      
 
+     qualifiedMetavariable                ::=   qualifiedMetavariableName<NO_WHITESPACE>parenthesisedTerms ;
+
+     compoundTerm                         ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
+
      reference                            ::=   referenceName<NO_WHITESPACE>parenthesisedTerms? ;
 
      context                              ::=   contextName<NO_WHITESPACE>parenthesisedTerms? ;
 
      label                                ::=   labelName<NO_WHITESPACE>parenthesisedTerms? ;
+
+
+
+     metavariable                         ::=   metavariableName ;
+
+     variable                             ::=   variableName ;
 
 
 

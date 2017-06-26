@@ -12,12 +12,6 @@ const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
       extendedBNFParser = ExtendedBNFParser.fromNothing();
 
 class BasicParser extends CommonParser {
-  static fromNothing() {
-    const basicParser = BasicParser.fromGrammar(grammar);
-    
-    return basicParser;
-  }
-  
   static fromGrammar(grammar) {
     let basicParser = null;
 
@@ -30,6 +24,12 @@ class BasicParser extends CommonParser {
     } catch (error) {
       
     }
+
+    return basicParser;
+  }
+
+  static fromNothing() {
+    const basicParser = BasicParser.fromGrammar(grammar);
 
     return basicParser;
   }

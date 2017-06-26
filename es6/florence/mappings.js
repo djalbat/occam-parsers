@@ -17,6 +17,7 @@ const mappings = {
   'proof': DiscardSecondChildNode,
   'premise': DiscardSecondChildNode,
   'premises': DiscardSecondChildNode,
+  'subproof': DiscardSecondChildNode,
   'therefore': DiscardSecondChildNode,
   'conclusion': DiscardSecondChildNode,
 
