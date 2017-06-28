@@ -16,8 +16,6 @@ const metastatementDefaultCustomGrammar = `
                                             
                                             |   metavariable
 
-                                            |   qualifiedMetavariable 
-                                             
                                             ;
       
 `;

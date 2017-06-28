@@ -92,11 +92,11 @@ const grammar = `
    
      abbreviationDefinition               ::=   typeName "for" typeName | constructorName "for" constructorName ;
 
-     dependentTypeDefinition              ::=   dependentTypeName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
+     dependentTypeDefinition              ::=   typeName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
    
      metavariableDefinition               ::=   metavariableName ;
 
-     qualifiedMetavariableDefinition      ::=   qualifiedMetavariableName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
+     qualifiedMetavariableDefinition      ::=   metavariableName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
    
    
         
@@ -154,8 +154,6 @@ const grammar = `
      
      
 
-     qualifiedMetavariable                ::=   qualifiedMetavariableName<NO_WHITESPACE>parenthesisedTerms ;
-
      compoundTerm                         ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
 
      reference                            ::=   referenceName<NO_WHITESPACE>parenthesisedTerms? ;
@@ -166,9 +164,9 @@ const grammar = `
 
 
 
-     metavariable                         ::=   metavariableName ;
+     metavariable                         ::=   metavariableName<NO_WHITESPACE)parenthesisedTerm? ;
 
-     variable                             ::=   variableName ;
+     variable                             ::=   variableName<NO_WHITESPACE)parenthesisedTerm? ;
 
 
 
@@ -177,6 +175,8 @@ const grammar = `
      parenthesisedLabels                  ::=   "("<NO_WHITESPACE>labels<NO_WHITESPACE>")" ;                    
 
      parenthesisedTerms                   ::=   "("<NO_WHITESPACE>terms<NO_WHITESPACE>")" ;   
+
+     parenthesisedTerm                    ::=   "("<NO_WHITESPACE>term<NO_WHITESPACE>")" ;   
 
 
 
@@ -188,15 +188,13 @@ const grammar = `
      
 
               
+     typeName                             ::=   name ;
+     
      variableName                         ::=   name ;
 
      constructorName                      ::=   name ;
 
-     dependentTypeName                    ::=   name ;
-
      metavariableName                     ::=   name ;
-
-     qualifiedMetavariableName            ::=   name ;
 
      referenceName                        ::=   name ;
 
@@ -204,8 +202,6 @@ const grammar = `
 
      labelName                            ::=   name ;
 
-     typeName                             ::=   name ;
-     
      
    
      name                                 ::=   [unassigned] ;
