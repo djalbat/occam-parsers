@@ -164,9 +164,9 @@ const grammar = `
 
 
 
-     metavariable                         ::=   metavariableName<NO_WHITESPACE)parenthesisedTerm? ;
+     metavariable                         ::=   metavariableName<NO_WHITESPACE>parenthesisedTerm? ;
 
-     variable                             ::=   variableName<NO_WHITESPACE)parenthesisedTerm? ;
+     variable                             ::=   variableName ;
 
 
 
