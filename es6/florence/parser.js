@@ -13,7 +13,7 @@ const { ExtendedBNFLexer } = lexers;
 
 const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
       extendedBNFParser = ExtendedBNFParser.fromNothing(),
-      defaultCustomExtendedBNF = bnfFromBNFMap(defaultCustomExtendedBNFMap);
+      defaultCustomExtendedBNF = extendedBNFFromExtendedBNFMap(defaultCustomExtendedBNFMap);
 
 class FlorenceParser extends CommonParser {
   static fromCustomExtendedBNFAndAdditionalMappings(customExtendedBNF, additionalMappings) {
@@ -43,7 +43,7 @@ FlorenceParser.extendedBNF = extendedBNF;
 
 FlorenceParser.defaultCustomExtendedBNFMap = defaultCustomExtendedBNFMap;
 
-function bnfFromBNFMap(extendedBNFMap) {
+function extendedBNFFromExtendedBNFMap(extendedBNFMap) {
   const ruleNames = Object.keys(extendedBNFMap),
         extendedBNF = ruleNames.reduce(function(extendedBNF, ruleName) {
           const ruleExtendedBNF = extendedBNFMap[ruleName];
