@@ -21,7 +21,7 @@ There are three parsers in all:
 * A basic parser, for illustrative purposes, and for developing new grammars.
 * The main parser, namely the parser for the extended BNF part of Occam's vernacular, called Florence.
 
-All parsers share common functionality. The last two parse content according to rules defined in a variant of extended BNF. The extended BNF parser on the other hand has its rules hard-coded. These rules can be define in the self same variant of extended BNF that they implement: 
+All parsers share common functionality. The last two parse content according to rules defined in a variant of extended BNF. The extended BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant of extended BNF that they implement: 
 
       rules                ::=  rule+ ;
       
@@ -150,11 +150,11 @@ The vertical bar symbol `|` is overloaded and can be used in conjunction with br
 
 ## Examples
 
-There are three examples, one for each parser. To view them, open the `index.html` file in the `examples` directory. Each example shows a representation of the parse tree, which is useful for authoring and debugging.
+There are three examples, one for each parser. To view them, open the `index.html` file in the `examples` directory. Each example shows a representation of the parse tree, which is useful for debugging.
 
 ### Extended BNF example
 
-Both the lexical patterns and extended BNF textareas are read-only. The content textarea initially shows the extended BNF parser's own extended BNF and so the example demonstrates, initially at least, that the extended BNF parser can parse its own extended BNF. Others can be substituted into the content textarea, the two obvious candidates being those for the basic and Florence parsers. 
+Both the lexical patterns and extended BNF textareas are read-only. The content textarea initially shows the extended BNF parser's own extended BNF and so the example demonstrates, initially at least, that the extended BNF parser can parse its own extended BNF.
 
 ### Basic example
 
