@@ -8,14 +8,14 @@ const { Textarea } = easy,
 
 const contentTextareaSelector = 'textarea#content',
       parseTreeTextareaSelector = 'textarea#parseTree',
-      lexicalGrammarTextareaSelector = 'textarea#lexicalGrammar',
-      extendedBNFGrammarTextareaSelector = 'textarea#extendedBNFGrammar',
+      lexicalEntriesTextareaSelector = 'textarea#lexicalEntries',
+      extendedBNFTextareaSelector = 'textarea#extendedBNF',
       sizeableElementSelector = '#sizeableElement',
       verticalSplitterSelector = '#verticalSplitter',
       contentTextarea = new Textarea(contentTextareaSelector),
       parseTreeTextarea = new Textarea(parseTreeTextareaSelector),
-      lexicalGrammarTextarea =new Textarea(lexicalGrammarTextareaSelector),
-      extendedBNFGrammarTextarea = new Textarea(extendedBNFGrammarTextareaSelector),
+      lexicalEntriesTextarea =new Textarea(lexicalEntriesTextareaSelector),
+      extendedBNFTextarea = new Textarea(extendedBNFTextareaSelector),
       sizeableElement = new SizeableElement(sizeableElementSelector),
       beforeSizeableElement = false,
       afterSizeableElement = true;
@@ -26,51 +26,51 @@ let lexer = null,
 new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
 
 class Example {
-  static run(content, lexicalGrammar, extendedBNFGrammar, updateHandler) {
+  static run(content, lexicalEntries, extendedBNF, updateHandler) {
     const contentTextareaValue = content, ///
-          extendedBNFGrammarTextareaValue = extendedBNFGrammar,  ///
-          lexicalGrammarTextareaValue = JSON.stringify(lexicalGrammar, null, '  ');
+          extendedBNFTextareaValue = extendedBNF,  ///
+          lexicalEntriesTextareaValue = JSON.stringify(lexicalEntries, null, '  ');
 
     contentTextarea.setValue(contentTextareaValue);
 
-    lexicalGrammarTextarea.setValue(lexicalGrammarTextareaValue);
+    lexicalEntriesTextarea.setValue(lexicalEntriesTextareaValue);
 
-    extendedBNFGrammarTextarea.setValue(extendedBNFGrammarTextareaValue);
+    extendedBNFTextarea.setValue(extendedBNFTextareaValue);
 
     contentTextarea.onKeyUp(updateHandler);
 
-    lexicalGrammarTextarea.onKeyUp(updateHandler);
+    lexicalEntriesTextarea.onKeyUp(updateHandler);
 
-    extendedBNFGrammarTextarea.onKeyUp(updateHandler);
+    extendedBNFTextarea.onKeyUp(updateHandler);
   }
 
   static updateLexer(Lexer) {
-    const lexicalGrammarTextareaValue = lexicalGrammarTextarea.getValue();
+    const lexicalEntriesTextareaValue = lexicalEntriesTextarea.getValue();
 
-    let lexicalGrammar = null;
+    let lexicalEntries = null;
 
     try {
-      lexicalGrammar = JSON.parse(lexicalGrammarTextareaValue);
+      lexicalEntries = JSON.parse(lexicalEntriesTextareaValue);
     } catch (error) {}
 
-    const lexicalGrammarValid = (lexicalGrammar !== null);
+    const lexicalEntriesValid = (lexicalEntries !== null);
 
-    if (lexicalGrammarValid) {
-      lexer = Lexer.fromGrammar(lexicalGrammar);
+    if (lexicalEntriesValid) {
+      lexer = Lexer.fromEntries(lexicalEntries);
 
-      lexicalGrammarTextarea.removeClass('error');
+      lexicalEntriesTextarea.removeClass('error');
     } else {
       lexer = null;
 
-      lexicalGrammarTextarea.addClass('error');
+      lexicalEntriesTextarea.addClass('error');
     }
   }
 
   static updateParser(callback) {
-    const bnfGrammarTextareaValue = extendedBNFGrammarTextarea.getValue(),
-          grammar = bnfGrammarTextareaValue; ///
+    const bnfTextareaValue = extendedBNFTextarea.getValue(),
+          bnf = bnfTextareaValue; ///
 
-    parser = callback(grammar);
+    parser = callback(bnf);
   }
 
   static updateParseTree(ruleName) {

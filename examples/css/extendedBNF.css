@@ -3,12 +3,12 @@ textarea#content {
   margin-bottom: 1rem;
 }
 
-textarea#lexicalGrammar {
+textarea#lexicalEntries {
   height: 15rem;
   margin-bottom: 1rem;
 }
 
-textarea#extendedBNFGrammar {
+textarea#extendedBNF {
   height: 24rem;
   margin-bottom: 1rem;
 }

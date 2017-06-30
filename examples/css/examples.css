@@ -77,8 +77,8 @@ textarea.error {
 }
 
 textarea#parseTree,
-textarea#lexicalGrammar,
-textarea#extendedBNFGrammar {
+textarea#extendedBNF,
+textarea#lexicalEntries {
   overflow-wrap: normal;
 }
 

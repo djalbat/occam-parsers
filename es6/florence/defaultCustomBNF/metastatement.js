@@ -1,6 +1,6 @@
 'use strict';
 
-const metastatementDefaultCustomGrammar = `
+const defaultMetastatementBNF = `
 
      proofAssertion                       ::=   context "⊢" metastatement "::" metastatement ;
 
@@ -20,4 +20,4 @@ const metastatementDefaultCustomGrammar = `
       
 `;
 
-module.exports = metastatementDefaultCustomGrammar;
+module.exports = defaultMetastatementBNF;

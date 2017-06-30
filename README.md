@@ -21,71 +21,69 @@ There are three parsers in all:
 * A basic parser, for illustrative purposes, and for developing new grammars.
 * The main parser, namely the parser for the extended BNF part of Occam's vernacular, called Florence.
 
-All parsers share common patterns and functionality. The last two parse content according to productions defined in a variant of extended BNF. The extended BNF parser on the other hand has its productions hard-coded,  in line with the following grammar: 
+All parsers share common functionality. The last two parse content according to rules defined in a variant of extended BNF. The extended BNF parser on the other hand has its rules hard-coded. These rules can be define in the self same variant of extended BNF that they implement: 
 
-      productions              ::=  production+ ;
+      rules                ::=  rule+ ;
       
-      production               ::=  productionName "::=" definitions ";" ;
+      rule                 ::=  ruleName "::=" definitions ";" ;
       
-      definitions              ::=  definition ( "|" definition )* ;
+      definitions          ::=  definition ( "|" definition )* ;
       
-      definition               ::=  part+ ;
+      definition           ::=  part+ ;
       
-      noWhitespacePart         ::=  "<NO_WHITESPACE>" part ;
+      noWhitespacePart     ::=  "<NO_WHITESPACE>" part ;
     
-      optionalPart             ::=  part<NO_WHITESPACE>"?" ;
+      optionalPart         ::=  part<NO_WHITESPACE>"?" ;
                               
-      zeroOrMoreParts          ::=  part<NO_WHITESPACE>"*" ;
+      zeroOrMoreParts      ::=  part<NO_WHITESPACE>"*" ;
                               
-      oneOrMoreParts           ::=  part<NO_WHITESPACE>"+" ;
+      oneOrMoreParts       ::=  part<NO_WHITESPACE>"+" ;
       
-      groupOfParts             ::=  "(" part+ ")" ;
+      groupOfParts         ::=  "(" part+ ")" ;
       
-      choiceOfParts            ::=  "(" part ( "|" part )+ ")" ;
+      choiceOfParts        ::=  "(" part ( "|" part )+ ")" ;
     
-      part                     ::=  noWhitespacePart
+      part                 ::=  noWhitespacePart
                     
-                                 |  optionalPart  
+                             |  optionalPart  
                     
-                                 |  zeroOrMoreParts  
+                             |  zeroOrMoreParts  
                     
-                                 |  oneOrMoreParts  
+                             |  oneOrMoreParts  
                     
-                                 |  groupOfParts  
+                             |  groupOfParts  
                                
-                                 |  choiceOfParts  
+                             |  choiceOfParts  
                                
-                                 |  productionName  
+                             |  ruleName  
                     
-                                 |  regularExpression 
+                             |  regularExpression 
                     
-                                 |  significantTokenType 
+                             |  significantTokenType 
     
-                                 |  terminalSymbol
+                             |  terminalSymbol
                               
-                                 |  endOfLine
+                             |  endOfLine
                     
-                                 |  epsilon
+                             |  epsilon
     
-                                 |  wildcard
+                             |  wildcard
                                   
-                                 ;
+                             ;
     
-      productionName           ::=  [name] ;
+      ruleName             ::=  [name] ;
     
-      regularExpression        ::=  [regularExpression] ;
+      regularExpression    ::=  [regularExpression] ;
       
-      significantTokenType     ::=  [type] ;
+      significantTokenTyp  ::=  [type] ;
     
-      terminalSymbol           ::=  [string] ;
+      terminalSymbol       ::=  [string] ;
       
-      endOfLine                ::=  "<END_OF_LINE>" ;
+      endOfLine            ::=  "<END_OF_LINE>" ;
       
-      epsilon                  ::=  "ε" ;
+      epsilon              ::=  "ε" ;
     
-      wildcard                 ::=  "." ;
-
-This grammar is itself written in the variant of extended BNF it describes, as is usual.
+      wildcard             ::=  "." ;
 
 ## Installation
 
@@ -152,15 +150,15 @@ The vertical bar symbol `|` is overloaded and can be used in conjunction with br
 
 ## Examples
 
-There are three examples, one for each parser. To view them, open the `index.html` file in the `examples` directory. Each example shows a representation of the parse tree, which is useful for writing and debugging grammars.
+There are three examples, one for each parser. To view them, open the `index.html` file in the `examples` directory. Each example shows a representation of the parse tree, which is useful for authoring and debugging.
 
 ### Extended BNF example
 
-Both the lexical grammar and extended BNF grammar textareas are read-only. The content textarea initially shows the extended BNF parser's own grammar and so the example demonstrates, initially at least, that the extended BNF parser can parse its own grammar. Other grammars can be substituted into the content textarea, the two obvious candidates being those for the basic and Florence parsers. 
+Both the lexical patterns and extended BNF textareas are read-only. The content textarea initially shows the extended BNF parser's own extended BNF and so the example demonstrates, initially at least, that the extended BNF parser can parse its own extended BNF. Others can be substituted into the content textarea, the two obvious candidates being those for the basic and Florence parsers. 
 
 ### Basic example
 
-Both the lexical and BNF grammars as well as the content can be changed. Given the following grammar...
+Both the lexical patterns and extended BNF as well as the content can be changed. Given the following extended BNF, for example...
 
       expression    ::= "(" expression ")" expression~
     
@@ -210,7 +208,7 @@ Both the lexical and BNF grammars as well as the content can be changed. Given t
 
 ### Florence example
 
-This uses the [extended BNF grammar part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/grammar.js) of Occam's vernacular, called Florence.
+This uses the [extended BNF part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/extendedBNF.js) of Occam's vernacular, called Florence.
 
 ## Building
 

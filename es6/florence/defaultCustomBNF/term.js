@@ -1,6 +1,6 @@
 'use strict';
 
-const termDefaultCustomGrammar = `
+const defaultTermBNF = `
 
      term                                 ::=   compoundTerm 
      
@@ -10,4 +10,4 @@ const termDefaultCustomGrammar = `
 
 `;
 
-module.exports = termDefaultCustomGrammar;
+module.exports = defaultTermBNF;

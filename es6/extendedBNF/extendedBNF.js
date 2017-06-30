@@ -1,6 +1,6 @@
 'use strict';
 
-const grammar = `
+const extendedBNF = `
 
   rules                    ::=  rule+ ;
    
@@ -66,4 +66,4 @@ const grammar = `
 
 `;
 
-module.exports = grammar;
+module.exports = extendedBNF;

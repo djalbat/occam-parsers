@@ -3,7 +3,7 @@
 const lexers = require('occam-lexers');
 
 const Example = require('../example'),
-      grammar = require('../basic/grammar'),
+      extendedBNF = require('../basic/extendedBNF'),
       BasicParser = require('../basic/parser');
 
 const { BasicLexer } = lexers;
@@ -11,10 +11,9 @@ const { BasicLexer } = lexers;
 class BasicExample {
   static run() {
     const content = '1+2/3',
-          lexicalGrammar = BasicLexer.grammar,
-          extendedBNFGrammar = grammar; ///
+          lexicalEntries = BasicLexer.entries; /// 
     
-    Example.run(content, lexicalGrammar, extendedBNFGrammar, updateHandler);
+    Example.run(content, lexicalEntries, extendedBNF, updateHandler);
 
     updateHandler();
   }
@@ -25,8 +24,8 @@ function updateHandler() {
   
   Example.updateLexer(BasicLexer);
 
-  Example.updateParser(function(grammar) {
-    const basicParser = BasicParser.fromGrammar(grammar),
+  Example.updateParser(function(extendedBNF) {
+    const basicParser = BasicParser.fromExtendedBNF(extendedBNF),
           parser = basicParser; //'
     
     return parser; 

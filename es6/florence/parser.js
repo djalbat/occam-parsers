@@ -2,39 +2,34 @@
 
 const lexers = require('occam-lexers');
 
-const grammar = require('./grammar'),
-      mappings = require('./mappings'),
-      grammarUtil = require('../util/grammar'),
+const mappings = require('./mappings'),
+      extendedBNF = require('./extendedBNF'),
       CommonParser = require('../common/parser'),
       ExtendedBNFParser = require('../extendedBNF/parser'),
-      defaultCustomGrammarMap = require('./defaultCustomGrammarMap'),
+      defaultCustomBNFMap = require('./defaultCustomBNFMap'),
       defaultAdditionalMappings = require('./defaultAdditionalMappings');
 
 const { ExtendedBNFLexer } = lexers;
 
 const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
       extendedBNFParser = ExtendedBNFParser.fromNothing(),
-      defaultCustomGrammars = grammarUtil.grammarsFromGrammarMap(defaultCustomGrammarMap);
+      defaultCustomBNF = bnfFromBNFMap(defaultCustomBNFMap);
 
 class FlorenceParser extends CommonParser {
-  static fromCustomGrammarsAndAdditionalMappings(customGrammars, additionalMappings) {
-    const florenceParser = FlorenceParser.fromGrammarAndMappings(grammar, mappings, customGrammars, additionalMappings);
+  static fromCustomBNFAndAdditionalMappings(customBNF, additionalMappings) {
+    const florenceParser = FlorenceParser.fromExtendedBNFAndMappings(extendedBNF, mappings, customBNF, additionalMappings);
   
     return florenceParser;
   }
   
-  static fromGrammarAndMappings(grammar, mappings, customGrammars = defaultCustomGrammars, additionalMappings = defaultAdditionalMappings) {
+  static fromExtendedBNFAndMappings(extendedBNF, mappings, customBNF = defaultCustomBNF, additionalMappings = defaultAdditionalMappings) {
+    extendedBNF = `${extendedBNF}\n\n${customBNF}`; ///    
     mappings = Object.assign(mappings, additionalMappings); ///
 
-    const customRules = grammarUtil.rulesFromGrammars(customGrammars, extendedBNFLexer, extendedBNFParser),
-          lines = extendedBNFLexer.linesFromGrammar(grammar),
-          node = extendedBNFParser.nodeFromLines(lines);
-    
-    let rules = ExtendedBNFParser.generateRules(node, mappings);
-    
-    rules = rules.concat(customRules);
-    
-    const florenceParser = new FlorenceParser(rules);
+    const lines = extendedBNFLexer.linesFromExtendedBNF(extendedBNF),
+          node = extendedBNFParser.nodeFromLines(lines),
+          rules = ExtendedBNFParser.generateRules(node, mappings),
+          florenceParser = new FlorenceParser(rules);
 
     return florenceParser;
   }
@@ -42,8 +37,21 @@ class FlorenceParser extends CommonParser {
 
 module.exports = FlorenceParser;
 
-FlorenceParser.grammar = grammar;
-
 FlorenceParser.mappings = mappings;
 
-FlorenceParser.defaultCustomGrammarMap = defaultCustomGrammarMap;
+FlorenceParser.extendedBNF = extendedBNF;
+
+FlorenceParser.defaultCustomBNFMap = defaultCustomBNFMap;
+
+function bnfFromBNFMap(bnfMap) {
+  const ruleNames = Object.keys(bnfMap),
+        bnf = ruleNames.reduce(function(bnf, ruleName) {
+          const ruleBNF = bnfMap[ruleName];
+  
+          bnf = `${bnf}${ruleBNF}`;
+  
+          return bnf;
+        }, '');
+
+  return bnf;
+}

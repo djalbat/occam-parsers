@@ -1,25 +1,25 @@
 'use strict';
 
-const grammar = require('./grammar'),
-      Definition = require('./definition'),
-      Rule = require('./rule'),
-      cycles = require('../grammar/cycles'),
+const cycles = require('../grammar/cycles'),
       leftRecursion = require('../grammar/leftRecursion'),
+      extendedBNF = require('./extendedBNF'),
+      Rule = require('./rule'),
+      Definition = require('./definition'),
       CommonParser = require('../common/parser'),
       PartRule = require('./rule/part'),
+      RuleRule = require('./rule/rule'),
+      RulesRule = require('./rule/rules'),
+      RuleNameRule = require('./rule/ruleName'),
       EpsilonRule = require('./rule/epsilon'),
       WildcardRule = require('./rule/wildcard'),
       EndOfLineRule = require('./rule/endOfLine'),
       DefinitionRule = require('./rule/definition'),
-      RuleRule = require('./rule/rule'),
       DefinitionsRule = require('./rule/definitions'),
-      RulesRule = require('./rule/rules'),
       GroupOfPartsRule = require('./rule/groupOfParts'),
       ChoiceOfPartsRule = require('./rule/choiceOfParts'),
       OptionalPartRule = require('./rule/optionalPart'),
       ZeroOrMorePartsRule = require('./rule/zeroOrMoreParts'),
       OneOrMorePartsRule = require('./rule/oneOrMoreParts'),
-      RuleNameRule = require('./rule/ruleName'),
       TerminalSymbolRule = require('./rule/terminalSymbol'),
       NoWhitespacePartRule = require('./rule/noWhitespacePart'),
       RegularExpressionRule = require('./rule/regularExpression'),
@@ -28,8 +28,8 @@ const grammar = require('./grammar'),
 class ExtendedBNFParser extends CommonParser {
   static generateRules(node, mappings = {}) {
     let rules = (node !== null) ?
-                        node.generateRules(Rule, Definition, mappings) :
-                          [];
+                  node.generateRules(Rule, Definition, mappings) :
+                    [];
 
     rules = cycles.eliminate(rules);  ///
 
@@ -40,19 +40,19 @@ class ExtendedBNFParser extends CommonParser {
 
   static fromNothing() {
     const partRule = new PartRule(),
+          ruleRule = new RuleRule(),
+          rulesRule = new RulesRule(),
+          ruleNameRule = new RuleNameRule(),
           epsilonRule = new EpsilonRule(),
           wildcardRule = new WildcardRule(),
           endOfLineRule = new EndOfLineRule(),
           definitionRule = new DefinitionRule(),
-          ruleRule = new RuleRule(),
           definitionsRule = new DefinitionsRule(),
-          rulesRule = new RulesRule(),
           groupOfPartsRule = new GroupOfPartsRule(),
           choiceOfPartsRule = new ChoiceOfPartsRule(),
           optionalPartRule = new OptionalPartRule(),
           zeroOrMorePartsRule = new ZeroOrMorePartsRule(),
           oneOrMorePartsRule = new OneOrMorePartsRule(),
-          ruleNameRule = new RuleNameRule(),
           terminalSymbolRule = new TerminalSymbolRule(),
           noWhitespacePartRule = new NoWhitespacePartRule(),
           regularExpressionRule = new RegularExpressionRule(),
@@ -91,4 +91,4 @@ class ExtendedBNFParser extends CommonParser {
 
 module.exports = ExtendedBNFParser;
 
-ExtendedBNFParser.grammar = grammar;
+ExtendedBNFParser.extendedBNF = extendedBNF;

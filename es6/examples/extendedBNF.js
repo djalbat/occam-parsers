@@ -3,18 +3,17 @@
 const lexers = require('occam-lexers');
 
 const Example = require('../example'),
-      grammar = require('../extendedBNF/grammar'),
+      extendedBNF = require('../extendedBNF/extendedBNF'),
       ExtendedBNFParser = require('../extendedBNF/parser');
 
 const { ExtendedBNFLexer } = lexers;
 
 class ExtendedBNFExample {
   static run() {
-    const content = grammar,
-          lexicalGrammar = ExtendedBNFLexer.grammar,
-          extendedBNFGrammar = grammar; ///
+    const content = extendedBNF,
+          lexicalEntries = ExtendedBNFLexer.entries;  ///
   
-    Example.run(content, lexicalGrammar, extendedBNFGrammar, updateHandler);
+    Example.run(content, lexicalEntries, extendedBNF, updateHandler);
 
     updateHandler();
   }
@@ -25,7 +24,7 @@ function updateHandler() {
 
   Example.updateLexer(ExtendedBNFLexer);
 
-  Example.updateParser(function(grammar) {
+  Example.updateParser(function(extendedBNF) {
     const extendedBNFParser = ExtendedBNFParser.fromNothing(),
           parser = extendedBNFParser; ///
     

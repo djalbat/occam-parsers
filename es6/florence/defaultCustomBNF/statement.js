@@ -1,6 +1,6 @@
 'use strict';
 
-const statementDefaultCustomGrammar = `
+const defaultStatementBNF = `
 
      typeAssertion                        ::=   expression ":" typeName ;
 
@@ -20,4 +20,4 @@ const statementDefaultCustomGrammar = `
 
 `;
 
-module.exports = statementDefaultCustomGrammar;
+module.exports = defaultStatementBNF;

@@ -1,6 +1,6 @@
 'use strict';
 
-const grammar = `
+const extendedBNF = `
 
 
 
@@ -218,4 +218,4 @@ const grammar = `
      
 `;
 
-module.exports = grammar;
+module.exports = extendedBNF;
