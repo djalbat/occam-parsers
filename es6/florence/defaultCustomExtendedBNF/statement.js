@@ -1,6 +1,6 @@
 'use strict';
 
-const defaultStatementBNF = `
+const statementDefaultCustomExtendedBNF = `
 
      typeAssertion                        ::=   expression ":" typeName ;
 
@@ -20,4 +20,4 @@ const defaultStatementBNF = `
 
 `;
 
-module.exports = defaultStatementBNF;
+module.exports = statementDefaultCustomExtendedBNF;

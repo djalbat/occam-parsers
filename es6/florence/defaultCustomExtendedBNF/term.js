@@ -1,6 +1,6 @@
 'use strict';
 
-const defaultTermBNF = `
+const termDefaultCustomExtendedBNF = `
 
      term                                 ::=   compoundTerm 
      
@@ -10,4 +10,4 @@ const defaultTermBNF = `
 
 `;
 
-module.exports = defaultTermBNF;
+module.exports = termDefaultCustomExtendedBNF;

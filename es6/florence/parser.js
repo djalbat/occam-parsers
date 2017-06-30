@@ -6,24 +6,24 @@ const mappings = require('./mappings'),
       extendedBNF = require('./extendedBNF'),
       CommonParser = require('../common/parser'),
       ExtendedBNFParser = require('../extendedBNF/parser'),
-      defaultCustomBNFMap = require('./defaultCustomBNFMap'),
-      defaultAdditionalMappings = require('./defaultAdditionalMappings');
+      defaultAdditionalMappings = require('./defaultAdditionalMappings'),
+      defaultCustomExtendedBNFMap = require('./defaultCustomExtendedBNFMap');
 
 const { ExtendedBNFLexer } = lexers;
 
 const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
       extendedBNFParser = ExtendedBNFParser.fromNothing(),
-      defaultCustomBNF = bnfFromBNFMap(defaultCustomBNFMap);
+      defaultCustomExtendedBNF = bnfFromBNFMap(defaultCustomExtendedBNFMap);
 
 class FlorenceParser extends CommonParser {
-  static fromCustomBNFAndAdditionalMappings(customBNF, additionalMappings) {
-    const florenceParser = FlorenceParser.fromExtendedBNFAndMappings(extendedBNF, mappings, customBNF, additionalMappings);
+  static fromCustomExtendedBNFAndAdditionalMappings(customExtendedBNF, additionalMappings) {
+    const florenceParser = FlorenceParser.fromExtendedBNFAndMappings(extendedBNF, mappings, customExtendedBNF, additionalMappings);
   
     return florenceParser;
   }
   
-  static fromExtendedBNFAndMappings(extendedBNF, mappings, customBNF = defaultCustomBNF, additionalMappings = defaultAdditionalMappings) {
-    extendedBNF = `${extendedBNF}\n\n${customBNF}`; ///    
+  static fromExtendedBNFAndMappings(extendedBNF, mappings, customExtendedBNF = defaultCustomExtendedBNF, additionalMappings = defaultAdditionalMappings) {
+    extendedBNF = `${extendedBNF}\n\n${customExtendedBNF}`; ///
     mappings = Object.assign(mappings, additionalMappings); ///
 
     const lines = extendedBNFLexer.linesFromExtendedBNF(extendedBNF),
@@ -41,17 +41,17 @@ FlorenceParser.mappings = mappings;
 
 FlorenceParser.extendedBNF = extendedBNF;
 
-FlorenceParser.defaultCustomBNFMap = defaultCustomBNFMap;
+FlorenceParser.defaultCustomExtendedBNFMap = defaultCustomExtendedBNFMap;
 
-function bnfFromBNFMap(bnfMap) {
-  const ruleNames = Object.keys(bnfMap),
-        bnf = ruleNames.reduce(function(bnf, ruleName) {
-          const ruleBNF = bnfMap[ruleName];
+function bnfFromBNFMap(extendedBNFMap) {
+  const ruleNames = Object.keys(extendedBNFMap),
+        extendedBNF = ruleNames.reduce(function(extendedBNF, ruleName) {
+          const ruleExtendedBNF = extendedBNFMap[ruleName];
   
-          bnf = `${bnf}${ruleBNF}`;
+          extendedBNF = `${extendedBNF}${ruleExtendedBNF}`;
   
-          return bnf;
+          return extendedBNF;
         }, '');
 
-  return bnf;
+  return extendedBNF;
 }
