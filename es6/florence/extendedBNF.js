@@ -116,7 +116,7 @@ const extendedBNF = `
      
                                                 ( "Then" <END_OF_LINE> ( subrule | unjustifiedOrJustifiedMetastatement )+ )? 
                                                 
-                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedMetastatement verticalSpace? ;
+                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedMetastatement ;
 
 
 
@@ -128,7 +128,7 @@ const extendedBNF = `
      
                                                 ( "Then" <END_OF_LINE> ( sublemma | unjustifiedOrJustifiedStatement )+ )? 
                                                 
-                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement verticalSpace? ;
+                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement ;
 
 
 
