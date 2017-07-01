@@ -24,7 +24,6 @@ class FlorenceParser extends CommonParser {
   }
   
   static fromExtendedBNFAndMappings(extendedBNF, mappings, customGrammarRules = defaultCustomGrammarRules, additionalMappings = defaultAdditionalMappings) {
-    extendedBNF = `${extendedBNF}\n\n${customExtendedBNF}`; ///
     mappings = Object.assign(mappings, additionalMappings); ///
 
     const lines = extendedBNFLexer.linesFromExtendedBNF(extendedBNF),
