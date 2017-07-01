@@ -27,13 +27,9 @@ const cycles = require('../grammar/cycles'),
 
 class ExtendedBNFParser extends CommonParser {
   static generateRules(node, mappings = {}) {
-    let rules = (node !== null) ?
-                  node.generateRules(Rule, Definition, mappings) :
-                    [];
-
-    rules = cycles.eliminate(rules);  ///
-
-    rules = leftRecursion.eliminate(rules);  ///
+    const rules = (node !== null) ?
+                     node.generateRules(Rule, Definition, mappings) :
+                       [];
 
     return rules;
   }

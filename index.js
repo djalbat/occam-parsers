@@ -1,6 +1,8 @@
 'use strict';
 
 var parsers = {
+  'cycles': require('./lib/grammar/cycles'),
+  'leftRecursion': require('./lib/grammar/leftRecursion'),
   'BasicParser': require('./lib/basic/parser'),
   'FlorenceParser': require('./lib/florence/parser'),
   'ExtendedBNFParser': require('./lib/extendedBNF/parser'),
