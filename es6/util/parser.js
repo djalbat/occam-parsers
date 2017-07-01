@@ -13,7 +13,7 @@ class parserUtil {
     return tokens;
   }
 
-  static findRule(ruleName, rules) {
+    static findRule(ruleName, rules) {
     let foundRule = null;
 
     rules.some(function(rule) {

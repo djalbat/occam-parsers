@@ -2,7 +2,8 @@
 
 const lexers = require('occam-lexers');
 
-const extendedBNF = require('./extendedBNF'),
+const parserUtil = require('../util/parser'),
+      extendedBNF = require('./extendedBNF'),
       CommonParser = require('../common/parser'),
       ExtendedBNFParser = require('../extendedBNF/parser');
 
@@ -33,6 +34,8 @@ class BasicParser extends CommonParser {
 
     return basicParser;
   }
+
+  static findRule(ruleName, rules) { return parserUtil.findRule(ruleName, rules); }
 }
 
 module.exports = BasicParser;
