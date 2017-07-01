@@ -24,6 +24,8 @@ class arrayUtil {
   static discardFirstAndLast(array) { return discardNth(discardNth(array, 0), -1); }
 
   static discardOdd(array) { return array.filter(function(entry, index) { return isEven(index); }); }
+
+  static push(array1, array2) { Array.prototype.push.apply(array1, array2); }
 }
 
 module.exports = arrayUtil;
