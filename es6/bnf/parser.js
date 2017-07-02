@@ -1,30 +1,22 @@
 'use strict';
 
-const 
-    
-      bnf = require('./bnf'),
+const bnf = require('./bnf'),
       Rule = require('./rule'),
       Definition = require('./definition'),
       CommonParser = require('../common/parser'),
       PartRule = require('./rule/part'),
       RuleRule = require('./rule/rule'),
       RulesRule = require('./rule/rules'),
-      RuleNameRule = require('./rule/ruleName'),
       EpsilonRule = require('./rule/epsilon'),
       WildcardRule = require('./rule/wildcard'),
+      RuleNameRule = require('./rule/ruleName'),
       EndOfLineRule = require('./rule/endOfLine'),
       DefinitionRule = require('./rule/definition'),
       DefinitionsRule = require('./rule/definitions'),
-
-
-
-
-
       TerminalSymbolRule = require('./rule/terminalSymbol'),
-
       RegularExpressionRule = require('./rule/regularExpression'),
-      SignificantTokenTypeRule = require('./rule/significantTokenType'),
-      RightRecursivePartRule = require('./rule/rightRecursivePart');
+      RightRecursivePartRule = require('./rule/rightRecursivePart'),
+      SignificantTokenTypeRule = require('./rule/significantTokenType');
 
 class BNFParser extends CommonParser {
   static generateRules(node, mappings = {}) {
@@ -39,34 +31,22 @@ class BNFParser extends CommonParser {
     const partRule = new PartRule(),
           ruleRule = new RuleRule(),
           rulesRule = new RulesRule(),
-          ruleNameRule = new RuleNameRule(),
           epsilonRule = new EpsilonRule(),
           wildcardRule = new WildcardRule(),
+          ruleNameRule = new RuleNameRule(),
           endOfLineRule = new EndOfLineRule(),
           definitionRule = new DefinitionRule(),
           definitionsRule = new DefinitionsRule(),
-
-
-
-
-
           terminalSymbolRule = new TerminalSymbolRule(),
-
           regularExpressionRule = new RegularExpressionRule(),
-          significantTokenTypeRule = new SignificantTokenTypeRule(),
-          rightRecursivePartRule = new RightRecursivePartRule();
+          rightRecursivePartRule = new RightRecursivePartRule(),
+          significantTokenTypeRule = new SignificantTokenTypeRule();
 
     let rules = [
       rulesRule,
       ruleRule,
       definitionsRule,
       definitionRule,
-
-
-
-
-
-
       partRule,
       ruleNameRule,
       regularExpressionRule,
@@ -78,10 +58,6 @@ class BNFParser extends CommonParser {
       rightRecursivePartRule
     ];
 
-
-    
-
-    
     const bnfParser = new BNFParser(rules);
     
     return bnfParser;

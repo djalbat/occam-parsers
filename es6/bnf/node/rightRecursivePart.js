@@ -2,8 +2,8 @@
 
 const NonTerminalNode = require('../../common/node/nonTerminal');
 
-class ChoiceOfPartsNode extends NonTerminalNode {
-  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(nodes, ruleName, ChoiceOfPartsNode); }
+class RightRecursivePartNode extends NonTerminalNode {
+  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(nodes, ruleName, RightRecursivePartNode); }
 }
 
-module.exports = ChoiceOfPartsNode;
+module.exports = RightRecursivePartNode;
