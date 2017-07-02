@@ -20,8 +20,8 @@ class TerminalSymbolPart {
     let terminalNode = null;
     
     const savedIndex = context.savedIndex(),
-        nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
-        significantToken = nextNonWhitespaceSignificantToken; ///
+          nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+          significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
       const content = significantToken.getContent(),

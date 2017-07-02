@@ -2,68 +2,78 @@
 
 const bnf = `
 
-  rules                    ::=  rule+ ;
-   
-  rule                     ::=  ruleName "::=" definitions ";" ;
-  
-  definitions              ::=  definition ( "|" definition )* ;
-  
-  definition               ::=  part+ ;
-  
-  noWhitespacePart         ::=  "<NO_WHITESPACE>" part ;
+    rules                ::= rule+ ;
+    
+    rule                 ::= ruleName "::=" definitions ";" ;
+    
+    definitions          ::= definition ( "|" definition )* ;
+    
+    definition           ::= part+ ;
+    
 
-  optionalPart             ::=  part<NO_WHITESPACE>"?" ;
-                          
-  zeroOrMoreParts          ::=  part<NO_WHITESPACE>"*" ;
-                          
-  oneOrMoreParts           ::=  part<NO_WHITESPACE>"+" ;
-  
-  groupOfParts             ::=  "(" part+ ")" ;
-  
-  choiceOfParts            ::=  "(" part ( "|" part )+ ")" ;
+    
 
-  part                     ::=  noWhitespacePart
-                
-                             |  optionalPart  
-                
-                             |  zeroOrMoreParts  
-                
-                             |  oneOrMoreParts  
-                
-                             |  groupOfParts  
+    
+
+    
+
+    
+
+    
+
+    
+    part                 ::= "<NO_WHITESPACE>" part part~
+    
+
+    
+
+    
+
+
+                           | "(" part+ ")" part~
+
+                           | "(" part ( "|" part )+ ")" part~
+
+                           | ruleName part~
+    
+                           | regularExpression part~
+    
+                           | significantTokenType part~
+    
+                           | terminalSymbol part~
+    
+                           | endOfLine part~
+    
+                           | epsilon part~
+    
+                           | wildcard part~ 
                            
-                             |  choiceOfParts  
+                           ;
+    
+    ruleName             ::= [name] ;
+    
+    regularExpression    ::= [regularExpression] ;
+    
+    significantTokenType ::= [type] ;
+    
+    terminalSymbol       ::= [string] ;
+    
+    endOfLine            ::= "<END_OF_LINE>" ;
+    
+    epsilon              ::= "ε" ;
+    
+    wildcard             ::= "." ;
+    
+    part~                ::= <NO_WHITESPACE>"?" part~
+    
+                           | <NO_WHITESPACE>"*" part~
+    
+                           | <NO_WHITESPACE>"+" part~
+    
+                           | ε 
                            
-                             |  ruleName  
-                
-                             |  regularExpression 
-                
-                             |  significantTokenType 
-
-                             |  terminalSymbol
-                          
-                             |  endOfLine
-                
-                             |  epsilon
-
-                             |  wildcard
-                              
-                             ;
-
-  ruleName                 ::=  [name] ;
-
-  regularExpression        ::=  [regularExpression] ;
-  
-  significantTokenType     ::=  [type] ;
-
-  terminalSymbol           ::=  [string] ;
-  
-  endOfLine                ::=  "<END_OF_LINE>" ;
-  
-  epsilon                  ::=  "ε" ;
-
-  wildcard                 ::=  "." ;
-
+                           ;
+                                                 
 `;
 
 module.exports = bnf;

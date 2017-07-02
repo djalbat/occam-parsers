@@ -2,16 +2,20 @@
 
 const Rule = require('../rule'),
       PartNode = require('../node/part'),
-      RuleNameDefinition = require('../definition/ruleName');
+
+      PartRuleDefinition = require('../definition/partRule'),
+      NoWhitespaceDefinition = require('../definition/noWhitespace'),
+      GroupOfPartsDefinition = require('../definition/groupOfParts'),
+      ChoiceOfPartsDefinition = require('../definition/choiceOfParts');
 
 class PartRule extends Rule {
   constructor() {
-    const noWhitespacePartRuleName = 'noWhitespacePart',
-          optionalPartRuleName = 'optionalPart',
-          zeroOrMorePartsRuleName = 'zeroOrMoreParts',
-          oneOrMorePartsRuleName = 'oneOrMoreParts',
-          groupOfPartsRuleName = 'groupOfParts',
-          choiceOfPartsRuleName = 'choiceOfParts',
+    const 
+        
+
+
+
+
           ruleNameRuleName = 'ruleName',
           regularExpressionRuleName = 'regularExpression',
           significantTokenTypeRuleName = 'significantTokenType',
@@ -19,34 +23,34 @@ class PartRule extends Rule {
           endOfLineRuleName = 'endOfLine',
           epsilonRuleName = 'epsilon',
           wildcardRuleName = 'wildcard',
-          noWhitespacePartRuleNameDefinition = new RuleNameDefinition(noWhitespacePartRuleName),
-          optionalPartRuleNameDefinition = new RuleNameDefinition(optionalPartRuleName),
-          zeroOrMorePartsRuleNameDefinition = new RuleNameDefinition(zeroOrMorePartsRuleName),
-          oneOrMorePartsRuleNameDefinition = new RuleNameDefinition(oneOrMorePartsRuleName),
-          groupOfPartsRuleNameDefinition = new RuleNameDefinition(groupOfPartsRuleName),
-          choiceOfPartsRuleNameDefinition = new RuleNameDefinition(choiceOfPartsRuleName),
-          ruleNameRuleNameDefinition = new RuleNameDefinition(ruleNameRuleName),
-          regularExpressionRuleNameDefinition = new RuleNameDefinition(regularExpressionRuleName),
-          significantTokenTypeRuleNameDefinition = new RuleNameDefinition(significantTokenTypeRuleName),
-          terminalSymbolRuleNameDefinition = new RuleNameDefinition(terminalSymbolRuleName),
-          endOfLineRuleNameDefinition = new RuleNameDefinition(endOfLineRuleName),
-          epsilonRuleNameDefinition = new RuleNameDefinition(epsilonRuleName),
-          wildcardRuleNameDefinition = new RuleNameDefinition(wildcardRuleName),
+          noWhitespaceDefinition = new NoWhitespaceDefinition(),
+
+
+
+          groupOfPartsDefinition = new GroupOfPartsDefinition(),
+          choiceOfPartsDefinition = new ChoiceOfPartsDefinition(),
+          ruleNameRuleNamePartRuleDefinition = new PartRuleDefinition(ruleNameRuleName),
+          regularExpressionRuleNamePartRuleDefinition = new PartRuleDefinition(regularExpressionRuleName),
+          significantTokenTypeRuleNamePartRuleDefinition = new PartRuleDefinition(significantTokenTypeRuleName),
+          terminalSymbolRuleNamePartRuleDefinition = new PartRuleDefinition(terminalSymbolRuleName),
+          endOfLineRuleNamePartRuleDefinition = new PartRuleDefinition(endOfLineRuleName),
+          epsilonRuleNamePartRuleDefinition = new PartRuleDefinition(epsilonRuleName),
+          wildcardRuleNamePartRuleDefinition = new PartRuleDefinition(wildcardRuleName),
           name = 'part',
           definitions = [
-            noWhitespacePartRuleNameDefinition,
-            optionalPartRuleNameDefinition,
-            zeroOrMorePartsRuleNameDefinition,
-            oneOrMorePartsRuleNameDefinition,
-            groupOfPartsRuleNameDefinition,
-            choiceOfPartsRuleNameDefinition,
-            ruleNameRuleNameDefinition,
-            regularExpressionRuleNameDefinition,
-            significantTokenTypeRuleNameDefinition,
-            terminalSymbolRuleNameDefinition,
-            endOfLineRuleNameDefinition,
-            epsilonRuleNameDefinition,
-            wildcardRuleNameDefinition
+            noWhitespaceDefinition,
+
+
+
+            groupOfPartsDefinition,
+            choiceOfPartsDefinition,
+            ruleNameRuleNamePartRuleDefinition,
+            regularExpressionRuleNamePartRuleDefinition,
+            significantTokenTypeRuleNamePartRuleDefinition,
+            terminalSymbolRuleNamePartRuleDefinition,
+            endOfLineRuleNamePartRuleDefinition,
+            epsilonRuleNamePartRuleDefinition,
+            wildcardRuleNamePartRuleDefinition
           ],
           Node = PartNode;
     
