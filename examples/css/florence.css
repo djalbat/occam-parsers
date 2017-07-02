@@ -7,7 +7,7 @@ textarea#lexicalGrammar {
   margin-bottom: 1rem;
 }
 
-textarea#extendedBNFGrammar {
+textarea#bnf {
   height: 18rem;
   margin-bottom: 1rem;
 }

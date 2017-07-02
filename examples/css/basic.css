@@ -8,7 +8,7 @@ textarea#lexicalEntries {
   margin-bottom: 1rem;
 }
 
-textarea#extendedBNF {
+textarea#bnf {
   height: 24rem;
   margin-bottom: 1rem;
 }
