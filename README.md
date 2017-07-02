@@ -152,7 +152,7 @@ The vertical bar symbol `|` is overloaded and can be used in conjunction with br
 
 There are three examples, one for each parser. To view them, open the `index.html` file in the `examples` directory. Each example shows a representation of the parse tree, which is useful for debugging.
 
-### Extended BNF example
+### BNF example
 
 Both the lexical patterns and BNF textareas are read-only. The content textarea initially shows the BNF parser's own BNF and so the example demonstrates, initially at least, that the BNF parser can parse its own BNF.
 
