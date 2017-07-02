@@ -1,7 +1,7 @@
 'use strict';
 
-const arrayUtil = require('../../util/array'),
-      Rule = require('../../extendedBNF/rule'),
+const Rule = require('../../bnf/rule'),
+      arrayUtil = require('../../util/array'),
       UnitDefinition = require('../definition/unit');
 
 class UnitRule extends Rule {

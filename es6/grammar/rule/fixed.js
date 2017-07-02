@@ -1,6 +1,6 @@
 'use strict';
 
-const Rule = require('../../extendedBNF/rule'),
+const Rule = require('../../bnf/rule'),
       UnitDefinition = require('../definition/unit'),
       NonUnitDefinition = require('../definition/nonUnit');
 

@@ -2,24 +2,24 @@
 
 const lexers = require('occam-lexers');
 
-const parserUtil = require('../util/parser'),
-      extendedBNF = require('./extendedBNF'),
-      CommonParser = require('../common/parser'),
-      ExtendedBNFParser = require('../extendedBNF/parser');
+const bnf = require('./bnf'),
+      parserUtil = require('../util/parser'),
+      BNFParser = require('../bnf/parser'),
+      CommonParser = require('../common/parser');
 
-const { ExtendedBNFLexer } = lexers;
+const { BNFLexer } = lexers;
 
-const extendedBNFLexer = ExtendedBNFLexer.fromNothing(),
-      extendedBNFParser = ExtendedBNFParser.fromNothing();
+const bnfLexer = BNFLexer.fromNothing(),
+      bnfParser = BNFParser.fromNothing();
 
 class BasicParser extends CommonParser {
-  static fromExtendedBNF(extendedBNF) {
+  static fromBNF(bnf) {
     let basicParser = null;
 
     try {
-      const lines = extendedBNFLexer.linesFromExtendedBNF(extendedBNF),
-            node = extendedBNFParser.nodeFromLines(lines),
-            rules = ExtendedBNFParser.generateRules(node);
+      const lines = bnfLexer.linesFromBNF(bnf),
+            node = bnfParser.nodeFromLines(lines),
+            rules = BNFParser.generateRules(node);
 
       basicParser = new BasicParser(rules);
     } catch (error) {
@@ -30,7 +30,7 @@ class BasicParser extends CommonParser {
   }
 
   static fromNothing() {
-    const basicParser = BasicParser.fromExtendedBNF(extendedBNF);
+    const basicParser = BasicParser.fromBNF(bnf);
 
     return basicParser;
   }
@@ -40,4 +40,4 @@ class BasicParser extends CommonParser {
 
 module.exports = BasicParser;
 
-BasicParser.extendedBNF = extendedBNF;
+BasicParser.bnf = bnf;

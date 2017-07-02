@@ -2,11 +2,11 @@
 
 const tarjan = require('occam-tarjan');
 
-const parserUtil = require('../util/parser'),
-      Rule = require('../extendedBNF/rule'),
+const Rule = require('../bnf/rule'),
       UnitRule = require('./rule/unit'),
       UnitsRule = require('./rule/units'),
       FixedRule = require('./rule/fixed'),
+      parserUtil = require('../util/parser'),
       NonCyclicRule = require('./rule/nonCyclic');
 
 const { Graph } = tarjan;

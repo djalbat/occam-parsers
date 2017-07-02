@@ -1,6 +1,6 @@
 'use strict';
 
-const Rule = require('../../extendedBNF/rule'),
+const Rule = require('../../bnf/rule'),
       ImplicitlyLeftRecursiveDefinition = require('../definition/implicitlyLeftRecursive');
 
 class ImplicitlyLeftRecursiveRule extends Rule {

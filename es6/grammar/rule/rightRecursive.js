@@ -1,9 +1,9 @@
 'use strict';
 
-const Rule = require('../../extendedBNF/rule'),
-      Definition = require('../../extendedBNF/definition'),
-      EpsilonPart = require('../../extendedBNF/part/epsilon'),
-      RuleNamePart = require('../../extendedBNF/part/ruleName'),
+const Rule = require('../../bnf/rule'),
+      Definition = require('../../bnf/definition'),
+      EpsilonPart = require('../../bnf/part/epsilon'),
+      RuleNamePart = require('../../bnf/part/ruleName'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class RightRecursiveRule extends Rule {

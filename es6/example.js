@@ -9,13 +9,13 @@ const { Textarea } = easy,
 const contentTextareaSelector = 'textarea#content',
       parseTreeTextareaSelector = 'textarea#parseTree',
       lexicalEntriesTextareaSelector = 'textarea#lexicalEntries',
-      extendedBNFTextareaSelector = 'textarea#extendedBNF',
+      bnfTextareaSelector = 'textarea#bnf',
       sizeableElementSelector = '#sizeableElement',
       verticalSplitterSelector = '#verticalSplitter',
       contentTextarea = new Textarea(contentTextareaSelector),
       parseTreeTextarea = new Textarea(parseTreeTextareaSelector),
       lexicalEntriesTextarea =new Textarea(lexicalEntriesTextareaSelector),
-      extendedBNFTextarea = new Textarea(extendedBNFTextareaSelector),
+      bnfTextarea = new Textarea(bnfTextareaSelector),
       sizeableElement = new SizeableElement(sizeableElementSelector),
       beforeSizeableElement = false,
       afterSizeableElement = true;
@@ -26,22 +26,22 @@ let lexer = null,
 new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
 
 class Example {
-  static run(content, lexicalEntries, extendedBNF, updateHandler) {
+  static run(content, lexicalEntries, bnf, updateHandler) {
     const contentTextareaValue = content, ///
-          extendedBNFTextareaValue = extendedBNF,  ///
+          bnfTextareaValue = bnf,  ///
           lexicalEntriesTextareaValue = JSON.stringify(lexicalEntries, null, '  ');
 
     contentTextarea.setValue(contentTextareaValue);
 
     lexicalEntriesTextarea.setValue(lexicalEntriesTextareaValue);
 
-    extendedBNFTextarea.setValue(extendedBNFTextareaValue);
+    bnfTextarea.setValue(bnfTextareaValue);
 
     contentTextarea.onKeyUp(updateHandler);
 
     lexicalEntriesTextarea.onKeyUp(updateHandler);
 
-    extendedBNFTextarea.onKeyUp(updateHandler);
+    bnfTextarea.onKeyUp(updateHandler);
   }
 
   static updateLexer(Lexer) {
@@ -67,7 +67,7 @@ class Example {
   }
 
   static updateParser(callback) {
-    const bnfTextareaValue = extendedBNFTextarea.getValue(),
+    const bnfTextareaValue = bnfTextarea.getValue(),
           bnf = bnfTextareaValue; ///
 
     parser = callback(bnf);

@@ -1,6 +1,6 @@
 'use strict';
 
-const Definition = require('../../extendedBNF/definition');
+const Definition = require('../../bnf/definition');
 
 class LeftRecursiveDefinition extends Definition {
   static fromDefinitionAndRuleName(definition, ruleName) {

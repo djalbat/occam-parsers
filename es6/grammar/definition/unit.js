@@ -1,7 +1,7 @@
 'use strict';
 
-const Definition = require('../../extendedBNF/definition'),
-      RuleNamePart = require('../../extendedBNF/part/ruleName');
+const Definition = require('../../bnf/definition'),
+      RuleNamePart = require('../../bnf/part/ruleName');
 
 class UnitDefinition extends Definition {
   getRuleName() {

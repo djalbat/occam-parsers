@@ -5,8 +5,8 @@ const lexers = require('occam-lexers');
 const TerminalNode = require('../terminal'),
       EpsilonTerminalNodeParseTree = require('../../parseTree/terminalNode/epsilon');
 
-const { ExtendedBNFLexer } = lexers,
-      { specialSymbols } = ExtendedBNFLexer,
+const { BNFLexer } = lexers,
+      { specialSymbols } = BNFLexer,
       { epsilon } = specialSymbols;
 
 class EpsilonTerminalNode extends TerminalNode {
