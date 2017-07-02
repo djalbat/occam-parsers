@@ -222,7 +222,6 @@ Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have
 * [Gate Lectures on Compiler Design by Ravindrababu Ravula](https://www.youtube.com/watch?v=Qkwj65l_96I&list=PLEbnTDJUr_IcPtUXFy2b1sGRPsLFMghhS)
 * [Notes on Formal Language Theory and Parsing by James Power](http://www.cs.nuim.ie/~jpower/Courses/Previous/parsing)
 * [Eliminating ambiguity in context free grammars by Rasmus Ejlers Møgelberg](http://itu.dk/people/mogel/SPLC2012/lectures/eliminatingAmbiguity.pdf)
-* [Compiler Theory: Syntax Analysis - Elimination of left recursion by Marc Moreno Maza](http://www.csd.uwo.ca/~moreno/CS447/Lectures/Syntax.html/node8.html)
 
 ## Contact
 
