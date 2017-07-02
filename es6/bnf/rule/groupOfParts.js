@@ -2,7 +2,7 @@
 
 const Rule = require('../rule'),
       GroupOfPartsNode = require('../node/groupOfParts'),
-      GroupOfPartsDefinition = require('../definition/groupOfParts');
+      GroupOfPartsDefinition = require('../definition/groupOfParts.old');
 
 class GroupOfPartsRule extends Rule {
   constructor() {

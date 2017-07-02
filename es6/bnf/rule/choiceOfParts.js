@@ -2,7 +2,7 @@
 
 const Rule = require('../rule'),
       ChoiceOfPartsNode = require('../node/choiceOfParts'),
-      ChoiceOfPartsDefinition = require('../definition/choiceOfParts');
+      ChoiceOfPartsDefinition = require('../definition/choiceOfParts.old');
 
 class ChoiceOfPartsRule extends Rule {
   constructor() {
