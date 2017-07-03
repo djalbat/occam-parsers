@@ -108,7 +108,7 @@ const bnf = `
      
      metaProof                            ::=   "Proof" <END_OF_LINE> 
      
-                                                metastatementDefinition+
+                                                metastatementDefinition*
      
                                                 metaProofDerivation? 
                                                 
@@ -128,7 +128,7 @@ const bnf = `
 
      proof                                ::=   "Proof" <END_OF_LINE> 
      
-                                                statementDefinition
+                                                statementDefinition*
      
                                                 proofDerivation? 
                                                 
