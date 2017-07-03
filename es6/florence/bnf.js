@@ -100,9 +100,13 @@ const bnf = `
 
      
      
-     metaProof                            ::=   "Proof" <END_OF_LINE> ( subrule | unjustifiedOrJustifiedMetastatement )+ 
+     metaProof                            ::=   "Proof" <END_OF_LINE> 
+     
+                                                metaProofDerivation? 
                                                 
-                                                "Therefore" <END_OF_LINE> unjustifiedOrJustifiedMetastatement ;
+                                                unjustifiedOrJustifiedMetastatement ;
+                                                
+     metaProofDerivation                  ::=   ( subrule | unjustifiedOrJustifiedMetastatement )+  "Therefore" <END_OF_LINE>                                           
      
      subrule                              ::=   "Suppose" <END_OF_LINE> unjustifiedMetastatement+ 
      
@@ -112,9 +116,13 @@ const bnf = `
 
 
 
-     proof                                ::=   "Proof" <END_OF_LINE> ( sublemma | unjustifiedOrJustifiedStatement )+ 
+     proof                                ::=   "Proof" <END_OF_LINE> 
      
-                                                "Therefore" <END_OF_LINE> unjustifiedOrJustifiedStatement ;
+                                                proofDerivation? 
+                                                
+                                                unjustifiedOrJustifiedStatement ;
+                                                
+     proofDerivation                      ::=   ( sublemma | unjustifiedOrJustifiedStatement )+ "Therefore" <END_OF_LINE>
 
      sublemma                             ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+ 
      
