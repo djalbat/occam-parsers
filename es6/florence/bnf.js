@@ -10,56 +10,18 @@ const bnf = `
 
      header                               ::=   includeDirective+ ;
 
-     body                                 ::=   ( verticalSpace | assertion | error )+ ;
-
-
-
      includeDirective                     ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE> ;
 
 
 
-     assertion                            ::=   rule
-                                                                
-                                            |   axiom
-                                                                
-                                            |   lemma
-                                                                
-                                            |   theorem
-                                                                
-                                            |   "Type" typeDefinition
+     verticalSpace                        ::=   <END_OF_LINE>+ ;
 
-                                            |   "Types" typesDefinition
+       
+            
+     body                                 ::=   ( verticalSpace | rule | axiom | lemma | theorem | declaration | error )+ ;
 
-                                            |   "Context" contextDefinition
 
-                                            |   "Contexts" contextsDefinition
 
-                                            |   "Variable" variableDefinition
-
-                                            |   "Variables" variablesDefinition
-
-                                            |   "Constructor" constructorDefinition
-
-                                            |   "Constructors" constructorsDefinition
-
-                                            |   "Abbreviation" abbreviationDefinition
-
-                                            |   "Abbreviations" abbreviationsDefinition
-
-                                            |   "DependentType" dependentTypeDefinition
-
-                                            |   "DependentTypes" dependentTypesDefinition
-
-                                            |   "Metavariable" metavariableDefinition
-
-                                            |   "Metavariables" metavariablesDefinition
-
-                                            |   "Metavariables" metavariablesDefinition
-
-                                            ;
-                                                                     
-                                                                                                                                          
-                                                                     
      rule                                 ::=   "Rule" parenthesisedLabels? <END_OF_LINE> ( premise | premises )? conclusion metaProof? ;
 
      axiom                                ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) ; 
@@ -68,37 +30,71 @@ const bnf = `
 
      theorem                              ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) proof? ;
 
+     declaration                          ::=   "Type" typeDeclaration
+
+                                            |   "Types" typesDeclaration
+
+                                            |   "Context" contextDeclaration
+
+                                            |   "Contexts" contextsDeclaration
+
+                                            |   "Variable" variableDeclaration
+
+                                            |   "Variables" variablesDeclaration
+
+                                            |   "Constructor" constructorDeclaration
+
+                                            |   "Constructors" constructorsDeclaration
+
+                                            |   "Abbreviation" abbreviationDeclaration
+
+                                            |   "Abbreviations" abbreviationsDeclaration
+
+                                            |   "DependentType" dependentTypeDeclaration
+
+                                            |   "DependentTypes" dependentTypesDeclaration
+
+                                            |   "Metavariable" metavariableDeclaration
+
+                                            |   "Metavariables" metavariablesDeclaration
+                                            
+                                            ;
+                                            
 
 
-     typesDefinition                      ::=   typeDefinition ( "," typeDefinition)+ ;
+     error                                ::=   . ;
 
-     contextsDefinition                   ::=   contextDefinition ( "," contextDefinition)+ ;
+     
 
-     variablesDefinition                  ::=   variableDefinition ( "," variableDefinition)+ ;
+     typesDeclaration                     ::=   typeDeclaration ( "," typeDeclaration)+ ;
+
+     contextsDeclaration                  ::=   contextDeclaration ( "," contextDeclaration)+ ;
+
+     variablesDeclaration                 ::=   variableDeclaration ( "," variableDeclaration)+ ;
    
-     constructorsDefinition               ::=   constructorDefinition ( "," constructorDefinition)+ ;
+     constructorsDeclaration              ::=   constructorDeclaration ( "," constructorDeclaration)+ ;
    
-     abbreviationsDefinition              ::=   abbreviationDefinition ( "," abbreviationDefinition)+ ;
+     abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbreviationDeclaration)+ ;
    
-     dependentTypesDefinition             ::=   dependentTypeDefinition ( "," dependentTypeDefinition)* ;
+     dependentTypesDeclaration            ::=   dependentTypeDeclaration ( "," dependentTypeDeclaration)* ;
    
-     metavariablesDefinition              ::=   metavariableDefinition ( "," metavariableDefinition)* ;
+     metavariablesDeclaration             ::=   metavariableDeclaration ( "," metavariableDeclaration)* ;
    
 
 
-     typeDefinition                       ::=   typeName ;
+     typeDeclaration                      ::=   typeName ;
    
-     contextDefinition                    ::=   contextName(<NO_WHITESPACE>":"typeName)? ;
+     contextDeclaration                   ::=   contextName(<NO_WHITESPACE>":"typeName)? ;
    
-     variableDefinition                   ::=   variableName ;
+     variableDeclaration                  ::=   variableName ;
    
-     constructorDefinition                ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames?<NO_WHITESPACE>":"<NO_WHITESPACE>typeName ;
+     constructorDeclaration               ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames?<NO_WHITESPACE>":"<NO_WHITESPACE>typeName ;
    
-     abbreviationDefinition               ::=   typeName "for" typeName | constructorName "for" constructorName ;
+     abbreviationDeclaration              ::=   typeName "for" typeName | constructorName "for" constructorName ;
 
-     dependentTypeDefinition              ::=   typeName<NO_WHITESPACE>parenthesisedTypeName ;
+     dependentTypeDeclaration             ::=   typeName<NO_WHITESPACE>parenthesisedTypeName ;
    
-     metavariableDefinition               ::=   metavariableName<NO_WHITESPACE>parenthesisedTypeName? ;
+     metavariableDeclaration              ::=   metavariableName<NO_WHITESPACE>parenthesisedTypeName? ;
 
    
         
@@ -112,9 +108,13 @@ const bnf = `
      
      metaProof                            ::=   "Proof" <END_OF_LINE> 
      
+                                                metastatementDefinition+
+     
                                                 metaProofDerivation? 
                                                 
                                                 unjustifiedOrJustifiedMetastatement ;
+                                                
+     metastatementDefinition              ::=   "let" metastatement <END_OF_LINE> ;                                           
                                                 
      metaProofDerivation                  ::=   ( subrule | unjustifiedOrJustifiedMetastatement )+  "Therefore" <END_OF_LINE> ;                                           
      
@@ -128,10 +128,14 @@ const bnf = `
 
      proof                                ::=   "Proof" <END_OF_LINE> 
      
+                                                statementDefinition
+     
                                                 proofDerivation? 
                                                 
                                                 unjustifiedOrJustifiedStatement ;
                                                 
+     statementDefinition                  ::=   "let" statement <END_OF_LINE> ;                                           
+
      proofDerivation                      ::=   ( sublemma | unjustifiedOrJustifiedStatement )+ "Therefore" <END_OF_LINE> ;
 
      sublemma                             ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+ 
@@ -222,14 +226,6 @@ const bnf = `
        
 
        
-     verticalSpace                        ::=   <END_OF_LINE>+ ;
-
-       
-       
-     error                                ::=   . ;
-
-     
-     
 `;
 
 module.exports = bnf;

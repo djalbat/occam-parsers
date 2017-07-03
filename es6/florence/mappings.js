@@ -10,8 +10,6 @@ const mappings = {
   'unjustifiedOrJustifiedMetastatement' : TransparentNode,
   'unjustifiedOrJustifiedStatement' : TransparentNode,
 
-  'part': TransparentNode,
-  
   'name': TransparentNode,
 
   'proof': DiscardSecondChildNode,
@@ -23,22 +21,24 @@ const mappings = {
 
   'includeDirective': DiscardOddChildNodes,
 
-  'typesDefinition': DiscardOddChildNodes,
-  'variablesDefinition': DiscardOddChildNodes,
-  'constructorsDefinition': DiscardOddChildNodes,
-  'abbreviationsDefinition': DiscardOddChildNodes,
-  'dependentTypesDefinition': DiscardOddChildNodes,
-  'metavariablesDefinition': DiscardOddChildNodes,
-  'qualifiedMetavariablesDefinition': DiscardOddChildNodes,
+  'typesDeclaration': DiscardOddChildNodes,
+  'contextsDeclaration': DiscardOddChildNodes,
+  'variablesDeclaration': DiscardOddChildNodes,
+  'constructorsDeclaration': DiscardOddChildNodes,
+  'abbreviationsDeclaration': DiscardOddChildNodes,
+  'dependentTypesDeclaration': DiscardOddChildNodes,
+  'metavariablesDeclaration': DiscardOddChildNodes,
 
   'typeNames': DiscardOddChildNodes,
   'labels': DiscardOddChildNodes,
   'terms': DiscardOddChildNodes,
   
   'parenthesisedTypeNames' : TransparentThenKeepSecondNode,
+  'parenthesisedTypeName' : TransparentThenKeepSecondNode,
   'parenthesisedLabels' : TransparentThenKeepSecondNode,
-  'parenthesisedTerms' : TransparentThenKeepSecondNode
-  
+  'parenthesisedTerms' : TransparentThenKeepSecondNode,
+  'parenthesisedTerm' : TransparentThenKeepSecondNode
+
 };
 
 module.exports = mappings;
