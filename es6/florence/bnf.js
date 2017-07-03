@@ -50,10 +50,6 @@ const bnf = `
 
                                             |   "Metavariables" metavariablesDefinition
 
-                                            |   "QualifiedMetavariable" qualifiedMetavariableDefinition
-
-                                            |   "QualifiedMetavariables" qualifiedMetavariablesDefinition
-                                                                
                                             ;
                                                                      
                                                                                                                                           
@@ -80,8 +76,6 @@ const bnf = `
    
      metavariablesDefinition              ::=   metavariableDefinition ( "," metavariableDefinition)* ;
    
-     qualifiedMetavariablesDefinition     ::=   qualifiedMetavariableDefinition ( "," qualifiedMetavariableDefinition)* ;
-   
 
 
      typeDefinition                       ::=   typeName ;
@@ -92,12 +86,10 @@ const bnf = `
    
      abbreviationDefinition               ::=   typeName "for" typeName | constructorName "for" constructorName ;
 
-     dependentTypeDefinition              ::=   typeName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
+     dependentTypeDefinition              ::=   typeName<NO_WHITESPACE>parenthesisedTypeName ;
    
-     metavariableDefinition               ::=   metavariableName ;
+     metavariableDefinition               ::=   metavariableName<NO_WHITESPACE>parenthesisedTypeName? ;
 
-     qualifiedMetavariableDefinition      ::=   metavariableName<NO_WHITESPACE>"("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
-   
    
         
      premise                              ::=   "Premise" <END_OF_LINE> unjustifiedMetastatement ;
@@ -171,6 +163,8 @@ const bnf = `
 
 
      parenthesisedTypeNames               ::=   "("<NO_WHITESPACE>typeNames<NO_WHITESPACE>")" ;
+
+     parenthesisedTypeName                ::=   "("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
 
      parenthesisedLabels                  ::=   "("<NO_WHITESPACE>labels<NO_WHITESPACE>")" ;                    
 
