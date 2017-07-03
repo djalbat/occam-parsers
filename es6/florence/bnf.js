@@ -30,6 +30,10 @@ const bnf = `
 
                                             |   "Types" typesDefinition
 
+                                            |   "Context" contextDefinition
+
+                                            |   "Contexts" contextsDefinition
+
                                             |   "Variable" variableDefinition
 
                                             |   "Variables" variablesDefinition
@@ -50,6 +54,8 @@ const bnf = `
 
                                             |   "Metavariables" metavariablesDefinition
 
+                                            |   "Metavariables" metavariablesDefinition
+
                                             ;
                                                                      
                                                                                                                                           
@@ -66,6 +72,8 @@ const bnf = `
 
      typesDefinition                      ::=   typeDefinition ( "," typeDefinition)+ ;
 
+     contextsDefinition                   ::=   contextDefinition ( "," contextDefinition)+ ;
+
      variablesDefinition                  ::=   variableDefinition ( "," variableDefinition)+ ;
    
      constructorsDefinition               ::=   constructorDefinition ( "," constructorDefinition)+ ;
@@ -80,7 +88,9 @@ const bnf = `
 
      typeDefinition                       ::=   typeName ;
    
-     variableDefinition                   ::=   variableName(<NO_WHITESPACE>":"typeName)? ;
+     contextDefinition                    ::=   contextName(<NO_WHITESPACE>":"typeName)? ;
+   
+     variableDefinition                   ::=   variableName ;
    
      constructorDefinition                ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames?<NO_WHITESPACE>":"<NO_WHITESPACE>typeName ;
    
@@ -192,6 +202,8 @@ const bnf = `
               
      typeName                             ::=   name ;
      
+     contextName                          ::=   name ;
+
      variableName                         ::=   name ;
 
      constructorName                      ::=   name ;
