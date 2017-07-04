@@ -4,7 +4,7 @@ const metastatement = `
 
      proofAssertion                       ::=   context "⊢" metastatement "::" metastatement ;
 
-     metaEquality                         ::=   metastatement "=>" metastatement ;
+     metaEquality                         ::=   metastatement "=" metastatement ;
 
      subproof                             ::=   supposition "..." metastatement ;
 
