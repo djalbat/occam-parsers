@@ -1,14 +1,15 @@
 'use strict';
 
-const TransparentNode = require('../common/node/nonTerminal/transparentNode'),
+const ErrorNode = require('../common/node/terminal/error'),
+      TransparentNode = require('../common/node/nonTerminal/transparentNode'),
       DiscardOddChildNodes = require('../common/node/nonTerminal/discardOddChildNodes'),
       DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChildNode'),
       TransparentThenKeepSecondNode = require('../common/node/nonTerminal/transparentThenKeepSecondNode');
 
 const mappings = {
 
-  'unjustifiedOrJustifiedMetastatement' : TransparentNode,
-  'unjustifiedOrJustifiedStatement' : TransparentNode,
+  'unjustifiedOrJustifiedMetastatement': TransparentNode,
+  'unjustifiedOrJustifiedStatement': TransparentNode,
 
   'name': TransparentNode,
 
@@ -33,11 +34,13 @@ const mappings = {
   'labels': DiscardOddChildNodes,
   'terms': DiscardOddChildNodes,
   
-  'parenthesisedTypeNames' : TransparentThenKeepSecondNode,
-  'parenthesisedTypeName' : TransparentThenKeepSecondNode,
-  'parenthesisedLabels' : TransparentThenKeepSecondNode,
-  'parenthesisedTerms' : TransparentThenKeepSecondNode,
-  'parenthesisedTerm' : TransparentThenKeepSecondNode
+  'parenthesisedTypeNames': TransparentThenKeepSecondNode,
+  'parenthesisedTypeName': TransparentThenKeepSecondNode,
+  'parenthesisedLabels': TransparentThenKeepSecondNode,
+  'parenthesisedTerms': TransparentThenKeepSecondNode,
+  'parenthesisedTerm': TransparentThenKeepSecondNode,
+
+  'error': ErrorNode
 
 };
 
