@@ -17,20 +17,20 @@ const bnfLexer = BNFLexer.fromNothing(),
       defaultAdditionalMappings = {};
 
 class FlorenceParser extends CommonParser {
-  static fromCustomGrammarRulesAndAdditionalMappings(customGrammarRules, additionalMappings) {
-    const florenceParser = FlorenceParser.fromBNFAndMappings(bnf, mappings, customGrammarRules, additionalMappings);
+  static fromCustomGrammarsRulesAndAdditionalMappings(customGrammarsRules, additionalMappings) {
+    const florenceParser = FlorenceParser.fromBNFAndMappings(bnf, mappings, customGrammarsRules, additionalMappings);
   
     return florenceParser;
   }
   
-  static fromBNFAndMappings(bnf, mappings, customGrammarRules = defaultCustomGrammarRules, additionalMappings = defaultAdditionalMappings) {
+  static fromBNFAndMappings(bnf, mappings, customGrammarsRules = defaultCustomGrammarRules, additionalMappings = defaultAdditionalMappings) {
     mappings = Object.assign(mappings, additionalMappings); ///
 
     const lines = bnfLexer.linesFromBNF(bnf),
           node = bnfParser.nodeFromLines(lines),
           rules = BNFParser.generateRules(node, mappings);
 
-    arrayUtil.push(rules, customGrammarRules);
+    arrayUtil.push(rules, customGrammarsRules);
     
     const florenceParser = new FlorenceParser(rules);
 
