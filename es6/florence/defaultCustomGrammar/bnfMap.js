@@ -2,9 +2,11 @@
 
 const metastatement = `
 
-     proofAssertion                       ::=   context "⊢" metastatement "::" metastatement ;
+     proofAssertion                       ::=   context "⊢" labelMetastatementPair ;
+     
+     contextDefinition                    ::=   context "=" ( context | labelMetastatementPair ) ( "," ( context | labelMetastatementPair ) )* ;
 
-     contextAssertion                     ::=   context "=" ( context | metastatement ) ( "," ( context | metastatement ) )* ;
+     labelMetastatementPair               ::=   label "::" metastatement ;
 
      subproof                             ::=   supposition "..." metastatement ;
 
@@ -14,7 +16,7 @@ const metastatement = `
 
      metastatement                        ::=   proofAssertion
            
-                                            |   contextAssertion
+                                            |   contextDefinition
            
                                             |   subproof
                                             

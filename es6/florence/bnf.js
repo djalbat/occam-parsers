@@ -165,34 +165,38 @@ const bnf = `
      unjustifiedStatement                 ::=   statement <END_OF_LINE> ;
 
      justifiedStatement                   ::=   statement ( "by" | "from" ) reference <END_OF_LINE> ;
-     
-     
-
-     compoundTerm                         ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
-
-     reference                            ::=   referenceName<NO_WHITESPACE>parenthesisedTerms? ;
-
-     context                              ::=   contextName<NO_WHITESPACE>parenthesisedTerms? ;
-
-     label                                ::=   labelName<NO_WHITESPACE>parenthesisedTerms? ;
 
 
 
      metavariable                         ::=   metavariableName<NO_WHITESPACE>parenthesisedTerm? ;
 
-     variable                             ::=   variableName ;
+     reference                            ::=   referenceName<NO_WHITESPACE>parenthesisedTerm? ;
+
+     context                              ::=   contextName<NO_WHITESPACE>parenthesisedTerm? ;
+
+     label                                ::=   labelName<NO_WHITESPACE>parenthesisedTerm? ;
 
 
 
      parenthesisedTypeNames               ::=   "("<NO_WHITESPACE>typeNames<NO_WHITESPACE>")" ;
 
-     parenthesisedTypeName                ::=   "("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
-
      parenthesisedLabels                  ::=   "("<NO_WHITESPACE>labels<NO_WHITESPACE>")" ;                    
 
      parenthesisedTerms                   ::=   "("<NO_WHITESPACE>terms<NO_WHITESPACE>")" ;   
 
+
+
+     parenthesisedTypeName                ::=   "("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
+
      parenthesisedTerm                    ::=   "("<NO_WHITESPACE>term<NO_WHITESPACE>")" ;   
+
+         
+     
+     compoundTerm                         ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
+
+
+
+     variable                             ::=   variableName ;
 
 
 
@@ -203,9 +207,9 @@ const bnf = `
      terms                                ::=   term ( "," term )* ;
      
 
-              
+
      typeName                             ::=   name ;
-     
+
      contextName                          ::=   name ;
 
      variableName                         ::=   name ;
