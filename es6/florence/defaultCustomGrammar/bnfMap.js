@@ -36,12 +36,12 @@ const statement = `
 
 
 
-     statement                            ::=   metastatement
-     
-                                            |   typeAssertion 
+     statement                            ::=   typeAssertion 
                                                   
                                             |   equality 
                                                   
+                                            |   metastatement
+     
                                             ;
 
 `;
