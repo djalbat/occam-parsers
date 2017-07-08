@@ -2,31 +2,17 @@
 
 const lexers = require('occam-lexers');
 
-const arrayUtil = require('../util/array'),
-      TerminalNode = require('../common/node/terminal'),
-      NonTerminalNode = require('../common/node/nonTerminal');
+const arrayUtil = require('../util/array');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 
 class bnfUtil {
-  static isNodeTerminalNode(node) {
-    const nodeTerminalNode = (node instanceof TerminalNode);
-
-    return nodeTerminalNode;
-  }
-
-  static isNodeNonTerminalNode(node) {
-    const nodeNonTerminalNode = (node instanceof NonTerminalNode);
-
-    return nodeNonTerminalNode;
-  }
-
   static isNodeNoWhitespaceNode(node) {
     let nodeNoWhitespaceNode = false;
   
-    const nodeTerminalNode = bnfUtil.isNodeTerminalNode(node);
+    const nodeTerminalNode = node.isTerminal();
   
     if (nodeTerminalNode) {
       const terminalNode = node,
@@ -41,7 +27,7 @@ class bnfUtil {
   static isNodeChoiceNode(node) {
     let nodeNoChoiceNode = false;
 
-    const nodeTerminalNode = bnfUtil.isNodeTerminalNode(node);
+    const nodeTerminalNode = node.isTerminal();
 
     if (nodeTerminalNode) {
       const terminalNode = node,
@@ -56,13 +42,14 @@ class bnfUtil {
   static isNodeQuantifiersNode(node) {
     let nodeQuantifiersNode = false;
 
-    const nodeNonTerminalNode = bnfUtil.isNodeNonTerminalNode(node);
+    const nodeTerminalNode = node.isTerminal(),
+          nodeNonTerminalNode = !nodeTerminalNode;
 
     if (nodeNonTerminalNode) {
       const nonTerminalNode = node, ///
             childNodes = nonTerminalNode.getChildNodes(),
             firstChildNode = arrayUtil.first(childNodes),
-            firstChildNodeTerminalNode = bnfUtil.isNodeTerminalNode(firstChildNode);
+            firstChildNodeTerminalNode = firstChildNode.isTerminal();
 
       if (firstChildNodeTerminalNode) {
         const terminalNode = firstChildNode,  ///
@@ -73,7 +60,6 @@ class bnfUtil {
                               (terminalNodeContent === '+');
       }
     }
-
 
     return nodeQuantifiersNode;
   }

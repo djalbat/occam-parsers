@@ -7,6 +7,12 @@ class TerminalNode {
     this.significantToken = significantToken;
     this.line = line;
   }
+  
+  isTerminal() {
+    const terminal = true;
+    
+    return terminal;
+  }
 
   getSignificantToken() {
     return this.significantToken;
