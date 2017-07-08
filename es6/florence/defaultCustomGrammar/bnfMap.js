@@ -4,7 +4,7 @@ const metastatement = `
 
      proofAssertion                       ::=   context "⊢" judgement ;
      
-     contextDefinition                    ::=   context "=" ( context | judgement ) ( "," ( context | judgement ) )* ;
+     contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
      judgement                            ::=   label "::" metastatement ;
 
