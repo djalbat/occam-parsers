@@ -36,7 +36,9 @@ const statement = `
 
 
 
-     statement                            ::=   typeAssertion 
+     statement                            ::=   metastatement
+     
+                                            |   typeAssertion 
                                                   
                                             |   equality 
                                                   
