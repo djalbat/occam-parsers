@@ -2,11 +2,11 @@
 
 const metastatement = `
 
-     proofAssertion                       ::=   context "⊢" labelMetastatementPair ;
+     proofAssertion                       ::=   context "⊢" judgement ;
      
-     contextDefinition                    ::=   context "=" ( context | labelMetastatementPair ) ( "," ( context | labelMetastatementPair ) )* ;
+     contextDefinition                    ::=   context "=" ( context | judgement ) ( "," ( context | judgement ) )* ;
 
-     labelMetastatementPair               ::=   label "::" metastatement ;
+     judgement                            ::=   label "::" metastatement ;
 
      subproof                             ::=   supposition "..." metastatement ;
 
@@ -40,8 +40,6 @@ const statement = `
                                                   
                                             |   equality 
                                                   
-                                            |   expression
-                                            
                                             ;
 
 `;
