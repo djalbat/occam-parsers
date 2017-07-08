@@ -47,7 +47,7 @@ class ChoiceOfPartsPart {
   static fromNodes(nodes) {
     let choiceOfPartsPart = null;
     
-    nodes = arrayUtil.discardFirstAndLast(nodes);
+    nodes = arrayUtil.discardLastThenFirst(nodes);
     
     const secondNode = arrayUtil.second(nodes),
           secondNodeChoiceNode = bnfUtil.isNodeChoiceNode(secondNode);

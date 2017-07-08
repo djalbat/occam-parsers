@@ -21,7 +21,9 @@ class arrayUtil {
 
   static discardLast(array) { return discardNth(array, -1); }
   
-  static discardFirstAndLast(array) { return discardNth(discardNth(array, 0), -1); }
+  static discardLastThenFirst(array) { return discardNth(discardNth(array, -1), 0); }
+
+  static discardFifthThenSecond(array) { return discardNth(discardNth(array, 5), -2); }
 
   static discardOdd(array) { return array.filter(function(entry, index) { return isEven(index); }); }
 

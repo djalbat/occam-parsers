@@ -51,7 +51,7 @@ class GroupOfPartsPart {
   }
 
   static fromNodes(nodes) {
-    nodes = arrayUtil.discardFirstAndLast(nodes);
+    nodes = arrayUtil.discardLastThenFirst(nodes);
 
     const noWhitespace = false,
           parts = nodes.map(function(node) {

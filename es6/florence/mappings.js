@@ -4,6 +4,7 @@ const ErrorNode = require('../common/node/terminal/error'),
       TransparentNode = require('../common/node/nonTerminal/transparentNode'),
       DiscardOddChildNodes = require('../common/node/nonTerminal/discardOddChildNodes'),
       DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChildNode'),
+      DiscardFifthThenSecondChildNode = require('../common/node/nonTerminal/discardFifthThenSecondChildNode'),    
       TransparentThenKeepSecondNode = require('../common/node/nonTerminal/transparentThenKeepSecondNode');
 
 const mappings = {
@@ -16,11 +17,14 @@ const mappings = {
   'proof': DiscardSecondChildNode,
   'premise': DiscardSecondChildNode,
   'premises': DiscardSecondChildNode,
-  'subproof': DiscardSecondChildNode,
+  'sublemma': DiscardSecondChildNode,
   'therefore': DiscardSecondChildNode,
   'conclusion': DiscardSecondChildNode,
-
-  'includeDirective': DiscardOddChildNodes,
+  'metaProof': DiscardSecondChildNode,
+  'justifiedStatement': DiscardSecondChildNode,
+  'justifiedMetastatement': DiscardSecondChildNode,
+  
+  'indicativeConditional': DiscardFifthThenSecondChildNode,
 
   'typesDeclaration': DiscardOddChildNodes,
   'contextsDeclaration': DiscardOddChildNodes,
@@ -35,9 +39,10 @@ const mappings = {
   'terms': DiscardOddChildNodes,
   
   'parenthesisedTypeNames': TransparentThenKeepSecondNode,
-  'parenthesisedTypeName': TransparentThenKeepSecondNode,
   'parenthesisedLabels': TransparentThenKeepSecondNode,
   'parenthesisedTerms': TransparentThenKeepSecondNode,
+  
+  'parenthesisedTypeName': TransparentThenKeepSecondNode,
   'parenthesisedTerm': TransparentThenKeepSecondNode,
 
   'error': ErrorNode

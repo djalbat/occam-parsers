@@ -4,21 +4,7 @@ const bnf = `
 
 
 
-     document                             ::=   header? verticalSpace? body? ;
-
-
-
-     header                               ::=   includeDirective+ ;
-
-     includeDirective                     ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE> ;
-
-
-
-     verticalSpace                        ::=   <END_OF_LINE>+ ;
-
-       
-            
-     body                                 ::=   ( verticalSpace | rule | axiom | lemma | theorem | declaration | error )+ ;
+     document                             ::=   ( rule | axiom | lemma | theorem | declaration | verticalSpace | error )+ ;
 
 
 
@@ -60,6 +46,10 @@ const bnf = `
                                             
                                             ;
                                             
+
+
+     verticalSpace                        ::=   <END_OF_LINE>+ ;
+
 
 
      error                                ::=   . ;
