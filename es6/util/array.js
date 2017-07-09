@@ -23,7 +23,9 @@ class arrayUtil {
   
   static discardLastThenFirst(array) { return discardNth(discardNth(array, -1), 0); }
 
-  static discardFifthThenSecond(array) { return discardNth(discardNth(array, 5), -2); }
+  static discardFourthThenSecond(array) { return discardNth(discardNth(array, 3), 1); }
+
+  static discardFifthThenSecond(array) { return discardNth(discardNth(array, 4), 1); }
 
   static discardOdd(array) { return array.filter(function(entry, index) { return isEven(index); }); }
 
