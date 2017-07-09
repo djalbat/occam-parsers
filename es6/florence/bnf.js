@@ -220,8 +220,6 @@ const bnf = `
 
      referenceName                        ::=   name ;
 
-     contextName                          ::=   name ;
-
      labelName                            ::=   name ;
 
      
