@@ -2,11 +2,6 @@ textarea#content {
   height: 18rem;
 }
 
-textarea#lexicalGrammar {
-  height: 12rem;
-  margin-bottom: 1rem;
-}
-
 textarea#bnf {
   height: 18rem;
   margin-bottom: 1rem;
