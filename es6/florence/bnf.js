@@ -4,19 +4,9 @@ const bnf = `
 
 
 
-     document                             ::=   header? body? ;
-     
-     
-     
-     header                               ::=   import* verticalSpace? ;
-
-     body                                 ::=   ( rule | axiom | lemma | theorem | declaration | verticalSpace | error )+ ;
+     document                             ::=   ( rule | axiom | lemma | theorem | declaration | verticalSpace | error )+ ;
 
 
-
-     import                               ::=   [import]<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE> ;
-          
-     
 
      rule                                 ::=   "Rule" parenthesisedLabels? <END_OF_LINE> ( premise | premises )? conclusion metaProof? ;
 
