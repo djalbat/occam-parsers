@@ -12,7 +12,7 @@ class bnfUtil {
   static isNodeNoWhitespaceNode(node) {
     let nodeNoWhitespaceNode = false;
   
-    const nodeTerminalNode = node.isTerminal();
+    const nodeTerminalNode = node.isTerminalNode();
   
     if (nodeTerminalNode) {
       const terminalNode = node,
@@ -27,7 +27,7 @@ class bnfUtil {
   static isNodeChoiceNode(node) {
     let nodeNoChoiceNode = false;
 
-    const nodeTerminalNode = node.isTerminal();
+    const nodeTerminalNode = node.isTerminalNode();
 
     if (nodeTerminalNode) {
       const terminalNode = node,
@@ -42,14 +42,14 @@ class bnfUtil {
   static isNodeQuantifiersNode(node) {
     let nodeQuantifiersNode = false;
 
-    const nodeTerminalNode = node.isTerminal(),
+    const nodeTerminalNode = node.isTerminalNode(),
           nodeNonTerminalNode = !nodeTerminalNode;
 
     if (nodeNonTerminalNode) {
       const nonTerminalNode = node, ///
             childNodes = nonTerminalNode.getChildNodes(),
             firstChildNode = arrayUtil.first(childNodes),
-            firstChildNodeTerminalNode = firstChildNode.isTerminal();
+            firstChildNodeTerminalNode = firstChildNode.isTerminalNode();
 
       if (firstChildNodeTerminalNode) {
         const terminalNode = firstChildNode,  ///

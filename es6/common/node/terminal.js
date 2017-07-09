@@ -8,10 +8,10 @@ class TerminalNode {
     this.line = line;
   }
   
-  isTerminal() {
-    const terminal = true;
+  isTerminalNode() {
+    const terminalNode = true;
     
-    return terminal;
+    return terminalNode;
   }
 
   getSignificantToken() {

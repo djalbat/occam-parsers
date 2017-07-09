@@ -13,10 +13,10 @@ class NonTerminalNode {
     this.lastSignificantToken = lastSignificantToken;
   }
 
-  isTerminal() {
-    const terminal = false;
+  isTerminalNode() {
+    const terminalNode = false;
 
-    return terminal;
+    return terminalNode;
   }
   
   getRuleName() {
