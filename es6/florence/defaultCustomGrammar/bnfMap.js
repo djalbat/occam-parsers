@@ -6,7 +6,7 @@ const metastatement = `
      
      contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
-     judgement                            ::=   label "::" metastatement ;
+     judgement                            ::=   reference "::" metastatement ;
 
      subproof                             ::=   supposition "..." metastatement ;
 
