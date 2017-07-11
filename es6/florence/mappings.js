@@ -12,8 +12,6 @@ const mappings = {
   'unjustifiedOrJustifiedMetastatement': TransparentNode,
   'unjustifiedOrJustifiedStatement': TransparentNode,
 
-  'name': TransparentNode,
-
   'proof': DiscardSecondChildNode,
   'premise': DiscardSecondChildNode,
   'premises': DiscardSecondChildNode,
