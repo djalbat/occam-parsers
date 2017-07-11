@@ -74,7 +74,7 @@ const bnf = `
 
      typeDeclaration                      ::=   typeName ;
    
-     contextDeclaration                   ::=   contextName(<NO_WHITESPACE>":"typeName)? ;
+     contextDeclaration                   ::=   contextName<NO_WHITESPACE>parenthesisedTypeName? ;
    
      variableDeclaration                  ::=   variableName ;
    
