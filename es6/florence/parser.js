@@ -7,30 +7,30 @@ const bnf = require('./bnf'),
       arrayUtil = require('../util/array'),
       BNFParser = require('../bnf/parser'),
       CommonParser = require('../common/parser'),
-      defaultCustomGrammarBNFMap = require('./defaultCustomGrammar/bnfMap');
+      customGrammarsDefaultBNFMap = require('./customGrammars/defaultBNFMap');
 
 const { BNFLexer } = lexers;
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
-      defaultCustomGrammarRules = rulesFromBNFMap(defaultCustomGrammarBNFMap),
+      customGrammarsDefaultRules = rulesFromBNFMap(customGrammarsDefaultBNFMap),
       defaultAdditionalMappings = {};
 
 class FlorenceParser extends CommonParser {
-  static fromCustomGrammarsRulesAndAdditionalMappings(customGrammarsRules, additionalMappings) {
-    const florenceParser = FlorenceParser.fromBNFAndMappings(bnf, mappings, customGrammarsRules, additionalMappings);
+  static fromCustomGrammarsCombinedRulesAndAdditionalMappings(customGrammarsCombinedRules, additionalMappings) {
+    const florenceParser = FlorenceParser.fromBNFAndMappings(bnf, mappings, customGrammarsCombinedRules, additionalMappings);
   
     return florenceParser;
   }
   
-  static fromBNFAndMappings(bnf, mappings, customGrammarsRules = defaultCustomGrammarRules, additionalMappings = defaultAdditionalMappings) {
+  static fromBNFAndMappings(bnf, mappings, customGrammarsCombinedRules = customGrammarsDefaultRules, additionalMappings = defaultAdditionalMappings) {
     mappings = Object.assign(mappings, additionalMappings); ///
 
     const lines = bnfLexer.linesFromBNF(bnf),
           node = bnfParser.nodeFromLines(lines),
           rules = BNFParser.generateRules(node, mappings);
 
-    arrayUtil.push(rules, customGrammarsRules);
+    arrayUtil.push(rules, customGrammarsCombinedRules);
     
     const florenceParser = new FlorenceParser(rules);
 
@@ -44,7 +44,7 @@ FlorenceParser.mappings = mappings;
 
 FlorenceParser.bnf = bnf;
 
-FlorenceParser.defaultCustomGrammarBNFMap = defaultCustomGrammarBNFMap;
+FlorenceParser.customGrammarsDefaultBNFMap = customGrammarsDefaultBNFMap;
 
 function rulesFromBNFMap(bnfMap) {
   const ruleNames = Object.keys(bnfMap),
