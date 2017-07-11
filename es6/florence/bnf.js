@@ -16,34 +16,34 @@ const bnf = `
 
      theorem                              ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) proof? ;
 
-     declaration                          ::=   "Type" typeDeclaration
-
-                                            |   "Types" typesDeclaration
-
-                                            |   "Context" contextDeclaration
+     declaration                          ::=   "Types" typesDeclaration
 
                                             |   "Contexts" contextsDeclaration
 
-                                            |   "Variable" variableDeclaration
-
                                             |   "Variables" variablesDeclaration
-
-                                            |   "Constructor" constructorDeclaration
 
                                             |   "Constructors" constructorsDeclaration
 
-                                            |   "Abbreviation" abbreviationDeclaration
-
                                             |   "Abbreviations" abbreviationsDeclaration
-
-                                            |   "DependentType" dependentTypeDeclaration
 
                                             |   "DependentTypes" dependentTypesDeclaration
 
+                                            |   "Metavariables" metavariablesDeclaration
+
+                                            |   "Type" typeDeclaration
+
+                                            |   "Context" contextDeclaration
+
+                                            |   "Variable" variableDeclaration
+
+                                            |   "Constructor" constructorDeclaration
+
+                                            |   "Abbreviation" abbreviationDeclaration
+
+                                            |   "DependentType" dependentTypeDeclaration
+                                            
                                             |   "Metavariable" metavariableDeclaration
 
-                                            |   "Metavariables" metavariablesDeclaration
-                                            
                                             ;
                                             
 
