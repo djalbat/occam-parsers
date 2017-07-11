@@ -2,6 +2,7 @@
 
 const ErrorNode = require('../common/node/terminal/error'),
       TransparentNode = require('../common/node/nonTerminal/transparentNode'),
+      TransparentFirstChildNode = require('../common/node/nonTerminal/transparentFirstChildNode'),
       DiscardOddChildNodes = require('../common/node/nonTerminal/discardOddChildNodes'),
       DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChildNode'),
       DiscardFifthThenSecondChildNode = require('../common/node/nonTerminal/discardFifthThenSecondChildNode'),
@@ -11,6 +12,14 @@ const mappings = {
 
   'unjustifiedOrJustifiedMetastatement': TransparentNode,
   'unjustifiedOrJustifiedStatement': TransparentNode,
+
+  'typeName': TransparentFirstChildNode,
+  'contextName': TransparentFirstChildNode,
+  'variableName': TransparentFirstChildNode,
+  'constructorName': TransparentFirstChildNode,
+  'metavariableName': TransparentFirstChildNode,
+  'referenceName': TransparentFirstChildNode,
+  'labelName': TransparentFirstChildNode,
 
   'proof': DiscardSecondChildNode,
   'premise': DiscardSecondChildNode,
