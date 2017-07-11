@@ -80,7 +80,7 @@ const bnf = `
    
      constructorDeclaration               ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames?<NO_WHITESPACE>":"<NO_WHITESPACE>typeName ;
    
-     abbreviationDeclaration              ::=   typeName "for" typeName | constructorName "for" constructorName ;
+     abbreviationDeclaration              ::=   name "for" name ;
 
      dependentTypeDeclaration             ::=   typeName<NO_WHITESPACE>parenthesisedTypeName ;
    
@@ -182,14 +182,6 @@ const bnf = `
 
          
      
-     compoundTerm                         ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
-
-
-
-     variable                             ::=   variableName ;
-
-
-
      typeNames                            ::=   typeName ( "," typeName )* ;
 
      labels                               ::=   label ( "," label )* ;
