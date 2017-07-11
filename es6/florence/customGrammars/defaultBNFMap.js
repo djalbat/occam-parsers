@@ -48,7 +48,7 @@ const statement = `
 
 const term = `
 
-     compoundTerm                         ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
+     compoundTerm                         ::=   constructorName<NO_WHITESPACE>parenthesisedTerms ;
 
 
 
