@@ -67,12 +67,6 @@ class CommonParser {
     
     return string;
   }
-
-  findRule(ruleName) {
-    const rules = this.getRules();
-
-    return parserUtil.findRule(ruleName, rules);
-  }
 }
 
 module.exports = CommonParser;

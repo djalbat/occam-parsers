@@ -34,8 +34,6 @@ class BasicParser extends CommonParser {
 
     return basicParser;
   }
-
-  static findRule(ruleName, rules) { return parserUtil.findRule(ruleName, rules); }
 }
 
 module.exports = BasicParser;

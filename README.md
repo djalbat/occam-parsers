@@ -109,7 +109,7 @@ You will need to do this if you want to look at the examples.
 - `+` one or more
 - `?` optional
 
-These bind tightly to the symbols to their left and can be chained.
+These bind tightly to the symbols to their left and can be chained. However, both the `*+` and `?+` chains will cause an infinite loop and must be avoided. 
 
 ### Regular expressions
 
