@@ -60,10 +60,10 @@ const term = `
 
 `;
 
-const customGrammarDefaultBNFMap = {
+const defaultCustomGrammarBNFMap = {
   metastatement: metastatement,
   statement: statement,
   term: term
 };
 
-module.exports = customGrammarDefaultBNFMap;
+module.exports = defaultCustomGrammarBNFMap;

@@ -7,13 +7,13 @@ const bnf = require('./bnf'),
       arrayUtil = require('../util/array'),
       BNFParser = require('../bnf/parser'),
       CommonParser = require('../common/parser'),
-      customGrammarDefaultBNFMap = require('./customGrammar/defaultBNFMap');
+      defaultCustomGrammarBNFMap = require('./defaultCustomGrammarBNFMap');
 
 const { BNFLexer } = lexers;
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
-      customGrammarDefaultRules = rulesFromBNFMap(customGrammarDefaultBNFMap),
+      defaultCustomGrammarRules = rulesFromBNFMap(defaultCustomGrammarBNFMap),
       defaultAdditionalMappings = {};
 
 class FlorenceParser extends CommonParser {
@@ -23,7 +23,7 @@ class FlorenceParser extends CommonParser {
     return florenceParser;
   }
   
-  static fromBNFAndMappings(bnf, mappings, combinedCustomGrammarsRules = customGrammarDefaultRules, additionalMappings = defaultAdditionalMappings) {
+  static fromBNFAndMappings(bnf, mappings, combinedCustomGrammarsRules = defaultCustomGrammarRules, additionalMappings = defaultAdditionalMappings) {
     mappings = Object.assign(mappings, additionalMappings); ///
 
     const lines = bnfLexer.linesFromBNF(bnf),
@@ -44,7 +44,7 @@ FlorenceParser.mappings = mappings;
 
 FlorenceParser.bnf = bnf;
 
-FlorenceParser.customGrammarDefaultBNFMap = customGrammarDefaultBNFMap;
+FlorenceParser.defaultCustomGrammarBNFMap = defaultCustomGrammarBNFMap;
 
 function rulesFromBNFMap(bnfMap) {
   const ruleNames = Object.keys(bnfMap),
