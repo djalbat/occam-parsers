@@ -13,12 +13,11 @@ class TerminalSymbolNode extends NonTerminalNode {
   }
 
   getContent() {
-    const regExp = /^"((?:[^\\"]|\\.)*)"$/,
-          childNodes = this.getChildNodes(),
+    const childNodes = this.getChildNodes(),
           firstChildNode = arrayUtil.first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
-          matches = terminalNodeContent.match(regExp),
+          matches = terminalNodeContent.match(TerminalSymbolNode.regularExpression),
           secondMatch = arrayUtil.second(matches),
           content = secondMatch.replace(/\\"/g,'"'); ///
 
@@ -29,3 +28,5 @@ class TerminalSymbolNode extends NonTerminalNode {
 }
 
 module.exports = TerminalSymbolNode;
+
+TerminalSymbolNode.regularExpression = /^"((?:\\.|[^"])*)"$/;

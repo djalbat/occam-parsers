@@ -6,29 +6,28 @@ const arrayUtil = require('../../util/array'),
 
 class RegularExpressionNode extends NonTerminalNode {
   generatePart(noWhitespace) {
-    const regExp = this.getRegExp(),
-          regularExpressionPart = new RegularExpressionPart(regExp, noWhitespace);
+    const regularExpression = this.getRegularExpression(),
+          regularExpressionPart = new RegularExpressionPart(regularExpression, noWhitespace);
 
     return regularExpressionPart;
   }
 
-  getRegExp() {
-    let regExp = /^\/([^\/]+)\/$/; ///
-
+  getRegularExpression() {
     const childNodes = this.getChildNodes(),
           firstChildNode = arrayUtil.first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
-          matches = terminalNodeContent.match(regExp),
+          matches = terminalNodeContent.match(RegularExpressionNode.regularExpression),
           secondMatch = arrayUtil.second(matches),
-          pattern = secondMatch; ///
+          pattern = secondMatch, ///
+          regularExpression = new RegExp(pattern);  ///
 
-    regExp = new RegExp(pattern);
-
-    return regExp;
+    return regularExpression;
   }
 
   static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(nodes, ruleName, RegularExpressionNode); }
 }
 
 module.exports = RegularExpressionNode;
+
+RegularExpressionNode.regularExpression = /^\/((?:\\.|[^\/])*)\/$/;

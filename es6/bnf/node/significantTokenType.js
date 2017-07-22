@@ -13,12 +13,11 @@ class SignificantTokenTypeNode extends NonTerminalNode {
   }
 
   getSignificantTokenType() {
-    const regExp = /^\[([^\]]+)\]$/,
-          childNodes = this.getChildNodes(),
+    const childNodes = this.getChildNodes(),
           firstChildNode = arrayUtil.first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
-          matches = terminalNodeContent.match(regExp),
+          matches = terminalNodeContent.match(SignificantTokenTypeNode.regularExpression),
           secondMatch = arrayUtil.second(matches),
           significantTokenType = secondMatch; ///
 
@@ -29,3 +28,5 @@ class SignificantTokenTypeNode extends NonTerminalNode {
 }
 
 module.exports = SignificantTokenTypeNode;
+
+SignificantTokenTypeNode.regularExpression = /^\[([^\]]+)\]$/;

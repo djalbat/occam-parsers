@@ -10,8 +10,8 @@ const { BNFLexer } = lexers,
       { NO_WHITESPACE } = specialSymbols;
 
 class RegularExpressionPart {
-  constructor(regExp, noWhitespace = false) {
-    this.regExp = regExp;
+  constructor(regularExpression, noWhitespace = false) {
+    this.regularExpression = regularExpression;
     this.noWhitespace = noWhitespace;
   }
 
@@ -26,7 +26,7 @@ class RegularExpressionPart {
 
     if (significantToken !== null) {
       const content = significantToken.getContent(),
-            matches = content.match(this.regExp);
+            matches = content.match(this.regularExpression);
 
       if (matches !== null) {
         const firstMatch = arrayUtil.first(matches),
@@ -46,11 +46,11 @@ class RegularExpressionPart {
   }
 
   toString() {
-    const regExpString = this.regExp.toString(),
+    const regularExpressionString = this.regularExpression.toString(),
           noWhitespaceString = this.noWhitespace ?
                                  NO_WHITESPACE :
                                    '',
-          string = `${noWhitespaceString}${regExpString}`;
+          string = `${noWhitespaceString}${regularExpressionString}`;
 
     return string;
   }
