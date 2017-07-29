@@ -3,21 +3,19 @@
 const bnf = `
 
 
-     document                             ::=   header? body ;
+     document                             ::=   header? body? ;
      
      
      
      header                               ::=   includeDirective+ verticalSpace ;
      
+     body                                 ::=   ( rule | axiom | lemma | theorem | declaration | verticalSpace | error )+ ;
      
+
      
      includeDirective                     ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE> ;
-
-
-
-     body                                 ::=   ( rule | axiom | lemma | theorem | declaration | verticalSpace | error )+ ;
-
-
+     
+     
 
      rule                                 ::=   "Rule" parenthesisedLabels? <END_OF_LINE> ( premise | premises )? conclusion metaProof? ;
 
