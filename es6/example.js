@@ -83,7 +83,8 @@ class Example {
       try {
         const contentTextareaValue = contentTextarea.getValue(),
               content = contentTextareaValue, ///
-              rule = parserUtil.findRule(ruleName),
+              rules = parser.getRules(),
+              rule = parserUtil.findRule(ruleName, rules),
               lines = lexer.linesFromContent(content);
 
         node = parser.nodeFromLines(lines, rule);
