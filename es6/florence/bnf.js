@@ -3,8 +3,19 @@
 const bnf = `
 
 
+     document                             ::=   header? body ;
+     
+     
+     
+     header                               ::=   includeDirective+ verticalSpace ;
+     
+     
+     
+     includeDirective                     ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE> ;
 
-     document                             ::=   ( rule | axiom | lemma | theorem | declaration | verticalSpace | error )+ ;
+
+
+     body                                 ::=   ( rule | axiom | lemma | theorem | declaration | verticalSpace | error )+ ;
 
 
 
@@ -16,33 +27,33 @@ const bnf = `
 
      theorem                              ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) proof? ;
 
-     declaration                          ::=   "Types" typesDeclaration
+     declaration                          ::=   "Types" typesDeclaration <END_OF_LINE>
 
-                                            |   "Contexts" contextsDeclaration
+                                            |   "Contexts" contextsDeclaration  <END_OF_LINE>
 
-                                            |   "Variables" variablesDeclaration
+                                            |   "Variables" variablesDeclaration  <END_OF_LINE>
 
-                                            |   "Constructors" constructorsDeclaration
+                                            |   "Constructors" constructorsDeclaration  <END_OF_LINE>
 
-                                            |   "Abbreviations" abbreviationsDeclaration
+                                            |   "Abbreviations" abbreviationsDeclaration  <END_OF_LINE>
 
-                                            |   "DependentTypes" dependentTypesDeclaration
+                                            |   "DependentTypes" dependentTypesDeclaration  <END_OF_LINE>
 
-                                            |   "Metavariables" metavariablesDeclaration
+                                            |   "Metavariables" metavariablesDeclaration  <END_OF_LINE>
 
-                                            |   "Type" typeDeclaration
+                                            |   "Type" typeDeclaration  <END_OF_LINE>
 
-                                            |   "Context" contextDeclaration
+                                            |   "Context" contextDeclaration  <END_OF_LINE>
 
-                                            |   "Variable" variableDeclaration
+                                            |   "Variable" variableDeclaration  <END_OF_LINE>
 
-                                            |   "Constructor" constructorDeclaration
+                                            |   "Constructor" constructorDeclaration  <END_OF_LINE>
 
-                                            |   "Abbreviation" abbreviationDeclaration
+                                            |   "Abbreviation" abbreviationDeclaration  <END_OF_LINE>
 
-                                            |   "DependentType" dependentTypeDeclaration
+                                            |   "DependentType" dependentTypeDeclaration  <END_OF_LINE>
                                             
-                                            |   "Metavariable" metavariableDeclaration
+                                            |   "Metavariable" metavariableDeclaration  <END_OF_LINE>
 
                                             ;
                                             
