@@ -3,7 +3,7 @@
 const ParseTree = require('../parseTree');
 
 class EmptyParseTree extends ParseTree {
-  static fromDepth(depth, Class, ...args) {
+  static fromDepth(Class, depth, ...args) {
     Class = Class || EmptyParseTree;
     
     const lines = [];

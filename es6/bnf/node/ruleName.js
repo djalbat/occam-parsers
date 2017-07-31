@@ -22,7 +22,7 @@ class RuleNameNode extends NonTerminalNode {
     return ruleName;
   }
   
-  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(nodes, ruleName, RuleNameNode); }
+  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(RuleNameNode, nodes, ruleName); }
 }
 
 module.exports = RuleNameNode;

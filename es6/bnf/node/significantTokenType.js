@@ -24,7 +24,7 @@ class SignificantTokenTypeNode extends NonTerminalNode {
     return significantTokenType;
   }
 
-  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(nodes, ruleName, SignificantTokenTypeNode); }
+  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(SignificantTokenTypeNode, nodes, ruleName); }
 }
 
 module.exports = SignificantTokenTypeNode;

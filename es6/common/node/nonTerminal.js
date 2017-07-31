@@ -55,14 +55,26 @@ class NonTerminalNode {
     this.childNodes = childNodes;
   }
   
-  static fromNodesAndRuleName(nodes, ruleName, Class = NonTerminalNode) {
+  static fromNodesAndRuleName(Class, nodes, ruleName) {
+    if (ruleName === undefined) {
+      ruleName = nodes;
+      nodes = Class;
+      Class = NonTerminalNode;
+    }
+    
     const childNodes = nodes, ///
-          nonTerminalNode = Class.fromRuleNameAndChildNodes(ruleName, childNodes, Class);
+          nonTerminalNode = Class.fromRuleNameAndChildNodes(Class, ruleName, childNodes);
 
     return nonTerminalNode;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes, Class = NonTerminalNode) {
+  static fromRuleNameAndChildNodes(Class, ruleName, childNodes) {
+    if (childNodes === undefined) {
+      childNodes = ruleName;
+      ruleName = Class;
+      Class = NonTerminalNode;
+    }
+    
     const firstChildNode = arrayUtil.first(childNodes),
           lastChildNode = arrayUtil.last(childNodes),
           firstChildNodeFirstLine = firstChildNode.getFirstLine(),

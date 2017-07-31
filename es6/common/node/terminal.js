@@ -56,7 +56,12 @@ class TerminalNode {
     return parseTree;
   }
 
-  static fromSignificantToken(significantToken, Class = TerminalNode) {
+  static fromSignificantToken(Class, significantToken) {
+    if (significantToken === undefined) {
+      significantToken = Class;
+      Class = TerminalNode
+    }
+
     const line = significantToken.getLine(),
           terminalNode = new Class(significantToken, line),
           error = false;

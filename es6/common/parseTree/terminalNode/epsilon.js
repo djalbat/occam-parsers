@@ -10,7 +10,7 @@ class EpsilonTerminalNodeParseTree extends VerticalBranchParseTree {
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
           verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(), 
-          terminalNodeParseTree = VerticalBranchParseTree.fromString(string, EpsilonTerminalNodeParseTree, verticalBranchPosition);
+          terminalNodeParseTree = VerticalBranchParseTree.fromString(EpsilonTerminalNodeParseTree, string, verticalBranchPosition);
     
     terminalNodeParseTree.appendToTop(verticalBranchParseTree);
 

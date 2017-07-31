@@ -120,7 +120,7 @@ class Rule {
     return string;
   }
 
-  static fromRule(rule, Class = Rule) {
+  static fromRule(Class = Rule, rule) {
     const name = rule.getName(),
           definitions = rule.getDefinitions(),
           Node = rule.getNode();

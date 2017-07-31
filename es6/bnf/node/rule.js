@@ -37,7 +37,7 @@ class RuleNode extends NonTerminalNode {
 
   static fromNodesAndRuleName(nodes, ruleName) {
     const childNodes = arrayUtil.discardSecond(nodes),
-          ruleNode = NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes, RuleNode);
+          ruleNode = NonTerminalNode.fromRuleNameAndChildNodes(RuleNode, ruleName, childNodes);
 
     return ruleNode;
   }

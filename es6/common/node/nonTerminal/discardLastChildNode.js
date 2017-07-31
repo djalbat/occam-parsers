@@ -6,7 +6,7 @@ const arrayUtil = require('../../../util/array'),
 class DiscardLastChildNode extends NonTerminalNode {
   static fromNodesAndRuleName(nodes, ruleName) {
     const childNodes = arrayUtil.discardLast(nodes), ///
-          discardLastChildNode = NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes, DiscardLastChildNode);
+          discardLastChildNode = NonTerminalNode.fromRuleNameAndChildNodes(DiscardLastChildNode, ruleName, childNodes);
 
     return discardLastChildNode;
   }

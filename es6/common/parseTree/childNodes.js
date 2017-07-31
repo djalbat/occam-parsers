@@ -59,7 +59,7 @@ class ChildNodesParseTree extends VerticalBranchParseTree {
     horizontalBranchParseTree.addRightMargin(rightMarginWidth);
     
     const verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(),
-          childNodesParseTree = EmptyParseTree.fromDepth(childNodeParseTreesDepth, ChildNodesParseTree, verticalBranchPosition);
+          childNodesParseTree = EmptyParseTree.fromDepth(ChildNodesParseTree, childNodeParseTreesDepth, verticalBranchPosition);
 
     childNodeParseTrees.forEach(function(childNodeParseTree, index) {
       const childNodeParseTreeDepth = childNodeParseTree.getDepth(),

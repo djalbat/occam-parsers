@@ -80,7 +80,7 @@ class Example {
         parseTreeTextareaHTML = '';
 
     if ((lexer !== null) && (parser !== null)) {
-      try {
+      // try {
         const contentTextareaValue = contentTextarea.getValue(),
               content = contentTextareaValue, ///
               rules = parser.getRules(),
@@ -102,9 +102,9 @@ class Example {
         parseTreeTextareaHTML = parseTreeString;  ///
 
         contentTextarea.removeClass('error');
-      } catch (error) {
-        contentTextarea.addClass('error');
-      }
+      // } catch (error) {
+      //   contentTextarea.addClass('error');
+      // }
     }
 
     parseTreeTextarea.html(parseTreeTextareaHTML);

@@ -8,7 +8,7 @@ class ErrorNode extends TerminalNode {
     const firstNode = arrayUtil.first(nodes),
           terminalNode = firstNode,  ///
           significantToken = terminalNode.getSignificantToken(),
-          errorNode = TerminalNode.fromSignificantToken(significantToken, ErrorNode),
+          errorNode = TerminalNode.fromSignificantToken(ErrorNode, significantToken),
           error = true;
 
     significantToken.setError(error);

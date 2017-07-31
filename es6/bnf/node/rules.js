@@ -17,7 +17,7 @@ class RulesNode extends NonTerminalNode {
   
   static fromNodesAndRuleName(nodes, ruleName) {
     const childNodes = nodes, ///
-          rulesNode = NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes, RulesNode);
+          rulesNode = NonTerminalNode.fromRuleNameAndChildNodes(RulesNode, ruleName, childNodes);
 
     return rulesNode;
   }

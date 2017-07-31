@@ -16,7 +16,7 @@ class RuleNameParseTree extends VerticalBranchParseTree {
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
           verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(),
-          ruleNameParseTree = VerticalBranchParseTree.fromString(string, RuleNameParseTree, verticalBranchPosition);
+          ruleNameParseTree = VerticalBranchParseTree.fromString(RuleNameParseTree, string, verticalBranchPosition);
 
     ruleNameParseTree.appendToTop(verticalBranchParseTree);
 
