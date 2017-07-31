@@ -120,7 +120,12 @@ class Rule {
     return string;
   }
 
-  static fromRule(Class = Rule, rule) {
+  static fromRule(Class, rule) {
+    if (rule === undefined) {
+      rule = Class;
+      Class = Rule;
+    }
+    
     const name = rule.getName(),
           definitions = rule.getDefinitions(),
           Node = rule.getNode();
