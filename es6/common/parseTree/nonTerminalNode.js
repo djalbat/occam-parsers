@@ -1,21 +1,20 @@
 'use strict';
 
 const arrayUtil = require('../../util/array'),
-      EmptyParseTree = require('./empty'),
       RuleNameParseTree = require('./ruleName'),
       ChildNodesParseTree = require('./childNodes'),
       VerticalBranchParseTree = require('./verticalBranch');
 
 class NonTerminalNodeParseTree extends VerticalBranchParseTree {
-  static fromNonTerminalNode(nonTerminalNode, lines) {
+  static fromNonTerminalNodeAndLines(nonTerminalNode, lines) {
     const childNodes = nonTerminalNode.getChildNodes(),
           firstChildNode = arrayUtil.first(childNodes),
           childNode = firstChildNode,
           childNodesLength = childNodes.length,
           childNodeOrNodesParseTree = (childNodesLength === 1) ?
-                                        childNode.generateParseTree(lines) :
-                                          ChildNodesParseTree.fromChildNodes(childNodes, lines),
-          ruleNameParseTree = RuleNameParseTree.fromNonTerminalNode(nonTerminalNode, lines);
+                                        childNode.parseTreeFromLines(lines) :
+                                          ChildNodesParseTree.fromChildNodesAndLines(childNodes, lines),
+          ruleNameParseTree = RuleNameParseTree.fromNonTerminalNodeAndLines(nonTerminalNode, lines);
     
     let ruleNameParseTreeVerticalBranchPosition = ruleNameParseTree.getVerticalBranchPosition();
     
@@ -59,7 +58,7 @@ class NonTerminalNodeParseTree extends VerticalBranchParseTree {
     const ruleNameParseTreeDepth = ruleNameParseTree.getDepth(),
           nonTerminalNodeParseTreeDepth = ruleNameParseTreeDepth, ///
           verticalBranchPosition = ruleNameParseTreeVerticalBranchPosition, ///
-          nonTerminalNodeParseTree = EmptyParseTree.fromDepth(NonTerminalNodeParseTree, nonTerminalNodeParseTreeDepth, verticalBranchPosition);
+          nonTerminalNodeParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(NonTerminalNodeParseTree, nonTerminalNodeParseTreeDepth, verticalBranchPosition);
 
     nonTerminalNodeParseTree.appendToRight(ruleNameParseTree);
     nonTerminalNodeParseTree.appendToBottom(childNodeOrNodesParseTree);

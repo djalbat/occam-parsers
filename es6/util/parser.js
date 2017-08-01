@@ -13,21 +13,14 @@ class parserUtil {
     return tokens;
   }
 
-  static findRule(ruleName, rules) {
-    let foundRule = null;
-
-    rules.some(function(rule) {
-      const ruleFound = rule.isFoundByRuleName(ruleName);
+  static findRuleByName(name, rules) {
+    const rule = rules.find(function(rule) {
+      const ruleName = rule.getName(),
+            found = (ruleName === name);
       
-      if (ruleFound) {
-        foundRule = rule;
-
-        return true;
-      }
-    });
-
-    const rule = foundRule; ///
-
+      return found;
+    }) || null; ///
+    
     return rule;
   }
 }

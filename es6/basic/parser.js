@@ -3,7 +3,6 @@
 const lexers = require('occam-lexers');
 
 const bnf = require('./bnf'),
-      parserUtil = require('../util/parser'),
       BNFParser = require('../bnf/parser'),
       CommonParser = require('../common/parser');
 

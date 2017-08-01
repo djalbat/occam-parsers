@@ -3,7 +3,7 @@
 const VerticalBranchParseTree = require('./verticalBranch');
 
 class RuleNameParseTree extends VerticalBranchParseTree {
-  static fromNonTerminalNode(nonTerminalNode, lines) {
+  static fromNonTerminalNodeAndLines(nonTerminalNode, lines) {
     const ruleName = nonTerminalNode.getRuleName(),
           firstLine = nonTerminalNode.getFirstLine(),
           lastLine = nonTerminalNode.getLastLine(),
@@ -16,7 +16,7 @@ class RuleNameParseTree extends VerticalBranchParseTree {
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
           verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(),
-          ruleNameParseTree = VerticalBranchParseTree.fromString(RuleNameParseTree, string, verticalBranchPosition);
+          ruleNameParseTree = VerticalBranchParseTree.fromStringAndVerticalBranchPosition(RuleNameParseTree, string, verticalBranchPosition);
 
     ruleNameParseTree.appendToTop(verticalBranchParseTree);
 

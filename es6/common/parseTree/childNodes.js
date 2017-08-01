@@ -1,13 +1,12 @@
 'use strict';
 
-const EmptyParseTree = require('./empty'),
-      VerticalBranchParseTree = require('./verticalBranch'),
+const VerticalBranchParseTree = require('./verticalBranch'),
       HorizontalBranchParseTree = require('./horizontalBranch');
 
 class ChildNodesParseTree extends VerticalBranchParseTree {
-  static fromChildNodes(childNodes, lines) {
+  static fromChildNodesAndLines(childNodes, lines) {
     const childNodeParseTrees = childNodes.map(function(childNode) {
-            const childNodeParseTree = childNode.generateParseTree(lines);
+            const childNodeParseTree = childNode.parseTreeFromLines(lines);
   
             return childNodeParseTree;
           }),
@@ -59,7 +58,7 @@ class ChildNodesParseTree extends VerticalBranchParseTree {
     horizontalBranchParseTree.addRightMargin(rightMarginWidth);
     
     const verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(),
-          childNodesParseTree = EmptyParseTree.fromDepth(ChildNodesParseTree, childNodeParseTreesDepth, verticalBranchPosition);
+          childNodesParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(ChildNodesParseTree, childNodeParseTreesDepth, verticalBranchPosition);
 
     childNodeParseTrees.forEach(function(childNodeParseTree, index) {
       const childNodeParseTreeDepth = childNodeParseTree.getDepth(),

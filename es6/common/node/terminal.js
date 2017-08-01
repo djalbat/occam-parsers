@@ -48,9 +48,9 @@ class TerminalNode {
 
   getContent() { return this.significantToken.getContent(); }
   
-  generateParseTree(lines) {
+  parseTreeFromLines(lines) {
     const terminalNode = this,  ///
-          terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNode(terminalNode, lines),
+          terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeAndLines(terminalNode, lines),
           parseTree = terminalNodeParseTree;  ///
 
     return parseTree;

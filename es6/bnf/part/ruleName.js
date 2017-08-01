@@ -29,8 +29,9 @@ class RuleNamePart {
 
     let nodeOrNodes = null;
     
-    const rules = context.getRules(),
-          rule = parserUtil.findRule(this.ruleName, rules);
+    const name = this.ruleName, ///
+          rules = context.getRules(),
+          rule = parserUtil.findRuleByName(name, rules);
 
     if (rule !== null) {
       nodeOrNodes = rule.parse(context, noWhitespace);

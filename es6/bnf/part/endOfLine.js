@@ -39,7 +39,7 @@ class EndOfLinePart {
   }
 
   toString() {
-    const string = END_OF_LINE;
+    const string = END_OF_LINE; ///
 
     return string;
   }

@@ -43,18 +43,18 @@ class NonTerminalNode {
     return this.lastSignificantToken;
   }
 
-  generateParseTree(lines) {
+  setChildNodes(childNodes) {
+    this.childNodes = childNodes;
+  }
+
+  parseTreeFromLines(lines) {
     const nonTerminalNode = this,  ///
-          nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNode(nonTerminalNode, lines),
+          nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNodeAndLines(nonTerminalNode, lines),
           parseTree = nonTerminalNodeParseTree;  ///
 
     return parseTree;
   }
 
-  setChildNodes(childNodes) {
-    this.childNodes = childNodes;
-  }
-  
   static fromNodesAndRuleName(Class, nodes, ruleName) {
     if (ruleName === undefined) {
       ruleName = nodes;

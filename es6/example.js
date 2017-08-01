@@ -83,8 +83,9 @@ class Example {
       try {
         const contentTextareaValue = contentTextarea.getValue(),
               content = contentTextareaValue, ///
+              name = ruleName,  ///
               rules = parser.getRules(),
-              rule = parserUtil.findRule(ruleName, rules),
+              rule = parserUtil.findRuleByName(name, rules),
               lines = lexer.linesFromContent(content);
 
         node = parser.nodeFromLines(lines, rule);
@@ -93,7 +94,7 @@ class Example {
           throw new Error('The document cannot be parsed for some reason.');  ///
         }
 
-        const parseTree = node.generateParseTree(lines);
+        const parseTree = node.parseTreeFromLines(lines);
 
         parseTree.shiftLine();  //
 

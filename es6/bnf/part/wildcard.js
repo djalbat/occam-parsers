@@ -34,7 +34,7 @@ class WildcardPart {
   }
 
   toString() {
-    const string = wildcard;
+    const string = wildcard;  ///
 
     return string;
   }

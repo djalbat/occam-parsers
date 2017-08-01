@@ -30,12 +30,6 @@ class Rule {
     return definitionsExist;
   }
 
-  isFoundByRuleName(ruleName) {
-    const found = (this.name === ruleName);
-
-    return found;
-  }
-
   setName(name) {
     this.name = name;
   }
@@ -153,8 +147,8 @@ function isNodeNullified(node) {
 
   if (node instanceof NonTerminalNode) {
     const nonTerminalNode = node, ///
-        childNodes = nonTerminalNode.getChildNodes(),
-        childNodesLength = childNodes.length;
+          childNodes = nonTerminalNode.getChildNodes(),
+          childNodesLength = childNodes.length;
 
     if (childNodesLength === 1) {
       const childNode = arrayUtil.first(childNodes);

@@ -18,6 +18,10 @@ class Context {
 
     this.index = 0;
   }
+  
+  getTokens() {
+    return this.tokens;
+  }
 
   getRules() {
     return this.rules;

@@ -2,8 +2,7 @@
 
 const lexers = require('occam-lexers');
 
-const TerminalNode = require('../terminal'),
-      EpsilonTerminalNodeParseTree = require('../../parseTree/terminalNode/epsilon');
+const TerminalNode = require('../terminal');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
@@ -21,14 +20,6 @@ class EpsilonTerminalNode extends TerminalNode {
     const content = epsilon;  ///
 
     return content;
-  }
-
-  generateParseTree(lines) {
-    const epsilonTerminalNode = this,  ///
-          epsilonTerminalNodeParseTree = EpsilonTerminalNodeParseTree.fromEpsilonTerminalNode(epsilonTerminalNode, lines),
-          parseTree = epsilonTerminalNodeParseTree;  ///
-
-    return parseTree;
   }
 }
 

@@ -16,7 +16,7 @@ class EpsilonPart {
   }
 
   toString() {
-    const string = epsilon;
+    const string = epsilon; ///
 
     return string;
   }

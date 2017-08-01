@@ -22,7 +22,7 @@ class VerticalBranchParseTree extends ParseTree {
   static fromWidth(width) {
     const string = '|',
           verticalBranchPosition = 0,
-          verticalBranchParseTree = VerticalBranchParseTree.fromString(VerticalBranchParseTree, string, verticalBranchPosition),
+          verticalBranchParseTree = VerticalBranchParseTree.fromStringAndVerticalBranchPosition(VerticalBranchParseTree, string, verticalBranchPosition),
           leftMarginWidth = Math.floor(width/2),
           rightMarginWidth = width - leftMarginWidth - 1;
 
@@ -31,8 +31,16 @@ class VerticalBranchParseTree extends ParseTree {
 
     return verticalBranchParseTree;
   }
-  
-  static fromString(Class, string, verticalBranchPosition) {
+
+  static fromDepthAndVerticalBranchPosition(Class, depth, verticalBranchPosition) {
+    const lines = linesFromDepth(depth),
+          args = [null, lines, verticalBranchPosition],
+          verticalBranchParseTree = new (Function.prototype.bind.apply(Class, args));  ///
+
+    return verticalBranchParseTree;
+  }
+
+  static fromStringAndVerticalBranchPosition(Class, string, verticalBranchPosition) {
     if (verticalBranchPosition === undefined) {
       verticalBranchPosition = string;
       string = Class;
@@ -49,3 +57,15 @@ class VerticalBranchParseTree extends ParseTree {
 }
 
 module.exports = VerticalBranchParseTree;
+
+function linesFromDepth(depth) {
+  const lines = [];
+
+  let index = 0;
+
+  while (index < depth) {
+    lines[index++] = '';
+  }
+
+  return lines;
+}
