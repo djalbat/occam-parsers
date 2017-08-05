@@ -1,11 +1,11 @@
 'use strict';
 
-const arrayUtil = require('../../../util/array'),
+const arrayUtilities = require('../../../utilities/array'),
       NonTerminalNode = require('../nonTerminal');
 
 class KeepFirstChildNode extends NonTerminalNode {
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = arrayUtil.keepFirst(nodes),
+    const childNodes = arrayUtilities.keepFirst(nodes),
           keepFirstChildNode = NonTerminalNode.fromRuleNameAndChildNodes(KeepFirstChildNode, ruleName, childNodes);
 
     return keepFirstChildNode;

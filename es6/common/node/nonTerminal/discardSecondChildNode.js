@@ -1,11 +1,11 @@
 'use strict';
 
-const arrayUtil = require('../../../util/array'),
+const arrayUtilities = require('../../../utilities/array'),
       NonTerminalNode = require('../nonTerminal');
 
 class DiscardSecondChildNode extends NonTerminalNode {
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = arrayUtil.discardSecond(nodes),
+    const childNodes = arrayUtilities.discardSecond(nodes),
           discardSecondChildNode = NonTerminalNode.fromRuleNameAndChildNodes(DiscardSecondChildNode, ruleName, childNodes);
 
     return discardSecondChildNode;

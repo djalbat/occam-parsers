@@ -1,6 +1,6 @@
 'use strict';
 
-const arrayUtil = require('../../util/array'),
+const arrayUtilities = require('../../utilities/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class DefinitionsNode extends NonTerminalNode {
@@ -17,7 +17,7 @@ class DefinitionsNode extends NonTerminalNode {
   }
 
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = arrayUtil.discardOdd(nodes),
+    const childNodes = arrayUtilities.discardOdd(nodes),
           rulesNode = NonTerminalNode.fromRuleNameAndChildNodes(DefinitionsNode, ruleName, childNodes);
 
     return rulesNode;

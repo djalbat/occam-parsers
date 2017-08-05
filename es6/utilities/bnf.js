@@ -1,14 +1,14 @@
 'use strict';
 
-const lexers = require('occam-lexers');
-
-const arrayUtil = require('../util/array');
+const lexers = require('occam-lexers'),
+      necessary = require('necessary');
 
 const { BNFLexer } = lexers,
+      { array } = necessary,
       { specialSymbols } = BNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 
-class bnfUtil {
+class bnfUtilities {
   static isNodeNoWhitespaceNode(node) {
     let nodeNoWhitespaceNode = false;
   
@@ -48,7 +48,7 @@ class bnfUtil {
     if (nodeNonTerminalNode) {
       const nonTerminalNode = node, ///
             childNodes = nonTerminalNode.getChildNodes(),
-            firstChildNode = arrayUtil.first(childNodes),
+            firstChildNode = array.first(childNodes),
             firstChildNodeTerminalNode = firstChildNode.isTerminalNode();
 
       if (firstChildNodeTerminalNode) {
@@ -73,22 +73,22 @@ class bnfUtil {
           quantifiersNodeChildNodesLength =  quantifiersNodeChildNodes.length;
 
     if (quantifiersNodeChildNodesLength === 2) {
-      const secondQuantifiersNodeChildNode = arrayUtil.second(quantifiersNodeChildNodes);
+      const secondQuantifiersNodeChildNode = array.second(quantifiersNodeChildNodes);
 
       quantifiersNode = secondQuantifiersNodeChildNode; ///
 
-      quantifiers = bnfUtil.quantifiersFromQuantifiersNode(quantifiersNode, quantifiers);
+      quantifiers = bnfUtilities.quantifiersFromQuantifiersNode(quantifiersNode, quantifiers);
     }
 
     return quantifiers;
   }
 }
 
-module.exports = bnfUtil;
+module.exports = bnfUtilities;
 
 function quantifierFromQuantifiersNode(quantifiersNode) {
   const quantifiersNodeChildNodes = quantifiersNode.getChildNodes(),
-        firstQuantifiersNodeChildNode = arrayUtil.first(quantifiersNodeChildNodes),
+        firstQuantifiersNodeChildNode = array.first(quantifiersNodeChildNodes),
         firstQuantifiersNodeChildNodeContent = firstQuantifiersNodeChildNode.getContent(),
         quantifier = firstQuantifiersNodeChildNodeContent;
 

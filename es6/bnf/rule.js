@@ -1,8 +1,11 @@
 'use strict';
 
-const arrayUtil = require('../util/array'),
-      NonTerminalNode = require('../common/node/nonTerminal'),
+const necessary = require('necessary');
+
+const NonTerminalNode = require('../common/node/nonTerminal'),
       EpsilonTerminalNode = require('../common/node/terminal/epsilon');
+
+const { array } = necessary;
 
 class Rule {
   constructor(name, definitions, Node) {
@@ -73,7 +76,7 @@ class Rule {
       if (definitionNodesLength > 0) {
         const ruleName = this.name,
               nodes = definitionNodes,  ///
-              lastNode = arrayUtil.last(nodes),
+              lastNode = array.last(nodes),
               lastNodeNullified = isNodeNullified(lastNode);
 
         if (lastNodeNullified) {
@@ -151,7 +154,7 @@ function isNodeNullified(node) {
           childNodesLength = childNodes.length;
 
     if (childNodesLength === 1) {
-      const childNode = arrayUtil.first(childNodes);
+      const childNode = array.first(childNodes);
 
       nullified = (childNode instanceof EpsilonTerminalNode); ///
     }

@@ -1,11 +1,11 @@
 'use strict';
 
-const arrayUtil = require('../../../util/array'),
+const arrayUtilities = require('../../../utilities/array'),
       NonTerminalNode = require('../nonTerminal');
 
 class DiscardFifthThenSecondChildNode extends NonTerminalNode {
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = arrayUtil.discardFifthThenSecond(nodes),
+    const childNodes = arrayUtilities.discardFifthThenSecond(nodes),
           discardFifthThenSecondChildNode = NonTerminalNode.fromRuleNameAndChildNodes(DiscardFifthThenSecondChildNode, ruleName, childNodes);
 
     return discardFifthThenSecondChildNode;

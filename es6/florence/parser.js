@@ -1,15 +1,16 @@
 'use strict';
 
-const lexers = require('occam-lexers');
+const lexers = require('occam-lexers'),
+      necessary = require('necessary');
 
 const bnf = require('./bnf'),
       mappings = require('./mappings'),
-      arrayUtil = require('../util/array'),
       BNFParser = require('../bnf/parser'),
       CommonParser = require('../common/parser'),
       defaultCustomGrammarBNFMap = require('./defaultCustomGrammarBNFMap');
 
-const { BNFLexer } = lexers;
+const { array } = necessary,
+      { BNFLexer } = lexers;
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
@@ -30,7 +31,7 @@ class FlorenceParser extends CommonParser {
           node = bnfParser.nodeFromLines(lines),
           rules = BNFParser.generateRules(node, mappings);
 
-    arrayUtil.push(rules, combinedCustomGrammarsRules);
+    array.push(rules, combinedCustomGrammarsRules);
     
     const florenceParser = new FlorenceParser(rules);
 

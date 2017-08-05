@@ -1,8 +1,11 @@
 'use strict';
 
-const arrayUtil = require('../../util/array'),
-      SignificantTokenTypePart = require('../part/significantTokenType'),
+const necessary = require('necessary');
+
+const SignificantTokenTypePart = require('../part/significantTokenType'),
       NonTerminalNode = require('../../common/node/nonTerminal');
+
+const { array } = necessary;
 
 class SignificantTokenTypeNode extends NonTerminalNode {
   generatePart(noWhitespace) {
@@ -14,11 +17,11 @@ class SignificantTokenTypeNode extends NonTerminalNode {
 
   getSignificantTokenType() {
     const childNodes = this.getChildNodes(),
-          firstChildNode = arrayUtil.first(childNodes),
+          firstChildNode = array.first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
           matches = terminalNodeContent.match(SignificantTokenTypeNode.regularExpression),
-          secondMatch = arrayUtil.second(matches),
+          secondMatch = array.second(matches),
           significantTokenType = secondMatch; ///
 
     return significantTokenType;

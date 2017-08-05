@@ -1,8 +1,11 @@
 'use strict';
 
-const arrayUtil = require('../../util/array'),
-      RuleNamePart = require('../part/ruleName'),
+const necessary = require('necessary');
+
+const RuleNamePart = require('../part/ruleName'),
       NonTerminalNode = require('../../common/node/nonTerminal');
+
+const { array } = necessary;
 
 class RuleNameNode extends NonTerminalNode {
   generatePart(noWhitespace) {
@@ -14,7 +17,7 @@ class RuleNameNode extends NonTerminalNode {
 
   getRuleName() {
     const childNodes = this.getChildNodes(),
-          firstChildNode = arrayUtil.first(childNodes),
+          firstChildNode = array.first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
           ruleName = terminalNodeContent; ///

@@ -1,7 +1,11 @@
 'use strict';
 
-const bnfUtil = require('../../util/bnf'),
-      arrayUtil = require('../../util/array');
+const necessary = require('necessary');
+
+const bnfUtilities = require('../../utilities/bnf'),
+      arrayUtilities = require('../../utilities/array');
+
+const { array } = necessary;
 
 class ChoiceOfPartsPart {
   constructor(parts) {
@@ -47,13 +51,13 @@ class ChoiceOfPartsPart {
   static fromNodes(nodes) {
     let choiceOfPartsPart = null;
     
-    nodes = arrayUtil.discardLastThenFirst(nodes);
+    nodes = arrayUtilities.discardLastThenFirst(nodes);
     
-    const secondNode = arrayUtil.second(nodes),
-          secondNodeChoiceNode = bnfUtil.isNodeChoiceNode(secondNode);
+    const secondNode = array.second(nodes),
+          secondNodeChoiceNode = bnfUtilities.isNodeChoiceNode(secondNode);
     
     if (secondNodeChoiceNode) {
-      nodes = arrayUtil.discardOdd(nodes);
+      nodes = arrayUtilities.discardOdd(nodes);
 
       const noWhitespace = false,
             parts = nodes.map(function(node) {

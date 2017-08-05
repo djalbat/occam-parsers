@@ -1,14 +1,6 @@
 'use strict';
 
-class arrayUtil {
-  static first(array) { return array[0]; }
-
-  static second(array) { return array[1]; }
-
-  static last(array) { return array[array.length - 1]; }
-
-  static lastButOne(array) { return array[array.length - 2]; }
-
+class arrayUtilities {
   static keepFirst(array) { return keepNth(array, 0); }
 
   static keepSecond(array) { return keepNth(array, 1); }
@@ -26,11 +18,9 @@ class arrayUtil {
   static discardFifthThenSecond(array) { return discardNth(discardNth(array, 4), 1); }
 
   static discardOdd(array) { return array.filter(function(entry, index) { return isEven(index); }); }
-
-  static push(array1, array2) { Array.prototype.push.apply(array1, array2); }
 }
 
-module.exports = arrayUtil;
+module.exports = arrayUtilities;
 
 function keepNth(array, n) {
   array = array.slice();

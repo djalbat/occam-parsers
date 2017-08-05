@@ -2,7 +2,7 @@
 
 const lexers = require('occam-lexers');
 
-const parserUtil = require('../../util/parser');
+const parserUtilities = require('../../utilities/parser');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
@@ -31,7 +31,7 @@ class RuleNamePart {
     
     const name = this.ruleName, ///
           rules = context.getRules(),
-          rule = parserUtil.findRuleByName(name, rules);
+          rule = parserUtilities.findRuleByName(name, rules);
 
     if (rule !== null) {
       nodeOrNodes = rule.parse(context, noWhitespace);

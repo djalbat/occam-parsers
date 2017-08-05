@@ -1,7 +1,11 @@
 'use strict';
 
-const arrayUtil = require('../../util/array'),
+const necessary = require('necessary');
+
+const arrayUtilities = require('../../utilities/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
+
+const { array } = necessary;
 
 class RuleNode extends NonTerminalNode {
   generateRule(Rule, Definition, mappings) {
@@ -18,7 +22,7 @@ class RuleNode extends NonTerminalNode {
 
   getName() {
     const childNodes = this.getChildNodes(),
-          firstChildNode = arrayUtil.first(childNodes),
+          firstChildNode = array.first(childNodes),
           ruleNameNode = firstChildNode,  ///
           ruleNameNodeRuleName = ruleNameNode.getRuleName(),
           name = ruleNameNodeRuleName;
@@ -28,7 +32,7 @@ class RuleNode extends NonTerminalNode {
   
   generateDefinitions(Definition) {
     const childNodes = this.getChildNodes(),
-          lastButOneChildNode = arrayUtil.lastButOne(childNodes),
+          lastButOneChildNode = array.lastButOne(childNodes),
           definitionsNode = lastButOneChildNode,  ///
           definitions = definitionsNode.generateDefinitions(Definition);
     
@@ -36,7 +40,7 @@ class RuleNode extends NonTerminalNode {
   }
 
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = arrayUtil.discardSecond(nodes),
+    const childNodes = arrayUtilities.discardSecond(nodes),
           ruleNode = NonTerminalNode.fromRuleNameAndChildNodes(RuleNode, ruleName, childNodes);
 
     return ruleNode;

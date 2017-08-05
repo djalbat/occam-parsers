@@ -1,7 +1,10 @@
 'use strict';
 
-const arrayUtil = require('../util/array'),
-      RuleNamePart = require('./part/ruleName');
+const necessary = require('necessary');
+
+const RuleNamePart = require('./part/ruleName');
+
+const { array } = necessary;
 
 class Definition {
   constructor(parts) {
@@ -13,7 +16,7 @@ class Definition {
   }
 
   getFirstPart() {
-    const firstPart = arrayUtil.first(this.parts);
+    const firstPart = array.first(this.parts);
 
     return firstPart;
   }

@@ -1,11 +1,12 @@
 'use strict';
 
-const lexers = require('occam-lexers');
+const lexers = require('occam-lexers'),
+      necessary = require('necessary');
 
-const arrayUtil = require('../../util/array'),
-      TerminalNode = require('../../common/node/terminal');
+const TerminalNode = require('../../common/node/terminal');
 
-const { BNFLexer } = lexers,
+const { array } = necessary,
+      { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 
@@ -29,7 +30,7 @@ class RegularExpressionPart {
             matches = content.match(this.regularExpression);
 
       if (matches !== null) {
-        const firstMatch = arrayUtil.first(matches),
+        const firstMatch = array.first(matches),
               parsed = (firstMatch === content);
 
         if (parsed) {

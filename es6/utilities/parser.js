@@ -1,6 +1,6 @@
 'use strict';
 
-class parserUtil {
+class parserUtilities {
   static tokensFromLines(lines) {
     const tokens = lines.reduce(function(tokens, line) {
       const lineTokens = line.getTokens();
@@ -25,4 +25,4 @@ class parserUtil {
   }
 }
 
-module.exports = parserUtil;
+module.exports = parserUtilities;

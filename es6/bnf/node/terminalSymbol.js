@@ -1,8 +1,11 @@
 'use strict';
 
-const arrayUtil = require('../../util/array'),
-      TerminalSymbolPart = require('../part/terminalSymbol'),
+const necessary = require('necessary');
+
+const TerminalSymbolPart = require('../part/terminalSymbol'),
       NonTerminalNode = require('../../common/node/nonTerminal');
+
+const { array } = necessary;
 
 class TerminalSymbolNode extends NonTerminalNode {
   generatePart(noWhitespace) {
@@ -14,11 +17,11 @@ class TerminalSymbolNode extends NonTerminalNode {
 
   getContent() {
     const childNodes = this.getChildNodes(),
-          firstChildNode = arrayUtil.first(childNodes),
+          firstChildNode = array.first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
           matches = terminalNodeContent.match(TerminalSymbolNode.regularExpression),
-          secondMatch = arrayUtil.second(matches),
+          secondMatch = array.second(matches),
           content = secondMatch.replace(/\\"/g,'"'); ///
 
     return content;

@@ -1,10 +1,10 @@
 'use strict';
 
-const arrayUtil = require('../../../util/array');
+const arrayUtilities = require('../../../utilities/array');
 
 class TransparentThenKeepSecondNode {
   static fromNodesAndRuleName(nodes, ruleName) {
-    nodes = arrayUtil.keepSecond(nodes);
+    nodes = arrayUtilities.keepSecond(nodes);
 
     return nodes;
   }

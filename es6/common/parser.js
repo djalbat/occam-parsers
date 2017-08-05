@@ -1,8 +1,11 @@
 'use strict';
 
+const necessary = require('necessary');
+
 const Context = require('./context'),
-      arrayUtil = require('../util/array'),
-      parserUtil = require('../util/parser');
+      parserUtilities = require('../utilities/parser');
+
+const { array } = necessary;
 
 class CommonParser {
   constructor(rules) {
@@ -14,7 +17,7 @@ class CommonParser {
   }
   
   nodeFromLines(lines, rule) {
-    const tokens = parserUtil.tokensFromLines(lines),
+    const tokens = parserUtilities.tokensFromLines(lines),
           node = this.parse(tokens, rule);
     
     return node;
@@ -27,7 +30,7 @@ class CommonParser {
       const rulesLength = this.rules.length;
 
       if (rulesLength > 0) {
-        const firstRule = arrayUtil.first(this.rules);
+        const firstRule = array.first(this.rules);
 
         rule = firstRule; ///
       }
@@ -40,7 +43,7 @@ class CommonParser {
 
       if (nodeOrNodes !== null) {
         node = (nodeOrNodes instanceof Array) ?
-                 arrayUtil.first(nodeOrNodes) :
+                 array.first(nodeOrNodes) :
                    nodeOrNodes;
       }
     }

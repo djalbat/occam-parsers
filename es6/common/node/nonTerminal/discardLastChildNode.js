@@ -1,11 +1,11 @@
 'use strict';
 
-const arrayUtil = require('../../../util/array'),
+const arrayUtilities = require('../../../utilities/array'),
       NonTerminalNode = require('../nonTerminal');
 
 class DiscardLastChildNode extends NonTerminalNode {
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = arrayUtil.discardLast(nodes), ///
+    const childNodes = arrayUtilities.discardLast(nodes), ///
           discardLastChildNode = NonTerminalNode.fromRuleNameAndChildNodes(DiscardLastChildNode, ruleName, childNodes);
 
     return discardLastChildNode;

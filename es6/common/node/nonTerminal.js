@@ -1,7 +1,10 @@
 'use strict';
 
-const arrayUtil = require('../../util/array'),
-      NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
+const necessary = require('necessary');
+
+const NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
+
+const { array } = necessary;
 
 class NonTerminalNode {
   constructor(ruleName, childNodes, firstLine, lastLine, firstSignificantToken, lastSignificantToken) {
@@ -75,8 +78,8 @@ class NonTerminalNode {
       Class = NonTerminalNode;
     }
     
-    const firstChildNode = arrayUtil.first(childNodes),
-          lastChildNode = arrayUtil.last(childNodes),
+    const firstChildNode = array.first(childNodes),
+          lastChildNode = array.last(childNodes),
           firstChildNodeFirstLine = firstChildNode.getFirstLine(),
           lastChildNodeFirstLine = lastChildNode.getLastLine(),
           firstChildNodeFirstSignificantToken = firstChildNode.getFirstSignificantToken(),

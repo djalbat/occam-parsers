@@ -1,6 +1,8 @@
 'use strict';
 
-const arrayUtil = require('../util/array');
+const necessary = require('necessary');
+
+const { array } = necessary;
 
 class ParseTree {
   constructor(lines) {
@@ -21,7 +23,7 @@ class ParseTree {
     if (linesLength === 0) {
       width = 0;
     } else {
-      const lastLine = arrayUtil.last(this.lines),
+      const lastLine = array.last(this.lines),
             lastLineLength = lastLine.length;
 
       width = lastLineLength; ///
