@@ -2,7 +2,8 @@
 
 const necessary = require('necessary');
 
-const { array } = necessary;
+const { array } = necessary,
+      { last } = array;
 
 class ParseTree {
   constructor(lines) {
@@ -23,7 +24,7 @@ class ParseTree {
     if (linesLength === 0) {
       width = 0;
     } else {
-      const lastLine = array.last(this.lines),
+      const lastLine = last(this.lines),
             lastLineLength = lastLine.length;
 
       width = lastLineLength; ///

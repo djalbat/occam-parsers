@@ -4,7 +4,8 @@ const necessary = require('necessary');
 
 const NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first, last } = array;
 
 class NonTerminalNode {
   constructor(ruleName, childNodes, firstLine, lastLine, firstSignificantToken, lastSignificantToken) {
@@ -78,8 +79,8 @@ class NonTerminalNode {
       Class = NonTerminalNode;
     }
     
-    const firstChildNode = array.first(childNodes),
-          lastChildNode = array.last(childNodes),
+    const firstChildNode = first(childNodes),
+          lastChildNode = last(childNodes),
           firstChildNodeFirstLine = firstChildNode.getFirstLine(),
           lastChildNodeFirstLine = lastChildNode.getLastLine(),
           firstChildNodeFirstSignificantToken = firstChildNode.getFirstSignificantToken(),

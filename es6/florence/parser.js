@@ -10,7 +10,8 @@ const bnf = require('./bnf'),
       defaultCustomGrammarBNFMap = require('./defaultCustomGrammarBNFMap');
 
 const { array } = necessary,
-      { BNFLexer } = lexers;
+      { BNFLexer } = lexers,
+      { push } = array;
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
@@ -31,7 +32,7 @@ class FlorenceParser extends CommonParser {
           node = bnfParser.nodeFromLines(lines),
           rules = BNFParser.generateRules(node, mappings);
 
-    array.push(rules, combinedCustomGrammarsRules);
+    push(rules, combinedCustomGrammarsRules);
     
     const florenceParser = new FlorenceParser(rules);
 

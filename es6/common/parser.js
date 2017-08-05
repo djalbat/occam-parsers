@@ -5,7 +5,8 @@ const necessary = require('necessary');
 const Context = require('./context'),
       parserUtilities = require('../utilities/parser');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first } = array;
 
 class CommonParser {
   constructor(rules) {
@@ -30,7 +31,7 @@ class CommonParser {
       const rulesLength = this.rules.length;
 
       if (rulesLength > 0) {
-        const firstRule = array.first(this.rules);
+        const firstRule = first(this.rules);
 
         rule = firstRule; ///
       }
@@ -43,7 +44,7 @@ class CommonParser {
 
       if (nodeOrNodes !== null) {
         node = (nodeOrNodes instanceof Array) ?
-                 array.first(nodeOrNodes) :
+                 first(nodeOrNodes) :
                    nodeOrNodes;
       }
     }

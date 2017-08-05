@@ -5,7 +5,8 @@ const necessary = require('necessary');
 const RegularExpressionPart = require('../part/regularExpression'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first, second } = array;
 
 class RegularExpressionNode extends NonTerminalNode {
   generatePart(noWhitespace) {
@@ -17,11 +18,11 @@ class RegularExpressionNode extends NonTerminalNode {
 
   getRegularExpression() {
     const childNodes = this.getChildNodes(),
-          firstChildNode = array.first(childNodes),
+          firstChildNode = first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
           matches = terminalNodeContent.match(RegularExpressionNode.regularExpression),
-          secondMatch = array.second(matches),
+          secondMatch = second(matches),
           pattern = secondMatch, ///
           regularExpression = new RegExp(pattern);  ///
 

@@ -5,7 +5,8 @@ const necessary = require('necessary');
 const SignificantTokenTypePart = require('../part/significantTokenType'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first, second } = array;
 
 class SignificantTokenTypeNode extends NonTerminalNode {
   generatePart(noWhitespace) {
@@ -17,11 +18,11 @@ class SignificantTokenTypeNode extends NonTerminalNode {
 
   getSignificantTokenType() {
     const childNodes = this.getChildNodes(),
-          firstChildNode = array.first(childNodes),
+          firstChildNode = first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
           matches = terminalNodeContent.match(SignificantTokenTypeNode.regularExpression),
-          secondMatch = array.second(matches),
+          secondMatch = second(matches),
           significantTokenType = secondMatch; ///
 
     return significantTokenType;

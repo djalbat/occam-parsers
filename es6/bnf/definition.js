@@ -4,7 +4,8 @@ const necessary = require('necessary');
 
 const RuleNamePart = require('./part/ruleName');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first } = array;
 
 class Definition {
   constructor(parts) {
@@ -16,7 +17,7 @@ class Definition {
   }
 
   getFirstPart() {
-    const firstPart = array.first(this.parts);
+    const firstPart = first(this.parts);
 
     return firstPart;
   }

@@ -5,7 +5,8 @@ const necessary = require('necessary');
 const NonTerminalNode = require('../common/node/nonTerminal'),
       EpsilonTerminalNode = require('../common/node/terminal/epsilon');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first, last } = array;
 
 class Rule {
   constructor(name, definitions, Node) {
@@ -76,14 +77,10 @@ class Rule {
       if (definitionNodesLength > 0) {
         const ruleName = this.name,
               nodes = definitionNodes,  ///
-              lastNode = array.last(nodes),
-              lastNodeNullified = isNodeNullified(lastNode);
+              lastNodeNullified = isLastNodeNullified(nodes);
 
         if (lastNodeNullified) {
-          const start = -1,
-                deleteCount = 1;
-
-          nodes.splice(start, deleteCount);
+          removedLastNodeFromNodes(nodes);
         }
 
         nodeOrNodes = this.Node.fromNodesAndRuleName(nodes, ruleName);
@@ -145,20 +142,29 @@ function paddingFromPaddingLength(paddingLength) {
   return padding;
 }
 
-function isNodeNullified(node) {
-  let nullified = false;
+function removedLastNodeFromNodes(nodes) {
+  const start = -1,
+        deleteCount = 1;
 
-  if (node instanceof NonTerminalNode) {
-    const nonTerminalNode = node, ///
+  nodes.splice(start, deleteCount);
+}
+
+function isLastNodeNullified(nodes) {
+  let latNodeNullified = false;
+
+  const lastNode = last(nodes);
+
+  if (lastNode instanceof NonTerminalNode) {
+    const nonTerminalNode = lastNode, ///
           childNodes = nonTerminalNode.getChildNodes(),
           childNodesLength = childNodes.length;
 
     if (childNodesLength === 1) {
-      const childNode = array.first(childNodes);
+      const childNode = first(childNodes);
 
-      nullified = (childNode instanceof EpsilonTerminalNode); ///
+      latNodeNullified = (childNode instanceof EpsilonTerminalNode); ///
     }
   }
 
-  return nullified;
+  return latNodeNullified;
 }

@@ -5,7 +5,8 @@ const necessary = require('necessary');
 const bnfUtilities = require('../../utilities/bnf'),
       arrayUtilities = require('../../utilities/array');
 
-const { array } = necessary;
+const { array } = necessary,
+      { second } = array;
 
 class ChoiceOfPartsPart {
   constructor(parts) {
@@ -53,7 +54,7 @@ class ChoiceOfPartsPart {
     
     nodes = arrayUtilities.discardLastThenFirst(nodes);
     
-    const secondNode = array.second(nodes),
+    const secondNode = second(nodes),
           secondNodeChoiceNode = bnfUtilities.isNodeChoiceNode(secondNode);
     
     if (secondNodeChoiceNode) {

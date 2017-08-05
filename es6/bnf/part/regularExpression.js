@@ -7,6 +7,7 @@ const TerminalNode = require('../../common/node/terminal');
 
 const { array } = necessary,
       { BNFLexer } = lexers,
+      { first } = array,
       { specialSymbols } = BNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 
@@ -30,7 +31,7 @@ class RegularExpressionPart {
             matches = content.match(this.regularExpression);
 
       if (matches !== null) {
-        const firstMatch = array.first(matches),
+        const firstMatch = first(matches),
               parsed = (firstMatch === content);
 
         if (parsed) {

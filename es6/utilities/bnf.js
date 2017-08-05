@@ -5,6 +5,7 @@ const lexers = require('occam-lexers'),
 
 const { BNFLexer } = lexers,
       { array } = necessary,
+      { first, second } = array,
       { specialSymbols } = BNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 
@@ -48,7 +49,7 @@ class bnfUtilities {
     if (nodeNonTerminalNode) {
       const nonTerminalNode = node, ///
             childNodes = nonTerminalNode.getChildNodes(),
-            firstChildNode = array.first(childNodes),
+            firstChildNode = first(childNodes),
             firstChildNodeTerminalNode = firstChildNode.isTerminalNode();
 
       if (firstChildNodeTerminalNode) {
@@ -73,7 +74,7 @@ class bnfUtilities {
           quantifiersNodeChildNodesLength =  quantifiersNodeChildNodes.length;
 
     if (quantifiersNodeChildNodesLength === 2) {
-      const secondQuantifiersNodeChildNode = array.second(quantifiersNodeChildNodes);
+      const secondQuantifiersNodeChildNode = second(quantifiersNodeChildNodes);
 
       quantifiersNode = secondQuantifiersNodeChildNode; ///
 
@@ -88,7 +89,7 @@ module.exports = bnfUtilities;
 
 function quantifierFromQuantifiersNode(quantifiersNode) {
   const quantifiersNodeChildNodes = quantifiersNode.getChildNodes(),
-        firstQuantifiersNodeChildNode = array.first(quantifiersNodeChildNodes),
+        firstQuantifiersNodeChildNode = first(quantifiersNodeChildNodes),
         firstQuantifiersNodeChildNodeContent = firstQuantifiersNodeChildNode.getContent(),
         quantifier = firstQuantifiersNodeChildNodeContent;
 

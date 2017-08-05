@@ -10,7 +10,8 @@ const bnfUtilities = require('../../utilities/bnf'),
       OneOrMorePartsPart = require('../part/oneOrMoreParts'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first, last } = array;
 
 class PartNode extends NonTerminalNode {
   generatePart(noWhitespace) {
@@ -25,7 +26,7 @@ class PartNode extends NonTerminalNode {
     const nodesLength = nodes.length;
     
     if (nodesLength === 1) {
-      const firstNode = array.first(nodes),
+      const firstNode = first(nodes),
             node = firstNode;  ///
 
       part = partFromNode(node, noWhitespace);
@@ -44,7 +45,7 @@ class PartNode extends NonTerminalNode {
 module.exports = PartNode;
 
 function noWhitespaceFromNodes(nodes, noWhitespace) {
-  const firstNode = array.first(nodes),
+  const firstNode = first(nodes),
         firstNodeNoWhitespaceNode = bnfUtilities.isNodeNoWhitespaceNode(firstNode);
 
   if (firstNodeNoWhitespaceNode) {
@@ -62,7 +63,7 @@ function noWhitespaceFromNodes(nodes, noWhitespace) {
 function quantifiersFromNodes(nodes) {
   let  quantifiers = [];
 
-  const lastNode = array.last(nodes),
+  const lastNode = last(nodes),
         lastNodeQuantifiersNode = bnfUtilities.isNodeQuantifiersNode(lastNode);
 
   if (lastNodeQuantifiersNode) {

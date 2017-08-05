@@ -6,12 +6,13 @@ const RuleNameParseTree = require('./ruleName'),
       ChildNodesParseTree = require('./childNodes'),
       VerticalBranchParseTree = require('./verticalBranch');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first } = array;
 
 class NonTerminalNodeParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndLines(nonTerminalNode, lines) {
     const childNodes = nonTerminalNode.getChildNodes(),
-          firstChildNode = array.first(childNodes),
+          firstChildNode = first(childNodes),
           childNode = firstChildNode,
           childNodesLength = childNodes.length,
           childNodeOrNodesParseTree = (childNodesLength === 1) ?

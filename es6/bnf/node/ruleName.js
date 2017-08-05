@@ -5,7 +5,8 @@ const necessary = require('necessary');
 const RuleNamePart = require('../part/ruleName'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first } = array;
 
 class RuleNameNode extends NonTerminalNode {
   generatePart(noWhitespace) {
@@ -17,7 +18,7 @@ class RuleNameNode extends NonTerminalNode {
 
   getRuleName() {
     const childNodes = this.getChildNodes(),
-          firstChildNode = array.first(childNodes),
+          firstChildNode = first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
           ruleName = terminalNodeContent; ///

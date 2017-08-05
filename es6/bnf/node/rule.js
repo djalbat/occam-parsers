@@ -5,7 +5,8 @@ const necessary = require('necessary');
 const arrayUtilities = require('../../utilities/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first, lastButOne } = array;
 
 class RuleNode extends NonTerminalNode {
   generateRule(Rule, Definition, mappings) {
@@ -22,7 +23,7 @@ class RuleNode extends NonTerminalNode {
 
   getName() {
     const childNodes = this.getChildNodes(),
-          firstChildNode = array.first(childNodes),
+          firstChildNode = first(childNodes),
           ruleNameNode = firstChildNode,  ///
           ruleNameNodeRuleName = ruleNameNode.getRuleName(),
           name = ruleNameNodeRuleName;
@@ -32,7 +33,7 @@ class RuleNode extends NonTerminalNode {
   
   generateDefinitions(Definition) {
     const childNodes = this.getChildNodes(),
-          lastButOneChildNode = array.lastButOne(childNodes),
+          lastButOneChildNode = lastButOne(childNodes),
           definitionsNode = lastButOneChildNode,  ///
           definitions = definitionsNode.generateDefinitions(Definition);
     

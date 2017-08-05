@@ -4,11 +4,12 @@ const necessary = require('necessary');
 
 const TerminalNode = require('../terminal');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first } = array;
 
 class ErrorNode extends TerminalNode {
   static fromNodesAndRuleName(nodes, ruleName) {
-    const firstNode = array.first(nodes),
+    const firstNode = first(nodes),
           terminalNode = firstNode,  ///
           significantToken = terminalNode.getSignificantToken(),
           errorNode = TerminalNode.fromSignificantToken(ErrorNode, significantToken),
