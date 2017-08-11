@@ -1,31 +1,31 @@
 'use strict';
 
-const ChoiceOfPartsPart = require('../part/choiceOfParts'),
-      EndOfLinePart = require('../part/endOfLine'),
-      EpsilonPart = require('../part/epsilon'),
-      GroupOfPartsPart = require('../part/groupOfParts'),
-      OneOrMorePartsPart = require('../part/oneOrMoreParts'),
-      OptionalPartPart = require('../part/optionalPart'),
-      RegularExpressionPart = require('../part/regularExpression'),
-      RuleNamePart = require('../part/ruleName'),
-      SequenceOfPartsPart = require('../part/sequenceOfParts'),
-      SignificantTokenTypePart = require('../part/significantTokenTypePart'),
-      TerminalSymbolPart = require('../part/terminalSymbol'),
-      WildcardPart = require('../part/wildcard'),
-      ZeroOrMorePartsPart = require('../part/zeroOrMoreParts');
+const RuleNamePart = require('./part/ruleName'),
+      EndOfLinePart = require('./part/endOfLine'),
+      GroupOfPartsPart = require('./part/groupOfParts'),
+      ChoiceOfPartsPart = require('./part/choiceOfParts'),
+      OptionalPartPart = require('./part/optionalPart'),
+      ZeroOrMorePartsPart = require('./part/zeroOrMoreParts'),
+      OneOrMorePartsPart = require('./part/oneOrMoreParts'),
+      RegularExpressionPart = require('./part/regularExpression'),
+      SequenceOfPartsPart = require('./part/sequenceOfParts'),
+      SignificantTokenTypePart = require('./part/significantTokenType'),
+      TerminalSymbolPart = require('./part/terminalSymbol'),
+      WildcardPart = require('./part/wildcard'),
+      EpsilonPart = require('./part/epsilon');
 
 module.exports = {
-  ChoiceOfPartsPart: ChoiceOfPartsPart,
-  EndOfLinePart: EndOfLinePart,
-  EpsilonPart: EpsilonPart,
-  GroupOfPartsPart: GroupOfPartsPart,
-  OneOrMorePartsPart: OneOrMorePartsPart,
-  OptionalPartPart: OptionalPartPart,
-  RegularExpressionPart: RegularExpressionPart,
   RuleNamePart: RuleNamePart,
+  EndOfLinePart: EndOfLinePart,
+  GroupOfPartsPart: GroupOfPartsPart,
+  ChoiceOfPartsPart: ChoiceOfPartsPart,
+  OptionalPartPart: OptionalPartPart,
+  ZeroOrMorePartsPart: ZeroOrMorePartsPart,
+  OneOrMorePartsPart: OneOrMorePartsPart,
+  RegularExpressionPart: RegularExpressionPart,
   SequenceOfPartsPart: SequenceOfPartsPart,
   SignificantTokenTypePart: SignificantTokenTypePart,
   TerminalSymbolPart: TerminalSymbolPart,
   WildcardPart: WildcardPart,
-  ZeroOrMorePartsPart: ZeroOrMorePartsPart
+  EpsilonPart: EpsilonPart
 };
