@@ -2,9 +2,8 @@
 
 var parsers = {
   'Rule': require('./lib/bnf/rule'),
+  'parts': require('./lib/bnf/parts'),
   'Definition': require('./lib/bnf/definition'),
-  'EpsilonPart': require('./lib/bnf/part/epsilon'),
-  'RuleNamePart': require('./lib/bnf/part/ruleName'),
   'BNFParser': require('./lib/bnf/parser'),
   'BasicParser': require('./lib/basic/parser'),
   'FlorenceParser': require('./lib/florence/parser'),
