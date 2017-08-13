@@ -50,12 +50,12 @@ class Rule {
     this.definitions = this.definitions.concat(definitions);
   }
 
-  parse(context, noWhitespace) {
+  parse(configuration, noWhitespace) {
     let nodeOrNodes = null;
 
-    context.increaseDepth();
+    configuration.increaseDepth();
 
-    const tooDeep = context.isTooDeep();
+    const tooDeep = configuration.isTooDeep();
 
     if (tooDeep) {
       throw new Error(`The parse tree is too deep at rule '${this.name}'`);
@@ -64,7 +64,7 @@ class Rule {
     let definitionNodes = null;
     
     const someDefinitionParsed = this.definitions.some(function(definition) {
-      definitionNodes = definition.parse(context, noWhitespace);
+      definitionNodes = definition.parse(configuration, noWhitespace);
 
       const definitionParsed = (definitionNodes !== null);
 
@@ -87,7 +87,7 @@ class Rule {
       }
     }
 
-    context.decreaseDepth();
+    configuration.decreaseDepth();
 
     return nodeOrNodes;
   }

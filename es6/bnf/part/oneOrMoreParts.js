@@ -10,13 +10,13 @@ const { BNFLexer } = lexers,
       { plus } = specialSymbols;
 
 class OneOrMorePartsPart extends SequenceOfPartsPart {
-  parse(context, noWhitespace) {
+  parse(configuration, noWhitespace) {
     noWhitespace = false; ///
 
     let nodes = null;
     
     const part = this.getPart(),
-          partNodeOrNodes = part.parse(context, noWhitespace),
+          partNodeOrNodes = part.parse(configuration, noWhitespace),
           partParsed = (partNodeOrNodes !== null);
 
     if (partParsed) {
@@ -25,7 +25,7 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
                   [partNodeOrNodes];
 
       const zeroOrMorePartsPart = ZeroOrMorePartsPart.fromOneOrMorePartsPart(this), ///
-            zeroOrMorePartsPartNodeOrNodes = zeroOrMorePartsPart.parse(context, noWhitespace);
+            zeroOrMorePartsPartNodeOrNodes = zeroOrMorePartsPart.parse(configuration, noWhitespace);
 
       nodes = nodes.concat(zeroOrMorePartsPartNodeOrNodes);
     }

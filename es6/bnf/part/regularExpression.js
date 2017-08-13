@@ -17,13 +17,13 @@ class RegularExpressionPart {
     this.noWhitespace = noWhitespace;
   }
 
-  parse(context, noWhitespace) {
+  parse(configuration, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
     let terminalNode = null;
     
-    const savedIndex = context.savedIndex(),
-          nextNonWhitespaceSignificantToken = context.getNextNonWhitespaceSignificantToken(noWhitespace),
+    const savedIndex = configuration.savedIndex(),
+          nextNonWhitespaceSignificantToken = configuration.getNextNonWhitespaceSignificantToken(noWhitespace),
           significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
@@ -41,7 +41,7 @@ class RegularExpressionPart {
     }
 
     if (terminalNode === null) {
-      context.backtrack(savedIndex);
+      configuration.backtrack(savedIndex);
     }
 
     return terminalNode;

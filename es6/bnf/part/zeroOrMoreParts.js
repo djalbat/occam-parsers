@@ -9,7 +9,7 @@ const { BNFLexer } = lexers,
       { asterisk } = specialSymbols;
 
 class ZeroOrMorePartsPart extends SequenceOfPartsPart {
-  parse(context, noWhitespace) {
+  parse(configuration, noWhitespace) {
     noWhitespace = false; ///
     
     let nodes = [];
@@ -17,7 +17,7 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
     const part = this.getPart();
 
     for(;;) {
-      const partNodeOrNodes = part.parse(context, noWhitespace),
+      const partNodeOrNodes = part.parse(configuration, noWhitespace),
             partParsed = (partNodeOrNodes !== null);
 
       if (partParsed) {

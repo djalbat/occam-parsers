@@ -24,17 +24,17 @@ class RuleNamePart {
     return leftRecursive;
   }
   
-  parse(context, noWhitespace) {
+  parse(configuration, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
     let nodeOrNodes = null;
     
     const name = this.ruleName, ///
-          rules = context.getRules(),
+          rules = configuration.getRules(),
           rule = parserUtilities.findRuleByName(name, rules);
 
     if (rule !== null) {
-      nodeOrNodes = rule.parse(context, noWhitespace);
+      nodeOrNodes = rule.parse(configuration, noWhitespace);
     }
 
     return nodeOrNodes;

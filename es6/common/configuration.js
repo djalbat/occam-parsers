@@ -6,7 +6,7 @@ const { WhitespaceToken } = lexers;
 
 const DEFAULT_MAXIMUM_DEPTH = 99;
 
-class Context {
+class Configuration {
   constructor(tokens, rules, maximumDepth = DEFAULT_MAXIMUM_DEPTH) {
     this.tokens = tokens;
 
@@ -130,7 +130,7 @@ class Context {
   }
 }
 
-module.exports = Context;
+module.exports = Configuration;
 
 function significantTokenIsWhitespaceToken(significantToken) {
   const type = significantToken.getType(),

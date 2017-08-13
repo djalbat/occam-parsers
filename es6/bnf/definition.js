@@ -41,12 +41,12 @@ class Definition {
     return firstPartRuleNamePart;
   }
 
-  parse(context, noWhitespace) {
+  parse(configuration, noWhitespace) {
     let nodes = [];
 
-    const savedIndex = context.savedIndex(),
+    const savedIndex = configuration.savedIndex(),
           everyPartParsed = this.parts.every(function(part) {
-            const partNodeOrNodes = part.parse(context, noWhitespace),
+            const partNodeOrNodes = part.parse(configuration, noWhitespace),
                   partParsed = (partNodeOrNodes !== null);
 
             if (partParsed) {
@@ -59,7 +59,7 @@ class Definition {
           });
 
     if (!everyPartParsed) {
-      context.backtrack(savedIndex);
+      configuration.backtrack(savedIndex);
 
       nodes = null;
     }

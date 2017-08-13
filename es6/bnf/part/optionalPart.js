@@ -9,13 +9,13 @@ const { BNFLexer } = lexers,
       { questionMark } = specialSymbols;
 
 class OptionalPartPart extends SequenceOfPartsPart {
-  parse(context, noWhitespace) {
+  parse(configuration, noWhitespace) {
     noWhitespace = false; ///
 
     let nodes = [];
     
     const part = this.getPart(),
-          partNodeOrNodes = part.parse(context, noWhitespace),
+          partNodeOrNodes = part.parse(configuration, noWhitespace),
           partParsed = (partNodeOrNodes !== null);
 
     if (partParsed) {

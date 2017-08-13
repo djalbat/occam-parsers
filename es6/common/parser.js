@@ -2,7 +2,7 @@
 
 const necessary = require('necessary');
 
-const Context = require('./context'),
+const Context = require('./configuration'),
       parserUtilities = require('../utilities/parser');
 
 const { array } = necessary,
@@ -38,9 +38,9 @@ class CommonParser {
     }
 
     if (rule !== null) {
-      const context = new Context(tokens, this.rules),
+      const configuration = new Context(tokens, this.rules),
             noWhitespace = false, ///
-            nodeOrNodes = rule.parse(context, noWhitespace);
+            nodeOrNodes = rule.parse(configuration, noWhitespace);
 
       if (nodeOrNodes !== null) {
         node = (nodeOrNodes instanceof Array) ?

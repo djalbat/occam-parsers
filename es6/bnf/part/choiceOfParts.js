@@ -13,13 +13,13 @@ class ChoiceOfPartsPart {
     this.parts = parts;
   }
 
-  parse(context, noWhitespace) {
+  parse(configuration, noWhitespace) {
     noWhitespace = false; ///
     
     let nodes = null;
     
     this.parts.some(function(part) {
-      const partNodeOrNodes = part.parse(context, noWhitespace),
+      const partNodeOrNodes = part.parse(configuration, noWhitespace),
             partParsed = (partNodeOrNodes !== null);
 
       if (partParsed) {

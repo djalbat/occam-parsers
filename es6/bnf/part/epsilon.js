@@ -9,7 +9,7 @@ const { BNFLexer } = lexers,
       { epsilon } = specialSymbols;
 
 class EpsilonPart {
-  parse(context, noWhitespace) {
+  parse(configuration, noWhitespace) {
     const epsilonTerminalNode = new EpsilonTerminalNode();
 
     return epsilonTerminalNode;
