@@ -9,10 +9,10 @@ const { array } = necessary,
       { first, last } = array;
 
 class Rule {
-  constructor(name, definitions, Node) {
+  constructor(name, definitions, NonTerminalNode) {
     this.name = name;
     this.definitions = definitions;
-    this.Node = Node;
+    this.NonTerminalNode = NonTerminalNode;
   }
 
   getName() {
@@ -23,8 +23,8 @@ class Rule {
     return this.definitions;
   }
 
-  getNode() {
-    return this.Node;
+  getNonTerminalNode() {
+    return this.NonTerminalNode;
   }
   
   doDefinitionsExist() {
@@ -51,7 +51,7 @@ class Rule {
   }
 
   parse(configuration, noWhitespace) {
-    let nodeOrNodes = null;
+    let nonTerminalNode = null;
 
     configuration.increaseDepth();
 
@@ -83,13 +83,13 @@ class Rule {
           removedLastNodeFromNodes(nodes);
         }
 
-        nodeOrNodes = this.Node.fromNodesAndRuleName(nodes, ruleName);
+        nonTerminalNode = this.NonTerminalNode.fromNodesAndRuleName(nodes, ruleName);
       }
     }
 
     configuration.decreaseDepth();
 
-    return nodeOrNodes;
+    return nonTerminalNode;
   }
 
   toString(maximumRuleNameLength) {
@@ -122,9 +122,9 @@ class Rule {
     
     const name = rule.getName(),
           definitions = rule.getDefinitions(),
-          Node = rule.getNode();
+          NonTerminalNode = rule.getNonTerminalNode();
 
-    rule = new Class(name, definitions, Node);
+    rule = new Class(name, definitions, NonTerminalNode);
 
     return rule;
   }

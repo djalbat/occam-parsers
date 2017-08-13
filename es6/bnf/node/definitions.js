@@ -18,9 +18,9 @@ class DefinitionsNode extends NonTerminalNode {
 
   static fromNodesAndRuleName(nodes, ruleName) {
     const childNodes = arrayUtilities.discardOdd(nodes),
-          rulesNode = NonTerminalNode.fromRuleNameAndChildNodes(DefinitionsNode, ruleName, childNodes);
+          definitionsNode = NonTerminalNode.fromRuleNameAndChildNodes(DefinitionsNode, ruleName, childNodes);
 
-    return rulesNode;
+    return definitionsNode;
   }
 }
 

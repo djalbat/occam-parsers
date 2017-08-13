@@ -17,8 +17,8 @@ class BasicParser extends CommonParser {
 
     try {
       const lines = bnfLexer.linesFromBNF(bnf),
-            node = bnfParser.nodeFromLines(lines),
-            rules = BNFParser.generateRules(node);
+            rulesNode = bnfParser.rulesNodeFromLines(lines),
+            rules = BNFParser.generateRules(rulesNode);
 
       basicParser = new BasicParser(rules);
     } catch (error) {
