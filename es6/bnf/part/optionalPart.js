@@ -2,13 +2,19 @@
 
 const lexers = require('occam-lexers');
 
-const SequenceOfPartsPart = require('./sequenceOfParts');
-
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { questionMark } = specialSymbols;
 
-class OptionalPartPart extends SequenceOfPartsPart {
+class OptionalPartPart {
+  constructor(part) {
+    this.part = part;
+  }
+
+  getPart() {
+    return this.part;
+  }
+
   parse(configuration, noWhitespace) {
     noWhitespace = false; ///
 
@@ -27,7 +33,8 @@ class OptionalPartPart extends SequenceOfPartsPart {
 
   toString() {
     const operatorString = questionMark,  ///
-          string = super.toString(operatorString);
+          partString = this.part.toString(),
+          string = `${partString}${operatorString}`;
 
     return string;
   }
