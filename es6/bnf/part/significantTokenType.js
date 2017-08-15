@@ -9,11 +9,15 @@ const { BNFLexer } = lexers,
       { NO_WHITESPACE } = specialSymbols;
 
 class SignificantTokenTypePart {
-  constructor(significantTokenType, noWhitespace = false) {
+  constructor(significantTokenType, noWhitespace) {
     this.significantTokenType = significantTokenType;
     this.noWhitespace = noWhitespace;
   }
-  
+
+  getNoWhitespace() {
+    return this.noWhitespace;
+  }
+
   parse(configuration, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
     

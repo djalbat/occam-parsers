@@ -15,6 +15,10 @@ class EpsilonPart {
     return epsilonTerminalNode;
   }
 
+  getNoWhitespace() {
+    return this.noWhitespace; ///
+  }
+  
   toString() {
     const string = epsilon; ///
 

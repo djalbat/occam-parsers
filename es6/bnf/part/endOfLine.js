@@ -12,7 +12,11 @@ class EndOfLinePart {
   constructor(noWhitespace) {
     this.noWhitespace = noWhitespace;
   }
-  
+
+  getNoWhitespace() {
+    return this.noWhitespace;
+  }
+
   parse(configuration, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
