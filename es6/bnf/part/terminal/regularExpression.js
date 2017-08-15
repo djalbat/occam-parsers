@@ -24,7 +24,7 @@ class RegularExpressionPart extends TerminalPart {
 
     let terminalNode = null;
     
-    const savedIndex = configuration.savedIndex(),
+    const savedIndex = configuration.getSavedIndex(),
           nextNonWhitespaceSignificantToken = configuration.getNextNonWhitespaceSignificantToken(noWhitespace),
           significantToken = nextNonWhitespaceSignificantToken; ///
 

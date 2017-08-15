@@ -39,6 +39,13 @@ class Configuration {
     return this.index;
   }
 
+  getSavedIndex() {
+    const index = this.getIndex(),
+          savedIndex = index; ///
+  
+    return savedIndex;
+  }
+
   isTooDeep() {
     const tooDeep = this.depth > this.maximumDepth;
     
@@ -116,13 +123,6 @@ class Configuration {
     }
 
     return nextNonWhitespaceSignificantToken;
-  }
-
-  savedIndex() {
-    const index = this.getIndex(),
-          savedIndex = index; ///
-    
-    return savedIndex;
   }
 
   backtrack(savedIndex) {

@@ -44,7 +44,7 @@ class Definition {
   parse(configuration, noWhitespace) {
     let nodes = [];
 
-    const savedIndex = configuration.savedIndex(),
+    const savedIndex = configuration.getSavedIndex(),
           everyPartParsed = this.parts.every(function(part) {
             const partNodeOrNodes = part.parse(configuration, noWhitespace),
                   partParsed = (partNodeOrNodes !== null);
