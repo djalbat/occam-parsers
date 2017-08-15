@@ -1,24 +1,9 @@
 'use strict';
 
-const necessary = require('necessary');
+const NonTerminalNode = require('../nonTerminal');
 
-const TerminalNode = require('../terminal');
-
-const { array } = necessary,
-      { first } = array;
-
-class ErrorNode extends TerminalNode {
-  static fromNodesAndRuleName(nodes, ruleName) {
-    const firstNode = first(nodes),
-          terminalNode = firstNode,  ///
-          significantToken = terminalNode.getSignificantToken(),
-          errorNode = TerminalNode.fromSignificantToken(ErrorNode, significantToken),
-          error = true;
-
-    significantToken.setError(error);
-
-    return errorNode;
-  }
+class ErrorNode extends NonTerminalNode {
+  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(ErrorNode, nodes, ruleName); }
 }
 
 module.exports = ErrorNode;

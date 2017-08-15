@@ -27,6 +27,13 @@ class EpsilonNode extends TerminalNode {
 
     return content;
   }
+
+  parseTreeFromLines(lines) {
+    const epsilonNodeParseTree = EpsilonNodeParseTree.fromNothing(),
+          parseTree = epsilonNodeParseTree;  ///
+
+    return parseTree;
+  }
 }
 
 module.exports = EpsilonNode;

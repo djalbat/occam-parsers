@@ -1,26 +1,21 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const VerticalBranchParseTree = require('./verticalBranch');
 
-class TerminalNodeParseTree extends VerticalBranchParseTree {
-  static fromTerminalNodeAndLines(terminalNode, lines) {
-    const line = terminalNode.getLine(),
-          lineIndex = lines.indexOf(line),
-          lineNumber = lineIndex + 1,
-          significantToken = terminalNode.getSignificantToken(),
-          significantTokenType = significantToken.getType(),
-          significantTokenError = significantToken.getError(),
-          significantTokenContent = significantToken.getContent(),
-          content = significantTokenContent,
-          description = (significantTokenError === true) ?
-                          'error' :
-                            significantTokenType,
-          string = `${content}[${description}](${lineNumber})`,
+const { BNFLexer } = lexers,
+      { specialSymbols } = BNFLexer,
+      { epsilon } = specialSymbols;
+
+class EpsilonNodeParseTree extends VerticalBranchParseTree {
+  static fromNothing() {
+    const string = epsilon, ///
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
           verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(), 
-          terminalNodeParseTree = VerticalBranchParseTree.fromStringAndVerticalBranchPosition(TerminalNodeParseTree, string, verticalBranchPosition);
+          terminalNodeParseTree = VerticalBranchParseTree.fromStringAndVerticalBranchPosition(EpsilonNodeParseTree, string, verticalBranchPosition);
     
     terminalNodeParseTree.appendToTop(verticalBranchParseTree);
 
@@ -28,4 +23,4 @@ class TerminalNodeParseTree extends VerticalBranchParseTree {
   }
 }
 
-module.exports = TerminalNodeParseTree;
+module.exports = EpsilonNodeParseTree;
