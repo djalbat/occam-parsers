@@ -8,12 +8,18 @@ const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { epsilon } = specialSymbols;
 
-class EpsilonTerminalNode extends TerminalNode {
+class EpsilonNode extends TerminalNode {
   constructor() {
     const significantToken = null,
           line = null;
 
     super(significantToken, line);
+  }
+  
+  isEpsilonNode() {
+    const epsilonNode = true;
+    
+    return epsilonNode;
   }
 
   getContent() {
@@ -23,4 +29,4 @@ class EpsilonTerminalNode extends TerminalNode {
   }
 }
 
-module.exports = EpsilonTerminalNode;
+module.exports = EpsilonNode;

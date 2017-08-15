@@ -7,7 +7,13 @@ class TerminalNode {
     this.significantToken = significantToken;
     this.line = line;
   }
-  
+
+  isEpsilonNode() {
+    const epsilonNode = false;
+
+    return epsilonNode;
+  }
+
   isTerminalNode() {
     const terminalNode = true;
     

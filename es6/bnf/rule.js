@@ -2,9 +2,6 @@
 
 const necessary = require('necessary');
 
-const NonTerminalNode = require('../common/node/nonTerminal'),
-      EpsilonTerminalNode = require('../common/node/terminal/epsilon');
-
 const { array } = necessary,
       { first, last } = array;
 
@@ -152,17 +149,24 @@ function removedLastNodeFromNodes(nodes) {
 function isLastNodeNullified(nodes) {
   let latNodeNullified = false;
 
-  const lastNode = last(nodes);
+  const lastNode = last(nodes),
+        lastNodeTerminalNode = lastNode.isTerminalNode(),
+        lastNodeNonTerminalNode = !lastNodeTerminalNode;
 
-  if (lastNode instanceof NonTerminalNode) {
+  if (lastNodeNonTerminalNode) {
     const nonTerminalNode = lastNode, ///
           childNodes = nonTerminalNode.getChildNodes(),
           childNodesLength = childNodes.length;
 
     if (childNodesLength === 1) {
-      const childNode = first(childNodes);
+      const firstChildNode = first(childNodes),
+            firstChildNodeTerminalNode = firstChildNode.isTerminalNode();
+      
+      if (firstChildNodeTerminalNode) {
+        const firstChildNodeEpsilonNode = firstChildNode.isEpsilonNode();
 
-      latNodeNullified = (childNode instanceof EpsilonTerminalNode); ///
+        latNodeNullified = firstChildNodeEpsilonNode; ///        
+      }
     }
   }
 

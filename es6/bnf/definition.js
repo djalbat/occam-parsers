@@ -35,9 +35,20 @@ class Definition {
   }
 
   isFirstPartRuleNamePart() {
+    let firstPartRuleNamePart;
+    
     const firstPart = this.getFirstPart(),
-          firstPartRuleNamePart = (firstPart instanceof RuleNamePart);
+          firstPartTerminalPart = firstPart.isTerminalPart(),
+          firstPartNonTerminalPart = !firstPartTerminalPart;
+    
+    if (firstPartNonTerminalPart) {
+      const nonTerminalPart = firstPart,  ///
+            nonTerminalPartType = nonTerminalPart.getType(),
+            nonTerminalPartRuleNamePart = (nonTerminalPartType === RuleNamePart.type);
 
+      firstPartRuleNamePart = nonTerminalPartRuleNamePart;  ///      
+    }
+    
     return firstPartRuleNamePart;
   }
 
