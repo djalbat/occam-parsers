@@ -11,7 +11,9 @@ const { BNFLexer } = lexers,
 
 class RuleNamePart extends NonTerminalPart {
   constructor(ruleName, noWhitespace = false) {
-    super();
+    const type = RuleNamePart.type;
+
+    super(type);
 
     this.ruleName = ruleName;
     this.noWhitespace = noWhitespace;
@@ -52,5 +54,7 @@ class RuleNamePart extends NonTerminalPart {
     return string;
   }
 }
+
+RuleNamePart.type = 'RuleName';
 
 module.exports = RuleNamePart;

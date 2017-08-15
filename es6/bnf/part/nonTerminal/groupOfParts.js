@@ -5,7 +5,9 @@ const NonTerminalPart = require('../../part/nonTerminal'),
 
 class GroupOfPartsPart extends NonTerminalPart {
   constructor(parts) {
-    super();
+    const type = GroupOfPartsPart.type;
+
+    super(type);
 
     this.parts = parts;
   }
@@ -71,5 +73,7 @@ class GroupOfPartsPart extends NonTerminalPart {
     return groupOfPartsPart;
   }
 }
+
+GroupOfPartsPart.type = 'GroupOfParts';
 
 module.exports = GroupOfPartsPart;

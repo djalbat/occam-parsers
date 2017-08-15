@@ -11,7 +11,9 @@ const { array } = necessary,
 
 class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
-    super();
+    const type = ChoiceOfPartsPart.type;
+    
+    super(type);
     
     this.parts = parts;
   }
@@ -80,5 +82,7 @@ class ChoiceOfPartsPart extends NonTerminalPart {
     return choiceOfPartsPart;
   }
 }
+
+ChoiceOfPartsPart.type = 'ChoiceOfParts';
 
 module.exports = ChoiceOfPartsPart;

@@ -10,7 +10,9 @@ const { BNFLexer } = lexers,
 
 class OptionalPartPart extends NonTerminalPart {
   constructor(part) {
-    super();
+    const type = OptionalPartPart.type;
+
+    super(type);
 
     this.part = part;
   }
@@ -43,5 +45,7 @@ class OptionalPartPart extends NonTerminalPart {
     return string;
   }
 }
+
+OptionalPartPart.type = 'OptionalPart';
 
 module.exports = OptionalPartPart;

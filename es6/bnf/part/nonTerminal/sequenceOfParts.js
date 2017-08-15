@@ -3,8 +3,8 @@
 const NonTerminalPart = require('../../part/nonTerminal');
 
 class SequenceOfPartsPart extends NonTerminalPart {
-  constructor(part) {
-    super();
+  constructor(type, part) {
+    super(type);
 
     this.part = part;
   }

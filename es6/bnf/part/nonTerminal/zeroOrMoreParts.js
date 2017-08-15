@@ -9,6 +9,12 @@ const { BNFLexer } = lexers,
       { asterisk } = specialSymbols;
 
 class ZeroOrMorePartsPart extends SequenceOfPartsPart {
+  constructor(part) {
+    const type = ZeroOrMorePartsPart.type;
+
+    super(type, part);
+  }
+
   parse(configuration, noWhitespace) {
     noWhitespace = false; ///
     
@@ -44,5 +50,7 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
     return zeroOrMorePartsPart;
   }
 }
+
+ZeroOrMorePartsPart.type = 'ZeroOrMoreParts';
 
 module.exports = ZeroOrMorePartsPart;
