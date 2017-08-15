@@ -15,7 +15,7 @@ const { BNFLexer } = lexers,
 class ChoiceOfPartsDefinition extends Definition {
   constructor() {
     const partRuleName = 'part',
-          rightRecursivePartRuleName = 'rightRecursivePart',
+          rightRecursivePartRuleName = 'part~', ///
           verticalBarTerminalSymbolContent = verticalBar,
           openBracketTerminalSymbolContent = openBracket,
           closeBracketTerminalSymbolContent = closeBracket,

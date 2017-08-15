@@ -13,7 +13,7 @@ const { BNFLexer } = lexers,
 class NoWhitespaceDefinition extends Definition {
   constructor() {
     const partRuleName = 'part',
-          rightRecursivePartRuleName = 'rightRecursivePart',
+          rightRecursivePartRuleName = 'part~', ///
           noWhitespaceTerminalSymbolContent = NO_WHITESPACE,
           partRuleNamePart = new RuleNamePart(partRuleName),
           rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),

@@ -5,7 +5,7 @@ const Definition = require('../definition'),
 
 class PartRuleDefinition extends Definition {
   constructor(ruleName) {
-    const rightRecursivePartRuleName = 'rightRecursivePart',
+    const rightRecursivePartRuleName = 'part~', ///
           ruleNameRuleNamePart = new RuleNamePart(ruleName),
           rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),
           parts = [

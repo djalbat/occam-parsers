@@ -14,7 +14,7 @@ const { BNFLexer } = lexers,
 class GroupOfPartsDefinition extends Definition {
   constructor() {
     const partRuleName = 'part',
-          rightRecursivePartRuleName = 'rightRecursivePart',
+          rightRecursivePartRuleName = 'part~', ///
           openBracketTerminalSymbolContent = openBracket,
           closeBracketTerminalSymbolContent = closeBracket,
           partRuleNamePart = new RuleNamePart(partRuleName),

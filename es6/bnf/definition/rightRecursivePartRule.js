@@ -7,7 +7,7 @@ const Definition = require('../definition'),
 class RightRecursivePartRuleDefinition extends Definition {
   constructor(terminalSymbolContent) {
     const terminalSymbolPartNoWhitespace = true,
-          rightRecursivePartRuleName = 'rightRecursivePart',
+          rightRecursivePartRuleName = 'part~', ///
           terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, terminalSymbolPartNoWhitespace),
           rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),
           parts = [

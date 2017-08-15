@@ -20,7 +20,7 @@ class RightRecursivePartRule extends Rule {
           zeroOrMoreRightRecursivePartRuleDefinition = new RightRecursivePartRuleDefinition(asteriskTerminalSymbolContent), ///
           oneOrMoreRightRecursivePartRuleDefinition = new RightRecursivePartRuleDefinition(plusTerminalSymbolContent), ///
           epsilonDefinition = new EpsilonDefinition(),
-          name = 'rightRecursivePart',
+          name = 'part~', ///
           definitions = [
             optionalRightRecursivePartRuleDefinition,
             zeroOrMoreRightRecursivePartRuleDefinition,
