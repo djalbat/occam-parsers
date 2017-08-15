@@ -12,6 +12,10 @@ class ChoiceOfPartsPart {
   constructor(parts) {
     this.parts = parts;
   }
+  
+  getParts() {
+    return this.parts;
+  }
 
   parse(configuration, noWhitespace) {
     noWhitespace = false; ///
