@@ -2,8 +2,8 @@
 
 const necessary = require('necessary');
 
-const SignificantTokenTypePart = require('../part/significantTokenType'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+const NonTerminalNode = require('../../common/node/nonTerminal'),
+      SignificantTokenTypePart = require('../part/terminal/significantTokenType');
 
 const { array } = necessary,
       { first, second } = array;

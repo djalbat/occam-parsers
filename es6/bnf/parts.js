@@ -1,29 +1,29 @@
 'use strict';
 
-const RuleNamePart = require('./part/ruleName'),
-      EndOfLinePart = require('./part/endOfLine'),
-      GroupOfPartsPart = require('./part/groupOfParts'),
-      ChoiceOfPartsPart = require('./part/choiceOfParts'),
-      OptionalPartPart = require('./part/optionalPart'),
-      ZeroOrMorePartsPart = require('./part/zeroOrMoreParts'),
-      OneOrMorePartsPart = require('./part/oneOrMoreParts'),
-      RegularExpressionPart = require('./part/regularExpression'),
-      SignificantTokenTypePart = require('./part/significantTokenType'),
-      TerminalSymbolPart = require('./part/terminalSymbol'),
-      WildcardPart = require('./part/wildcard'),
-      EpsilonPart = require('./part/epsilon');
+const EpsilonPart = require('./part/terminal/epsilon'),
+      WildcardPart = require('./part/terminal/wildcard'),
+      EndOfLinePart = require('./part/terminal/endOfLine'),
+      TerminalSymbolPart = require('./part/terminal/terminalSymbol'),
+      RegularExpressionPart = require('./part/terminal/regularExpression'),
+      SignificantTokenTypePart = require('./part/terminal/significantTokenType'),
+      RuleNamePart = require('./part/nonTerminal/ruleName'),
+      OptionalPartPart = require('./part/nonTerminal/optionalPart'),
+      ZeroOrMorePartsPart = require('./part/nonTerminal/zeroOrMoreParts'),
+      OneOrMorePartsPart = require('./part/nonTerminal/oneOrMoreParts'),
+      GroupOfPartsPart = require('./part/nonTerminal/groupOfParts'),
+      ChoiceOfPartsPart = require('./part/nonTerminal/choiceOfParts');
 
 module.exports = {
-  RuleNamePart: RuleNamePart,
+  EpsilonPart: EpsilonPart,
+  WildcardPart: WildcardPart,
   EndOfLinePart: EndOfLinePart,
-  GroupOfPartsPart: GroupOfPartsPart,
-  ChoiceOfPartsPart: ChoiceOfPartsPart,
+  TerminalSymbolPart: TerminalSymbolPart,
+  RegularExpressionPart: RegularExpressionPart,
+  SignificantTokenTypePart: SignificantTokenTypePart,
+  RuleNamePart: RuleNamePart,
   OptionalPartPart: OptionalPartPart,
   ZeroOrMorePartsPart: ZeroOrMorePartsPart,
   OneOrMorePartsPart: OneOrMorePartsPart,
-  RegularExpressionPart: RegularExpressionPart,
-  SignificantTokenTypePart: SignificantTokenTypePart,
-  TerminalSymbolPart: TerminalSymbolPart,
-  WildcardPart: WildcardPart,
-  EpsilonPart: EpsilonPart
+  GroupOfPartsPart: GroupOfPartsPart,
+  ChoiceOfPartsPart: ChoiceOfPartsPart
 };

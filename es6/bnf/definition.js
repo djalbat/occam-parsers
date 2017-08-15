@@ -2,7 +2,7 @@
 
 const necessary = require('necessary');
 
-const RuleNamePart = require('./part/ruleName');
+const RuleNamePart = require('./part/nonTerminal/ruleName');
 
 const { array } = necessary,
       { first } = array;

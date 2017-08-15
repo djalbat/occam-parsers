@@ -1,6 +1,6 @@
 'use strict';
 
-const EpsilonPart = require('../part/epsilon'),
+const EpsilonPart = require('../part/terminal/epsilon'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class EpsilonNode extends NonTerminalNode {

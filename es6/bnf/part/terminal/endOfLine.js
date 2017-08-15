@@ -2,21 +2,14 @@
 
 const lexers = require('occam-lexers');
 
-const TerminalNode = require('../../common/node/terminal');
+const TerminalPart = require('../../part/terminal'),
+      TerminalNode = require('../../../common/node/terminal');
 
-const { BNFLexer } = lexers,
+const { BNFLexer, EndOfLineToken } = lexers,
       { specialSymbols } = BNFLexer,
-      { wildcard } = specialSymbols;
+      { END_OF_LINE } = specialSymbols;
 
-class WildcardPart {
-  constructor(noWhitespace) {
-    this.noWhitespace = noWhitespace;
-  }
-
-  getNoWhitespace() {
-    return this.noWhitespace;
-  }
-  
+class EndOfLinePart extends TerminalPart {
   parse(configuration, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
@@ -27,7 +20,12 @@ class WildcardPart {
           significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      terminalNode = TerminalNode.fromSignificantToken(significantToken);
+      const type = significantToken.getType(),
+            found = (type === EndOfLineToken.type);
+
+      if (found) {
+        terminalNode = TerminalNode.fromSignificantToken(significantToken);
+      }
     }
     
     if (terminalNode === null) {
@@ -38,10 +36,10 @@ class WildcardPart {
   }
 
   toString() {
-    const string = wildcard;  ///
+    const string = END_OF_LINE; ///
 
     return string;
   }
 }
 
-module.exports = WildcardPart;
+module.exports = EndOfLinePart;

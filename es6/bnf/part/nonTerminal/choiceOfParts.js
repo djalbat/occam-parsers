@@ -2,14 +2,17 @@
 
 const necessary = require('necessary');
 
-const bnfUtilities = require('../../utilities/bnf'),
-      arrayUtilities = require('../../utilities/array');
+const NonTerminalPart = require('../../part/nonTerminal'),
+      bnfUtilities = require('../../../utilities/bnf'),
+      arrayUtilities = require('../../../utilities/array');
 
 const { array } = necessary,
       { second } = array;
 
-class ChoiceOfPartsPart {
+class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
+    super();
+    
     this.parts = parts;
   }
   

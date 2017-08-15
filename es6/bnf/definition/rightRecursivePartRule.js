@@ -1,8 +1,8 @@
 'use strict';
 
 const Definition = require('../definition'),
-      RuleNamePart = require('../part/ruleName'),
-      TerminalSymbolPart = require('../part/terminalSymbol');
+      RuleNamePart = require('../part/nonTerminal/ruleName'),
+      TerminalSymbolPart = require('../part/terminal/terminalSymbol');
 
 class RightRecursivePartRuleDefinition extends Definition {
   constructor(terminalSymbolContent) {

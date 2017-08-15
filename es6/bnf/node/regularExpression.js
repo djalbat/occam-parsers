@@ -2,8 +2,8 @@
 
 const necessary = require('necessary');
 
-const RegularExpressionPart = require('../part/regularExpression'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+const NonTerminalNode = require('../../common/node/nonTerminal'),
+      RegularExpressionPart = require('../part/terminal/regularExpression');
 
 const { array } = necessary,
       { first, second } = array;

@@ -1,7 +1,7 @@
 'use strict';
 
 const Definition = require('../definition'),
-      SignificantTokenTypePart = require('../part/significantTokenType');
+      SignificantTokenTypePart = require('../part/terminal/significantTokenType');
 
 class SignificantTokenTypeDefinition extends Definition {
   constructor(significantTokenType) {

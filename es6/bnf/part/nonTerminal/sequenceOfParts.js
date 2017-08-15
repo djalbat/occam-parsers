@@ -1,7 +1,11 @@
 'use strict';
 
-class SequenceOfPartsPart {
+const NonTerminalPart = require('../../part/nonTerminal');
+
+class SequenceOfPartsPart extends NonTerminalPart {
   constructor(part) {
+    super();
+
     this.part = part;
   }
 

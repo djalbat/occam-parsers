@@ -3,8 +3,8 @@
 const lexers = require('occam-lexers');
 
 const Definition = require('../definition'),
-      RuleNamePart = require('../part/ruleName'),
-      TerminalSymbolPart = require('../part/terminalSymbol');
+      RuleNamePart = require('../part/nonTerminal/ruleName'),
+      TerminalSymbolPart = require('../part/terminal/terminalSymbol');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,

@@ -1,9 +1,12 @@
 'use strict';
 
-const arrayUtilities = require('../../utilities/array');
+const NonTerminalPart = require('../../part/nonTerminal'),
+      arrayUtilities = require('../../../utilities/array');
 
-class GroupOfPartsPart {
+class GroupOfPartsPart extends NonTerminalPart {
   constructor(parts) {
+    super();
+
     this.parts = parts;
   }
 

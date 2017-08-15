@@ -2,20 +2,18 @@
 
 const lexers = require('occam-lexers');
 
-const TerminalNode = require('../../common/node/terminal');
+const TerminalPart = require('../../part/terminal'),
+      TerminalNode = require('../../../common/node/terminal');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 
-class SignificantTokenTypePart {
+class SignificantTokenTypePart extends TerminalPart {
   constructor(significantTokenType, noWhitespace) {
+    super(noWhitespace);
+    
     this.significantTokenType = significantTokenType;
-    this.noWhitespace = noWhitespace;
-  }
-
-  getNoWhitespace() {
-    return this.noWhitespace;
   }
 
   parse(configuration, noWhitespace) {

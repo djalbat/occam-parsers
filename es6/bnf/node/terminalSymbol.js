@@ -2,8 +2,8 @@
 
 const necessary = require('necessary');
 
-const TerminalSymbolPart = require('../part/terminalSymbol'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+const NonTerminalNode = require('../../common/node/nonTerminal'),
+      TerminalSymbolPart = require('../part/terminal/terminalSymbol');
 
 const { array } = necessary,
       { first, second } = array;

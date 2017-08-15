@@ -3,7 +3,8 @@
 const lexers = require('occam-lexers'),
       necessary = require('necessary');
 
-const TerminalNode = require('../../common/node/terminal');
+const TerminalPart = require('../../part/terminal'),
+      TerminalNode = require('../../../common/node/terminal');
 
 const { array } = necessary,
       { BNFLexer } = lexers,
@@ -11,14 +12,11 @@ const { array } = necessary,
       { specialSymbols } = BNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 
-class RegularExpressionPart {
-  constructor(regularExpression, noWhitespace = false) {
+class RegularExpressionPart extends TerminalPart {
+  constructor(regularExpression, noWhitespace) {
+    super(noWhitespace);
+    
     this.regularExpression = regularExpression;
-    this.noWhitespace = noWhitespace;
-  }
-
-  getNoWhitespace() {
-    return this.noWhitespace;
   }
 
   parse(configuration, noWhitespace) {

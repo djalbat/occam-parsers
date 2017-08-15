@@ -2,23 +2,20 @@
 
 const lexers = require('occam-lexers');
 
-const EpsilonTerminalNode = require('../../common/node/terminal/epsilon');
+const TerminalPart = require('../../part/terminal'),
+      EpsilonTerminalNode = require('../../../common/node/terminal/epsilon');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { epsilon } = specialSymbols;
 
-class EpsilonPart {
+class EpsilonPart extends TerminalPart {
   parse(configuration, noWhitespace) {
     const epsilonTerminalNode = new EpsilonTerminalNode();
 
     return epsilonTerminalNode;
   }
 
-  getNoWhitespace() {
-    return this.noWhitespace; ///
-  }
-  
   toString() {
     const string = epsilon; ///
 

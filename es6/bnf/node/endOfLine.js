@@ -1,6 +1,6 @@
 'use strict';
 
-const EndOfLinePart = require('../part/endOfLine'),
+const EndOfLinePart = require('../part/terminal/endOfLine'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class EndOfLineNode extends NonTerminalNode {

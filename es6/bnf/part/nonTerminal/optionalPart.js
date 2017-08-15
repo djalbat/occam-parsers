@@ -2,12 +2,16 @@
 
 const lexers = require('occam-lexers');
 
+const NonTerminalPart = require('../../part/nonTerminal');
+
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { questionMark } = specialSymbols;
 
-class OptionalPartPart {
+class OptionalPartPart extends NonTerminalPart {
   constructor(part) {
+    super();
+
     this.part = part;
   }
 

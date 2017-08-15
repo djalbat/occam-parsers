@@ -3,11 +3,11 @@
 const necessary = require('necessary');
 
 const bnfUtilities = require('../../utilities/bnf'),
-      GroupOfPartsPart = require('../part/groupOfParts'),
-      ChoiceOfPartsPart = require('../part/choiceOfParts'),
-      OptionalPartPart = require('../part/optionalPart'),
-      ZeroOrMorePartsPart = require('../part/zeroOrMoreParts'),
-      OneOrMorePartsPart = require('../part/oneOrMoreParts'),
+      OptionalPartPart = require('../part/nonTerminal/optionalPart'),
+      ZeroOrMorePartsPart = require('../part/nonTerminal/zeroOrMoreParts'),
+      OneOrMorePartsPart = require('../part/nonTerminal/oneOrMoreParts'),
+      GroupOfPartsPart = require('../part/nonTerminal/groupOfParts'),
+      ChoiceOfPartsPart = require('../part/nonTerminal/choiceOfParts'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 const { array } = necessary,
