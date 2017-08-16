@@ -10,6 +10,12 @@ class TerminalPart {
     
     return terminalPart;
   }
+  
+  isEpsilonPart() {
+    const epsilonPart = false;
+    
+    return epsilonPart;
+  }
 
   getNoWhitespace() {
     return this.noWhitespace; ///

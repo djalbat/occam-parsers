@@ -16,6 +16,12 @@ class EpsilonPart extends TerminalPart {
     return epsilonTerminalNode;
   }
 
+  isEpsilonPart() {
+    const epsilonPart = true;
+
+    return epsilonPart;
+  }
+
   toString() {
     const string = epsilon; ///
 
