@@ -18,8 +18,11 @@ class PartNode extends NonTerminalNode {
     let part = null;
 
     const childNodes = this.getChildNodes(),
-          nodes = childNodes, ///
-          quantifiers = quantifiersFromNodes(nodes);
+          nodes = childNodes.slice(); ///
+
+    removeLastNullifiedNodeFromNodes(nodes);
+
+    const quantifiers = quantifiersFromNodes(nodes);
 
     noWhitespace = noWhitespaceFromNodes(nodes, noWhitespace);
 
@@ -43,6 +46,36 @@ class PartNode extends NonTerminalNode {
 }
 
 module.exports = PartNode;
+
+function removeLastNullifiedNodeFromNodes(nodes) {
+  let lastNodeNullifiedNode = false;
+
+  const lastNode = last(nodes),
+        lastNodeTerminalNode = lastNode.isTerminalNode(),
+        lastNodeNonTerminalNode = !lastNodeTerminalNode;
+
+  if (lastNodeNonTerminalNode) {
+    const nonTerminalNode = lastNode, ///
+          childNodes = nonTerminalNode.getChildNodes(),
+          childNodesLength = childNodes.length;
+
+    if (childNodesLength === 1) {
+      const firstChildNode = first(childNodes),
+            firstChildNodeTerminalNode = firstChildNode.isTerminalNode();
+
+      if (firstChildNodeTerminalNode) {
+        const firstChildNodeEpsilonNode = firstChildNode.isEpsilonNode(),
+              lastNodeNullifiedNode = firstChildNodeEpsilonNode;  ///
+
+        if (lastNodeNullifiedNode) {
+          nodes.pop();
+        }
+      }
+    }
+  }
+
+  return lastNodeNullifiedNode;
+}
 
 function noWhitespaceFromNodes(nodes, noWhitespace) {
   const firstNode = first(nodes),
@@ -87,7 +120,19 @@ function partFromNode(node, noWhitespace) {
 }
 
 function partFromNodes(nodes) {
-  const part = ChoiceOfPartsPart.fromNodes(nodes) || GroupOfPartsPart.fromNodes(nodes); /// 
+  let part = null;
+
+  const choiceOfPartsPart = ChoiceOfPartsPart.fromNodes(nodes);
+
+  if (choiceOfPartsPart !== null) {
+    part = choiceOfPartsPart; ///
+  } else {
+    const groupOfPartsPart = GroupOfPartsPart.fromNodes(nodes);
+
+    if (groupOfPartsPart !== null) {
+      part = groupOfPartsPart;  ///
+    }
+  }
 
   return part;
 }

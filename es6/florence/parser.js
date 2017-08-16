@@ -15,7 +15,7 @@ const { array } = necessary,
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
-      defaultCustomGrammarRules = rulesFromBNFMap(defaultCustomGrammarBNFMap),
+      defaultCustomGrammarRules = [],///rulesFromBNFMap(defaultCustomGrammarBNFMap),
       defaultAdditionalMappings = {};
 
 class FlorenceParser extends CommonParser {

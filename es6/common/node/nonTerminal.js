@@ -5,16 +5,12 @@ const necessary = require('necessary');
 const NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
 
 const { array } = necessary,
-      { first, last } = array;
+      { forwardsSome, backwardsSome } = array;
 
 class NonTerminalNode {
-  constructor(ruleName, childNodes, firstLine, lastLine, firstSignificantToken, lastSignificantToken) {
+  constructor(ruleName, childNodes) {
     this.ruleName = ruleName;
     this.childNodes = childNodes;
-    this.firstLine = firstLine;
-    this.lastLine = lastLine;
-    this.firstSignificantToken = firstSignificantToken;
-    this.lastSignificantToken = lastSignificantToken;
   }
 
   isTerminalNode() {
@@ -32,19 +28,59 @@ class NonTerminalNode {
   }
   
   getFirstLine() {
-    return this.firstLine;
+    let firstLine = null;
+
+    forwardsSome(this.childNodes, function(childNode) {
+      firstLine = childNode.getFirstLine();
+
+      if (firstLine !== null) {
+        return true;
+      }
+    });
+
+    return firstLine;
   }
 
   getLastLine() {
-    return this.lastLine;
+    let lastLine = null;
+
+    backwardsSome(this.childNodes, function(childNode) {
+      lastLine = childNode.getLastLine();
+
+      if (lastLine !== null) {
+        return true;
+      }
+    });
+
+    return lastLine;
   }
 
   getFirstSignificantToken() {
-    return this.firstSignificantToken;
+    let firstSignificantToken = null;
+
+    forwardsSome(this.childNodes, function(childNode) {
+      firstSignificantToken = childNode.getFirstSignificantToken();
+
+      if (firstSignificantToken !== null) {
+        return true;
+      }
+    });
+
+    return firstSignificantToken;
   }
 
   getLastSignificantToken() {
-    return this.lastSignificantToken;
+    let lastSignificantToken = null;
+
+    backwardsSome(this.childNodes, function(childNode) {
+      lastSignificantToken = childNode.getLastSignificantToken();
+
+      if (lastSignificantToken !== null) {
+        return true;
+      }
+    });
+
+    return lastSignificantToken;
   }
 
   setChildNodes(childNodes) {
@@ -79,17 +115,7 @@ class NonTerminalNode {
       Class = NonTerminalNode;
     }
     
-    const firstChildNode = first(childNodes),
-          lastChildNode = last(childNodes),
-          firstChildNodeFirstLine = firstChildNode.getFirstLine(),
-          lastChildNodeFirstLine = lastChildNode.getLastLine(),
-          firstChildNodeFirstSignificantToken = firstChildNode.getFirstSignificantToken(),
-          lastChildNodeLastSignificantToken = lastChildNode.getLastSignificantToken(),
-          firstLine = firstChildNodeFirstLine,  ///
-          lastLine = lastChildNodeFirstLine,  ///
-          firstSignificantToken = firstChildNodeFirstSignificantToken, ///
-          lastSignificantToken = lastChildNodeLastSignificantToken, ///
-          nonTerminalNode = new Class(ruleName, childNodes, firstLine, lastLine, firstSignificantToken, lastSignificantToken);
+    const nonTerminalNode = new Class(ruleName, childNodes);
 
     return nonTerminalNode;
   }

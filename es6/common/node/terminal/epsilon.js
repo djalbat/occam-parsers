@@ -2,7 +2,8 @@
 
 const lexers = require('occam-lexers');
 
-const TerminalNode = require('../terminal');
+const TerminalNode = require('../terminal'),
+      EpsilonNodeParseTree = require('../../parseTree/epsilonNode');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,

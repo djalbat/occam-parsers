@@ -73,12 +73,9 @@ class Rule {
 
       if (definitionNodesLength > 0) {
         const ruleName = this.name,
-              nodes = definitionNodes,  ///
-              lastNodeNullified = isLastNodeNullified(nodes);
+              nodes = definitionNodes;  ///
 
-        if (lastNodeNullified) {
-          removedLastNodeFromNodes(nodes);
-        }
+        // removeLastNullifiedNodeFromNodes(nodes);
 
         nonTerminalNode = this.NonTerminalNode.fromNodesAndRuleName(nodes, ruleName);
       }
@@ -93,13 +90,11 @@ class Rule {
     const maximumPadding = paddingFromPaddingLength(maximumRuleNameLength),
           definitionsString = this.definitions.reduce(function(definitionsString, definition) {
             const definitionString = definition.toString();
-  
-            if (definitionsString === null) {
-              definitionsString = definitionString;
-            } else {
-              definitionsString = `${definitionsString}\n\n${maximumPadding}     | ${definitionString}`;
-            }
-  
+
+            definitionsString = (definitionsString !== null) ?
+                                 `${definitionsString}\n\n${maximumPadding}     | ${definitionString}` :
+                                    definitionString;
+
             return definitionsString;
           }, null),
           ruleName = this.name, ///
@@ -139,15 +134,8 @@ function paddingFromPaddingLength(paddingLength) {
   return padding;
 }
 
-function removedLastNodeFromNodes(nodes) {
-  const start = -1,
-        deleteCount = 1;
-
-  nodes.splice(start, deleteCount);
-}
-
-function isLastNodeNullified(nodes) {
-  let latNodeNullified = false;
+function removeLastNullifiedNodeFromNodes(nodes) {
+  let lastNodeNullifiedNode = false;
 
   const lastNode = last(nodes),
         lastNodeTerminalNode = lastNode.isTerminalNode(),
@@ -163,12 +151,15 @@ function isLastNodeNullified(nodes) {
             firstChildNodeTerminalNode = firstChildNode.isTerminalNode();
       
       if (firstChildNodeTerminalNode) {
-        const firstChildNodeEpsilonNode = firstChildNode.isEpsilonNode();
+        const firstChildNodeEpsilonNode = firstChildNode.isEpsilonNode(),
+              lastNodeNullifiedNode = firstChildNodeEpsilonNode;  ///
 
-        latNodeNullified = firstChildNodeEpsilonNode; ///        
+        if (lastNodeNullifiedNode) {
+          nodes.pop();
+        }
       }
     }
   }
 
-  return latNodeNullified;
+  return lastNodeNullifiedNode;
 }
