@@ -1,9 +1,10 @@
 'use strict';
 
-const NonTerminalNode = require('../../common/node/nonTerminal');
+const Definition = require('../definition'),
+      NonTerminalNode = require('../../common/node/nonTerminal');
 
 class DefinitionNode extends NonTerminalNode {
-  generateDefinition(Definition) {
+  generateDefinition() {
     const childNodes = this.getChildNodes(),
           partNodes = childNodes, ///
           parts = partNodes.map(function(partNode) {

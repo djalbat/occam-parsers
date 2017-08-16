@@ -3,11 +3,11 @@
 const NonTerminalNode = require('../../common/node/nonTerminal');
 
 class RulesNode extends NonTerminalNode {
-  generateRules(Rule, Definition, mappings) {
+  generateRules(Rule, mappings) {
     const childNodes = this.getChildNodes(),
           ruleNodes = childNodes,  ///
           rules = ruleNodes.map(function(ruleNode) {
-            const rule = ruleNode.generateRule(Rule, Definition, mappings);
+            const rule = ruleNode.generateRule(Rule, mappings);
             
             return rule;
           });

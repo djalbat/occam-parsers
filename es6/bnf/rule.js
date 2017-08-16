@@ -75,8 +75,6 @@ class Rule {
         const ruleName = this.name,
               nodes = definitionNodes;  ///
 
-        // removeLastNullifiedNodeFromNodes(nodes);
-
         nonTerminalNode = this.NonTerminalNode.fromNodesAndRuleName(nodes, ruleName);
       }
     }
@@ -132,34 +130,4 @@ function paddingFromPaddingLength(paddingLength) {
   }
 
   return padding;
-}
-
-function removeLastNullifiedNodeFromNodes(nodes) {
-  let lastNodeNullifiedNode = false;
-
-  const lastNode = last(nodes),
-        lastNodeTerminalNode = lastNode.isTerminalNode(),
-        lastNodeNonTerminalNode = !lastNodeTerminalNode;
-
-  if (lastNodeNonTerminalNode) {
-    const nonTerminalNode = lastNode, ///
-          childNodes = nonTerminalNode.getChildNodes(),
-          childNodesLength = childNodes.length;
-
-    if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes),
-            firstChildNodeTerminalNode = firstChildNode.isTerminalNode();
-      
-      if (firstChildNodeTerminalNode) {
-        const firstChildNodeEpsilonNode = firstChildNode.isEpsilonNode(),
-              lastNodeNullifiedNode = firstChildNodeEpsilonNode;  ///
-
-        if (lastNodeNullifiedNode) {
-          nodes.pop();
-        }
-      }
-    }
-  }
-
-  return lastNodeNullifiedNode;
 }

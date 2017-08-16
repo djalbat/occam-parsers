@@ -2,7 +2,6 @@
 
 const bnf = require('./bnf'),
       Rule = require('./rule'),
-      Definition = require('./definition'),
       CommonParser = require('../common/parser'),
       PartRule = require('./rule/part'),
       RuleRule = require('./rule/rule'),
@@ -28,7 +27,7 @@ class BNFParser extends CommonParser {
 
   static generateRules(rulesNode, mappings = {}) {
     const rules = (rulesNode !== null) ?
-                     rulesNode.generateRules(Rule, Definition, mappings) :
+                     rulesNode.generateRules(Rule, mappings) :
                        [];
 
     return rules;

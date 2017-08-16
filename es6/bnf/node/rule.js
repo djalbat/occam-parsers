@@ -6,12 +6,12 @@ const arrayUtilities = require('../../utilities/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 const { array } = necessary,
-      { first, lastButOne } = array;
+      { first, second } = array;
 
 class RuleNode extends NonTerminalNode {
-  generateRule(Rule, Definition, mappings) {
+  generateRule(Rule, mappings) {
     const name = this.getName(),
-          definitions = this.generateDefinitions(Definition),
+          definitions = this.generateDefinitions(),
           mappingsNodeExists = mappings.hasOwnProperty(name),
           Node = mappingsNodeExists ?
                    mappings[name] :
@@ -26,22 +26,22 @@ class RuleNode extends NonTerminalNode {
           firstChildNode = first(childNodes),
           ruleNameNode = firstChildNode,  ///
           ruleNameNodeRuleName = ruleNameNode.getRuleName(),
-          name = ruleNameNodeRuleName;
+          name = ruleNameNodeRuleName;  ///
     
     return name;
   }
   
-  generateDefinitions(Definition) {
+  generateDefinitions() {
     const childNodes = this.getChildNodes(),
-          lastButOneChildNode = lastButOne(childNodes),
-          definitionsNode = lastButOneChildNode,  ///
-          definitions = definitionsNode.generateDefinitions(Definition);
+          secondChildNode = second(childNodes),
+          definitionsNode = secondChildNode,  ///
+          definitions = definitionsNode.generateDefinitions();
     
     return definitions;
   }
 
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = arrayUtilities.discardSecond(nodes),
+    const childNodes = arrayUtilities.discardFourthThenSecond(nodes),
           ruleNode = NonTerminalNode.fromRuleNameAndChildNodes(RuleNode, ruleName, childNodes);
 
     return ruleNode;
