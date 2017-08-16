@@ -52,8 +52,15 @@ class TerminalNode {
     return lastLine;
   }
 
+  isNullified() {
+    const firstLine = this.getFirstLine(),
+          nullified = (firstLine === null);  ///
+
+    return nullified;
+  }
+
   getContent() { return this.significantToken.getContent(); }
-  
+
   parseTreeFromLines(lines) {
     const terminalNode = this,  ///
           terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeAndLines(terminalNode, lines),

@@ -83,11 +83,11 @@ class NonTerminalNode {
     return lastSignificantToken;
   }
   
-  isNullable() {
+  isNullified() {
     const firstLine = this.getFirstLine(),
-          nullable = (firstLine === null);  ///
+          nullified = (firstLine === null);  ///
     
-    return nullable;
+    return nullified;
   }
 
   setChildNodes(childNodes) {
