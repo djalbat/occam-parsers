@@ -74,11 +74,14 @@ class bnfUtilities {
           quantifiersNodeChildNodesLength =  quantifiersNodeChildNodes.length;
 
     if (quantifiersNodeChildNodesLength === 2) {
-      const secondQuantifiersNodeChildNode = second(quantifiersNodeChildNodes);
+      const secondQuantifiersNodeChildNode = second(quantifiersNodeChildNodes),
+            secondQuantifiersNodeChildNodeQuantifiersNode = bnfUtilities.isNodeQuantifiersNode(secondQuantifiersNodeChildNode);
 
-      quantifiersNode = secondQuantifiersNodeChildNode; ///
+      if (secondQuantifiersNodeChildNodeQuantifiersNode) {
+        quantifiersNode = secondQuantifiersNodeChildNode; ///
 
-      quantifiers = bnfUtilities.quantifiersFromQuantifiersNode(quantifiersNode, quantifiers);
+        quantifiers = bnfUtilities.quantifiersFromQuantifiersNode(quantifiersNode, quantifiers);
+      }
     }
 
     return quantifiers;

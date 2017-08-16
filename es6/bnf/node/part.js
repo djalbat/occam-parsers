@@ -18,13 +18,20 @@ class PartNode extends NonTerminalNode {
     let part = null;
 
     const childNodes = this.getChildNodes(),
-          nodes = childNodes.slice(); ///
+          nodes = childNodes.slice(), ///
+          quantifiers = quantifiersFromNodes(nodes),
+          firstNodeNoWhitespaceNode = isFirstNodeNoWhitespaceNode(nodes),
+          lastNodeRightRecursivePartNode = isLastNodeRightRecursivePartNode(nodes);
 
-    removeLastNullifiedNodeFromNodes(nodes);
+    if (firstNodeNoWhitespaceNode) {
+      nodes.shift();
 
-    const quantifiers = quantifiersFromNodes(nodes);
+      noWhitespace = true;
+    }
 
-    noWhitespace = noWhitespaceFromNodes(nodes, noWhitespace);
+    if (lastNodeRightRecursivePartNode) {
+      nodes.pop();
+    }
 
     const nodesLength = nodes.length;
     
@@ -47,52 +54,6 @@ class PartNode extends NonTerminalNode {
 
 module.exports = PartNode;
 
-function removeLastNullifiedNodeFromNodes(nodes) {
-  let lastNodeNullifiedNode = false;
-
-  const lastNode = last(nodes),
-        lastNodeTerminalNode = lastNode.isTerminalNode(),
-        lastNodeNonTerminalNode = !lastNodeTerminalNode;
-
-  if (lastNodeNonTerminalNode) {
-    const nonTerminalNode = lastNode, ///
-          childNodes = nonTerminalNode.getChildNodes(),
-          childNodesLength = childNodes.length;
-
-    if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes),
-            firstChildNodeTerminalNode = firstChildNode.isTerminalNode();
-
-      if (firstChildNodeTerminalNode) {
-        const firstChildNodeEpsilonNode = firstChildNode.isEpsilonNode(),
-              lastNodeNullifiedNode = firstChildNodeEpsilonNode;  ///
-
-        if (lastNodeNullifiedNode) {
-          nodes.pop();
-        }
-      }
-    }
-  }
-
-  return lastNodeNullifiedNode;
-}
-
-function noWhitespaceFromNodes(nodes, noWhitespace) {
-  const firstNode = first(nodes),
-        firstNodeNoWhitespaceNode = bnfUtilities.isNodeNoWhitespaceNode(firstNode);
-
-  if (firstNodeNoWhitespaceNode) {
-    noWhitespace = true;
-
-    const begin = 0,
-          deleteCount = 1;
-
-    nodes.splice(begin, deleteCount);
-  }
-
-  return noWhitespace;
-}
-
 function quantifiersFromNodes(nodes) {
   let  quantifiers = [];
 
@@ -103,14 +64,33 @@ function quantifiersFromNodes(nodes) {
     const quantifiersNode = lastNode;  ///
 
     quantifiers = bnfUtilities.quantifiersFromQuantifiersNode(quantifiersNode);
-
-    const begin = -1,
-          deleteCount = 1;
-
-    nodes.splice(begin, deleteCount);
   }
 
   return quantifiers;
+}
+
+function isFirstNodeNoWhitespaceNode(nodes) {
+  const firstNode = first(nodes),
+        firstNodeNoWhitespaceNode = bnfUtilities.isNodeNoWhitespaceNode(firstNode);
+
+  return firstNodeNoWhitespaceNode;
+}
+
+function isLastNodeRightRecursivePartNode(nodes) {
+  let lastNodeRightRecursivePartNode = false;
+
+  const lastNode = last(nodes),
+        lastNodeTerminalNode = lastNode.isTerminalNode(),
+        lastNodeNonTerminalNode = !lastNodeTerminalNode;
+
+  if (lastNodeNonTerminalNode) {
+    const nonTerminalNode = lastNode, ///
+          nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
+
+    lastNodeRightRecursivePartNode = (nonTerminalNodeRuleName === 'part~'); ///
+  }
+
+  return lastNodeRightRecursivePartNode;
 }
 
 function partFromNode(node, noWhitespace) {
