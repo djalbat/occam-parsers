@@ -24,9 +24,9 @@ module.exports = RuleNameParseTree;
 function lineNumbersFromNonTerminalNodeAndLines(nonTerminalNode, lines) {
   let lineNumbers;
 
-  const nonTerminalNodeNullable = nonTerminalNode.isNullable();
+  const nonTerminalNodeNullified = nonTerminalNode.isNullified();
 
-  if (nonTerminalNodeNullable) {
+  if (nonTerminalNodeNullified) {
     lineNumbers = '';
   } else {
     const firstLine = nonTerminalNode.getFirstLine(),
