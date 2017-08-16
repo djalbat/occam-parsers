@@ -24,24 +24,28 @@ module.exports = RuleNameParseTree;
 function lineNumbersFromNonTerminalNodeAndLines(nonTerminalNode, lines) {
   let lineNumbers;
 
-  const firstLine = nonTerminalNode.getFirstLine(),
-        lastLine = nonTerminalNode.getLastLine();
+  const nonTerminalNodeNullable = nonTerminalNode.isNullable();
 
-  if (firstLine === lastLine) {
-    const line = firstLine, ///
-          lineIndex = lines.indexOf(line),
-          lineNumber = lineIndex + 1;
-
-    lineNumbers = (lineNumber !== 0) ?
-                    `(${lineNumber})` :
-                      '';
+  if (nonTerminalNodeNullable) {
+    lineNumbers = '';
   } else {
-    const firstLineIndex = lines.indexOf(firstLine),
-          lastLineIndex = lines.indexOf(lastLine),
-          firstLineNumber = firstLineIndex + 1,
-          lastLineNumber = lastLineIndex + 1;
+    const firstLine = nonTerminalNode.getFirstLine(),
+          lastLine = nonTerminalNode.getLastLine();
 
-    lineNumbers = `(${firstLineNumber}-${lastLineNumber})`;
+    if (firstLine === lastLine) {
+      const line = firstLine, ///
+            lineIndex = lines.indexOf(line),
+            lineNumber = lineIndex + 1;
+
+      lineNumbers = `(${lineNumber})`;
+    } else {
+      const firstLineIndex = lines.indexOf(firstLine),
+            lastLineIndex = lines.indexOf(lastLine),
+            firstLineNumber = firstLineIndex + 1,
+            lastLineNumber = lastLineIndex + 1;
+
+      lineNumbers = `(${firstLineNumber}-${lastLineNumber})`;
+    }
   }
 
   return lineNumbers;

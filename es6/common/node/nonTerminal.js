@@ -82,6 +82,13 @@ class NonTerminalNode {
 
     return lastSignificantToken;
   }
+  
+  isNullable() {
+    const firstLine = this.getFirstLine(),
+          nullable = (firstLine === null);  ///
+    
+    return nullable;
+  }
 
   setChildNodes(childNodes) {
     this.childNodes = childNodes;
