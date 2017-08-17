@@ -3,6 +3,7 @@
 const lexers = require('occam-lexers');
 
 const Rule = require('../rule'),
+      ruleNames = require('../ruleNames'),
       EndOfLineNode = require('../node/endOfLine'),
       TerminalSymbolDefinition = require('../definition/terminalSymbol');
 
@@ -14,7 +15,7 @@ class EndOfLineRule extends Rule {
   constructor() {
     const endOfLineTerminalSymbolContent = END_OF_LINE,
           endOfLineTerminalSymbolDefinition = new TerminalSymbolDefinition(endOfLineTerminalSymbolContent),
-          name = 'endOfLine',
+          name = ruleNames.EndOfLineRule,
           definitions = [
             endOfLineTerminalSymbolDefinition
           ],

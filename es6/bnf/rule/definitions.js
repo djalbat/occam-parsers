@@ -1,13 +1,14 @@
 'use strict';
 
 const Rule = require('../rule'),
+      ruleNames = require('../ruleNames'),
       DefinitionsNode = require('../node/definitions'),
       DefinitionsDefinition = require('../definition/definitions');
 
 class DefinitionsRule extends Rule {
   constructor() {
     const definitionsDefinition = new DefinitionsDefinition(),
-          name = 'definitions',
+          name = ruleNames.DefinitionsRule,
           definitions = [
             definitionsDefinition
           ],

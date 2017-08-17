@@ -2,7 +2,7 @@
 
 const necessary = require('necessary');
 
-const Context = require('./configuration'),
+const Configuration = require('./configuration'),
       parserUtilities = require('../utilities/parser');
 
 const { array } = necessary,
@@ -38,7 +38,7 @@ class CommonParser {
     }
 
     if (rule !== null) {
-      const configuration = new Context(tokens, this.rules),
+      const configuration = new Configuration(tokens, this.rules),
             noWhitespace = false, ///
             nodeOrNodes = rule.parse(configuration, noWhitespace);
 
@@ -51,7 +51,7 @@ class CommonParser {
 
     return node;
   }
-  
+
   toString() {
     const maximumRuleNameLength = this.rules.reduce(function(maximumRuleNameLength, rule) {
             const ruleName = rule.getName(),

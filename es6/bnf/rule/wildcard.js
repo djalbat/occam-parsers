@@ -3,6 +3,7 @@
 const lexers = require('occam-lexers');
 
 const Rule = require('../rule'),
+      ruleNames = require('../ruleNames'),
       WildcardNode = require('../node/wildcard'),
       TerminalSymbolDefinition = require('../definition/terminalSymbol');
 
@@ -14,7 +15,7 @@ class WildcardRule extends Rule {
   constructor() {
     const wildcardTerminalSymbolContent = wildcard,
           wildcardTerminalSymbolDefinition = new TerminalSymbolDefinition(wildcardTerminalSymbolContent),
-          name = 'wildcard',
+          name = ruleNames.WildcardRule,
           definitions = [
             wildcardTerminalSymbolDefinition
           ],

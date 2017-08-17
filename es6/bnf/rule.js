@@ -83,7 +83,7 @@ class Rule {
 
     return nonTerminalNode;
   }
-
+  
   toString(maximumRuleNameLength) {
     const maximumPadding = paddingFromPaddingLength(maximumRuleNameLength),
           definitionsString = this.definitions.reduce(function(definitionsString, definition) {

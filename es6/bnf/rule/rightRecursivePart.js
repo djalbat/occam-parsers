@@ -3,6 +3,7 @@
 const lexers = require('occam-lexers');
 
 const Rule = require('../rule'),
+      ruleNames = require('../ruleNames'),
       EpsilonDefinition = require('../definition/epsilon'),
       RightRecursivePartNode = require('../node/rightRecursivePart'),
       RightRecursivePartRuleDefinition = require('../definition/rightRecursivePartRule');
@@ -20,7 +21,7 @@ class RightRecursivePartRule extends Rule {
           zeroOrMoreRightRecursivePartRuleDefinition = new RightRecursivePartRuleDefinition(asteriskTerminalSymbolContent), ///
           oneOrMoreRightRecursivePartRuleDefinition = new RightRecursivePartRuleDefinition(plusTerminalSymbolContent), ///
           epsilonDefinition = new EpsilonDefinition(),
-          name = 'part~', ///
+          name = ruleNames.RightRecursivePartRule,
           definitions = [
             optionalRightRecursivePartRuleDefinition,
             zeroOrMoreRightRecursivePartRuleDefinition,

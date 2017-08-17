@@ -77,7 +77,7 @@ class Definition {
 
     return nodes;
   }
-
+  
   toString() {
     const partsString = this.parts.reduce(function(partsString, part) {
           const partString = part.toString();

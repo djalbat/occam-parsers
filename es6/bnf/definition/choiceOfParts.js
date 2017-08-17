@@ -3,6 +3,7 @@
 const lexers = require('occam-lexers');
 
 const Definition = require('../definition'),
+      ruleNames = require('../ruleNames'),
       RuleNamePart = require('../part/nonTerminal/ruleName'),
       GroupOfPartsPart = require('../part/nonTerminal/groupOfParts'),
       OneOrMorePartsPart = require('../part/nonTerminal/oneOrMoreParts'),
@@ -14,8 +15,8 @@ const { BNFLexer } = lexers,
 
 class ChoiceOfPartsDefinition extends Definition {
   constructor() {
-    const partRuleName = 'part',
-          rightRecursivePartRuleName = 'part~', ///
+    const partRuleName = ruleNames.PartRule,
+          rightRecursivePartRuleName = ruleNames.RightRecursivePartRule,
           verticalBarTerminalSymbolContent = verticalBar,
           openBracketTerminalSymbolContent = openBracket,
           closeBracketTerminalSymbolContent = closeBracket,

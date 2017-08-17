@@ -3,6 +3,7 @@
 const lexers = require('occam-lexers');
 
 const Rule = require('../rule'),
+      ruleNames = require('../ruleNames'),
       EndOfLineNode = require('../node/epsilon'),
       TerminalSymbolDefinition = require('../definition/terminalSymbol');
 
@@ -14,7 +15,7 @@ class EpsilonRule extends Rule {
   constructor() {
     const epsilonTerminalSymbolContent = epsilon,
           epsilonTerminalSymbolDefinition = new TerminalSymbolDefinition(epsilonTerminalSymbolContent),
-          name = 'epsilon',
+          name = ruleNames.EpsilonRule,
           definitions = [
             epsilonTerminalSymbolDefinition
           ],
