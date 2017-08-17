@@ -23,12 +23,6 @@ class RuleNamePart extends NonTerminalPart {
     return this.ruleName;
   }
   
-  isLeftRecursive(ruleName) {
-    const leftRecursive = (this.ruleName === ruleName);
-    
-    return leftRecursive;
-  }
-  
   parse(configuration, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
