@@ -76,11 +76,8 @@ class TerminalNode {
     }
 
     const line = significantToken.getLine(),
-          terminalNode = new Class(significantToken, line),
-          error = false;
+          terminalNode = new Class(significantToken, line);
     
-    significantToken.setError(error);
-
     return terminalNode;
   }
 }
