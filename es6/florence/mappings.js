@@ -23,6 +23,7 @@ const mappings = {
   'justifiedMetastatement': DiscardSecondChildNode,
 
   'includeDirective': DiscardFourthThenSecondChildNode,
+
   'indicativeConditional': DiscardFifthThenSecondChildNode,
 
   'typesDeclaration': DiscardOddChildNodes,
