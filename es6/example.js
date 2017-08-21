@@ -90,17 +90,17 @@ class Example {
 
         node = parser.nodeFromLines(lines, rule);
 
-        if (node === null) {
-          throw new Error('The document cannot be parsed for some reason.');  ///
+        if (node !== null) {
+          const parseTree = node.parseTreeFromLines(lines);
+
+          parseTree.shiftLine();  //
+
+          const parseTreeString = parseTree.toString();
+
+          parseTreeTextareaHTML = parseTreeString;  ///
+        } else {
+          parseTreeTextareaHTML = '';
         }
-
-        const parseTree = node.parseTreeFromLines(lines);
-
-        parseTree.shiftLine();  //
-
-        const parseTreeString = parseTree.toString();
-
-        parseTreeTextareaHTML = parseTreeString;  ///
 
         contentTextarea.removeClass('error');
       } catch (error) {
