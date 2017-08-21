@@ -36,9 +36,9 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
     return nodes;
   }
 
-  toString() {
+  asString() {
     const operatorString = asterisk,  ///
-          string = super.toString(operatorString);
+          string = super.asString(operatorString);
 
     return string;
   }

@@ -41,9 +41,9 @@ class ChoiceOfPartsPart extends NonTerminalPart {
     return nodes;
   }
 
-  toString() {
+  asString() {
     const partsString = this.parts.reduce(function(partsString, part) {
-            const partString = part.toString();
+            const partString = part.asString();
     
             if (partsString === null) {
               partsString = partString;

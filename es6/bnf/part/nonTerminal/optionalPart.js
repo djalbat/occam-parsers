@@ -37,9 +37,9 @@ class OptionalPartPart extends NonTerminalPart {
     return nodes;
   }
 
-  toString() {
+  asString() {
     const operatorString = questionMark,  ///
-          partString = this.part.toString(),
+          partString = this.part.asString(),
           string = `${partString}${operatorString}`;
 
     return string;

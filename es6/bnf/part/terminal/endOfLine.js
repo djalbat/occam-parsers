@@ -35,7 +35,7 @@ class EndOfLinePart extends TerminalPart {
     return terminalNode;
   }
 
-  toString() {
+  asString() {
     const string = END_OF_LINE; ///
 
     return string;

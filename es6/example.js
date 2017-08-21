@@ -91,11 +91,11 @@ class Example {
         node = parser.nodeFromLines(lines, rule);
 
         if (node !== null) {
-          const parseTree = node.parseTreeFromLines(lines);
+          const parseTree = node.asParseTree(lines);
 
           parseTree.shiftLine();  //
 
-          const parseTreeString = parseTree.toString();
+          const parseTreeString = parseTree.asString();
 
           parseTreeTextareaHTML = parseTreeString;  ///
         } else {

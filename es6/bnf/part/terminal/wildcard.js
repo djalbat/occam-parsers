@@ -30,7 +30,7 @@ class WildcardPart extends TerminalPart {
     return terminalNode;
   }
 
-  toString() {
+  asString() {
     const string = wildcard;  ///
 
     return string;

@@ -16,7 +16,7 @@ class NonTerminalNodeParseTree extends VerticalBranchParseTree {
           childNode = firstChildNode,
           childNodesLength = childNodes.length,
           childNodeOrNodesParseTree = (childNodesLength === 1) ?
-                                        childNode.parseTreeFromLines(lines) :
+                                        childNode.asParseTree(lines) :
                                           ChildNodesParseTree.fromChildNodesAndLines(childNodes, lines),
           ruleNameParseTree = RuleNameParseTree.fromNonTerminalNodeAndLines(nonTerminalNode, lines);
     

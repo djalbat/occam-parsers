@@ -13,8 +13,8 @@ class SequenceOfPartsPart extends NonTerminalPart {
     return this.part;
   }
   
-  toString(operatorString) {
-    const partString = this.part.toString(),
+  asString(operatorString) {
+    const partString = this.part.asString(),
           string = `${partString}${operatorString}`;
 
     return string;

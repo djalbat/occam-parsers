@@ -39,9 +39,9 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
     return nodes;
   }
 
-  toString() {
+  asString() {
     const operatorString = plus,  ///
-          string = super.toString(operatorString);
+          string = super.asString(operatorString);
 
     return string;
   }

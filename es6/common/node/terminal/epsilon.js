@@ -29,7 +29,7 @@ class EpsilonNode extends TerminalNode {
     return content;
   }
 
-  parseTreeFromLines(lines) {
+  asParseTree(lines) {
     const epsilonNodeParseTree = EpsilonNodeParseTree.fromNothing(),
           parseTree = epsilonNodeParseTree;  ///
 

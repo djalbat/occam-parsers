@@ -45,7 +45,7 @@ class TerminalSymbolPart extends TerminalPart {
     return terminalNode;
   }
   
-  toString() {
+  asString() {
     const noWhitespaceString = this.noWhitespace ?
                                  NO_WHITESPACE :
                                    '',

@@ -39,7 +39,7 @@ class RuleNamePart extends NonTerminalPart {
     return nodeOrNodes;
   }
 
-  toString() {
+  asString() {
     const noWhitespaceString = this.noWhitespace ?
                                  NO_WHITESPACE :
                                    '',

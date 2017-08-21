@@ -114,7 +114,7 @@ class ParseTree {
   
   unshiftLine(line) { this.lines.unshift(line); }
 
-  toString() {
+  asString() {
     const string = this.lines.reduce(function(string, line) {
       string += line + '\n';
 

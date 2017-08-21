@@ -52,7 +52,7 @@ class CommonParser {
     return node;
   }
 
-  toString() {
+  asString() {
     const maximumRuleNameLength = this.rules.reduce(function(maximumRuleNameLength, rule) {
             const ruleName = rule.getName(),
                   ruleNameLength = ruleName.length;
@@ -62,7 +62,7 @@ class CommonParser {
             return maximumRuleNameLength;
           }, 0),
           string = this.rules.reduce(function(string, rule) {
-            const ruleString = rule.toString(maximumRuleNameLength);
+            const ruleString = rule.asString(maximumRuleNameLength);
   
             string += ruleString;
   

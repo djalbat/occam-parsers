@@ -22,7 +22,7 @@ class EpsilonPart extends TerminalPart {
     return epsilonPart;
   }
 
-  toString() {
+  asString() {
     const string = epsilon; ///
 
     return string;
