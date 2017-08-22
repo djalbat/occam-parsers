@@ -3,7 +3,6 @@
 const TransparentNode = require('../common/node/nonTerminal/transparentNode'),
       DiscardOddChildNodes = require('../common/node/nonTerminal/discardOddChildNodes'),
       DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChildNode'),
-      DiscardFourthThenSecondChildNode = require('../common/node/nonTerminal/discardFourthThenSecondChildNode'),
       DiscardFifthThenSecondChildNode = require('../common/node/nonTerminal/discardFifthThenSecondChildNode'),
       TransparentThenKeepSecondNode = require('../common/node/nonTerminal/transparentThenKeepSecondNode');
 
@@ -21,8 +20,6 @@ const mappings = {
   'metaProof': DiscardSecondChildNode,
   'justifiedStatement': DiscardSecondChildNode,
   'justifiedMetastatement': DiscardSecondChildNode,
-
-  'includeDirective': DiscardFourthThenSecondChildNode,
 
   'indicativeConditional': DiscardFifthThenSecondChildNode,
 

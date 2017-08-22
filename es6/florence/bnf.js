@@ -3,27 +3,17 @@
 const bnf = `
 
 
-     document                             ::=   header? body? ;
+     document                             ::=   ( rule | axiom | lemma | theorem | declaration | verticalSpace | error )+ ;
      
      
      
-     header                               ::=   includeDirective+ verticalSpace ;
-     
-     body                                 ::=   ( rule | axiom | lemma | theorem | declaration | verticalSpace | error )+ ;
-     
-
-     
-     includeDirective                     ::=   "include"<NO_WHITESPACE>"("<NO_WHITESPACE>[string]<NO_WHITESPACE>")" <END_OF_LINE> ;
-     
-     
-
      rule                                 ::=   "Rule" parenthesisedLabels? <END_OF_LINE> ( premise | premises )? conclusion metaProof? ;
 
-     axiom                                ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) ; 
+     axiom                                ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> ( statement | indicativeConditional ) ; 
 
-     lemma                                ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) proof? ;
+     lemma                                ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> ( statement | indicativeConditional ) proof? ;
 
-     theorem                              ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> ( unjustifiedStatement | indicativeConditional ) proof? ;
+     theorem                              ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> ( statement | indicativeConditional ) proof? ;
 
      declaration                          ::=   "Types" typesDeclaration <END_OF_LINE>
 
@@ -97,11 +87,11 @@ const bnf = `
 
    
         
-     premise                              ::=   "Premise" <END_OF_LINE> unjustifiedMetastatement ;
+     premise                              ::=   "Premise" <END_OF_LINE> metastatement ;
 
-     premises                             ::=   "Premises" <END_OF_LINE> unjustifiedMetastatement unjustifiedMetastatement+ ;
+     premises                             ::=   "Premises" <END_OF_LINE> metastatement metastatement+ ;
 
-     conclusion                           ::=   "Conclusion" <END_OF_LINE> unjustifiedOrJustifiedMetastatement ;
+     conclusion                           ::=   "Conclusion" <END_OF_LINE> metastatement ;
 
      
      
@@ -111,17 +101,17 @@ const bnf = `
      
                                                 metaProofDerivation? 
                                                 
-                                                unjustifiedOrJustifiedMetastatement ;
+                                                metastatement ;
                                                 
-     metastatementDefinition              ::=   "let" metastatement <END_OF_LINE> ;                                           
+     metastatementDefinition              ::=   "let" metastatement ;                                           
                                                 
-     metaProofDerivation                  ::=   ( subrule | unjustifiedOrJustifiedMetastatement )+  "Therefore" <END_OF_LINE> ;                                           
+     metaProofDerivation                  ::=   ( subrule | metastatement )+  "Therefore" <END_OF_LINE> ;                                           
      
-     subrule                              ::=   "Suppose" <END_OF_LINE> unjustifiedMetastatement+ 
+     subrule                              ::=   "Suppose" <END_OF_LINE> metastatement+ 
      
-                                                ( "Then" <END_OF_LINE> ( subrule | unjustifiedOrJustifiedMetastatement )+ )? 
+                                                ( "Then" <END_OF_LINE> ( subrule | metastatement )+ )? 
                                                 
-                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedMetastatement ;
+                                                "Hence" <END_OF_LINE> metastatement ;
 
 
 
@@ -131,39 +121,23 @@ const bnf = `
      
                                                 proofDerivation? 
                                                 
-                                                unjustifiedOrJustifiedStatement ;
+                                                statement ;
                                                 
-     statementDefinition                  ::=   "let" statement <END_OF_LINE> ;                                           
+     statementDefinition                  ::=   "let" statement ;                                           
 
-     proofDerivation                      ::=   ( sublemma | unjustifiedOrJustifiedStatement )+ "Therefore" <END_OF_LINE> ;
+     proofDerivation                      ::=   ( sublemma | statement )+ "Therefore" <END_OF_LINE> ;
 
-     sublemma                             ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+ 
+     sublemma                             ::=   "Suppose" <END_OF_LINE> statement+ 
      
-                                                ( "Then" <END_OF_LINE> ( sublemma | unjustifiedOrJustifiedStatement )+ )? 
+                                                ( "Then" <END_OF_LINE> ( sublemma | statement )+ )? 
                                                 
-                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement ;
+                                                "Hence" <END_OF_LINE> statement ;
 
 
 
-     indicativeConditional                ::=   "Suppose" <END_OF_LINE> unjustifiedStatement+ 
+     indicativeConditional                ::=   "Suppose" <END_OF_LINE> statement+ 
      
-                                                "Hence" <END_OF_LINE> unjustifiedOrJustifiedStatement ;
-
-
-
-     unjustifiedOrJustifiedMetastatement  ::=   unjustifiedMetastatement | justifiedMetastatement ;
-     
-     unjustifiedMetastatement             ::=   metastatement <END_OF_LINE> ;
-     
-     justifiedMetastatement               ::=   metastatement "by" reference <END_OF_LINE> ;
-
-
-
-     unjustifiedOrJustifiedStatement      ::=   unjustifiedStatement | justifiedStatement ;
-
-     unjustifiedStatement                 ::=   statement <END_OF_LINE> ;
-
-     justifiedStatement                   ::=   statement ( "by" | "from" ) reference <END_OF_LINE> ;
+                                                "Hence" <END_OF_LINE> statement ;
 
 
 
@@ -216,9 +190,16 @@ const bnf = `
      
    
      name                                 ::=   [unassigned] ;
-       
 
        
+
+     qualification                        ::=   ( "by" | "from" ) reference ;
+
+       
+
+     nonsense                             ::=   ( [unassigned] | [special] )+ ;
+
+     
 `;
 
 module.exports = bnf;

@@ -2,6 +2,7 @@
 
 const bnf = `
 
+
   expression    ::= "(" expression ")" expression~
 
                   | term expression~ ;
@@ -21,6 +22,7 @@ const bnf = `
   expression~   ::= operator expression expression~
 
                   | ε ;
+
 
 `;
 

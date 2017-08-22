@@ -2,31 +2,40 @@
 
 const metastatement = `
 
+
      proofAssertion                       ::=   context "⊢" judgement ;
      
      contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
-     judgement                            ::=   reference "::" metastatement ;
+     judgement                            ::=   reference "::" metastatementBody ;
 
-     subproof                             ::=   supposition "..." metastatement ;
+     subproof                             ::=   supposition "..." metastatementBody ;
 
      supposition                          ::=   "[" metastatement "]" ;
 
 
 
-     metastatement                        ::=   proofAssertion
+     metastatementBody                    ::=   ( proofAssertion | contextDefinition | subproof | metavariable | nonsense ) ; 
+
+
+
+     metastatement                        ::=   proofAssertion qualification? <END_OF_LINE> 
            
-                                            |   contextDefinition
+                                            |   contextDefinition qualification? <END_OF_LINE> 
            
-                                            |   subproof
+                                            |   subproof qualification? <END_OF_LINE> 
                                             
-                                            |   metavariable
+                                            |   metavariable qualification? <END_OF_LINE> 
+
+                                            |   nonsense qualification? <END_OF_LINE> 
 
                                             ;
+
       
 `;
 
 const statement = `
+
 
      typeAssertion                        ::=   expression ":" typeName ;
 
@@ -36,17 +45,21 @@ const statement = `
 
 
 
-     statement                            ::=   typeAssertion 
+     statement                            ::=   typeAssertion qualification? <END_OF_LINE> 
                                                   
-                                            |   equality 
+                                            |   equality qualification? <END_OF_LINE> 
                                                   
-                                            |   metastatement
+                                            |   metastatement qualification? <END_OF_LINE>
      
+                                            |   nonsense qualification? <END_OF_LINE>
+
                                             ;
+
 
 `;
 
 const term = `
+
 
      compoundTerm                         ::=   constructorName<NO_WHITESPACE>parenthesisedTerms ;
 
@@ -57,6 +70,7 @@ const term = `
                                             |   name
                                             
                                             ;
+
 
 `;
 
