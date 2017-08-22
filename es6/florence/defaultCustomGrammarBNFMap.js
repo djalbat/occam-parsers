@@ -11,11 +11,11 @@ const metastatement = `
 
      subproof                             ::=   supposition "..." metastatementBody ;
 
-     supposition                          ::=   "[" metastatement "]" ;
+     supposition                          ::=   "[" metastatementBody "]" ;
 
 
 
-     metastatementBody                    ::=   ( proofAssertion | contextDefinition | subproof | metavariable | nonsense ) ; 
+     metastatementBody                    ::=   ( proofAssertion | contextDefinition | subproof | metavariable ) ; 
 
 
 
