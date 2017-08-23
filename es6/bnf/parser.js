@@ -70,6 +70,8 @@ class BNFParser extends CommonParser {
   }
 }
 
-module.exports = BNFParser;
+Object.assign(BNFParser, {
+  bnf: bnf
+});
 
-BNFParser.bnf = bnf;
+module.exports = BNFParser;

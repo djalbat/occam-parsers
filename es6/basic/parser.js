@@ -35,6 +35,8 @@ class BasicParser extends CommonParser {
   }
 }
 
-module.exports = BasicParser;
+Object.assign(BasicParser, {
+  bnf: bnf
+});
 
-BasicParser.bnf = bnf;
+module.exports = BasicParser;
