@@ -4,6 +4,7 @@ const lexers = require('occam-lexers');
 
 const BNFParser = require('../bnf/parser'),
       parserUtilities = require('../utilities/parser'),
+      qualificationRule = require('./customGrammar/rule/qualification'),
       QualifiedCustomGrammarRule = require('./customGrammar/rule/qualified'),
       UnqualifiedCustomGrammarRule = require('./customGrammar/rule/unqualified');
 
@@ -24,8 +25,11 @@ class customGrammar {
           }, ''),
           lines = bnfLexer.linesFromBNF(bnf),
           rulesNode = bnfParser.rulesNodeFromLines(lines),
-          rules = BNFParser.generateRules(rulesNode),
-          statementRuleName = 'statement',
+          rules = BNFParser.generateRules(rulesNode);
+
+    rules.push(qualificationRule);
+
+    const statementRuleName = 'statement',
           metastatementRuleName = 'metastatement',
           qualifiedStatementRuleName = 'qualifiedStatement',
           unqualifiedStatementRuleName = 'unqualifiedStatement',
@@ -42,7 +46,7 @@ class customGrammar {
     rules.push(unqualifiedStatementCustomGrammarRule);
     rules.push(qualifiedMetastatementCustomGrammarRule);
     rules.push(unqualifiedMetastatementCustomGrammarRule);
-    
+
     return rules;
   }
 }

@@ -1,41 +1,26 @@
 'use strict';
 
-const Rule = require('../../../bnf/rule'),
-      QualificationNode = require('../node/qualification'),
-      RuleNamePart = require('../../../bnf/part/nonTerminal/ruleName'),
-      OptionalPartPart = require('../../../bnf/part/nonTerminal/optionalPart'),
-      ChoiceOfPartsPart = require('../../../bnf/part/nonTerminal/choiceOfParts'),
-      TerminalSymbolPart = require('../../../bnf/part/terminal/terminalSymbol');
+const lexers = require('occam-lexers'),
+      necessary = require('necessary');
 
-class QualificationRule extends Rule {
-  constructor() {
-    const byTerminalSymbolContent = 'by',
-          fromTerminalSymbolContent = 'from',
-          referenceRuleName = 'reference',
-          referenceRuleNamePart = new RuleNamePart(referenceRuleName),
-          byTerminalSymbolPart = new TerminalSymbolPart(byTerminalSymbolContent),
-          fromTerminalSymbolPart = new TerminalSymbolPart(fromTerminalSymbolContent),
-          byOfFromChoiceOfPartsPartParts = [
-            byTerminalSymbolPart,
-            fromTerminalSymbolPart
-          ],
-          byOfFromChoiceOfPartsPart = new ChoiceOfPartsPart(byOfFromChoiceOfPartsPartParts),
-          optionalReferenceRuleNamePart = new OptionalPartPart(referenceRuleNamePart),
-          parts = [
-            byOfFromChoiceOfPartsPart,
-            optionalReferenceRuleNamePart
-          ],
-          definition = new Definition(parts),
-          name = QualificationRule.ruleName,  ///
-          definitions = [
-            definition
-          ],
-          Node = QualificationNode;
+const BNFParser = require('../../../bnf/parser');
 
-    super(name, definitions, Node)
-  }
-}
+const { BNFLexer } = lexers,
+      { array } = necessary,
+      { first } = array;
 
-QualificationRule.ruleName = 'qualification';
+const bnfLexer = BNFLexer.fromNothing(),
+      bnfParser = BNFParser.fromNothing();
 
-module.exports = QualificationRule;
+const bnf = `
+
+          qualification ::= ( "by" | "from" ) reference? ;
+          
+      `,
+      lines = bnfLexer.linesFromBNF(bnf),
+      rulesNode = bnfParser.rulesNodeFromLines(lines),
+      rules = BNFParser.generateRules(rulesNode),
+      firstRule = first(rules),
+      qualificationRule = firstRule;  ///
+
+module.exports = qualificationRule;
