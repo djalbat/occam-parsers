@@ -7,27 +7,23 @@ const metastatement = `
      
      contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
-     judgement                            ::=   reference "::" metastatementBody ;
+     judgement                            ::=   reference "::" metastatement ;
 
-     subproof                             ::=   supposition "..." metastatementBody ;
+     subproof                             ::=   supposition "..." metastatement ;
 
-     supposition                          ::=   "[" metastatementBody "]" ;
-
-
-
-     metastatementBody                    ::=   ( proofAssertion | contextDefinition | subproof | metavariable ) ; 
+     supposition                          ::=   "[" metastatement "]" ;
 
 
 
-     metastatement                        ::=   proofAssertion qualification? <END_OF_LINE> 
+     metastatement                        ::=   proofAssertion 
            
-                                            |   contextDefinition qualification? <END_OF_LINE> 
+                                            |   contextDefinition 
            
-                                            |   subproof qualification? <END_OF_LINE> 
+                                            |   subproof 
                                             
-                                            |   metavariable qualification? <END_OF_LINE> 
+                                            |   metavariable 
 
-                                            |   nonsense qualification? <END_OF_LINE> 
+                                            |   nonsense 
 
                                             ;
 
@@ -45,13 +41,11 @@ const statement = `
 
 
 
-     statement                            ::=   typeAssertion qualification? <END_OF_LINE> 
+     statement                            ::=   typeAssertion 
                                                   
-                                            |   equality qualification? <END_OF_LINE> 
+                                            |   equality 
                                                   
-                                            |   metastatement qualification? <END_OF_LINE>
-     
-                                            |   nonsense qualification? <END_OF_LINE>
+                                            |   nonsense
 
                                             ;
 

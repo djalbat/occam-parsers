@@ -16,6 +16,7 @@ class RuleNamePart extends NonTerminalPart {
     super(type);
 
     this.ruleName = ruleName;
+    
     this.noWhitespace = noWhitespace;
   }
   

@@ -1,10 +1,5 @@
 'use strict';
 
-const necessary = require('necessary');
-
-const { array } = necessary,
-      { first, last } = array;
-
 class Rule {
   constructor(name, definitions, NonTerminalNode) {
     this.name = name;

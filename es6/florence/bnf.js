@@ -7,13 +7,17 @@ const bnf = `
      
      
      
-     rule                                 ::=   "Rule" parenthesisedLabels? <END_OF_LINE> ( premise | premises )? conclusion metaProof? ;
+     rule                                 ::=   "Rule" parenthesisedLabels? <END_OF_LINE> ( premise | premises )? conclusion metaproof? ;
 
-     axiom                                ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> ( statement | indicativeConditional ) ; 
+     axiom                                ::=   "Axiom" parenthesisedLabels? <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) ; 
 
-     lemma                                ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> ( statement | indicativeConditional ) proof? ;
+     lemma                                ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) proof? ;
 
-     theorem                              ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> ( statement | indicativeConditional ) proof? ;
+     theorem                              ::=   "Theorem" parenthesisedLabels? <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) proof? ;
+
+     metalemma                            ::=   "Metalemma" parenthesisedLabels? <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) metaproof? ;
+
+     metatheorem                          ::=   "Metatheorem" parenthesisedLabels? <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) metaproof? ;
 
      declaration                          ::=   "Types" typesDeclaration <END_OF_LINE>
 
@@ -87,31 +91,37 @@ const bnf = `
 
    
         
-     premise                              ::=   "Premise" <END_OF_LINE> metastatement ;
+     premise                              ::=   "Premise" <END_OF_LINE> unqualifiedMetastatement ;
 
-     premises                             ::=   "Premises" <END_OF_LINE> metastatement metastatement+ ;
+     premises                             ::=   "Premises" <END_OF_LINE> unqualifiedMetastatement unqualifiedMetastatement+ ;
 
-     conclusion                           ::=   "Conclusion" <END_OF_LINE> metastatement ;
+     conclusion                           ::=   "Conclusion" <END_OF_LINE> qualifiedMetastatement ;
 
      
      
-     metaProof                            ::=   "Proof" <END_OF_LINE> 
+     metaproof                            ::=   "Proof" <END_OF_LINE> 
      
                                                 metastatementDefinition*
      
                                                 metaProofDerivation? 
                                                 
-                                                metastatement ;
+                                                qualifiedMetastatement ;
                                                 
-     metastatementDefinition              ::=   "let" metastatement ;                                           
+     metastatementDefinition              ::=   "let" unqualifiedMetastatement ;                                           
                                                 
-     metaProofDerivation                  ::=   ( subrule | metastatement )+  "Therefore" <END_OF_LINE> ;                                           
+     metaProofDerivation                  ::=   ( submetalemma | qualifiedMetastatement )+  "Therefore" <END_OF_LINE> ;                                           
      
-     subrule                              ::=   "Suppose" <END_OF_LINE> metastatement+ 
+     submetalemma                         ::=   "Suppose" <END_OF_LINE> unqualifiedMetastatement+ 
      
-                                                ( "Then" <END_OF_LINE> ( subrule | metastatement )+ )? 
+                                                ( "Then" <END_OF_LINE> ( submetalemma | qualifiedMetastatement )+ )? 
                                                 
-                                                "Hence" <END_OF_LINE> metastatement ;
+                                                "Hence" <END_OF_LINE> qualifiedMetastatement ;
+
+
+
+     metaIndicativeConditional            ::=   "Suppose" <END_OF_LINE> unqualifiedMetastatement+ 
+     
+                                                "Hence" <END_OF_LINE> qualifiedMetastatement ;
 
 
 
@@ -121,23 +131,23 @@ const bnf = `
      
                                                 proofDerivation? 
                                                 
-                                                statement ;
+                                                qualifiedStatement ;
                                                 
-     statementDefinition                  ::=   "let" statement ;                                           
+     statementDefinition                  ::=   "let" unqualifiedStatement;                                           
 
-     proofDerivation                      ::=   ( sublemma | statement )+ "Therefore" <END_OF_LINE> ;
+     proofDerivation                      ::=   ( sublemma | qualifiedStatement )+ "Therefore" <END_OF_LINE> ;
 
-     sublemma                             ::=   "Suppose" <END_OF_LINE> statement+ 
+     sublemma                             ::=   "Suppose" <END_OF_LINE> unqualifiedStatement+ 
      
-                                                ( "Then" <END_OF_LINE> ( sublemma | statement )+ )? 
+                                                ( "Then" <END_OF_LINE> ( sublemma | qualifiedStatement )+ )? 
                                                 
-                                                "Hence" <END_OF_LINE> statement ;
+                                                "Hence" <END_OF_LINE> qualifiedStatement ;
 
 
 
-     indicativeConditional                ::=   "Suppose" <END_OF_LINE> statement+ 
+     indicativeConditional                ::=   "Suppose" <END_OF_LINE> unqualifiedStatement+ 
      
-                                                "Hence" <END_OF_LINE> statement ;
+                                                "Hence" <END_OF_LINE> qualifiedStatement ;
 
 
 
@@ -190,10 +200,6 @@ const bnf = `
      
    
      name                                 ::=   [unassigned] ;
-
-       
-
-     qualification                        ::=   ( "by" | "from" ) reference? ;
 
        
 
