@@ -27,7 +27,7 @@ class FlorenceParser extends CommonParser {
   }
 
   static fromBNFAndMappings(bnf, mappings, customGrammarRules = customGrammarDefaultRules, additionalMappings = defaultAdditionalMappings) {
-    customGrammarRules = customGrammarUtilities.replaceStatementAndMetaStatementRules(customGrammarRules);  ///
+    customGrammarRules = customGrammarUtilities.addQualifiedAndUnqualifiedStatementAndMetastatementRules(customGrammarRules);  ///
 
     mappings = Object.assign(mappings, additionalMappings); ///
 

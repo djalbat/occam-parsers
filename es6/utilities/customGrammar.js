@@ -10,7 +10,8 @@ const BNFParser = require('../bnf/parser'),
 
 const { BNFLexer } = lexers,
       { array } = necessary,
-      { filter } = array;
+      { push } = array,
+      add = push; ///
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
@@ -38,7 +39,7 @@ class customGrammarUtilities {
     return rules;
   }
 
-  static replaceStatementAndMetaStatementRules(customGrammarRules) {
+  static addQualifiedAndUnqualifiedStatementAndMetastatementRules(customGrammarRules) {
     customGrammarRules = customGrammarRules.slice();  ///
     
     const statementCustomGrammarRule = parserUtilities.findRuleByName(statementRuleName, customGrammarRules),
@@ -46,19 +47,16 @@ class customGrammarUtilities {
           qualifiedStatementCustomGrammarRule = new QualifiedCustomGrammarRule.fromRuleNameAndCustomGrammarRule(qualifiedStatementRuleName, statementCustomGrammarRule),
           unqualifiedStatementCustomGrammarRule = new UnqualifiedCustomGrammarRule.fromRuleNameAndCustomGrammarRule(unqualifiedStatementRuleName, statementCustomGrammarRule),
           qualifiedMetastatementCustomGrammarRule = new QualifiedCustomGrammarRule.fromRuleNameAndCustomGrammarRule(qualifiedMetastatementRuleName, metastatementCustomGrammarRule),
-          unqualifiedMetastatementCustomGrammarRule = new UnqualifiedCustomGrammarRule.fromRuleNameAndCustomGrammarRule(unqualifiedMetastatementRuleName, metastatementCustomGrammarRule);
+          unqualifiedMetastatementCustomGrammarRule = new UnqualifiedCustomGrammarRule.fromRuleNameAndCustomGrammarRule(unqualifiedMetastatementRuleName, metastatementCustomGrammarRule),
+          qualifiedAndUnqualifiedStatementAndMetastatementRules = [
+            qualifiedStatementCustomGrammarRule,
+            unqualifiedStatementCustomGrammarRule,
+            qualifiedMetastatementCustomGrammarRule,
+            unqualifiedMetastatementCustomGrammarRule
+          ];
 
-    customGrammarRules.push(qualifiedStatementCustomGrammarRule);
-    customGrammarRules.push(qualifiedMetastatementCustomGrammarRule);
-    customGrammarRules.push(unqualifiedStatementCustomGrammarRule);
-    customGrammarRules.push(unqualifiedMetastatementCustomGrammarRule);
+    add(customGrammarRules, qualifiedAndUnqualifiedStatementAndMetastatementRules);
 
-    filter(customGrammarRules, function(customGrammarRule) {
-      const keep = ((customGrammarRule !== statementCustomGrammarRule) && (customGrammarRule !== metastatementCustomGrammarRule));
-      
-      return keep;
-    });
-    
     return customGrammarRules;
   }
 }
