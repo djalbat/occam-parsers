@@ -7,8 +7,8 @@ const bnf = require('./bnf'),
       mappings = require('./mappings'),
       BNFParser = require('../bnf/parser'),
       CommonParser = require('../common/parser'),
-      customGrammar = require('./customGrammar'),
-      customGrammarDefaultBNFMap = require('./customGrammar/defaultBNFMap');
+      customGrammarUtilities = require('../utilities/customGrammar'),
+      customGrammarDefaultBNFMap = require('./customGrammarDefaultBNFMap');
 
 const { array } = necessary,
       { BNFLexer } = lexers,
@@ -16,25 +16,27 @@ const { array } = necessary,
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
-      customGrammarDefaultRules = customGrammar.rulesFromBNFMap(customGrammarDefaultBNFMap),
+      customGrammarDefaultRules = customGrammarUtilities.rulesFromBNFMap(customGrammarDefaultBNFMap),
       defaultAdditionalMappings = {};
 
 class FlorenceParser extends CommonParser {
-  static fromCombinedCustomGrammarsRulesAndAdditionalMappings(combinedCustomGrammarsRules, additionalMappings) {
-    const florenceParser = FlorenceParser.fromBNFAndMappings(bnf, mappings, combinedCustomGrammarsRules, additionalMappings);
-  
+  static fromCustomGrammarRulesAndAdditionalMappings(customGrammarRules, additionalMappings) {
+    const florenceParser = FlorenceParser.fromBNFAndMappings(bnf, mappings, customGrammarRules, additionalMappings);
+
     return florenceParser;
   }
-  
-  static fromBNFAndMappings(bnf, mappings, combinedCustomGrammarsRules = customGrammarDefaultRules, additionalMappings = defaultAdditionalMappings) {
+
+  static fromBNFAndMappings(bnf, mappings, customGrammarRules = customGrammarDefaultRules, additionalMappings = defaultAdditionalMappings) {
+    customGrammarRules = customGrammarUtilities.replaceStatementAndMetaStatementRules(customGrammarRules);  ///
+
     mappings = Object.assign(mappings, additionalMappings); ///
 
     const lines = bnfLexer.linesFromBNF(bnf),
           rulesNode = bnfParser.rulesNodeFromLines(lines),
           rules = BNFParser.generateRules(rulesNode, mappings);
 
-    push(rules, combinedCustomGrammarsRules);
-    
+    push(rules, customGrammarRules);
+
     const florenceParser = new FlorenceParser(rules);
 
     return florenceParser;

@@ -3,7 +3,7 @@
 const bnf = `
 
 
-     document                             ::=   ( rule | axiom | lemma | theorem | declaration | verticalSpace | error )+ ;
+     document                             ::=   ( rule | axiom | lemma | theorem | metalemma | metatheorem | declaration | verticalSpace | error )+ ;
      
      
      
@@ -202,6 +202,10 @@ const bnf = `
      name                                 ::=   [unassigned] ;
 
        
+
+     qualification                        ::= ( "by" | "from" ) reference? ;
+     
+     
 
      nonsense                             ::=   ( [unassigned] | [special] )+ ;
 
