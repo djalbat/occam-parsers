@@ -207,7 +207,7 @@ const bnf = `
      
      
 
-     nonsense                             ::=   ( [unassigned] | [special] )+ ;
+     nonsense                             ::=   ( [unassigned] | [special] | [custom]  )+ ;
 
      
 `;
