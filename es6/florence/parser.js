@@ -8,7 +8,7 @@ const bnf = require('./bnf'),
       BNFParser = require('../bnf/parser'),
       CommonParser = require('../common/parser'),
       customGrammarUtilities = require('../utilities/customGrammar'),
-      customGrammarDefaultBNFMap = require('./customGrammarDefaultBNFMap');
+      defaultCustomGrammarBNFMap = require('./defaultCustomGrammarBNFMap');
 
 const { array } = necessary,
       { BNFLexer } = lexers,
@@ -16,18 +16,19 @@ const { array } = necessary,
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
-      customGrammarDefaultRules = customGrammarUtilities.rulesFromBNFMap(customGrammarDefaultBNFMap),
-      defaultAdditionalMappings = {};
+      defaultCustomGrammarRules = customGrammarUtilities.rulesFromBNFMap(defaultCustomGrammarBNFMap),
+      defaultCombinedCustomGrammarsRules = defaultCustomGrammarRules, ///
+        defaultAdditionalMappings = {};
 
 class FlorenceParser extends CommonParser {
-  static fromCustomGrammarRulesAndAdditionalMappings(customGrammarRules, additionalMappings) {
-    const florenceParser = FlorenceParser.fromBNFAndMappings(bnf, mappings, customGrammarRules, additionalMappings);
+  static fromCombinedCustomGrammarsRulesAndAdditionalMappings(combinedCustomGrammarsRules, additionalMappings) {
+    const florenceParser = FlorenceParser.fromBNFAndMappings(bnf, mappings, combinedCustomGrammarsRules, additionalMappings);
 
     return florenceParser;
   }
 
-  static fromBNFAndMappings(bnf, mappings, customGrammarRules = customGrammarDefaultRules, additionalMappings = defaultAdditionalMappings) {
-    customGrammarRules = customGrammarUtilities.addQualifiedAndUnqualifiedStatementAndMetastatementRules(customGrammarRules);  ///
+  static fromBNFAndMappings(bnf, mappings, combinedCustomGrammarsRules = defaultCombinedCustomGrammarsRules, additionalMappings = defaultAdditionalMappings) {
+    combinedCustomGrammarsRules = customGrammarUtilities.addQualifiedAndUnqualifiedStatementAndMetastatementRules(combinedCustomGrammarsRules);  ///
 
     mappings = Object.assign(mappings, additionalMappings); ///
 
@@ -35,7 +36,7 @@ class FlorenceParser extends CommonParser {
           rulesNode = bnfParser.rulesNodeFromLines(lines),
           rules = BNFParser.generateRules(rulesNode, mappings);
 
-    push(rules, customGrammarRules);
+    push(rules, combinedCustomGrammarsRules);
 
     const florenceParser = new FlorenceParser(rules);
 
@@ -46,7 +47,7 @@ class FlorenceParser extends CommonParser {
 Object.assign(FlorenceParser, {
   bnf: bnf,
   mappings: mappings,
-  customGrammarDefaultBNFMap: customGrammarDefaultBNFMap  
+  defaultCustomGrammarBNFMap: defaultCustomGrammarBNFMap  
 });
 
 module.exports = FlorenceParser;

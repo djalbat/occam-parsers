@@ -39,11 +39,11 @@ class customGrammarUtilities {
     return rules;
   }
 
-  static addQualifiedAndUnqualifiedStatementAndMetastatementRules(customGrammarRules) {
-    customGrammarRules = customGrammarRules.slice();  ///
+  static addQualifiedAndUnqualifiedStatementAndMetastatementRules(combinedCustomGrammarsRules) {
+    combinedCustomGrammarsRules = combinedCustomGrammarsRules.slice();  ///
     
-    const statementCustomGrammarRule = parserUtilities.findRuleByName(statementRuleName, customGrammarRules),
-          metastatementCustomGrammarRule = parserUtilities.findRuleByName(metastatementRuleName, customGrammarRules),
+    const statementCustomGrammarRule = parserUtilities.findRuleByName(statementRuleName, combinedCustomGrammarsRules),
+          metastatementCustomGrammarRule = parserUtilities.findRuleByName(metastatementRuleName, combinedCustomGrammarsRules),
           qualifiedStatementCustomGrammarRule = new QualifiedCustomGrammarRule.fromRuleNameAndCustomGrammarRule(qualifiedStatementRuleName, statementCustomGrammarRule),
           unqualifiedStatementCustomGrammarRule = new UnqualifiedCustomGrammarRule.fromRuleNameAndCustomGrammarRule(unqualifiedStatementRuleName, statementCustomGrammarRule),
           qualifiedMetastatementCustomGrammarRule = new QualifiedCustomGrammarRule.fromRuleNameAndCustomGrammarRule(qualifiedMetastatementRuleName, metastatementCustomGrammarRule),
@@ -55,9 +55,9 @@ class customGrammarUtilities {
             unqualifiedMetastatementCustomGrammarRule
           ];
 
-    add(customGrammarRules, qualifiedAndUnqualifiedStatementAndMetastatementRules);
+    add(combinedCustomGrammarsRules, qualifiedAndUnqualifiedStatementAndMetastatementRules);
 
-    return customGrammarRules;
+    return combinedCustomGrammarsRules;
   }
 }
 
