@@ -1,28 +1,29 @@
 'use strict';
 
-class parserUtilities {
-  static tokensFromLines(lines) {
-    const tokens = lines.reduce(function(tokens, line) {
-      const lineTokens = line.getTokens();
+function tokensFromLines(lines) {
+  const tokens = lines.reduce(function(tokens, line) {
+    const lineTokens = line.getTokens();
 
-      tokens = tokens.concat(lineTokens);
-
-      return tokens;
-    }, []);
+    tokens = tokens.concat(lineTokens);
 
     return tokens;
-  }
+  }, []);
 
-  static findRuleByName(name, rules) {
-    const rule = rules.find(function(rule) {
-      const ruleName = rule.getName(),
-            found = (ruleName === name);
-      
-      return found;
-    }) || null; ///
-    
-    return rule;
-  }
+  return tokens;
 }
 
-module.exports = parserUtilities;
+function findRuleByName(name, rules) {
+  const rule = rules.find(function(rule) {
+    const ruleName = rule.getName(),
+          found = (ruleName === name);
+    
+    return found;
+  }) || null; ///
+  
+  return rule;
+}
+
+module.exports = {
+  tokensFromLines: tokensFromLines,
+  findRuleByName: findRuleByName
+};

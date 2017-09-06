@@ -1,12 +1,9 @@
 'use strict';
 
-const necessary = require('necessary');
-
 const arrayUtilities = require('../../utilities/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
-const { array } = necessary,
-      { first, second } = array;
+const { first, second, discardFourthThenSecond } = arrayUtilities;
 
 class RuleNode extends NonTerminalNode {
   generateRule(Rule, mappings) {
@@ -41,7 +38,7 @@ class RuleNode extends NonTerminalNode {
   }
 
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = arrayUtilities.discardFourthThenSecond(nodes),
+    const childNodes = discardFourthThenSecond(nodes),
           ruleNode = NonTerminalNode.fromRuleNameAndChildNodes(RuleNode, ruleName, childNodes);
 
     return ruleNode;

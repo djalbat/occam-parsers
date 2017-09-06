@@ -1,11 +1,9 @@
 'use strict';
 
-const necessary = require('necessary');
+const arrayUtilities = require('../../utilities/array'),
+      NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
 
-const NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
-
-const { array } = necessary,
-      { forwardsSome, backwardsSome } = array;
+const { forwardsSome, backwardsSome } = arrayUtilities;
 
 class NonTerminalNode {
   constructor(ruleName, childNodes) {

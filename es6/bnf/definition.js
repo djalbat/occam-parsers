@@ -1,11 +1,9 @@
 'use strict';
 
-const necessary = require('necessary');
+const RuleNamePart = require('./part/nonTerminal/ruleName'),
+      arrayUtilities = require('../utilities/array');
 
-const RuleNamePart = require('./part/nonTerminal/ruleName');
-
-const { array } = necessary,
-      { first } = array;
+const { first } = arrayUtilities;
 
 class Definition {
   constructor(parts) {

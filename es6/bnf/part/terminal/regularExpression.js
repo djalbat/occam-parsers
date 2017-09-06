@@ -1,14 +1,13 @@
 'use strict';
 
-const lexers = require('occam-lexers'),
-      necessary = require('necessary');
+const lexers = require('occam-lexers');
 
 const TerminalPart = require('../../part/terminal'),
-      TerminalNode = require('../../../common/node/terminal');
+      TerminalNode = require('../../../common/node/terminal'),
+      arrayUtilities = require('../../../utilities/array');
 
-const { array } = necessary,
-      { BNFLexer } = lexers,
-      { first } = array,
+const { BNFLexer } = lexers,
+      { first } = arrayUtilities,
       { specialSymbols } = BNFLexer,
       { NO_WHITESPACE } = specialSymbols;
 

@@ -1,8 +1,7 @@
 'use strict';
 
-const necessary = require('necessary');
-
 const bnfUtilities = require('../../utilities/bnf'),
+      arrayUtilities = require('../../utilities/array'),
       OptionalPartPart = require('../part/nonTerminal/optionalPart'),
       ZeroOrMorePartsPart = require('../part/nonTerminal/zeroOrMoreParts'),
       OneOrMorePartsPart = require('../part/nonTerminal/oneOrMoreParts'),
@@ -10,8 +9,8 @@ const bnfUtilities = require('../../utilities/bnf'),
       ChoiceOfPartsPart = require('../part/nonTerminal/choiceOfParts'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
-const { array } = necessary,
-      { first, last } = array;
+const { first, last } = arrayUtilities,
+      { isNodeQuantifiersNode, isNodeNoWhitespaceNode, quantifiersFromQuantifiersNode } = bnfUtilities;
 
 class PartNode extends NonTerminalNode {
   generatePart(noWhitespace) {
@@ -58,12 +57,12 @@ function quantifiersFromNodes(nodes) {
   let  quantifiers = [];
 
   const lastNode = last(nodes),
-        lastNodeQuantifiersNode = bnfUtilities.isNodeQuantifiersNode(lastNode);
+        lastNodeQuantifiersNode = isNodeQuantifiersNode(lastNode);
 
   if (lastNodeQuantifiersNode) {
     const quantifiersNode = lastNode;  ///
 
-    quantifiers = bnfUtilities.quantifiersFromQuantifiersNode(quantifiersNode);
+    quantifiers = quantifiersFromQuantifiersNode(quantifiersNode);
   }
 
   return quantifiers;
@@ -71,7 +70,7 @@ function quantifiersFromNodes(nodes) {
 
 function isFirstNodeNoWhitespaceNode(nodes) {
   const firstNode = first(nodes),
-        firstNodeNoWhitespaceNode = bnfUtilities.isNodeNoWhitespaceNode(firstNode);
+        firstNodeNoWhitespaceNode = isNodeNoWhitespaceNode(firstNode);
 
   return firstNodeNoWhitespaceNode;
 }

@@ -1,9 +1,8 @@
 'use strict';
 
-const necessary = require('necessary');
+const arrayUtilities = require('../utilities/array');
 
-const { array } = necessary,
-      { last } = array;
+const { last } = arrayUtilities;
 
 class ParseTree {
   constructor(lines) {

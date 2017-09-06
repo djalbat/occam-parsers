@@ -6,6 +6,7 @@ const easy = require('easy'),
 const parserUtilities = require('./utilities/parser');
 
 const { Textarea } = easy,
+      { findRuleByName } = parserUtilities,
       { SizeableElement, VerticalSplitter } = easyLayout;
 
 const contentTextareaSelector = 'textarea#content',
@@ -85,7 +86,7 @@ class Example {
               content = contentTextareaValue, ///
               name = ruleName,  ///
               rules = parser.getRules(),
-              rule = parserUtilities.findRuleByName(name, rules),
+              rule = findRuleByName(name, rules),
               lines = lexer.linesFromContent(content);
 
         node = parser.nodeFromLines(lines, rule);

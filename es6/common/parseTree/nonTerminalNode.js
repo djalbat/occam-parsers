@@ -1,13 +1,11 @@
 'use strict';
 
-const necessary = require('necessary');
-
-const RuleNameParseTree = require('./ruleName'),
+const arrayUtilities = require('../../utilities/array'),
+      RuleNameParseTree = require('./ruleName'),
       ChildNodesParseTree = require('./childNodes'),
       VerticalBranchParseTree = require('./verticalBranch');
 
-const { array } = necessary,
-      { first } = array;
+const { first } = arrayUtilities;
 
 class NonTerminalNodeParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndLines(nonTerminalNode, lines) {

@@ -1,13 +1,11 @@
 'use strict';
 
-const necessary = require('necessary');
-
 const NonTerminalPart = require('../../part/nonTerminal'),
       bnfUtilities = require('../../../utilities/bnf'),
       arrayUtilities = require('../../../utilities/array');
 
-const { array } = necessary,
-      { second } = array;
+const { isNodeChoiceNode } = bnfUtilities,
+      { second, discardOdd, discardLastThenFirst } = arrayUtilities;
 
 class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
@@ -61,13 +59,13 @@ class ChoiceOfPartsPart extends NonTerminalPart {
   static fromNodes(nodes) {
     let choiceOfPartsPart = null;
     
-    nodes = arrayUtilities.discardLastThenFirst(nodes);
+    nodes = discardLastThenFirst(nodes);
     
     const secondNode = second(nodes),
-          secondNodeChoiceNode = bnfUtilities.isNodeChoiceNode(secondNode);
+          secondNodeChoiceNode = isNodeChoiceNode(secondNode);
     
     if (secondNodeChoiceNode) {
-      nodes = arrayUtilities.discardOdd(nodes);
+      nodes = discardOdd(nodes);
 
       const noWhitespace = false,
             parts = nodes.map(function(node) {

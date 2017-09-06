@@ -7,7 +7,8 @@ const NonTerminalPart = require('../../part/nonTerminal'),
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
-      { NO_WHITESPACE } = specialSymbols;
+      { NO_WHITESPACE } = specialSymbols,
+      { findRuleByName } = parserUtilities;
 
 class RuleNamePart extends NonTerminalPart {
   constructor(ruleName, noWhitespace = false) {
@@ -31,7 +32,7 @@ class RuleNamePart extends NonTerminalPart {
     
     const name = this.ruleName, ///
           rules = configuration.getRules(),
-          rule = parserUtilities.findRuleByName(name, rules);
+          rule = findRuleByName(name, rules);
 
     if (rule !== null) {
       nodeOrNodes = rule.parse(configuration, noWhitespace);

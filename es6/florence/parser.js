@@ -1,22 +1,22 @@
 'use strict';
 
-const lexers = require('occam-lexers'),
-      necessary = require('necessary');
+const lexers = require('occam-lexers');
 
 const bnf = require('./bnf'),
       mappings = require('./mappings'),
       BNFParser = require('../bnf/parser'),
       CommonParser = require('../common/parser'),
+      arrayUtilities = require('../utilities/array'),
       customGrammarUtilities = require('../utilities/customGrammar'),
       defaultCustomGrammarBNFMap = require('./defaultCustomGrammarBNFMap');
 
-const { array } = necessary,
-      { BNFLexer } = lexers,
-      { push } = array;
+const { BNFLexer } = lexers,
+      { push } = arrayUtilities,
+      { rulesFromBNFMap, addQualifiedAndUnqualifiedStatementAndMetastatementRules } = customGrammarUtilities;
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
-      defaultCustomGrammarRules = customGrammarUtilities.rulesFromBNFMap(defaultCustomGrammarBNFMap),
+      defaultCustomGrammarRules = rulesFromBNFMap(defaultCustomGrammarBNFMap),
       defaultCombinedCustomGrammarsRules = defaultCustomGrammarRules, ///
         defaultAdditionalMappings = {};
 
@@ -28,7 +28,7 @@ class FlorenceParser extends CommonParser {
   }
 
   static fromBNFAndMappings(bnf, mappings, combinedCustomGrammarsRules = defaultCombinedCustomGrammarsRules, additionalMappings = defaultAdditionalMappings) {
-    combinedCustomGrammarsRules = customGrammarUtilities.addQualifiedAndUnqualifiedStatementAndMetastatementRules(combinedCustomGrammarsRules);  ///
+    combinedCustomGrammarsRules = addQualifiedAndUnqualifiedStatementAndMetastatementRules(combinedCustomGrammarsRules);  ///
 
     mappings = Object.assign(mappings, additionalMappings); ///
 

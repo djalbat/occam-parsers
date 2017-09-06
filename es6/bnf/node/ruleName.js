@@ -1,12 +1,10 @@
 'use strict';
 
-const necessary = require('necessary');
-
-const NonTerminalNode = require('../../common/node/nonTerminal'),
+const arrayUtilities = require('../../utilities/array'),
+      NonTerminalNode = require('../../common/node/nonTerminal'),
       RuleNamePart = require('../part/nonTerminal/ruleName');
 
-const { array } = necessary,
-      { first } = array;
+const { first } = arrayUtilities;
 
 class RuleNameNode extends NonTerminalNode {
   generatePart(noWhitespace) {
