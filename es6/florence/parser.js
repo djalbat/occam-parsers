@@ -8,7 +8,9 @@ const bnf = require('./bnf'),
       CommonParser = require('../common/parser'),
       arrayUtilities = require('../utilities/array'),
       customGrammarUtilities = require('../utilities/customGrammar'),
-      defaultCustomGrammarBNFMap = require('./defaultCustomGrammarBNFMap');
+      defaultCustomGrammarTermBNF = require('./defaultCustomGrammar/termBNF'),
+      defaultCustomGrammarStatementBNF = require('./defaultCustomGrammar/statementBNF'),
+      defaultCustomGrammarMetastatementBNF = require('./defaultCustomGrammar/metastatementBNF');
 
 const { BNFLexer } = lexers,
       { push } = arrayUtilities,
@@ -18,7 +20,7 @@ const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
       defaultCustomGrammarRules = rulesFromBNFMap(defaultCustomGrammarBNFMap),
       defaultCombinedCustomGrammarsRules = defaultCustomGrammarRules, ///
-        defaultAdditionalMappings = {};
+      defaultAdditionalMappings = {};
 
 class FlorenceParser extends CommonParser {
   static fromCombinedCustomGrammarsRulesAndAdditionalMappings(combinedCustomGrammarsRules, additionalMappings) {
@@ -47,7 +49,9 @@ class FlorenceParser extends CommonParser {
 Object.assign(FlorenceParser, {
   bnf: bnf,
   mappings: mappings,
-  defaultCustomGrammarBNFMap: defaultCustomGrammarBNFMap  
+  defaultCustomGrammarTermBNF: defaultCustomGrammarTermBNF,
+  defaultCustomGrammarStatementBNF: defaultCustomGrammarStatementBNF,
+  defaultCustomGrammarMetastatementBNF: defaultCustomGrammarMetastatementBNF
 });
 
 module.exports = FlorenceParser;
