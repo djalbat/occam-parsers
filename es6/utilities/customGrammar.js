@@ -23,15 +23,8 @@ const bnfLexer = BNFLexer.fromNothing(),
       unqualifiedStatementRuleName = 'unqualifiedStatement',
       unqualifiedMetastatementRuleName = 'unqualifiedMetastatement';
 
-function rulesFromBNFMap(bnfMap) {
-  const ruleNames = Object.keys(bnfMap),
-        bnf = ruleNames.reduce(function(bnf, ruleName) {
-          const ruleBNF = bnfMap[ruleName];
-
-          bnf = `${bnf}${ruleBNF}`;
-
-          return bnf;
-        }, ''),
+function rulesFromBNFs(bnfs) {
+  const bnf = bnfs.join(''),
         lines = bnfLexer.linesFromBNF(bnf),
         rulesNode = bnfParser.rulesNodeFromLines(lines),
         rules = BNFParser.generateRules(rulesNode);
@@ -61,6 +54,6 @@ function addQualifiedAndUnqualifiedStatementAndMetastatementRules(combinedCustom
 }
 
 module.exports = {
-  rulesFromBNFMap: rulesFromBNFMap,
+  rulesFromBNFs: rulesFromBNFs,
   addQualifiedAndUnqualifiedStatementAndMetastatementRules: addQualifiedAndUnqualifiedStatementAndMetastatementRules
 };

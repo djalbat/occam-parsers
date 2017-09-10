@@ -14,11 +14,16 @@ const bnf = require('./bnf'),
 
 const { BNFLexer } = lexers,
       { push } = arrayUtilities,
-      { rulesFromBNFMap, addQualifiedAndUnqualifiedStatementAndMetastatementRules } = customGrammarUtilities;
+      { rulesFromBNFs, addQualifiedAndUnqualifiedStatementAndMetastatementRules } = customGrammarUtilities;
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
-      defaultCustomGrammarRules = rulesFromBNFMap(defaultCustomGrammarBNFMap),
+      defaultCustomGrammarBNFs = [
+        defaultCustomGrammarTermBNF, 
+        defaultCustomGrammarStatementBNF, 
+        defaultCustomGrammarMetastatementBNF
+      ],
+      defaultCustomGrammarRules = rulesFromBNFs(defaultCustomGrammarBNFs),
       defaultCombinedCustomGrammarsRules = defaultCustomGrammarRules, ///
       defaultAdditionalMappings = {};
 
