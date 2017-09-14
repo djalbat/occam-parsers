@@ -208,7 +208,11 @@ Both the lexical patterns and BNF as well as the content can be changed. Given t
 
 ### Florence example
 
-This uses the BNF part of Occam's vernacular, called Florence.
+This uses the BNF part of Occam's vernacular, called Florence. There are also three adjunct, default custom grammars for metastatements, statements and terms:
+
+* [es6/florence/defaultCustomGrammar/metastatementBNF.js](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/defaultCustomGrammar/metastatementBNF.js)
+* [es6/florence/defaultCustomGrammar/statementBNF.js](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/defaultCustomGrammar/statementBNF.js)
+* [es6/florence/defaultCustomGrammar/termBNF.js](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/defaultCustomGrammar/termBNF.js)
 
 ## Building
 
