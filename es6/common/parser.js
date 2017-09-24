@@ -19,6 +19,8 @@ class CommonParser {
   nodeFromLines(lines, rule) {
     const tokens = tokensFromLines(lines),
           node = this.parse(tokens, rule);
+
+    setChildNodesParentNode(node);
     
     return node;
   }
@@ -73,3 +75,16 @@ class CommonParser {
 }
 
 module.exports = CommonParser;
+
+function setChildNodesParentNode(node) {
+  const parentNode = node,  ///
+        childNodes = node.getChildNodes();
+
+  childNodes.forEach(function(childNode) {
+    childNode.setParentNode(parentNode);
+
+    const node = childNode; ///
+
+    setChildNodesParentNode(node);
+  });
+}
