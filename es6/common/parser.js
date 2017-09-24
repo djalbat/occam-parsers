@@ -16,16 +16,20 @@ class CommonParser {
     return this.rules;
   }
   
-  nodeFromLines(lines, rule) {
+  nodeFromLines(lines, rule, setParentNodes) {
     const tokens = tokensFromLines(lines),
-          node = this.parse(tokens, rule);
+          node = this.parse(tokens, rule, setParentNodes);
 
-    setChildNodesParentNode(node);
-    
+    if (setParentNodes) {
+      const parentNode = null;  ///
+
+      node.setParentNode(parentNode);
+    }
+
     return node;
   }
 
-  parse(tokens, rule = null) {
+  parse(tokens, rule = null, setParentNodes = false) {
     let node = null;
 
     if (rule === null) {
@@ -48,6 +52,10 @@ class CommonParser {
                  first(nodeOrNodes) :
                    nodeOrNodes;
       }
+    }
+
+    if (setParentNodes) {
+      setChildNodesParentNode(node);
     }
 
     return node;
