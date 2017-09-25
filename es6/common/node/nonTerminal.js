@@ -10,7 +10,7 @@ class NonTerminalNode {
     this.ruleName = ruleName;
     this.childNodes = childNodes;
     
-    this.parentNode = parentNode;
+    this.parentNode = undefined;  ///
   }
 
   isTerminalNode() {
