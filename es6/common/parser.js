@@ -54,8 +54,10 @@ class CommonParser {
       }
     }
 
-    if (setParentNodes) {
-      setChildNodesParentNode(node);
+    if (node !== null) {
+      if (setParentNodes) {
+        setChildNodesParentNode(node);
+      }
     }
 
     return node;
