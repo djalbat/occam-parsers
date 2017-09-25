@@ -85,14 +85,20 @@ class CommonParser {
 module.exports = CommonParser;
 
 function setChildNodesParentNode(node) {
-  const parentNode = node,  ///
-        childNodes = node.getChildNodes();
+  const nodeTerminalNode = node.isTerminalNode(),
+        nodeNonTerminalNode = !nodeTerminalNode;
 
-  childNodes.forEach(function(childNode) {
-    childNode.setParentNode(parentNode);
+  if (nodeNonTerminalNode) {
+    const nonTerminalNode = node, ///
+          parentNode = nonTerminalNode,
+          childNodes = nonTerminalNode.getChildNodes();
 
-    const node = childNode; ///
+    childNodes.forEach(function(childNode) {
+      childNode.setParentNode(parentNode);
 
-    setChildNodesParentNode(node);
-  });
+      const node = childNode; ///
+
+      setChildNodesParentNode(node);
+    });
+  }
 }
