@@ -9,6 +9,8 @@ class NonTerminalNode {
   constructor(ruleName, childNodes) {
     this.ruleName = ruleName;
     this.childNodes = childNodes;
+
+    this.parentNode = undefined;  ///
   }
 
   isTerminalNode() {
@@ -23,6 +25,10 @@ class NonTerminalNode {
 
   getChildNodes() {
     return this.childNodes;
+  }
+
+  getParentNode() {
+    return this.parentNode;
   }
 
   getFirstLine() {
@@ -90,6 +96,10 @@ class NonTerminalNode {
 
   setChildNodes(childNodes) {
     this.childNodes = childNodes;
+  }
+  
+  setParentNode(parentNode) {
+    this.parentNode = parentNode;
   }
 
   asParseTree(lines) {
