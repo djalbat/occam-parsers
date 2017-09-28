@@ -6,8 +6,6 @@ class TerminalNode {
   constructor(significantToken, line) {
     this.significantToken = significantToken;
     this.line = line;
-    
-    this.parentNode = undefined;  ///
   }
 
   isEpsilonNode() {
@@ -28,10 +26,6 @@ class TerminalNode {
 
   getLine() {
     return this.line;
-  }
-  
-  getParentNode() {
-    return this.parentNode;
   }
 
   getFirstSignificantToken() {
@@ -67,10 +61,6 @@ class TerminalNode {
 
   getContent() { return this.significantToken.getContent(); }
   
-  setParentNode(parentNode) {
-    this.parentNode = parentNode;
-  }
-
   asParseTree(lines) {
     const terminalNode = this,  ///
           terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeAndLines(terminalNode, lines),
