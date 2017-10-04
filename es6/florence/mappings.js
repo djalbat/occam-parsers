@@ -21,7 +21,6 @@ const mappings = {
   'contextsDeclaration': DiscardOddChildNodes,
   'variablesDeclaration': DiscardOddChildNodes,
   'constructorsDeclaration': DiscardOddChildNodes,
-  'abbreviationsDeclaration': DiscardOddChildNodes,
   'dependentTypesDeclaration': DiscardOddChildNodes,
   'metavariablesDeclaration': DiscardOddChildNodes,
 

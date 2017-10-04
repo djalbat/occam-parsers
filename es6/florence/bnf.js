@@ -27,8 +27,6 @@ const bnf = `
 
                                             |   "Constructors" constructorsDeclaration  <END_OF_LINE>
 
-                                            |   "Abbreviations" abbreviationsDeclaration  <END_OF_LINE>
-
                                             |   "DependentTypes" dependentTypesDeclaration  <END_OF_LINE>
 
                                             |   "Metavariables" metavariablesDeclaration  <END_OF_LINE>
@@ -40,8 +38,6 @@ const bnf = `
                                             |   "Variable" variableDeclaration  <END_OF_LINE>
 
                                             |   "Constructor" constructorDeclaration  <END_OF_LINE>
-
-                                            |   "Abbreviation" abbreviationDeclaration  <END_OF_LINE>
 
                                             |   "DependentType" dependentTypeDeclaration  <END_OF_LINE>
                                             
@@ -67,8 +63,6 @@ const bnf = `
    
      constructorsDeclaration              ::=   constructorDeclaration ( "," constructorDeclaration)+ ;
    
-     abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbreviationDeclaration)+ ;
-   
      dependentTypesDeclaration            ::=   dependentTypeDeclaration ( "," dependentTypeDeclaration)* ;
    
      metavariablesDeclaration             ::=   metavariableDeclaration ( "," metavariableDeclaration)* ;
@@ -83,8 +77,6 @@ const bnf = `
    
      constructorDeclaration               ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames?<NO_WHITESPACE>":"<NO_WHITESPACE>typeName ;
    
-     abbreviationDeclaration              ::=   constructorName "for" constructorName ;
-
      dependentTypeDeclaration             ::=   typeName<NO_WHITESPACE>parenthesisedTypeName ;
    
      metavariableDeclaration              ::=   metavariableName<NO_WHITESPACE>parenthesisedTypeName? ;
