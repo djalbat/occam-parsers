@@ -31,6 +31,8 @@ const bnf = `
 
                                             |   "Metavariables" metavariablesDeclaration  <END_OF_LINE>
 
+                                            |   "Abbreviations" abbreviationsDeclaration  <END_OF_LINE>
+
                                             |   "Type" typeDeclaration  <END_OF_LINE>
 
                                             |   "Context" contextDeclaration  <END_OF_LINE>
@@ -42,6 +44,8 @@ const bnf = `
                                             |   "DependentType" dependentTypeDeclaration  <END_OF_LINE>
                                             
                                             |   "Metavariable" metavariableDeclaration  <END_OF_LINE>
+
+                                            |   "Abbreviation" abbreviationDeclaration  <END_OF_LINE>
 
                                             ;
                                             
@@ -67,6 +71,7 @@ const bnf = `
    
      metavariablesDeclaration             ::=   metavariableDeclaration ( "," metavariableDeclaration)* ;
    
+     abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbreviationDeclaration)* ;
 
 
      typeDeclaration                      ::=   typeName ;
@@ -80,6 +85,8 @@ const bnf = `
      dependentTypeDeclaration             ::=   typeName<NO_WHITESPACE>parenthesisedTypeName ;
    
      metavariableDeclaration              ::=   metavariableName<NO_WHITESPACE>parenthesisedTypeName? ;
+     
+     abbreviationDeclaration              ::=   constructorName for constructorName 
      
    
         
