@@ -187,26 +187,22 @@ const bnf = `
      
 
 
-     typeName                             ::=   name ;
+     typeName                             ::=   [unassigned] ;
 
-     contextName                          ::=   name ;
+     contextName                          ::=   [unassigned] ;
 
-     variableName                         ::=   name ;
+     variableName                         ::=   [unassigned] ;
 
-     constructorName                      ::=   name ;
+     constructorName                      ::=   [unassigned] ;
 
-     metavariableName                     ::=   name ;
+     metavariableName                     ::=   [unassigned] ;
 
-     referenceName                        ::=   name ;
+     referenceName                        ::=   [unassigned] ;
 
-     labelName                            ::=   name ;
+     labelName                            ::=   [unassigned] ;
 
      
    
-     name                                 ::=   [unassigned] ;
-
-       
-
      qualification                        ::= ( "by" | "from" ) reference? ;
      
      
