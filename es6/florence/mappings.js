@@ -3,7 +3,6 @@
 const DiscardOddChildNodes = require('../common/node/nonTerminal/discardOddChildNodes'),
       DiscardSecondChildNode = require('../common/node/nonTerminal/discardSecondChildNode'),
       DiscardFifthThenSecondChildNode = require('../common/node/nonTerminal/discardFifthThenSecondChildNode'),
-      TransparentThenKeepFirstNode = require('../common/node/nonTerminal/transparentThenKeepFirstNode'),
       TransparentThenKeepSecondNode = require('../common/node/nonTerminal/transparentThenKeepSecondNode');
 
 const mappings = {
@@ -30,8 +29,6 @@ const mappings = {
   'labels': DiscardOddChildNodes,
   'terms': DiscardOddChildNodes,
 
-  'name': TransparentThenKeepFirstNode,
-  
   'parenthesisedTypeNames': TransparentThenKeepSecondNode,
   'parenthesisedLabels': TransparentThenKeepSecondNode,
   'parenthesisedTerms': TransparentThenKeepSecondNode,
