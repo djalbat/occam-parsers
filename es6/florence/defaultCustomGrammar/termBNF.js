@@ -3,15 +3,8 @@
 const termBNF = `
 
 
-     compoundTerm                         ::=   constructorName<NO_WHITESPACE>parenthesisedTerms ;
+     term                                 ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
 
-
-
-     term                                 ::=   compoundTerm 
-     
-                                            |   name
-                                            
-                                            ;
 
 
 `;
