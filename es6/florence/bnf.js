@@ -86,7 +86,7 @@ const bnf = `
    
      metavariableDeclaration              ::=   metavariableName<NO_WHITESPACE>parenthesisedTypeName? ;
      
-     abbreviationDeclaration              ::=   constructorName for constructorName 
+     abbreviationDeclaration              ::=   constructorName for constructorName ; 
      
    
         
