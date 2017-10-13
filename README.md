@@ -21,7 +21,7 @@ There are three parsers in all:
 * A basic parser, for illustrative purposes, and for developing new grammars.
 * The main parser, namely the parser for the [BNF part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/bnf.js) of Occam's vernacular, called Florence.
 
-All parsers share common functionality. The last two parse content according to rules defined in a variant of BNF. The BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant of BNF that they implement: 
+All parsers share common functionality. The last two parse content according to rules defined in a variant of BNF. The BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant that they implement: 
 
       rules                ::=  rule+ ;
       
