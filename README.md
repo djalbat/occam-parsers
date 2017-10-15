@@ -75,7 +75,7 @@ All parsers share common functionality. The last two parse content according to 
     
       regularExpression    ::=  [regularExpression] ;
       
-      significantTokenTyp  ::=  [type] ;
+      significantTokenType ::=  [type] ;
     
       terminalSymbol       ::=  [string] ;
       
