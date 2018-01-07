@@ -30,7 +30,8 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
                 partNodeOrNodes :
                   [partNodeOrNodes];
 
-      const zeroOrMorePartsPart = ZeroOrMorePartsPart.fromOneOrMorePartsPart(this), ///
+      const oneOrMorePartsPart = this,  ///
+            zeroOrMorePartsPart = ZeroOrMorePartsPart.fromOneOrMorePartsPart(oneOrMorePartsPart),
             zeroOrMorePartsPartNodeOrNodes = zeroOrMorePartsPart.parse(configuration, noWhitespace);
 
       nodes = nodes.concat(zeroOrMorePartsPartNodeOrNodes);
