@@ -1,6 +1,6 @@
 'use strict';
 
-const parsers = {
+module.exports = {
   'Rule': require('./lib/bnf/rule'),
   'parts': require('./lib/bnf/parts'),
   'Definition': require('./lib/bnf/definition'),
@@ -15,5 +15,3 @@ const parsers = {
   'TerminalNode': require('./lib/common/node/terminal'),
   'NonTerminalNode': require('./lib/common/node/nonTerminal')
 };
-
-module.exports = parsers;
