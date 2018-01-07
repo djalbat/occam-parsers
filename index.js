@@ -1,6 +1,6 @@
 'use strict';
 
-var parsers = {
+const parsers = {
   'Rule': require('./lib/bnf/rule'),
   'parts': require('./lib/bnf/parts'),
   'Definition': require('./lib/bnf/definition'),
