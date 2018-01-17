@@ -6,7 +6,6 @@ module.exports = {
   'Definition': require('./lib/bnf/definition'),
   'BNFParser': require('./lib/bnf/parser'),
   'BasicParser': require('./lib/basic/parser'),
-  'CommonParser': require('./lib/common/parser'),
   'FlorenceParser': require('./lib/florence/parser'),
   'PlainParser': require('./lib/plain/parser'),
   'MetaJSONParser': require('./lib/metaJSON/parser'),
