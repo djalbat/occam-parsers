@@ -49,6 +49,8 @@ class FlorenceParser extends CommonParser {
 
     return florenceParser;
   }
+
+  static fromNothing() { return FlorenceParser.fromBNFAndMappings(bnf, mappings); } ///
 }
 
 Object.assign(FlorenceParser, {
