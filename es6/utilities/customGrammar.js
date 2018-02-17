@@ -3,14 +3,14 @@
 const lexers = require('occam-lexers');
 
 const BNFParser = require('../bnf/parser'),
+      ruleUtilities = require('../utilities/rule'),
       arrayUtilities = require('../utilities/array'),
-      parserUtilities = require('../utilities/parser'),
       QualifiedCustomGrammarRule = require('../florence/rule/customGrammar/qualified'),
       UnqualifiedCustomGrammarRule = require('../florence/rule/customGrammar/unqualified');
 
 const { BNFLexer } = lexers,
       { push } = arrayUtilities,
-      { findRuleByName } = parserUtilities,
+      { findRuleByName } = ruleUtilities,
       add = push; ///
 
 const bnfLexer = BNFLexer.fromNothing(),
@@ -24,8 +24,8 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 function rulesFromBNFs(bnfs) {
   const bnf = bnfs.join(''),
-        lines = bnfLexer.linesFromBNF(bnf),
-        rulesNode = bnfParser.rulesNodeFromLines(lines),
+        tokens = bnfLexer.tokensFromBNF(bnf),
+        rulesNode = bnfParser.rulesNodeFromTokens(tokens),
         rules = BNFParser.generateRules(rulesNode);
 
   return rules;

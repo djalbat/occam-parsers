@@ -3,10 +3,12 @@
 const easy = require('easy'),
       easyLayout = require('easy-layout');
 
-const parserUtilities = require('./utilities/parser');
+const ruleUtilities = require('./utilities/rule'),
+      tokensUtilities = require('./utilities/tokens');
 
 const { Textarea } = easy,
-      { findRuleByName } = parserUtilities,
+      { findRuleByName } = ruleUtilities,
+      { tokensFromLines } = tokensUtilities,
       { SizeableElement, VerticalSplitter } = easyLayout;
 
 const contentTextareaSelector = 'textarea#content',
@@ -87,9 +89,10 @@ class Example {
               name = ruleName,  ///
               rules = parser.getRules(),
               rule = findRuleByName(name, rules),
-              lines = lexer.linesFromContent(content);
+              lines = lexer.linesFromContent(content),
+              tokens = tokensFromLines(lines);
 
-        node = parser.nodeFromLines(lines, rule);
+        node = parser.nodeFromTokens(tokens, rule);
 
         if (node !== null) {
           const parseTree = node.asParseTree(lines);

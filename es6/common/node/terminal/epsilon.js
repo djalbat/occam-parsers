@@ -11,22 +11,21 @@ const { BNFLexer } = lexers,
 
 class EpsilonNode extends TerminalNode {
   constructor() {
-    const significantToken = null,
-          line = null;
+    const significantToken = null;
 
-    super(significantToken, line);
-  }
-  
-  isEpsilonNode() {
-    const epsilonNode = true;
-    
-    return epsilonNode;
+    super(significantToken);
   }
 
   getContent() {
     const content = epsilon;  ///
 
     return content;
+  }
+
+  isEpsilonNode() {
+    const epsilonNode = true;
+    
+    return epsilonNode;
   }
 
   asParseTree(lines) {

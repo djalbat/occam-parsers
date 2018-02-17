@@ -1,7 +1,7 @@
 'use strict';
 
 class CustomGrammarLexicalPatternParser {
-  nodeFromLines(lines) {
+  nodeFromTokens(tokens) {
     const node = null;  ///
     
     return node;

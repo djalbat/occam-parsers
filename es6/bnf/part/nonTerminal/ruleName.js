@@ -3,12 +3,12 @@
 const lexers = require('occam-lexers');
 
 const NonTerminalPart = require('../../part/nonTerminal'),
-      parserUtilities = require('../../../utilities/parser');
+      ruleUtilities = require('../../../utilities/rule');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { NO_WHITESPACE } = specialSymbols,
-      { findRuleByName } = parserUtilities;
+      { findRuleByName } = ruleUtilities;
 
 class RuleNamePart extends NonTerminalPart {
   constructor(ruleName, noWhitespace = false) {

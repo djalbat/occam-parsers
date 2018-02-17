@@ -29,8 +29,12 @@ function lineNumbersFromNonTerminalNodeAndLines(nonTerminalNode, lines) {
   if (nonTerminalNodeNullified) {
     lineNumbers = '';
   } else {
-    const firstLine = nonTerminalNode.getFirstLine(),
-          lastLine = nonTerminalNode.getLastLine();
+    const firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
+          lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
+          firstSignificantTokenLine = firstSignificantToken.getLine(),
+          lastSignificantTokenLine = lastSignificantToken.getLine(),
+          firstLine = firstSignificantTokenLine,  ///
+          lastLine = lastSignificantTokenLine;  ///
 
     if (firstLine === lastLine) {
       const line = firstLine, ///

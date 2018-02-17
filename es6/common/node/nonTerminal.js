@@ -31,34 +31,6 @@ class NonTerminalNode {
     return this.parentNode;
   }
 
-  getFirstLine() {
-    let firstLine = null;
-
-    forwardsSome(this.childNodes, function(childNode) {
-      firstLine = childNode.getFirstLine();
-
-      if (firstLine !== null) {
-        return true;
-      }
-    });
-
-    return firstLine;
-  }
-
-  getLastLine() {
-    let lastLine = null;
-
-    backwardsSome(this.childNodes, function(childNode) {
-      lastLine = childNode.getLastLine();
-
-      if (lastLine !== null) {
-        return true;
-      }
-    });
-
-    return lastLine;
-  }
-
   getFirstSignificantToken() {
     let firstSignificantToken = null;
 
@@ -88,8 +60,8 @@ class NonTerminalNode {
   }
   
   isNullified() {
-    const firstLine = this.getFirstLine(),
-          nullified = (firstLine === null);  ///
+    const firstSignificantToken = this.getFirstSignificantToken(),
+          nullified = (firstSignificantToken === null);  ///
     
     return nullified;
   }

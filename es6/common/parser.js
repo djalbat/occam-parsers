@@ -1,11 +1,9 @@
 'use strict';
 
 const Configuration = require('./configuration'),
-      arrayUtilities = require('../utilities/array'),
-      parserUtilities = require('../utilities/parser');
+      arrayUtilities = require('../utilities/array');
 
-const { first } = arrayUtilities,
-      { tokensFromLines } = parserUtilities;
+const { first } = arrayUtilities;
 
 class CommonParser {
   constructor(rules) {
@@ -16,9 +14,8 @@ class CommonParser {
     return this.rules;
   }
   
-  nodeFromLines(lines, rule, parentNodes = false) {
-    const tokens = tokensFromLines(lines),
-          node = this.parse(tokens, rule);
+  nodeFromTokens(tokens, rule, parentNodes = false) {
+    const node = this.parse(tokens, rule);
 
     if (parentNodes) {
       if (node !== null) {
