@@ -1,7 +1,7 @@
 'use strict';
 
 class PlainParser {
-  nodeFromTokens(tokens) {
+  nodeFromSignificantTokens(significantTokens) {
     const node = null;  ///
     
     return node;

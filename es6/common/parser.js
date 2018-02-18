@@ -13,8 +13,8 @@ class CommonParser {
   getRules() {
     return this.rules;
   }
-  
-  nodeFromTokens(significantTokens, rule, parentNodes = false) {
+
+  nodeFromSignificantTokens(significantTokens, rule, parentNodes = false) {
     const node = this.parse(significantTokens, rule);
 
     if (parentNodes) {

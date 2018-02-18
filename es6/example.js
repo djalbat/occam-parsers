@@ -92,7 +92,7 @@ class Example {
               lines = lexer.linesFromContent(content),
               significantTokens = significantTokensFromLines(lines);
 
-        node = parser.nodeFromTokens(significantTokens, rule);
+        node = parser.nodeFromSignificantTokens(significantTokens, rule);
 
         if (node !== null) {
           const parseTree = node.asParseTree(lines);

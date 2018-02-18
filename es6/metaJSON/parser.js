@@ -17,8 +17,8 @@ class MetaJSONParser extends CommonParser {
     let metaJSONParser = null;
 
     try {
-      const tokens = bnfLexer.tokensFromBNF(bnf),
-            node = bnfParser.nodeFromTokens(tokens),
+      const significantTokens = bnfLexer.significantTokensFromBNF(bnf),
+            node = bnfParser.nodeFromSignificantTokens(significantTokens),
             rules = BNFParser.generateRules(node);
 
       metaJSONParser = new MetaJSONParser(rules);
@@ -33,8 +33,8 @@ class MetaJSONParser extends CommonParser {
     let metaJSONParser = null;
 
     try {
-      const tokens = bnfLexer.tokensFromBNF(bnf),
-            node = bnfParser.nodeFromTokens(tokens),
+      const significantTokens = bnfLexer.significantTokensFromBNF(bnf),
+            node = bnfParser.nodeFromSignificantTokens(significantTokens),
             rules = BNFParser.generateRules(node, mappings);
 
       metaJSONParser = new MetaJSONParser(rules);
