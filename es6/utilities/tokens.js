@@ -1,17 +1,28 @@
 'use strict';
 
-function tokensFromLines(lines) {
+function significantTokensFromLines(lines) {
   const tokens = lines.reduce(function(tokens, line) {
-    const lineTokens = line.getTokens();
+          const lineTokens = line.getTokens();
 
-    tokens = tokens.concat(lineTokens);
+          tokens = tokens.concat(lineTokens);
 
-    return tokens;
-  }, []);
+          return tokens;
+        }, []),
+        significantTokens = tokens.reduce(function(significantTokens, token) {
+          const tokenSignificantToken = token.isSignificantToken();
 
-  return tokens;
+          if (tokenSignificantToken) {
+            const significantToken = token; ///
+
+            significantTokens.push(significantToken);
+          }
+
+          return significantTokens;
+        }, []);
+
+  return significantTokens;
 }
 
 module.exports = {
-  tokensFromLines: tokensFromLines
+  significantTokensFromLines: significantTokensFromLines
 };

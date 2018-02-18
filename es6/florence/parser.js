@@ -39,8 +39,8 @@ class FlorenceParser extends CommonParser {
 
     mappings = Object.assign(mappings, additionalMappings); ///
 
-    const tokens = bnfLexer.tokensFromBNF(bnf),
-          rulesNode = bnfParser.rulesNodeFromTokens(tokens),
+    const significantTokens = bnfLexer.significantTokensFromBNF(bnf),
+          rulesNode = bnfParser.rulesNodeFromSignificantTokens(significantTokens),
           rules = BNFParser.generateRules(rulesNode, mappings);
 
     push(rules, combinedCustomGrammarsRules);

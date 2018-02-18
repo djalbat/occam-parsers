@@ -6,12 +6,13 @@ const bnf = require('../basic/bnf'),
       Example = require('../example'),
       BasicParser = require('../basic/parser');
 
-const { BasicLexer } = lexers;
+const { BasicLexer } = lexers,
+      { entries } = BasicLexer;
 
 class BasicExample {
   static run() {
     const content = '1+2/3',
-          lexicalEntries = BasicLexer.entries; /// 
+          lexicalEntries = entries; ///
     
     Example.run(content, lexicalEntries, bnf, updateHandler);
 

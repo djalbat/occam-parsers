@@ -3,9 +3,9 @@
 const lexers = require('occam-lexers');
 
 const TerminalPart = require('../../part/terminal'),
-      TerminalNode = require('../../../common/node/terminal');
+      EndOfLineNode = require('../../../common/node/terminal/endOfLine');
 
-const { BNFLexer, EndOfLineToken } = lexers,
+const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { END_OF_LINE } = specialSymbols;
 
@@ -13,26 +13,25 @@ class EndOfLinePart extends TerminalPart {
   parse(configuration, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
-    let terminalNode = null;
+    let endOfLineNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
           nextNonWhitespaceSignificantToken = configuration.getNextNonWhitespaceSignificantToken(noWhitespace),
           significantToken = nextNonWhitespaceSignificantToken; ///
 
     if (significantToken !== null) {
-      const type = significantToken.getType(),
-            found = (type === EndOfLineToken.type);
+      const significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
 
-      if (found) {
-        terminalNode = TerminalNode.fromSignificantToken(significantToken);
+      if (significantTokenEndOfLineToken) {
+        endOfLineNode = EndOfLineNode.fromSignificantToken(significantToken);
       }
     }
     
-    if (terminalNode === null) {
+    if (endOfLineNode === null) {
       configuration.backtrack(savedIndex);
     }
 
-    return terminalNode;
+    return endOfLineNode;
   }
 
   asString() {

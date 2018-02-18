@@ -1,7 +1,7 @@
 {
   "name": "occam-parsers",
   "author": "James Smith",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "license": "MIT",
   "homepage": "https://github.com/occam-proof-assistant/Parsers",
   "description": "Occam's parsers.",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "necessary": "^1.7.5",
-    "occam-lexers": "^4.0.0"
+    "occam-lexers": "^4.0.8"
   },
   "devDependencies": {
     "babel": "^6.5.2",

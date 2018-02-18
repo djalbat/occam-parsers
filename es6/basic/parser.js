@@ -16,8 +16,8 @@ class BasicParser extends CommonParser {
     let basicParser = null;
 
     try {
-      const tokens = bnfLexer.tokensFromBNF(bnf),
-            rulesNode = bnfParser.rulesNodeFromTokens(tokens),
+      const significantTokens = bnfLexer.significantTokensFromBNF(bnf),
+            rulesNode = bnfParser.rulesNodeFromSignificantTokens(significantTokens),
             rules = BNFParser.generateRules(rulesNode);
 
       basicParser = new BasicParser(rules);

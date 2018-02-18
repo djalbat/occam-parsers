@@ -1,34 +1,26 @@
 'use strict';
 
-const lexers = require('occam-lexers');
-
-const { WhitespaceToken } = lexers;
-
 const DEFAULT_MAXIMUM_DEPTH = 99;
 
 class Configuration {
-  constructor(tokens, rules, maximumDepth = DEFAULT_MAXIMUM_DEPTH) {
-    this.tokens = tokens;
-
-    this.rules = rules;
-
+  constructor(significantTokens, maximumDepth, rules, depth, index) {
+    this.significantTokens = significantTokens;
     this.maximumDepth = maximumDepth;
-
-    this.depth = 0;
-
-    this.index = 0;
+    this.rules = rules;
+    this.depth = depth;
+    this.index = index;
   }
   
-  getTokens() {
-    return this.tokens;
-  }
-
-  getRules() {
-    return this.rules;
+  getSignificantTokens() {
+    return this.significantTokens;
   }
 
   getMaximumDepth() {
     return this.maximumDepth;
+  }
+
+  getRules() {
+    return this.rules;
   }
 
   getDepth() {
@@ -46,10 +38,47 @@ class Configuration {
     return savedIndex;
   }
 
+  getNextSignificantToken() {
+    const significantTokensLength = this.significantTokens.length,
+          lastIndex = significantTokensLength - 1,
+          nextSignificantToken = (this.index <= lastIndex) ?
+                                    this.significantTokens[this.index++] :
+                                      null;
+
+    return nextSignificantToken;
+  }
+
+  getNextNonWhitespaceSignificantToken(noWhitespace) {
+    let nextNonWhitespaceSignificantToken = null;
+
+    const nextSignificantToken = this.getNextSignificantToken();
+
+    if (nextSignificantToken !== null) {
+      const nextSignificantTokenIsWhitespaceToken = nextSignificantToken.isWhitespaceToken(),
+            nextSignificantTokenIsNonWhitespaceToken = !nextSignificantTokenIsWhitespaceToken;
+
+      if (nextSignificantTokenIsNonWhitespaceToken) {
+        nextNonWhitespaceSignificantToken = nextSignificantToken;
+      } else {
+        if (noWhitespace) {
+          nextNonWhitespaceSignificantToken = null;
+        } else {
+          nextNonWhitespaceSignificantToken = this.getNextNonWhitespaceSignificantToken(noWhitespace);
+        }
+      }
+    }
+
+    return nextNonWhitespaceSignificantToken;
+  }
+
   isTooDeep() {
-    const tooDeep = this.depth > this.maximumDepth;
-    
+    const tooDeep = (this.depth > this.maximumDepth);
+
     return tooDeep;
+  }
+
+  setIndex(index) {
+    this.index = index;
   }
 
   increaseDepth() {
@@ -60,81 +89,18 @@ class Configuration {
     this.depth--;
   }
 
-  setIndex(index) {
-    this.index = index;
-  }
-
-  getNextSignificantToken() {
-    let nextSignificantToken = null;
-
-    for (;;) {
-      const nextToken = this.tokens[this.index++];
-
-      if (nextToken === undefined) {
-        break;
-      }
-      
-      const nextTokenSignificant = nextToken.isSignificant();
-
-      if (nextTokenSignificant) {
-        nextSignificantToken = nextToken;
-
-        break;
-      }
-    }
-
-    return nextSignificantToken;
-  }
-
-  getNextNonWhitespaceSignificantToken(noWhitespace) {
-    let nextNonWhitespaceSignificantToken = null,
-        nextSignificantToken = this.getNextSignificantToken();
-
-    if (nextSignificantToken !== null) {
-      let nextSignificantTokenIsWhitespaceToken;
-
-      if (noWhitespace) {
-        nextSignificantTokenIsWhitespaceToken = significantTokenIsWhitespaceToken(nextSignificantToken);
-
-        if (nextSignificantTokenIsWhitespaceToken) {
-          nextNonWhitespaceSignificantToken = null
-        } else {
-          nextNonWhitespaceSignificantToken = nextSignificantToken;
-        }
-      } else {
-        for (;;) {
-          nextSignificantTokenIsWhitespaceToken = significantTokenIsWhitespaceToken(nextSignificantToken);
-
-          if (nextSignificantTokenIsWhitespaceToken) {
-            nextSignificantToken = this.getNextSignificantToken();
-          } else {
-            nextNonWhitespaceSignificantToken = nextSignificantToken;
-
-            break;
-          }
-
-          if (nextSignificantToken === null) {
-            nextNonWhitespaceSignificantToken = null;
-
-            break;
-          }
-        }
-      }
-    }
-
-    return nextNonWhitespaceSignificantToken;
-  }
-
   backtrack(savedIndex) {
     this.index = savedIndex;  ///
+  }
+
+  static fromSignificantTokensAndRules(significantTokens, rules) {
+    const maximumDepth = DEFAULT_MAXIMUM_DEPTH,
+          depth = 0,
+          index = 0,
+          configuration = new Configuration(significantTokens, maximumDepth, rules, depth, index);
+
+    return configuration;
   }
 }
 
 module.exports = Configuration;
-
-function significantTokenIsWhitespaceToken(significantToken) {
-  const type = significantToken.getType(),
-        whitespaceToken = (type === WhitespaceToken.type);
-  
-  return whitespaceToken;
-}

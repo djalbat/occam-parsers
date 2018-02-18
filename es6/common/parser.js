@@ -14,8 +14,8 @@ class CommonParser {
     return this.rules;
   }
   
-  nodeFromTokens(tokens, rule, parentNodes = false) {
-    const node = this.parse(tokens, rule);
+  nodeFromTokens(significantTokens, rule, parentNodes = false) {
+    const node = this.parse(significantTokens, rule);
 
     if (parentNodes) {
       if (node !== null) {
@@ -28,7 +28,7 @@ class CommonParser {
     return node;
   }
 
-  parse(tokens, rule = null, parentNodes = false) {
+  parse(significantTokens, rule = null, parentNodes = false) {
     let node = null;
 
     if (rule === null) {
@@ -42,7 +42,7 @@ class CommonParser {
     }
 
     if (rule !== null) {
-      const configuration = new Configuration(tokens, this.rules),
+      const configuration = Configuration.fromSignificantTokensAndRules(significantTokens, this.rules),
             noWhitespace = false, ///
             nodeOrNodes = rule.parse(configuration, noWhitespace);
 
