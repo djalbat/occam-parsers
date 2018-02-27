@@ -3,10 +3,10 @@
 const VerticalBranchParseTree = require('./verticalBranch');
 
 class RuleNameParseTree extends VerticalBranchParseTree {
-  static fromNonTerminalNodeAndLines(nonTerminalNode, lines) {
+  static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
     const ruleName = nonTerminalNode.getRuleName(),
-          lineNumbers = lineNumbersFromNonTerminalNodeAndLines(nonTerminalNode, lines),
-          string = `${ruleName}${lineNumbers}`,
+          tokenIndexes = tokenIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
+          string = `${ruleName}${tokenIndexes}`,
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
@@ -21,36 +21,23 @@ class RuleNameParseTree extends VerticalBranchParseTree {
 
 module.exports = RuleNameParseTree;
 
-function lineNumbersFromNonTerminalNodeAndLines(nonTerminalNode, lines) {
-  let lineNumbers;
+function tokenIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
+  let tokenIndexes;
 
   const nonTerminalNodeNullified = nonTerminalNode.isNullified();
 
   if (nonTerminalNodeNullified) {
-    lineNumbers = '';
+    tokenIndexes = '';
   } else {
     const firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
           lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
-          firstSignificantTokenLine = firstSignificantToken.getLine(),
-          lastSignificantTokenLine = lastSignificantToken.getLine(),
-          firstLine = firstSignificantTokenLine,  ///
-          lastLine = lastSignificantTokenLine;  ///
+          firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
+          lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken);
 
-    if (firstLine === lastLine) {
-      const line = firstLine, ///
-            lineIndex = lines.indexOf(line),
-            lineNumber = lineIndex + 1;
-
-      lineNumbers = `(${lineNumber})`;
-    } else {
-      const firstLineIndex = lines.indexOf(firstLine),
-            lastLineIndex = lines.indexOf(lastLine),
-            firstLineNumber = firstLineIndex + 1,
-            lastLineNumber = lastLineIndex + 1;
-
-      lineNumbers = `(${firstLineNumber}-${lastLineNumber})`;
-    }
+    tokenIndexes = (firstSignificantTokenIndex !== lastSignificantTokenIndex) ?
+                      `(${firstSignificantTokenIndex}-${lastSignificantTokenIndex})` :
+                        `(${firstSignificantTokenIndex})`;
   }
 
-  return lineNumbers;
+  return tokenIndexes;
 }

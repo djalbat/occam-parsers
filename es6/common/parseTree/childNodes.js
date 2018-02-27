@@ -4,9 +4,9 @@ const VerticalBranchParseTree = require('./verticalBranch'),
       HorizontalBranchParseTree = require('./horizontalBranch');
 
 class ChildNodesParseTree extends VerticalBranchParseTree {
-  static fromChildNodesAndLines(childNodes, lines) {
+  static fromChildNodesAndTokens(childNodes, tokens) {
     const childNodeParseTrees = childNodes.map(function(childNode) {
-            const childNodeParseTree = childNode.asParseTree(lines);
+            const childNodeParseTree = childNode.asParseTree(tokens);
   
             return childNodeParseTree;
           }),
