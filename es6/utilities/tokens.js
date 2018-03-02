@@ -2,9 +2,9 @@
 
 function significantTokensFromTokens(tokens) {
   const significantTokens = tokens.reduce(function(significantTokens, token) {
-          const tokenSignificantToken = token.isSignificantToken();
+          const tokenSignificant = token.isSignificant();
 
-          if (tokenSignificantToken) {
+          if (tokenSignificant) {
             const significantToken = token; ///
 
             significantTokens.push(significantToken);
