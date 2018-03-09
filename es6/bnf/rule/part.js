@@ -8,6 +8,8 @@ const Rule = require('../rule'),
       GroupOfPartsDefinition = require('../definition/groupOfParts'),
       ChoiceOfPartsDefinition = require('../definition/choiceOfParts');
 
+const { PartRuleName } = ruleNames;
+
 class PartRule extends Rule {
   constructor() {
     const ruleNameRuleName = 'ruleName',
@@ -27,7 +29,7 @@ class PartRule extends Rule {
           endOfLineRuleNamePartRuleDefinition = new PartRuleDefinition(endOfLineRuleName),
           epsilonRuleNamePartRuleDefinition = new PartRuleDefinition(epsilonRuleName),
           wildcardRuleNamePartRuleDefinition = new PartRuleDefinition(wildcardRuleName),
-          name = ruleNames.PartRule,
+          name = PartRuleName,
           definitions = [
             noWhitespaceDefinition,
             groupOfPartsDefinition,

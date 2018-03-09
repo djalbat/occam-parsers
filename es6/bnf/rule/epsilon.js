@@ -9,13 +9,14 @@ const Rule = require('../rule'),
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
-      { epsilon } = specialSymbols;
+      { epsilon } = specialSymbols,
+      { EpsilonRuleName } = ruleNames;
 
 class EpsilonRule extends Rule {
   constructor() {
     const epsilonTerminalSymbolContent = epsilon,
           epsilonTerminalSymbolDefinition = new TerminalSymbolDefinition(epsilonTerminalSymbolContent),
-          name = ruleNames.EpsilonRule,
+          name = EpsilonRuleName,
           definitions = [
             epsilonTerminalSymbolDefinition
           ],

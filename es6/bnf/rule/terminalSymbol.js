@@ -5,11 +5,13 @@ const Rule = require('../rule'),
       TerminalSymbolNode = require('../node/terminalSymbol'),
       SignificantTokenTypeDefinition = require('../definition/significantTokenType');
 
+const { TerminalSymbolRuleName } = ruleNames;
+
 class TerminalSymbolRule extends Rule {
   constructor() {
     const stringSignificantTokenType = 'string',
           stringSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(stringSignificantTokenType),
-          name = ruleNames.TerminalSymbolRule,
+          name = TerminalSymbolRuleName,
           definitions = [
             stringSignificantTokenTypeDefinition
           ],

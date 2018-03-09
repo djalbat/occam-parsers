@@ -9,13 +9,14 @@ const Rule = require('../rule'),
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
-      { wildcard } = specialSymbols;
+      { wildcard } = specialSymbols,
+      { WildcardRuleName } = ruleNames;
 
 class WildcardRule extends Rule {
   constructor() {
     const wildcardTerminalSymbolContent = wildcard,
           wildcardTerminalSymbolDefinition = new TerminalSymbolDefinition(wildcardTerminalSymbolContent),
-          name = ruleNames.WildcardRule,
+          name = WildcardRuleName,
           definitions = [
             wildcardTerminalSymbolDefinition
           ],

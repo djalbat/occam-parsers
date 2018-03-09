@@ -10,6 +10,7 @@ const Rule = require('../rule'),
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
+      { RightRecursivePartRuleName } = ruleNames,
       { plus, asterisk, questionMark } = specialSymbols;
 
 class RightRecursivePartRule extends Rule {
@@ -21,7 +22,7 @@ class RightRecursivePartRule extends Rule {
           zeroOrMoreRightRecursivePartRuleDefinition = new RightRecursivePartRuleDefinition(asteriskTerminalSymbolContent), ///
           oneOrMoreRightRecursivePartRuleDefinition = new RightRecursivePartRuleDefinition(plusTerminalSymbolContent), ///
           epsilonDefinition = new EpsilonDefinition(),
-          name = ruleNames.RightRecursivePartRule,
+          name = RightRecursivePartRuleName,
           definitions = [
             optionalRightRecursivePartRuleDefinition,
             zeroOrMoreRightRecursivePartRuleDefinition,

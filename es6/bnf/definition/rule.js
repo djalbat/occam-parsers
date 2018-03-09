@@ -9,16 +9,18 @@ const Definition = require('../definition'),
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
-      { separator, terminator } = specialSymbols;
+      { separator, terminator } = specialSymbols,
+      { RuleNameRuleName, DefinitionsRuleName } = ruleNames;
 
 class RuleDefinition extends Definition {
   constructor() {
-    const separatorTerminalSymbolContent = separator,
+    const noWhitespace = false,
+          separatorTerminalSymbolContent = separator,
           terminatorTerminalSymbolContent = terminator,
-          ruleNameRuleName = ruleNames.RuleNameRule,
-          definitionsRuleName = ruleNames.DefinitionsRule,
-          separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent),
-          terminatorTerminalSymbolPart = new TerminalSymbolPart(terminatorTerminalSymbolContent),
+          ruleNameRuleName = RuleNameRuleName,
+          definitionsRuleName = DefinitionsRuleName,
+          separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent, noWhitespace),
+          terminatorTerminalSymbolPart = new TerminalSymbolPart(terminatorTerminalSymbolContent, noWhitespace),
           definitionsRuleNamePart = new RuleNamePart(definitionsRuleName),
           ruleNameRuleNamePart = new RuleNamePart(ruleNameRuleName),
           parts = [

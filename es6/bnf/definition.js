@@ -3,7 +3,9 @@
 const RuleNamePart = require('./part/nonTerminal/ruleName'),
       arrayUtilities = require('../utilities/array');
 
-const { first } = arrayUtilities;
+const { first, allButFirst } = arrayUtilities,
+      { type } = RuleNamePart,
+      ruleNamePartType = type;  ///
 
 class Definition {
   constructor(parts) {
@@ -27,7 +29,7 @@ class Definition {
   }
 
   getAllButFirstParts() {
-    const allButFirstParts = this.parts.slice(1);
+    const allButFirstParts = allButFirst(this.parts);
 
     return allButFirstParts;
   }
@@ -42,7 +44,8 @@ class Definition {
     if (firstPartNonTerminalPart) {
       const nonTerminalPart = firstPart,  ///
             nonTerminalPartType = nonTerminalPart.getType(),
-            nonTerminalPartRuleNamePart = (nonTerminalPartType === RuleNamePart.type);
+            nonTerminalPartTypeRuleNamePartType = (nonTerminalPartType === ruleNamePartType),
+            nonTerminalPartRuleNamePart = nonTerminalPartTypeRuleNamePartType;  ///
 
       firstPartRuleNamePart = nonTerminalPartRuleNamePart;  ///      
     }

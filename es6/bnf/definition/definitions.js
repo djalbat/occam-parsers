@@ -11,14 +11,16 @@ const Definition = require('../definition'),
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
+      { DefinitionRuleName } = ruleNames,
       { verticalBar } = specialSymbols;
 
 class DefinitionsDefinition extends Definition {
   constructor() {
-    const definitionRuleName = ruleNames.DefinitionRule,
+    const noWhitespace = false,
+          definitionRuleName = DefinitionRuleName,
           verticalBarTerminalSymbolContent = verticalBar,
           definitionRuleNamePart = new RuleNamePart(definitionRuleName),
-          verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent),
+          verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent, noWhitespace),
           verticalBarTerminalSymbolThenDefinitionRuleNameParts = [
             verticalBarTerminalSymbolPart,
             definitionRuleNamePart

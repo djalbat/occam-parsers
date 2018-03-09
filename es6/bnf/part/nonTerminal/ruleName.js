@@ -10,10 +10,10 @@ const { BNFLexer } = lexers,
       { NO_WHITESPACE } = specialSymbols,
       { findRuleByName } = ruleUtilities;
 
+const type = 'RuleName';
+
 class RuleNamePart extends NonTerminalPart {
   constructor(ruleName, noWhitespace = false) {
-    const type = RuleNamePart.type;
-
     super(type);
 
     this.ruleName = ruleName;
@@ -51,6 +51,8 @@ class RuleNamePart extends NonTerminalPart {
   }
 }
 
-RuleNamePart.type = 'RuleName';
+Object.assign(RuleNamePart, {
+  type: type
+});
 
 module.exports = RuleNamePart;

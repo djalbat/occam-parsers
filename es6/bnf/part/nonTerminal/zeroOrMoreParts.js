@@ -8,10 +8,10 @@ const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { asterisk } = specialSymbols;
 
+const type = 'ZeroOrMoreParts';
+
 class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   constructor(part) {
-    const type = ZeroOrMorePartsPart.type;
-
     super(type, part);
   }
 
@@ -51,6 +51,8 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   }
 }
 
-ZeroOrMorePartsPart.type = 'ZeroOrMoreParts';
+Object.assign(ZeroOrMorePartsPart, {
+  type: type
+});
 
 module.exports = ZeroOrMorePartsPart;

@@ -5,9 +5,11 @@ const Definition = require('../definition'),
       RuleNamePart = require('../part/nonTerminal/ruleName'),
       OneOrMorePartsPart = require('../part/nonTerminal/oneOrMoreParts');
 
+const { PartRuleName } = ruleNames;
+
 class DefinitionDefinition extends Definition {
   constructor() {
-    const partRuleName = ruleNames.PartRule,
+    const partRuleName = PartRuleName,
           partRuleNamePart = new RuleNamePart(partRuleName),
           oneOrMoreRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart),
           parts = [

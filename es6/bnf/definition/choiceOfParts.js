@@ -11,20 +11,22 @@ const Definition = require('../definition'),
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
+      { PartRuleName, RightRecursivePartRuleName } = ruleNames,
       { verticalBar, openBracket, closeBracket } = specialSymbols;
 
 class ChoiceOfPartsDefinition extends Definition {
   constructor() {
-    const partRuleName = ruleNames.PartRule,
-          rightRecursivePartRuleName = ruleNames.RightRecursivePartRule,
+    const noWhitespace = false,
+          partRuleName = PartRuleName,
+          rightRecursivePartRuleName = RightRecursivePartRuleName,
           verticalBarTerminalSymbolContent = verticalBar,
           openBracketTerminalSymbolContent = openBracket,
           closeBracketTerminalSymbolContent = closeBracket,
           partRuleNamePart = new RuleNamePart(partRuleName),
           rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),
-          verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent),
-          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent),
-          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent),
+          verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent, noWhitespace),
+          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent, noWhitespace),
+          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent, noWhitespace),
           verticalBarTerminalSymbolThenPartRuleNameParts = [
             verticalBarTerminalSymbolPart,
             partRuleNamePart

@@ -1,17 +1,17 @@
 'use strict';
 
 module.exports = {
-  DefinitionRule: 'definition',
-  DefinitionsRule: 'definitions',
-  EndOfLineRule: 'endOfLine',
-  EpsilonRule: 'epsilon',
-  PartRule: 'part',
-  RegularExpressionRule: 'regularExpression',
-  RightRecursivePartRule: 'part~',
-  RuleRule: 'rule',
-  RuleNameRule: 'ruleName',
-  RulesRule: 'rules',
-  SignificantTokenTypeRule: 'significantTokenType',
-  TerminalSymbolRule: 'terminalSymbol',
-  WildcardRule: 'wildcard'  
+  DefinitionRuleName: 'definition',
+  DefinitionsRuleName: 'definitions',
+  EndOfLineRuleName: 'endOfLine',
+  EpsilonRuleName: 'epsilon',
+  PartRuleName: 'part',
+  RegularExpressionRuleName: 'regularExpression',
+  RightRecursivePartRuleName: 'part~',
+  RuleRuleName: 'rule',
+  RuleNameRuleName: 'ruleName',
+  RulesRuleName: 'rules',
+  SignificantTokenTypeRuleName: 'significantTokenType',
+  TerminalSymbolRuleName: 'terminalSymbol',
+  WildcardRuleName: 'wildcard'
 };

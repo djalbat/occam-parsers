@@ -5,11 +5,13 @@ const Rule = require('../rule'),
       SignificantTokenTypeNode = require('../node/significantTokenType'),
       SignificantTokenTypeDefinition = require('../definition/significantTokenType');
 
+const { SignificantTokenTypeRuleName } = ruleNames;
+
 class SignificantTokenTypeRule extends Rule {
   constructor() {
     const typeSignificantTokenType = 'type',
           typeSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(typeSignificantTokenType),
-          name = ruleNames.SignificantTokenTypeRule,
+          name = SignificantTokenTypeRuleName,
           definitions = [
             typeSignificantTokenTypeDefinition
           ],

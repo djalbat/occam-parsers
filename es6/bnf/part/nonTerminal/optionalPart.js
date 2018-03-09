@@ -8,10 +8,10 @@ const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { questionMark } = specialSymbols;
 
+const type = 'OptionalPart';
+
 class OptionalPartPart extends NonTerminalPart {
   constructor(part) {
-    const type = OptionalPartPart.type;
-
     super(type);
 
     this.part = part;
@@ -46,6 +46,8 @@ class OptionalPartPart extends NonTerminalPart {
   }
 }
 
-OptionalPartPart.type = 'OptionalPart';
+Object.assign(OptionalPartPart, {
+  type: type
+});
 
 module.exports = OptionalPartPart;

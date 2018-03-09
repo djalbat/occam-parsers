@@ -9,13 +9,14 @@ const Rule = require('../rule'),
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
-      { END_OF_LINE } = specialSymbols;
+      { END_OF_LINE } = specialSymbols,
+      { EndOfLineRuleName } = ruleNames;
 
 class EndOfLineRule extends Rule {
   constructor() {
     const endOfLineTerminalSymbolContent = END_OF_LINE,
           endOfLineTerminalSymbolDefinition = new TerminalSymbolDefinition(endOfLineTerminalSymbolContent),
-          name = ruleNames.EndOfLineRule,
+          name = EndOfLineRuleName,
           definitions = [
             endOfLineTerminalSymbolDefinition
           ],

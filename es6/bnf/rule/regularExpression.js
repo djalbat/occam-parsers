@@ -5,11 +5,13 @@ const Rule = require('../rule'),
       RegularExpressionNode = require('../node/regularExpression'),
       SignificantTokenTypeDefinition = require('../definition/significantTokenType');
 
+const { RegularExpressionRuleName } = ruleNames;
+
 class RegularExpressionRule extends Rule {
   constructor() {
     const regularExpressionSignificantTokenType = 'regularExpression',
           regularExpressionSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(regularExpressionSignificantTokenType),
-          name = ruleNames.RegularExpressionRule,
+          name = RegularExpressionRuleName,
           definitions = [
             regularExpressionSignificantTokenTypeDefinition
           ],

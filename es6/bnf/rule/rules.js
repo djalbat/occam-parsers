@@ -5,10 +5,12 @@ const Rule = require('../rule'),
       RulesNode = require('../node/rules'),
       RulesDefinition = require('../definition/rules');
 
+const { RulesRuleName } = ruleNames;
+
 class RulesRule extends Rule {
   constructor() {
     const rulesDefinition = new RulesDefinition(),
-          name = ruleNames.RulesRule,
+          name = RulesRuleName,
           definitions = [
             rulesDefinition
           ],

@@ -5,11 +5,13 @@ const Definition = require('../definition'),
       RuleNamePart = require('../part/nonTerminal/ruleName'),
       TerminalSymbolPart = require('../part/terminal/terminalSymbol');
 
+const { RightRecursivePartRuleName } = ruleNames;
+
 class RightRecursivePartRuleDefinition extends Definition {
   constructor(terminalSymbolContent) {
-    const terminalSymbolPartNoWhitespace = true,
-          rightRecursivePartRuleName = ruleNames.RightRecursivePartRule,
-          terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, terminalSymbolPartNoWhitespace),
+    const noWhitespace = false,
+          rightRecursivePartRuleName = RightRecursivePartRuleName,
+          terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, noWhitespace),
           rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),
           parts = [
             terminalSymbolPart,

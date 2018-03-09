@@ -4,6 +4,8 @@ const necessary = require('necessary');
 
 const { arrayUtilities } = necessary;
 
+function allButFirst(array) { return array.slice(1); }
+
 function keepFirst(array) { return keepNth(array, 0); }
 
 function keepSecond(array) { return keepNth(array, 1); }
@@ -25,6 +27,7 @@ function discardFifthThenSecond(array) { return discardNth(discardNth(array, 4),
 function discardOdd(array) { return array.filter(function(entry, index) { return isEven(index); }); }
 
 module.exports = Object.assign(arrayUtilities, {
+  allButFirst: allButFirst,
   keepFirst: keepFirst,
   keepSecond: keepSecond,
   keepLast: keepLast,

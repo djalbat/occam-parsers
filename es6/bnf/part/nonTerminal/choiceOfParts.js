@@ -7,10 +7,10 @@ const NonTerminalPart = require('../../part/nonTerminal'),
 const { isNodeChoiceNode } = bnfUtilities,
       { second, discardOdd, discardLastThenFirst } = arrayUtilities;
 
+const type = 'ChoiceOfParts';
+
 class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
-    const type = ChoiceOfPartsPart.type;
-    
     super(type);
     
     this.parts = parts;
@@ -81,6 +81,8 @@ class ChoiceOfPartsPart extends NonTerminalPart {
   }
 }
 
-ChoiceOfPartsPart.type = 'ChoiceOfParts';
+Object.assign(ChoiceOfPartsPart, {
+  type: type
+});
 
 module.exports = ChoiceOfPartsPart;

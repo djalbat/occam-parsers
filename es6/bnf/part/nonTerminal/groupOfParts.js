@@ -3,10 +3,10 @@
 const NonTerminalPart = require('../../part/nonTerminal'),
       arrayUtilities = require('../../../utilities/array');
 
+const type = 'GroupOfParts';
+
 class GroupOfPartsPart extends NonTerminalPart {
   constructor(parts) {
-    const type = GroupOfPartsPart.type;
-
     super(type);
 
     this.parts = parts;
@@ -74,6 +74,8 @@ class GroupOfPartsPart extends NonTerminalPart {
   }
 }
 
-GroupOfPartsPart.type = 'GroupOfParts';
+Object.assign(GroupOfPartsPart, {
+  type: type
+});
 
 module.exports = GroupOfPartsPart;

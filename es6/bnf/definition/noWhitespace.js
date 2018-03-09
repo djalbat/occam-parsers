@@ -9,16 +9,18 @@ const Definition = require('../definition'),
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
-      { NO_WHITESPACE } = specialSymbols;
+      { NO_WHITESPACE } = specialSymbols,
+      { PartRuleName, RightRecursivePartRuleName } = ruleNames;
 
 class NoWhitespaceDefinition extends Definition {
   constructor() {
-    const partRuleName = ruleNames.PartRule,
-          rightRecursivePartRuleName = ruleNames.RightRecursivePartRule,
+    const noWhitespace = false,
+          partRuleName = PartRuleName,
+          rightRecursivePartRuleName = RightRecursivePartRuleName,
           noWhitespaceTerminalSymbolContent = NO_WHITESPACE,
           partRuleNamePart = new RuleNamePart(partRuleName),
           rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),
-          noWhitespaceTerminalSymbolPart = new TerminalSymbolPart(noWhitespaceTerminalSymbolContent),
+          noWhitespaceTerminalSymbolPart = new TerminalSymbolPart(noWhitespaceTerminalSymbolContent, noWhitespace),
           parts = [
             noWhitespaceTerminalSymbolPart,
             partRuleNamePart,
