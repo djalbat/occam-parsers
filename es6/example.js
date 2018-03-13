@@ -23,12 +23,13 @@ const contentTextareaSelector = 'textarea#content',
       bnfTextarea = new Textarea(bnfTextareaSelector),
       sizeableElement = new SizeableElement(sizeableElementSelector),
       beforeSizeableElement = false,
-      afterSizeableElement = true;
+      afterSizeableElement = true,
+      verticalSplitter = new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
+
+verticalSplitter.initialise();
 
 let lexer = null,
     parser = null;
-
-new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
 
 class Example {
   static run(content, lexicalEntries, bnf, updateHandler) {
