@@ -20,7 +20,7 @@
     "browserify": "^13.0.0",
     "chokidar-cli": "^1.2.0",
     "easy": "^7.10.0",
-    "easy-layout": "^1.3.10",
+    "easy-layout": "^2.1.38",
     "necessary": "^1.2.1"
   },
   "scripts": {
