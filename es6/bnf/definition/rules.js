@@ -9,9 +9,10 @@ const { RuleRuleName } = ruleNames;
 
 class RulesDefinition extends Definition {
   constructor() {
-    const ruleRuleName = RuleRuleName,
-          ruleRuleNamePart = new RuleNamePart(ruleRuleName),
-          oneOrMoreRuleRuleNamePartsPart = new OneOrMorePartsPart(ruleRuleNamePart),
+    const noWhitespace = false,
+          ruleRuleName = RuleRuleName,
+          ruleRuleNamePart = new RuleNamePart(ruleRuleName, noWhitespace),
+          oneOrMoreRuleRuleNamePartsPart = new OneOrMorePartsPart(ruleRuleNamePart, noWhitespace),
           parts = [
             oneOrMoreRuleRuleNamePartsPart
           ];
