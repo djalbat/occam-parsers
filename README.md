@@ -77,7 +77,7 @@ All parsers share common functionality. The last two parse content according to 
       
       significantTokenType ::=  [type] ;
     
-      terminalSymbol       ::=  [string] ;
+      terminalSymbol       ::=  [stringLiteral] ;
       
       endOfLine            ::=  "<END_OF_LINE>" ;
       

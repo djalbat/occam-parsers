@@ -9,11 +9,11 @@ const { TerminalSymbolRuleName } = ruleNames;
 
 class TerminalSymbolRule extends Rule {
   constructor() {
-    const stringSignificantTokenType = 'string',
-          stringSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(stringSignificantTokenType),
+    const stringLiteralSignificantTokenType = 'stringLiteral',
+          stringLiteralSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(stringLiteralSignificantTokenType),
           name = TerminalSymbolRuleName,
           definitions = [
-            stringSignificantTokenTypeDefinition
+            stringLiteralSignificantTokenTypeDefinition
           ],
           Node = TerminalSymbolNode;
 

@@ -56,7 +56,7 @@ const bnf = `
     
     significantTokenType ::= [type] ;
     
-    terminalSymbol       ::= [string] ;
+    terminalSymbol       ::= [stringLiteral] ;
     
     endOfLine            ::= "<END_OF_LINE>" ;
     
