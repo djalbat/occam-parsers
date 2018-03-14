@@ -9,9 +9,15 @@ const { RightRecursivePartRuleName } = ruleNames;
 
 class RightRecursivePartRuleDefinition extends Definition {
   constructor(terminalSymbolContent) {
-    const noWhitespace = false,
-          rightRecursivePartRuleName = RightRecursivePartRuleName,
-          terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, noWhitespace),
+    let noWhitespace;
+
+    noWhitespace = true;
+
+    const terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, noWhitespace);
+
+    noWhitespace = false;
+
+    const rightRecursivePartRuleName = RightRecursivePartRuleName,
           rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
           parts = [
             terminalSymbolPart,

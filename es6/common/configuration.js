@@ -32,8 +32,7 @@ class Configuration {
   }
 
   getSavedIndex() {
-    const index = this.getIndex(),
-          savedIndex = index; ///
+    const savedIndex = this.index; ///
   
     return savedIndex;
   }
