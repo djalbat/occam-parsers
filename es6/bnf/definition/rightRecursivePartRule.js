@@ -12,7 +12,7 @@ class RightRecursivePartRuleDefinition extends Definition {
     const noWhitespace = false,
           rightRecursivePartRuleName = RightRecursivePartRuleName,
           terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, noWhitespace),
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),
+          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
           parts = [
             terminalSymbolPart,
             rightRecursivePartRuleNamePart

@@ -8,9 +8,10 @@ const { RightRecursivePartRuleName } = ruleNames;
 
 class PartRuleDefinition extends Definition {
   constructor(ruleName) {
-    const rightRecursivePartRuleName = RightRecursivePartRuleName,
-          ruleNameRuleNamePart = new RuleNamePart(ruleName),
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),
+    const noWhitespace = false,
+          rightRecursivePartRuleName = RightRecursivePartRuleName,
+          ruleNameRuleNamePart = new RuleNamePart(ruleName, noWhitespace),
+          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
           parts = [
             ruleNameRuleNamePart,
             rightRecursivePartRuleNamePart

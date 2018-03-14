@@ -21,8 +21,8 @@ class RuleDefinition extends Definition {
           definitionsRuleName = DefinitionsRuleName,
           separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent, noWhitespace),
           terminatorTerminalSymbolPart = new TerminalSymbolPart(terminatorTerminalSymbolContent, noWhitespace),
-          definitionsRuleNamePart = new RuleNamePart(definitionsRuleName),
-          ruleNameRuleNamePart = new RuleNamePart(ruleNameRuleName),
+          definitionsRuleNamePart = new RuleNamePart(definitionsRuleName, noWhitespace),
+          ruleNameRuleNamePart = new RuleNamePart(ruleNameRuleName, noWhitespace),
           parts = [
             ruleNameRuleNamePart,
             separatorTerminalSymbolPart,

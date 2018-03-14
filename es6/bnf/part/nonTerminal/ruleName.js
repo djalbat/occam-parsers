@@ -13,7 +13,7 @@ const { BNFLexer } = lexers,
 const type = 'RuleName';
 
 class RuleNamePart extends NonTerminalPart {
-  constructor(ruleName, noWhitespace = false) {
+  constructor(ruleName, noWhitespace) {
     super(type);
 
     this.ruleName = ruleName;

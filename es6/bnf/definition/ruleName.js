@@ -5,7 +5,8 @@ const Definition = require('../definition'),
 
 class RuleNameDefinition extends Definition {
   constructor(ruleName) {
-    const ruleNamePart = new RuleNamePart(ruleName),
+    const noWhitespace = false,
+          ruleNamePart = new RuleNamePart(ruleName, noWhitespace),
           parts = [
             ruleNamePart
           ];

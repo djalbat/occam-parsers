@@ -1,7 +1,7 @@
 'use strict';
 
 class TerminalPart {
-  parse(noWhitespace = false) {
+  parse(noWhitespace) {
     this.noWhitespace = noWhitespace;
   }
   
