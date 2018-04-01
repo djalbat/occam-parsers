@@ -7,8 +7,6 @@ const statementBNF = `
 
      equality                             ::=   expression "=" expression ;
 
-     expression                           ::=   term ;
-
 
 
      statement                            ::=   typeAssertion 

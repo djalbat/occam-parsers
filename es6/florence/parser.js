@@ -9,6 +9,7 @@ const bnf = require('./bnf'),
       arrayUtilities = require('../utilities/array'),
       customGrammarUtilities = require('../utilities/customGrammar'),
       defaultCustomGrammarTermBNF = require('./defaultCustomGrammar/termBNF'),
+      defaultCustomGrammarExpressionBNF = require('./defaultCustomGrammar/expressionBNF'),
       defaultCustomGrammarStatementBNF = require('./defaultCustomGrammar/statementBNF'),
       defaultCustomGrammarMetastatementBNF = require('./defaultCustomGrammar/metastatementBNF');
 
@@ -19,7 +20,8 @@ const { BNFLexer } = lexers,
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing(),
       defaultCustomGrammarBNFs = [
-        defaultCustomGrammarTermBNF, 
+        defaultCustomGrammarTermBNF,
+        defaultCustomGrammarExpressionBNF,
         defaultCustomGrammarStatementBNF, 
         defaultCustomGrammarMetastatementBNF
       ],
@@ -57,6 +59,7 @@ Object.assign(FlorenceParser, {
   bnf: bnf,
   mappings: mappings,
   defaultCustomGrammarTermBNF: defaultCustomGrammarTermBNF,
+  defaultCustomGrammarExpressionBNF: defaultCustomGrammarExpressionBNF,
   defaultCustomGrammarStatementBNF: defaultCustomGrammarStatementBNF,
   defaultCustomGrammarMetastatementBNF: defaultCustomGrammarMetastatementBNF
 });
