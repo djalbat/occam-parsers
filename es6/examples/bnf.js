@@ -31,9 +31,10 @@ function updateHandler() {
     return parser;
   });
 
-  const node = Example.updateParseTree(ruleName);
+  const node = Example.updateParseTree(ruleName),
+        mappings = {};
 
-  BNFParser.generateRules(node);
+  BNFParser.generateRules(node, mappings);
 }
 
 module.exports = BNFExample;

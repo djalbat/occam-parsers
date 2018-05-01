@@ -11,33 +11,33 @@ const { BNFLexer } = lexers;
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
-class BasicParser extends CommonParser {
-  static fromBNF(bnf) {
-    let basicParser = null;
+class LaTeXParser extends CommonParser {
+  static fromBNFAndMappings(bnf, mappings) {
+    let latexParser = null;
 
     try {
       const significantTokens = bnfLexer.significantTokensFromBNF(bnf),
             rulesNode = bnfParser.rulesNodeFromSignificantTokens(significantTokens),
-            mappings = {},
             rules = BNFParser.generateRules(rulesNode, mappings);
 
-      basicParser = new BasicParser(rules);
+      latexParser = new LaTeXParser(rules);
     } catch (error) {
       
     }
 
-    return basicParser;
+    return latexParser;
   }
 
   static fromNothing() {
-    const basicParser = BasicParser.fromBNF(bnf);
+    const mappings = {},
+          latexParser = LaTeXParser.fromBNF(bnf, mappings);
 
-    return basicParser;
+    return latexParser;
   }
 }
 
-Object.assign(BasicParser, {
+Object.assign(LaTeXParser, {
   bnf: bnf
 });
 
-module.exports = BasicParser;
+module.exports = LaTeXParser;

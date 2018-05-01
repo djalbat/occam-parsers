@@ -2,7 +2,7 @@
 
 const lexers = require('occam-lexers');
 
-const bnf = require('./parser/bnf'),
+const bnf = require('./bnf'),
       BNFParser = require('../bnf/parser'),
       CommonParser = require('../common/parser');
 
@@ -19,7 +19,8 @@ class MetaJSONParser extends CommonParser {
     try {
       const significantTokens = bnfLexer.significantTokensFromBNF(bnf),
             node = bnfParser.nodeFromSignificantTokens(significantTokens),
-            rules = BNFParser.generateRules(node);
+            mappings = {},
+            rules = BNFParser.generateRules(node, mappings);
 
       metaJSONParser = new MetaJSONParser(rules);
     } catch (error) {
