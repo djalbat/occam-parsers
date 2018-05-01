@@ -30,7 +30,7 @@ class LaTeXParser extends CommonParser {
 
   static fromNothing() {
     const mappings = {},
-          latexParser = LaTeXParser.fromBNF(bnf, mappings);
+          latexParser = LaTeXParser.fromBNFAndMappings(bnf, mappings);
 
     return latexParser;
   }
