@@ -3,6 +3,8 @@
 const arrayUtilities = require('../../utilities/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
+const { discardOdd } = arrayUtilities;
+
 class DefinitionsNode extends NonTerminalNode {
   generateDefinitions() {
     const childNodes = this.getChildNodes(),
@@ -17,7 +19,7 @@ class DefinitionsNode extends NonTerminalNode {
   }
 
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = arrayUtilities.discardOdd(nodes),
+    const childNodes = discardOdd(nodes),
           definitionsNode = NonTerminalNode.fromRuleNameAndChildNodes(DefinitionsNode, ruleName, childNodes);
 
     return definitionsNode;

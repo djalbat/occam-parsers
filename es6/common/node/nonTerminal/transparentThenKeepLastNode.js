@@ -2,9 +2,11 @@
 
 const arrayUtilities = require('../../../utilities/array');
 
+const { keepLast } = arrayUtilities;
+
 class TransparentThenKeepLastNode {
   static fromNodesAndRuleName(nodes, ruleName) {
-    nodes = arrayUtilities.keepLast(nodes);
+    nodes = keepLast(nodes);
 
     return nodes;
   }

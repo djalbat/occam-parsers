@@ -3,9 +3,11 @@
 const arrayUtilities = require('../../../utilities/array'),
       NonTerminalNode = require('../nonTerminal');
 
+const { discardSecond } = arrayUtilities;
+
 class DiscardSecondChildNode extends NonTerminalNode {
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = arrayUtilities.discardSecond(nodes),
+    const childNodes = discardSecond(nodes),
           discardSecondChildNode = NonTerminalNode.fromRuleNameAndChildNodes(DiscardSecondChildNode, ruleName, childNodes);
 
     return discardSecondChildNode;

@@ -2,9 +2,11 @@
 
 const arrayUtilities = require('../../../utilities/array');
 
+const { discardFirst } = arrayUtilities;
+
 class TransparentThenDiscardFirstNode {
   static fromNodesAndRuleName(nodes, ruleName) {
-    nodes = arrayUtilities.discardFirst(nodes);
+    nodes = discardFirst(nodes);
 
     return nodes;
   }
