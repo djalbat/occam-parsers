@@ -3,32 +3,28 @@
 const bnf = `
 
 
-    document                        ::=   ( maths | everythingElse )+ ;
+    document                        ::=   ( delimitedLaTeX | everythingElse )+ ;
     
     
     
-    maths                           ::=   dollarDelimitedInlineMaths
-     
-                                      |   bracketDelimitedInlineMaths 
+    delimitedLaTeX                  ::=   dollarDelimiter inlineLaTeX dollarDelimiter 
     
-                                      |   dollarDelimitedDisplayMaths 
+                                      |   doubleDollarDelimiter displayLaTeX doubleDollarDelimiter 
     
-                                      |   bracketDelimitedDisplayMaths
+                                      |   openingBracketDelimiter inlineLaTeX closingBracketDelimiter 
+    
+                                      |   openingSquareBracketDelimiter displayLaTeX closingSquareBracketDelimiter 
                                       
-                                      ; 
-
-
-
-    dollarDelimitedInlineMaths      ::=   dollarDelimiter [unassigned]+ dollarDelimiter ; 
-
-    dollarDelimitedDisplayMaths     ::=   doubleDollarDelimiter [unassigned]+ doubleDollarDelimiter ; 
-
-    bracketDelimitedInlineMaths     ::=   openingBracketDelimiter [unassigned]+ closingBracketDelimiter ; 
-    
-    bracketDelimitedDisplayMaths    ::=   openingSquareBracketDelimiter [unassigned]+ closingSquareBracketDelimiter ;
+                                      ;
     
 
     
+    inlineLaTeX                     ::=   [unassigned]+ ;
+
+    displayLaTeX                    ::=   [unassigned]+ ;
+
+
+
     dollarDelimiter                 ::=   "$" ;
  
     doubleDollarDelimiter           ::=   "$$" ;
@@ -42,9 +38,9 @@ const bnf = `
     openingSquareBracketDelimiter   ::=   "\\[" ;
     
     closingSquareBracketDelimiter   ::=   "\\]" ;
-
-
-
+    
+    
+    
     everythingElse                  ::=   .+ ;
 
 
