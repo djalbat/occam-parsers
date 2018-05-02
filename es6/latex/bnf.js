@@ -41,7 +41,7 @@ const bnf = `
     
     
     
-    everythingElse                  ::=   .+ ;
+    everythingElse                  ::=   . ;
 
 
 `;
