@@ -6,6 +6,7 @@ const bnf = `
     document                        ::=   ( maths | everythingElse )+ ;
     
     
+    
     maths                           ::=   dollarDelimitedInlineMaths
      
                                       |   bracketDelimitedInlineMaths 
@@ -17,14 +18,32 @@ const bnf = `
                                       ; 
 
 
-    dollarDelimitedInlineMaths      ::=   "$" [unassigned]+ "$" ; 
 
-    bracketDelimitedInlineMaths     ::=   "\\(" [unassigned]+ "\\)" ; 
+    dollarDelimitedInlineMaths      ::=   dollarDelimiter [unassigned]+ dollarDelimiter ; 
+
+    dollarDelimitedDisplayMaths     ::=   doubleDollarDelimiter [unassigned]+ doubleDollarDelimiter ; 
+
+    bracketDelimitedInlineMaths     ::=   openingBracketDelimiter [unassigned]+ closingBracketDelimiter ; 
     
-    dollarDelimitedDisplayMaths     ::=   "$$" [unassigned]+ "$$" ; 
+    bracketDelimitedDisplayMaths    ::=   openingSquareBracketDelimiter [unassigned]+ closingSquareBracketDelimiter ;
+    
 
-    bracketDelimitedDisplayMaths    ::=   "\\[" [unassigned]+ "\\]" ; 
+    
+    dollarDelimiter                 ::=   "$" ;
  
+    doubleDollarDelimiter           ::=   "$$" ;
+    
+
+    
+    openingBracketDelimiter         ::=   "\\(" ;
+
+    closingBracketDelimiter         ::=   "\\)" ;
+
+    openingSquareBracketDelimiter   ::=   "\\[" ;
+    
+    closingSquareBracketDelimiter   ::=   "\\]" ;
+
+
 
     everythingElse                  ::=   .+ ;
 
