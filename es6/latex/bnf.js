@@ -19,9 +19,9 @@ const bnf = `
     
 
     
-    inlineLaTeX                     ::=   [unassigned]+ ;
+    inlineLaTeX                     ::=   [unassigned]* ;
 
-    displayLaTeX                    ::=   [unassigned]+ ;
+    displayLaTeX                    ::=   [unassigned]* ;
 
 
 
