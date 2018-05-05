@@ -3,7 +3,7 @@
 const arrayUtilities = require('../../utilities/array'),
       NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
 
-const { forwardsSome, backwardsSome } = arrayUtilities;
+const { first, forwardsSome, backwardsSome } = arrayUtilities;
 
 class NonTerminalNode {
   constructor(ruleName, childNodes) {
@@ -18,7 +18,7 @@ class NonTerminalNode {
 
     return terminalNode;
   }
-  
+
   getRuleName() {
     return this.ruleName;
   }
@@ -60,9 +60,23 @@ class NonTerminalNode {
   }
   
   isNullified() {
-    const firstSignificantToken = this.getFirstSignificantToken(),
-          nullified = (firstSignificantToken === null);  ///
-    
+    let nullified = false;
+
+    const childNodesLength = this.childNodes.length;
+
+    if (childNodesLength === 1) {
+      const firstChildNode = first(this.childNodes),
+            childNode = firstChildNode, ///
+            childNodeTerminalNode = childNode.isTerminalNode();
+
+      if (childNodeTerminalNode) {
+        const terminalNode = childNode, ///
+              terminalNodeEpsilonNode = terminalNode.isEpsilonNode();
+
+        nullified = terminalNodeEpsilonNode; ///
+      }
+    }
+
     return nullified;
   }
 

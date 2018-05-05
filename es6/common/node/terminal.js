@@ -41,12 +41,6 @@ class TerminalNode {
     return terminalNode;
   }
 
-  isNullified() {
-    const nullified = (this.significantToken === null);
-
-    return nullified;
-  }
-
   getContent() { return this.significantToken.getContent(); }
 
   setParentNode(parentNode) {

@@ -64,14 +64,10 @@ class Rule {
     });
 
     if (someDefinitionParsed) {
-      const definitionNodesLength = definitionNodes.length;
+      const ruleName = this.name,
+            nodes = definitionNodes;  ///
 
-      if (definitionNodesLength > 0) {
-        const ruleName = this.name,
-              nodes = definitionNodes;  ///
-
-        nonTerminalNode = this.NonTerminalNode.fromNodesAndRuleName(nodes, ruleName);
-      }
+      nonTerminalNode = this.NonTerminalNode.fromNodesAndRuleName(nodes, ruleName);
     }
 
     configuration.decreaseDepth();
