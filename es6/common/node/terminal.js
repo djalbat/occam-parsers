@@ -41,6 +41,12 @@ class TerminalNode {
     return terminalNode;
   }
 
+  isNonTerminalNode() {
+    const nonTerminalNode = false;
+
+    return nonTerminalNode;
+  }
+
   getContent() { return this.significantToken.getContent(); }
 
   setParentNode(parentNode) {

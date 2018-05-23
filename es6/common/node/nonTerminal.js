@@ -19,6 +19,12 @@ class NonTerminalNode {
     return terminalNode;
   }
 
+  isNonTerminalNode() {
+    const nonTerminalNode = true;
+
+    return nonTerminalNode;
+  }
+
   getRuleName() {
     return this.ruleName;
   }
