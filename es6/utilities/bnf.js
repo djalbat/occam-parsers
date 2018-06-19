@@ -87,10 +87,10 @@ function quantifiersFromQuantifiersNode(quantifiersNode, quantifiers = []) {
 }
 
 module.exports = {
-  isNodeNoWhitespaceNode: isNodeNoWhitespaceNode,
-  isNodeChoiceNode: isNodeChoiceNode,
-  isNodeQuantifiersNode: isNodeQuantifiersNode,
-  quantifiersFromQuantifiersNode: quantifiersFromQuantifiersNode
+  isNodeNoWhitespaceNode,
+  isNodeChoiceNode,
+  isNodeQuantifiersNode,
+  quantifiersFromQuantifiersNode
 };
 
 function quantifierFromQuantifiersNode(quantifiersNode) {

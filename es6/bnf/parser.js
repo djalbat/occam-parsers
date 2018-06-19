@@ -71,7 +71,7 @@ class BNFParser extends CommonParser {
 }
 
 Object.assign(BNFParser, {
-  bnf: bnf
+  bnf
 });
 
 module.exports = BNFParser;

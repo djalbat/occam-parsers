@@ -61,7 +61,7 @@ class MetaJSONParser extends CommonParser {
 }
 
 Object.assign(MetaJSONParser, {
-  bnf: bnf
+  bnf
 });
 
 module.exports = MetaJSONParser;

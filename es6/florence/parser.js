@@ -56,12 +56,12 @@ class FlorenceParser extends CommonParser {
 }
 
 Object.assign(FlorenceParser, {
-  bnf: bnf,
-  mappings: mappings,
-  defaultCustomGrammarTermBNF: defaultCustomGrammarTermBNF,
-  defaultCustomGrammarExpressionBNF: defaultCustomGrammarExpressionBNF,
-  defaultCustomGrammarStatementBNF: defaultCustomGrammarStatementBNF,
-  defaultCustomGrammarMetastatementBNF: defaultCustomGrammarMetastatementBNF
+  bnf,
+  mappings,
+  defaultCustomGrammarTermBNF,
+  defaultCustomGrammarExpressionBNF,
+  defaultCustomGrammarStatementBNF,
+  defaultCustomGrammarMetastatementBNF
 });
 
 module.exports = FlorenceParser;

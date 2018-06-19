@@ -43,7 +43,7 @@ class LaTeXParser extends CommonParser {
 }
 
 Object.assign(LaTeXParser, {
-  bnf: bnf
+  bnf
 });
 
 module.exports = LaTeXParser;

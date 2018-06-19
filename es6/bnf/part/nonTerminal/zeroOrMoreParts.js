@@ -52,7 +52,7 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
 }
 
 Object.assign(ZeroOrMorePartsPart, {
-  type: type
+  type
 });
 
 module.exports = ZeroOrMorePartsPart;

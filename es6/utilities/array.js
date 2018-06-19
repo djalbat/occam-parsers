@@ -27,17 +27,17 @@ function discardFifthThenSecond(array) { return discardNth(discardNth(array, 4),
 function discardOdd(array) { return array.filter(function(entry, index) { return isEven(index); }); }
 
 module.exports = Object.assign(arrayUtilities, {
-  allButFirst: allButFirst,
-  keepFirst: keepFirst,
-  keepSecond: keepSecond,
-  keepLast: keepLast,
-  discardFirst: discardFirst,
-  discardSecond: discardSecond,
-  discardLast: discardLast,
-  discardLastThenFirst: discardLastThenFirst,
-  discardFourthThenSecond: discardFourthThenSecond,
-  discardFifthThenSecond: discardFifthThenSecond,
-  discardOdd: discardOdd
+  allButFirst,
+  keepFirst,
+  keepSecond,
+  keepLast,
+  discardFirst,
+  discardSecond,
+  discardLast,
+  discardLastThenFirst,
+  discardFourthThenSecond,
+  discardFifthThenSecond,
+  discardOdd
 });
 
 function keepNth(array, n) {

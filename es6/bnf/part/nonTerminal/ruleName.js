@@ -52,7 +52,7 @@ class RuleNamePart extends NonTerminalPart {
 }
 
 Object.assign(RuleNamePart, {
-  type: type
+  type
 });
 
 module.exports = RuleNamePart;

@@ -54,6 +54,6 @@ function addQualifiedAndUnqualifiedStatementAndMetastatementRules(combinedCustom
 }
 
 module.exports = {
-  rulesFromBNFs: rulesFromBNFs,
-  addQualifiedAndUnqualifiedStatementAndMetastatementRules: addQualifiedAndUnqualifiedStatementAndMetastatementRules
+  rulesFromBNFs,
+  addQualifiedAndUnqualifiedStatementAndMetastatementRules
 };

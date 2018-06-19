@@ -82,7 +82,7 @@ class ChoiceOfPartsPart extends NonTerminalPart {
 }
 
 Object.assign(ChoiceOfPartsPart, {
-  type: type
+  type
 });
 
 module.exports = ChoiceOfPartsPart;

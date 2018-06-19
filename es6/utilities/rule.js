@@ -12,5 +12,5 @@ function findRuleByName(name, rules) {
 }
 
 module.exports = {
-  findRuleByName: findRuleByName
+  findRuleByName
 };

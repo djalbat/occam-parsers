@@ -77,7 +77,7 @@ class GroupOfPartsPart extends NonTerminalPart {
 }
 
 Object.assign(GroupOfPartsPart, {
-  type: type
+  type
 });
 
 module.exports = GroupOfPartsPart;

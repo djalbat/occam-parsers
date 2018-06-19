@@ -14,16 +14,16 @@ const EpsilonPart = require('./part/terminal/epsilon'),
       ChoiceOfPartsPart = require('./part/nonTerminal/choiceOfParts');
 
 module.exports = {
-  EpsilonPart: EpsilonPart,
-  WildcardPart: WildcardPart,
-  EndOfLinePart: EndOfLinePart,
-  TerminalSymbolPart: TerminalSymbolPart,
-  RegularExpressionPart: RegularExpressionPart,
-  SignificantTokenTypePart: SignificantTokenTypePart,
-  RuleNamePart: RuleNamePart,
-  OptionalPartPart: OptionalPartPart,
-  ZeroOrMorePartsPart: ZeroOrMorePartsPart,
-  OneOrMorePartsPart: OneOrMorePartsPart,
-  GroupOfPartsPart: GroupOfPartsPart,
-  ChoiceOfPartsPart: ChoiceOfPartsPart
+  EpsilonPart,
+  WildcardPart,
+  EndOfLinePart,
+  TerminalSymbolPart,
+  RegularExpressionPart,
+  SignificantTokenTypePart,
+  RuleNamePart,
+  OptionalPartPart,
+  ZeroOrMorePartsPart,
+  OneOrMorePartsPart,
+  GroupOfPartsPart,
+  ChoiceOfPartsPart
 };

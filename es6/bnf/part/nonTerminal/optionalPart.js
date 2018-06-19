@@ -47,7 +47,7 @@ class OptionalPartPart extends NonTerminalPart {
 }
 
 Object.assign(OptionalPartPart, {
-  type: type
+  type
 });
 
 module.exports = OptionalPartPart;

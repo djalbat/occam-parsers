@@ -49,7 +49,7 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
 }
 
 Object.assign(OneOrMorePartsPart, {
-  type: type
+  type
 });
 
 module.exports = OneOrMorePartsPart;
