@@ -9,8 +9,6 @@ class NonTerminalNode {
   constructor(ruleName, childNodes) {
     this.ruleName = ruleName;
     this.childNodes = childNodes;
-
-    this.parentNode = undefined;  ///
   }
 
   isTerminalNode() {
@@ -31,10 +29,6 @@ class NonTerminalNode {
 
   getChildNodes() {
     return this.childNodes;
-  }
-
-  getParentNode() {
-    return this.parentNode;
   }
 
   getFirstSignificantToken() {
@@ -90,10 +84,6 @@ class NonTerminalNode {
     this.childNodes = childNodes;
   }
   
-  setParentNode(parentNode) {
-    this.parentNode = parentNode;
-  }
-
   asParseTree(tokens) {
     const nonTerminalNode = this,  ///
           nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens),

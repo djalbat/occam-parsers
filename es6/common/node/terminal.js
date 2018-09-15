@@ -5,16 +5,10 @@ const TerminalNodeParseTree = require('../parseTree/terminalNode');
 class TerminalNode {
   constructor(significantToken) {
     this.significantToken = significantToken;
-
-    this.parentNode = undefined;  ///
   }
 
   getSignificantToken() {
     return this.significantToken;
-  }
-
-  getParentNode() {
-    return this.parentNode;
   }
 
   getFirstSignificantToken() {
@@ -48,10 +42,6 @@ class TerminalNode {
   }
 
   getContent() { return this.significantToken.getContent(); }
-
-  setParentNode(parentNode) {
-    this.parentNode = parentNode;
-  }
 
   asParseTree(tokens) {
     const terminalNode = this,  ///

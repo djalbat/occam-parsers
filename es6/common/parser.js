@@ -14,21 +14,13 @@ class CommonParser {
     return this.rules;
   }
 
-  nodeFromSignificantTokens(significantTokens, rule, parentNodes = false) {
+  nodeFromSignificantTokens(significantTokens, rule) {
     const node = this.parse(significantTokens, rule);
-
-    if (parentNodes) {
-      if (node !== null) {
-        const parentNode = null;  ///
-
-        node.setParentNode(parentNode);
-      }
-    }
 
     return node;
   }
 
-  parse(significantTokens, rule = null, parentNodes = false) {
+  parse(significantTokens, rule = null) {
     let node = null;
 
     if (rule === null) {
@@ -50,12 +42,6 @@ class CommonParser {
         node = (nodeOrNodes instanceof Array) ?
                  first(nodeOrNodes) :
                    nodeOrNodes;
-      }
-    }
-
-    if (parentNodes) {
-      if (node !== null) {
-        setParentNodes(node);
       }
     }
 
@@ -84,22 +70,3 @@ class CommonParser {
 }
 
 module.exports = CommonParser;
-
-function setParentNodes(node) {
-  const nodeTerminalNode = node.isTerminalNode(),
-        nodeNonTerminalNode = !nodeTerminalNode;
-
-  if (nodeNonTerminalNode) {
-    const nonTerminalNode = node, ///
-          parentNode = nonTerminalNode, ///
-          childNodes = nonTerminalNode.getChildNodes();
-
-    childNodes.forEach(function(childNode) {
-      childNode.setParentNode(parentNode);
-
-      const node = childNode; ///
-
-      setParentNodes(node);
-    });
-  }
-}
