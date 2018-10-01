@@ -229,5 +229,5 @@ Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have
 
 ## Contact
 
-* jecs@imperial.ac.uk
+* james.smith@openmathematics.org
 * http://djalbat.com
