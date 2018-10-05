@@ -9,7 +9,7 @@ class EndOfLineNode extends TerminalNode {
     return content;
   }
 
-  static fromSignificantToken(significantToken) { return TerminalNode.fromSignificantToken(EndOfLineNode, significantToken); }
+  static fromToken(token) { return TerminalNode.fromToken(EndOfLineNode, token); }
 }
 
 module.exports = EndOfLineNode;

@@ -24,8 +24,8 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 function rulesFromBNFs(bnfs) {
   const bnf = bnfs.join(''),
-        significantTokens = bnfLexer.significantTokensFromBNF(bnf),
-        rulesNode = bnfParser.rulesNodeFromSignificantTokens(significantTokens),
+        tokens = bnfLexer.tokensFromBNF(bnf),
+        rulesNode = bnfParser.rulesNodeFromTokens(tokens),
         mappings = {},
         rules = BNFParser.generateRules(rulesNode, mappings);
 

@@ -3,24 +3,24 @@
 const TerminalNodeParseTree = require('../parseTree/terminalNode');
 
 class TerminalNode {
-  constructor(significantToken) {
-    this.significantToken = significantToken;
+  constructor(token) {
+    this.token = token;
   }
 
-  getSignificantToken() {
-    return this.significantToken;
+  getToken() {
+    return this.token;
   }
 
-  getFirstSignificantToken() {
-    const firstSignificantToken = this.significantToken;  ///
+  getFirstToken() {
+    const firstToken = this.token;  ///
 
-    return firstSignificantToken;
+    return firstToken;
   }
 
-  getLastSignificantToken() {
-    const lastSignificantToken = this.significantToken;  ///
+  getLastToken() {
+    const lastToken = this.token;  ///
 
-    return lastSignificantToken;
+    return lastToken;
   }
 
   isEpsilonNode() {
@@ -41,7 +41,7 @@ class TerminalNode {
     return nonTerminalNode;
   }
 
-  getContent() { return this.significantToken.getContent(); }
+  getContent() { return this.token.getContent(); }
 
   asParseTree(tokens) {
     const terminalNode = this,  ///
@@ -51,13 +51,13 @@ class TerminalNode {
     return parseTree;
   }
 
-  static fromSignificantToken(Class, significantToken) {
-    if (significantToken === undefined) {
-      significantToken = Class;
+  static fromToken(Class, token) {
+    if (token === undefined) {
+      token = Class;
       Class = TerminalNode
     }
 
-    const terminalNode = new Class(significantToken);
+    const terminalNode = new Class(token);
     
     return terminalNode;
   }

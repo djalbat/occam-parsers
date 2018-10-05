@@ -4,10 +4,10 @@ const VerticalBranchParseTree = require('./verticalBranch');
 
 class TerminalNodeParseTree extends VerticalBranchParseTree {
   static fromTerminalNodeAndTokens(terminalNode, tokens) {
-    const significantToken = terminalNode.getSignificantToken(),
+    const token = terminalNode.getToken(),
           content = terminalNode.getContent(),
-          type = significantToken.getType(),
-          tokenIndex = tokens.indexOf(significantToken),
+          type = token.getType(),
+          tokenIndex = tokens.indexOf(token),
           string = `${content}[${type}](${tokenIndex})`,
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///

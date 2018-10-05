@@ -22,15 +22,17 @@ class SignificantTokenTypePart extends TerminalPart {
     let terminalNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
-          nextNonWhitespaceSignificantToken = configuration.getNextNonWhitespaceSignificantToken(noWhitespace),
-          significantToken = nextNonWhitespaceSignificantToken; ///
+					nextSignificantToken = configuration.getNextSignificantToken(noWhitespace),
+					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
       const significantTokenType = significantToken.getType(),
             parsed = (significantTokenType === this.significantTokenType);  ///
 
       if (parsed) {
-        terminalNode = TerminalNode.fromSignificantToken(significantToken);
+      	const token = significantToken;	///
+
+        terminalNode = TerminalNode.fromToken(token);
       }
     }
 

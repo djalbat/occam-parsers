@@ -3,71 +3,63 @@
 const DEFAULT_MAXIMUM_DEPTH = 99;
 
 class Configuration {
-  constructor(significantTokens, maximumDepth, rules, depth, index) {
-    this.significantTokens = significantTokens;
+  constructor(tokens, rules, index, depth, maximumDepth) {
+    this.tokens = tokens;
+		this.rules = rules;
+		this.index = index;
+		this.depth = depth;
     this.maximumDepth = maximumDepth;
-    this.rules = rules;
-    this.depth = depth;
-    this.index = index;
   }
   
-  getSignificantTokens() {
-    return this.significantTokens;
-  }
-
-  getMaximumDepth() {
-    return this.maximumDepth;
+  getTokens() {
+    return this.tokens;
   }
 
   getRules() {
     return this.rules;
   }
 
+	getIndex() {
+		return this.index;
+	}
+
   getDepth() {
     return this.depth;
   }
 
-  getIndex() {
-    return this.index;
-  }
+	getMaximumDepth() {
+		return this.maximumDepth;
+	}
 
-  getSavedIndex() {
+	getSavedIndex() {
     const savedIndex = this.index; ///
   
     return savedIndex;
   }
 
-  getNextSignificantToken() {
-    const significantTokensLength = this.significantTokens.length,
-          lastIndex = significantTokensLength - 1,
-          nextSignificantToken = (this.index <= lastIndex) ?
-                                    this.significantTokens[this.index++] :
-                                      null;
+  getNextSignificantToken(noWhitespace) {
+		let nextSignificantToken = null;
 
-    return nextSignificantToken;
-  }
+  	const tokensLength = this.tokens.length;
 
-  getNextNonWhitespaceSignificantToken(noWhitespace) {
-    let nextNonWhitespaceSignificantToken = null;
+  	while (this.index < tokensLength) {
+  		const token = this.tokens[this.index++],
+						tokenSignificant = token.isSignificant();
 
-    const nextSignificantToken = this.getNextSignificantToken();
+  		if (tokenSignificant) {
+				nextSignificantToken = token;	///
 
-    if (nextSignificantToken !== null) {
-      const nextSignificantTokenIsWhitespaceToken = nextSignificantToken.isWhitespaceToken(),
-            nextSignificantTokenIsNonWhitespaceToken = !nextSignificantTokenIsWhitespaceToken;
+				break;
+			} else if (noWhitespace) {
+  			const tokenWhitespaceToken = token.isWhitespaceToken();
 
-      if (nextSignificantTokenIsNonWhitespaceToken) {
-        nextNonWhitespaceSignificantToken = nextSignificantToken;
-      } else {
-        if (noWhitespace) {
-          nextNonWhitespaceSignificantToken = null;
-        } else {
-          nextNonWhitespaceSignificantToken = this.getNextNonWhitespaceSignificantToken(noWhitespace);
-        }
-      }
-    }
+  			if (tokenWhitespaceToken) {
+  				break;
+				}
+			}
+  	}
 
-    return nextNonWhitespaceSignificantToken;
+		return nextSignificantToken;
   }
 
   isTooDeep() {
@@ -75,6 +67,10 @@ class Configuration {
 
     return tooDeep;
   }
+
+	backtrack(savedIndex) {
+		this.index = savedIndex;  ///
+	}
 
   setIndex(index) {
     this.index = index;
@@ -88,15 +84,11 @@ class Configuration {
     this.depth--;
   }
 
-  backtrack(savedIndex) {
-    this.index = savedIndex;  ///
-  }
-
-  static fromSignificantTokensAndRules(significantTokens, rules) {
-    const maximumDepth = DEFAULT_MAXIMUM_DEPTH,
-          depth = 0,
-          index = 0,
-          configuration = new Configuration(significantTokens, maximumDepth, rules, depth, index);
+  static fromTokensAndRules(tokens, rules) {
+    const index = 0,
+					depth = 0,
+					maximumDepth = DEFAULT_MAXIMUM_DEPTH,
+					configuration = new Configuration(tokens, rules, index, depth, maximumDepth);
 
     return configuration;
   }

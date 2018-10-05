@@ -14,13 +14,13 @@ class CommonParser {
     return this.rules;
   }
 
-  nodeFromSignificantTokens(significantTokens, rule) {
-    const node = this.parse(significantTokens, rule);
+  nodeFromTokens(tokens, rule) {
+    const node = this.parse(tokens, rule);
 
     return node;
   }
 
-  parse(significantTokens, rule = null) {
+  parse(tokens, rule = null) {
     let node = null;
 
     if (rule === null) {
@@ -34,7 +34,7 @@ class CommonParser {
     }
 
     if (rule !== null) {
-      const configuration = Configuration.fromSignificantTokensAndRules(significantTokens, this.rules),
+      const configuration = Configuration.fromTokensAndRules(tokens, this.rules),
             noWhitespace = false, ///
             nodeOrNodes = rule.parse(configuration, noWhitespace);
 

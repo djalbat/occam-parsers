@@ -16,11 +16,13 @@ class WildcardPart extends TerminalPart {
     let terminalNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
-          nextNonWhitespaceSignificantToken = configuration.getNextNonWhitespaceSignificantToken(noWhitespace),
-          significantToken = nextNonWhitespaceSignificantToken; ///
+					nextSignificantToken = configuration.getNextSignificantToken(noWhitespace),
+					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
-      terminalNode = TerminalNode.fromSignificantToken(significantToken);
+    	const token = significantToken;	///
+
+      terminalNode = TerminalNode.fromToken(token);
     }
     
     if (terminalNode === null) {

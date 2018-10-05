@@ -16,14 +16,16 @@ class EndOfLinePart extends TerminalPart {
     let endOfLineNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
-          nextNonWhitespaceSignificantToken = configuration.getNextNonWhitespaceSignificantToken(noWhitespace),
-          significantToken = nextNonWhitespaceSignificantToken; ///
+          nextSignificantToken = configuration.getNextSignificantToken(noWhitespace),
+          significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
       const significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
 
       if (significantTokenEndOfLineToken) {
-        endOfLineNode = EndOfLineNode.fromSignificantToken(significantToken);
+      	const token = significantToken;	///
+
+        endOfLineNode = EndOfLineNode.fromToken(token);
       }
     }
     

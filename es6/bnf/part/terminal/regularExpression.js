@@ -24,8 +24,8 @@ class RegularExpressionPart extends TerminalPart {
     let terminalNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
-          nextNonWhitespaceSignificantToken = configuration.getNextNonWhitespaceSignificantToken(noWhitespace),
-          significantToken = nextNonWhitespaceSignificantToken; ///
+					nextSignificantToken = configuration.getNextSignificantToken(noWhitespace),
+					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
       const content = significantToken.getContent(),
@@ -36,7 +36,9 @@ class RegularExpressionPart extends TerminalPart {
               parsed = (firstMatch === content);
 
         if (parsed) {
-          terminalNode = TerminalNode.fromSignificantToken(significantToken);
+        	const token = significantToken;	///
+
+          terminalNode = TerminalNode.fromToken(token);
         }
       }
     }
