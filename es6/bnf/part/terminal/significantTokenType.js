@@ -30,9 +30,7 @@ class SignificantTokenTypePart extends TerminalPart {
             parsed = (significantTokenType === this.significantTokenType);  ///
 
       if (parsed) {
-      	const token = significantToken;	///
-
-        terminalNode = TerminalNode.fromToken(token);
+        terminalNode = TerminalNode.fromSignificantToken(significantToken);
       }
     }
 

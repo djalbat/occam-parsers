@@ -36,9 +36,7 @@ class RegularExpressionPart extends TerminalPart {
               parsed = (firstMatch === content);
 
         if (parsed) {
-        	const token = significantToken;	///
-
-          terminalNode = TerminalNode.fromToken(token);
+          terminalNode = TerminalNode.fromSignificantToken(significantToken);
         }
       }
     }

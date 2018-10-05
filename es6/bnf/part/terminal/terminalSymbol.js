@@ -34,9 +34,7 @@ class TerminalSymbolPart extends TerminalPart {
             parsed = (content === this.content);
 
       if (parsed) {
-      	const token = significantToken;	///
-
-        terminalNode = TerminalNode.fromToken(token);
+        terminalNode = TerminalNode.fromSignificantToken(significantToken);
       }
     }
 

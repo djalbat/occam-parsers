@@ -23,9 +23,7 @@ class EndOfLinePart extends TerminalPart {
       const significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
 
       if (significantTokenEndOfLineToken) {
-      	const token = significantToken;	///
-
-        endOfLineNode = EndOfLineNode.fromToken(token);
+        endOfLineNode = EndOfLineNode.fromSignificantToken(significantToken);
       }
     }
     

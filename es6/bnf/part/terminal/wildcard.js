@@ -20,9 +20,7 @@ class WildcardPart extends TerminalPart {
 					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
-    	const token = significantToken;	///
-
-      terminalNode = TerminalNode.fromToken(token);
+      terminalNode = TerminalNode.fromSignificantToken(significantToken);
     }
     
     if (terminalNode === null) {

@@ -29,14 +29,14 @@ function tokenIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
   if (nonTerminalNodeNullified) {
     tokenIndexes = '';
   } else {
-    const firstToken = nonTerminalNode.getFirstToken(),
-          lastToken = nonTerminalNode.getLastToken(),
-          firstTokenIndex = tokens.indexOf(firstToken),
-          lastTokenIndex = tokens.indexOf(lastToken);
+    const firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
+          lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
+          firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
+          lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken);
 
-    tokenIndexes = (firstTokenIndex !== lastTokenIndex) ?
-                      `(${firstTokenIndex}-${lastTokenIndex})` :
-                        `(${firstTokenIndex})`;
+    tokenIndexes = (firstSignificantTokenIndex !== lastSignificantTokenIndex) ?
+										`(${firstSignificantTokenIndex}-${lastSignificantTokenIndex})` :
+											`(${firstSignificantTokenIndex})`;
   }
 
   return tokenIndexes;

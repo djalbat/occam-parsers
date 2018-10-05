@@ -31,32 +31,32 @@ class NonTerminalNode {
     return this.childNodes;
   }
 
-  getFirstToken() {
-    let firstToken = null;
+  getFirstSignificantToken() {
+    let firstSignificantToken = null;
 
     forwardsSome(this.childNodes, function(childNode) {
-      firstToken = childNode.getFirstToken();
+      firstSignificantToken = childNode.getFirstSignificantToken();
 
-      if (firstToken !== null) {
+      if (firstSignificantToken !== null) {
         return true;
       }
     });
 
-    return firstToken;
+    return firstSignificantToken;
   }
 
-  getLastToken() {
-    let lastToken = null;
+  getLastSignificantToken() {
+    let lastSignificantToken = null;
 
     backwardsSome(this.childNodes, function(childNode) {
-      lastToken = childNode.getLastToken();
+      lastSignificantToken = childNode.getLastSignificantToken();
 
-      if (lastToken !== null) {
+      if (lastSignificantToken !== null) {
         return true;
       }
     });
 
-    return lastToken;
+    return lastSignificantToken;
   }
   
   isNullified() {
