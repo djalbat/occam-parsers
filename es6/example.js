@@ -53,9 +53,9 @@ class Example {
 
     let lexicalEntries = null;
 
-    // try {
+    try {
       lexicalEntries = JSON.parse(lexicalEntriesTextareaValue);
-    // } catch (error) {}
+    } catch (error) {}
 
     const lexicalEntriesValid = (lexicalEntries !== null);
 
@@ -82,7 +82,7 @@ class Example {
         parseTreeTextareaHTML = '';
 
     if ((lexer !== null) && (parser !== null)) {
-      // try {
+      try {
         const contentTextareaValue = contentTextarea.getValue(),
               content = contentTextareaValue, ///
               name = ruleName,  ///
@@ -105,9 +105,9 @@ class Example {
         }
 
         contentTextarea.removeClass('error');
-      // } catch (error) {
-      //   contentTextarea.addClass('error');
-      // }
+      } catch (error) {
+        contentTextarea.addClass('error');
+      }
     }
 
     parseTreeTextarea.html(parseTreeTextareaHTML);
