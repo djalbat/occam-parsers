@@ -9,20 +9,20 @@ const { Textarea } = easy,
       { findRuleByName } = ruleUtilities,
       { SizeableElement, VerticalSplitter } = easyLayout;
 
-const contentTextareaSelector = 'textarea#content',
+const bnfTextareaSelector = 'textarea#bnf',
+			contentTextareaSelector = 'textarea#content',
       parseTreeTextareaSelector = 'textarea#parseTree',
       lexicalEntriesTextareaSelector = 'textarea#lexicalEntries',
-      bnfTextareaSelector = 'textarea#bnf',
       sizeableElementSelector = '#sizeableElement',
       verticalSplitterSelector = '#verticalSplitter',
+			bnfTextarea = new Textarea(bnfTextareaSelector),
       contentTextarea = new Textarea(contentTextareaSelector),
       parseTreeTextarea = new Textarea(parseTreeTextareaSelector),
       lexicalEntriesTextarea =new Textarea(lexicalEntriesTextareaSelector),
-      bnfTextarea = new Textarea(bnfTextareaSelector),
-      sizeableElement = new SizeableElement(sizeableElementSelector),
       beforeSizeableElement = false,
       afterSizeableElement = true,
-      verticalSplitter = new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
+			sizeableElement = new SizeableElement(sizeableElementSelector),
+			verticalSplitter = new VerticalSplitter(verticalSplitterSelector, beforeSizeableElement, afterSizeableElement);
 
 verticalSplitter.initialise();
 
