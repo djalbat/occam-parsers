@@ -88,9 +88,9 @@ class Example {
               name = ruleName,  ///
               rules = parser.getRules(),
               rule = findRuleByName(name, rules),
-              tokens = lexer.tokensFromContent(content);
+              tokens = lexer.tokenise(content);
 
-        node = parser.nodeFromTokens(tokens, rule);
+        node = parser.parse(tokens, rule);
 
         if (node !== null) {
           const parseTree = node.asParseTree(tokens);

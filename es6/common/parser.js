@@ -14,12 +14,6 @@ class CommonParser {
     return this.rules;
   }
 
-  nodeFromTokens(tokens, rule) {
-    const node = this.parse(tokens, rule);
-
-    return node;
-  }
-
   parse(tokens, rule = null) {
     let node = null;
 
