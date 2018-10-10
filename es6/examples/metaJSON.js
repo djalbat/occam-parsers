@@ -2,8 +2,7 @@
 
 const lexers = require('occam-lexers');
 
-const bnf = require('../metaJSON/bnf'),
-      Example = require('../example'),
+const Example = require('../example'),
       MetaJSONParser = require('../metaJSON/parser');
 
 const { MetaJSONLexer } = lexers,
@@ -11,7 +10,8 @@ const { MetaJSONLexer } = lexers,
 
 class MetaJSONExample {
   static run() {
-    const content = '1+2/3',
+    const { bnf } = MetaJSONParser,
+          content = '1+2/3',
           lexicalEntries = entries; ///
     
     Example.run(content, lexicalEntries, bnf, updateHandler);

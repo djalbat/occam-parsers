@@ -6,13 +6,10 @@ const arrayUtilities = require('../../utilities/array'),
 const { first, second, discardFourthThenSecond } = arrayUtilities;
 
 class RuleNode extends NonTerminalNode {
-  generateRule(Rule, mappings) {
+  generateRule(Rule) {
     const name = this.getName(),
           definitions = this.generateDefinitions(),
-          mappingsNodeExists = mappings.hasOwnProperty(name),
-          Node = mappingsNodeExists ?
-                   mappings[name] :
-                     NonTerminalNode,
+          Node = NonTerminalNode,
           rule = new Rule(name, definitions, Node);
 
     return rule;

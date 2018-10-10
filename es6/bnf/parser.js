@@ -25,9 +25,9 @@ class BNFParser extends CommonParser {
     return rulesNode;
   }
 
-  static generateRules(rulesNode, mappings) {
+  static generateRules(rulesNode) {
     const rules = (rulesNode !== null) ?
-                     rulesNode.generateRules(Rule, mappings) :
+                     rulesNode.generateRules(Rule) :
                        [];
 
     return rules;

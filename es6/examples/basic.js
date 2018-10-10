@@ -2,8 +2,7 @@
 
 const lexers = require('occam-lexers');
 
-const bnf = require('../basic/bnf'),
-      Example = require('../example'),
+const Example = require('../example'),
       BasicParser = require('../basic/parser');
 
 const { BasicLexer } = lexers,
@@ -11,9 +10,10 @@ const { BasicLexer } = lexers,
 
 class BasicExample {
   static run() {
-    const content = '1+2/3',
+    const { bnf } = BasicParser,
+          content = '1+2/3',
           lexicalEntries = entries; ///
-    
+
     Example.run(content, lexicalEntries, bnf, updateHandler);
 
     updateHandler();

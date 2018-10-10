@@ -4,33 +4,23 @@ const easy = require('easy'),
       lexers = require('occam-lexers');
 
 const Example = require('../example'),
-      bnf = require('../florence/bnf'),
-      mappings = require('../florence/mappings'),
       FlorenceParser = require('../florence/parser');
 
-const { Checkbox, Input } = easy,
+const { Input } = easy,
       { FlorenceLexer } = lexers;
 
-const mappingsCheckboxSelector = '#mappings',
-      ruleNameInputSelector = '#ruleName';
+const ruleNameInputSelector = '#ruleName';
 
-let ruleName,
-    mappingsCheckbox,
-    ruleNameInput;
-
-const defaultMappings = mappings; ///
+let ruleNameInput;
 
 class FlorenceExample {
   static run() {
-    mappingsCheckbox = new Checkbox(mappingsCheckboxSelector);
-
     ruleNameInput = new Input(ruleNameInputSelector);
-
-    mappingsCheckbox.onChange(updateHandler);
 
     ruleNameInput.onKeyUp(updateHandler);
 
-    const content = '',
+    const { bnf } = FlorenceParser,
+          content = '',
           lexicalEntries = FlorenceLexer.entries; ///
 
     Example.run(content, lexicalEntries, bnf, updateHandler);
@@ -48,11 +38,7 @@ function updateHandler() {
   Example.updateLexer(FlorenceLexer);
 
   Example.updateParser(function(bnf) {
-    const mappingsCheckboxChecked = mappingsCheckbox.isChecked(),
-          mappings = mappingsCheckboxChecked ?
-                      defaultMappings :
-                        {},
-          florenceParser = FlorenceParser.fromBNFAndMappings(bnf, mappings),    
+    const florenceParser = FlorenceParser.fromBNF(bnf),
           parser = florenceParser;  ///
     
     return parser;

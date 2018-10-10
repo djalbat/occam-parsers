@@ -2,15 +2,15 @@
 
 const lexers = require('occam-lexers');
 
-const bnf = require('../bnf/bnf'),
-      Example = require('../example'),
+const Example = require('../example'),
       BNFParser = require('../bnf/parser');
 
 const { BNFLexer } = lexers;
 
 class BNFExample {
   static run() {
-    const content = bnf,
+    const { bnf } = BNFParser,
+          content = bnf,
           lexicalEntries = BNFLexer.entries;  ///
   
     Example.run(content, lexicalEntries, bnf, updateHandler);
@@ -31,10 +31,9 @@ function updateHandler() {
     return parser;
   });
 
-  const node = Example.updateParseTree(ruleName),
-        mappings = {};
+  const node = Example.updateParseTree(ruleName);
 
-  BNFParser.generateRules(node, mappings);
+  BNFParser.generateRules(node);
 }
 
 module.exports = BNFExample;

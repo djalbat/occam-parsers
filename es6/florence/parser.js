@@ -3,7 +3,6 @@
 const lexers = require('occam-lexers');
 
 const bnf = require('./bnf'),
-      mappings = require('./mappings'),
       BNFParser = require('../bnf/parser'),
       CommonParser = require('../common/parser'),
       arrayUtilities = require('../utilities/array'),
@@ -26,24 +25,21 @@ const bnfLexer = BNFLexer.fromNothing(),
         defaultCustomGrammarMetastatementBNF
       ],
       defaultCustomGrammarRules = rulesFromBNFs(defaultCustomGrammarBNFs),
-      defaultCombinedCustomGrammarsRules = defaultCustomGrammarRules, ///
-      defaultAdditionalMappings = {};
+      defaultCombinedCustomGrammarsRules = defaultCustomGrammarRules; ///
 
 class FlorenceParser extends CommonParser {
-  static fromCombinedCustomGrammarsRulesAndAdditionalMappings(combinedCustomGrammarsRules, additionalMappings) {
-    const florenceParser = FlorenceParser.fromBNFAndMappings(bnf, mappings, combinedCustomGrammarsRules, additionalMappings);
+  static fromCombinedCustomGrammarsRules(combinedCustomGrammarsRules) {
+    const florenceParser = FlorenceParser.fromBNF(bnf, combinedCustomGrammarsRules);
 
     return florenceParser;
   }
 
-  static fromBNFAndMappings(bnf, mappings, combinedCustomGrammarsRules = defaultCombinedCustomGrammarsRules, additionalMappings = defaultAdditionalMappings) {
+  static fromBNF(bnf, combinedCustomGrammarsRules = defaultCombinedCustomGrammarsRules) {
     combinedCustomGrammarsRules = addQualifiedAndUnqualifiedStatementAndMetastatementRules(combinedCustomGrammarsRules);  ///
-
-    mappings = Object.assign(mappings, additionalMappings); ///
 
     const tokens = bnfLexer.tokensFromBNF(bnf),
           rulesNode = bnfParser.rulesNodeFromTokens(tokens),
-          rules = BNFParser.generateRules(rulesNode, mappings);
+          rules = BNFParser.generateRules(rulesNode);
 
     push(rules, combinedCustomGrammarsRules);
 
@@ -52,12 +48,11 @@ class FlorenceParser extends CommonParser {
     return florenceParser;
   }
 
-  static fromNothing() { return FlorenceParser.fromBNFAndMappings(bnf, mappings); } ///
+  static fromNothing() { return FlorenceParser.fromBNF(bnf); } ///
 }
 
 Object.assign(FlorenceParser, {
   bnf,
-  mappings,
   defaultCustomGrammarTermBNF,
   defaultCustomGrammarExpressionBNF,
   defaultCustomGrammarStatementBNF,
