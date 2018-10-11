@@ -45,15 +45,9 @@ class ExampleView extends Element {
     }
   }
 
-  contentKeyUpHandler() { this.keyUpHandler(); }
-
   childElements(properties) {
     const title = this.getTitle(),
-          contentKeyUpHandler = this.contentKeyUpHandler.bind(this),
-          bnfTextareaKeyUpHandler = this.bnfTextareaKeyUpHandler ? this.bnfTextareaKeyUpHandler.bind(this) : null,
-          lexicalEntriesKeyUpHandler = this.lexicalEntriesKeyUpHandler ? this.lexicalEntriesKeyUpHandler.bind(this) : null,
-          bnfTextareaReadOnly = (bnfTextareaKeyUpHandler === null),
-          lexicalEntriesReadOnly = (lexicalEntriesKeyUpHandler === null);
+          keyUpHandler = this.keyUpHandler.bind(this);
 
     return ([
 
@@ -61,16 +55,16 @@ class ExampleView extends Element {
       <div className="columns">
         <SizeableElement>
           <h2>Lexical entries</h2>
-          <LexicalEntriesTextarea onKeyUp={lexicalEntriesKeyUpHandler} readOnly={lexicalEntriesReadOnly} />
+          <LexicalEntriesTextarea readOnly />
           <h2>BNF</h2>
-          <BNFTextarea onKeyUp={bnfTextareaKeyUpHandler} readOnly={bnfTextareaReadOnly} />
+          <BNFTextarea readOnly />
         </SizeableElement>
         <MainVerticalSplitter />
         <div className="column">
           <h2>Parse tree</h2>
           <ParseTreeTextarea />
           <h2>Content</h2>
-          <ContentTextarea onKeyUp={contentKeyUpHandler} />
+          <ContentTextarea onKeyUp={keyUpHandler} />
         </div>
       </div>
 
