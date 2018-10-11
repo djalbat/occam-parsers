@@ -11,12 +11,10 @@ class BasicExampleView extends ExampleView {
   getParseTree() {
     let parseTree = null;
 
-    const content = this.getContent(),
-          lexicalEntries = this.getLexicalEntries(),
-          entries = lexicalEntries, ///
-          basicLexer = BasicLexer.fromEntries(entries),
-          tokens = basicLexer.tokenise(content),
+    const basicLexer = BasicLexer.fromNothing(),
           basicParser = BasicParser.fromNothing(),
+          content = this.getContent(),
+          tokens = basicLexer.tokenise(content),
           node = basicParser.parse(tokens);
 
     if (node !== null) {

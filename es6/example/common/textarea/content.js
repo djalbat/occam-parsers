@@ -5,16 +5,6 @@ const easy = require('easy');
 const { InputElement } = easy;
 
 class ContentTextarea extends InputElement {
-  constructor(selector, changeHandler, keyUpHandler) {
-    super(selector, changeHandler);
-
-    this.onKeyUp(keyUpHandler);
-  }
-
-  onKeyUp(keyUpHandler) {
-    this.on('keyUp', keyUpHandler);
-  }
-
   getContent() {
     const value = this.getValue(),
           content = value; ///
@@ -50,13 +40,7 @@ class ContentTextarea extends InputElement {
     });
   }
 
-  static fromProperties(properties) {
-    const { onKeyUp } = properties,
-          keyUpHandler = onKeyUp, ///
-          contentTextarea = InputElement.fromProperties(ContentTextarea, properties, keyUpHandler);
-
-    return contentTextarea;
-  }
+  static fromProperties(properties) { return InputElement.fromProperties(ContentTextarea, properties); }
 }
 
 Object.assign(ContentTextarea, {
@@ -64,10 +48,7 @@ Object.assign(ContentTextarea, {
   defaultProperties: {
     className: 'content',
     spellCheck: false
-  },
-  ignoredProperties: [
-    'onKeyUp'
-  ]
+  }
 });
 
 module.exports = ContentTextarea;

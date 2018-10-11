@@ -5,18 +5,6 @@ const easy = require('easy');
 const { InputElement } = easy;
 
 class BNFTextarea extends InputElement {
-  constructor(selector, changeHandler, keyUpHandler) {
-    super(selector, changeHandler);
-
-    if (keyUpHandler) {
-      this.onKeyUp(keyUpHandler);
-    }
-  }
-
-  onKeyUp(keyUpHandler) {
-    this.on('keyUp', keyUpHandler);
-  }
-
   getBNF() {
     const value = this.getValue(),
           bnf = value;  ///
@@ -40,13 +28,7 @@ class BNFTextarea extends InputElement {
     });
   }
 
-  static fromProperties(properties) {
-    const { onKeyUp } = properties,
-          keyUpHandler = onKeyUp, ///
-          bnfTextarea = InputElement.fromProperties(BNFTextarea, properties, keyUpHandler);
-
-    return bnfTextarea;
-  }
+  static fromProperties(properties) { return InputElement.fromProperties(BNFTextarea, properties); }
 }
 
 Object.assign(BNFTextarea, {
@@ -54,10 +36,7 @@ Object.assign(BNFTextarea, {
   defaultProperties: {
     className: 'bnf',
     spellCheck: false
-  },
-  ignoredProperties: [
-    'onKeyUp'
-  ]
+  }
 });
 
 module.exports = BNFTextarea;

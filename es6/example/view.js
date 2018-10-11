@@ -27,7 +27,7 @@ class ExampleView extends Element {
     }
   }
 
-  contentKeyUpHandler() { return this.keyUpHandler(); }
+  contentKeyUpHandler() { this.keyUpHandler(); }
 
   childElements(properties) {
     const title = this.getTitle(),

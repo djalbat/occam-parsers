@@ -40,13 +40,7 @@ class LexicalEntriesTextarea extends InputElement {
     });
   }
 
-  static fromProperties(properties) {
-    const { onKeyUp } = properties,
-          keyUpHandler = onKeyUp, ///
-          lexicalEntriesTextarea = InputElement.fromProperties(LexicalEntriesTextarea, properties, keyUpHandler);
-
-    return lexicalEntriesTextarea;
-  }
+  static fromProperties(properties) { return InputElement.fromProperties(LexicalEntriesTextarea, properties); }
 }
 
 Object.assign(LexicalEntriesTextarea, {
@@ -54,10 +48,7 @@ Object.assign(LexicalEntriesTextarea, {
   defaultProperties: {
     className: 'lexicalEntries',
     spellCheck: false
-  },
-  ignoredProperties: [
-    'onKeyUp'
-  ]
+  }
 });
 
 module.exports = LexicalEntriesTextarea;

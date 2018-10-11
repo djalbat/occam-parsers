@@ -34,13 +34,7 @@ class ParseTreeTextarea extends InputElement {
     });
   }
 
-  static fromProperties(properties) {
-    const { onKeyUp } = properties,
-          keyUpHandler = onKeyUp, ///
-          parseTreeTextarea = InputElement.fromProperties(ParseTreeTextarea, properties, keyUpHandler);
-
-    return parseTreeTextarea;
-  }
+  static fromProperties(properties) { return InputElement.fromProperties(ParseTreeTextarea, properties); }
 }
 
 Object.assign(ParseTreeTextarea, {
