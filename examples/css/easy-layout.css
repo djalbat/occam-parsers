@@ -1,0 +1,31 @@
+.row {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+}
+
+.rows {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.columns {
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+}
+
+.vertical.splitter {
+  width: 0.5rem;
+}
+
+.horizontal.splitter {
+  height: 0.5rem;
+}
