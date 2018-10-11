@@ -47,7 +47,7 @@ Object.assign(ParseTreeTextarea, {
   tagName: 'textarea',
   defaultProperties: {
     className: 'parseTree',
-    spellcheck: false,
+    spellCheck: false,
     readOnly: true
   }
 });

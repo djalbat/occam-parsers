@@ -63,8 +63,11 @@ Object.assign(ContentTextarea, {
   tagName: 'textarea',
   defaultProperties: {
     className: 'content',
-    spellcheck: false
-  }
+    spellCheck: false
+  },
+  ignoredProperties: [
+    'onKeyUp'
+  ]
 });
 
 module.exports = ContentTextarea;

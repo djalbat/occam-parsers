@@ -8,7 +8,9 @@ class BNFTextarea extends InputElement {
   constructor(selector, changeHandler, keyUpHandler) {
     super(selector, changeHandler);
 
-    this.onKeyUp(keyUpHandler);
+    if (keyUpHandler) {
+      this.onKeyUp(keyUpHandler);
+    }
   }
 
   onKeyUp(keyUpHandler) {
@@ -51,8 +53,11 @@ Object.assign(BNFTextarea, {
   tagName: 'textarea',
   defaultProperties: {
     className: 'bnf',
-    spellcheck: false
-  }
+    spellCheck: false
+  },
+  ignoredProperties: [
+    'onKeyUp'
+  ]
 });
 
 module.exports = BNFTextarea;

@@ -8,7 +8,9 @@ class LexicalEntriesTextarea extends InputElement {
   constructor(selector, changeHandler, keyUpHandler) {
     super(selector, changeHandler);
 
-    this.onKeyUp(keyUpHandler);
+    if (keyUpHandler) {
+      this.onKeyUp(keyUpHandler);
+    }
   }
 
   onKeyUp(keyUpHandler) {
@@ -51,8 +53,11 @@ Object.assign(LexicalEntriesTextarea, {
   tagName: 'textarea',
   defaultProperties: {
     className: 'lexicalEntries',
-    spellcheck: false
-  }
+    spellCheck: false
+  },
+  ignoredProperties: [
+    'onKeyUp'
+  ]
 });
 
 module.exports = LexicalEntriesTextarea;
