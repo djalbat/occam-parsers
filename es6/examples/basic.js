@@ -1,13 +1,5 @@
 'use strict';
 
-const lexers = require('occam-lexers');
-
-const Example = require('../example'),
-      BasicParser = require('../basic/parser');
-
-const { BasicLexer } = lexers,
-      { entries } = BasicLexer;
-
 class BasicExample {
   static run() {
     const { bnf } = BasicParser,

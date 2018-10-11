@@ -11,24 +11,26 @@
   },
   "dependencies": {
     "necessary": "^1.7.5",
-    "occam-lexers": "^7.0.0"
+    "occam-lexers": "^7.0.3"
   },
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.24.1",
+    "babel-plugin-transform-react-jsx": "^6.7.5",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.5.0",
     "browserify": "^13.0.0",
     "chokidar-cli": "^1.2.0",
     "easy": "^7.10.0",
     "easy-layout": "^2.1.38",
-    "necessary": "^1.2.1"
+    "juxtapose": "^1.0.89"
   },
   "scripts": {
     "clean": "rm -rf ./lib",
-    "babel": "babel ./es6 --presets=es2015 --out-dir=./lib",
-    "babel-debug": "babel ./es6 --presets=es2015 --source-maps inline --out-dir=./lib",
-    "browserify": "browserify ./lib/examples.js --standalone examples > ./examples.js",
-    "browserify-debug": "browserify ./lib/examples.js --standalone examples --debug > ./examples.js",
+    "babel": "babel ./es6 --presets=es2015,react --plugins transform-react-jsx --out-dir=./lib",
+    "babel-debug": "babel ./es6 --presets=es2015,react --plugins transform-react-jsx --source-maps inline --out-dir=./lib",
+    "browserify": "browserify ./lib/example.js > ./example.js",
+    "browserify-debug": "browserify ./lib/example.js --debug > ./example.js",
     "build": "npm run clean && npm run babel && npm run browserify",
     "build-debug": "npm run clean && npm run babel-debug && npm run browserify-debug",
     "watch": "npm run build && chokidar 'index.js' './es6/**/*.js' -c 'npm run build'",
