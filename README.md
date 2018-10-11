@@ -150,7 +150,7 @@ The vertical bar symbol `|` is overloaded and can be used in conjunction with br
 
 ## Examples
 
-There are three examples, one for each parser. To view them, open the `index.html` file in the `examples` directory. Each example shows a representation of the parse tree, which is useful for debugging.
+There are three examples, one for each parser. To view them, open the `index.html` file in the root of the repository. Each example shows a representation of the parse tree, which is useful for debugging.
 
 ### BNF example
 

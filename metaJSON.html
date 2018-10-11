@@ -2,18 +2,18 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>BNF example</title>
+    <title>MetaJSON example</title>
     <link href="css/examples.css" rel="stylesheet" type="text/css" media="all">
-    <link href="css/bnf.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/basic.css" rel="stylesheet" type="text/css" media="all">
   </head>
   <body>
-    <h1>BNF example</h1>
+    <h1>MetaJSON example</h1>
     <div class="columns">
       <div id="sizeableElement" class="sizeable">
         <h2>Lexical entries</h2>
-        <textarea id="lexicalEntries" spellcheck="false" readonly> </textarea>
+        <textarea id="lexicalEntries" spellcheck="false"> </textarea>
         <h2>BNF</h2>
-        <textarea id="bnf" spellcheck="false" readonly> </textarea>
+        <textarea id="bnf" spellcheck="false"> </textarea>
       </div><div id="verticalSplitter" class="vertical splitter"></div>
       <div class="column">
         <h2>Parse tree</h2>
@@ -25,12 +25,12 @@
     <p>
       <a href="index.html">...back</a>
     </p>
-    <script src="../examples.js"> </script>
+    <script src="examples.js"> </script>
     <script>
 
-      var BNFExample = examples.BNFExample;
+      var MetaJSONExample = examples.MetaJSONExample;
 
-      BNFExample.run();
+      MetaJSONExample.run();
 
     </script>
   </body>
