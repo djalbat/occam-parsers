@@ -13,6 +13,24 @@ const BNFTextarea = require('./common/textarea/bnf'),
       MainVerticalSplitter = require('./common/verticalSplitter/main');
 
 class ExampleView extends Element {
+  getParseTree() {
+    let parseTree = null;
+
+    const Lexer = this.getLexer(),
+          Parser = this.getParser(),
+          lexer = Lexer.fromNothing(),
+          parser = Parser.fromNothing(),
+          content = this.getContent(),
+          tokens = lexer.tokenise(content),
+          node = parser.parse(tokens);
+
+    if (node !== null) {
+      parseTree = node.asParseTree(tokens);
+    }
+
+    return parseTree;
+  }
+
   keyUpHandler() {
     try {
       const parseTree = this.getParseTree();
@@ -61,14 +79,28 @@ class ExampleView extends Element {
 
   initialise() {
     this.assignContext();
+
+    const Lexer = this.getLexer(),
+          Parser = this.getParser(),
+          initialContent = this.getInitialContent(),
+          { bnf } = Parser,
+          { entries } = Lexer,
+          content = initialContent, ///
+          lexicalEntries = entries; ///
+
+    this.setBNF(bnf);
+    this.setContent(content);
+    this.setLexicalEntries(lexicalEntries);
+
+    this.keyUpHandler();
   }
 
   static fromProperties(Class, properties) {
-    const florenceExampleView = Element.fromProperties(Class, properties);
+    const exampleView = Element.fromProperties(Class, properties);
 
-    florenceExampleView.initialise();
+    exampleView.initialise();
 
-    return florenceExampleView
+    return exampleView
   }
 }
 

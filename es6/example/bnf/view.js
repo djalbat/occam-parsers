@@ -8,20 +8,16 @@ const BNFParser = require('../../bnf/parser'),
 const { BNFLexer } = lexers;
 
 class BNFExampleView extends ExampleView {
-  getParseTree() {
-    let parseTree = null;
+  getLexer() {
+    const Lexer = BNFLexer;  ///
 
-    const bnfLexer = BNFLexer.fromNothing(),
-          bnfParser = BNFParser.fromNothing(),
-          content = this.getContent(),
-          tokens = bnfLexer.tokenise(content),
-          node = bnfParser.parse(tokens);
+    return Lexer;
+  }
 
-    if (node !== null) {
-      parseTree = node.asParseTree(tokens);
-    }
+  getParser() {
+    const Parser = BNFParser;  ///
 
-    return parseTree;
+    return Parser;
   }
 
   getTitle() {
@@ -30,19 +26,11 @@ class BNFExampleView extends ExampleView {
     return title;
   }
 
-  initialise() {
-    super.initialise();
-
+  getInitialContent() {
     const { bnf } = BNFParser,
-          { entries } = BNFLexer,
-          content = bnf,  ///
-          lexicalEntries = entries; ///
+          initialContent = bnf; ///
 
-    this.setBNF(bnf);
-    this.setContent(content);
-    this.setLexicalEntries(lexicalEntries);
-
-    this.keyUpHandler();
+    return initialContent;
   }
 
   static fromProperties(properties) { return ExampleView.fromProperties(BNFExampleView, properties);}

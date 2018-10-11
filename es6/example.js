@@ -6,7 +6,8 @@ const easy = require('easy');
 
 const BNFExampleView = require('./example/bnf/view'),
       BasicExampleView = require('./example/basic/view'),
-      FlorenceExampleView = require('./example/florence/view');
+      FlorenceExampleView = require('./example/florence/view'),
+      MetaJSONExampleView = require('./example/metaJSON/view');
 
 const { Body } = easy;
 
@@ -19,6 +20,7 @@ switch (example) {
   case 'bnf' : ExampleView = BNFExampleView; break;
   case 'basic' : ExampleView = BasicExampleView; break;
   case 'florence' : ExampleView = FlorenceExampleView; break;
+  case 'metaJSON' : ExampleView = MetaJSONExampleView; break;
 }
 
 const exampleView = <ExampleView />;

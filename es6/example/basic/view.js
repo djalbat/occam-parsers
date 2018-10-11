@@ -2,26 +2,22 @@
 
 const lexers = require('occam-lexers');
 
-const BasicParser = require('../../basic/parser'),
-      ExampleView = require('../../example/view');
+const ExampleView = require('../../example/view'),
+      BasicParser = require('../../basic/parser');
 
 const { BasicLexer } = lexers;
 
 class BasicExampleView extends ExampleView {
-  getParseTree() {
-    let parseTree = null;
+  getLexer() {
+    const Lexer = BasicLexer;  ///
 
-    const basicLexer = BasicLexer.fromNothing(),
-          basicParser = BasicParser.fromNothing(),
-          content = this.getContent(),
-          tokens = basicLexer.tokenise(content),
-          node = basicParser.parse(tokens);
+    return Lexer;
+  }
 
-    if (node !== null) {
-      parseTree = node.asParseTree(tokens);
-    }
+  getParser() {
+    const Parser = BasicParser;  ///
 
-    return parseTree;
+    return Parser;
   }
 
   getTitle() {
@@ -30,19 +26,10 @@ class BasicExampleView extends ExampleView {
     return title;
   }
 
-  initialise() {
-    super.initialise();
+  getInitialContent() {
+    const initialContent = '1+2/3';
 
-    const { bnf } = BasicParser,
-          { entries } = BasicLexer,
-          content = '1+2/3',
-          lexicalEntries = entries; ///
-
-    this.setBNF(bnf);
-    this.setContent(content);
-    this.setLexicalEntries(lexicalEntries);
-
-    this.keyUpHandler();
+    return initialContent;
   }
 
   static fromProperties(properties) { return ExampleView.fromProperties(BasicExampleView, properties);}
