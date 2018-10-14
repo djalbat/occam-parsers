@@ -93,7 +93,7 @@ With [npm](https://www.npmjs.com/):
 
 You can also clone the repository with [Git](https://git-scm.com/)...
 
-    git clone git@github.com:occam-proof-assistant/Parsers.git
+    git clone https://github.com/jecs-imperial/occam-parsers.git
 
 ...and then install the necessary modules with npm from within the project's root directory:
 
