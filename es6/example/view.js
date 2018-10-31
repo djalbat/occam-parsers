@@ -3,14 +3,14 @@
 const easy = require('easy'),
       easyLayout = require('easy-layout');
 
-const { Element } = easy,
-      { SizeableElement } = easyLayout;
-
 const BNFTextarea = require('./common/textarea/bnf'),
       ContentTextarea = require('./common/textarea/content'),
       ParseTreeTextarea = require('./common/textarea/parseTree'),
       LexicalEntriesTextarea = require('./common/textarea/lexicalEntries'),
       MainVerticalSplitter = require('./common/verticalSplitter/main');
+
+const { Element } = easy,
+      { SizeableElement } = easyLayout;
 
 class ExampleView extends Element {
   getParseTree() {
@@ -48,6 +48,12 @@ class ExampleView extends Element {
     }
   }
 
+  getInitialContent() {
+    const initialContent = '';
+
+    return initialContent;
+  }
+
   childElements(properties) {
     const title = this.getTitle(),
           keyUpHandler = this.keyUpHandler.bind(this);
@@ -58,9 +64,9 @@ class ExampleView extends Element {
       <div className="columns">
         <SizeableElement>
           <h2>Lexical entries</h2>
-          <LexicalEntriesTextarea readOnly />
+          <LexicalEntriesTextarea onKeyUp={keyUpHandler} />
           <h2>BNF</h2>
-          <BNFTextarea readOnly />
+          <BNFTextarea onKeyUp={keyUpHandler} />
         </SizeableElement>
         <MainVerticalSplitter />
         <div className="column">

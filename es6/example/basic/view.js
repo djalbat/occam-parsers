@@ -8,6 +8,12 @@ const ExampleView = require('../../example/view'),
 const { BasicLexer } = lexers;
 
 class BasicExampleView extends ExampleView {
+  getTitle() {
+    const title = 'Basic parser example';
+
+    return title;
+  }
+
   getLexer() {
     const Lexer = BasicLexer;  ///
 
@@ -18,12 +24,6 @@ class BasicExampleView extends ExampleView {
     const Parser = BasicParser;  ///
 
     return Parser;
-  }
-
-  getTitle() {
-    const title = 'Basic parser example';
-
-    return title;
   }
 
   getInitialContent() {

@@ -1,29 +1,30 @@
 'use strict';
 
-const lexers = require('occam-lexers');
+const lexers = require('occam-lexers'),
+      easyLayout = require('easy-layout');
 
 const BNFParser = require('../../bnf/parser'),
-      ExampleView = require('../../example/view');
+      ExampleView = require('../../example/view'),
+      BNFTextarea = require('../common/textarea/bnf'),
+      ContentTextarea = require('../common/textarea/content'),
+      ParseTreeTextarea = require('../common/textarea/parseTree'),
+      LexicalEntriesTextarea = require('../common/textarea/lexicalEntries'),
+      MainVerticalSplitter = require('../common/verticalSplitter/main');
 
-const { BNFLexer } = lexers;
+const { BNFLexer } = lexers,
+      { SizeableElement } = easyLayout;
 
 class BNFExampleView extends ExampleView {
   getLexer() {
-    const Lexer = BNFLexer;  ///
+    const Lexer = BNFLexer; ///
 
     return Lexer;
   }
 
   getParser() {
-    const Parser = BNFParser;  ///
+    const Parser = BNFParser; ///
 
     return Parser;
-  }
-
-  getTitle() {
-    const title = 'BNF parser example';
-
-    return title;
   }
 
 	getParseTree() {
@@ -43,12 +44,11 @@ class BNFExampleView extends ExampleView {
 	}
 
 	childElements(properties) {
-		const title = this.getTitle(),
-					keyUpHandler = this.keyUpHandler.bind(this);
+		const keyUpHandler = this.keyUpHandler.bind(this);
 
 		return ([
 
-			<h1>{title}</h1>,
+			<h1>BNF parser example</h1>,
 			<div className="columns">
 				<SizeableElement>
 					<h2>Lexical entries</h2>

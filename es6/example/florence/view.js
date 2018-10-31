@@ -30,12 +30,6 @@ class FlorenceExampleView extends ExampleView {
     return Parser;
   }
 
-  getInitialContent() {
-    const initialContent = '';
-
-    return initialContent;
-  }
-
   getParseTree() {
     let parseTree = null;
 

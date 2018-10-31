@@ -8,6 +8,12 @@ const ExampleView = require('../../example/view'),
 const { MetaJSONLexer } = lexers;
 
 class MetaJSONExampleView extends ExampleView {
+  getTitle() {
+    const title = 'MetaJSON parser example';
+
+    return title;
+  }
+
   getLexer() {
     const Lexer = MetaJSONLexer;  ///
 
@@ -18,12 +24,6 @@ class MetaJSONExampleView extends ExampleView {
     const Parser = MetaJSONParser;  ///
 
     return Parser;
-  }
-
-  getTitle() {
-    const title = 'MetaJSON parser example';
-
-    return title;
   }
 
   getInitialContent() {
