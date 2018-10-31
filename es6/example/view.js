@@ -18,8 +18,11 @@ class ExampleView extends Element {
 
     const Lexer = this.getLexer(),
           Parser = this.getParser(),
-          lexer = Lexer.fromNothing(),
-          parser = Parser.fromNothing(),
+			    lexicalEntries = this.getLexicalEntries(),
+			    bnf = this.getBNF(),
+			    entries = lexicalEntries, ///
+			    lexer = Lexer.fromEntries(entries),
+          parser = Parser.fromBNF(bnf),
           content = this.getContent(),
           tokens = lexer.tokenise(content),
           node = parser.parse(tokens);
