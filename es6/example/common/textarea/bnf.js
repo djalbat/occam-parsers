@@ -35,7 +35,7 @@ Object.assign(BNFTextarea, {
   tagName: 'textarea',
   defaultProperties: {
     className: 'bnf',
-    spellCheck: false
+    spellCheck: 'false'
   }
 });
 

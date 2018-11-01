@@ -47,7 +47,7 @@ Object.assign(ContentTextarea, {
   tagName: 'textarea',
   defaultProperties: {
     className: 'content',
-    spellCheck: false
+    spellCheck: 'false'
   }
 });
 

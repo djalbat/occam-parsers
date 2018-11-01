@@ -47,7 +47,7 @@ Object.assign(LexicalEntriesTextarea, {
   tagName: 'textarea',
   defaultProperties: {
     className: 'lexicalEntries',
-    spellCheck: false
+    spellCheck: 'false'
   }
 });
 

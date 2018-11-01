@@ -28,7 +28,7 @@ Object.assign(RuleNameInput, {
   defaultProperties: {
     type: 'text',
     className: 'ruleName',
-    spellCheck: false
+    spellCheck: 'false'
   }
 });
 
