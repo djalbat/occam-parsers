@@ -2,11 +2,15 @@
 
 const bnf = `
 
-                                                              
-    stylesheet                 ::=  ( declaration | ruleSet | media | verticalSpace | error )+ ;
 
 
-    media                      ::= "@media" mediaQueries "{" verticalSpace? declarations "}" verticalSpace? ;
+    stylesheet                 ::= ( media | ruleSet | declaration | verticalSpace )+ ;
+
+
+
+
+
+    media                      ::= "@media" mediaQueries "{" ( ruleSet | declaration | verticalSpace )* "}" verticalSpace? ;
                                                               
                                                               
     mediaQueries               ::=  mediaQuery ( "," verticalSpace? mediaQuery )* ;
@@ -18,19 +22,22 @@ const bnf = `
     mediaType                  ::=  "all" | "print" | "screen" | "speech" ;
                                                               
                                                               
-    mediaExpresssion           ::= "not"? "(" [identifier] ( ":" expression )? ")" ;
+    mediaExpresssion           ::=  "not"? "(" [identifier] ( ":" expression )? ")" ;
 
 
-    ruleset                    ::=  selectors "{" verticalSpace? declarations "}" verticalSpace? ;
+
+
+
+    ruleSet                    ::=  selectors "{" ( declaration | verticalSpace )* "}" verticalSpace? ;
 
 
     selectors                  ::=  selector ( "," verticalSpace? selector )* ;
 
 
-    declarations               ::=  declaration verticalSpace? ( declaration verticalSpace? )* ;
-
-
     selector                   ::=  ( [class] | pseudoClass | pseudoElement | attribute )+ ;
+
+
+
 
 
     declaration                ::=  property ":" verticalSpace? expression priority? ";" ;
@@ -70,13 +77,14 @@ const bnf = `
     property                   ::=  [identifier] verticalSpace? ;
 
 
-    expression                 ::=  term ( operator? term )* ;
+    expression                 ::=  term ( ( "," verticalSpace? )? term )* ;
 
 
     priority                   ::=  "!important" ;
 
 
-    operator                   ::=  "/" verticalSpace? | "," verticalSpace? ;
+
+
 
     term                       ::=  [unaryOperator]?
                                                        
@@ -115,10 +123,17 @@ const bnf = `
     function                   ::=  [identifier]<NO_WHITESPACE>"(" expression ")" ;
 
 
+
+
+
     verticalSpace              ::=  <END_OF_LINE>+ ;
 
 
+
+
+
     error                      ::=  . ;
+
 
 
 `;

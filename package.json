@@ -1,7 +1,7 @@
 {
   "name": "occam-parsers",
   "author": "James Smith",
-  "version": "8.0.3",
+  "version": "8.0.4",
   "license": "MIT",
   "homepage": "https://github.com/jecs-imperial/occam-parsers",
   "description": "Occam's parsers.",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "necessary": "^1.7.5",
-    "occam-lexers": "^8.0.8"
+    "occam-lexers": "^8.0.9"
   },
   "devDependencies": {
     "babel": "^6.5.2",
