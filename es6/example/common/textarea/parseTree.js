@@ -10,18 +10,18 @@ class ParseTreeTextarea extends InputElement {
       parseTree.shiftLine();  //
 
       const parseTreeString = parseTree.asString(),
-            html = parseTreeString;  ///
+            value = parseTreeString;  ///
 
-      this.html(html);
+      this.setValue(value);
     } else {
       this.clearParseTree();
     }
   }
 
   clearParseTree() {
-    const html = '';
+    const value = '';
 
-    return html;
+    this.setValue(value);
   }
 
   parentContext() {

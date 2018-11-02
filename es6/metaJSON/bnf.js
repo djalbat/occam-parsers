@@ -5,6 +5,7 @@ const bnf = `
 
     document      ::= metaJSON | error+ ;
 
+
     metaJSON      ::= "{" (
      
                            ( repository ( "," dependencies )? ) 
@@ -13,11 +14,15 @@ const bnf = `
                             
                       ) "}" ;
 
+
     repository    ::= "\\"repository\\"" ":" [stringLiteral] ;
+
 
     dependencies  ::= "\\"dependencies\\"" ":" "[" (dependency ( "," dependency )*)?  "]" ;
 
+
     dependency    ::= [stringLiteral] ;
+
 
     error         ::= . ;
 

@@ -27,7 +27,7 @@ class CSSExampleView extends ExampleView {
   }
 
   getInitialContent() {
-    const initialContent = '1+2/3';
+    const initialContent = 'background-color : white !important;\n';
 
     return initialContent;
   }
