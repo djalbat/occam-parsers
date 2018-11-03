@@ -40,24 +40,3 @@ Object.assign(CSSParser, {
 });
 
 module.exports = CSSParser;
-
-/*
-
-
-[
-  {
-    "special": ":|;|!|\\{|\\}"
-  },
-  {
-    "hexColour": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
-  },
-  {
-    "keyword": "^(?:important)$"
-  },
-  {
-    "unassigned": "^.*$"
-  }
-]
-
-
- */

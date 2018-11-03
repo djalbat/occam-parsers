@@ -34,7 +34,7 @@ const bnf = `
     selectors                  ::=  selector ( "," verticalSpace? selector )* ;
 
 
-    selector                   ::=  ( [class] | pseudoClass | pseudoElement | attribute )+ ;
+    selector                   ::=  ( class | pseudoClass | pseudoElement | attribute )+ ;
 
 
 
@@ -43,10 +43,13 @@ const bnf = `
     declaration                ::=  property ":" verticalSpace? expression priority? ";" ;
 
 
-    pseudoClass                ::=  [pseudoClass]<NO_WHITESPACE>( "(" selector ")" )? ;
+    class                      ::=  "."<NO_WHITESPACE>[identifier]<NO_WHITESPACE>( "(" selector ")" )? ;
 
 
-    pseudoElement              ::=  [pseudoElement]<NO_WHITESPACE>( "(" selector ")" )? ;
+    pseudoClass                ::=  ":"<NO_WHITESPACE>[identifier]<NO_WHITESPACE>( "(" selector ")" )? ;
+
+
+    pseudoElement              ::=  "::"<NO_WHITESPACE>[identifier]<NO_WHITESPACE>( "(" selector ")" )? ;
 
 
     attribute                  ::=  "["
