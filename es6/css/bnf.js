@@ -4,7 +4,7 @@ const bnf = `
 
 
 
-    stylesheet                 ::= ( media | ruleSet | declaration | verticalSpace )+ ;
+    stylesheet                 ::= ( media | ruleSet | declaration | verticalSpace | error )+ ;
 
 
 
