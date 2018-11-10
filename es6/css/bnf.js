@@ -40,7 +40,7 @@ const bnf = `
 
 
 
-    declaration                ::=  property ":" verticalSpace? expression priority? ";" ;
+    declaration                ::=  property ":" verticalSpace? expression ( "," verticalSpace? expression )* priority? ";" ;
 
 
     class                      ::=  "."<NO_WHITESPACE>[identifier]<NO_WHITESPACE>( "(" selector ")" )? ;
