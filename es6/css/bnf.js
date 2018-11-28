@@ -16,13 +16,13 @@ const bnf = `
     mediaQueries               ::=  mediaQuery ( "," verticalSpace? mediaQuery )* ;
                                                               
                                                               
-    mediaQuery                 ::=  ( "only"? mediaType "and" )? mediaExpresssion ;
+    mediaQuery                 ::=  "not"? ( "only"? mediaType "and" )? mediaExpression ( "and" mediaExpression )* ;
 
 
     mediaType                  ::=  "all" | "print" | "screen" | "speech" ;
                                                               
                                                               
-    mediaExpresssion           ::=  "not"? "(" [identifier] ( ":" expression )? ")" ;
+    mediaExpression            ::=  "(" [identifier] ( ":" expression )? ")" ;
 
 
 
