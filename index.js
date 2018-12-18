@@ -11,7 +11,5 @@ module.exports = {
   BasicParser: require('./lib/basic/parser'),
   PlainParser: require('./lib/plain/parser'),
   MetaJSONParser: require('./lib/metaJSON/parser'),
-  FlorenceParser: require('./lib/florence/parser'),
-  CustomGrammarBNFParser: require('./lib/customGrammarBNF/parser'),
-  CustomGrammarLexicalPatternParser: require('./lib/customGrammarLexicalPattern/parser')
+  FlorenceParser: require('./lib/florence/parser')
 };
