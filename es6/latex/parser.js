@@ -13,22 +13,19 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 class LaTeXParser extends CommonParser {
   static fromBNF(bnf) {
-    let latexParser = null;
+    const tokens = bnfLexer.tokensFromBNF(bnf),
+          rulesNode = bnfParser.rulesNodeFromTokens(tokens),
+          rules = BNFParser.generateRules(rulesNode),
+          laTeXParser = new LaTeXParser(rules);
 
-    try {
-      const tokens = bnfLexer.tokensFromBNF(bnf),
-            rulesNode = bnfParser.rulesNodeFromTokens(tokens),
-            rules = BNFParser.generateRules(rulesNode);
-
-      latexParser = new LaTeXParser(rules);
-    } catch (error) {
-      
-    }
-
-    return latexParser;
+    return laTeXParser;
   }
 
-  static fromNothing() { return LaTeXParser.fromBNF(bnf); }
+  static fromNothing() {
+    const laTeXParser = LaTeXParser.fromBNF(bnf);
+
+    return laTeXParser;
+  }
 }
 
 Object.assign(LaTeXParser, {

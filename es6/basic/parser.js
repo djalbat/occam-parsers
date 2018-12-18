@@ -13,17 +13,10 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 class BasicParser extends CommonParser {
   static fromBNF(bnf) {
-    let basicParser = null;
-
-    try {
-      const tokens = bnfLexer.tokensFromBNF(bnf),
-            rulesNode = bnfParser.rulesNodeFromTokens(tokens),
-            rules = BNFParser.generateRules(rulesNode);
-
-      basicParser = new BasicParser(rules);
-    } catch (error) {
-      
-    }
+    const tokens = bnfLexer.tokensFromBNF(bnf),
+          rulesNode = bnfParser.rulesNodeFromTokens(tokens),
+          rules = BNFParser.generateRules(rulesNode),
+          basicParser = new BasicParser(rules);
 
     return basicParser;
   }

@@ -4,59 +4,32 @@ const lexers = require('occam-lexers');
 
 const bnf = require('./bnf'),
       BNFParser = require('../bnf/parser'),
-      CommonParser = require('../common/parser'),
-      arrayUtilities = require('../utilities/array'),
-      customGrammarUtilities = require('../utilities/customGrammar'),
-      defaultCustomGrammarTermBNF = require('./defaultCustomGrammar/termBNF'),
-      defaultCustomGrammarExpressionBNF = require('./defaultCustomGrammar/expressionBNF'),
-      defaultCustomGrammarStatementBNF = require('./defaultCustomGrammar/statementBNF'),
-      defaultCustomGrammarMetastatementBNF = require('./defaultCustomGrammar/metastatementBNF');
+      CommonParser = require('../common/parser');
 
-const { BNFLexer } = lexers,
-      { push } = arrayUtilities,
-      { rulesFromBNFs, addQualifiedAndUnqualifiedStatementAndMetastatementRules } = customGrammarUtilities;
+const { BNFLexer } = lexers;
 
 const bnfLexer = BNFLexer.fromNothing(),
-      bnfParser = BNFParser.fromNothing(),
-      defaultCustomGrammarBNFs = [
-        defaultCustomGrammarTermBNF,
-        defaultCustomGrammarExpressionBNF,
-        defaultCustomGrammarStatementBNF, 
-        defaultCustomGrammarMetastatementBNF
-      ],
-      defaultCustomGrammarRules = rulesFromBNFs(defaultCustomGrammarBNFs),
-      defaultCombinedCustomGrammarsRules = defaultCustomGrammarRules; ///
+      bnfParser = BNFParser.fromNothing();
 
 class FlorenceParser extends CommonParser {
-  static fromCombinedCustomGrammarsRules(combinedCustomGrammarsRules) {
-    const florenceParser = FlorenceParser.fromBNF(bnf, combinedCustomGrammarsRules);
-
-    return florenceParser;
-  }
-
-  static fromBNF(bnf, combinedCustomGrammarsRules = defaultCombinedCustomGrammarsRules) {
-    combinedCustomGrammarsRules = addQualifiedAndUnqualifiedStatementAndMetastatementRules(combinedCustomGrammarsRules);  ///
-
+  static fromBNF(bnf) {
     const tokens = bnfLexer.tokensFromBNF(bnf),
           rulesNode = bnfParser.rulesNodeFromTokens(tokens),
-          rules = BNFParser.generateRules(rulesNode);
-
-    push(rules, combinedCustomGrammarsRules);
-
-    const florenceParser = new FlorenceParser(rules);
+          rules = BNFParser.generateRules(rulesNode),
+          florenceParser = new FlorenceParser(rules);
 
     return florenceParser;
   }
 
-  static fromNothing() { return FlorenceParser.fromBNF(bnf); } ///
+  static fromNothing() {
+    const florenceParser = FlorenceParser.fromBNF(bnf);
+
+    return florenceParser;
+  }
 }
 
 Object.assign(FlorenceParser, {
-  bnf,
-  defaultCustomGrammarTermBNF,
-  defaultCustomGrammarExpressionBNF,
-  defaultCustomGrammarStatementBNF,
-  defaultCustomGrammarMetastatementBNF
+  bnf
 });
 
 module.exports = FlorenceParser;

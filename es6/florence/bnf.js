@@ -202,7 +202,7 @@ const bnf = `
 
      
    
-     qualification                        ::= ( "by" | "from" ) reference? ;
+     qualification                        ::=   ( "by" | "from" ) reference? ;
      
      
 
