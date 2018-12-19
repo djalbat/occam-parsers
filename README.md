@@ -9,7 +9,6 @@ The Occam proof assistant's parsers.
 - [Features](#features)
 - [Examples](#examples)
 - [Building](#building)
-- [Resources](#resources)
 - [Contact](#contact)
 
 ## Introduction
@@ -219,12 +218,6 @@ Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have
 
     npm run build-debug
     npm run watch-debug
-
-## Resources
-
-* [Gate Lectures on Compiler Design by Ravindrababu Ravula](https://www.youtube.com/watch?v=Qkwj65l_96I&list=PLEbnTDJUr_IcPtUXFy2b1sGRPsLFMghhS)
-* [Notes on Formal Language Theory and Parsing by James Power](http://www.cs.nuim.ie/~jpower/Courses/Previous/parsing)
-* [Eliminating ambiguity in context free grammars by Rasmus Ejlers Møgelberg](http://itu.dk/people/mogel/SPLC2012/lectures/eliminatingAmbiguity.pdf)
 
 ## Contact
 

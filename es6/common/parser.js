@@ -33,33 +33,18 @@ class CommonParser {
             nodeOrNodes = rule.parse(configuration, noWhitespace);
 
       if (nodeOrNodes !== null) {
-        node = (nodeOrNodes instanceof Array) ?
-                 first(nodeOrNodes) :
-                   nodeOrNodes;
+        if (nodeOrNodes instanceof Array) {
+          const nodes = nodeOrNodes,  ///
+                firstNode = first(nodes);
+
+          node = firstNode; ///
+        } else {
+          node = nodeOrNodes; ///
+        }
       }
     }
 
     return node;
-  }
-
-  rulesAsString() {
-    const maximumRuleNameLength = this.rules.reduce(function(maximumRuleNameLength, rule) {
-            const ruleName = rule.getName(),
-                  ruleNameLength = ruleName.length;
-  
-            maximumRuleNameLength = Math.max(maximumRuleNameLength, ruleNameLength);
-  
-            return maximumRuleNameLength;
-          }, 0),
-          rulesString = this.rules.reduce(function(rulesString, rule) {
-            const ruleString = rule.asString(maximumRuleNameLength);
-  
-            rulesString += ruleString;
-  
-            return rulesString;
-          }, '');
-    
-    return rulesString;
   }
 }
 
