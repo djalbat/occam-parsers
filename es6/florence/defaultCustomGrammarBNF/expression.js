@@ -3,9 +3,7 @@
 const expressionDefaultCustomGrammarBNF = `
 
 
-     expression                           ::=   term 
-     
-                                            ;
+     expression                           ::=   term ;
 
 
 `;
