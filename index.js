@@ -9,8 +9,6 @@ module.exports = {
   BNFParser: require('./lib/bnf/parser'),
   LaTeXParser: require('./lib/latex/parser'),
   BasicParser: require('./lib/basic/parser'),
-  PlainParser: require('./lib/plain/parser'),
   CommonParser: require('./lib/common/parser'),
-  MetaJSONParser: require('./lib/metaJSON/parser'),
   FlorenceParser: require('./lib/florence/parser')
 };
