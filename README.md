@@ -1,6 +1,6 @@
 # Parsers
 
-The Occam proof assistant's parsers.
+[Occam](https://github.com/jecs-imperial/occam)'s parsers.
 
 ### Contents
 
