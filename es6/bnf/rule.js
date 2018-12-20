@@ -90,7 +90,11 @@ class Rule {
           ruleNameLength = ruleName.length,
           paddingLength = maximumRuleNameLength - ruleNameLength,
           padding = paddingFromPaddingLength(paddingLength),
-          string = `\n\n  ${this.name}${padding} ::= ${definitionsString} ;`;
+		      definitionsLength = this.definitions.length,
+		      semicolonString = (definitionsLength === 1) ?
+				                      ' ;' :
+				                        `\n\n${maximumPadding}     ;`,
+          string = `\n\n  ${this.name}${padding} ::= ${definitionsString}${semicolonString}`;
 
     return string;
   }
