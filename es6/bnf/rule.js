@@ -75,7 +75,7 @@ class Rule {
     return nonTerminalNode;
   }
   
-  asString(maximumRuleNameLength) {
+  asString(maximumRuleNameLength, multiLine = true) {
     const maximumPadding = paddingFromPaddingLength(maximumRuleNameLength),
           definitionsString = this.definitions.reduce(function(definitionsString, definition) {
             const definitionString = definition.asString();
@@ -90,7 +90,14 @@ class Rule {
           ruleNameLength = ruleName.length,
           paddingLength = maximumRuleNameLength - ruleNameLength,
           padding = paddingFromPaddingLength(paddingLength),
-          string = `\n\n  ${this.name}${padding} ::= ${definitionsString} ;`;
+		      definitionsLength = this.definitions.length;
+
+    multiLine = multiLine && (definitionsLength > 1);  ///
+
+    const semicolonString = multiLine ?
+                              `\n\n${maximumPadding}     ;` :
+                                ' ;',
+          string = `\n\n  ${this.name}${padding} ::= ${definitionsString}${semicolonString}`;
 
     return string;
   }
