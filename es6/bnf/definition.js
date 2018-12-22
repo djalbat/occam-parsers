@@ -83,7 +83,7 @@ class Definition {
           const partString = part.asString();
 
           if (partsString === null) {
-            partsString = partString;
+            partsString = partString; ///
           } else {
             partsString = `${partsString} ${partString}`;
           }

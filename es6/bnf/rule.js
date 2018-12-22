@@ -76,27 +76,32 @@ class Rule {
   }
   
   asString(maximumRuleNameLength, multiLine = true) {
+    const definitionsLength = this.definitions.length;
+
+    multiLine = multiLine && (definitionsLength > 1);  ///
+
     const maximumPadding = paddingFromPaddingLength(maximumRuleNameLength),
           definitionsString = this.definitions.reduce(function(definitionsString, definition) {
             const definitionString = definition.asString();
 
-            definitionsString = (definitionsString !== null) ?
-                                 `${definitionsString}\n\n${maximumPadding}     | ${definitionString}` :
-                                    definitionString;
+            if (definitionsString === null) {
+              definitionsString = definitionString; ///
+            } else {
+              definitionsString = multiLine ?
+                                   `${definitionsString}\n\n${maximumPadding}     | ${definitionString}` :
+                                     `${definitionsString} | ${definitionString}`;
+            }
 
             return definitionsString;
           }, null),
           ruleName = this.name, ///
           ruleNameLength = ruleName.length,
           paddingLength = maximumRuleNameLength - ruleNameLength,
-          padding = paddingFromPaddingLength(paddingLength),
-		      definitionsLength = this.definitions.length;
-
-    multiLine = multiLine && (definitionsLength > 1);  ///
+          padding = paddingFromPaddingLength(paddingLength);
 
     const semicolonString = multiLine ?
-                              `\n\n${maximumPadding}     ;` :
-                                ' ;',
+                             `\n\n${maximumPadding}     ;` :
+                               ' ;',
           string = `\n\n  ${this.name}${padding} ::= ${definitionsString}${semicolonString}`;
 
     return string;
