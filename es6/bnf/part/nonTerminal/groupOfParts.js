@@ -25,14 +25,13 @@ class GroupOfPartsPart extends NonTerminalPart {
 
     const savedIndex = configuration.getSavedIndex(),
           everyPartParsed = this.parts.every(function(part) {
-            const partNodeOrNodes = part.parse(configuration, noWhitespace),
-                  partParsed = (partNodeOrNodes !== null);
+            const partNodeOrNodes = part.parse(configuration, noWhitespace);
 
-            if (partParsed) {
+            if (partNodeOrNodes !== null) {
               nodes = nodes.concat(partNodeOrNodes);
-            }
 
-            return partParsed;
+              return true;
+            }
           });
 
     if (!everyPartParsed) {

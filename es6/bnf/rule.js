@@ -58,9 +58,9 @@ class Rule {
     const someDefinitionParsed = this.definitions.some(function(definition) {
       definitionNodes = definition.parse(configuration, noWhitespace);
 
-      const definitionParsed = (definitionNodes !== null);
-
-      return definitionParsed;
+      if (definitionNodes !== null) {
+        return true;
+      }
     });
 
     if (someDefinitionParsed) {
