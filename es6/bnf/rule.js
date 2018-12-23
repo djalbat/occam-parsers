@@ -19,13 +19,6 @@ class Rule {
     return this.NonTerminalNode;
   }
   
-  doDefinitionsExist() {
-    const definitionsLength = this.definitions.length,
-          definitionsExist = (definitionsLength > 0);
-    
-    return definitionsExist;
-  }
-
   setName(name) {
     this.name = name;
   }
@@ -34,8 +27,8 @@ class Rule {
     this.definitions = definitions;
   }
 
-  setNode(node) {
-    this.node = node;
+  setNonTerminalNode(NonTerminalNode) {
+    this.NonTerminalNode = NonTerminalNode;
   }
 
   addDefinitions(definitions) {
