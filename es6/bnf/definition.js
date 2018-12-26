@@ -1,11 +1,8 @@
 'use strict';
 
-const RuleNamePart = require('./part/nonTerminal/ruleName'),
-      arrayUtilities = require('../utilities/array');
+const arrayUtilities = require('../utilities/array');
 
-const { first, allButFirst } = arrayUtilities,
-      { type } = RuleNamePart,
-      ruleNamePartType = type;  ///
+const { first, allButFirst } = arrayUtilities;
 
 class Definition {
   constructor(parts) {
@@ -32,25 +29,6 @@ class Definition {
     const allButFirstParts = allButFirst(this.parts);
 
     return allButFirstParts;
-  }
-
-  isFirstPartRuleNamePart() {
-    let firstPartRuleNamePart;
-    
-    const firstPart = this.getFirstPart(),
-          firstPartTerminalPart = firstPart.isTerminalPart(),
-          firstPartNonTerminalPart = !firstPartTerminalPart;
-    
-    if (firstPartNonTerminalPart) {
-      const nonTerminalPart = firstPart,  ///
-            nonTerminalPartType = nonTerminalPart.getType(),
-            nonTerminalPartTypeRuleNamePartType = (nonTerminalPartType === ruleNamePartType),
-            nonTerminalPartRuleNamePart = nonTerminalPartTypeRuleNamePartType;  ///
-
-      firstPartRuleNamePart = nonTerminalPartRuleNamePart;  ///      
-    }
-    
-    return firstPartRuleNamePart;
   }
 
   parse(configuration, noWhitespace) {
