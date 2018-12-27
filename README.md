@@ -37,7 +37,7 @@ All parsers share common functionality. The last two parse content according to 
                               
       oneOrMoreParts       ::=  part<NO_WHITESPACE>"+" ;
       
-      groupOfParts         ::=  "(" part+ ")" ;
+      groupOfParts         ::=  "(" part part+ ")" ;
       
       choiceOfParts        ::=  "(" part ( "|" part )+ ")" ;
     
@@ -137,7 +137,7 @@ This can be done with the `<NO_WHITESPACE>` special symbol. For example:
 
 This can be done with the brackets. For example:
 
-     terms                      ::=   term ( "," term)* ;
+     terms                      ::=   term ( "," term )* ;
 
 ### Choosing between parts
 
@@ -206,11 +206,7 @@ Both the lexical patterns and BNF as well as the content can be changed. Given t
 
 ### Florence example
 
-This uses the BNF part of Occam's vernacular, called Florence. There are also three adjunct, default custom grammars for metastatements, statements and terms:
-
-* [es6/florence/defaultCustomGrammar/metastatementBNF.js](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/defaultCustomGrammar/metastatementBNF.js)
-* [es6/florence/defaultCustomGrammar/statementBNF.js](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/defaultCustomGrammar/statementBNF.js)
-* [es6/florence/defaultCustomGrammar/termBNF.js](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/defaultCustomGrammar/termBNF.js)
+This uses the BNF part of Occam's vernacular, called Florence.
 
 ## Building
 

@@ -30,7 +30,7 @@ const bnf = `
     
 
 
-                           | "(" part+ ")" part~
+                           | "(" part part+ ")" part~
 
                            | "(" part ( "|" part )+ ")" part~
 

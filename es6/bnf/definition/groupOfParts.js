@@ -27,6 +27,7 @@ class GroupOfPartsDefinition extends Definition {
           oneOrMorePartRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart, noWhitespace),
           parts = [
             openBracketTerminalSymbolPart,
+            partRuleNamePart,
             oneOrMorePartRuleNamePartsPart,
             closeBracketTerminalSymbolPart,
             rightRecursivePartRuleNamePart
