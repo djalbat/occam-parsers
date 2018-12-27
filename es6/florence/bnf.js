@@ -21,31 +21,31 @@ const bnf = `
 
      declaration                          ::=   "Types" typesDeclaration <END_OF_LINE>
 
-                                            |   "Contexts" contextsDeclaration  <END_OF_LINE>
+                                            |   "Contexts" contextsDeclaration <END_OF_LINE>
 
-                                            |   "Variables" variablesDeclaration  <END_OF_LINE>
+                                            |   "Variables" variablesDeclaration <END_OF_LINE>
 
-                                            |   "Constructors" constructorsDeclaration  <END_OF_LINE>
+                                            |   "Constructors" constructorsDeclaration <END_OF_LINE>
 
-                                            |   "DependentTypes" dependentTypesDeclaration  <END_OF_LINE>
+                                            |   "DependentTypes" dependentTypesDeclaration <END_OF_LINE>
 
-                                            |   "Metavariables" metavariablesDeclaration  <END_OF_LINE>
+                                            |   "Metavariables" metavariablesDeclaration <END_OF_LINE>
 
-                                            |   "Abbreviations" abbreviationsDeclaration  <END_OF_LINE>
+                                            |   "Abbreviations" abbreviationsDeclaration <END_OF_LINE>
 
-                                            |   "Type" typeDeclaration  <END_OF_LINE>
+                                            |   "Type" typeDeclaration <END_OF_LINE>
 
-                                            |   "Context" contextDeclaration  <END_OF_LINE>
+                                            |   "Context" contextDeclaration <END_OF_LINE>
 
-                                            |   "Variable" variableDeclaration  <END_OF_LINE>
+                                            |   "Variable" variableDeclaration <END_OF_LINE>
 
-                                            |   "Constructor" constructorDeclaration  <END_OF_LINE>
+                                            |   "Constructor" constructorDeclaration <END_OF_LINE>
 
-                                            |   "DependentType" dependentTypeDeclaration  <END_OF_LINE>
+                                            |   "DependentType" dependentTypeDeclaration <END_OF_LINE>
                                             
-                                            |   "Metavariable" metavariableDeclaration  <END_OF_LINE>
+                                            |   "Metavariable" metavariableDeclaration <END_OF_LINE>
 
-                                            |   "Abbreviation" abbreviationDeclaration  <END_OF_LINE>
+                                            |   "Abbreviation" abbreviationDeclaration <END_OF_LINE>
 
                                             ;
                                             
