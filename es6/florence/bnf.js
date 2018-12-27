@@ -59,19 +59,19 @@ const bnf = `
 
      
 
-     typesDeclaration                     ::=   typeDeclaration ( "," typeDeclaration)+ ;
+     typesDeclaration                     ::=   typeDeclaration ( "," typeDeclaration )+ ;
 
-     contextsDeclaration                  ::=   contextDeclaration ( "," contextDeclaration)+ ;
+     contextsDeclaration                  ::=   contextDeclaration ( "," contextDeclaration )+ ;
 
-     variablesDeclaration                 ::=   variableDeclaration ( "," variableDeclaration)+ ;
+     variablesDeclaration                 ::=   variableDeclaration ( "," variableDeclaration )+ ;
    
-     constructorsDeclaration              ::=   constructorDeclaration ( "," constructorDeclaration)+ ;
+     constructorsDeclaration              ::=   constructorDeclaration ( "," constructorDeclaration )+ ;
    
-     dependentTypesDeclaration            ::=   dependentTypeDeclaration ( "," dependentTypeDeclaration)* ;
+     dependentTypesDeclaration            ::=   dependentTypeDeclaration ( "," dependentTypeDeclaration )* ;
    
-     metavariablesDeclaration             ::=   metavariableDeclaration ( "," metavariableDeclaration)* ;
+     metavariablesDeclaration             ::=   metavariableDeclaration ( "," metavariableDeclaration )* ;
    
-     abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbreviationDeclaration)* ;
+     abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbreviationDeclaration )* ;
 
 
      typeDeclaration                      ::=   typeName ;
