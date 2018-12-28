@@ -2,13 +2,14 @@
 
 const bnf = `
 
-    rules                ::= rule+ ;
+
+    rules                 ::= rule+ ;
     
-    rule                 ::= ruleName "::=" definitions ";" ;
+    rule                  ::= ruleName "::=" definitions ";" ;
     
-    definitions          ::= definition ( "|" definition )* ;
+    definitions           ::= definition ( "|" definition )* ;
     
-    definition           ::= part+ ;
+    definition            ::= part+ ;
     
 
     
@@ -22,7 +23,7 @@ const bnf = `
     
 
     
-    part                 ::= "<NO_WHITESPACE>" part part~
+    part                  ::= "<NO_WHITESPACE>" part part~
     
 
     
@@ -30,49 +31,50 @@ const bnf = `
     
 
 
-                           | "(" part part+ ")" part~
+                            | "(" part part+ ")" part~
 
-                           | "(" part ( "|" part )+ ")" part~
-
-                           | ruleName part~
+                            | "(" part ( "|" part )+ ")" part~
+ 
+                            | ruleName part~
+     
+                            | regularExpression part~
+     
+                            | significantTokenType part~
+     
+                            | terminalSymbol part~
+     
+                            | endOfLine part~
+     
+                            | epsilon part~
+     
+                            | wildcard part~ 
+                             
+                            ;
     
-                           | regularExpression part~
+    ruleName              ::= [name] ;
     
-                           | significantTokenType part~
+    regularExpression     ::= [regularExpression] ;
     
-                           | terminalSymbol part~
+    significantTokenType  ::= [type] ;
     
-                           | endOfLine part~
+    terminalSymbol        ::= [stringLiteral] ;
     
-                           | epsilon part~
+    endOfLine             ::= "<END_OF_LINE>" ;
     
-                           | wildcard part~ 
+    epsilon               ::= "ε" ;
+    
+    wildcard              ::= "." ;
+    
+    part~                 ::= <NO_WHITESPACE>"?" part~
+    
+                            | <NO_WHITESPACE>"*" part~
+     
+                            | <NO_WHITESPACE>"+" part~
+     
+                            | ε 
                            
-                           ;
-    
-    ruleName             ::= [name] ;
-    
-    regularExpression    ::= [regularExpression] ;
-    
-    significantTokenType ::= [type] ;
-    
-    terminalSymbol       ::= [stringLiteral] ;
-    
-    endOfLine            ::= "<END_OF_LINE>" ;
-    
-    epsilon              ::= "ε" ;
-    
-    wildcard             ::= "." ;
-    
-    part~                ::= <NO_WHITESPACE>"?" part~
-    
-                           | <NO_WHITESPACE>"*" part~
-    
-                           | <NO_WHITESPACE>"+" part~
-    
-                           | ε 
-                           
-                           ;
+                            ;
+       
                                                  
 `;
 

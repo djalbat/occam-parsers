@@ -3,12 +3,6 @@
 const statementDefaultCustomGrammarBNF = `
 
 
-     typeAssertion                        ::=   expression ":" typeName ;
-
-     equality                             ::=   expression "=" expression ;
-
-
-
      statement                            ::=   typeAssertion 
                                                   
                                             |   equality 
@@ -16,6 +10,11 @@ const statementDefaultCustomGrammarBNF = `
                                             |   nonsense
 
                                             ;
+
+
+     typeAssertion                        ::=   expression ":" typeName ;
+
+     equality                             ::=   expression "=" expression ;
 
 
 `;

@@ -3,18 +3,6 @@
 const metastatementDefaultCustomGrammarBNF = `
 
 
-     proofAssertion                       ::=   context "⊢" judgement ;
-     
-     contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
-
-     judgement                            ::=   reference "::" metastatement ;
-
-     subproof                             ::=   supposition "..." metastatement ;
-
-     supposition                          ::=   "[" metastatement "]" ;
-
-
-
      metastatement                        ::=   proofAssertion 
            
                                             |   contextDefinition 
@@ -28,6 +16,17 @@ const metastatementDefaultCustomGrammarBNF = `
                                             ;
 
       
+     proofAssertion                       ::=   context "⊢" judgement ;
+     
+     contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
+
+     judgement                            ::=   reference "::" metastatement ;
+
+     subproof                             ::=   supposition "..." metastatement ;
+
+     supposition                          ::=   "[" metastatement "]" ;
+
+
 `;
 
 module.exports = metastatementDefaultCustomGrammarBNF;
