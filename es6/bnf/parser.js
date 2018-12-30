@@ -18,17 +18,9 @@ const bnf = require('./bnf'),
       SignificantTokenTypeRule = require('./rule/significantTokenType');
 
 class BNFParser extends CommonParser {
-	rulesNodeFromTokens(tokens) {
+	rulesFromTokens(tokens) {
     const node = this.parse(tokens),
-          rulesNode = node; ///
-
-    return rulesNode;
-  }
-
-  static generateRules(rulesNode) {
-    const rules = (rulesNode !== null) ?
-                     rulesNode.generateRules(Rule) :
-                       [];
+          rules = node.generateRules(Rule);
 
     return rules;
   }

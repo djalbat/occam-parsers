@@ -14,8 +14,7 @@ const bnfLexer = BNFLexer.fromNothing(),
 class BasicParser extends CommonParser {
   static fromBNF(bnf) {
     const tokens = bnfLexer.tokensFromBNF(bnf),
-          rulesNode = bnfParser.rulesNodeFromTokens(tokens),
-          rules = BNFParser.generateRules(rulesNode),
+          rules = bnfParser.rulesFromTokens(tokens),
           basicParser = new BasicParser(rules);
 
     return basicParser;
