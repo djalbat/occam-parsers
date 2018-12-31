@@ -27,7 +27,7 @@ Object.assign(RuleNameInput, {
   tagName: 'input',
   defaultProperties: {
     type: 'text',
-    className: 'ruleName',
+    className: 'rule-name',
     spellCheck: 'false'
   }
 });

@@ -69,17 +69,17 @@ textarea.error {
 }
 
 textarea.bnf,
-textarea.parseTree,
-textarea.lexicalEntries {
+textarea.parse-tree,
+textarea.lexical-entries {
   overflow-wrap: normal;
 }
 
-textarea.parseTree {
+textarea.parse-tree {
   font-size: 0.75rem;
   margin-bottom: 1rem;
 }
 
-textarea.lexicalEntries {
+textarea.lexical-entries {
   overflow-wrap: normal;
   margin-bottom: 1rem;
 }

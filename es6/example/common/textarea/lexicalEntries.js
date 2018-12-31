@@ -46,7 +46,7 @@ class LexicalEntriesTextarea extends InputElement {
 Object.assign(LexicalEntriesTextarea, {
   tagName: 'textarea',
   defaultProperties: {
-    className: 'lexicalEntries',
+    className: 'lexical-entries',
     spellCheck: 'false'
   }
 });

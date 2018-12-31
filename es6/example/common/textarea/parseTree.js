@@ -52,7 +52,7 @@ class ParseTreeTextarea extends InputElement {
 Object.assign(ParseTreeTextarea, {
   tagName: 'textarea',
   defaultProperties: {
-    className: 'parseTree',
+    className: 'parse-tree',
     spellCheck: 'false',
     readOnly: true
   }
