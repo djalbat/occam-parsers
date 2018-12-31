@@ -39,11 +39,6 @@ h2 {
   font-size: 1.25rem;
 }
 
-p {
-  margin-top: 1rem;
-    text-align: center;
-}
-
 input[type=text],
 textarea {
   width: 100%;
