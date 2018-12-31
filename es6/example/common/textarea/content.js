@@ -18,25 +18,13 @@ class ContentTextarea extends InputElement {
     this.setValue(value);
   }
 
-  showError() {
-    this.addClass('error');
-  }
-
-  hideError() {
-    this.removeClass('error');
-  }
-
   parentContext() {
     const getContent = this.getContent.bind(this),
-          setContent = this.setContent.bind(this),
-          showError = this.showError.bind(this),
-          hideError = this.hideError.bind(this);
+          setContent = this.setContent.bind(this);
 
     return ({
       getContent,
-      setContent,
-      showError,
-      hideError
+      setContent
     });
   }
 
