@@ -17,8 +17,9 @@ class ParseTree {
   }
 
   getWidth() {
-    let linesLength = this.lines.length,
-          width = undefined;
+    let width;
+
+    let linesLength = this.lines.length;
 
     if (linesLength === 0) {
       width = 0;

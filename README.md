@@ -6,8 +6,9 @@
 
 - [Introduction](#introduction)
 - [Installation](#installation)
-- [Features](#features)
+- [Usage](#usage)
 - [Examples](#examples)
+- [Features](#features)
 - [Building](#building)
 - [Contact](#contact)
 
@@ -99,52 +100,24 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
 You will need to do this if you want to look at the examples.
 
-## Features
+## Usage
 
-### Operators
+```js
+const lexers = require('occam-lexers'),
+      parsers = require('occam-parsers';
 
-- `*` zero or more
-- `+` one or more
-- `?` optional
+const { FlorenceLexer } = lexers,
+      { FlorenceParser } = parsers;
 
-These bind tightly to the symbols to their left and can be chained. However, both the `*+` and `?+` chains will cause an infinite loop and must be avoided. 
+const florenceLexer = FlorenceLexer.fromNothing(),
+      florenceParser = FlorenceParser.fromNothing();
 
-### Regular expressions
+const content = ...,
+      tokens = florenceLexer.tokenise(content),
+      node = florenceParser.parse(tokens);
 
-A regular expression is distinguished by the usual leading and trailing forward slashes:
-
-    /\d+/
-    
-### Matching significant token types
-
-This can be done with a symbol that is identical to the significant token type in question, contained within square brackets. For example:
-
-     name                       ::=   [unassigned] ;
-
-### Matching end of line tokens
-
-This can be done with a special `<END_OF_LINE>` special symbol. For example:
-
-     verticalSpace              ::=   <END_OF_LINE>+ ;
-
-### Matching no whitespace
-
-This can be done with the `<NO_WHITESPACE>` special symbol. For example:
-
-     parenthesisedTerms         ::=   "("<NO_WHITESPACE>terms<NO_WHITESPACE>")" ;
-        
-### Grouping parts
-
-This can be done with the brackets. For example:
-
-     terms                      ::=   term ( "," term )* ;
-
-### Choosing between parts
-
-The vertical bar symbol `|` is overloaded and can be used in conjunction with brackets to choose between parts as opposed to definitions. For example:
-  
-     justifiedStatement         ::=   statement ( "by" | "from" ) reference <END_OF_LINE> ;
-
+...
+```
 
 ## Examples
 
@@ -207,6 +180,52 @@ Both the lexical patterns and BNF as well as the content can be changed. Given t
 ### Florence example
 
 This uses the BNF part of Occam's vernacular, called Florence.
+
+## Features
+
+### Operators
+
+- `*` zero or more
+- `+` one or more
+- `?` optional
+
+These bind tightly to the symbols to their left and can be chained. However, both the `*+` and `?+` chains will cause an infinite loop and must be avoided.
+
+### Regular expressions
+
+A regular expression is distinguished by the usual leading and trailing forward slashes:
+
+    /\d+/
+
+### Matching significant token types
+
+This can be done with a symbol that is identical to the significant token type in question, contained within square brackets. For example:
+
+     name                       ::=   [unassigned] ;
+
+### Matching end of line tokens
+
+This can be done with a special `<END_OF_LINE>` special symbol. For example:
+
+     verticalSpace              ::=   <END_OF_LINE>+ ;
+
+### Matching no whitespace
+
+This can be done with the `<NO_WHITESPACE>` special symbol. For example:
+
+     parenthesisedTerms         ::=   "("<NO_WHITESPACE>terms<NO_WHITESPACE>")" ;
+
+### Grouping parts
+
+This can be done with the brackets. For example:
+
+     terms                      ::=   term ( "," term )* ;
+
+### Choosing between parts
+
+The vertical bar symbol `|` is overloaded and can be used in conjunction with brackets to choose between parts as opposed to definitions. For example:
+
+     justifiedStatement         ::=   statement ( "by" | "from" ) reference <END_OF_LINE> ;
 
 ## Building
 
