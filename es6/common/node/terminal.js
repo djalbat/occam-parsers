@@ -43,6 +43,10 @@ class TerminalNode {
 
   getContent() { return this.significantToken.getContent(); }
 
+  setSignificantToken(significantToken) {
+    this.significantToken = significantToken;
+  }
+
   asParseTree(tokens) {
     const terminalNode = this,  ///
           terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeAndTokens(terminalNode, tokens),

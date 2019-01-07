@@ -80,6 +80,10 @@ class NonTerminalNode {
     return nullified;
   }
 
+  setRuleName(ruleName) {
+    this.ruleName = ruleName;
+  }
+
   setChildNodes(childNodes) {
     this.childNodes = childNodes;
   }
