@@ -3,7 +3,7 @@
 const arrayUtilities = require('../../utilities/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
-const { first, second, discardFourthThenSecond } = arrayUtilities;
+const { first, third } = arrayUtilities;
 
 class RuleNode extends NonTerminalNode {
   generateRule(Rule) {
@@ -27,15 +27,15 @@ class RuleNode extends NonTerminalNode {
   
   generateDefinitions() {
     const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          definitionsNode = secondChildNode,  ///
+          thirdChildNode = third(childNodes),
+          definitionsNode = thirdChildNode,  ///
           definitions = definitionsNode.generateDefinitions();
     
     return definitions;
   }
 
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = discardFourthThenSecond(nodes),
+    const childNodes = nodes, ///
           ruleNode = NonTerminalNode.fromRuleNameAndChildNodes(RuleNode, ruleName, childNodes);
 
     return ruleNode;

@@ -5,7 +5,7 @@ const NonTerminalPart = require('../../part/nonTerminal'),
       arrayUtilities = require('../../../utilities/array');
 
 const { isNodeChoiceNode } = bnfUtilities,
-      { second, discardOdd, discardLastThenFirst } = arrayUtilities;
+      { second, even, allButFirstAndLast } = arrayUtilities;
 
 const type = 'ChoiceOfParts';
 
@@ -58,13 +58,17 @@ class ChoiceOfPartsPart extends NonTerminalPart {
   static fromNodes(nodes) {
     let choiceOfPartsPart = null;
     
-    nodes = discardLastThenFirst(nodes);
+    const allButFirstAndLastNodes = allButFirstAndLast(nodes);
+
+    nodes = allButFirstAndLastNodes;  ///
     
     const secondNode = second(nodes),
           secondNodeChoiceNode = isNodeChoiceNode(secondNode);
     
     if (secondNodeChoiceNode) {
-      nodes = discardOdd(nodes);
+      const evenNodes = even(nodes);
+
+      nodes = evenNodes;  ///
 
       const noWhitespace = false,
             parts = nodes.map(function(node) {

@@ -3,7 +3,7 @@
 const NonTerminalPart = require('../../part/nonTerminal'),
       arrayUtilities = require('../../../utilities/array');
 
-const { discardLastThenFirst } = arrayUtilities;
+const { allButFirstAndLast } = arrayUtilities;
 
 const type = 'GroupOfParts';
 
@@ -61,7 +61,9 @@ class GroupOfPartsPart extends NonTerminalPart {
   }
 
   static fromNodes(nodes) {
-    nodes = discardLastThenFirst(nodes);
+    const allButFirstAndLastNodes = allButFirstAndLast(nodes);
+
+    nodes = allButFirstAndLastNodes;  ///
 
     const noWhitespace = false,
           parts = nodes.map(function(node) {

@@ -4,47 +4,17 @@ const necessary = require('necessary');
 
 const { arrayUtilities } = necessary;
 
-function allButFirst(array) { return array.slice(1); }
+function even(array) { return array.filter(function(entry, index) { return isEven(index); }); }
 
-function keepFirst(array) { return keepNth(array, 0); }
+function allButFirst(array) { return discardNth(array, 0); }
 
-function keepSecond(array) { return keepNth(array, 1); }
-
-function keepLast(array) { return keepNth(array, -1); }
-
-function discardFirst(array) { return discardNth(array, 0); }
-
-function discardSecond(array) { return discardNth(array, 1); }
-
-function discardLast(array) { return discardNth(array, -1); }
-
-function discardLastThenFirst(array) { return discardNth(discardNth(array, -1), 0); }
-
-function discardFourthThenSecond(array) { return discardNth(discardNth(array, 3), 1); }
-
-function discardFifthThenSecond(array) { return discardNth(discardNth(array, 4), 1); }
-
-function discardOdd(array) { return array.filter(function(entry, index) { return isEven(index); }); }
+function allButFirstAndLast(array) { return discardNth(discardNth(array, -1), 0); }
 
 module.exports = Object.assign(arrayUtilities, {
+  even,
   allButFirst,
-  keepFirst,
-  keepSecond,
-  keepLast,
-  discardFirst,
-  discardSecond,
-  discardLast,
-  discardLastThenFirst,
-  discardFourthThenSecond,
-  discardFifthThenSecond,
-  discardOdd
+  allButFirstAndLast
 });
-
-function keepNth(array, n) {
-  array = array.slice();
-
-  return array.splice(n, 1);
-}
 
 function discardNth(array, n) {
   array = array.slice();

@@ -3,12 +3,13 @@
 const arrayUtilities = require('../../utilities/array'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
-const { discardOdd } = arrayUtilities;
+const { even } = arrayUtilities;
 
 class DefinitionsNode extends NonTerminalNode {
   generateDefinitions() {
     const childNodes = this.getChildNodes(),
-          definitionNodes = childNodes, ///
+          evenChildNodes = even(childNodes),  ///
+          definitionNodes = evenChildNodes, ///
           definitions = definitionNodes.map(function(definitionNode) {
             const definition = definitionNode.generateDefinition();
             
@@ -19,7 +20,7 @@ class DefinitionsNode extends NonTerminalNode {
   }
 
   static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = discardOdd(nodes),
+    const childNodes = nodes, ///
           definitionsNode = NonTerminalNode.fromRuleNameAndChildNodes(DefinitionsNode, ruleName, childNodes);
 
     return definitionsNode;
