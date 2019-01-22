@@ -3,7 +3,7 @@
 const NonTerminalNode = require('../../common/node/nonTerminal');
 
 class NoWhitespacePartNode extends NonTerminalNode {
-  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(NoWhitespacePartNode, nodes, ruleName); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(NoWhitespacePartNode, ruleName, childNodes); }
 }
 
 module.exports = NoWhitespacePartNode;

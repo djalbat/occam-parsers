@@ -14,13 +14,8 @@ class RulesNode extends NonTerminalNode {
     
     return rules;
   }
-  
-  static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = nodes, ///
-          rulesNode = NonTerminalNode.fromRuleNameAndChildNodes(RulesNode, ruleName, childNodes);
 
-    return rulesNode;
-  }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(RulesNode, ruleName, childNodes); }
 }
 
 module.exports = RulesNode;

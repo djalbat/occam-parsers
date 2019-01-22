@@ -96,19 +96,6 @@ class NonTerminalNode {
     return parseTree;
   }
 
-  static fromNodesAndRuleName(Class, nodes, ruleName) {
-    if (ruleName === undefined) {
-      ruleName = nodes;
-      nodes = Class;
-      Class = NonTerminalNode;
-    }
-    
-    const childNodes = nodes, ///
-          nonTerminalNode = Class.fromRuleNameAndChildNodes(Class, ruleName, childNodes);
-
-    return nonTerminalNode;
-  }
-
   static fromRuleNameAndChildNodes(Class, ruleName, childNodes) {
     if (childNodes === undefined) {
       childNodes = ruleName;

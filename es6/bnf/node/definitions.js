@@ -19,12 +19,7 @@ class DefinitionsNode extends NonTerminalNode {
     return definitions;
   }
 
-  static fromNodesAndRuleName(nodes, ruleName) {
-    const childNodes = nodes, ///
-          definitionsNode = NonTerminalNode.fromRuleNameAndChildNodes(DefinitionsNode, ruleName, childNodes);
-
-    return definitionsNode;
-  }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(DefinitionsNode, ruleName, childNodes); }
 }
 
 module.exports = DefinitionsNode;

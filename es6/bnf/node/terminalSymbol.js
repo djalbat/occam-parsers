@@ -26,7 +26,7 @@ class TerminalSymbolNode extends NonTerminalNode {
     return content;
   }
 
-  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(TerminalSymbolNode, nodes, ruleName); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(TerminalSymbolNode, ruleName, childNodes); }
 }
 
 module.exports = TerminalSymbolNode;

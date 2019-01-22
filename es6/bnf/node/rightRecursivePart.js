@@ -3,7 +3,7 @@
 const NonTerminalNode = require('../../common/node/nonTerminal');
 
 class RightRecursivePartNode extends NonTerminalNode {
-  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(RightRecursivePartNode, nodes, ruleName); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(RightRecursivePartNode, ruleName, childNodes); }
 }
 
 module.exports = RightRecursivePartNode;

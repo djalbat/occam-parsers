@@ -58,9 +58,9 @@ class Rule {
 
     if (someDefinitionParsed) {
       const ruleName = this.name,
-            nodes = definitionNodes;  ///
+            childNodes = definitionNodes;  ///
 
-      nonTerminalNode = this.NonTerminalNode.fromNodesAndRuleName(nodes, ruleName);
+      nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
     }
 
     configuration.decreaseDepth();

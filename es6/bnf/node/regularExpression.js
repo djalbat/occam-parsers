@@ -27,7 +27,7 @@ class RegularExpressionNode extends NonTerminalNode {
     return regularExpression;
   }
 
-  static fromNodesAndRuleName(nodes, ruleName) { return NonTerminalNode.fromNodesAndRuleName(RegularExpressionNode, nodes, ruleName); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(RegularExpressionNode, ruleName, childNodes); }
 }
 
 module.exports = RegularExpressionNode;
