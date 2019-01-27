@@ -3,7 +3,7 @@
 const bnf = `
 
 
-    rules                 ::= rule+ ;
+    document              ::= ( rule | error )+ ;
     
     rule                  ::= ruleName "::=" definitions ";" ;
     
@@ -75,6 +75,7 @@ const bnf = `
                            
                             ;
        
+    error                 ::= . ;
                                                  
 `;
 

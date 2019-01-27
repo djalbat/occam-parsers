@@ -22,7 +22,7 @@ Three parsers are documented:
 
 All parsers share common functionality. The last two parse content according to rules defined in a variant of BNF. The BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant that they implement: 
 
-      rules                ::=  rule+ ;
+      document             ::=  ( rule | error )+ ;
       
       rule                 ::=  ruleName "::=" definitions ";" ;
       
@@ -83,6 +83,8 @@ All parsers share common functionality. The last two parse content according to 
       epsilon              ::=  "ε" ;
     
       wildcard             ::=  "." ;
+
+      error                ::=  . ;
 
 ## Installation
 
