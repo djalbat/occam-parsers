@@ -7,7 +7,7 @@ const Definition = require('../definition'),
 
 const { RightRecursivePartRuleName } = ruleNames;
 
-class RightRecursivePartRuleDefinition extends Definition {
+class RightRecursivePartDefinition extends Definition {
   constructor(terminalSymbolContent) {
     let noWhitespace;
 
@@ -28,4 +28,4 @@ class RightRecursivePartRuleDefinition extends Definition {
   }
 }
 
-module.exports = RightRecursivePartRuleDefinition;
+module.exports = RightRecursivePartDefinition;

@@ -6,7 +6,7 @@ const Rule = require('../rule'),
       ruleNames = require('../ruleNames'),
       EpsilonDefinition = require('../definition/epsilon'),
       RightRecursivePartNode = require('../node/rightRecursivePart'),
-      RightRecursivePartRuleDefinition = require('../definition/rightRecursivePartRule');
+      RightRecursivePartDefinition = require('../definition/rightRecursivePart');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
@@ -18,15 +18,15 @@ class RightRecursivePartRule extends Rule {
     const plusTerminalSymbolContent = plus,
           asteriskTerminalSymbolContent = asterisk,
           questionMarkTerminalSymbolContent = questionMark,
-          optionalRightRecursivePartRuleDefinition = new RightRecursivePartRuleDefinition(questionMarkTerminalSymbolContent), ///
-          zeroOrMoreRightRecursivePartRuleDefinition = new RightRecursivePartRuleDefinition(asteriskTerminalSymbolContent), ///
-          oneOrMoreRightRecursivePartRuleDefinition = new RightRecursivePartRuleDefinition(plusTerminalSymbolContent), ///
+          optionalRightRecursivePartDefinition = new RightRecursivePartDefinition(questionMarkTerminalSymbolContent), ///
+          zeroOrMoreRightRecursivePartDefinition = new RightRecursivePartDefinition(asteriskTerminalSymbolContent), ///
+          oneOrMoreRightRecursivePartDefinition = new RightRecursivePartDefinition(plusTerminalSymbolContent), ///
           epsilonDefinition = new EpsilonDefinition(),
           name = RightRecursivePartRuleName,
           definitions = [
-            optionalRightRecursivePartRuleDefinition,
-            zeroOrMoreRightRecursivePartRuleDefinition,
-            oneOrMoreRightRecursivePartRuleDefinition,
+            optionalRightRecursivePartDefinition,
+            zeroOrMoreRightRecursivePartDefinition,
+            oneOrMoreRightRecursivePartDefinition,
             epsilonDefinition
           ],
           Node = RightRecursivePartNode;
