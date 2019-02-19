@@ -1,33 +1,34 @@
 .row {
-  flex: 1;
   display: flex;
-  align-items: stretch;
+  flex-grow: 1;
 }
 
 .column {
-  flex: 1;
   display: flex;
-  align-items: stretch;
+  flex-grow: 1;
 }
 
 .rows {
-  height: 100%;
   display: flex;
-  align-items: stretch;
+  flex-grow: 1;
   flex-direction: column;
 }
 
 .columns {
-  height: 100%;
   display: flex;
-  align-items: stretch;
+  flex-grow: 1;
   flex-direction: row;
 }
 
+.sizeable>.rows,
+.sizeable>.columns {
+  height: 100%;
+}
+
 .vertical.splitter {
-  width: 0.5rem;
+  width: 0.8rem;
 }
 
 .horizontal.splitter {
-  height: 0.5rem;
+  height: 0.8rem;
 }
