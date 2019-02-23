@@ -6,8 +6,9 @@ const arrayUtilities = require('../../utilities/array'),
 const { first, forwardsSome, backwardsSome } = arrayUtilities;
 
 class NonTerminalNode {
-  constructor(ruleName, childNodes) {
+  constructor(ruleName, parentNode, childNodes) {
     this.ruleName = ruleName;
+    this.parentNode = parentNode;
     this.childNodes = childNodes;
   }
 
@@ -25,6 +26,10 @@ class NonTerminalNode {
 
   getRuleName() {
     return this.ruleName;
+  }
+
+  getParentNode() {
+    return this.parentNode;
   }
 
   getChildNodes() {
@@ -84,6 +89,10 @@ class NonTerminalNode {
     this.ruleName = ruleName;
   }
 
+  setParentNode(parentNode) {
+    this.parentNode = parentNode;
+  }
+
   setChildNodes(childNodes) {
     this.childNodes = childNodes;
   }
@@ -100,7 +109,7 @@ class NonTerminalNode {
     if (childNodes === undefined) {
       childNodes = ruleName;
       ruleName = Class;
-      Class = NonTerminalNode;
+      Class = NonTerminalNode;  ///
     }
 
     const childNodesLength = childNodes.length;
@@ -109,7 +118,8 @@ class NonTerminalNode {
       throw new Error(`There are no child nodes at rule '${ruleName}'`);
     }
     
-    const nonTerminalNode = new Class(ruleName, childNodes);
+    const parentNode = undefined, ///
+          nonTerminalNode = new Class(ruleName, parentNode, childNodes);
 
     return nonTerminalNode;
   }
