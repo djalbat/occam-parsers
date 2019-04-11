@@ -94,7 +94,7 @@ const bnf = `
 
      premises                             ::=   "Premises" <END_OF_LINE> metastatement <END_OF_LINE> ( metastatement <END_OF_LINE> )+ ;
 
-     conclusion                           ::=   "Conclusion" <END_OF_LINE> qualifiedMetastatement <END_OF_LINE> ;
+     conclusion                           ::=   "Conclusion" <END_OF_LINE> ( qualifiedMetastatement | metastatement ) <END_OF_LINE> ;
 
      
      
@@ -104,25 +104,51 @@ const bnf = `
      
                                                 metaProofDerivation? 
                                                 
-                                                qualifiedMetastatement <END_OF_LINE> ;
+                                                ( qualifiedMetastatement | metastatement ) <END_OF_LINE> ;
                                                 
                                                 
                                                 
      metastatementDefinition              ::=   "let" metastatement <END_OF_LINE> ;                                           
                                                 
-     metaProofDerivation                  ::=   ( submetalemma | ( qualifiedMetastatement <END_OF_LINE> ) )+  "Therefore" <END_OF_LINE> ;                                           
+     metaProofDerivation                  ::=   ( 
      
-     submetalemma                         ::=   "Suppose" <END_OF_LINE> ( metastatement <END_OF_LINE> )+ 
-     
-                                                ( "Then" <END_OF_LINE> ( submetalemma | ( qualifiedMetastatement <END_OF_LINE> ) )+ )? 
+                                                  submetalemma 
+                                                  
+                                                  | 
+                                                  
+                                                  ( ( qualifiedMetastatement | metastatement ) <END_OF_LINE> ) 
                                                 
-                                                "Hence" <END_OF_LINE> qualifiedMetastatement <END_OF_LINE> ;
+                                                )+  
+     
+                                                "Therefore" <END_OF_LINE> ;                                           
+     
+     submetalemma                         ::=   "Suppose" <END_OF_LINE> 
+     
+                                                ( metastatement <END_OF_LINE> )+ 
+     
+                                                ( 
+                                                
+                                                  "Then" <END_OF_LINE> 
+                                                  
+                                                  ( 
+                                                  
+                                                    submetalemma 
+                                                    
+                                                    | 
+                                                    
+                                                    ( ( qualifiedMetastatement | metastatement ) <END_OF_LINE> ) 
+                                                  
+                                                  )+ 
+                                                
+                                                )? 
+                                                
+                                                "Hence" <END_OF_LINE> ( qualifiedMetastatement | metastatement ) <END_OF_LINE> ;
 
 
 
      metaIndicativeConditional            ::=   "Suppose" <END_OF_LINE> ( metastatement <END_OF_LINE> )+ 
      
-                                                "Hence" <END_OF_LINE> qualifiedMetastatement <END_OF_LINE> ;
+                                                "Hence" <END_OF_LINE> ( qualifiedMetastatement | metastatement ) <END_OF_LINE> ;
 
 
 
@@ -132,33 +158,59 @@ const bnf = `
      
                                                 proofDerivation? 
                                                 
-                                                qualifiedStatement <END_OF_LINE> ;
+                                                ( qualifiedMetastatement | metastatement ) <END_OF_LINE> ;
                                                 
                                                 
                                                 
      statementDefinition                  ::=   "let" statement <END_OF_LINE> ;                                           
 
-     proofDerivation                      ::=   ( sublemma | ( qualifiedStatement <END_OF_LINE> ) )+ "Therefore" <END_OF_LINE> ;
-
-     sublemma                             ::=   "Suppose" <END_OF_LINE> ( statement <END_OF_LINE> )+ 
+     proofDerivation                      ::=   ( 
      
-                                                ( "Then" <END_OF_LINE> ( sublemma | ( qualifiedStatement <END_OF_LINE> ) )+ )? 
+                                                  sublemma 
+                                                  
+                                                  | 
+                                                  
+                                                  ( ( qualifiedMetastatement | metastatement ) <END_OF_LINE> ) 
+     
+                                                )+ 
+     
+                                                "Therefore" <END_OF_LINE> ;
+
+     sublemma                             ::=   "Suppose" <END_OF_LINE> 
+     
+                                                ( statement <END_OF_LINE> )+ 
+     
+                                                ( 
                                                 
-                                                "Hence" <END_OF_LINE> qualifiedStatement <END_OF_LINE> ;
+                                                  "Then" <END_OF_LINE> 
+                                                  
+                                                  ( 
+                                                  
+                                                    sublemma 
+                                                    
+                                                    | 
+                                                    
+                                                    ( ( qualifiedStatement | statement ) <END_OF_LINE> ) 
+                                                  
+                                                  )+ 
+                                                
+                                                )? 
+                                                
+                                                "Hence" <END_OF_LINE> ( qualifiedStatement | statement ) <END_OF_LINE> ;
 
 
 
      indicativeConditional                ::=   "Suppose" <END_OF_LINE> ( statement <END_OF_LINE> )+ 
      
-                                                "Hence" <END_OF_LINE> qualifiedStatement <END_OF_LINE> ;
+                                                "Hence" <END_OF_LINE> ( qualifiedStatement | statement ) <END_OF_LINE> ;
 
 
 
-     qualifiedMetastatement               ::=   metastatement qualification?;
+     qualifiedMetastatement               ::=   metastatement qualification ;
 
-     qualifiedStatement                   ::=   statement qualification?;
+     qualifiedStatement                   ::=   statement qualification ;
    
-     qualification                        ::=   ( "by" | "from" ) reference? ;
+     qualification                        ::=   ( "by" | "from" ) reference ;
      
      
 
