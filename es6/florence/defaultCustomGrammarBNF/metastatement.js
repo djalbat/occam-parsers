@@ -3,28 +3,28 @@
 const metastatementDefaultCustomGrammarBNF = `
 
 
-     metastatement                        ::=   proofAssertion 
+     metastatement                        ::=   contextDefinition qualification? <END_OF_LINE> 
            
-                                            |   contextDefinition 
+                                            |   proofAssertion qualification? <END_OF_LINE>
            
-                                            |   subproof 
-                                            
-                                            |   metavariable 
+                                            |   metavariable qualification? <END_OF_LINE> 
 
-                                            |   nonsense 
+                                            |   subproof qualification? <END_OF_LINE> 
+                                            
+                                            |   nonsense qualification? <END_OF_LINE> 
 
                                             ;
 
       
-     proofAssertion                       ::=   context "⊢" judgement ;
-     
      contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
-     judgement                            ::=   reference "::" metastatement ;
+     proofAssertion                       ::=   context "⊢" judgement ;
+     
+     judgement                            ::=   reference "::" metavariable ;
 
-     subproof                             ::=   supposition "..." metastatement ;
+     subproof                             ::=   supposition "..." metavariable ;
 
-     supposition                          ::=   "[" metastatement "]" ;
+     supposition                          ::=   "[" metavariable "]" ;
 
 
 `;

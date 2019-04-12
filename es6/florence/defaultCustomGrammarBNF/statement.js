@@ -3,11 +3,11 @@
 const statementDefaultCustomGrammarBNF = `
 
 
-     statement                            ::=   typeAssertion 
+     statement                            ::=   typeAssertion qualification? <END_OF_LINE> 
                                                   
-                                            |   equality 
+                                            |   equality qualification? <END_OF_LINE> 
                                                   
-                                            |   nonsense
+                                            |   nonsense qualification? <END_OF_LINE>
 
                                             ;
 
