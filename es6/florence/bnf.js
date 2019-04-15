@@ -74,7 +74,7 @@ const bnf = `
      abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbreviationDeclaration )* ;
 
 
-     typeDeclaration                      ::=   typeName ;
+     typeDeclaration                      ::=   typeName ( ":" typeName )?;
    
      contextDeclaration                   ::=   contextName<NO_WHITESPACE>parenthesisedTypeName? ;
    
