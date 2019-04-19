@@ -20,11 +20,11 @@ const metastatementDefaultCustomGrammarBNF = `
 
      proofAssertion                       ::=   context "⊢" judgement ;
      
-     judgement                            ::=   reference "::" metavariable ;
+     judgement                            ::=   reference "::" metastatement ;
 
-     subproof                             ::=   supposition "..." metavariable ;
+     subproof                             ::=   supposition "..." metastatement ;
 
-     supposition                          ::=   "[" metavariable "]" ;
+     supposition                          ::=   "[" metastatement "]" ;
 
 
 `;
