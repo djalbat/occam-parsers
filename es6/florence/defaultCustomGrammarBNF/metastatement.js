@@ -3,15 +3,15 @@
 const metastatementDefaultCustomGrammarBNF = `
 
 
-     metastatement                        ::=   contextDefinition qualification? <END_OF_LINE> 
+     metastatement                        ::=   contextDefinition 
            
-                                            |   proofAssertion qualification? <END_OF_LINE>
+                                            |   proofAssertion
            
-                                            |   metavariable qualification? <END_OF_LINE> 
+                                            |   metavariable 
 
-                                            |   subproof qualification? <END_OF_LINE> 
+                                            |   subproof 
                                             
-                                            |   nonsense qualification? <END_OF_LINE> 
+                                            |   nonsense 
 
                                             ;
 
