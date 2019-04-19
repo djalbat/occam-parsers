@@ -21,7 +21,9 @@ const bnf = require('./bnf'),
 class BNFParser extends CommonParser {
 	rulesFromTokens(tokens) {
     const node = this.parse(tokens),
-          rules = node.generateRules(Rule);
+          rules = (node !== null) ?
+                     node.generateRules(Rule) :
+                       [];
 
     return rules;
   }
