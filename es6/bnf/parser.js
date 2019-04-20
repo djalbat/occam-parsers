@@ -3,13 +3,14 @@
 const bnf = require('./bnf'),
       Rule = require('./rule'),
       CommonParser = require('../common/parser'),
+      NameRule = require('./rule/name'),
       PartRule = require('./rule/part'),
       RuleRule = require('./rule/rule'),
       ErrorRule = require('./rule/error'),
       EpsilonRule = require('./rule/epsilon'),
       DocumentRule = require('./rule/document'),
-      WildcardRule = require('./rule/wildcard'),
       RuleNameRule = require('./rule/ruleName'),
+      WildcardRule = require('./rule/wildcard'),
       EndOfLineRule = require('./rule/endOfLine'),
       DefinitionRule = require('./rule/definition'),
       DefinitionsRule = require('./rule/definitions'),
@@ -22,20 +23,21 @@ class BNFParser extends CommonParser {
 	rulesFromTokens(tokens) {
     const node = this.parse(tokens),
           rules = (node !== null) ?
-                     node.generateRules(Rule) :
-                       [];
+                    node.generateRules(Rule) :
+                      [];
 
     return rules;
   }
 
   static fromNothing() {
-    const partRule = new PartRule(),
+    const nameRule = new NameRule(),
+          partRule = new PartRule(),
           ruleRule = new RuleRule(),
           errorRule = new ErrorRule(),
           epsilonRule = new EpsilonRule(),
           documentRule = new DocumentRule(),
-          wildcardRule = new WildcardRule(),
           ruleNameRule = new RuleNameRule(),
+          wildcardRule = new WildcardRule(),
           endOfLineRule = new EndOfLineRule(),
           definitionRule = new DefinitionRule(),
           definitionsRule = new DefinitionsRule(),
@@ -50,6 +52,7 @@ class BNFParser extends CommonParser {
       definitionsRule,
       definitionRule,
       partRule,
+      nameRule,
       ruleNameRule,
       regularExpressionRule,
       significantTokenTypeRule,

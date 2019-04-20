@@ -8,11 +8,17 @@ class NonTerminalPart {
   getType() {
     return this.type;
   }
-  
+
   isTerminalPart() {
     const terminalPart = false;
     
     return terminalPart;
+  }
+
+  isRuleNamePart() {
+    const ruleNamePart = false;
+
+    return ruleNamePart;
   }
 }
 

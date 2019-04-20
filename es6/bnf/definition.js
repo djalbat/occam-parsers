@@ -1,8 +1,10 @@
 'use strict';
 
-const arrayUtilities = require('../utilities/array');
+const partUtilities = require('../utilities/part'),
+      arrayUtilities = require('../utilities/array');
 
-const { first, allButFirst } = arrayUtilities;
+const { lookAheadFromPart } = partUtilities,
+      { first, concat, allButFirst } = arrayUtilities;
 
 class Definition {
   constructor(parts) {
@@ -34,22 +36,9 @@ class Definition {
   parse(configuration, noWhitespace) {
     let nodes = [];
 
-    const savedIndex = configuration.getSavedIndex(),
-          everyPartParsed = this.parts.every(function(part) {
-            const partNodeOrNodes = part.parse(configuration, noWhitespace);
+    const parsed = parseParts(this.parts, nodes, configuration, noWhitespace);
 
-            if (partNodeOrNodes !== null) {
-              nodes = nodes.concat(partNodeOrNodes);
-
-              noWhitespace = false;
-
-              return true;
-            }
-          });
-
-    if (!everyPartParsed) {
-      configuration.backtrack(savedIndex);
-
+    if (!parsed) {
       nodes = null;
     }
 
@@ -75,3 +64,62 @@ class Definition {
 }
 
 module.exports = Definition;
+
+function parseParts(parts, nodes, configuration, noWhitespace) {
+  let parsed = false;
+
+  const partsLength = parts.length;
+
+  if (partsLength === 0) {
+    parsed = true;
+  } else {
+    const firstPart = first(parts),
+          allButFirstParts = allButFirst(parts),
+          savedIndex = configuration.getSavedIndex();
+
+    parts = allButFirstParts; ///
+
+    const part = firstPart, ///
+          lookAhead = lookAheadFromPart(part);
+
+    if (lookAhead) {
+      part.parseWithLookAhead(configuration, noWhitespace, function(node) {
+        const partNodeOrNodes = [];
+
+        if (node !== null) {
+          noWhitespace = false; ///
+
+          parsed = parseParts(parts, partNodeOrNodes, configuration, noWhitespace);
+        }
+
+        if (parsed) {
+          concat(nodes, node);
+
+          concat(nodes, partNodeOrNodes);
+        }
+
+        if (!parsed) {
+          configuration.backtrack(savedIndex);
+        }
+
+        return parsed;
+      });
+    } else {
+      const partNodeOrNodes = part.parse(configuration, noWhitespace);
+
+      if (partNodeOrNodes !== null) {
+        concat(nodes, partNodeOrNodes);
+
+        noWhitespace = false; ///
+
+        parsed = parseParts(parts, nodes, configuration, noWhitespace);
+
+        if (!parsed) {
+          configuration.backtrack(savedIndex);
+        }
+      }
+    }
+  }
+
+  return parsed;
+}

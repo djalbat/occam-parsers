@@ -24,9 +24,9 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
 
     for(;;) {
       const partNodeOrNodes = part.parse(configuration, noWhitespace),
-            partParsed = (partNodeOrNodes !== null);
+            parsed = (partNodeOrNodes !== null);
 
-      if (partParsed) {
+      if (parsed) {
         nodes = nodes.concat(partNodeOrNodes);
       } else {
         break;

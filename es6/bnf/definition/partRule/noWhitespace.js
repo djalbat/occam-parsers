@@ -2,24 +2,25 @@
 
 const lexers = require('occam-lexers');
 
-const Definition = require('../definition'),
-      ruleNames = require('../ruleNames'),
-      RuleNamePart = require('../part/nonTerminal/ruleName'),
-      TerminalSymbolPart = require('../part/terminal/terminalSymbol');
+const ruleNames = require('../../ruleNames'),
+      Definition = require('../../definition'),
+      RuleNamePart = require('../../part/nonTerminal/ruleName'),
+      TerminalSymbolPart = require('../../part/terminal/terminalSymbol');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { NO_WHITESPACE } = specialSymbols,
       { PartRuleName, RightRecursivePartRuleName } = ruleNames;
 
-class NoWhitespaceDefinition extends Definition {
+class NoWhitespacePartRuleDefinition extends Definition {
   constructor() {
-    const noWhitespace = false,
+    const lookAhead = false,
+          noWhitespace = false,
           partRuleName = PartRuleName,
           rightRecursivePartRuleName = RightRecursivePartRuleName,
           noWhitespaceTerminalSymbolContent = NO_WHITESPACE,
-          partRuleNamePart = new RuleNamePart(partRuleName, noWhitespace),
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
+          partRuleNamePart = new RuleNamePart(partRuleName, lookAhead, noWhitespace),
+          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, lookAhead, noWhitespace),
           noWhitespaceTerminalSymbolPart = new TerminalSymbolPart(noWhitespaceTerminalSymbolContent, noWhitespace),
           parts = [
             noWhitespaceTerminalSymbolPart,
@@ -31,4 +32,4 @@ class NoWhitespaceDefinition extends Definition {
   }
 }
 
-module.exports = NoWhitespaceDefinition;
+module.exports = NoWhitespacePartRuleDefinition;

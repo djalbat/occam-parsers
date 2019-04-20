@@ -2,50 +2,79 @@
 
 const lexers = require('occam-lexers');
 
-const NonTerminalPart = require('../../part/nonTerminal'),
-      ruleUtilities = require('../../../utilities/rule');
+const ruleUtilities = require('../../../utilities/rule'),
+      NonTerminalPart = require('../../part/nonTerminal');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
-      { NO_WHITESPACE } = specialSymbols,
-      { findRuleByName } = ruleUtilities;
+      { findRuleByName } = ruleUtilities,
+      { NO_WHITESPACE, exclamationMark } = specialSymbols;
 
 const type = 'RuleName';
 
 class RuleNamePart extends NonTerminalPart {
-  constructor(ruleName, noWhitespace) {
+  constructor(ruleName, lookAhead, noWhitespace) {
     super(type);
 
     this.ruleName = ruleName;
-    
+    this.lookAhead = lookAhead;
     this.noWhitespace = noWhitespace;
   }
   
   getRuleName() {
     return this.ruleName;
   }
-  
-  parse(configuration, noWhitespace) {
-    noWhitespace = noWhitespace || this.noWhitespace; ///
 
-    let nodeOrNodes = null;
-    
+  getLookAhead() {
+    return this.lookAhead;
+  }
+
+  isRuleNamePart() {
+    const ruleNamePart = true;
+
+    return ruleNamePart;
+  }
+
+  findRule(configuration) {
     const name = this.ruleName, ///
           rules = configuration.getRules(),
           rule = findRuleByName(name, rules);
 
+    return rule;
+  }
+
+  parse(configuration, noWhitespace) {
+    let node = null;
+    
+    const rule = this.findRule(configuration);
+
     if (rule !== null) {
-      nodeOrNodes = rule.parse(configuration, noWhitespace);
+      noWhitespace = noWhitespace || this.noWhitespace; ///
+
+      node = rule.parse(configuration, noWhitespace);
     }
 
-    return nodeOrNodes;
+    return node;
+  }
+
+  parseWithLookAhead(configuration, noWhitespace, callback) {
+    const rule = this.findRule(configuration);
+
+    if (rule !== null) {
+      noWhitespace = noWhitespace || this.noWhitespace; ///
+
+      rule.parseWithLookAhead(configuration, noWhitespace, callback);
+    }
   }
 
   asString() {
-    const noWhitespaceString = this.noWhitespace ?
+    const lookAheadString = this.lookAhead ?
+                              exclamationMark :
+                                '',
+          noWhitespaceString = this.noWhitespace ?
                                  NO_WHITESPACE :
                                    '',
-          string = `${noWhitespaceString}${this.ruleName}`;
+          string = `${noWhitespaceString}${this.ruleName}${lookAheadString}`;
 
     return string;
   }

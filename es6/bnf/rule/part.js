@@ -4,24 +4,24 @@ const Rule = require('../rule'),
       PartNode = require('../node/part'),
       ruleNames = require('../ruleNames'),
       PartRuleDefinition = require('../definition/partRule'),
-      NoWhitespaceDefinition = require('../definition/noWhitespace'),
-      GroupOfPartsDefinition = require('../definition/groupOfParts'),
-      ChoiceOfPartsDefinition = require('../definition/choiceOfParts');
+      NoWhitespacePartRuleDefinition = require('../definition/partRule/noWhitespace'),
+      GroupOfPartsPartRuleDefinition = require('../definition/partRule/groupOfParts'),
+      ChoiceOfPartsPartRuleDefinition = require('../definition/partRule/choiceOfParts');
 
-const { PartRuleName } = ruleNames;
+const { PartRuleName, EpsilonRuleName, WildcardRuleName, RuleNameRuleName, EndOfLineRuleName, TerminalSymbolRuleName, RegularExpressionRuleName, SignificantTokenTypeRuleName } = ruleNames;
 
 class PartRule extends Rule {
   constructor() {
-    const ruleNameRuleName = 'ruleName',
-          regularExpressionRuleName = 'regularExpression',
-          significantTokenTypeRuleName = 'significantTokenType',
-          terminalSymbolRuleName = 'terminalSymbol',
-          endOfLineRuleName = 'endOfLine',
-          epsilonRuleName = 'epsilon',
-          wildcardRuleName = 'wildcard',
-          noWhitespaceDefinition = new NoWhitespaceDefinition(),
-          groupOfPartsDefinition = new GroupOfPartsDefinition(),
-          choiceOfPartsDefinition = new ChoiceOfPartsDefinition(),
+    const ruleNameRuleName = RuleNameRuleName,
+          regularExpressionRuleName = RegularExpressionRuleName,
+          significantTokenTypeRuleName = SignificantTokenTypeRuleName,
+          terminalSymbolRuleName = TerminalSymbolRuleName,
+          endOfLineRuleName = EndOfLineRuleName,
+          epsilonRuleName = EpsilonRuleName,
+          wildcardRuleName = WildcardRuleName,
+          noWhitespacePartRuleDefinition = new NoWhitespacePartRuleDefinition(),
+          groupOfPartsPartRuleDefinition = new GroupOfPartsPartRuleDefinition(),
+          choiceOfPartsPartRuleDefinition = new ChoiceOfPartsPartRuleDefinition(),
           ruleNameRuleNamePartRuleDefinition = new PartRuleDefinition(ruleNameRuleName),
           regularExpressionRuleNamePartRuleDefinition = new PartRuleDefinition(regularExpressionRuleName),
           significantTokenTypeRuleNamePartRuleDefinition = new PartRuleDefinition(significantTokenTypeRuleName),
@@ -31,9 +31,9 @@ class PartRule extends Rule {
           wildcardRuleNamePartRuleDefinition = new PartRuleDefinition(wildcardRuleName),
           name = PartRuleName,
           definitions = [
-            noWhitespaceDefinition,
-            groupOfPartsDefinition,
-            choiceOfPartsDefinition,
+            noWhitespacePartRuleDefinition,
+            groupOfPartsPartRuleDefinition,
+            choiceOfPartsPartRuleDefinition,
             ruleNameRuleNamePartRuleDefinition,
             regularExpressionRuleNamePartRuleDefinition,
             significantTokenTypeRuleNamePartRuleDefinition,

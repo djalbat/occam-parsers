@@ -18,9 +18,8 @@ class RuleNode extends NonTerminalNode {
   getName() {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
-          ruleNameNode = firstChildNode,  ///
-          ruleNameNodeRuleName = ruleNameNode.getRuleName(),
-          name = ruleNameNodeRuleName;  ///
+          nameNode = firstChildNode,  ///
+          name = nameNode.getName();
     
     return name;
   }

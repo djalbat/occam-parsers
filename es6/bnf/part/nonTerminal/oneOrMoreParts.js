@@ -23,9 +23,9 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
     
     const part = this.getPart(),
           partNodeOrNodes = part.parse(configuration, noWhitespace),
-          partParsed = (partNodeOrNodes !== null);
+          parsed = (partNodeOrNodes !== null);
 
-    if (partParsed) {
+    if (parsed) {
       nodes = (partNodeOrNodes instanceof Array) ?
                 partNodeOrNodes :
                   [partNodeOrNodes];

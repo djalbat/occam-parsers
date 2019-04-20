@@ -2,24 +2,25 @@
 
 const lexers = require('occam-lexers');
 
-const Definition = require('../definition'),
-      ruleNames = require('../ruleNames'),
+const ruleNames = require('../ruleNames'),
+      Definition = require('../definition'),
       RuleNamePart = require('../part/nonTerminal/ruleName'),
       GroupOfPartsPart = require('../part/nonTerminal/groupOfParts'),
-      ZeroOrMorePartsPart = require('../part/nonTerminal/zeroOrMoreParts'),
-      TerminalSymbolPart = require('../part/terminal/terminalSymbol');
+      TerminalSymbolPart = require('../part/terminal/terminalSymbol'),
+      ZeroOrMorePartsPart = require('../part/nonTerminal/zeroOrMoreParts');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
-      { DefinitionRuleName } = ruleNames,
-      { verticalBar } = specialSymbols;
+      { verticalBar } = specialSymbols,
+      { DefinitionRuleName } = ruleNames;
 
 class DefinitionsDefinition extends Definition {
   constructor() {
-    const noWhitespace = false,
+    const lookAhead = false,
+          noWhitespace = false,
           definitionRuleName = DefinitionRuleName,
           verticalBarTerminalSymbolContent = verticalBar,
-          definitionRuleNamePart = new RuleNamePart(definitionRuleName, noWhitespace),
+          definitionRuleNamePart = new RuleNamePart(definitionRuleName, lookAhead, noWhitespace),
           verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent, noWhitespace),
           verticalBarTerminalSymbolThenDefinitionRuleNameParts = [
             verticalBarTerminalSymbolPart,

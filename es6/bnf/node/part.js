@@ -1,5 +1,7 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const bnfUtilities = require('../../utilities/bnf'),
       arrayUtilities = require('../../utilities/array'),
       OptionalPartPart = require('../part/nonTerminal/optionalPart'),
@@ -9,8 +11,11 @@ const bnfUtilities = require('../../utilities/bnf'),
       ChoiceOfPartsPart = require('../part/nonTerminal/choiceOfParts'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
-const { first, last } = arrayUtilities,
-      { isNodeQuantifiersNode, isNodeNoWhitespaceNode, quantifiersFromQuantifiersNode } = bnfUtilities;
+const { BNFLexer } = lexers,
+      { first, last } = arrayUtilities,
+      { specialSymbols } = BNFLexer,
+      { plus, asterisk, questionMark } = specialSymbols,
+      { isNodeQuantifiersNode, isNodeNoWhitespaceNode, isNodeRightRecursivePartNode, quantifiersFromQuantifiersNode } = bnfUtilities;
 
 class PartNode extends NonTerminalNode {
   generatePart(noWhitespace) {
@@ -76,18 +81,8 @@ function isFirstNodeNoWhitespaceNode(nodes) {
 }
 
 function isLastNodeRightRecursivePartNode(nodes) {
-  let lastNodeRightRecursivePartNode = false;
-
   const lastNode = last(nodes),
-        lastNodeTerminalNode = lastNode.isTerminalNode(),
-        lastNodeNonTerminalNode = !lastNodeTerminalNode;
-
-  if (lastNodeNonTerminalNode) {
-    const nonTerminalNode = lastNode, ///
-          nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
-
-    lastNodeRightRecursivePartNode = (nonTerminalNodeRuleName === 'part~'); ///
-  }
+        lastNodeRightRecursivePartNode = isNodeRightRecursivePartNode(lastNode);
 
   return lastNodeRightRecursivePartNode;
 }
@@ -134,24 +129,20 @@ function partFromPartAndQuantifiers(part, quantifiers) {
 function sequenceOfPartsPartFromPartAndQuantifier(part, quantifier) {
   let sequenceOfPartsPart;
 
-  switch (quantifier) {
-    case '?':
-      const optionalPartPart = new OptionalPartPart(part);
+  if (false) {
+    ///
+  } else if (quantifier === questionMark) {
+    const optionalPartPart = new OptionalPartPart(part);
 
-      sequenceOfPartsPart = optionalPartPart; ///
-      break;
+    sequenceOfPartsPart = optionalPartPart; ///
+  } else if (quantifier === asterisk) {
+    const zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
 
-    case '*':
-      const zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
+    sequenceOfPartsPart = zeroOrMorePartsPart;  ///
+  } else if (quantifier === plus) {
+    const oneOrMorePartsPart = new OneOrMorePartsPart(part);
 
-      sequenceOfPartsPart = zeroOrMorePartsPart;  ///
-      break;
-
-    case '+':
-      const oneOrMorePartsPart = new OneOrMorePartsPart(part);
-
-      sequenceOfPartsPart = oneOrMorePartsPart; ///
-      break;
+    sequenceOfPartsPart = oneOrMorePartsPart; ///
   }
 
   return sequenceOfPartsPart;

@@ -3,21 +3,19 @@
 const bnf = `
 
 
+  statement     ::= body ";" ;
+  
+  body          ::= expression | nonsense ;
+
+  nonsense      ::= ( term | operator )+ ;
+
   expression    ::= "(" expression ")" expression~
 
                   | term expression~ 
                   
                   ;
 
-  operator      ::= "+"
-
-                  | "-"
-
-                  | "/"
-
-                  | "*" 
-                  
-                  ;
+  operator      ::= "+" | "-" | "/" | "*" ;
 
   term          ::= naturalNumber ;
 

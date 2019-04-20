@@ -24,7 +24,7 @@ All parsers share common functionality. The last two parse content according to 
 
       document             ::=  ( rule | error )+ ;
       
-      rule                 ::=  ruleName "::=" definitions ";" ;
+      rule                 ::=  name "::=" definitions ";" ;
       
       definitions          ::=  definition ( "|" definition )* ;
       
@@ -35,7 +35,7 @@ All parsers share common functionality. The last two parse content according to 
       optionalPart         ::=  part<NO_WHITESPACE>"?" ;
                               
       zeroOrMoreParts      ::=  part<NO_WHITESPACE>"*" ;
-                              
+
       oneOrMoreParts       ::=  part<NO_WHITESPACE>"+" ;
       
       groupOfParts         ::=  "(" part part+ ")" ;
@@ -46,7 +46,7 @@ All parsers share common functionality. The last two parse content according to 
                     
                              |  optionalPart  
                     
-                             |  zeroOrMoreParts  
+                             |  zeroOrMoreParts
                     
                              |  oneOrMoreParts  
                     
@@ -54,7 +54,7 @@ All parsers share common functionality. The last two parse content according to 
                                
                              |  choiceOfParts  
                                
-                             |  ruleName  
+                             |  ruleName
                     
                              |  regularExpression 
                     
@@ -70,13 +70,15 @@ All parsers share common functionality. The last two parse content according to 
                                   
                              ;
     
-      ruleName             ::=  [name] ;
+      name                 ::=  [name] ;
+
+      ruleName             ::=  [name]<NO_WHITESPACE>"!" ;
     
-      regularExpression    ::=  [regularExpression] ;
+      regularExpression    ::=  [regular-expression] ;
       
       significantTokenType ::=  [type] ;
     
-      terminalSymbol       ::=  [stringLiteral] ;
+      terminalSymbol       ::=  [string-literal] ;
       
       endOfLine            ::=  "<END_OF_LINE>" ;
       

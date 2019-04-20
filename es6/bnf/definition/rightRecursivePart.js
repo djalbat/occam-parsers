@@ -1,7 +1,7 @@
 'use strict';
 
-const Definition = require('../definition'),
-      ruleNames = require('../ruleNames'),
+const ruleNames = require('../ruleNames'),
+      Definition = require('../definition'),
       RuleNamePart = require('../part/nonTerminal/ruleName'),
       TerminalSymbolPart = require('../part/terminal/terminalSymbol');
 
@@ -17,8 +17,9 @@ class RightRecursivePartDefinition extends Definition {
 
     noWhitespace = false;
 
-    const rightRecursivePartRuleName = RightRecursivePartRuleName,
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
+    const lookAhead = false,
+          rightRecursivePartRuleName = RightRecursivePartRuleName,
+          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, lookAhead, noWhitespace),
           parts = [
             terminalSymbolPart,
             rightRecursivePartRuleNamePart

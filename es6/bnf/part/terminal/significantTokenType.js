@@ -27,7 +27,7 @@ class SignificantTokenTypePart extends TerminalPart {
 
     if (significantToken !== null) {
       const significantTokenType = significantToken.getType(),
-            parsed = (significantTokenType === this.significantTokenType);  ///
+            parsed = (significantTokenType === this.significantTokenType);
 
       if (parsed) {
         terminalNode = TerminalNode.fromSignificantToken(significantToken);

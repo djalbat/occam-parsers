@@ -10,11 +10,12 @@ const { RuleRuleName, ErrorRuleName } = ruleNames;
 
 class DocumentDefinition extends Definition {
   constructor() {
-    const noWhitespace = false,
+    const lookAhead = false,
+          noWhitespace = false,
           ruleRuleName = RuleRuleName,
           errorRuleName = ErrorRuleName,
-          ruleRuleNamePart = new RuleNamePart(ruleRuleName, noWhitespace),
-          errorRuleNamePart = new RuleNamePart(errorRuleName, noWhitespace),
+          ruleRuleNamePart = new RuleNamePart(ruleRuleName, lookAhead, noWhitespace),
+          errorRuleNamePart = new RuleNamePart(errorRuleName, lookAhead, noWhitespace),
           ruleRuleNameAndErrorRuleNameParts = [
             ruleRuleNamePart,
             errorRuleNamePart

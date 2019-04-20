@@ -1,15 +1,21 @@
 'use strict';
 
-const arrayUtilities = require('../../utilities/array'),
-      NonTerminalNode = require('../../common/node/nonTerminal'),
-      RuleNamePart = require('../part/nonTerminal/ruleName');
+const lexers = require('occam-lexers');
 
-const { first } = arrayUtilities;
+const RuleNamePart = require('../part/nonTerminal/ruleName'),
+      arrayUtilities = require('../../utilities/array'),
+      NonTerminalNode = require('../../common/node/nonTerminal');
+
+const { BNFLexer } = lexers,
+      { first, second } = arrayUtilities,
+      { specialSymbols } = BNFLexer,
+      { exclamationMark } = specialSymbols;
 
 class RuleNameNode extends NonTerminalNode {
   generatePart(noWhitespace) {
     const ruleName = this.getRuleName(),
-          ruleNamePart = new RuleNamePart(ruleName, noWhitespace);
+          lookAhead = this.isLookAhead(),
+          ruleNamePart = new RuleNamePart(ruleName, lookAhead, noWhitespace);
 
     return ruleNamePart;
   }
@@ -22,6 +28,23 @@ class RuleNameNode extends NonTerminalNode {
           ruleName = terminalNodeContent; ///
     
     return ruleName;
+  }
+
+  isLookAhead() {
+    let lookAhead = false;
+
+    const childNodes = this.getChildNodes(),
+          secondChildNode = second(childNodes),
+          secondChildNodeTerminalNode = secondChildNode.isTerminalNode();
+
+    if (secondChildNodeTerminalNode) {
+      const secondChildTerminalNode = secondChildNode,  ///
+            secondChildTerminalNodeContent = secondChildTerminalNode.getContent();
+
+      lookAhead = (secondChildTerminalNodeContent === exclamationMark)
+    }
+
+    return lookAhead;
   }
 
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(RuleNameNode, ruleName, childNodes); }

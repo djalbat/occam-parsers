@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
+  NameRuleName: 'name',
   PartRuleName: 'part',
   RuleRuleName: 'rule',
   ErrorRuleName: 'error',

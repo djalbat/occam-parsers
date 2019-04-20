@@ -2,27 +2,14 @@
 
 const lexers = require('occam-lexers');
 
-const arrayUtilities = require('../utilities/array');
+const ruleNames = require('../bnf/ruleNames'),
+      arrayUtilities = require('../utilities/array');
 
 const { BNFLexer } = lexers,
       { first, second } = arrayUtilities,
       { specialSymbols } = BNFLexer,
-      { NO_WHITESPACE } = specialSymbols;
-
-function isNodeNoWhitespaceNode(node) {
-  let nodeNoWhitespaceNode = false;
-
-  const nodeTerminalNode = node.isTerminalNode();
-
-  if (nodeTerminalNode) {
-    const terminalNode = node,
-          terminalNodeContent = terminalNode.getContent();
-
-    nodeNoWhitespaceNode = (terminalNodeContent === NO_WHITESPACE);
-  }
-
-  return nodeNoWhitespaceNode;
-}
+      { plus, asterisk, questionMark, NO_WHITESPACE } = specialSymbols,
+      { RuleNameRuleName, RightRecursivePartRuleName } = ruleNames;
 
 function isNodeChoiceNode(node) {
   let nodeNoChoiceNode = false;
@@ -37,6 +24,22 @@ function isNodeChoiceNode(node) {
   }
 
   return nodeNoChoiceNode;
+}
+
+function isNodeRuleNameNode(node) {
+  let nodeRuleNameNode = false;
+
+  const nodeTerminalNode = node.isTerminalNode(),
+        nodeNonTerminalNode = !nodeTerminalNode;
+
+  if (nodeNonTerminalNode) {
+    const nonTerminalNode = node, ///
+          nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
+
+    nodeRuleNameNode = (nonTerminalNodeRuleName === RuleNameRuleName);
+  }
+
+  return nodeRuleNameNode;
 }
 
 function isNodeQuantifiersNode(node) {
@@ -55,13 +58,44 @@ function isNodeQuantifiersNode(node) {
       const terminalNode = firstChildNode,  ///
             terminalNodeContent = terminalNode.getContent();
 
-      nodeQuantifiersNode = (terminalNodeContent === '?') ||
-                            (terminalNodeContent === '*') ||
-                            (terminalNodeContent === '+');
+      nodeQuantifiersNode = (terminalNodeContent === plus) ||
+                            (terminalNodeContent === asterisk) ||
+                            (terminalNodeContent === questionMark);
     }
   }
 
   return nodeQuantifiersNode;
+}
+
+function isNodeNoWhitespaceNode(node) {
+  let nodeNoWhitespaceNode = false;
+
+  const nodeTerminalNode = node.isTerminalNode();
+
+  if (nodeTerminalNode) {
+    const terminalNode = node,
+          terminalNodeContent = terminalNode.getContent();
+
+    nodeNoWhitespaceNode = (terminalNodeContent === NO_WHITESPACE);
+  }
+
+  return nodeNoWhitespaceNode;
+}
+
+function isNodeRightRecursivePartNode(node) {
+  let nodeRightRecursivePartNode = false;
+
+  const nodeTerminalNode = node.isTerminalNode(),
+        nodeNonTerminalNode = !nodeTerminalNode;
+
+  if (nodeNonTerminalNode) {
+    const nonTerminalNode = node, ///
+        nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
+
+    nodeRightRecursivePartNode = (nonTerminalNodeRuleName === RightRecursivePartRuleName);
+  }
+
+  return nodeRightRecursivePartNode;
 }
 
 function quantifiersFromQuantifiersNode(quantifiersNode, quantifiers = []) {
@@ -87,9 +121,11 @@ function quantifiersFromQuantifiersNode(quantifiersNode, quantifiers = []) {
 }
 
 module.exports = {
-  isNodeNoWhitespaceNode,
   isNodeChoiceNode,
+  isNodeRuleNameNode,
   isNodeQuantifiersNode,
+  isNodeNoWhitespaceNode,
+  isNodeRightRecursivePartNode,
   quantifiersFromQuantifiersNode
 };
 

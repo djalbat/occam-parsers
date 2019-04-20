@@ -1,7 +1,7 @@
 'use strict';
 
-const Definition = require('../definition'),
-      ruleNames = require('../ruleNames'),
+const ruleNames = require('../ruleNames'),
+      Definition = require('../definition'),
       RuleNamePart = require('../part/nonTerminal/ruleName'),
       TerminalSymbolPart = require('../part/terminal/terminalSymbol');
 
@@ -9,10 +9,17 @@ const { PartRuleName } = ruleNames;
 
 class SequenceOfPartsDefinition extends Definition {
   constructor(terminalSymbolContent) {
-    const noWhitespace = true,
+    let noWhitespace;
+
+    noWhitespace = false;
+
+    const lookAhead = false,
           partRuleName = PartRuleName,
-          partRuleNamePart = new RuleNamePart(partRuleName),
-          terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, noWhitespace),
+          partRuleNamePart = new RuleNamePart(partRuleName, lookAhead, noWhitespace);
+
+    noWhitespace = true;
+
+    const terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, noWhitespace),
           parts = [
             partRuleNamePart,
             terminalSymbolPart

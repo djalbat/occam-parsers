@@ -5,7 +5,7 @@ const bnf = `
 
     document              ::= ( rule | error )+ ;
     
-    rule                  ::= ruleName "::=" definitions ";" ;
+    rule                  ::= name "::=" definitions ";" ;
     
     definitions           ::= definition ( "|" definition )* ;
     
@@ -51,8 +51,10 @@ const bnf = `
                              
                             ;
     
-    ruleName              ::= [name] ;
+    name                  ::= [name] ;
     
+    ruleName              ::= [name]<NO_WHITESPACE>"!"? ;
+
     regularExpression     ::= [regularExpression] ;
     
     significantTokenType  ::= [type] ;

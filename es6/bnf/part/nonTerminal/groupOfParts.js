@@ -24,7 +24,7 @@ class GroupOfPartsPart extends NonTerminalPart {
     let nodes = [];
 
     const savedIndex = configuration.getSavedIndex(),
-          everyPartParsed = this.parts.every(function(part) {
+          parsed = this.parts.every(function(part) {
             const partNodeOrNodes = part.parse(configuration, noWhitespace);
 
             if (partNodeOrNodes !== null) {
@@ -34,7 +34,7 @@ class GroupOfPartsPart extends NonTerminalPart {
             }
           });
 
-    if (!everyPartParsed) {
+    if (!parsed) {
       configuration.backtrack(savedIndex);
 
       nodes = null;

@@ -2,26 +2,27 @@
 
 const lexers = require('occam-lexers');
 
-const Definition = require('../definition'),
-      ruleNames = require('../ruleNames'),
-      RuleNamePart = require('../part/nonTerminal/ruleName'),
-      OneOrMorePartsPart = require('../part/nonTerminal/oneOrMoreParts'),
-      TerminalSymbolPart = require('../part/terminal/terminalSymbol');
+const ruleNames = require('../../ruleNames'),
+      Definition = require('../../definition'),
+      RuleNamePart = require('../../part/nonTerminal/ruleName'),
+      TerminalSymbolPart = require('../../part/terminal/terminalSymbol'),
+      OneOrMorePartsPart = require('../../part/nonTerminal/oneOrMoreParts');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { openBracket, closeBracket } = specialSymbols,
       { PartRuleName, RightRecursivePartRuleName } = ruleNames;
 
-class GroupOfPartsDefinition extends Definition {
+class GroupOfPartsPartRuleDefinition extends Definition {
   constructor() {
-    const noWhitespace = false,
+    const lookAhead = false,
+          noWhitespace = false,
           partRuleName = PartRuleName,
           rightRecursivePartRuleName = RightRecursivePartRuleName,
           openBracketTerminalSymbolContent = openBracket,
           closeBracketTerminalSymbolContent = closeBracket,
-          partRuleNamePart = new RuleNamePart(partRuleName, noWhitespace),
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
+          partRuleNamePart = new RuleNamePart(partRuleName, lookAhead, noWhitespace),
+          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, lookAhead, noWhitespace),
           openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent, noWhitespace),
           closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent, noWhitespace),
           oneOrMorePartRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart, noWhitespace),
@@ -37,4 +38,4 @@ class GroupOfPartsDefinition extends Definition {
   }
 }
 
-module.exports = GroupOfPartsDefinition;
+module.exports = GroupOfPartsPartRuleDefinition;

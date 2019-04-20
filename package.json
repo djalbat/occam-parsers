@@ -10,8 +10,8 @@
     "url": "https://github.com/jecs-imperial/occam-parsers"
   },
   "dependencies": {
-    "necessary": "^1.7.5",
-    "occam-lexers": "^8.0.44"
+    "necessary": "^3.2.13",
+    "occam-lexers": "^8.0.52"
   },
   "devDependencies": {
     "babel": "^6.5.2",

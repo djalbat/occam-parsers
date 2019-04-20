@@ -1,5 +1,9 @@
 'use strict';
 
+const stringUtilities = require('../utilities/string');
+
+const { paddingFromPaddingLength } = stringUtilities;
+
 class Rule {
   constructor(name, definitions, NonTerminalNode) {
     this.name = name;
@@ -18,7 +22,7 @@ class Rule {
   getNonTerminalNode() {
     return this.NonTerminalNode;
   }
-  
+
   setName(name) {
     this.name = name;
   }
@@ -36,7 +40,34 @@ class Rule {
   }
 
   parse(configuration, noWhitespace) {
-    let nonTerminalNode = null;
+    let node = null;
+
+    this.definitions.some((definition) => {
+      node = this.parseDefinition(definition, configuration, noWhitespace);
+
+      const parsed = (node !== null);
+
+      if (parsed) {
+        return true;
+      }
+    });
+
+    return node;
+  }
+
+  parseWithLookAhead(configuration, noWhitespace, callback) {
+    this.definitions.some((definition) => {
+      const node = this.parseDefinition(definition, configuration, noWhitespace),
+            parsed = callback(node);
+
+      if (parsed) {
+        return true;
+      }
+    });
+  }
+
+  parseDefinition(definition, configuration, noWhitespace) {
+    let node = null;
 
     configuration.increaseDepth();
 
@@ -46,28 +77,22 @@ class Rule {
       throw new Error(`The parse tree is too deep at rule '${this.name}'`);
     }
 
-    let definitionNodes = null;
-    
-    const someDefinitionParsed = this.definitions.some(function(definition) {
-      definitionNodes = definition.parse(configuration, noWhitespace);
+    const nodes = definition.parse(configuration, noWhitespace),
+          parsed = (nodes !== null);
 
-      if (definitionNodes !== null) {
-        return true;
-      }
-    });
-
-    if (someDefinitionParsed) {
+    if (parsed) {
       const ruleName = this.name,
-            childNodes = definitionNodes;  ///
+            childNodes = nodes,  ///
+            nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
 
-      nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
+      node = nonTerminalNode; ///
     }
 
     configuration.decreaseDepth();
 
-    return nonTerminalNode;
+    return node;
   }
-  
+
   asString(maximumRuleNameLength, multiLine = true) {
     const definitionsLength = this.definitions.length;
 
@@ -118,12 +143,3 @@ class Rule {
 
 module.exports = Rule;
 
-function paddingFromPaddingLength(paddingLength) {
-  let padding = '';
-
-  for (let position = 0; position < paddingLength; position++) {
-    padding += ' ';
-  }
-
-  return padding;
-}

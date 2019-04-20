@@ -33,7 +33,7 @@ class RegularExpressionPart extends TerminalPart {
 
       if (matches !== null) {
         const firstMatch = first(matches),
-              parsed = (firstMatch === content);
+              parsed = (firstMatch === content);  ///
 
         if (parsed) {
           terminalNode = TerminalNode.fromSignificantToken(significantToken);
