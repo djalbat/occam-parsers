@@ -74,13 +74,14 @@ const bnf = `
      abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbreviationDeclaration )* ;
 
 
+
      typeDeclaration                      ::=   typeName ( ":" typeName )?;
    
      contextDeclaration                   ::=   contextName<NO_WHITESPACE>parenthesisedTypeName? ;
    
      variableDeclaration                  ::=   variableName ;
    
-     constructorDeclaration               ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames?<NO_WHITESPACE>":"<NO_WHITESPACE>typeName ;
+     constructorDeclaration               ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames? ":" typeName ;
    
      dependentTypeDeclaration             ::=   typeName<NO_WHITESPACE>parenthesisedTypeName ;
    
@@ -100,21 +101,21 @@ const bnf = `
      
      metaproof                            ::=   "Proof" <END_OF_LINE> 
      
-                                                qualifiedMetastatementDefinition*
+                                                metastatementDefinition*
      
                                                 metaProofDerivation? 
                                                 
                                                 qualifiedMetastatement ;
-                                                
-                                                
-                                                
-     qualifiedMetastatementDefinition     ::=   "let" unqualifiedMetastatement ;                                           
-                                                
-     metaProofDerivation                  ::=   ( submetalemma | qualifiedMetastatement )+  
+
+     metaProofDerivation                  ::=   ( metaSublemma | qualifiedMetastatement )+  
      
                                                 "Therefore" <END_OF_LINE> ;                                           
      
-     submetalemma                         ::=   "Suppose" <END_OF_LINE> 
+     metaIndicativeConditional            ::=   "Suppose" <END_OF_LINE> unqualifiedMetastatement+ 
+     
+                                                "Hence" <END_OF_LINE> qualifiedMetastatement ;
+
+     metaSublemma                         ::=   "Suppose" <END_OF_LINE> 
      
                                                 qualifiedMetastatement+ 
      
@@ -122,16 +123,10 @@ const bnf = `
                                                 
                                                   "Then" <END_OF_LINE> 
                                                   
-                                                  ( submetalemma | qualifiedMetastatement )+ 
+                                                  ( metaSublemma | qualifiedMetastatement )+ 
                                                 
                                                 )? 
                                                 
-                                                "Hence" <END_OF_LINE> qualifiedMetastatement ;
-
-
-
-     metaIndicativeConditional            ::=   "Suppose" <END_OF_LINE> unqualifiedMetastatement+ 
-     
                                                 "Hence" <END_OF_LINE> qualifiedMetastatement ;
 
 
@@ -142,15 +137,15 @@ const bnf = `
      
                                                 proofDerivation? 
                                                 
-                                                qualifiedMetastatement ;
-                                                
-                                                
-                                                
-     statementDefinition                  ::=   "let" unqualifiedStatement ;                                           
+                                                qualifiedStatement ;
 
-     proofDerivation                      ::=   ( sublemma | qualifiedMetastatement )+ 
+     proofDerivation                      ::=   ( sublemma | qualifiedStatement )+ 
      
                                                 "Therefore" <END_OF_LINE> ;
+
+     indicativeConditional                ::=   "Suppose" <END_OF_LINE> unqualifiedStatement+ 
+     
+                                                "Hence" <END_OF_LINE> qualifiedStatement ;
 
      sublemma                             ::=   "Suppose" <END_OF_LINE> 
      
@@ -168,9 +163,9 @@ const bnf = `
 
 
 
-     indicativeConditional                ::=   "Suppose" <END_OF_LINE> unqualifiedStatement+ 
-     
-                                                "Hence" <END_OF_LINE> qualifiedStatement ;
+     metastatementDefinition              ::=   "let" unqualifiedMetastatement ;                                           
+                                                
+     statementDefinition                  ::=   "let" unqualifiedStatement ;                                           
 
 
 
@@ -196,17 +191,15 @@ const bnf = `
 
 
 
-     parenthesisedTypeNames               ::=   "("<NO_WHITESPACE>typeNames<NO_WHITESPACE>")" ;
+     parenthesisedTypeNames               ::=   "(" typeNames ")" ;
 
-     parenthesisedLabels                  ::=   "("<NO_WHITESPACE>labels<NO_WHITESPACE>")" ;                    
+     parenthesisedTypeName                ::=   "(" typeName ")" ;
 
-     parenthesisedTerms                   ::=   "("<NO_WHITESPACE>terms<NO_WHITESPACE>")" ;   
+     parenthesisedLabels                  ::=   "(" labels ")" ;                    
 
+     parenthesisedTerms                   ::=   "(" terms ")" ;   
 
-
-     parenthesisedTypeName                ::=   "("<NO_WHITESPACE>typeName<NO_WHITESPACE>")" ;
-
-     parenthesisedTerm                    ::=   "("<NO_WHITESPACE>term<NO_WHITESPACE>")" ;   
+     parenthesisedTerm                    ::=   "(" term ")" ;   
 
          
      
