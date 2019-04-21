@@ -3,7 +3,7 @@
 const partUtilities = require('../utilities/part'),
       arrayUtilities = require('../utilities/array');
 
-const { lookAheadFromPart } = partUtilities,
+const { isPartRuleNamePart } = partUtilities,
       { first, concat, allButFirst } = arrayUtilities;
 
 class Definition {
@@ -72,18 +72,27 @@ function parseParts(parts, nodes, configuration, noWhitespace) {
 
   if (partsLength === 0) {
     parsed = true;
-  } else {
-    const firstPart = first(parts),
-          allButFirstParts = allButFirst(parts),
-          savedIndex = configuration.getSavedIndex();
 
-    parts = allButFirstParts; ///
+    return parsed;
+  }
 
-    const part = firstPart, ///
-          lookAhead = lookAheadFromPart(part);
+  const firstPart = first(parts),
+        allButFirstParts = allButFirst(parts),
+        savedIndex = configuration.getSavedIndex();
+
+  parts = allButFirstParts; ///
+
+  const part = firstPart, ///
+        partRuleNamePart = isPartRuleNamePart(part);
+
+  if (partRuleNamePart) {
+    const ruleNamePart = part,  ///
+          lookAhead = ruleNamePart.getLookAhead();
 
     if (lookAhead) {
-      part.parseWithLookAhead(configuration, noWhitespace, function(node) {
+      const rule = ruleNamePart.findRule(configuration);
+
+      ruleNamePart.parseWithLookAhead(rule, configuration, noWhitespace, function(node) {
         const partNodeOrNodes = [];
 
         if (node !== null) {
@@ -104,20 +113,22 @@ function parseParts(parts, nodes, configuration, noWhitespace) {
 
         return parsed;
       });
-    } else {
-      const partNodeOrNodes = part.parse(configuration, noWhitespace);
 
-      if (partNodeOrNodes !== null) {
-        concat(nodes, partNodeOrNodes);
+      return parsed;
+    }
+  }
 
-        noWhitespace = false; ///
+  const partNodeOrNodes = part.parse(configuration, noWhitespace);
 
-        parsed = parseParts(parts, nodes, configuration, noWhitespace);
+  if (partNodeOrNodes !== null) {
+    concat(nodes, partNodeOrNodes);
 
-        if (!parsed) {
-          configuration.backtrack(savedIndex);
-        }
-      }
+    noWhitespace = false; ///
+
+    parsed = parseParts(parts, nodes, configuration, noWhitespace);
+
+    if (!parsed) {
+      configuration.backtrack(savedIndex);
     }
   }
 

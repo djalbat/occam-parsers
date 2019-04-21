@@ -57,9 +57,7 @@ class RuleNamePart extends NonTerminalPart {
     return node;
   }
 
-  parseWithLookAhead(configuration, noWhitespace, callback) {
-    const rule = this.findRule(configuration);
-
+  parseWithLookAhead(rule, configuration, noWhitespace, callback) {
     if (rule !== null) {
       noWhitespace = noWhitespace || this.noWhitespace; ///
 
