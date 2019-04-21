@@ -92,7 +92,7 @@ function parseParts(parts, nodes, configuration, noWhitespace) {
     if (lookAhead) {
       const rule = ruleNamePart.findRule(configuration);
 
-      ruleNamePart.parseWithLookAhead(rule, configuration, noWhitespace, function(node) {
+      ruleNamePart.parseRuleWithLookAhead(rule, configuration, noWhitespace, function(node) {
         const partNodeOrNodes = [];
 
         if (node !== null) {

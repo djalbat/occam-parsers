@@ -2,18 +2,20 @@
 
 const lexers = require('occam-lexers');
 
-const ruleUtilities = require('../../../utilities/rule'),
+const partTypes = require('../../partTypes'),
+      ruleUtilities = require('../../../utilities/rule'),
       NonTerminalPart = require('../../part/nonTerminal');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { findRuleByName } = ruleUtilities,
+      { RuleNamePartType } = partTypes,
       { NO_WHITESPACE, exclamationMark } = specialSymbols;
-
-const type = 'RuleName';
 
 class RuleNamePart extends NonTerminalPart {
   constructor(ruleName, noWhitespace, lookAhead = false) {
+    const type = RuleNamePartType; ///
+
     super(type);
 
     this.ruleName = ruleName;
@@ -63,7 +65,7 @@ class RuleNamePart extends NonTerminalPart {
     return node;
   }
 
-  parseWithLookAhead(rule, configuration, noWhitespace, callback) {
+  parseRuleWithLookAhead(rule, configuration, noWhitespace, callback) {
     if (rule !== null) {
       noWhitespace = noWhitespace || this.noWhitespace; ///
 
@@ -83,9 +85,5 @@ class RuleNamePart extends NonTerminalPart {
     return string;
   }
 }
-
-Object.assign(RuleNamePart, {
-  type
-});
 
 module.exports = RuleNamePart;

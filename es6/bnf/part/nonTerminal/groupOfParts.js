@@ -1,14 +1,16 @@
 'use strict';
 
-const NonTerminalPart = require('../../part/nonTerminal'),
-      arrayUtilities = require('../../../utilities/array');
+const partTypes = require('../../partTypes'),
+      arrayUtilities = require('../../../utilities/array'),
+      NonTerminalPart = require('../../part/nonTerminal');
 
-const { allButFirstAndLast } = arrayUtilities;
-
-const type = 'GroupOfParts';
+const { allButFirstAndLast } = arrayUtilities,
+      { GroupOfPartsPartType } = partTypes;
 
 class GroupOfPartsPart extends NonTerminalPart {
   constructor(parts) {
+    const type = GroupOfPartsPartType; ///
+
     super(type);
 
     this.parts = parts;
@@ -76,9 +78,5 @@ class GroupOfPartsPart extends NonTerminalPart {
     return groupOfPartsPart;
   }
 }
-
-Object.assign(GroupOfPartsPart, {
-  type
-});
 
 module.exports = GroupOfPartsPart;

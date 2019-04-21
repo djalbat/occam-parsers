@@ -1,16 +1,18 @@
 'use strict';
 
-const NonTerminalPart = require('../../part/nonTerminal'),
+const partTypes = require('../../partTypes'),
       bnfUtilities = require('../../../utilities/bnf'),
-      arrayUtilities = require('../../../utilities/array');
+      arrayUtilities = require('../../../utilities/array'),
+      NonTerminalPart = require('../../part/nonTerminal');
 
 const { isNodeChoiceNode } = bnfUtilities,
+      { ChoiceOfPartsPartType } = partTypes,
       { second, even, allButFirstAndLast } = arrayUtilities;
-
-const type = 'ChoiceOfParts';
 
 class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
+    const type = ChoiceOfPartsPartType; ///
+
     super(type);
     
     this.parts = parts;
@@ -83,9 +85,5 @@ class ChoiceOfPartsPart extends NonTerminalPart {
     return choiceOfPartsPart;
   }
 }
-
-Object.assign(ChoiceOfPartsPart, {
-  type
-});
 
 module.exports = ChoiceOfPartsPart;

@@ -143,20 +143,24 @@ function partFromPartAndQuantifiers(part, quantifiers) {
 function sequenceOfPartsPartFromPartAndQuantifier(part, quantifier) {
   let sequenceOfPartsPart;
 
-  if (false) {
-    ///
-  } else if (quantifier === questionMark) {
-    const optionalPartPart = new OptionalPartPart(part);
+  switch (quantifier) {
+    case questionMark :
+      const optionalPartPart = new OptionalPartPart(part);
 
-    sequenceOfPartsPart = optionalPartPart; ///
-  } else if (quantifier === asterisk) {
-    const zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
+      sequenceOfPartsPart = optionalPartPart; ///
+      break;
 
-    sequenceOfPartsPart = zeroOrMorePartsPart;  ///
-  } else if (quantifier === plus) {
-    const oneOrMorePartsPart = new OneOrMorePartsPart(part);
+    case plus :
+      const oneOrMorePartsPart = new OneOrMorePartsPart(part);
 
-    sequenceOfPartsPart = oneOrMorePartsPart; ///
+      sequenceOfPartsPart = oneOrMorePartsPart; ///
+      break;
+
+    case asterisk :
+      const zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
+
+      sequenceOfPartsPart = zeroOrMorePartsPart;  ///
+      break;
   }
 
   return sequenceOfPartsPart;

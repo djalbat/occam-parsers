@@ -3,6 +3,7 @@
 module.exports = {
   Rule: require('./lib/bnf/rule'),
   Parts: require('./lib/bnf/parts'),
+  partTypes: require('./lib/bnf/partTypes'),
   Definition: require('./lib/bnf/definition'),
   TerminalNode: require('./lib/common/node/terminal'),
   NonTerminalNode: require('./lib/common/node/nonTerminal'),

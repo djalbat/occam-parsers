@@ -2,16 +2,18 @@
 
 const lexers = require('occam-lexers');
 
-const SequenceOfPartsPart = require('./sequenceOfParts');
+const partTypes = require('../../partTypes'),
+      SequenceOfPartsPart = require('./sequenceOfParts');
 
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
-      { asterisk } = specialSymbols;
-
-const type = 'ZeroOrMoreParts';
+      { asterisk } = specialSymbols,
+      { ZeroOrMorePartsPartType } = partTypes;
 
 class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   constructor(part) {
+    const type = ZeroOrMorePartsPartType; ///
+
     super(type, part);
   }
 
@@ -50,9 +52,5 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
     return zeroOrMorePartsPart;
   }
 }
-
-Object.assign(ZeroOrMorePartsPart, {
-  type
-});
 
 module.exports = ZeroOrMorePartsPart;
