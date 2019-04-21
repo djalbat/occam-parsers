@@ -5,8 +5,7 @@ const lexers = require('occam-lexers');
 const TerminalPart = require('../../part/terminal'),
       TerminalNode = require('../../../common/node/terminal');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { wildcard } = specialSymbols;
 
 class WildcardPart extends TerminalPart {

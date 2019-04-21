@@ -5,8 +5,7 @@ const lexers = require('occam-lexers');
 const partTypes = require('../../partTypes'),
       NonTerminalPart = require('../../part/nonTerminal');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { questionMark } = specialSymbols,
       { OptionalPartPartType } = partTypes;
 

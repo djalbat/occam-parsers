@@ -4,8 +4,7 @@ const lexers = require('occam-lexers');
 
 const VerticalBranchParseTree = require('./verticalBranch');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { epsilon } = specialSymbols;
 
 class EpsilonNodeParseTree extends VerticalBranchParseTree {

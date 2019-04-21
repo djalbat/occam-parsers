@@ -7,8 +7,7 @@ const Rule = require('../rule'),
       WildcardNode = require('../node/wildcard'),
       TerminalSymbolDefinition = require('../definition/terminalSymbol');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { wildcard } = specialSymbols,
       { WildcardRuleName } = ruleNames;
 

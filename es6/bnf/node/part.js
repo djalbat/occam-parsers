@@ -12,9 +12,8 @@ const bnfUtilities = require('../../utilities/bnf'),
       OneOrMorePartsPart = require('../part/nonTerminal/oneOrMoreParts'),
       ZeroOrMorePartsPart = require('../part/nonTerminal/zeroOrMoreParts');
 
-const { BNFLexer } = lexers,
-      { first, last } = arrayUtilities,
-      { specialSymbols } = BNFLexer,
+const { first, last } = arrayUtilities,
+      { specialSymbols } = lexers,
       { isPartRuleNamePart } = partUtilities,
       { plus, asterisk, questionMark, exclamationMark } = specialSymbols,
       { isNodeQuantifiersNode, isNodeNoWhitespaceNode, isNodeRightRecursivePartNode, quantifiersFromQuantifiersNode } = bnfUtilities;

@@ -5,11 +5,10 @@ const lexers = require('occam-lexers');
 const ruleNames = require('../bnf/ruleNames'),
       arrayUtilities = require('../utilities/array');
 
-const { BNFLexer } = lexers,
-      { first, second } = arrayUtilities,
-      { specialSymbols } = BNFLexer,
-      { plus, asterisk, questionMark, exclamationMark, NO_WHITESPACE } = specialSymbols,
-      { RuleNameRuleName, RightRecursivePartRuleName } = ruleNames;
+const { first, second } = arrayUtilities,
+      { specialSymbols } = lexers,
+      { RuleNameRuleName, RightRecursivePartRuleName } = ruleNames,
+      { plus, asterisk, questionMark, exclamationMark, NO_WHITESPACE } = specialSymbols;
 
 function isNodeChoiceNode(node) {
   let nodeNoChoiceNode = false;

@@ -6,8 +6,7 @@ const partTypes = require('../../partTypes'),
       ruleUtilities = require('../../../utilities/rule'),
       NonTerminalPart = require('../../part/nonTerminal');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { findRuleByName } = ruleUtilities,
       { RuleNamePartType } = partTypes,
       { NO_WHITESPACE, exclamationMark } = specialSymbols;

@@ -5,8 +5,7 @@ const lexers = require('occam-lexers');
 const partTypes = require('../../partTypes'),
       SequenceOfPartsPart = require('./sequenceOfParts');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { asterisk } = specialSymbols,
       { ZeroOrMorePartsPartType } = partTypes;
 

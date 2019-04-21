@@ -8,8 +8,7 @@ const ruleNames = require('../../ruleNames'),
       TerminalSymbolPart = require('../../part/terminal/terminalSymbol'),
       OneOrMorePartsPart = require('../../part/nonTerminal/oneOrMoreParts');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { openBracket, closeBracket } = specialSymbols,
       { PartRuleName, RightRecursivePartRuleName } = ruleNames;
 

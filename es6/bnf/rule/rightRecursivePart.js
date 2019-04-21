@@ -8,8 +8,7 @@ const Rule = require('../rule'),
       RightRecursivePartNode = require('../node/rightRecursivePart'),
       RightRecursivePartDefinition = require('../definition/rightRecursivePart');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { RightRecursivePartRuleName } = ruleNames,
       { plus, asterisk, questionMark, exclamationMark } = specialSymbols;
 

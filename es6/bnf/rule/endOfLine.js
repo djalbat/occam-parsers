@@ -7,8 +7,7 @@ const Rule = require('../rule'),
       EndOfLineNode = require('../node/endOfLine'),
       TerminalSymbolDefinition = require('../definition/terminalSymbol');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { END_OF_LINE } = specialSymbols,
       { EndOfLineRuleName } = ruleNames;
 

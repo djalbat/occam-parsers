@@ -5,8 +5,7 @@ const lexers = require('occam-lexers');
 const TerminalPart = require('../../part/terminal'),
       EpsilonTerminalNode = require('../../../common/node/terminal/epsilon');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { epsilon } = specialSymbols;
 
 class EpsilonPart extends TerminalPart {

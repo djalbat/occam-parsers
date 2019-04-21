@@ -6,9 +6,8 @@ const TerminalPart = require('../../part/terminal'),
       TerminalNode = require('../../../common/node/terminal'),
       arrayUtilities = require('../../../utilities/array');
 
-const { BNFLexer } = lexers,
-      { first } = arrayUtilities,
-      { specialSymbols } = BNFLexer,
+const { first } = arrayUtilities,
+      { specialSymbols } = lexers,
       { NO_WHITESPACE } = specialSymbols;
 
 class RegularExpressionPart extends TerminalPart {

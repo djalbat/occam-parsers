@@ -6,8 +6,7 @@ const partTypes = require('../../partTypes'),
       SequenceOfPartsPart = require('./sequenceOfParts'),
       ZeroOrMorePartsPart = require('./zeroOrMoreParts');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { plus } = specialSymbols,
       { OneOrMorePartsPartType } = partTypes;
 

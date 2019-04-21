@@ -9,8 +9,7 @@ const ruleNames = require('../ruleNames'),
       TerminalSymbolPart = require('../part/terminal/terminalSymbol'),
       ZeroOrMorePartsPart = require('../part/nonTerminal/zeroOrMoreParts');
 
-const { BNFLexer } = lexers,
-      { specialSymbols } = BNFLexer,
+const { specialSymbols } = lexers,
       { verticalBar } = specialSymbols,
       { DefinitionRuleName } = ruleNames;
 
