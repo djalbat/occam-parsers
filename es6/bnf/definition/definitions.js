@@ -16,11 +16,10 @@ const { BNFLexer } = lexers,
 
 class DefinitionsDefinition extends Definition {
   constructor() {
-    const lookAhead = false,
-          noWhitespace = false,
+    const noWhitespace = false,
           definitionRuleName = DefinitionRuleName,
           verticalBarTerminalSymbolContent = verticalBar,
-          definitionRuleNamePart = new RuleNamePart(definitionRuleName, lookAhead, noWhitespace),
+          definitionRuleNamePart = new RuleNamePart(definitionRuleName, noWhitespace),
           verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent, noWhitespace),
           verticalBarTerminalSymbolThenDefinitionRuleNameParts = [
             verticalBarTerminalSymbolPart,

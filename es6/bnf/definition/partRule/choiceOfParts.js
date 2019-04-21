@@ -16,15 +16,14 @@ const { BNFLexer } = lexers,
 
 class ChoiceOfPartsPartRuleDefinition extends Definition {
   constructor() {
-    const lookAhead = false,
-          noWhitespace = false,
+    const noWhitespace = false,
           partRuleName = PartRuleName,
           rightRecursivePartRuleName = RightRecursivePartRuleName,
           verticalBarTerminalSymbolContent = verticalBar,
           openBracketTerminalSymbolContent = openBracket,
           closeBracketTerminalSymbolContent = closeBracket,
-          partRuleNamePart = new RuleNamePart(partRuleName, lookAhead, noWhitespace),
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, lookAhead, noWhitespace),
+          partRuleNamePart = new RuleNamePart(partRuleName, noWhitespace),
+          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
           verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent, noWhitespace),
           openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent, noWhitespace),
           closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent, noWhitespace),

@@ -8,7 +8,7 @@ const ruleNames = require('../bnf/ruleNames'),
 const { BNFLexer } = lexers,
       { first, second } = arrayUtilities,
       { specialSymbols } = BNFLexer,
-      { plus, asterisk, questionMark, NO_WHITESPACE } = specialSymbols,
+      { plus, asterisk, questionMark, exclamationMark, NO_WHITESPACE } = specialSymbols,
       { RuleNameRuleName, RightRecursivePartRuleName } = ruleNames;
 
 function isNodeChoiceNode(node) {
@@ -60,7 +60,8 @@ function isNodeQuantifiersNode(node) {
 
       nodeQuantifiersNode = (terminalNodeContent === plus) ||
                             (terminalNodeContent === asterisk) ||
-                            (terminalNodeContent === questionMark);
+                            (terminalNodeContent === questionMark) ||
+                            (terminalNodeContent === exclamationMark);
     }
   }
 

@@ -38,6 +38,8 @@ All parsers share common functionality. The last two parse content according to 
 
       oneOrMoreParts       ::=  part<NO_WHITESPACE>"+" ;
       
+      lookAheadPart        ::=  part<NO_WHITESPACE>"!" ;
+
       groupOfParts         ::=  "(" part part+ ")" ;
       
       choiceOfParts        ::=  "(" part ( "|" part )+ ")" ;
@@ -50,7 +52,9 @@ All parsers share common functionality. The last two parse content according to 
                     
                              |  oneOrMoreParts  
                     
-                             |  groupOfParts  
+                             |  lookAheadPart
+
+                             |  groupOfParts
                                
                              |  choiceOfParts  
                                
@@ -72,7 +76,7 @@ All parsers share common functionality. The last two parse content according to 
     
       name                 ::=  [name] ;
 
-      ruleName             ::=  [name]<NO_WHITESPACE>"!" ;
+      ruleName             ::=  [name] ;
     
       regularExpression    ::=  [regular-expression] ;
       

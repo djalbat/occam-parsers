@@ -13,13 +13,13 @@ class RightRecursivePartDefinition extends Definition {
 
     noWhitespace = true;
 
-    const terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, noWhitespace);
+    const content = terminalSymbolContent,  ///
+          terminalSymbolPart = new TerminalSymbolPart(content, noWhitespace);
 
     noWhitespace = false;
 
-    const lookAhead = false,
-          rightRecursivePartRuleName = RightRecursivePartRuleName,
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, lookAhead, noWhitespace),
+    const rightRecursivePartRuleName = RightRecursivePartRuleName,
+          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
           parts = [
             terminalSymbolPart,
             rightRecursivePartRuleNamePart

@@ -3,18 +3,20 @@
 const lexers = require('occam-lexers');
 
 const bnfUtilities = require('../../utilities/bnf'),
+      partUtilities = require('../../utilities/part'),
       arrayUtilities = require('../../utilities/array'),
+      NonTerminalNode = require('../../common/node/nonTerminal'),
       OptionalPartPart = require('../part/nonTerminal/optionalPart'),
-      ZeroOrMorePartsPart = require('../part/nonTerminal/zeroOrMoreParts'),
-      OneOrMorePartsPart = require('../part/nonTerminal/oneOrMoreParts'),
       GroupOfPartsPart = require('../part/nonTerminal/groupOfParts'),
       ChoiceOfPartsPart = require('../part/nonTerminal/choiceOfParts'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+      OneOrMorePartsPart = require('../part/nonTerminal/oneOrMoreParts'),
+      ZeroOrMorePartsPart = require('../part/nonTerminal/zeroOrMoreParts');
 
 const { BNFLexer } = lexers,
       { first, last } = arrayUtilities,
       { specialSymbols } = BNFLexer,
-      { plus, asterisk, questionMark } = specialSymbols,
+      { isPartRuleNamePart } = partUtilities,
+      { plus, asterisk, questionMark, exclamationMark } = specialSymbols,
       { isNodeQuantifiersNode, isNodeNoWhitespaceNode, isNodeRightRecursivePartNode, quantifiersFromQuantifiersNode } = bnfUtilities;
 
 class PartNode extends NonTerminalNode {
@@ -115,10 +117,22 @@ function partFromPartAndQuantifiers(part, quantifiers) {
   const quantifiersLength = quantifiers.length;
 
   if (quantifiersLength > 0) {
-    const quantifier = quantifiers.shift(),
-          sequenceOfPartsPart = sequenceOfPartsPartFromPartAndQuantifier(part, quantifier);
+    const quantifier = quantifiers.shift();
 
-    part = sequenceOfPartsPart; ///
+    if (quantifier === exclamationMark) {
+      const partRuleNamePart = isPartRuleNamePart(part);
+
+      if (partRuleNamePart) {
+        const ruleNamePart = part,  ///
+              lookAhead = true;
+
+        ruleNamePart.setLookAhead(lookAhead);
+      }
+    } else {
+      const sequenceOfPartsPart = sequenceOfPartsPartFromPartAndQuantifier(part, quantifier);
+
+      part = sequenceOfPartsPart; ///
+    }
 
     part = partFromPartAndQuantifiers(part, quantifiers);
   }

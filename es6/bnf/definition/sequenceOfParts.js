@@ -13,9 +13,8 @@ class SequenceOfPartsDefinition extends Definition {
 
     noWhitespace = false;
 
-    const lookAhead = false,
-          partRuleName = PartRuleName,
-          partRuleNamePart = new RuleNamePart(partRuleName, lookAhead, noWhitespace);
+    const partRuleName = PartRuleName,
+          partRuleNamePart = new RuleNamePart(partRuleName, noWhitespace);
 
     noWhitespace = true;
 

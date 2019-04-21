@@ -174,6 +174,14 @@ const bnf = `
 
 
 
+     unqualifiedMetastatement             ::=   metastatement! <END_OF_LINE> ;
+     
+     qualifiedMetastatement               ::=   metastatement! qualification? <END_OF_LINE> ;
+     
+     unqualifiedStatement                 ::=   statement! <END_OF_LINE> ;
+     
+     qualifiedStatement                   ::=   statement! qualification? <END_OF_LINE> ;
+
      qualification                        ::=   ( "by" | "from" ) reference ;
      
      

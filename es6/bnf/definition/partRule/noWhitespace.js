@@ -14,13 +14,12 @@ const { BNFLexer } = lexers,
 
 class NoWhitespacePartRuleDefinition extends Definition {
   constructor() {
-    const lookAhead = false,
-          noWhitespace = false,
+    const noWhitespace = false,
           partRuleName = PartRuleName,
           rightRecursivePartRuleName = RightRecursivePartRuleName,
           noWhitespaceTerminalSymbolContent = NO_WHITESPACE,
-          partRuleNamePart = new RuleNamePart(partRuleName, lookAhead, noWhitespace),
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, lookAhead, noWhitespace),
+          partRuleNamePart = new RuleNamePart(partRuleName, noWhitespace),
+          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
           noWhitespaceTerminalSymbolPart = new TerminalSymbolPart(noWhitespaceTerminalSymbolContent, noWhitespace),
           parts = [
             noWhitespaceTerminalSymbolPart,

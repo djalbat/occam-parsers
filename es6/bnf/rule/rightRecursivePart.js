@@ -11,22 +11,25 @@ const Rule = require('../rule'),
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { RightRecursivePartRuleName } = ruleNames,
-      { plus, asterisk, questionMark } = specialSymbols;
+      { plus, asterisk, questionMark, exclamationMark } = specialSymbols;
 
 class RightRecursivePartRule extends Rule {
   constructor() {
     const plusTerminalSymbolContent = plus,
           asteriskTerminalSymbolContent = asterisk,
           questionMarkTerminalSymbolContent = questionMark,
+          exclamationMarkTerminalSymbolContent = exclamationMark,
           optionalRightRecursivePartDefinition = new RightRecursivePartDefinition(questionMarkTerminalSymbolContent), ///
           zeroOrMoreRightRecursivePartDefinition = new RightRecursivePartDefinition(asteriskTerminalSymbolContent), ///
           oneOrMoreRightRecursivePartDefinition = new RightRecursivePartDefinition(plusTerminalSymbolContent), ///
+          lookAheadRightRecursivePartDefinition = new RightRecursivePartDefinition(exclamationMarkTerminalSymbolContent), ///
           epsilonDefinition = new EpsilonDefinition(),
           name = RightRecursivePartRuleName,
           definitions = [
             optionalRightRecursivePartDefinition,
             zeroOrMoreRightRecursivePartDefinition,
             oneOrMoreRightRecursivePartDefinition,
+            lookAheadRightRecursivePartDefinition,
             epsilonDefinition
           ],
           Node = RightRecursivePartNode;

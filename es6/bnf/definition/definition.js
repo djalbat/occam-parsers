@@ -9,10 +9,9 @@ const { PartRuleName } = ruleNames;
 
 class DefinitionDefinition extends Definition {
   constructor() {
-    const lookAhead = false,
-          noWhitespace = false,
+    const noWhitespace = false,
           partRuleName = PartRuleName,
-          partRuleNamePart = new RuleNamePart(partRuleName, lookAhead, noWhitespace),
+          partRuleNamePart = new RuleNamePart(partRuleName, noWhitespace),
           oneOrMoreRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart),
           parts = [
             oneOrMoreRuleNamePartsPart

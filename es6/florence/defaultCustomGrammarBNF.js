@@ -6,10 +6,10 @@ const termDefaultCustomGrammarBNF = require('./defaultCustomGrammarBNF/term'),
       metastatementDefaultCustomGrammarBNF = require('./defaultCustomGrammarBNF/metastatement');
 
 const defaultCustomGrammarBNFs = [
-        termDefaultCustomGrammarBNF,
+        metastatementDefaultCustomGrammarBNF,
         statementDefaultCustomGrammarBNF,
         expressionDefaultCustomGrammarBNF,
-        metastatementDefaultCustomGrammarBNF
+        termDefaultCustomGrammarBNF
       ],
       defaultCustomGrammarBNF = defaultCustomGrammarBNFs.join('');
 

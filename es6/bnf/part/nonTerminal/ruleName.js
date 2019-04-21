@@ -13,12 +13,14 @@ const { BNFLexer } = lexers,
 const type = 'RuleName';
 
 class RuleNamePart extends NonTerminalPart {
-  constructor(ruleName, lookAhead, noWhitespace) {
+  constructor(ruleName, noWhitespace, lookAhead = false) {
     super(type);
 
     this.ruleName = ruleName;
-    this.lookAhead = lookAhead;
+
     this.noWhitespace = noWhitespace;
+
+    this.lookAhead = lookAhead;
   }
   
   getRuleName() {
@@ -33,6 +35,10 @@ class RuleNamePart extends NonTerminalPart {
     const ruleNamePart = true;
 
     return ruleNamePart;
+  }
+
+  setLookAhead(lookAhead) {
+    this.lookAhead = lookAhead;
   }
 
   findRule(configuration) {

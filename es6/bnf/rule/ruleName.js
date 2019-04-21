@@ -3,16 +3,16 @@
 const Rule = require('../rule'),
       ruleNames = require('../ruleNames'),
       RuleNameNode = require('../node/ruleName'),
-      RuleNameDefinition = require('../definition/ruleName');
+      NameDefinition = require('../definition/name');
 
 const { RuleNameRuleName } = ruleNames;
 
 class RuleNameRule extends Rule {
   constructor() {
-    const ruleNameDefinition = new RuleNameDefinition(),
+    const nameDefinition = new NameDefinition(),
           name = RuleNameRuleName,
           definitions = [
-            ruleNameDefinition
+            nameDefinition  ///
           ],
           Node = RuleNameNode;
     

@@ -14,15 +14,14 @@ const { BNFLexer } = lexers,
 
 class RuleDefinition extends Definition {
   constructor() {
-    const lookAhead = false,
-          noWhitespace = false,
+    const noWhitespace = false,
           separatorTerminalSymbolContent = separator,
           terminatorTerminalSymbolContent = terminator,
           nameRuleName = NameRuleName,
           definitionsRuleName = DefinitionsRuleName,
-          nameRuleNamePart = new RuleNamePart(nameRuleName, lookAhead, noWhitespace),
+          nameRuleNamePart = new RuleNamePart(nameRuleName, noWhitespace),
           separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent, noWhitespace),
-          definitionsRuleNamePart = new RuleNamePart(definitionsRuleName, lookAhead, noWhitespace),
+          definitionsRuleNamePart = new RuleNamePart(definitionsRuleName, noWhitespace),
           terminatorTerminalSymbolPart = new TerminalSymbolPart(terminatorTerminalSymbolContent, noWhitespace),
           parts = [
             nameRuleNamePart,

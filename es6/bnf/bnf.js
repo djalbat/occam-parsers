@@ -53,13 +53,13 @@ const bnf = `
     
     name                  ::= [name] ;
     
-    ruleName              ::= [name]<NO_WHITESPACE>"!"? ;
+    ruleName              ::= [name] ;
 
-    regularExpression     ::= [regularExpression] ;
+    regularExpression     ::= [regular-expression] ;
     
     significantTokenType  ::= [type] ;
     
-    terminalSymbol        ::= [stringLiteral] ;
+    terminalSymbol        ::= [string-literal] ;
     
     endOfLine             ::= "<END_OF_LINE>" ;
     
@@ -72,6 +72,8 @@ const bnf = `
                             | <NO_WHITESPACE>"*" part~
      
                             | <NO_WHITESPACE>"+" part~
+     
+                            | <NO_WHITESPACE>"!" part~
      
                             | ε 
                            
