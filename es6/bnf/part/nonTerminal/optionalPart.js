@@ -8,11 +8,11 @@ const partTypes = require('../../partTypes'),
 const { BNFLexer } = lexers,
       { specialSymbols } = BNFLexer,
       { questionMark } = specialSymbols,
-      { OptionalPartType } = partTypes;
+      { OptionalPartPartType } = partTypes;
 
 class OptionalPartPart extends NonTerminalPart {
   constructor(part) {
-    const type = OptionalPartType; ///
+    const type = OptionalPartPartType; ///
 
     super(type);
 

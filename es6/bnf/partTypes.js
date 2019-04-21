@@ -2,7 +2,7 @@
 
 module.exports = {
   RuleNamePartType: 'ruleNamePart',
-  OptionalPartType: 'optionalPart',
+  OptionalPartPartType: 'optionalPart',
   GroupOfPartsPartType: 'groupOfParts',
   ChoiceOfPartsPartType: 'choiceOfParts',
   OneOrMorePartsPartType: 'oneOrMoreParts',
