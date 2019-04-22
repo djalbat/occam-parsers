@@ -256,13 +256,13 @@ The following lexical entries...
 
 ...and the following BNF...
 
-   abcde  ::=  aab! cccd e ;
+    abcde  ::=  aab! cccd e ;
 
-     aab  ::=  "a" | "a" "b" ;
+      aab  ::=  "a" | "a" "b" ;
 
-    cccd  ::=  "c" "c" | "c" "d" ;
+     cccd  ::=  "c" "c" | "c" "d" ;
 
-       e  ::=  "e" ;
+        e  ::=  "e" ;
 
 ...will parse the string `a b c d e`, resulting in the following parse tree:
 
