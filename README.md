@@ -256,7 +256,7 @@ The following lexical entries...
 
 ...and the following BNF...
 
-    word  ::=  aab! cccd e ;
+   abcde  ::=  aab! cccd e ;
 
      aab  ::=  "a" | "a" "b" ;
 
@@ -266,7 +266,7 @@ The following lexical entries...
 
 ...will parse the string `a b c d e`, resulting in the following parse tree:
 
-                                                    word(0-8)
+                                                   abcde(0-8)
                                                         |
                                  ----------------------------------------------
                                  |                         |                  |
@@ -276,7 +276,7 @@ The following lexical entries...
                           |            |            |            |
                     a[letter](0) b[letter](2) c[letter](4) d[letter](6)
 
-Note the presence of the `!` operator for the `aab` rule part in the BNF, making it look ahead. Without it, the string will not be parsed because the `aab` rule's first definition "a" parses the first "a" character of the string but does not permit the rule specified by the next part to parse the remainder, expecting as it does a "c" character. With look ahead, each definition of the `aab` rule is parsed until one is found that does permit the next part to parse the remainder of the string. In this case the second definition works and the `cccd` rule can continue. Note that in this case the second of the `cccd` rule's definitions is parsed. This is not because of look ahead, but because the first definition "c" "c" simply will not parse that part of the string that remains.
+Note the presence of the `!` operator for the `aab` rule part in the BNF, making it look ahead. Without it, the string will not be parsed because the `aab` rule's first definition parses the first "a" character of the string but does not permit the rule specified by the next part, namely the `cccd` rule, to parse the remainder. With look ahead, each definition of the `aab` rule is tried until one is found that does permit the next part to continue. In this case the second definition of the first rule permits the second `cccd` rule to continue. Note also that the second of the `cccd` rule's definitions is the one that is utilised. This is not because of look ahead, but because the first definition "c" "c" simply will not parse that part of the string that remains to it.
 
 ## Building
 
