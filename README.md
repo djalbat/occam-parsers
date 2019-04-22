@@ -276,7 +276,7 @@ The following lexical entries...
                           |            |            |            |
                     a[letter](0) b[letter](2) c[letter](4) d[letter](6)
 
-Note the presence of the `!` operator for the `aab` rule part in the BNF, making it look ahead. Without it, the string will not parse because the `aab` rule's first definition "a" parses the first "a" character of the string but does not permit the rule specified by the next part to parse the remainder, expecting as it does a "c" character. With look ahead, each definition of the `aab` rule is parsed until one is found that does permit the next part to parse the remainder of the string. In this case the second definition works and the `cccd` rule can continue. Note that in this case the second of the `cccd` rule's definitions is parsed. This is not because of look ahead, but because the first definition "c" "c" simply will not parse that part of the string that remains.
+Note the presence of the `!` operator for the `aab` rule part in the BNF, making it look ahead. Without it, the string will not be parsed because the `aab` rule's first definition "a" parses the first "a" character of the string but does not permit the rule specified by the next part to parse the remainder, expecting as it does a "c" character. With look ahead, each definition of the `aab` rule is parsed until one is found that does permit the next part to parse the remainder of the string. In this case the second definition works and the `cccd` rule can continue. Note that in this case the second of the `cccd` rule's definitions is parsed. This is not because of look ahead, but because the first definition "c" "c" simply will not parse that part of the string that remains.
 
 ## Building
 
