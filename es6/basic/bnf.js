@@ -2,20 +2,17 @@
 
 const bnf = `
 
-
-  statement     ::= body ";" ;
-  
-  body          ::= expression | nonsense ;
-
-  nonsense      ::= ( term | operator )+ ;
-
   expression    ::= "(" expression ")" expression~
 
-                  | term expression~ 
-                  
-                  ;
+                  | term expression~ ;
 
-  operator      ::= "+" | "-" | "/" | "*" ;
+  operator      ::= "+"
+
+                  | "-"
+
+                  | "/"
+
+                  | "*" ;
 
   term          ::= naturalNumber ;
 
@@ -23,10 +20,7 @@ const bnf = `
 
   expression~   ::= operator expression expression~
 
-                  | ε 
-                  
-                  ;
-
+                  | ε ;
 
 `;
 

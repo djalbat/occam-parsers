@@ -16,11 +16,11 @@
 
 Three parsers are documented:
 
-* A BNF parser, actually [extended BNF](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form).
+* A BNF parser, actually a variant of [extended BNF](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form).
 * A basic parser, for illustrative purposes, and for developing new grammars.
 * The Florence parser, namely the parser for the [BNF part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/bnf.js) of Occam's vernacular.
 
-All parsers share common functionality. The last two parse content according to rules defined in a variant of BNF. The BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant that they implement: 
+All parsers share common functionality. The last two parse content according to rules defined in the aforementioned variant of extended BNF. The BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant that they implement:
 
       document             ::=  ( rule | error )+ ;
       
@@ -120,7 +120,11 @@ const { FlorenceLexer } = lexers,
 const florenceLexer = FlorenceLexer.fromNothing(),
       florenceParser = FlorenceParser.fromNothing();
 
-const content = ...,
+const content = `
+
+        ...
+
+      `,
       tokens = florenceLexer.tokenise(content),
       node = florenceParser.parse(tokens);
 
@@ -196,8 +200,9 @@ This uses the BNF part of Occam's vernacular, called Florence.
 - `*` zero or more
 - `+` one or more
 - `?` optional
+- `!` look ahead
 
-These bind tightly to the symbols to their left and can be chained. However, both the `*+` and `?+` chains will cause an infinite loop and must be avoided.
+These bind tightly to the symbols to their left and can be chained. Take note that both the `*+` and `?+` chains will cause an infinite loop and must be avoided. Also note that, although the BNF allows the `!` operator to be bound to any part, in practice it is ignore unless bound to a rule name part. The look ahead functionality is described in more detail below.
 
 ### Regular expressions
 
@@ -234,6 +239,44 @@ This can be done with the brackets. For example:
 The vertical bar symbol `|` is overloaded and can be used in conjunction with brackets to choose between parts as opposed to definitions. For example:
 
      justifiedStatement         ::=   statement ( "by" | "from" ) reference <END_OF_LINE> ;
+
+
+### Look ahead for rules
+
+The following lexical entries...
+
+    [
+      {
+        "letter": "a|b|c|d|e"
+      },
+      {
+        "unassigned": "^.*$"
+      }
+    ]
+
+...and the following BNF...
+
+    word  ::=  aab! cccd e ;
+
+     aab  ::=  "a" | "a" "b" ;
+
+    cccd  ::=  "c" "c" | "c" "d" ;
+
+       e  ::=  "e" ;
+
+...will parse the string `a b c d e`, resulting in the following parse tree:
+
+                                                    word(0-8)
+                                                        |
+                                 ----------------------------------------------
+                                 |                         |                  |
+                             aab(0-2)                  cccd(4-6)            e(8)
+                                 |                         |                  |
+                          --------------            --------------      e[letter](8)
+                          |            |            |            |
+                    a[letter](0) b[letter](2) c[letter](4) d[letter](6)
+
+Note the presence of the `!` operator for the `aab` rule part, making it look ahead. Without it, the string will not parse because the `aab` rule's first definition "a" parses the first "a" character but does not permit the next part to parse the remainder of the string, expecting as it does a "c" character. With look ahead, each definition of the `aab` rule is parsed until one is found that does permit the next part to parse the remainder of the string. In this case the second definition works and the `cccd` rule can continue. Note that in this case the second of the `cccd` rule's definitions is parsed. This is not because of look ahead, but because the first definition "c" "c" simply will not parse that part of the string that remains.
 
 ## Building
 
