@@ -18,7 +18,7 @@ Three parsers are documented:
 
 * A BNF parser, actually a variant of [extended BNF](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form).
 * A basic parser, for illustrative purposes, and for developing new grammars.
-* The Florence parser, namely the parser for the [BNF part](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/bnf.js) of Occam's vernacular.
+* The Florence parser, namely the parser for the [BNF part](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/bnf.js) of Occam's vernacular.
 
 All parsers share common functionality. The last two parse content according to rules defined in the aforementioned variant of extended BNF. The BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant that they implement:
 
