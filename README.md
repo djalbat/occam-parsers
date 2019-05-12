@@ -278,18 +278,7 @@ The following lexical entries...
 
 Note the presence of the `!` operator for the `aab` rule part in the BNF, making it look ahead. Without it, the string will not be parsed because the `aab` rule's first definition parses the first "a" character of the string but does not permit the rule specified by the next part, namely the `cccd` rule, to parse the remainder. With look ahead, each definition of the `aab` rule is tried until one is found that does permit the next part to continue. In this case the second definition of the first rule permits the second `cccd` rule to continue. Note also that the second of the `cccd` rule's definitions is the one that is utilised. This is not because of look ahead, but because the first definition "c" "c" simply will not parse that part of the string that remains to it.
 
-Look ahead should be used sparingly. It certainly appears that without look ahead the parser's complexity is roughly linear. With look ahead, it is more that likely that it is exponential. Therefore it is recommended that you avoid look ahead until all the other options have been exhausted. It is worth pointing out that it makes an appearance out of necessity only a few times in the Florence BNF and with very little coming after the look ahead parts:
-
-
-     unqualifiedMetastatement             ::=   metastatement! <END_OF_LINE> ;
-
-     qualifiedMetastatement               ::=   metastatement! qualification? <END_OF_LINE> ;
-
-     unqualifiedStatement                 ::=   statement! <END_OF_LINE> ;
-
-     qualifiedStatement                   ::=   statement! qualification? <END_OF_LINE> ;
-
-     qualification                        ::=   ( "by" | "from" ) reference ;
+Look ahead should be used sparingly. It certainly appears that without look ahead the parser's complexity is roughly linear. With look ahead, it is more that likely that it is exponential. Therefore it is recommended that you avoid look ahead until all the other options have been exhausted. It is worth pointing out that it makes an appearance out of necessity only a few times in the Florence BNF and with very little coming after the look ahead parts.
 
 ## Building
 
