@@ -191,13 +191,15 @@ const bnf = `
 
 
 
-     parenthesisedTypeNames               ::=   "(" typeNames ")" ;
+     parenthesisedTypeNames               ::=   "(" typeNames? ")" ;
+
+     parenthesisedLabels                  ::=   "(" labels? ")" ;                    
+
+     parenthesisedTerms                   ::=   "(" terms? ")" ;   
+
+
 
      parenthesisedTypeName                ::=   "(" typeName ")" ;
-
-     parenthesisedLabels                  ::=   "(" labels ")" ;                    
-
-     parenthesisedTerms                   ::=   "(" terms ")" ;   
 
      parenthesisedTerm                    ::=   "(" term ")" ;   
 
