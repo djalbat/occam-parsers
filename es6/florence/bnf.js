@@ -75,11 +75,11 @@ const bnf = `
 
 
 
-     typeDeclaration                      ::=   typeName ( ":" typeName )?;
+     typeDeclaration                      ::=   typeName ( ":" typeName )? ;
    
      contextDeclaration                   ::=   contextName<NO_WHITESPACE>parenthesisedTypeName? ;
    
-     variableDeclaration                  ::=   variableName ;
+     variableDeclaration                  ::=   variableName ( ":" typeName )? ;
    
      constructorDeclaration               ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames? ":" typeName ;
    
