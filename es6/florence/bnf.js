@@ -79,15 +79,19 @@ const bnf = `
    
      contextDeclaration                   ::=   contextName<NO_WHITESPACE>parenthesisedTypeName? ;
    
-     variableDeclaration                  ::=   variableName ( ":" typeName )? ;
+     variableDeclaration                  ::=   name ( ":" typeName )? ;
    
-     constructorDeclaration               ::=   term<NO_WHITESPACE>parenthesisedTypeNames? ":" typeName ;
+     constructorDeclaration               ::=   name<NO_WHITESPACE>parenthesisedTypeNames? ":" typeName 
+
+                                            |   term!<NO_WHITESPACE>parenthesisedTypeNames ":" typeName 
+
+                                            ;
    
      dependentTypeDeclaration             ::=   typeName<NO_WHITESPACE>parenthesisedTypeName ;
    
      metavariableDeclaration              ::=   metavariableName<NO_WHITESPACE>parenthesisedTypeName? ;
      
-     abbreviationDeclaration              ::=   constructorName "for" constructorName ; 
+     abbreviationDeclaration              ::=   name "for" name ; 
      
    
         
@@ -217,10 +221,6 @@ const bnf = `
 
      contextName                          ::=   [unassigned] ;
 
-     variableName                         ::=   [unassigned] ;
-
-     constructorName                      ::=   [unassigned] ;
-
      metavariableName                     ::=   [unassigned] ;
 
      referenceName                        ::=   [unassigned] ;
@@ -229,6 +229,10 @@ const bnf = `
 
      
    
+     name                                 ::=   [unassigned] ;
+
+
+
      nonsense                             ::=   ( [unassigned] | [special] | [custom] )+ ;
 
      

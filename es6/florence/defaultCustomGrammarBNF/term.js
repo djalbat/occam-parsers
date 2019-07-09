@@ -3,9 +3,13 @@
 const termDefaultCustomGrammarBNF = `
 
 
-     term                                 ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
+     term                                 ::=   name<NO_WHITESPACE>parenthesisedTerms
 
-
+                                            |   name
+                                             
+                                            ;
+                                            
+                                            
 `;
 
 module.exports = termDefaultCustomGrammarBNF;
