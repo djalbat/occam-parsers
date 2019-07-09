@@ -81,7 +81,7 @@ const bnf = `
    
      variableDeclaration                  ::=   variableName ( ":" typeName )? ;
    
-     constructorDeclaration               ::=   constructorName<NO_WHITESPACE>parenthesisedTypeNames? ":" typeName ;
+     constructorDeclaration               ::=   term<NO_WHITESPACE>parenthesisedTypeNames? ":" typeName ;
    
      dependentTypeDeclaration             ::=   typeName<NO_WHITESPACE>parenthesisedTypeName ;
    
