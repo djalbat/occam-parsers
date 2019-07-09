@@ -200,9 +200,9 @@ This uses the BNF part of Occam's vernacular, called Florence.
 - `*` zero or more
 - `+` one or more
 - `?` optional
-- `!` look ahead
+- `!` look-ahead
 
-These bind tightly to the symbols to their left and can be chained. Take note that both the `*+` and `?+` chains will cause an infinite loop and must be avoided. Also note that, although the BNF allows the `!` operator to be bound to any part, in practice it is ignored unless bound to a rule name part. The look ahead functionality is described in more detail below.
+These bind tightly to the symbols to their left and can be chained. Take note that both the `*+` and `?+` chains will cause an infinite loop and must be avoided. Also note that, although the BNF allows the `!` operator to be bound to any part, in practice it is ignored unless bound to a rule name part. The look-ahead functionality is described in more detail below.
 
 ### Regular expressions
 
@@ -241,7 +241,7 @@ The vertical bar symbol `|` is overloaded and can be used in conjunction with br
      justifiedStatement         ::=   statement ( "by" | "from" ) reference <END_OF_LINE> ;
 
 
-### Look ahead for rules
+### Look-ahead for rules
 
 The following lexical entries...
 
@@ -276,9 +276,9 @@ The following lexical entries...
                           |            |            |            |
                     a[letter](0) b[letter](2) c[letter](4) d[letter](6)
 
-Note the presence of the `!` operator for the `aab` rule part in the BNF, making it look ahead. Without it, the string will not be parsed because the `aab` rule's first definition parses the first "a" character of the string but does not permit the rule specified by the next part, namely the `cccd` rule, to parse the remainder. With look ahead, each definition of the `aab` rule is tried until one is found that does permit the next part to continue. In this case the second definition of the first rule permits the second `cccd` rule to continue. Note also that the second of the `cccd` rule's definitions is the one that is utilised. This is not because of look ahead, but because the first definition "c" "c" simply will not parse that part of the string that remains to it.
+Note the presence of the `!` operator for the `aab` rule part in the BNF, making it look-ahead. Without it, the string will not be parsed because the `aab` rule's first definition parses the first "a" character of the string but does not permit the rule specified by the next part, namely the `cccd` rule, to parse the remainder. With look-ahead, each definition of the `aab` rule is tried until one is found that does permit progress on to the next part. In this case the second definition of the first rule permits the second `cccd` rule to be parsed. Note also that the second of the `cccd` rule's definitions is the one that is utilised. This is not because of look-ahead, but because the first definition "c" "c" simply will not parse that part of the string that remains to it.
 
-Look ahead should be used sparingly. It certainly appears that without look ahead the parser's complexity is roughly linear. With look ahead, it is more that likely that it is exponential. Therefore it is recommended that you avoid look ahead until all the other options have been exhausted. It is worth pointing out that it makes an appearance out of necessity only a few times in the Florence BNF and with very little coming after the look ahead parts.
+It appears that without look-ahead the parser's complexity is roughly linear. With look-ahead, it is more that likely to be exponential. Therefore it is recommended that you avoid look-ahead until all the other options have been exhausted. It is worth pointing out that it makes an appearance out of necessity only a few times in the Florence BNF.
 
 ## Building
 
