@@ -3,11 +3,7 @@
 const termDefaultCustomGrammarBNF = `
 
 
-     term                                 ::=   name<NO_WHITESPACE>parenthesisedTerms
-
-                                            |   name
-                                             
-                                            ;
+     term                                 ::=   name<NO_WHITESPACE>parenthesisedTerms? ; 
                                             
                                             
 `;
