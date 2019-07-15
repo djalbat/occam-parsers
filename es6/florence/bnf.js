@@ -81,9 +81,9 @@ const bnf = `
    
      variableDeclaration                  ::=   name ":" typeName ;
    
-     constructorDeclaration               ::=   name<NO_WHITESPACE>parenthesisedTypeNames? ":" typeName 
+     constructorDeclaration               ::=   term!<NO_WHITESPACE>parenthesisedTypeNames ":" typeName 
 
-                                            |   term!<NO_WHITESPACE>parenthesisedTypeNames ":" typeName 
+                                            |   name<NO_WHITESPACE>parenthesisedTypeNames? ":" typeName
 
                                             ;
    
