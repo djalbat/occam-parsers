@@ -211,6 +211,7 @@ Now at least the following and similar will parse:
 Axiom (TheSuccessorOfZeroEqualsOne)
   successor(zero)=one
 ```
+For an explanation, see Occam's [custom grammars](https://github.com/jecs-imperial/occam-custom-grammars).
 
 ## Features
 
