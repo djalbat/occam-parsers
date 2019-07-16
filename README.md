@@ -193,6 +193,25 @@ Both the lexical patterns and BNF as well as the content can be changed. Given t
 
 This uses the BNF part of Occam's vernacular, called Florence.
 
+You will need to explicitly define the lexical entry for custom tokens in order to get anything involving terms to parse. Try the following in the lexical entries textarea:
+
+```
+[
+  {
+    "custom": "(?:zero|one|successor)"
+  },
+
+  ...
+]
+```
+
+Now at least the following and similar will parse:
+
+```
+Axiom (TheSuccessorOfZeroIsOne)
+  successor(zero)=one
+```
+
 ## Features
 
 ### Operators
