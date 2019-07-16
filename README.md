@@ -208,7 +208,7 @@ You will need to explicitly define the lexical entry for custom tokens in order 
 Now at least the following and similar will parse:
 
 ```
-Axiom (TheSuccessorOfZeroIsOne)
+Axiom (TheSuccessorOfZeroEqualsOne)
   successor(zero)=one
 ```
 
