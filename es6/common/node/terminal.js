@@ -46,6 +46,8 @@ class TerminalNode {
     return nonTerminalNode;
   }
 
+  getType() { return this.significantToken.getType(); }
+
   getContent() { return this.significantToken.getContent(); }
 
   setSignificantToken(significantToken) {
