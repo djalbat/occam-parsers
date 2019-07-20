@@ -9,6 +9,12 @@ class NonTerminalPart {
     return this.type;
   }
 
+  isNonTerminalPart() {
+    const nonTerminalPart = true;
+
+    return nonTerminalPart;
+  }
+
   isTerminalPart() {
     const terminalPart = false;
     

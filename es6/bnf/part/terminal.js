@@ -9,6 +9,12 @@ class TerminalPart {
     return this.noWhitespace;
   }
 
+  isNonTerminalPart() {
+    const nonTerminalPart = false;
+
+    return nonTerminalPart;
+  }
+
   isTerminalPart() {
     const terminalPart = true;
     
