@@ -1,6 +1,6 @@
 'use strict';
 
-const termDefaultCustomGrammarBNF = `
+const termDefaultBNF = `
 
 
      term                                 ::=   [custom]<NO_WHITESPACE>parenthesisedTerms? 
@@ -12,4 +12,4 @@ const termDefaultCustomGrammarBNF = `
                                             
 `;
 
-module.exports = termDefaultCustomGrammarBNF;
+module.exports = termDefaultBNF;

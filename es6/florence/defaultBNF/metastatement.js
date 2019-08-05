@@ -1,6 +1,6 @@
 'use strict';
 
-const metastatementDefaultCustomGrammarBNF = `
+const metastatementDefaultBNF = `
 
 
      metastatement                        ::=   contextDefinition 
@@ -29,4 +29,4 @@ const metastatementDefaultCustomGrammarBNF = `
 
 `;
 
-module.exports = metastatementDefaultCustomGrammarBNF;
+module.exports = metastatementDefaultBNF;
