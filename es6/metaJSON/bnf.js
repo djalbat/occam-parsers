@@ -3,19 +3,28 @@
 const bnf = `
 
 
-    document        ::=  ( metaJSON error* ) | error+ ;
+    document          ::=  ( metaJSON error* ) | error+ ;
 
 
-    metaJSON        ::=  "{" ( ( repository ( "," dependencies )? ) | ( dependencies "," repository ) ) "}" ;
+    metaJSON          ::=  "{" ( ( repositoryPair ( "," dependenciesPair )? ) | ( dependenciesPair "," repositoryPair ) ) "}" ;
 
 
-    repository      ::=  "\\"repository\\"" ":" [string-literal] ;
+    dependenciesPair  ::=  "\\"dependencies\\"" ":" dependencies ;
+    
+    
+    repositoryPair    ::=  "\\"repository\\"" ":" repository ;
 
 
-    dependencies    ::=  "\\"dependencies\\"" ":" "[" ([string-literal] ( "," [string-literal] )*)?  "]" ;
+    dependencies      ::=  "[" (dependency ( "," dependency )*)? "]" ;
 
 
-    error           ::=  . ;
+    dependency        ::=  [string-literal] ;
+
+
+    repository        ::=  [string-literal] ;
+
+
+    error             ::=  . ;
 
 
 `;
