@@ -27,7 +27,7 @@ class BasicExampleView extends ExampleView {
   }
 
   getInitialContent() {
-    const initialContent = '1+2/3;';
+    const initialContent = '(1+2)/3;';
 
     return initialContent;
   }

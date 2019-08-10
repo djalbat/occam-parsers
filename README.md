@@ -143,51 +143,62 @@ Both the lexical patterns and BNF textareas are read-only. The content textarea 
 
 Both the lexical patterns and BNF as well as the content can be changed. Given the following BNF, for example...
 
-      expression    ::= "(" expression ")" expression~
-    
-                      | term expression~ ;
-    
-      operator      ::= "+"
-    
-                      | "-"
-    
-                      | "/"
-    
-                      | "*" ;
-    
-      term          ::= naturalNumber ;
-    
-      naturalNumber ::= /\\d+/ ;
-    
-      expression~   ::= operator expression expression~
-    
-                      | ε ;
-    
+```
+  expression    ::= "(" expression ")" expression~
+
+                  | term expression~
+
+                  ;
+
+  operator      ::= "+"
+
+                  | "-"
+
+                  | "/"
+
+                  | "*"
+
+                  ;
+
+  term          ::= naturalNumber ;
+
+  naturalNumber ::= /\d+/ ;
+
+  expression~   ::= operator expression expression~
+
+                  | ε
+
+                  ;
+```
 ...the expression `1+2/3` gives the following parse tree:
 
-                          expression(1-1)                                                     
-                                 |                                                            
-                 ---------------------------------                                            
-                 |                               |                                            
-             term(1-1)                   expression~(1-1)                                     
-                 |                               |                                            
-        naturalNumber(1-1)        -------------------------------                             
-                 |                |                             |                             
-          1[terminal](1)    operator(1-1)                expression(1-1)                      
-                                  |                             |                             
-                           +[terminal](1)          ---------------------------                
-                                                   |                         |                
-                                               term(1-1)             expression~(1-1)         
-                                                   |                         |                
-                                          naturalNumber(1-1)        ------------------        
-                                                   |                |                |        
-                                            2[terminal](1)    operator(1-1)   expression(1-1) 
-                                                                    |                |        
-                                                             /[terminal](1)      term(1-1)    
-                                                                                     |        
-                                                                            naturalNumber(1-1)
-                                                                                     |        
-                                                                              3[terminal](1)  
+```
+                            expression(0-4)
+                                   |
+        ----------------------------------------------------
+        |                                                  |
+     term(0)                                       expression~(1-4)
+        |                                                  |
+naturalNumber(0)        -------------------------------------------------------------------------
+        |               |                               |                                       |
+ 1[terminal](0)    operator(1)                   expression(2-4)                           expression~
+                        |                               |                                       |
+                 +[terminal](1)        ---------------------------------                        ε
+                                       |                               |
+                                    term(2)                    expression~(3-4)
+                                       |                               |
+                               naturalNumber(2)       ------------------------------------
+                                       |              |                  |               |
+                                2[terminal](2)   operator(3)        expression(4)   expression~
+                                                      |                   |              |
+                                               /[terminal](3)       -------------        ε
+                                                                    |           |
+                                                                  term(4)   expression~
+                                                                    |           |
+                                                             naturalNumber(4)   ε
+                                                                    |
+                                                              3[terminal](4)
+```
 
 ### Florence example
 

@@ -4,7 +4,9 @@ const bnf = `
 
   expression    ::= "(" expression ")" expression~
 
-                  | term expression~ ;
+                  | term expression~ 
+                  
+                  ;
 
   operator      ::= "+"
 
@@ -12,7 +14,9 @@ const bnf = `
 
                   | "/"
 
-                  | "*" ;
+                  | "*" 
+                  
+                  ;
 
   term          ::= naturalNumber ;
 
@@ -20,7 +24,9 @@ const bnf = `
 
   expression~   ::= operator expression expression~
 
-                  | ε ;
+                  | ε 
+                  
+                  ;
 
 `;
 
