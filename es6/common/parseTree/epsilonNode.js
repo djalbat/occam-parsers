@@ -18,7 +18,9 @@ class EpsilonNodeParseTree extends VerticalBranchParseTree {
 
     terminalNodeParseTree.appendToTop(verticalBranchParseTree);
 
-    return terminalNodeParseTree;
+    const epsilonNodeParseTree = terminalNodeParseTree; ///
+
+    return epsilonNodeParseTree;
   }
 }
 
