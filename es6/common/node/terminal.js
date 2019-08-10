@@ -58,7 +58,7 @@ class TerminalNode {
     this.parentNode = parentNode;
   }
 
-  asParseTree(tokens) {
+  asParseTree(tokens, hideNullifiedNodes = false) {
     const terminalNode = this,  ///
           terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeAndTokens(terminalNode, tokens),
           parseTree = terminalNodeParseTree;  ///

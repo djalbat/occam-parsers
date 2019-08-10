@@ -27,7 +27,7 @@ class EpsilonNode extends TerminalNode {
     return epsilonNode;
   }
 
-  asParseTree(tokens) {
+  asParseTree(tokens, hideNullifiedNodes = false) {
     const epsilonNodeParseTree = EpsilonNodeParseTree.fromNothing(),
           parseTree = epsilonNodeParseTree;  ///
 

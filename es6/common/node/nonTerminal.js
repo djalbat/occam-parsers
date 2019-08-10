@@ -97,9 +97,9 @@ class NonTerminalNode {
     this.childNodes = childNodes;
   }
   
-  asParseTree(tokens) {
+  asParseTree(tokens, hideNullifiedNodes = false) {
     const nonTerminalNode = this,  ///
-          nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
+          nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens, hideNullifiedNodes),
           parseTree = nonTerminalNodeParseTree;  ///
 
     return parseTree;

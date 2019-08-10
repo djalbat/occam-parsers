@@ -10,8 +10,9 @@ const ruleUtilities = require('../../utilities/rule'),
       BNFTextarea = require('../common/textarea/bnf'),
       ContentTextarea = require('../common/textarea/content'),
       ParseTreeTextarea = require('../common/textarea/parseTree'),
+      MainVerticalSplitter = require('../common/verticalSplitter/main'),
       LexicalEntriesTextarea = require('../common/textarea/lexicalEntries'),
-      MainVerticalSplitter = require('../common/verticalSplitter/main');
+      HideNullifiedNodesCheckbox = require('../common/checkbox/hideNullifiedNodes');
 
 const { FlorenceLexer } = lexers,
       { findRuleByName } = ruleUtilities,
@@ -47,14 +48,18 @@ class FlorenceExampleView extends ExampleView {
           node = florenceParser.parse(tokens, rule);
 
     if (node !== null) {
-      parseTree = node.asParseTree(tokens);
+      const hideNullifiedNodesCheckboxChecked = this.isHideNullifiedNodesCheckboxChecked(),
+            hideNullifiedNodes = hideNullifiedNodesCheckboxChecked;
+
+      parseTree = node.asParseTree(tokens, hideNullifiedNodes);
     }
 
     return parseTree;
   }
 
   childElements(properties) {
-    const keyUpHandler = this.keyUpHandler.bind(this);
+    const keyUpHandler = this.keyUpHandler.bind(this),
+          changeHandler = this.changeHandler.bind(this);
 
     return ([
 
@@ -70,6 +75,10 @@ class FlorenceExampleView extends ExampleView {
         <div className="column">
           <h2>Parse tree</h2>
           <ParseTreeTextarea />
+          <div>
+            <HideNullifiedNodesCheckbox onChange={changeHandler} />
+            <span>Hide nullified nodes</span>
+          </div>
           <h2>Rule name</h2>
           <RuleNameInput onKeyUp={keyUpHandler} />
           <h2>Content</h2>

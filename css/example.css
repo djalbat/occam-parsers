@@ -78,3 +78,9 @@ textarea.lexical-entries {
   overflow-wrap: normal;
   margin-bottom: 1rem;
 }
+
+input.hide-nullified-nodes {
+  margin-right: 0.5rem;
+  margin-bottom: 1rem;
+}
+

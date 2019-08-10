@@ -8,8 +8,9 @@ const BNFParser = require('../../bnf/parser'),
       BNFTextarea = require('../common/textarea/bnf'),
       ContentTextarea = require('../common/textarea/content'),
       ParseTreeTextarea = require('../common/textarea/parseTree'),
+      MainVerticalSplitter = require('../common/verticalSplitter/main'),
       LexicalEntriesTextarea = require('../common/textarea/lexicalEntries'),
-      MainVerticalSplitter = require('../common/verticalSplitter/main');
+      HideNullifiedNodesCheckbox = require('../common/checkbox/hideNullifiedNodes');
 
 const { BNFLexer } = lexers,
       { SizeableElement } = easyLayout;
@@ -37,14 +38,18 @@ class BNFExampleView extends ExampleView {
 					node = bnfParser.parse(tokens);
 
 		if (node !== null) {
-			parseTree = node.asParseTree(tokens);
+      const hideNullifiedNodesCheckboxChecked = this.isHideNullifiedNodesCheckboxChecked(),
+            hideNullifiedNodes = hideNullifiedNodesCheckboxChecked;
+
+			parseTree = node.asParseTree(tokens, hideNullifiedNodes);
 		}
 
 		return parseTree;
 	}
 
 	childElements(properties) {
-		const keyUpHandler = this.keyUpHandler.bind(this);
+		const keyUpHandler = this.keyUpHandler.bind(this),
+          changeHandler = this.changeHandler.bind(this);
 
 		return ([
 
@@ -60,6 +65,10 @@ class BNFExampleView extends ExampleView {
 				<div className="column">
 					<h2>Parse tree</h2>
 					<ParseTreeTextarea />
+          <div>
+            <HideNullifiedNodesCheckbox onChange={changeHandler} />
+            <span>Hide nullified nodes</span>
+          </div>
 					<h2>Content</h2>
 					<ContentTextarea onKeyUp={keyUpHandler} />
 				</div>

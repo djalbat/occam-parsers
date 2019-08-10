@@ -10,7 +10,7 @@ class ParseTree {
   }
 
   clone() {
-    const lines = this.lines.slice(0),  ///
+    const lines = this.lines.slice(),  ///
           parseTree = new ParseTree(lines);
 
     return parseTree;

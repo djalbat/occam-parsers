@@ -17,7 +17,7 @@ module.exports = Object.assign(arrayUtilities, {
 });
 
 function discardNth(array, n) {
-  array = array.slice();
+  array = array.slice();  ///
 
   array.splice(n, 1);
 
