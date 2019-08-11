@@ -33,6 +33,10 @@ class Definition {
     return allButFirstParts;
   }
 
+  addPart(part) {
+    this.parts.push(part);
+  }
+
   parse(configuration, noWhitespace) {
     let nodes = [];
 
