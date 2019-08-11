@@ -193,6 +193,32 @@ Both the lexical patterns and BNF as well as the content can be changed. Given t
                                                       |
                                                2[terminal](3)
 ```
+A more intuitive BNF would be the following:
+
+```
+  expression    ::= "(" expression ")"
+
+                  | expression operator expression
+
+                  | term
+
+                  ;
+
+  operator      ::= "+"
+
+                  | "-"
+
+                  | "/"
+
+                  | "*"
+
+                  ;
+
+  term          ::= naturalNumber ;
+
+  naturalNumber ::= /\d+/ ;
+```
+For an explanation of why this does work, see Occam's [grammar utilities](https://github.com/jecs-imperial/occam-grammar-utilities).
 
 ### Florence example
 
