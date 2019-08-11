@@ -222,27 +222,17 @@ For an explanation of why this will not work, see Occam's [grammar utilities](ht
 
 ### Florence example
 
-This uses the BNF part of Occam's vernacular, called Florence.
-
-You will need to explicitly define the lexical entry for custom tokens in order to get anything involving terms to parse. Try the following in the lexical entries textarea:
+The following and similar simple rules will parse:
 
 ```
-[
-  {
-    "custom": "(?:zero|one|successor)"
-  },
-
-  ...
-]
+Rule (Transitivity)
+  Premises
+    A = B
+    B = C
+  Conclusion
+    A = C
 ```
-
-Now at least the following and similar will parse:
-
-```
-Axiom (TheSuccessorOfZeroEqualsOne)
-  successor(zero)=one
-```
-For an explanation, see Occam's [custom grammars](https://github.com/jecs-imperial/occam-custom-grammars).
+Anything involving terms is unlikely to parse because of the lack of user defined custom grammars. For an explanation, see Occam's [custom grammars](https://github.com/jecs-imperial/occam-custom-grammars).
 
 ## Features
 

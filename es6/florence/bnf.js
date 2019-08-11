@@ -51,14 +51,6 @@ const bnf = `
                                             
 
 
-     verticalSpace                        ::=   <END_OF_LINE>+ ;
-
-
-
-     error                                ::=   . ;
-
-     
-
      typesDeclaration                     ::=   typeDeclaration ( "," typeDeclaration )+ ;
 
      contextsDeclaration                  ::=   contextDeclaration ( "," contextDeclaration )+ ;
@@ -106,6 +98,8 @@ const bnf = `
                                                 metaProofDerivation? 
                                                 
                                                 qualifiedMetastatement ;
+                                                
+                                                
 
      metaProofDerivation                  ::=   ( metaSublemma | qualifiedMetastatement )+  
      
@@ -138,6 +132,8 @@ const bnf = `
                                                 proofDerivation? 
                                                 
                                                 qualifiedStatement ;
+                                                
+                                                
 
      proofDerivation                      ::=   ( sublemma | qualifiedStatement )+ 
      
@@ -232,6 +228,14 @@ const bnf = `
      nonsense                             ::=   ( [unassigned] | [special] | [custom] )+ ;
 
      
+     verticalSpace                        ::=   <END_OF_LINE>+ ;
+
+
+
+     error                                ::=   . ;
+
+     
+
 `;
 
 module.exports = bnf;
