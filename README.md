@@ -218,7 +218,7 @@ A more intuitive BNF would be the following:
 
   naturalNumber ::= /\d+/ ;
 ```
-For an explanation of why this does work, see Occam's [grammar utilities](https://github.com/jecs-imperial/occam-grammar-utilities).
+For an explanation of why this will not work, see Occam's [grammar utilities](https://github.com/jecs-imperial/occam-grammar-utilities).
 
 ### Florence example
 
