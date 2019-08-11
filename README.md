@@ -173,31 +173,25 @@ Both the lexical patterns and BNF as well as the content can be changed. Given t
 ...the expression `1+2/3` gives the following parse tree:
 
 ```
-                            expression(0-4)
-                                   |
-        ----------------------------------------------------
-        |                                                  |
-     term(0)                                       expression~(1-4)
-        |                                                  |
-naturalNumber(0)        -------------------------------------------------------------------------
-        |               |                               |                                       |
- 1[terminal](0)    operator(1)                   expression(2-4)                           expression~
-                        |                               |                                       |
-                 +[terminal](1)        ---------------------------------                        ε
-                                       |                               |
-                                    term(2)                    expression~(3-4)
-                                       |                               |
-                               naturalNumber(2)       ------------------------------------
-                                       |              |                  |               |
-                                2[terminal](2)   operator(3)        expression(4)   expression~
-                                                      |                   |              |
-                                               /[terminal](3)       -------------        ε
-                                                                    |           |
-                                                                  term(4)   expression~
-                                                                    |           |
-                                                             naturalNumber(4)   ε
-                                                                    |
-                                                              3[terminal](4)
+                                          expression(0-6)
+                                                 |
+       ------------------------------------------------------------------------------------
+       |                           |                               |                      |
+([terminal](0)              expression(1-3)                 )[terminal](4)        expression~(5-6)
+                                   |                                                      |
+                       -------------------------                                  -----------------
+                       |                       |                                  |               |
+                    term(1)            expression~(2-3)                      operator(5)    expression(6)
+                       |                       |                                  |               |
+               naturalNumber(1)        -----------------                   /[terminal](5)      term(6)
+                       |               |               |                                          |
+                1[terminal](1)    operator(2)    expression(3)                            naturalNumber(6)
+                                       |               |                                          |
+                                +[terminal](2)      term(3)                                3[terminal](6)
+                                                       |
+                                               naturalNumber(3)
+                                                       |
+                                                2[terminal](3)
 ```
 
 ### Florence example
