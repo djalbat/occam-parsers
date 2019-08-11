@@ -28,7 +28,11 @@ class RuleNamePart extends NonTerminalPart {
     return this.ruleName;
   }
 
-  getLookAhead() {
+  hasNoWhitespace() {
+    return this.noWhitespace;
+  }
+
+  isLookAhead() {
     return this.lookAhead;
   }
 

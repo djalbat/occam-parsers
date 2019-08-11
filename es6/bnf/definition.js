@@ -87,7 +87,7 @@ function parseParts(parts, nodes, configuration, noWhitespace) {
 
   if (partRuleNamePart) {
     const ruleNamePart = part,  ///
-          lookAhead = ruleNamePart.getLookAhead();
+          lookAhead = ruleNamePart.isLookAhead();
 
     if (lookAhead) {
       const rule = ruleNamePart.findRule(configuration);
