@@ -26,6 +26,8 @@ class EpsilonPart extends TerminalPart {
 
     return string;
   }
+
+  clone() { return super.clone(EpsilonPart); }
 }
 
 module.exports = EpsilonPart;

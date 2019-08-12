@@ -48,6 +48,8 @@ class TerminalSymbolPart extends TerminalPart {
     
     return string;
   }
+
+  clone() { return super.clone(TerminalSymbolPart, this.content); }
 }
 
 module.exports = TerminalSymbolPart;

@@ -34,6 +34,8 @@ class WildcardPart extends TerminalPart {
 
     return string;
   }
+
+  clone() { return super.clone(WildcardPart); }
 }
 
 module.exports = WildcardPart;

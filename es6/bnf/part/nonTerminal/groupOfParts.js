@@ -62,6 +62,8 @@ class GroupOfPartsPart extends NonTerminalPart {
     return string;
   }
 
+  clone() { return super.clone(GroupOfPartsPart, this.parts); }
+
   static fromNodes(nodes) {
     const allButFirstAndLastNodes = allButFirstAndLast(nodes);
 

@@ -44,6 +44,8 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
     return string;
   }
 
+  clone() { return super.clone(ZeroOrMorePartsPart); }
+
   static fromOneOrMorePartsPart(oneOrMorePartsPart) {
     const part = oneOrMorePartsPart.getPart(),
           zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);

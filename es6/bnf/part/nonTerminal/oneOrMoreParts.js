@@ -41,6 +41,8 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
     return nodes;
   }
 
+  clone() { return super.clone(OneOrMorePartsPart); }
+
   asString() {
     const operatorString = plus,  ///
           string = super.asString(operatorString);

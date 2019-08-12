@@ -19,6 +19,8 @@ class SequenceOfPartsPart extends NonTerminalPart {
 
     return string;
   }
+
+  clone(Part) { return super.clone(Part, this.part); }
 }
 
 module.exports = SequenceOfPartsPart;

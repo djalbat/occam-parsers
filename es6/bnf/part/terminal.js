@@ -30,6 +30,8 @@ class TerminalPart {
   setNoWhitespace(noWhitespace) {
     this.noWhitespace = noWhitespace;
   }
+
+  clone(Part, ...remainingArguments) { return new Part(this.noWhitespace, ...remainingArguments); }
 }
 
 module.exports = TerminalPart;

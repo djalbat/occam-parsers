@@ -91,6 +91,8 @@ class RuleNamePart extends NonTerminalPart {
 
     return string;
   }
+
+  clone() { return super.clone(RuleNamePart, this.ruleName, this.noWhitespace, this.lookAhead); }
 }
 
 module.exports = RuleNamePart;

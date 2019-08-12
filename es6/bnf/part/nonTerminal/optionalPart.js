@@ -38,6 +38,8 @@ class OptionalPartPart extends NonTerminalPart {
     return nodes;
   }
 
+  clone() { return super.clone(OptionalPartPart, this.part); }
+
   asString() {
     const operatorString = questionMark,  ///
           partString = this.part.asString(),

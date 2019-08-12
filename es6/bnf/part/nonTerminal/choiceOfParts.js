@@ -57,6 +57,8 @@ class ChoiceOfPartsPart extends NonTerminalPart {
     return string;
   }
 
+  clone() { return super.clone(ChoiceOfPartsPart, this.parts); }
+
   static fromNodes(nodes) {
     let choiceOfPartsPart = null;
     

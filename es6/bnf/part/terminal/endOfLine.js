@@ -38,6 +38,8 @@ class EndOfLinePart extends TerminalPart {
 
     return string;
   }
+
+  clone() { return super.clone(EndOfLinePart); }
 }
 
 module.exports = EndOfLinePart;
