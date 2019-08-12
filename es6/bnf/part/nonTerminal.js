@@ -27,7 +27,7 @@ class NonTerminalPart {
     return ruleNamePart;
   }
 
-  clone(Part, ...remainingArguments) { return new Part(this.type, ...remainingArguments); }
+  clone(Part, ...remainingArguments) { return new Part(...remainingArguments); }
 }
 
 module.exports = NonTerminalPart;
