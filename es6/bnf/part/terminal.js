@@ -26,6 +26,10 @@ class TerminalPart {
     
     return epsilonPart;
   }
+
+  setNoWhitespace(noWhitespace) {
+    this.noWhitespace = noWhitespace;
+  }
 }
 
 module.exports = TerminalPart;

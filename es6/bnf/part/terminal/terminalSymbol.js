@@ -15,10 +15,6 @@ class TerminalSymbolPart extends TerminalPart {
     this.content = content;
   }
 
-  hasNoWhitespace() {
-    return this.noWhitespace;
-  }
-  
   parse(configuration, noWhitespace) {
     noWhitespace = noWhitespace || this.noWhitespace; ///
 
