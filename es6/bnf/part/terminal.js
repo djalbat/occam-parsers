@@ -5,7 +5,7 @@ class TerminalPart {
     this.noWhitespace = noWhitespace;
   }
 
-  getNoWhitespace() {
+  hasNoWhitespace() {
     return this.noWhitespace;
   }
 
