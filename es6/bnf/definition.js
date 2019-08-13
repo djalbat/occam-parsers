@@ -60,7 +60,7 @@ class Definition {
           }
 
           return partsString;
-        }, null),
+        }, ''),
         string = partsString; ///
 
     return string;

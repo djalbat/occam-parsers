@@ -111,7 +111,7 @@ class Rule {
             }
 
             return definitionsString;
-          }, null),
+          }, ''),
           ruleName = this.name, ///
           ruleNameLength = ruleName.length,
           paddingLength = maximumRuleNameLength - ruleNameLength,
