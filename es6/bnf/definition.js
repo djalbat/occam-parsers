@@ -53,7 +53,7 @@ class Definition {
     const partsString = this.parts.reduce(function(partsString, part) {
           const partString = part.asString();
 
-          if (partsString === null) {
+          if (partsString === '') {
             partsString = partString; ///
           } else {
             partsString = `${partsString} ${partString}`;

@@ -102,7 +102,7 @@ class Rule {
           definitionsString = this.definitions.reduce(function(definitionsString, definition) {
             const definitionString = definition.asString();
 
-            if (definitionsString === null) {
+            if (definitionsString === '') {
               definitionsString = definitionString; ///
             } else {
               definitionsString = multiLine ?
