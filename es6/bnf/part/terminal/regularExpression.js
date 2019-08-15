@@ -48,7 +48,7 @@ class RegularExpressionPart extends TerminalPart {
   }
 
   asString() {
-    const regularExpressionString = this.regularExpression.asString(),
+    const regularExpressionString = this.regularExpression.toString(),
           noWhitespaceString = this.noWhitespace ?
                                  NO_WHITESPACE :
                                    '',
