@@ -1,8 +1,10 @@
 'use strict';
 
-const stringUtilities = require('../utilities/string');
+const arrayUtilities = require('../utilities/array'),
+      stringUtilities = require('../utilities/string');
 
-const { paddingFromPaddingLength } = stringUtilities;
+const { push } = arrayUtilities,
+      { paddingFromPaddingLength } = stringUtilities;
 
 class Rule {
   constructor(name, definitions, NonTerminalNode) {
@@ -36,7 +38,11 @@ class Rule {
   }
 
   addDefinitions(definitions) {
-    this.definitions = this.definitions.concat(definitions);
+    push(this.definitions, definitions);
+  }
+
+  addDefinition(definition) {
+    this.definitions.push(definition);
   }
 
   parse(configuration, noWhitespace) {
@@ -142,4 +148,3 @@ class Rule {
 }
 
 module.exports = Rule;
-
