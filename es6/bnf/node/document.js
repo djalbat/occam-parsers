@@ -9,14 +9,19 @@ class DocumentNode extends NonTerminalNode {
   generateRules(Rule) {
     const childNodes = this.getChildNodes(),
           ruleNodes = childNodes.reduce(function(ruleNodes, childNode) {
-            const childNodeRuleName = childNode.getRuleName(),
-                  childNodeRuleNameRuleRuleName = (childNodeRuleName === RuleRuleName),
-                  childNodeRuleNode = childNodeRuleNameRuleRuleName;  ///
+            const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
-            if (childNodeRuleNode) {
-              const ruleNode = childNode; ///
+            if (childNodeNonTerminalNode) {
+              const nonTerminalNode = childNode,  ///
+                    ruleName = childNode.getRuleName(),
+                    ruleNameRuleRuleName = (ruleName === RuleRuleName),
+                    nonTerminalNodeRuleNode = ruleNameRuleRuleName;  ///
 
-              ruleNodes.push(ruleNode);
+              if (nonTerminalNodeRuleNode) {
+                const ruleNode = nonTerminalNode; ///
+
+                ruleNodes.push(ruleNode);
+              }
             }
 
             return ruleNodes;
