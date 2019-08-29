@@ -144,11 +144,19 @@ Both the lexical patterns and BNF textareas are read-only. The content textarea 
 Both the lexical patterns and BNF as well as the content can be changed. Given the following BNF, for example...
 
 ```
-  expression    ::= "(" expression ")" expression~
+  expression    ::= expression_ expression~
 
-                  | term expression~
+                  | expression_
 
                   ;
+
+  expression_   ::= "(" expression ")"
+
+                  | term
+
+                  ;
+
+  expression~   ::= operator expression expression~? ;
 
   operator      ::= "+"
 
@@ -163,35 +171,35 @@ Both the lexical patterns and BNF as well as the content can be changed. Given t
   term          ::= naturalNumber ;
 
   naturalNumber ::= /\d+/ ;
-
-  expression~   ::= operator expression expression~
-
-                  | ε
-
-                  ;
 ```
 ...the expression `1+2/3` gives the following parse tree:
 
 ```
-                                         expression(0-6)
-                                                |
-       -----------------------------------------------------------------------------------
-       |                          |                              |                      |
-([terminal](0)             expression(1-3)                )[terminal](4)        expression~(5-6)
-                                  |                                                     |
-                      -------------------------                                 -----------------
-                      |                       |                                 |               |
-                   term(1)            expression~(2-3)                     operator(5)    expression(6)
-                      |                       |                                 |               |
-              naturalNumber(1)        -----------------                  /[terminal](5)      term(6)
-                      |               |               |                                         |
-               1[terminal](1)    operator(2)    expression(3)                           naturalNumber(6)
-                                      |               |                                         |
-                               +[terminal](2)      term(3)                               3[terminal](6)
-                                                      |
-                                              naturalNumber(3)
-                                                      |
-                                               2[terminal](3)
+                                                            expression(0-6)
+                                                                   |
+                                       --------------------------------------------------------
+                                       |                                                      |
+                               expression_(0-4)                                       expression~(5-6)
+                                       |                                                      |
+       -----------------------------------------------------------------              -----------------
+       |                           |                                   |              |               |
+([terminal](0)              expression(1-3)                     )[terminal](4)   operator(5)    expression(6)
+                                   |                                                  |               |
+                       -------------------------                               /[terminal](5)  expression_(6)
+                       |                       |                                                      |
+                expression_(1)         expression~(2-3)                                            term(6)
+                       |                       |                                                      |
+                    term(1)            -----------------                                      naturalNumber(6)
+                       |               |               |                                              |
+               naturalNumber(1)   operator(2)    expression(3)                                 3[terminal](6)
+                       |               |               |
+                1[terminal](1)  +[terminal](2)  expression_(3)
+                                                       |
+                                                    term(3)
+                                                       |
+                                               naturalNumber(3)
+                                                       |
+                                                2[terminal](3)
 ```
 A more intuitive BNF would be the following:
 
@@ -282,44 +290,27 @@ The vertical bar symbol `|` is overloaded and can be used in conjunction with br
      justifiedStatement         ::=   statement ( "by" | "from" ) reference <END_OF_LINE> ;
 
 
-### Look-ahead for rules
+### Look-ahead
 
-The following lexical entries...
+Consider the following rules:
 
-    [
-      {
-        "letter": "a|b|c|d|e"
-      },
-      {
-        "unassigned": "^.*$"
-      }
-    ]
+      ABC  ::=  AAB BC ;
 
-...and the following BNF...
+      AAB  ::=  "a" "b" | "a";
 
-    abcde  ::=  aab! cccd e ;
+       BC  ::=  "b" "c" ;
 
-      aab  ::=  "a" | "a" "b" ;
+This will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse both the `a` and `b` token, leaving only the `c` token for the `BC` rule to parse. This situation can be addressed by making the `AAB` rule look ahead, that is, try each of its definitions in turn until one is found that allows the next rule to parse. The look-ahead modifier is an exclamation mark, thus the rules above become:
 
-     cccd  ::=  "c" "c" | "c" "d" ;
+      ABC  ::=  AAB! BC ;
 
-        e  ::=  "e" ;
+      AAB  ::=  "a" "b" | "a";
 
-...will parse the string `a b c d e`, resulting in the following parse tree:
+       BC  ::=  "b" "c" ;
 
-                                                   abcde(0-8)
-                                                        |
-                                 ----------------------------------------------
-                                 |                         |                  |
-                             aab(0-2)                  cccd(4-6)            e(8)
-                                 |                         |                  |
-                          --------------            --------------      e[letter](8)
-                          |            |            |            |
-                    a[letter](0) b[letter](2) c[letter](4) d[letter](6)
+Now the `ABC` rule will indeed parse the tokens `a`, `b`, `c`, because the second definition of the `AAB` rule will be tried after the first definition fails to allow the `BC` rule to parse.
 
-Note the presence of the `!` operator for the `aab` rule part in the BNF, making it look-ahead. Without it, the string will not be parsed because the `aab` rule's first definition parses the first "a" character of the string but does not permit the rule specified by the next part, namely the `cccd` rule, to parse the remainder. With look-ahead, each definition of the `aab` rule is tried until one is found that does permit progress on to the next part. In this case the second definition of the first rule permits the second `cccd` rule to be parsed. Note also that the second of the `cccd` rule's definitions is the one that is utilised. This is not because of look-ahead, but because the first definition "c" "c" simply will not parse that part of the string that remains.
-
-It appears that without look-ahead the parser's complexity is roughly linear. With look-ahead, it is more that likely to be exponential. Therefore it is recommended that you avoid look-ahead until all the other options have been exhausted. It is worth pointing out that it makes an appearance out of necessity only a few times in the Florence BNF.
+It seems that the parser parses with roughly linear complexity as a function of the length of the input, however it is most likely that look-ahead parses take exponential time. For this reason, look-ahead should be used sparingly.
 
 ## Building
 
