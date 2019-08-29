@@ -175,23 +175,23 @@ Both the lexical patterns and BNF as well as the content can be changed. Given t
 ...the expression `1+2/3` gives the following parse tree:
 
 ```
-                                                          expression(0-6)
-                                                                 |
-                                       ----------------------------------------------------
-                                       |                                                  |
-                               expression_(0-4)                                   expression~(5-6)
-                                       |                                                  |
-       -------------------------------------------------------------              -----------------
-       |                           |                               |              |               |
-([terminal](0)              expression(1-3)                 )[terminal](4)   operator(5)    expression(6)
-                                   |                                              |               |
-                       -------------------------                           /[terminal](5)  expression_(6)
-                       |                       |                                                  |
-                expression_(1)         expression~(2-3)                                        term(6)
-                       |                       |                                                  |
-                    term(1)            -----------------                                  naturalNumber(6)
-                       |               |               |                                          |
-               naturalNumber(1)   operator(2)    expression(3)                              3[terminal](6)
+                                                         expression(0-6)
+                                                                |
+                                       --------------------------------------------------
+                                       |                                                |
+                               expression_(0-4)                                 expression~(5-6)
+                                       |                                                |
+       -----------------------------------------------------------              -----------------
+       |                           |                             |              |               |
+([terminal](0)              expression(1-3)               )[terminal](4)   operator(5)    expression(6)
+                                   |                                            |               |
+                       -------------------------                         /[terminal](5)  expression_(6)
+                       |                       |                                                |
+                expression_(1)         expression~(2-3)                                      term(6)
+                       |                       |                                                |
+                    term(1)            -----------------                                naturalNumber(6)
+                       |               |               |                                        |
+               naturalNumber(1)   operator(2)    expression(3)                            3[terminal](6)
                        |               |               |
                 1[terminal](1)  +[terminal](2)  expression_(3)
                                                        |
@@ -300,7 +300,7 @@ Consider the following rules:
 
        BC  ::=  "b" "c" ;
 
-This will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse both `a` and `b` tokens, leaving only the `c` token for the `BC` rule to parse. This situation can be addressed by making the `AAB` rule look ahead, that is, try each of its definitions in turn until one is found that allows the next rule to parse. The look-ahead modifier is an exclamation mark, thus the rules above become:
+This will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse the `a` and `b` tokens, leaving only the `c` token for the `BC` rule to parse. This situation can be addressed by making the `AAB` rule look ahead, that is, try each of its definitions in turn until one is found that allows the next rule to parse. The look-ahead modifier is an exclamation mark, thus the rules above become:
 
       ABC  ::=  AAB! BC ;
 
