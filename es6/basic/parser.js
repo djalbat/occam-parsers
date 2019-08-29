@@ -20,6 +20,12 @@ class BasicParser extends CommonParser {
     return basicParser;
   }
 
+  static fromRules(rules) {
+    const basicParser = new BasicParser(rules);
+
+    return basicParser;
+  }
+
   static fromNothing() {
     const basicParser = BasicParser.fromBNF(bnf);
 
