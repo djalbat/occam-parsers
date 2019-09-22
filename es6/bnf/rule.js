@@ -46,7 +46,7 @@ class Rule {
       const start = index,  ///
             deleteCount = 1;
 
-      this.splice(start, deleteCount);
+      this.definitions.splice(start, deleteCount);
     }
   }
 
