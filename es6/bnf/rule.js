@@ -1,10 +1,8 @@
 'use strict';
 
-const arrayUtilities = require('../utilities/array'),
-      stringUtilities = require('../utilities/string');
+const stringUtilities = require('../utilities/string');
 
-const { push } = arrayUtilities,
-      { paddingFromPaddingLength } = stringUtilities;
+const { paddingFromPaddingLength } = stringUtilities;
 
 class Rule {
   constructor(name, definitions, NonTerminalNode) {
@@ -41,8 +39,15 @@ class Rule {
     this.NonTerminalNode = NonTerminalNode;
   }
 
-  addDefinitions(definitions) {
-    push(this.definitions, definitions);
+  removeDefinition(definition) {
+    const index = this.definitions.indexOf(definition);
+
+    if (index !== -1) {
+      const start = index,  ///
+            deleteCount = 1;
+
+      this.splice(start, deleteCount);
+    }
   }
 
   addDefinition(definition) {
