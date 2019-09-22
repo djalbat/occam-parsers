@@ -3,7 +3,7 @@
 const arrayUtilities = require('../utilities/array'),
       stringUtilities = require('../utilities/string');
 
-const { push, unshift } = arrayUtilities,
+const { push } = arrayUtilities,
       { paddingFromPaddingLength } = stringUtilities;
 
 class Rule {
@@ -41,16 +41,12 @@ class Rule {
     this.NonTerminalNode = NonTerminalNode;
   }
 
-  addDefinitions(definitions, toTop = false) {
-    toTop ?
-      unshift(this.definitions, definitions) :
-        push(this.definitions, definitions);
+  addDefinitions(definitions) {
+    push(this.definitions, definitions);
   }
 
-  addDefinition(definition, toTop = false) {
-    toTop ?
-      this.definitions.unshift(definition) :
-        this.definitions.push(definition);
+  addDefinition(definition) {
+    this.definitions.push(definition);
   }
 
   parse(configuration, noWhitespace) {
