@@ -31,10 +31,6 @@ class Rule {
     this.definitions = definitions;
   }
 
-  clearDefinitions() {
-    this.definitions = [];
-  }
-
   setNonTerminalNode(NonTerminalNode) {
     this.NonTerminalNode = NonTerminalNode;
   }
