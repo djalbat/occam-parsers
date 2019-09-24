@@ -17,13 +17,11 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
     super(type, part);
   }
   
-  parse(configuration, noWhitespace) {
-    noWhitespace = false; ///
-
+  parse(configuration) {
     let nodes = null;
     
     const part = this.getPart(),
-          partNodeOrNodes = part.parse(configuration, noWhitespace),
+          partNodeOrNodes = part.parse(configuration),
           parsed = (partNodeOrNodes !== null);
 
     if (parsed) {
@@ -33,7 +31,7 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
 
       const oneOrMorePartsPart = this,  ///
             zeroOrMorePartsPart = ZeroOrMorePartsPart.fromOneOrMorePartsPart(oneOrMorePartsPart),
-            zeroOrMorePartsPartNodeOrNodes = zeroOrMorePartsPart.parse(configuration, noWhitespace);
+            zeroOrMorePartsPartNodeOrNodes = zeroOrMorePartsPart.parse(configuration);
 
       nodes = nodes.concat(zeroOrMorePartsPartNodeOrNodes);
     }

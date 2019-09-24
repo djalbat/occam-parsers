@@ -18,7 +18,7 @@ class DefinitionsDefinition extends Definition {
     const noWhitespace = false,
           definitionRuleName = DefinitionRuleName,
           verticalBarTerminalSymbolContent = verticalBar,
-          definitionRuleNamePart = new RuleNamePart(definitionRuleName, noWhitespace),
+          definitionRuleNamePart = new RuleNamePart(definitionRuleName),
           verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent, noWhitespace),
           verticalBarTerminalSymbolThenDefinitionRuleNameParts = [
             verticalBarTerminalSymbolPart,

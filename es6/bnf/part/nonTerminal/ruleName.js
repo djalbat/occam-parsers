@@ -12,24 +12,18 @@ const { specialSymbols } = lexers,
       { NO_WHITESPACE, exclamationMark } = specialSymbols;
 
 class RuleNamePart extends NonTerminalPart {
-  constructor(ruleName, noWhitespace, lookAhead = false) {
+  constructor(ruleName, lookAhead = false) {
     const type = RuleNamePartType; ///
 
     super(type);
 
     this.ruleName = ruleName;
 
-    this.noWhitespace = noWhitespace;
-
     this.lookAhead = lookAhead;
   }
   
   getRuleName() {
     return this.ruleName;
-  }
-
-  hasNoWhitespace() {
-    return this.noWhitespace;
   }
 
   isLookAhead() {
@@ -40,10 +34,6 @@ class RuleNamePart extends NonTerminalPart {
     const ruleNamePart = true;
 
     return ruleNamePart;
-  }
-
-  setNoWhitespace(noWhitespace) {
-    this.noWhitespace = noWhitespace;
   }
 
   setLookAhead(lookAhead) {
@@ -58,25 +48,21 @@ class RuleNamePart extends NonTerminalPart {
     return rule;
   }
 
-  parse(configuration, noWhitespace) {
+  parse(configuration) {
     let node = null;
     
     const rule = this.findRule(configuration);
 
     if (rule !== null) {
-      noWhitespace = noWhitespace || this.noWhitespace; ///
-
-      node = rule.parse(configuration, noWhitespace);
+      node = rule.parse(configuration);
     }
 
     return node;
   }
 
-  parseRuleWithLookAhead(rule, configuration, noWhitespace, callback) {
+  parseRuleWithLookAhead(rule, configuration, callback) {
     if (rule !== null) {
-      noWhitespace = noWhitespace || this.noWhitespace; ///
-
-      rule.parseWithLookAhead(configuration, noWhitespace, callback);
+      rule.parseWithLookAhead(configuration, callback);
     }
   }
 
@@ -84,15 +70,12 @@ class RuleNamePart extends NonTerminalPart {
     const lookAheadString = this.lookAhead ?
                               exclamationMark :
                                 '',
-          noWhitespaceString = this.noWhitespace ?
-                                 NO_WHITESPACE :
-                                   '',
-          string = `${noWhitespaceString}${this.ruleName}${lookAheadString}`;
+          string = `${this.ruleName}${lookAheadString}`;
 
     return string;
   }
 
-  clone() { return super.clone(RuleNamePart, this.ruleName, this.noWhitespace, this.lookAhead); }
+  clone() { return super.clone(RuleNamePart, this.ruleName, this.lookAhead); }
 }
 
 module.exports = RuleNamePart;

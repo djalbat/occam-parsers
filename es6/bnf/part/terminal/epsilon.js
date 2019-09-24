@@ -9,7 +9,7 @@ const { specialSymbols } = lexers,
       { epsilon } = specialSymbols;
 
 class EpsilonPart extends TerminalPart {
-  parse(configuration, noWhitespace) {
+  parse(configuration) {
     const epsilonTerminalNode = new EpsilonTerminalNode();
 
     return epsilonTerminalNode;

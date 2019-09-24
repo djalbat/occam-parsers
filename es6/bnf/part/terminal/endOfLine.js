@@ -9,12 +9,11 @@ const { specialSymbols } = lexers,
       { END_OF_LINE } = specialSymbols;
 
 class EndOfLinePart extends TerminalPart {
-  parse(configuration, noWhitespace) {
-    noWhitespace = noWhitespace || this.noWhitespace; ///
-
+  parse(configuration) {
     let endOfLineNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
+		      noWhitespace = this.hasNoWhitespace(),
           nextSignificantToken = configuration.getNextSignificantToken(noWhitespace),
           significantToken = nextSignificantToken; ///
 

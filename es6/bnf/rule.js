@@ -72,11 +72,11 @@ class Rule {
     this.definitions.splice(start, deleteCount, definition);
   }
 
-  parse(configuration, noWhitespace) {
+  parse(configuration) {
     let node = null;
 
     this.definitions.some((definition) => {
-      node = this.parseDefinition(definition, configuration, noWhitespace);
+      node = this.parseDefinition(definition, configuration);
 
       const parsed = (node !== null);
 
@@ -88,9 +88,9 @@ class Rule {
     return node;
   }
 
-  parseWithLookAhead(configuration, noWhitespace, callback) {
+  parseWithLookAhead(configuration, callback) {
     this.definitions.some((definition) => {
-      const node = this.parseDefinition(definition, configuration, noWhitespace),
+      const node = this.parseDefinition(definition, configuration),
             parsed = callback(node);
 
       if (parsed) {
@@ -99,7 +99,7 @@ class Rule {
     });
   }
 
-  parseDefinition(definition, configuration, noWhitespace) {
+  parseDefinition(definition, configuration) {
     let node = null;
 
     configuration.increaseDepth();
@@ -110,7 +110,7 @@ class Rule {
       throw new Error(`The parse tree is too deep at rule '${this.name}'`);
     }
 
-    const nodes = definition.parse(configuration, noWhitespace),
+    const nodes = definition.parse(configuration),
           parsed = (nodes !== null);
 
     if (parsed) {

@@ -16,15 +16,13 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
     super(type, part);
   }
 
-  parse(configuration, noWhitespace) {
-    noWhitespace = false; ///
-    
+  parse(configuration) {
     let nodes = [];
     
     const part = this.getPart();
 
     for(;;) {
-      const partNodeOrNodes = part.parse(configuration, noWhitespace),
+      const partNodeOrNodes = part.parse(configuration),
             parsed = (partNodeOrNodes !== null);
 
       if (parsed) {

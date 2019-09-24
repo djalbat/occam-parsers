@@ -22,13 +22,11 @@ class ChoiceOfPartsPart extends NonTerminalPart {
     return this.parts;
   }
 
-  parse(configuration, noWhitespace) {
-    noWhitespace = false; ///
-    
+  parse(configuration) {
     let nodes = null;
     
     this.parts.some(function(part) {
-      const partNodeOrNodes = part.parse(configuration, noWhitespace);
+      const partNodeOrNodes = part.parse(configuration);
 
       if (partNodeOrNodes !== null) {
         nodes = partNodeOrNodes;  ///

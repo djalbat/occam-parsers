@@ -9,12 +9,11 @@ const { specialSymbols } = lexers,
       { wildcard } = specialSymbols;
 
 class WildcardPart extends TerminalPart {
-  parse(configuration, noWhitespace) {
-    noWhitespace = noWhitespace || this.noWhitespace; ///
-
+  parse(configuration) {
     let terminalNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
+		      noWhitespace = this.hasNoWhitespace(),
 					nextSignificantToken = configuration.getNextSignificantToken(noWhitespace),
 					significantToken = nextSignificantToken; ///
 

@@ -15,12 +15,11 @@ class SignificantTokenTypePart extends TerminalPart {
     this.significantTokenType = significantTokenType;
   }
 
-  parse(configuration, noWhitespace) {
-    noWhitespace = noWhitespace || this.noWhitespace; ///
-    
+  parse(configuration) {
     let terminalNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
+		      noWhitespace = this.hasNoWhitespace(),
 					nextSignificantToken = configuration.getNextSignificantToken(noWhitespace),
 					significantToken = nextSignificantToken; ///
 
@@ -41,7 +40,8 @@ class SignificantTokenTypePart extends TerminalPart {
   }
 
   asString() {
-    const noWhitespaceString = this.noWhitespace ?
+    const noWhitespace = this.hasNoWhitespace(),
+		      noWhitespaceString = noWhitespace ?
                                  NO_WHITESPACE :
                                    '',
           string = `${noWhitespaceString}[${this.significantTokenType}]`;

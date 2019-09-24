@@ -9,7 +9,7 @@ const { first } = arrayUtilities;
 class RuleNameNode extends NonTerminalNode {
   generatePart(noWhitespace) {
     const ruleName = this.getRuleName(),
-          ruleNamePart = new RuleNamePart(ruleName, noWhitespace);
+          ruleNamePart = new RuleNamePart(ruleName);
 
     return ruleNamePart;
   }

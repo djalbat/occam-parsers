@@ -17,13 +17,13 @@ class GroupOfPartsPartRuleDefinition extends Definition {
     const noWhitespace = false,
           partRuleName = PartRuleName,
           rightRecursivePartRuleName = RightRecursivePartRuleName,
-          openBracketTerminalSymbolContent = openBracket,
-          closeBracketTerminalSymbolContent = closeBracket,
-          partRuleNamePart = new RuleNamePart(partRuleName, noWhitespace),
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
+          openBracketTerminalSymbolContent = openBracket, ///
+          closeBracketTerminalSymbolContent = closeBracket, ///
+          partRuleNamePart = new RuleNamePart(partRuleName),
+          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),
           openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent, noWhitespace),
           closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent, noWhitespace),
-          oneOrMorePartRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart, noWhitespace),
+          oneOrMorePartRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart),
           parts = [
             openBracketTerminalSymbolPart,
             partRuleNamePart,

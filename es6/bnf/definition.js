@@ -37,10 +37,10 @@ class Definition {
     this.parts.push(part);
   }
 
-  parse(configuration, noWhitespace) {
+  parse(configuration) {
     let nodes = [];
 
-    const parsed = parseParts(this.parts, nodes, configuration, noWhitespace);
+    const parsed = parseParts(this.parts, nodes, configuration);
 
     if (!parsed) {
       nodes = null;
@@ -69,7 +69,7 @@ class Definition {
 
 module.exports = Definition;
 
-function parseParts(parts, nodes, configuration, noWhitespace) {
+function parseParts(parts, nodes, configuration) {
   let parsed = false;
 
   const partsLength = parts.length;
@@ -96,13 +96,11 @@ function parseParts(parts, nodes, configuration, noWhitespace) {
     if (lookAhead) {
       const rule = ruleNamePart.findRule(configuration);
 
-      ruleNamePart.parseRuleWithLookAhead(rule, configuration, noWhitespace, function(node) {
+      ruleNamePart.parseRuleWithLookAhead(rule, configuration, function(node) {
         const partNodeOrNodes = [];
 
         if (node !== null) {
-          noWhitespace = false; ///
-
-          parsed = parseParts(parts, partNodeOrNodes, configuration, noWhitespace);
+          parsed = parseParts(parts, partNodeOrNodes, configuration);
         }
 
         if (parsed) {
@@ -122,14 +120,12 @@ function parseParts(parts, nodes, configuration, noWhitespace) {
     }
   }
 
-  const partNodeOrNodes = part.parse(configuration, noWhitespace);
+  const partNodeOrNodes = part.parse(configuration);
 
   if (partNodeOrNodes !== null) {
     concat(nodes, partNodeOrNodes);
 
-    noWhitespace = false; ///
-
-    parsed = parseParts(parts, nodes, configuration, noWhitespace);
+    parsed = parseParts(parts, nodes, configuration);
 
     if (!parsed) {
       configuration.backtrack(savedIndex);

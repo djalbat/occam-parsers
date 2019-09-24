@@ -28,10 +28,9 @@ class CommonParser {
     }
 
     if (rule !== null) {
-      const configuration = Configuration.fromTokensAndRules(tokens, this.rules),
-            noWhitespace = false; ///
+      const configuration = Configuration.fromTokensAndRules(tokens, this.rules);
 
-      node = rule.parse(configuration, noWhitespace);
+      node = rule.parse(configuration);
     }
 
     return node;

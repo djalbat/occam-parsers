@@ -17,8 +17,8 @@ class NoWhitespacePartRuleDefinition extends Definition {
           partRuleName = PartRuleName,
           rightRecursivePartRuleName = RightRecursivePartRuleName,
           noWhitespaceTerminalSymbolContent = NO_WHITESPACE,
-          partRuleNamePart = new RuleNamePart(partRuleName, noWhitespace),
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
+          partRuleNamePart = new RuleNamePart(partRuleName),
+          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),
           noWhitespaceTerminalSymbolPart = new TerminalSymbolPart(noWhitespaceTerminalSymbolContent, noWhitespace),
           parts = [
             noWhitespaceTerminalSymbolPart,

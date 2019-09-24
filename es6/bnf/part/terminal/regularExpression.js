@@ -13,16 +13,15 @@ const { first } = arrayUtilities,
 class RegularExpressionPart extends TerminalPart {
   constructor(regularExpression, noWhitespace) {
     super(noWhitespace);
-    
+
     this.regularExpression = regularExpression;
   }
 
-  parse(configuration, noWhitespace) {
-    noWhitespace = noWhitespace || this.noWhitespace; ///
-
+  parse(configuration) {
     let terminalNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
+		      noWhitespace = this.hasNoWhitespace(),
 					nextSignificantToken = configuration.getNextSignificantToken(noWhitespace),
 					significantToken = nextSignificantToken; ///
 
@@ -49,7 +48,8 @@ class RegularExpressionPart extends TerminalPart {
 
   asString() {
     const regularExpressionString = this.regularExpression.toString(),
-          noWhitespaceString = this.noWhitespace ?
+		      noWhitespace = this.hasNoWhitespace(),
+          noWhitespaceString = noWhitespace ?
                                  NO_WHITESPACE :
                                    '',
           string = `${noWhitespaceString}${regularExpressionString}`;

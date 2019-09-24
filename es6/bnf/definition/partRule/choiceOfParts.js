@@ -18,11 +18,11 @@ class ChoiceOfPartsPartRuleDefinition extends Definition {
     const noWhitespace = false,
           partRuleName = PartRuleName,
           rightRecursivePartRuleName = RightRecursivePartRuleName,
-          verticalBarTerminalSymbolContent = verticalBar,
-          openBracketTerminalSymbolContent = openBracket,
-          closeBracketTerminalSymbolContent = closeBracket,
-          partRuleNamePart = new RuleNamePart(partRuleName, noWhitespace),
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName, noWhitespace),
+          verticalBarTerminalSymbolContent = verticalBar, ///
+          openBracketTerminalSymbolContent = openBracket, ///
+          closeBracketTerminalSymbolContent = closeBracket, ///
+          partRuleNamePart = new RuleNamePart(partRuleName),
+          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),
           verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent, noWhitespace),
           openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent, noWhitespace),
           closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent, noWhitespace),

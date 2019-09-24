@@ -22,13 +22,11 @@ class OptionalPartPart extends NonTerminalPart {
     return this.part;
   }
 
-  parse(configuration, noWhitespace) {
-    noWhitespace = false; ///
-
+  parse(configuration) {
     let nodes = [];
     
     const part = this.getPart(),
-          partNodeOrNodes = part.parse(configuration, noWhitespace),
+          partNodeOrNodes = part.parse(configuration),
           parsed = (partNodeOrNodes !== null);
 
     if (parsed) {

@@ -9,16 +9,10 @@ const { PartRuleName } = ruleNames;
 
 class SequenceOfPartsDefinition extends Definition {
   constructor(terminalSymbolContent) {
-    let noWhitespace;
-
-    noWhitespace = false;
-
-    const partRuleName = PartRuleName,
-          partRuleNamePart = new RuleNamePart(partRuleName, noWhitespace);
-
-    noWhitespace = true;
-
-    const terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, noWhitespace),
+    const noWhitespace = true,
+		      partRuleName = PartRuleName,
+          partRuleNamePart = new RuleNamePart(partRuleName),
+		      terminalSymbolPart = new TerminalSymbolPart(terminalSymbolContent, noWhitespace),
           parts = [
             partRuleNamePart,
             terminalSymbolPart
