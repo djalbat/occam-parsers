@@ -2,7 +2,7 @@
 
 const Rule = require('../rule'),
       ruleNames = require('../ruleNames'),
-      DefinitionNode = require('../node/definition'),
+      GroupOfPartsNode = require('../node/groupOfParts'),
       GroupOfPartsDefinition = require('../definition/groupOfParts');
 
 const { GroupOfPartsRuleName } = ruleNames;
@@ -14,8 +14,8 @@ class GroupOfPartsRule extends Rule {
           definitions = [
             groupOfPartsDefinition
           ],
-          Node = DefinitionNode;
-    
+          Node = GroupOfPartsNode;
+
     super(name, definitions, Node)
   }
 }

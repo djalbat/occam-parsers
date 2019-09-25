@@ -1,13 +1,11 @@
 'use strict';
 
 const partTypes = require('../../partTypes'),
-      bnfUtilities = require('../../../utilities/bnf'),
       arrayUtilities = require('../../../utilities/array'),
       NonTerminalPart = require('../../part/nonTerminal');
 
-const { isNodeChoiceNode } = bnfUtilities,
-      { ChoiceOfPartsPartType } = partTypes,
-      { second, even, allButFirstAndLast } = arrayUtilities;
+const { ChoiceOfPartsPartType } = partTypes,
+      { even, allButFirstAndLast } = arrayUtilities;
 
 class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
@@ -58,31 +56,23 @@ class ChoiceOfPartsPart extends NonTerminalPart {
   clone() { return super.clone(ChoiceOfPartsPart, this.parts); }
 
   static fromNodes(nodes) {
-    let choiceOfPartsPart = null;
-    
     const allButFirstAndLastNodes = allButFirstAndLast(nodes);
 
     nodes = allButFirstAndLastNodes;  ///
     
-    const secondNode = second(nodes),
-          secondNodeChoiceNode = isNodeChoiceNode(secondNode);
-    
-    if (secondNodeChoiceNode) {
-      const evenNodes = even(nodes);
+    const evenNodes = even(nodes);
 
-      nodes = evenNodes;  ///
+    nodes = evenNodes;  ///
 
-      const noWhitespace = false,
-            lookAhead = false,
-            parts = nodes.map(function(node) {
-              const part = node.generatePart(noWhitespace, lookAhead);
-  
-              return part;
-            });
-      
-      choiceOfPartsPart = new ChoiceOfPartsPart(parts);
-    }    
-    
+    const noWhitespace = false,
+          lookAhead = false,
+          parts = nodes.map(function(node) {
+            const part = node.generatePart(noWhitespace, lookAhead);
+
+            return part;
+          }),
+          choiceOfPartsPart = new ChoiceOfPartsPart(parts);
+
     return choiceOfPartsPart;
   }
 }
