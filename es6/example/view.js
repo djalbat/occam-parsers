@@ -43,17 +43,17 @@ class ExampleView extends Element {
   }
 
   changeHandler() {
-    try {
+    // try {
       const parseTree = this.getParseTree();
 
       this.hideError();
 
       this.setParseTree(parseTree);
-    } catch (error) {
-      this.showError();
-
-      this.clearParseTree();
-    }
+    // } catch (error) {
+    //   this.showError();
+    //
+    //   this.clearParseTree();
+    // }
   }
 
   getInitialContent() {

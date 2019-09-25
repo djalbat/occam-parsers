@@ -7,7 +7,7 @@ const ruleNames = require('../bnf/ruleNames'),
 
 const { first, second } = arrayUtilities,
       { specialSymbols } = lexers,
-      { RuleNameRuleName, RightRecursivePartRuleName } = ruleNames,
+      { RuleNameRuleName } = ruleNames,
       { plus, asterisk, questionMark, exclamationMark, NO_WHITESPACE } = specialSymbols;
 
 function isNodeChoiceNode(node) {
@@ -82,22 +82,6 @@ function isNodeNoWhitespaceNode(node) {
   return nodeNoWhitespaceNode;
 }
 
-function isNodeRightRecursivePartNode(node) {
-  let nodeRightRecursivePartNode = false;
-
-  const nodeTerminalNode = node.isTerminalNode(),
-        nodeNonTerminalNode = !nodeTerminalNode;
-
-  if (nodeNonTerminalNode) {
-    const nonTerminalNode = node, ///
-        nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
-
-    nodeRightRecursivePartNode = (nonTerminalNodeRuleName === RightRecursivePartRuleName);
-  }
-
-  return nodeRightRecursivePartNode;
-}
-
 function quantifiersFromQuantifiersNode(quantifiersNode, quantifiers = []) {
   const quantifier = quantifierFromQuantifiersNode(quantifiersNode);
 
@@ -125,7 +109,6 @@ module.exports = {
   isNodeRuleNameNode,
   isNodeQuantifiersNode,
   isNodeNoWhitespaceNode,
-  isNodeRightRecursivePartNode,
   quantifiersFromQuantifiersNode
 };
 

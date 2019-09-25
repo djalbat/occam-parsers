@@ -14,8 +14,8 @@ class PartRule extends Rule {
           terminalPartRuleDefinition = new TerminalPartRuleDefinition(),
           nonTerminalPartRuleDefinition = new NonTerminalPartRuleDefinition(),
           definitions = [
-            terminalPartRuleDefinition,
-            nonTerminalPartRuleDefinition
+            nonTerminalPartRuleDefinition,
+            terminalPartRuleDefinition
           ],
           Node = PartNode;
     

@@ -33,7 +33,7 @@ All parsers share common functionality. The last two parse content according to 
 
       definition           ::=  part+ ;
 
-      part                 ::=  nonTerminalPart modifiers*
+      part                 ::=  nonTerminalPart modifier*
 
                              |  "<NO_WHITESPACE>" terminalPart
 
