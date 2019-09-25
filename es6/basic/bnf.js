@@ -1,10 +1,6 @@
 'use strict';
 
-const bnf = `basicName ::= ( blah blah ) ;`;
-
-module.exports = bnf;
-
-/*
+const bnf = `
 
   expression    ::= expression_ expression~
 
@@ -32,6 +28,8 @@ module.exports = bnf;
 
   term          ::= naturalNumber ;
 
-  naturalNumber ::= /\d+/ ;
+  naturalNumber ::= /\\d+/ ;
 
- */
+`;
+
+module.exports = bnf;

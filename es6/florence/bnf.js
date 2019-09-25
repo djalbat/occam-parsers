@@ -69,15 +69,15 @@ const bnf = `
 
      typeDeclaration                      ::=   typeName ( ":" typeName )? ;
    
-     contextDeclaration                   ::=   contextName<NO_WHITESPACE>parenthesisedTypeName? ;
+     contextDeclaration                   ::=   contextName parenthesisedTypeName? ;
    
      variableDeclaration                  ::=   name ":" typeName ;
    
      constructorDeclaration               ::=   term ":" typeName ;
    
-     dependentTypeDeclaration             ::=   typeName<NO_WHITESPACE>parenthesisedTypeName ;
+     dependentTypeDeclaration             ::=   typeName parenthesisedTypeName ;
    
-     metavariableDeclaration              ::=   metavariableName<NO_WHITESPACE>parenthesisedTypeName? ;
+     metavariableDeclaration              ::=   metavariableName parenthesisedTypeName? ;
      
      abbreviationDeclaration              ::=   name "for" name ; 
      
@@ -177,33 +177,33 @@ const bnf = `
      
      
 
-     metavariable                         ::=   metavariableName<NO_WHITESPACE>parenthesisedTerm? ;
-
-     reference                            ::=   referenceName<NO_WHITESPACE>parenthesisedTerm? ;
-
-     context                              ::=   contextName<NO_WHITESPACE>parenthesisedTerm? ;
-
-     label                                ::=   labelName<NO_WHITESPACE>parenthesisedTerm? ;
-
-
-
-     parenthesisedTypeNames               ::=   "(" typeNames? ")" ;
-
      parenthesisedLabels                  ::=   "(" labels ")" ;                    
 
-     parenthesisedTerms                   ::=   "(" terms? ")" ;   
+     labels                               ::=   label ( "," label )* ;
+
+     label                                ::=   labelName parenthesisedTerm? ;
 
 
 
-     parenthesisedTypeName                ::=   "(" typeName ")" ;
+     metavariable                         ::=   metavariableName parenthesisedTerm? ;
 
-     parenthesisedTerm                    ::=   "(" term ")" ;   
+     reference                            ::=   referenceName parenthesisedTerm? ;
+
+     context                              ::=   contextName parenthesisedTerm? ;
+
+
+
+     parenthesisedTypeNames               ::=   <NO_WHITESPACE>"(" typeNames? ")" ;
+
+     parenthesisedTypeName                ::=   <NO_WHITESPACE>"(" typeName ")" ;
+
+     parenthesisedTerms                   ::=   <NO_WHITESPACE>"(" terms? ")" ;
+
+     parenthesisedTerm                    ::=   <NO_WHITESPACE>"(" term ")" ;   
 
          
      
      typeNames                            ::=   typeName ( "," typeName )* ;
-
-     labels                               ::=   label ( "," label )* ;
 
      terms                                ::=   term ( "," term )* ;
      
