@@ -1,6 +1,6 @@
 'use strict';
 
-const bnf = `basicName ::= <NO_WHITESPACE>"blah" ;`;
+const bnf = `basicName ::= <NO_WHITESPACE>"blah"+ ;`;
 
 module.exports = bnf;
 

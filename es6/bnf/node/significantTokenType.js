@@ -7,7 +7,7 @@ const arrayUtilities = require('../../utilities/array'),
 const { first, second } = arrayUtilities;
 
 class SignificantTokenTypeNode extends NonTerminalNode {
-  generatePart(noWhitespace) {
+  generatePart(noWhitespace, lookAhead) {
     const significantTokenType = this.getSignificantTokenType(),
           significantTokenTypePart = new SignificantTokenTypePart(significantTokenType, noWhitespace);
 

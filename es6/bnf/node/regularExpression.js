@@ -7,7 +7,7 @@ const arrayUtilities = require('../../utilities/array'),
 const { first, second } = arrayUtilities;
 
 class RegularExpressionNode extends NonTerminalNode {
-  generatePart(noWhitespace) {
+  generatePart(noWhitespace, lookAhead) {
     const regularExpression = this.getRegularExpression(),
           regularExpressionPart = new RegularExpressionPart(regularExpression, noWhitespace);
 

@@ -73,8 +73,9 @@ class ChoiceOfPartsPart extends NonTerminalPart {
       nodes = evenNodes;  ///
 
       const noWhitespace = false,
+            lookAhead = false,
             parts = nodes.map(function(node) {
-              const part = node.generatePart(noWhitespace);
+              const part = node.generatePart(noWhitespace, lookAhead);
   
               return part;
             });

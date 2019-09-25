@@ -1,14 +1,10 @@
 'use strict';
 
-const lexers = require('occam-lexers');
-
 const ruleNames = require('../bnf/ruleNames'),
       arrayUtilities = require('../utilities/array');
 
 const { first } = arrayUtilities,
-      { specialSymbols } = lexers,
-      { NO_WHITESPACE } = specialSymbols,
-      { QuantifierRuleName, RuleNameRuleName } = ruleNames;
+      { LookAheadModifierRuleName, QuantifierRuleName, RuleNameRuleName } = ruleNames;
 
 function isNodeChoiceNode(node) {
   let nodeNoChoiceNode = false;
@@ -57,19 +53,21 @@ function isNodeQuantifierNode(node) {
   return nodeQuantifierNode;
 }
 
-function isNodeNoWhitespaceNode(node) {
-  let nodeNoWhitespaceNode = false;
+function isNodeLookAheadModifierNode(node) {
+  let nodeLookAheadModifierNode = false;
 
-  const nodeTerminalNode = node.isTerminalNode();
+  const nodeNonTerminalNode = node.isNonTerminalNode();
 
-  if (nodeTerminalNode) {
-    const terminalNode = node,
-          terminalNodeContent = terminalNode.getContent();
+  if (nodeNonTerminalNode) {
+    const nonTerminalNode = node, ///
+          ruleName = nonTerminalNode.getRuleName(),
+          ruleNameLookAheadModifierRuleName = (ruleName === LookAheadModifierRuleName);
 
-    nodeNoWhitespaceNode = (terminalNodeContent === NO_WHITESPACE);
+    nodeLookAheadModifierNode = ruleNameLookAheadModifierRuleName;  ///
   }
 
-  return nodeNoWhitespaceNode;
+  return nodeLookAheadModifierNode;
+
 }
 
 function ruleNameFromQuantifierNode(quantifierNode) {
@@ -91,6 +89,6 @@ module.exports = {
   isNodeChoiceNode,
   isNodeRuleNameNode,
   isNodeQuantifierNode,
-  isNodeNoWhitespaceNode,
+  isNodeLookAheadModifierNode,
   ruleNameFromQuantifierNode
 };

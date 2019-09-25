@@ -2,22 +2,18 @@
 
 const ruleNames = require('../ruleNames'),
       bnfUtilities = require('../../utilities/bnf'),
-      partUtilities = require('../../utilities/part'),
       arrayUtilities = require('../../utilities/array'),
       NonTerminalNode = require('../../common/node/nonTerminal'),
       OptionalPartPart = require('../part/nonTerminal/optionalPart'),
-      GroupOfPartsPart = require('../part/nonTerminal/groupOfParts'),
-      ChoiceOfPartsPart = require('../part/nonTerminal/choiceOfParts'),
       OneOrMorePartsPart = require('../part/nonTerminal/oneOrMoreParts'),
       ZeroOrMorePartsPart = require('../part/nonTerminal/zeroOrMoreParts');
 
-const { first, last } = arrayUtilities,
-      { isPartRuleNamePart } = partUtilities,
-      { isNodeQuantifierNode, isNodeNoWhitespaceNode, ruleNameFromQuantifierNode } = bnfUtilities,
+const { last } = arrayUtilities,
+      { isNodeQuantifierNode, ruleNameFromQuantifierNode } = bnfUtilities,
       { OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } = ruleNames;
 
 class PartNode extends NonTerminalNode {
-  generatePart(noWhitespace) {
+  generatePart(noWhitespace, lookAhead) {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(),
           part = partFromNodes(nodes, noWhitespace);
@@ -36,53 +32,30 @@ function partFromNodes(nodes, noWhitespace) {
   const nodesLength = nodes.length;
 
   if (nodesLength === 1) {
-    const node = nodes.pop();
+    const node = nodes.pop(),
+          lookAhead = false;
 
-    part = node.generatePart(noWhitespace);
+    part = node.generatePart(noWhitespace, lookAhead);
   } else {
     const lastNodeQuantifierNode = isLastNodeQuantifierNode(nodes);
 
     if (lastNodeQuantifierNode) {
-      const node = nodes.pop();
-
-      noWhitespace = false;
+      const node = nodes.pop(),
+            quantifierNode = node;  ///
 
       part = partFromNodes(nodes, noWhitespace);
 
-      const quantifierNode = node,  ///
-            ruleName = ruleNameFromQuantifierNode(quantifierNode),
+      const ruleName = ruleNameFromQuantifierNode(quantifierNode),
             sequenceOfPartsPart = sequenceOfPartsPartFromPartAndRuleName(part, ruleName);
 
       part = sequenceOfPartsPart; ///
     } else {
-      const firstNodeNoWhitespaceNode = isFirstNodeNoWhitespaceNode(nodes);
+      nodes.shift();
 
-      if (firstNodeNoWhitespaceNode) {
-        nodes.shift();
-
-        noWhitespace = true;
-      }
+      noWhitespace = true;
 
       part = partFromNodes(nodes, noWhitespace);
     }
-  }
-
-  return part;
-}
-
-function _partFromNodes(nodes) {
-  let part = null;
-
-  if (part === null) {
-    const choiceOfPartsPart = ChoiceOfPartsPart.fromNodes(nodes);
-
-    part = choiceOfPartsPart; ///
-  }
-
-  if (part === null) {
-    const groupOfPartsPart = GroupOfPartsPart.fromNodes(nodes);
-
-    part = groupOfPartsPart;  ///
   }
 
   return part;
@@ -93,13 +66,6 @@ function isLastNodeQuantifierNode(nodes) {
         lastNodeQuantifierNode = isNodeQuantifierNode(lastNode);
 
   return lastNodeQuantifierNode;
-}
-
-function isFirstNodeNoWhitespaceNode(nodes) {
-  const firstNode = first(nodes),
-        firstNodeNoWhitespaceNode = isNodeNoWhitespaceNode(firstNode);
-
-  return firstNodeNoWhitespaceNode;
 }
 
 function sequenceOfPartsPartFromPartAndRuleName(part, ruleName) {

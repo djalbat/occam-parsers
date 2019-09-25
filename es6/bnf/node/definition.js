@@ -8,8 +8,9 @@ class DefinitionNode extends NonTerminalNode {
     const childNodes = this.getChildNodes(),
           partNodes = childNodes, ///
           noWhitespace = false, ///
+          lookAhead = false,  ///
           parts = partNodes.map(function(partNode) {
-            const part = partNode.generatePart(noWhitespace);
+            const part = partNode.generatePart(noWhitespace, lookAhead);
   
             return part;
           }),

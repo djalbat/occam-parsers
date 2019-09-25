@@ -7,9 +7,9 @@ const RuleNamePart = require('../part/nonTerminal/ruleName'),
 const { first } = arrayUtilities;
 
 class RuleNameNode extends NonTerminalNode {
-  generatePart(noWhitespace) {
+  generatePart(noWhitespace, lookAhead) {
     const ruleName = this.getRuleName(),
-          ruleNamePart = new RuleNamePart(ruleName);
+          ruleNamePart = new RuleNamePart(ruleName, lookAhead);
 
     return ruleNamePart;
   }

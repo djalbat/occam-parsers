@@ -1,8 +1,8 @@
 'use strict';
 
 const Rule = require('../rule'),
-      PartNode = require('../node/part'),
       ruleNames = require('../ruleNames'),
+      TerminalPartNode = require('../node/part/terminal'),
       RuleNameDefinition = require('../definition/ruleName');
 
 const { TerminalPartRuleName, RegularExpressionRuleName, SignificantTokenTypeRuleName, TerminalSymbolRuleName, EndOfLineRuleName, EpsilonRuleName, WildcardRuleName } = ruleNames;
@@ -30,7 +30,7 @@ class TerminalPartRule extends Rule {
             epsilonRuleNameDefinition,
             wildcardRuleNameDefinition
           ],
-          Node = PartNode;
+          Node = TerminalPartNode;
     
     super(name, definitions, Node)
   }

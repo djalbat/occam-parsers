@@ -1,7 +1,7 @@
 'use strict';
 
 const Rule = require('../rule'),
-      PartNode = require('../node/part'),
+      NonTerminalPartNode = require('../node/part/nonTerminal'),
       ruleNames = require('../ruleNames'),
       RuleNameDefinition = require('../definition/ruleName'),
       RuleNameNonTerminalPartRuleDefinition = require('../definition/nonTerminalPartRule/ruleName');
@@ -21,7 +21,7 @@ class NonTerminalPartRule extends Rule {
             groupOfPartsRuleNameDefinition,
             ruleNameNonTerminalPartRuleDefinition
           ],
-          Node = PartNode;
+          Node = NonTerminalPartNode;
     
     super(name, definitions, Node)
   }

@@ -4,7 +4,7 @@ const EpsilonPart = require('../part/terminal/epsilon'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class EpsilonNode extends NonTerminalNode {
-  generatePart(noWhitespace) {
+  generatePart(noWhitespace, lookAhead) {
     const epsilonPart = new EpsilonPart(noWhitespace);
 
     return epsilonPart;
