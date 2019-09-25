@@ -5,15 +5,15 @@ const ruleNames = require('../../ruleNames'),
       RuleNamePart = require('../../part/nonTerminal/ruleName'),
       ZeroOrMorePartsPart = require('../../part/nonTerminal/zeroOrMoreParts');
 
-const { ModifierRuleName, NonTerminalPartRuleName } = ruleNames;
+const { QuantifierRuleName, NonTerminalPartRuleName } = ruleNames;
 
 class NonTerminalPartRuleDefinition extends Definition {
   constructor() {
-    const modifierRuleName = ModifierRuleName,
+    const quantifierRuleName = QuantifierRuleName,
           nonTerminalPartRuleName = NonTerminalPartRuleName,
-          modifierRuleNamePart = new RuleNamePart(modifierRuleName),
+          quantifierRuleNamePart = new RuleNamePart(quantifierRuleName),
           nonTerminalPartRuleNamePart = new RuleNamePart(nonTerminalPartRuleName),
-          zeroOrMoreModifierRuleNamePartsPart = new ZeroOrMorePartsPart(modifierRuleNamePart),
+          zeroOrMoreModifierRuleNamePartsPart = new ZeroOrMorePartsPart(quantifierRuleNamePart),
           parts = [
             nonTerminalPartRuleNamePart,
             zeroOrMoreModifierRuleNamePartsPart

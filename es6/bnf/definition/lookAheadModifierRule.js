@@ -1,11 +1,16 @@
 'use strict';
 
+const lexers = require('occam-lexers');
+
 const Definition = require('../definition'),
       TerminalSymbolPart = require('../part/terminal/terminalSymbol');
 
-class ModifierRuleDefinition extends Definition {
-  constructor(terminalSymbolContent) {
-    const content = terminalSymbolContent,  ///
+const { specialSymbols } = lexers,
+      { exclamationMark } = specialSymbols;
+
+class LookAheadModifierRuleDefinition extends Definition {
+  constructor() {
+    const content = exclamationMark,  ///
           noWhitespace = true,
           terminalSymbolPart = new TerminalSymbolPart(content, noWhitespace),
           parts = [
@@ -16,4 +21,4 @@ class ModifierRuleDefinition extends Definition {
   }
 }
 
-module.exports = ModifierRuleDefinition;
+module.exports = LookAheadModifierRuleDefinition;

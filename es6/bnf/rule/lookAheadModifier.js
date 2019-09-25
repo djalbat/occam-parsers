@@ -1,21 +1,16 @@
 'use strict';
 
-const lexers = require('occam-lexers');
-
 const Rule = require('../rule'),
       ruleNames = require('../ruleNames'),
       DefinitionNode = require('../node/definition'),
-      ModifierRuleDefinition = require('../definition/modifierRule');
+      LookAheadModifierRuleDefinition = require('../definition/lookAheadModifierRule');
 
-const { specialSymbols } = lexers,
-      { LookAheadModifierRuleName } = ruleNames,
-      { exclamationMark } = specialSymbols;
+const { LookAheadModifierRuleName } = ruleNames;
 
 class LookAheadModifierRule extends Rule {
   constructor() {
     const name = LookAheadModifierRuleName,
-          lookAheadModifierTerminalSymbolContent = exclamationMark, ///
-          lookAheadModifierRuleDefinition = new ModifierRuleDefinition(lookAheadModifierTerminalSymbolContent),
+          lookAheadModifierRuleDefinition = new LookAheadModifierRuleDefinition(),
           definitions = [
             lookAheadModifierRuleDefinition
           ],

@@ -16,7 +16,7 @@ const { first, last } = arrayUtilities,
       { specialSymbols } = lexers,
       { isPartRuleNamePart } = partUtilities,
       { plus, asterisk, questionMark, exclamationMark } = specialSymbols,
-      { isNodeQuantifiersNode, isNodeNoWhitespaceNode, isNodeRightRecursivePartNode, quantifiersFromQuantifiersNode } = bnfUtilities;
+      { isNodeQuantifiersNode, isNodeNoWhitespaceNode, quantifiersFromQuantifiersNode } = bnfUtilities;
 
 class PartNode extends NonTerminalNode {
   generatePart(noWhitespace) {
@@ -25,17 +25,12 @@ class PartNode extends NonTerminalNode {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(), ///
           quantifiers = quantifiersFromNodes(nodes),
-          firstNodeNoWhitespaceNode = isFirstNodeNoWhitespaceNode(nodes),
-          lastNodeRightRecursivePartNode = isLastNodeRightRecursivePartNode(nodes);
+          firstNodeNoWhitespaceNode = isFirstNodeNoWhitespaceNode(nodes);
 
     if (firstNodeNoWhitespaceNode) {
       nodes.shift();
 
       noWhitespace = true;
-    }
-
-    if (lastNodeRightRecursivePartNode) {
-      nodes.pop();
     }
 
     const nodesLength = nodes.length;
@@ -79,13 +74,6 @@ function isFirstNodeNoWhitespaceNode(nodes) {
         firstNodeNoWhitespaceNode = isNodeNoWhitespaceNode(firstNode);
 
   return firstNodeNoWhitespaceNode;
-}
-
-function isLastNodeRightRecursivePartNode(nodes) {
-  const lastNode = last(nodes),
-        lastNodeRightRecursivePartNode = isNodeRightRecursivePartNode(lastNode);
-
-  return lastNodeRightRecursivePartNode;
 }
 
 function partFromNode(node, noWhitespace) {

@@ -23,79 +23,79 @@ Three parsers are documented:
 All parsers share common functionality. The last two parse content according to rules defined in the aforementioned variant of extended BNF. The BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant that they implement:
 
 
-      document             ::=  ( rule | error )+ ;
+      document              ::=  ( rule | error )+ ;
 
-      rule                 ::=  name "::=" definitions ";" ;
+      rule                  ::=  name "::=" definitions ";" ;
 
-      name                 ::=  [name] ;
+      name                  ::=  [name] ;
 
-      definitions          ::=  definition ( "|" definition )* ;
+      definitions           ::=  definition ( "|" definition )* ;
 
-      definition           ::=  part+ ;
+      definition            ::=  part+ ;
 
-      part                 ::=  nonTerminalPart modifier*
+      part                  ::=  nonTerminalPart quantifier*
 
-                             |  "<NO_WHITESPACE>" terminalPart
+                              |  "<NO_WHITESPACE>"? terminalPart
 
-                             ;
+                              ;
 
-      nonTerminalPart      ::=  choiceOfParts
+      nonTerminalPart       ::=  choiceOfParts
 
-                             |  groupOfParts
+                              |  groupOfParts
 
-                             |  ruleName lookAheadModifier?
+                              |  ruleName lookAheadModifier?
 
-                             ;
+                              ;
 
-      terminalPart         ::=  regularExpression
+      terminalPart          ::=  regularExpression
 
-                             |  significantTokenType
+                              |  significantTokenType
 
-                             |  terminalSymbol
+                              |  terminalSymbol
 
-                             |  endOfLine
+                              |  endOfLine
 
-                             |  epsilon
+                              |  epsilon
 
-                             |  wildcard
+                              |  wildcard
 
-                             ;
+                              ;
 
-      choiceOfParts        ::=  "(" part ( "|" part )+ ")" ;
+      choiceOfParts         ::=  "(" part ( "|" part )+ ")" ;
 
-      groupOfParts         ::=  "(" part part+ ")" ;
+      groupOfParts          ::=  "(" part part+ ")" ;
 
-      ruleName             ::=  [name] ;
+      ruleName              ::=  [name] ;
 
-      regularExpression    ::=  [regular-expression] ;
+      regularExpression     ::=  [regular-expression] ;
 
-      significantTokenType ::=  [type] ;
+      significantTokenType  ::=  [type] ;
 
-      terminalSymbol       ::=  [string-literal] ;
+      terminalSymbol        ::=  [string-literal] ;
 
-      endOfLine            ::=  "<END_OF_LINE>" ;
+      endOfLine             ::=  "<END_OF_LINE>" ;
 
-      epsilon              ::=  "ε" ;
+      epsilon               ::=  "ε" ;
 
-      wildcard             ::=  "." ;
+      wildcard              ::=  "." ;
 
-      modifier             ::=  optionalModifier
+      quantifier            ::=  optionalQuantifier
 
-                             |  zeroOrMoreModifier
+                              |  zeroOrMoreQuantifier
 
-                             |  oneOrMoreModifier
+                              |  oneOrMoreQuantifier
 
-                             ;
+                              ;
 
-      optionalModifier     ::=  <NO_WHITESPACE>"?" ;
+      optionalQuantifier    ::=  <NO_WHITESPACE>"?" ;
 
-      zeroOrMoreModifier   ::=  <NO_WHITESPACE>"*" ;
+      zeroOrMoreQuantifier  ::=  <NO_WHITESPACE>"*" ;
 
-      oneOrMoreModifier    ::=  <NO_WHITESPACE>"+" ;
+      oneOrMoreQuantifier   ::=  <NO_WHITESPACE>"+" ;
 
-      lookAheadModifier    ::=  <NO_WHITESPACE>"!" ;
+      lookAheadModifier     ::=  <NO_WHITESPACE>"!" ;
 
-      error                ::=  . ;
+      error                 ::=  . ;
 
 ## Installation
 

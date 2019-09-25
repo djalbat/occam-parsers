@@ -5,6 +5,7 @@ const lexers = require('occam-lexers');
 const ruleNames = require('../../ruleNames'),
       Definition = require('../../definition'),
       RuleNamePart = require('../../part/nonTerminal/ruleName'),
+      OptionalPartPart = require('../../part/nonTerminal/optionalPart'),
       TerminalSymbolPart = require('../../part/terminal/terminalSymbol');
 
 const { specialSymbols } = lexers,
@@ -18,8 +19,9 @@ class TerminalPartRuleDefinition extends Definition {
           noWhitespaceTerminalSymbolContent = NO_WHITESPACE,
           terminalPartRuleNamePart = new RuleNamePart(terminalPartRuleName),
           noWhitespaceTerminalSymbolPart = new TerminalSymbolPart(noWhitespaceTerminalSymbolContent, noWhitespace),
+          optionalNoWhitespaceTerminalSymbolPartPart = new OptionalPartPart(noWhitespaceTerminalSymbolPart),
           parts = [
-            noWhitespaceTerminalSymbolPart,
+            optionalNoWhitespaceTerminalSymbolPartPart,
             terminalPartRuleNamePart
           ];
     

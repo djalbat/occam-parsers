@@ -5,7 +5,7 @@ const lexers = require('occam-lexers');
 const Rule = require('../rule'),
       ruleNames = require('../ruleNames'),
       DefinitionNode = require('../node/definition'),
-      ModifierRuleDefinition = require('../definition/modifierRule');
+      ModifierRuleDefinition = require('../definition/quantifierRule');
 
 const { specialSymbols } = lexers,
       { OptionalModifierRuleName } = ruleNames,
