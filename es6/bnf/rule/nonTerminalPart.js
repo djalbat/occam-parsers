@@ -4,7 +4,7 @@ const Rule = require('../rule'),
       NonTerminalPartNode = require('../node/part/nonTerminal'),
       ruleNames = require('../ruleNames'),
       RuleNameDefinition = require('../definition/ruleName'),
-      RuleNameNonTerminalPartRuleDefinition = require('../definition/nonTerminalPartRule/ruleName');
+      RuleNameNonTerminalPartRuleDefinition = require('../definition/partRule/nonTerminal/ruleName');
 
 const { NonTerminalPartRuleName, ChoiceOfPartsRuleName, GroupOfPartsRuleName } = ruleNames;
 
