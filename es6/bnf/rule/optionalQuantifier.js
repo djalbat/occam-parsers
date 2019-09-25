@@ -5,19 +5,19 @@ const lexers = require('occam-lexers');
 const Rule = require('../rule'),
       ruleNames = require('../ruleNames'),
       DefinitionNode = require('../node/definition'),
-      ModifierRuleDefinition = require('../definition/quantifierRule');
+      QuantifierRuleDefinition = require('../definition/quantifierRule');
 
 const { specialSymbols } = lexers,
-      { OptionalModifierRuleName } = ruleNames,
-      { questionMark } = specialSymbols;
+      { questionMark } = specialSymbols,
+      { OptionalQuantifierRuleName } = ruleNames;
 
-class OptionalModifierRule extends Rule {
+class OptionalQuantifierRule extends Rule {
   constructor() {
-    const name = OptionalModifierRuleName,
-          optionalModifierTerminalSymbolContent = questionMark, ///
-          optionalModifierRuleDefinition = new ModifierRuleDefinition(optionalModifierTerminalSymbolContent),
+    const name = OptionalQuantifierRuleName,
+          optionalQuantifierTerminalSymbolContent = questionMark, ///
+          optionalQuantifierRuleDefinition = new QuantifierRuleDefinition(optionalQuantifierTerminalSymbolContent),
           definitions = [
-            optionalModifierRuleDefinition
+            optionalQuantifierRuleDefinition
           ],
           Node = DefinitionNode;
     
@@ -25,4 +25,4 @@ class OptionalModifierRule extends Rule {
   }
 }
 
-module.exports = OptionalModifierRule;
+module.exports = OptionalQuantifierRule;

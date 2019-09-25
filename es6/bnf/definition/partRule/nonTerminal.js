@@ -13,10 +13,10 @@ class NonTerminalPartRuleDefinition extends Definition {
           nonTerminalPartRuleName = NonTerminalPartRuleName,
           quantifierRuleNamePart = new RuleNamePart(quantifierRuleName),
           nonTerminalPartRuleNamePart = new RuleNamePart(nonTerminalPartRuleName),
-          zeroOrMoreModifierRuleNamePartsPart = new ZeroOrMorePartsPart(quantifierRuleNamePart),
+          zeroOrMoreQuantifierRuleNamePartsPart = new ZeroOrMorePartsPart(quantifierRuleNamePart),
           parts = [
             nonTerminalPartRuleNamePart,
-            zeroOrMoreModifierRuleNamePartsPart
+            zeroOrMoreQuantifierRuleNamePartsPart
           ];
     
     super(parts)

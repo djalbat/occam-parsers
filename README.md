@@ -35,7 +35,7 @@ All parsers share common functionality. The last two parse content according to 
 
       part                  ::=  nonTerminalPart quantifier*
 
-                              |  "<NO_WHITESPACE>"? terminalPart
+                              |  "<NO_WHITESPACE>"? terminalPart quantifier*
 
                               ;
 

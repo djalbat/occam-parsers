@@ -8,8 +8,8 @@ const Rule = require('../rule'),
       QuantifierRuleDefinition = require('../definition/quantifierRule');
 
 const { specialSymbols } = lexers,
-      { OneOrMoreQuantifierRuleName } = ruleNames,
-      { plus } = specialSymbols;
+      { plus } = specialSymbols,
+      { OneOrMoreQuantifierRuleName } = ruleNames;
 
 class OneOrMoreQuantifierRule extends Rule {
   constructor() {
