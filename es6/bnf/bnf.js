@@ -2,78 +2,78 @@
 
 module.exports = `
 
-      document             ::=  ( rule | error )+ ;
+      document              ::=  ( rule | error )+ ;
 
-      rule                 ::=  name "::=" definitions ";" ;
+      rule                  ::=  name "::=" definitions ";" ;
 
-      name                 ::=  [name] ;
+      name                  ::=  [name] ;
 
-      definitions          ::=  definition ( "|" definition )* ;
+      definitions           ::=  definition ( "|" definition )* ;
 
-      definition           ::=  part+ ;
+      definition            ::=  part+ ;
 
-      part                 ::=  nonTerminalPart modifier*
+      part                  ::=  nonTerminalPart quantifier*
 
-                             |  "<NO_WHITESPACE>"? terminalPart
+                              |  "<NO_WHITESPACE>"? terminalPart quantifier*
 
-                             ;
+                              ;
 
-      nonTerminalPart      ::=  choiceOfParts
+      nonTerminalPart       ::=  choiceOfParts
 
-                             |  groupOfParts
+                              |  groupOfParts
 
-                             |  ruleName lookAheadModifier?
+                              |  ruleName lookAheadModifier?
 
-                             ;
+                              ;
 
-      terminalPart         ::=  regularExpression
+      terminalPart          ::=  significantTokenType
+ 
+                              |  regularExpression
 
-                             |  significantTokenType
+                              |  terminalSymbol
+ 
+                              |  endOfLine
+ 
+                              |  epsilon
+ 
+                              |  wildcard
+ 
+                              ;
 
-                             |  terminalSymbol
+      choiceOfParts         ::=  "(" part ( "|" part )+ ")" ;
 
-                             |  endOfLine
+      groupOfParts          ::=  "(" part part+ ")" ;
 
-                             |  epsilon
+      ruleName              ::=  [name] ;
 
-                             |  wildcard
+      significantTokenType  ::=  [type] ;
 
-                             ;
+      regularExpression     ::=  [regular-expression] ;
 
-      choiceOfParts        ::=  "(" part ( "|" part )+ ")" ;
+      terminalSymbol        ::=  [string-literal] ;
 
-      groupOfParts         ::=  "(" part part+ ")" ;
+      endOfLine             ::=  "<END_OF_LINE>" ;
 
-      ruleName             ::=  [name] ;
+      epsilon               ::=  "ε" ;
 
-      regularExpression    ::=  [regular-expression] ;
+      wildcard              ::=  "." ;
 
-      significantTokenType ::=  [type] ;
+      quantifier            ::=  optionalQuantifier
 
-      terminalSymbol       ::=  [string-literal] ;
+                              |  oneOrMoreQuantifier
+ 
+                              |  zeroOrMoreQuantifier
+ 
+                              ;
 
-      endOfLine            ::=  "<END_OF_LINE>" ;
+      lookAheadModifier     ::=  <NO_WHITESPACE>"!" ;
 
-      epsilon              ::=  "ε" ;
+      optionalQuantifier    ::=  <NO_WHITESPACE>"?" ;
 
-      wildcard             ::=  "." ;
+      oneOrMoreQuantifier   ::=  <NO_WHITESPACE>"+" ;
 
-      modifier             ::=  optionalModifier
+      zeroOrMoreQuantifier  ::=  <NO_WHITESPACE>"*" ;
 
-                             |  zeroOrMoreModifier
-
-                             |  oneOrMoreModifier
-
-                             ;
-
-      optionalModifier     ::=  <NO_WHITESPACE>"?" ;
-
-      zeroOrMoreModifier   ::=  <NO_WHITESPACE>"*" ;
-
-      oneOrMoreModifier    ::=  <NO_WHITESPACE>"+" ;
-
-      lookAheadModifier    ::=  <NO_WHITESPACE>"!" ;
-
-      error                ::=  . ;
+      error                 ::=  . ;
 
 `;

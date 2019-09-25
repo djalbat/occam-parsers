@@ -74,17 +74,17 @@ class BNFParser extends CommonParser {
       choiceOfPartsRule,
       groupOfPartsRule,
       ruleNameRule,
-      regularExpressionRule,
       significantTokenTypeRule,
+      regularExpressionRule,
       terminalSymbolRule,
       endOfLineRule,
       epsilonRule,
       wildcardRule,
       quantifierRule,
+      lookAheadModifierRule,
       optionalQuantifierRule,
       oneOrMoreQuantifierRule,
       zeroOrMoreQuantifierRule,
-      lookAheadModifierRule,
       errorRule
     ];
 

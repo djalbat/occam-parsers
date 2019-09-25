@@ -23,8 +23,8 @@ class TerminalPartRule extends Rule {
           regularExpressionRuleNameDefinition = new RuleNameDefinition(regularExpressionRuleName),
           significantTokenTypeRuleNameDefinition = new RuleNameDefinition(significantTokenTypeRuleName),
           definitions = [
-            regularExpressionRuleNameDefinition,
             significantTokenTypeRuleNameDefinition,
+            regularExpressionRuleNameDefinition,
             terminalSymbolRuleNameDefinition,
             endOfLineRuleNameDefinition,
             epsilonRuleNameDefinition,

@@ -47,9 +47,9 @@ All parsers share common functionality. The last two parse content according to 
 
                               ;
 
-      terminalPart          ::=  regularExpression
+      terminalPart          ::=  significantTokenType
 
-                              |  significantTokenType
+                              |  regularExpression
 
                               |  terminalSymbol
 
@@ -67,9 +67,9 @@ All parsers share common functionality. The last two parse content according to 
 
       ruleName              ::=  [name] ;
 
-      regularExpression     ::=  [regular-expression] ;
-
       significantTokenType  ::=  [type] ;
+
+      regularExpression     ::=  [regular-expression] ;
 
       terminalSymbol        ::=  [string-literal] ;
 
@@ -81,19 +81,19 @@ All parsers share common functionality. The last two parse content according to 
 
       quantifier            ::=  optionalQuantifier
 
-                              |  zeroOrMoreQuantifier
-
                               |  oneOrMoreQuantifier
+
+                              |  zeroOrMoreQuantifier
 
                               ;
 
-      optionalQuantifier    ::=  <NO_WHITESPACE>"?" ;
+      lookAheadModifier     ::=  <NO_WHITESPACE>"!" ;
 
-      zeroOrMoreQuantifier  ::=  <NO_WHITESPACE>"*" ;
+      optionalQuantifier    ::=  <NO_WHITESPACE>"?" ;
 
       oneOrMoreQuantifier   ::=  <NO_WHITESPACE>"+" ;
 
-      lookAheadModifier     ::=  <NO_WHITESPACE>"!" ;
+      zeroOrMoreQuantifier  ::=  <NO_WHITESPACE>"*" ;
 
       error                 ::=  . ;
 

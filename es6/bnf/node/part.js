@@ -1,8 +1,7 @@
 'use strict';
 
-const lexers = require('occam-lexers');
-
-const bnfUtilities = require('../../utilities/bnf'),
+const ruleNames = require('../ruleNames'),
+      bnfUtilities = require('../../utilities/bnf'),
       partUtilities = require('../../utilities/part'),
       arrayUtilities = require('../../utilities/array'),
       NonTerminalNode = require('../../common/node/nonTerminal'),
@@ -13,38 +12,15 @@ const bnfUtilities = require('../../utilities/bnf'),
       ZeroOrMorePartsPart = require('../part/nonTerminal/zeroOrMoreParts');
 
 const { first, last } = arrayUtilities,
-      { specialSymbols } = lexers,
       { isPartRuleNamePart } = partUtilities,
-      { plus, asterisk, questionMark, exclamationMark } = specialSymbols,
-      { isNodeQuantifiersNode, isNodeNoWhitespaceNode, quantifiersFromQuantifiersNode } = bnfUtilities;
+      { isNodeQuantifierNode, isNodeNoWhitespaceNode, ruleNameFromQuantifierNode } = bnfUtilities,
+      { OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } = ruleNames;
 
 class PartNode extends NonTerminalNode {
   generatePart(noWhitespace) {
-    let part = null;
-
     const childNodes = this.getChildNodes(),
-          nodes = childNodes.slice(), ///
-          quantifiers = quantifiersFromNodes(nodes),
-          firstNodeNoWhitespaceNode = isFirstNodeNoWhitespaceNode(nodes);
-
-    if (firstNodeNoWhitespaceNode) {
-      nodes.shift();
-
-      noWhitespace = true;
-    }
-
-    const nodesLength = nodes.length;
-    
-    if (nodesLength === 1) {
-      const firstNode = first(nodes),
-            node = firstNode;  ///
-
-      part = partFromNode(node, noWhitespace);
-    } else {
-      part = partFromNodes(nodes);
-    }
-    
-    part = partFromPartAndQuantifiers(part, quantifiers);
+          nodes = childNodes.slice(),
+          part = partFromNodes(nodes, noWhitespace);
 
     return part;
   }
@@ -54,19 +30,69 @@ class PartNode extends NonTerminalNode {
 
 module.exports = PartNode;
 
-function quantifiersFromNodes(nodes) {
-  let  quantifiers = [];
+function partFromNodes(nodes, noWhitespace) {
+  let part = null;
 
-  const lastNode = last(nodes),
-        lastNodeQuantifiersNode = isNodeQuantifiersNode(lastNode);
+  const nodesLength = nodes.length;
 
-  if (lastNodeQuantifiersNode) {
-    const quantifiersNode = lastNode;  ///
+  if (nodesLength === 1) {
+    const node = nodes.pop();
 
-    quantifiers = quantifiersFromQuantifiersNode(quantifiersNode);
+    part = node.generatePart(noWhitespace);
+  } else {
+    const lastNodeQuantifierNode = isLastNodeQuantifierNode(nodes);
+
+    if (lastNodeQuantifierNode) {
+      const node = nodes.pop();
+
+      noWhitespace = false;
+
+      part = partFromNodes(nodes, noWhitespace);
+
+      const quantifierNode = node,  ///
+            ruleName = ruleNameFromQuantifierNode(quantifierNode),
+            sequenceOfPartsPart = sequenceOfPartsPartFromPartAndRuleName(part, ruleName);
+
+      part = sequenceOfPartsPart; ///
+    } else {
+      const firstNodeNoWhitespaceNode = isFirstNodeNoWhitespaceNode(nodes);
+
+      if (firstNodeNoWhitespaceNode) {
+        nodes.shift();
+
+        noWhitespace = true;
+      }
+
+      part = partFromNodes(nodes, noWhitespace);
+    }
   }
 
-  return quantifiers;
+  return part;
+}
+
+function _partFromNodes(nodes) {
+  let part = null;
+
+  if (part === null) {
+    const choiceOfPartsPart = ChoiceOfPartsPart.fromNodes(nodes);
+
+    part = choiceOfPartsPart; ///
+  }
+
+  if (part === null) {
+    const groupOfPartsPart = GroupOfPartsPart.fromNodes(nodes);
+
+    part = groupOfPartsPart;  ///
+  }
+
+  return part;
+}
+
+function isLastNodeQuantifierNode(nodes) {
+  const lastNode = last(nodes),
+        lastNodeQuantifierNode = isNodeQuantifierNode(lastNode);
+
+  return lastNodeQuantifierNode;
 }
 
 function isFirstNodeNoWhitespaceNode(nodes) {
@@ -76,74 +102,23 @@ function isFirstNodeNoWhitespaceNode(nodes) {
   return firstNodeNoWhitespaceNode;
 }
 
-function partFromNode(node, noWhitespace) {
-  const part = node.generatePart(noWhitespace);
-
-  return part;
-}
-
-function partFromNodes(nodes) {
-  let part = null;
-
-  const choiceOfPartsPart = ChoiceOfPartsPart.fromNodes(nodes);
-
-  if (choiceOfPartsPart !== null) {
-    part = choiceOfPartsPart; ///
-  } else {
-    const groupOfPartsPart = GroupOfPartsPart.fromNodes(nodes);
-
-    if (groupOfPartsPart !== null) {
-      part = groupOfPartsPart;  ///
-    }
-  }
-
-  return part;
-}
-
-function partFromPartAndQuantifiers(part, quantifiers) {
-  const quantifiersLength = quantifiers.length;
-
-  if (quantifiersLength > 0) {
-    const quantifier = quantifiers.shift();
-
-    if (quantifier === exclamationMark) {
-      const partRuleNamePart = isPartRuleNamePart(part);
-
-      if (partRuleNamePart) {
-        const ruleNamePart = part,  ///
-              lookAhead = true;
-
-        ruleNamePart.setLookAhead(lookAhead);
-      }
-    } else {
-      const sequenceOfPartsPart = sequenceOfPartsPartFromPartAndQuantifier(part, quantifier);
-
-      part = sequenceOfPartsPart; ///
-    }
-
-    part = partFromPartAndQuantifiers(part, quantifiers);
-  }
-
-  return part;
-}
-
-function sequenceOfPartsPartFromPartAndQuantifier(part, quantifier) {
+function sequenceOfPartsPartFromPartAndRuleName(part, ruleName) {
   let sequenceOfPartsPart;
 
-  switch (quantifier) {
-    case questionMark :
+  switch (ruleName) {
+    case OptionalQuantifierRuleName :
       const optionalPartPart = new OptionalPartPart(part);
 
       sequenceOfPartsPart = optionalPartPart; ///
       break;
 
-    case plus :
+    case OneOrMoreQuantifierRuleName :
       const oneOrMorePartsPart = new OneOrMorePartsPart(part);
 
       sequenceOfPartsPart = oneOrMorePartsPart; ///
       break;
 
-    case asterisk :
+    case ZeroOrMoreQuantifierRuleName :
       const zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
 
       sequenceOfPartsPart = zeroOrMorePartsPart;  ///

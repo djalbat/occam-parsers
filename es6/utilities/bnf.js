@@ -5,10 +5,10 @@ const lexers = require('occam-lexers');
 const ruleNames = require('../bnf/ruleNames'),
       arrayUtilities = require('../utilities/array');
 
-const { first, second } = arrayUtilities,
+const { first } = arrayUtilities,
       { specialSymbols } = lexers,
-      { RuleNameRuleName } = ruleNames,
-      { plus, asterisk, questionMark, exclamationMark, NO_WHITESPACE } = specialSymbols;
+      { NO_WHITESPACE } = specialSymbols,
+      { QuantifierRuleName, RuleNameRuleName } = ruleNames;
 
 function isNodeChoiceNode(node) {
   let nodeNoChoiceNode = false;
@@ -16,7 +16,7 @@ function isNodeChoiceNode(node) {
   const nodeTerminalNode = node.isTerminalNode();
 
   if (nodeTerminalNode) {
-    const terminalNode = node,
+    const terminalNode = node,  ///
           terminalNodeContent = terminalNode.getContent();
 
     nodeNoChoiceNode = (terminalNodeContent === '|');
@@ -41,30 +41,20 @@ function isNodeRuleNameNode(node) {
   return nodeRuleNameNode;
 }
 
-function isNodeQuantifiersNode(node) {
-  let nodeQuantifiersNode = false;
+function isNodeQuantifierNode(node) {
+  let nodeQuantifierNode = false;
 
-  const nodeTerminalNode = node.isTerminalNode(),
-        nodeNonTerminalNode = !nodeTerminalNode;
+  const nodeNonTerminalNode = node.isNonTerminalNode();
 
   if (nodeNonTerminalNode) {
     const nonTerminalNode = node, ///
-          childNodes = nonTerminalNode.getChildNodes(),
-          firstChildNode = first(childNodes),
-          firstChildNodeTerminalNode = firstChildNode.isTerminalNode();
+          ruleName = nonTerminalNode.getRuleName(),
+          ruleNameQuantifierRuleName = (ruleName === QuantifierRuleName);
 
-    if (firstChildNodeTerminalNode) {
-      const terminalNode = firstChildNode,  ///
-            terminalNodeContent = terminalNode.getContent();
-
-      nodeQuantifiersNode = (terminalNodeContent === plus) ||
-                            (terminalNodeContent === asterisk) ||
-                            (terminalNodeContent === questionMark) ||
-                            (terminalNodeContent === exclamationMark);
-    }
+    nodeQuantifierNode = ruleNameQuantifierRuleName;  ///
   }
 
-  return nodeQuantifiersNode;
+  return nodeQuantifierNode;
 }
 
 function isNodeNoWhitespaceNode(node) {
@@ -82,41 +72,25 @@ function isNodeNoWhitespaceNode(node) {
   return nodeNoWhitespaceNode;
 }
 
-function quantifiersFromQuantifiersNode(quantifiersNode, quantifiers = []) {
-  const quantifier = quantifierFromQuantifiersNode(quantifiersNode);
+function ruleNameFromQuantifierNode(quantifierNode) {
+  let nonTerminalNode;
 
-  quantifiers.push(quantifier);
+  nonTerminalNode = quantifierNode; ///
 
-  const quantifiersNodeChildNodes = quantifiersNode.getChildNodes(),
-        quantifiersNodeChildNodesLength =  quantifiersNodeChildNodes.length;
+  const childNodes = nonTerminalNode.getChildNodes(),
+        firstChildNode = first(childNodes);
 
-  if (quantifiersNodeChildNodesLength === 2) {
-    const secondQuantifiersNodeChildNode = second(quantifiersNodeChildNodes),
-          secondQuantifiersNodeChildNodeQuantifiersNode = isNodeQuantifiersNode(secondQuantifiersNodeChildNode);
+  nonTerminalNode = firstChildNode;  ///
 
-    if (secondQuantifiersNodeChildNodeQuantifiersNode) {
-      quantifiersNode = secondQuantifiersNodeChildNode; ///
+  const ruleName = nonTerminalNode.getRuleName();
 
-      quantifiers = quantifiersFromQuantifiersNode(quantifiersNode, quantifiers);
-    }
-  }
-
-  return quantifiers;
+  return ruleName;
 }
 
 module.exports = {
   isNodeChoiceNode,
   isNodeRuleNameNode,
-  isNodeQuantifiersNode,
+  isNodeQuantifierNode,
   isNodeNoWhitespaceNode,
-  quantifiersFromQuantifiersNode
+  ruleNameFromQuantifierNode
 };
-
-function quantifierFromQuantifiersNode(quantifiersNode) {
-  const quantifiersNodeChildNodes = quantifiersNode.getChildNodes(),
-        firstQuantifiersNodeChildNode = first(quantifiersNodeChildNodes),
-        firstQuantifiersNodeChildNodeContent = firstQuantifiersNodeChildNode.getContent(),
-        quantifier = firstQuantifiersNodeChildNodeContent;
-
-  return quantifier;
-}
