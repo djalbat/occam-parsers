@@ -3,44 +3,19 @@
 const Rule = require('../rule'),
       PartNode = require('../node/part'),
       ruleNames = require('../ruleNames'),
-      PartRuleDefinition = require('../definition/partRule'),
-      NoWhitespacePartRuleDefinition = require('../definition/partRule/noWhitespace'),
-      GroupOfPartsPartRuleDefinition = require('../definition/partRule/groupOfParts'),
-      ChoiceOfPartsPartRuleDefinition = require('../definition/partRule/choiceOfParts');
+      TerminalPartRuleDefinition = require('../definition/partRule/terminal'),
+      NonTerminalPartRuleDefinition = require('../definition/partRule/nonTerminal');
 
-const { PartRuleName, EpsilonRuleName, WildcardRuleName, RuleNameRuleName, EndOfLineRuleName, TerminalSymbolRuleName, RegularExpressionRuleName, SignificantTokenTypeRuleName } = ruleNames;
+const { PartRuleName } = ruleNames;
 
 class PartRule extends Rule {
   constructor() {
-    const ruleNameRuleName = RuleNameRuleName,
-          regularExpressionRuleName = RegularExpressionRuleName,
-          significantTokenTypeRuleName = SignificantTokenTypeRuleName,
-          terminalSymbolRuleName = TerminalSymbolRuleName,
-          endOfLineRuleName = EndOfLineRuleName,
-          epsilonRuleName = EpsilonRuleName,
-          wildcardRuleName = WildcardRuleName,
-          noWhitespacePartRuleDefinition = new NoWhitespacePartRuleDefinition(),
-          groupOfPartsPartRuleDefinition = new GroupOfPartsPartRuleDefinition(),
-          choiceOfPartsPartRuleDefinition = new ChoiceOfPartsPartRuleDefinition(),
-          ruleNameRuleNamePartRuleDefinition = new PartRuleDefinition(ruleNameRuleName),
-          regularExpressionRuleNamePartRuleDefinition = new PartRuleDefinition(regularExpressionRuleName),
-          significantTokenTypeRuleNamePartRuleDefinition = new PartRuleDefinition(significantTokenTypeRuleName),
-          terminalSymbolRuleNamePartRuleDefinition = new PartRuleDefinition(terminalSymbolRuleName),
-          endOfLineRuleNamePartRuleDefinition = new PartRuleDefinition(endOfLineRuleName),
-          epsilonRuleNamePartRuleDefinition = new PartRuleDefinition(epsilonRuleName),
-          wildcardRuleNamePartRuleDefinition = new PartRuleDefinition(wildcardRuleName),
-          name = PartRuleName,
+    const name = PartRuleName,
+          terminalPartRuleDefinition = new TerminalPartRuleDefinition(),
+          nonTerminalPartRuleDefinition = new NonTerminalPartRuleDefinition(),
           definitions = [
-            noWhitespacePartRuleDefinition,
-            groupOfPartsPartRuleDefinition,
-            choiceOfPartsPartRuleDefinition,
-            ruleNameRuleNamePartRuleDefinition,
-            regularExpressionRuleNamePartRuleDefinition,
-            significantTokenTypeRuleNamePartRuleDefinition,
-            terminalSymbolRuleNamePartRuleDefinition,
-            endOfLineRuleNamePartRuleDefinition,
-            epsilonRuleNamePartRuleDefinition,
-            wildcardRuleNamePartRuleDefinition
+            terminalPartRuleDefinition,
+            nonTerminalPartRuleDefinition
           ],
           Node = PartNode;
     

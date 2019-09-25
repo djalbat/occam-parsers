@@ -12,8 +12,15 @@ module.exports = {
   EndOfLineRuleName: 'endOfLine',
   DefinitionRuleName: 'definition',
   DefinitionsRuleName: 'definitions',
+  GroupOfPartsRuleName: 'groupOfParts',
+  TerminalPartRuleName: 'terminalPart',
+  ChoiceOfPartsRuleName: 'choiceOfParts',
   TerminalSymbolRuleName: 'terminalSymbol',
+  NonTerminalPartRuleName: 'nonTerminalPart',
+  OptionalModifierRuleName: 'optionalModifier',
+  OneOrMoreModifierRuleName: 'oneOrMoreModifier',
+  LookAheadModifierRuleName: 'lookAheadModifier',
   RegularExpressionRuleName: 'regularExpression',
-  RightRecursivePartRuleName: 'part~',
+  ZeroOrMoreModifierRuleName: 'zeroOrMoreModifier',
   SignificantTokenTypeRuleName: 'significantTokenType'
 };

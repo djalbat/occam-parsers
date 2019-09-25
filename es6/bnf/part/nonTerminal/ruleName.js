@@ -8,8 +8,8 @@ const partTypes = require('../../partTypes'),
 
 const { specialSymbols } = lexers,
       { findRuleByName } = ruleUtilities,
-      { RuleNamePartType } = partTypes,
-      { NO_WHITESPACE, exclamationMark } = specialSymbols;
+      { exclamationMark } = specialSymbols,
+      { RuleNamePartType } = partTypes;
 
 class RuleNamePart extends NonTerminalPart {
   constructor(ruleName, lookAhead = false) {

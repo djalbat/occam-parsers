@@ -9,25 +9,22 @@ const ruleNames = require('../../ruleNames'),
 
 const { specialSymbols } = lexers,
       { NO_WHITESPACE } = specialSymbols,
-      { PartRuleName, RightRecursivePartRuleName } = ruleNames;
+      { TerminalPartRuleName } = ruleNames;
 
-class NoWhitespacePartRuleDefinition extends Definition {
+class TerminalPartRuleDefinition extends Definition {
   constructor() {
     const noWhitespace = false,
-          partRuleName = PartRuleName,
-          rightRecursivePartRuleName = RightRecursivePartRuleName,
+          terminalPartRuleName = TerminalPartRuleName,
           noWhitespaceTerminalSymbolContent = NO_WHITESPACE,
-          partRuleNamePart = new RuleNamePart(partRuleName),
-          rightRecursivePartRuleNamePart = new RuleNamePart(rightRecursivePartRuleName),
+          terminalPartRuleNamePart = new RuleNamePart(terminalPartRuleName),
           noWhitespaceTerminalSymbolPart = new TerminalSymbolPart(noWhitespaceTerminalSymbolContent, noWhitespace),
           parts = [
             noWhitespaceTerminalSymbolPart,
-            partRuleNamePart,
-            rightRecursivePartRuleNamePart
+            terminalPartRuleNamePart
           ];
     
     super(parts)
   }
 }
 
-module.exports = NoWhitespacePartRuleDefinition;
+module.exports = TerminalPartRuleDefinition;
