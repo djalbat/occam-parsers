@@ -5,11 +5,11 @@ const Rule = require('../rule'),
       ruleNames = require('../ruleNames'),
       RuleNameDefinition = require('../definition/ruleName');
 
-const { RegularExpressionRuleName, SignificantTokenTypeRuleName, TerminalSymbolRuleName, EndOfLineRuleName, EpsilonRuleName, WildcardRuleName } = ruleNames;
+const { TerminalPartRuleName, RegularExpressionRuleName, SignificantTokenTypeRuleName, TerminalSymbolRuleName, EndOfLineRuleName, EpsilonRuleName, WildcardRuleName } = ruleNames;
 
 class TerminalPartRule extends Rule {
   constructor() {
-    const name = PartRuleName,
+    const name = TerminalPartRuleName,
           epsilonRuleName = EpsilonRuleName,
           wildcardRuleName = WildcardRuleName,
           endOfLineRuleName = EndOfLineRuleName,

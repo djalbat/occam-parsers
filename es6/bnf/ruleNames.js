@@ -9,6 +9,7 @@ module.exports = {
   RuleNameRuleName: 'ruleName',
   DocumentRuleName: 'document',
   WildcardRuleName: 'wildcard',
+  ModifierRuleName: 'modifier',
   EndOfLineRuleName: 'endOfLine',
   DefinitionRuleName: 'definition',
   DefinitionsRuleName: 'definitions',

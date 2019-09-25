@@ -6,11 +6,11 @@ const Rule = require('../rule'),
       RuleNameDefinition = require('../definition/ruleName'),
       RuleNameNonTerminalPartRuleDefinition = require('../definition/nonTerminalPartRule/ruleName');
 
-const { ChoiceOfPartsRuleName, GroupOfPartsRuleName } = ruleNames;
+const { NonTerminalPartRuleName, ChoiceOfPartsRuleName, GroupOfPartsRuleName } = ruleNames;
 
 class NonTerminalPartRule extends Rule {
   constructor() {
-    const name = PartRuleName,
+    const name = NonTerminalPartRuleName,
           groupOfPartsRuleName = GroupOfPartsRuleName,
           choiceOfPartsRuleName = ChoiceOfPartsRuleName,
           groupOfPartsRuleNameDefinition = new RuleNameDefinition(groupOfPartsRuleName),

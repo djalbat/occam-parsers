@@ -5,11 +5,11 @@ const Rule = require('../rule'),
       ruleNames = require('../ruleNames'),
       RuleNameDefinition = require('../definition/ruleName');
 
-const { OptionalModifierRuleName, OneOrMoreModifierRuleName, ZeroOrMoreModifierRuleName } = ruleNames;
+const { ModifierRuleName, OptionalModifierRuleName, OneOrMoreModifierRuleName, ZeroOrMoreModifierRuleName } = ruleNames;
 
 class ModifierRule extends Rule {
   constructor() {
-    const name = PartRuleName,
+    const name = ModifierRuleName,
           optionalModifierRuleName = OptionalModifierRuleName,
           oneOrMoreModifierRuleName = OneOrMoreModifierRuleName,
           zeroOrMoreModifierRuleName = ZeroOrMoreModifierRuleName,
