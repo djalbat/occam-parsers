@@ -3,7 +3,7 @@
 const termDefaultBNF = `
 
 
-     term                                 ::=   [custom]<NO_WHITESPACE>parenthesisedTerms? 
+     term                                 ::=   [custom] parenthesisedTerms? 
      
                                             |   name
                                              
