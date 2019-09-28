@@ -4,7 +4,7 @@ const lexers = require('occam-lexers');
 
 const Rule = require('../rule'),
       ruleNames = require('../ruleNames'),
-      EndOfLineNode = require('../node/epsilon'),
+      EpsilonNode = require('../node/epsilon'),
       TerminalSymbolDefinition = require('../definition/terminalSymbol');
 
 const { specialSymbols } = lexers,
@@ -19,7 +19,7 @@ class EpsilonRule extends Rule {
           definitions = [
             epsilonTerminalSymbolDefinition
           ],
-          Node = EndOfLineNode;
+          Node = EpsilonNode;
 
     super(name, definitions, Node)
   }

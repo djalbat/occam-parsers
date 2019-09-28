@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "necessary": "^3.2.13",
-    "occam-lexers": "^10.0.3"
+    "occam-lexers": "^10.0.5"
   },
   "devDependencies": {
     "babel": "^6.5.2",
