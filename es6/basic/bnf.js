@@ -2,34 +2,32 @@
 
 const bnf = `
 
-  expression    ::= expression_ expression~
+  expression  ::= expression_ operator expression expression~*
 
-                  | expression_
+                | expression_
 
-                  ;
+                ;
 
-  expression_   ::= "(" expression ")"
+  operator    ::= "+"
 
-                  | term
+                | "-"
 
-                  ;
+                | "/"
 
-  expression~   ::= operator expression expression~? ;
+                | "*"
 
-  operator      ::= "+"
+                ;
 
-                  | "-"
+  term        ::= /\\d+/ ;
 
-                  | "/"
+  expression_ ::= "(" expression ")"
 
-                  | "*"
+                | term
 
-                  ;
+                ;
 
-  term          ::= naturalNumber ;
-
-  naturalNumber ::= /\\d+/ ;
-
+  expression~ ::= operator expression ;
+  
 `;
 
 module.exports = bnf;

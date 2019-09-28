@@ -2,26 +2,20 @@
 
 const necessary = require('necessary');
 
-const nodeUtilities = require('../../utilities/node'),
-      VerticalBranchParseTree = require('./verticalBranch'),
+const VerticalBranchParseTree = require('./verticalBranch'),
       HorizontalBranchParseTree = require('./horizontalBranch');
 
-const { isNodeNullified } = nodeUtilities,
-      { arrayUtilities } = necessary,
+const { arrayUtilities } = necessary,
       { first } = arrayUtilities;
 
 class ChildNodesParseTree extends VerticalBranchParseTree {
-  static fromChildNodesAndTokens(childNodes, tokens, hideNullifiedNodes) {
+  static fromChildNodesAndTokens(childNodes, tokens) {
     let childNodesParseTree;
 
     const childNodeParseTrees = childNodes.reduce(function(childNodeParseTrees, childNode) {
-            const childNodeNullified = isNodeNullified(childNode);
+            const childNodeParseTree = childNode.asParseTree(tokens);
 
-            if (!childNodeNullified || !hideNullifiedNodes) {
-              const childNodeParseTree = childNode.asParseTree(tokens, hideNullifiedNodes);
-
-              childNodeParseTrees.push(childNodeParseTree);
-            }
+            childNodeParseTrees.push(childNodeParseTree);
 
             return childNodeParseTrees;
           }, []),

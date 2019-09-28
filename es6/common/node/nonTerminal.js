@@ -64,27 +64,6 @@ class NonTerminalNode {
     return lastSignificantToken;
   }
   
-  isNullified() {
-    let nullified = false;
-
-    const childNodesLength = this.childNodes.length;
-
-    if (childNodesLength === 1) {
-      const firstChildNode = first(this.childNodes),
-            childNode = firstChildNode, ///
-            childNodeTerminalNode = childNode.isTerminalNode();
-
-      if (childNodeTerminalNode) {
-        const terminalNode = childNode, ///
-              terminalNodeEpsilonNode = terminalNode.isEpsilonNode();
-
-        nullified = terminalNodeEpsilonNode; ///
-      }
-    }
-
-    return nullified;
-  }
-
   setRuleName(ruleName) {
     this.ruleName = ruleName;
   }
@@ -97,9 +76,9 @@ class NonTerminalNode {
     this.childNodes = childNodes;
   }
   
-  asParseTree(tokens, hideNullifiedNodes = false) {
+  asParseTree(tokens) {
     const nonTerminalNode = this,  ///
-          nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens, hideNullifiedNodes),
+          nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
           parseTree = nonTerminalNodeParseTree;  ///
 
     return parseTree;

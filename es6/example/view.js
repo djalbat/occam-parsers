@@ -7,8 +7,7 @@ const BNFTextarea = require('./common/textarea/bnf'),
       ContentTextarea = require('./common/textarea/content'),
       ParseTreeTextarea = require('./common/textarea/parseTree'),
       MainVerticalSplitter = require('./common/verticalSplitter/main'),
-      LexicalEntriesTextarea = require('./common/textarea/lexicalEntries'),
-      HideNullifiedNodesCheckbox = require('./common/checkbox/hideNullifiedNodes');
+      LexicalEntriesTextarea = require('./common/textarea/lexicalEntries');
 
 const { Element } = easy,
       { SizeableElement } = easyLayout;
@@ -29,20 +28,13 @@ class ExampleView extends Element {
           node = parser.parse(tokens);
 
     if (node !== null) {
-      const hideNullifiedNodesCheckboxChecked = this.isHideNullifiedNodesCheckboxChecked(),
-            hideNullifiedNodes = hideNullifiedNodesCheckboxChecked;
-
-      parseTree = node.asParseTree(tokens, hideNullifiedNodes);
+      parseTree = node.asParseTree(tokens);
     }
 
     return parseTree;
   }
 
   keyUpHandler() {
-    this.changeHandler();
-  }
-
-  changeHandler() {
     // try {
       const parseTree = this.getParseTree();
 
@@ -64,8 +56,7 @@ class ExampleView extends Element {
 
   childElements(properties) {
     const title = this.getTitle(),
-          keyUpHandler = this.keyUpHandler.bind(this),
-          changeHandler = this.changeHandler.bind(this);
+          keyUpHandler = this.keyUpHandler.bind(this);
 
     return ([
 
@@ -81,10 +72,6 @@ class ExampleView extends Element {
         <div className="column">
           <h2>Parse tree</h2>
           <ParseTreeTextarea />
-          <div>
-            <HideNullifiedNodesCheckbox onChange={changeHandler} />
-            <span>Hide nullified nodes</span>
-          </div>
           <h2>Content</h2>
           <ContentTextarea onKeyUp={keyUpHandler} />
         </div>

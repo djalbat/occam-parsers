@@ -8,14 +8,14 @@ const arrayUtilities = require('../../utilities/array'),
 const { first } = arrayUtilities;
 
 class NonTerminalNodeParseTree extends VerticalBranchParseTree {
-  static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens, hideNullifiedNodes) {
+  static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
     const childNodes = nonTerminalNode.getChildNodes(),
           firstChildNode = first(childNodes),
           childNode = firstChildNode,
           childNodesLength = childNodes.length,
           childNodeOrNodesParseTree = (childNodesLength === 1) ?
-                                        childNode.asParseTree(tokens, hideNullifiedNodes) :
-                                          ChildNodesParseTree.fromChildNodesAndTokens(childNodes, tokens, hideNullifiedNodes),
+                                        childNode.asParseTree(tokens) :
+                                          ChildNodesParseTree.fromChildNodesAndTokens(childNodes, tokens),
           ruleNameParseTree = RuleNameParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens);
     
     let ruleNameParseTreeVerticalBranchPosition = ruleNameParseTree.getVerticalBranchPosition();
