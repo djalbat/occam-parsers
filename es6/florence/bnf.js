@@ -193,13 +193,13 @@ const bnf = `
 
 
 
-     parenthesisedTypeNames               ::=   <NO_WHITESPACE>"(" typeNames? ")" ;
+     parenthesisedTypeNames               ::=   <NO_WHITESPACE>"(" typeNames? <NO_WHITESPACE>")" ;
 
-     parenthesisedTypeName                ::=   <NO_WHITESPACE>"(" typeName ")" ;
+     parenthesisedTypeName                ::=   <NO_WHITESPACE>"(" typeName <NO_WHITESPACE>")" ;
 
-     parenthesisedTerms                   ::=   <NO_WHITESPACE>"(" terms? ")" ;
+     parenthesisedTerms                   ::=   <NO_WHITESPACE>"(" terms? <NO_WHITESPACE>")" ;
 
-     parenthesisedTerm                    ::=   <NO_WHITESPACE>"(" term ")" ;   
+     parenthesisedTerm                    ::=   <NO_WHITESPACE>"(" term <NO_WHITESPACE>")" ;   
 
          
      

@@ -140,123 +140,15 @@ const content = `
 
 There are three examples, one for each parser. To view them, open the `index.html` file in the root of the repository. Each example shows a representation of the parse tree, which is useful for debugging.
 
-### BNF example
-
-Both the lexical patterns and BNF textareas are read-only. The content textarea initially shows the BNF parser's own BNF and so the example demonstrates, initially at least, that the BNF parser can parse its own BNF.
-
-### Basic example
-
-Both the lexical patterns and BNF as well as the content can be changed. Given the following BNF, for example...
-
-```
-  expression    ::= expression_ expression~
-
-                  | expression_
-
-                  ;
-
-  expression_   ::= "(" expression ")"
-
-                  | term
-
-                  ;
-
-  expression~   ::= operator expression expression~? ;
-
-  operator      ::= "+"
-
-                  | "-"
-
-                  | "/"
-
-                  | "*"
-
-                  ;
-
-  term          ::= naturalNumber ;
-
-  naturalNumber ::= /\d+/ ;
-```
-...the expression `1+2/3` gives the following parse tree:
-
-```
-                                                         expression(0-6)
-                                                                |
-                                       --------------------------------------------------
-                                       |                                                |
-                               expression_(0-4)                                 expression~(5-6)
-                                       |                                                |
-       -----------------------------------------------------------              -----------------
-       |                           |                             |              |               |
-([terminal](0)              expression(1-3)               )[terminal](4)   operator(5)    expression(6)
-                                   |                                            |               |
-                       -------------------------                         /[terminal](5)  expression_(6)
-                       |                       |                                                |
-                expression_(1)         expression~(2-3)                                      term(6)
-                       |                       |                                                |
-                    term(1)            -----------------                                naturalNumber(6)
-                       |               |               |                                        |
-               naturalNumber(1)   operator(2)    expression(3)                            3[terminal](6)
-                       |               |               |
-                1[terminal](1)  +[terminal](2)  expression_(3)
-                                                       |
-                                                    term(3)
-                                                       |
-                                               naturalNumber(3)
-                                                       |
-                                                2[terminal](3)
-```
-A more intuitive BNF would be the following:
-
-```
-  expression    ::= "(" expression ")"
-
-                  | expression operator expression
-
-                  | term
-
-                  ;
-
-  operator      ::= "+"
-
-                  | "-"
-
-                  | "/"
-
-                  | "*"
-
-                  ;
-
-  term          ::= naturalNumber ;
-
-  naturalNumber ::= /\d+/ ;
-```
-For an explanation of why this will not work, see Occam's [grammar utilities](https://github.com/jecs-imperial/occam-grammar-utilities).
-
-### Florence example
-
-The following and similar simple rules will parse:
-
-```
-Rule (Transitivity)
-  Premises
-    A = B
-    B = C
-  Conclusion
-    A = C
-```
-Anything involving terms is unlikely to parse because of the lack of user defined custom grammars. For an explanation, see Occam's [custom grammars](https://github.com/jecs-imperial/occam-custom-grammars).
-
 ## Features
 
-### Operators
+### Quantifiers
 
 - `*` zero or more
 - `+` one or more
 - `?` optional
-- `!` look-ahead
 
-These bind tightly to the symbols to their left and can be chained. Take note that both the `*+` and `?+` chains will cause an infinite loop and must be avoided. Also note that, although the BNF allows the `!` operator to be bound to any part, in practice it is ignored unless bound to a rule name part. The look-ahead functionality is described in more detail below.
+These bind tightly to the symbols to their left and can be chained. Take note that both the `*+` and `?+` chains will cause an infinite loop and must be avoided.
 
 ### Regular expressions
 
@@ -280,7 +172,9 @@ This can be done with a special `<END_OF_LINE>` special symbol. For example:
 
 This can be done with the `<NO_WHITESPACE>` special symbol. For example:
 
-     parenthesisedTerms         ::=   "("<NO_WHITESPACE>terms<NO_WHITESPACE>")" ;
+     parenthesisedTerms         ::=   <NO_WHITESPACE>"(" terms <NO_WHITESPACE>")" ;
+
+Note that no whitespace can only be stipulated for terminal symbols.
 
 ### Grouping parts
 
