@@ -209,23 +209,23 @@ const bnf = `
      
 
 
-     typeName                             ::=   [unassigned] ;
+     typeName                             ::=   [name] ;
 
-     contextName                          ::=   [unassigned] ;
+     contextName                          ::=   [name] ;
 
-     metavariableName                     ::=   [unassigned] ;
+     metavariableName                     ::=   [name] ;
 
-     referenceName                        ::=   [unassigned] ;
+     referenceName                        ::=   [name] ;
 
-     labelName                            ::=   [unassigned] ;
+     labelName                            ::=   [name] ;
 
      
    
-     name                                 ::=   [unassigned] ;
+     name                                 ::=   [name] ;
 
 
 
-     nonsense                             ::=   ( [unassigned] | [special] | [custom] )+ ;
+     nonsense                             ::=   ( [name] | [special] | [custom] )+ ;
 
      
      verticalSpace                        ::=   <END_OF_LINE>+ ;
