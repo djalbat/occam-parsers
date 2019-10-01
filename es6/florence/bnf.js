@@ -3,7 +3,7 @@
 const bnf = `
 
 
-     document                             ::=   ( rule | axiom | lemma | theorem | metalemma | metatheorem | declaration | verticalSpace | error )+ ;
+     document                             ::=   ( rule | axiom | lemma | theorem | conjecture | metalemma | metatheorem | metaconjecture | declaration | verticalSpace | error )+ ;
      
      
      
@@ -11,13 +11,17 @@ const bnf = `
 
      axiom                                ::=   "Axiom" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) ; 
 
-     lemma                                ::=   "Lemma" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) proof? ;
+     lemma                                ::=   "Lemma" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) proof ;
 
-     theorem                              ::=   "Theorem" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) proof? ;
+     theorem                              ::=   "Theorem" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) proof ;
 
-     metalemma                            ::=   "Metalemma" parenthesisedLabels <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) metaproof? ;
+     conjecture                           ::=   "Conjecture" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) ;
 
-     metatheorem                          ::=   "Metatheorem" parenthesisedLabels <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) metaproof? ;
+     metalemma                            ::=   "Metalemma" parenthesisedLabels <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) metaproof ;
+
+     metatheorem                          ::=   "Metatheorem" parenthesisedLabels <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) metaproof ;
+
+     metaconjecture                       ::=   "Metaconjecture" parenthesisedLabels <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) ;
 
      declaration                          ::=   "Types" typesDeclaration <END_OF_LINE>
 
