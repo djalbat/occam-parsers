@@ -3,7 +3,7 @@
 const bnf = `
 
 
-     document                             ::=   ( rule | axiom | lemma | theorem | conjecture | metalemma | metatheorem | metaconjecture | declaration | verticalSpace | errors )+ ;
+     document                             ::=   ( rule | axiom | lemma | theorem | conjecture | metalemma | metatheorem | metaconjecture | declaration | verticalSpace | error )+ ;
      
      
      
@@ -236,8 +236,6 @@ const bnf = `
      verticalSpace                        ::=   <END_OF_LINE>+ ;
 
 
-
-     errors                               ::=   error+ ;
 
      error                                ::=   . ;
 
