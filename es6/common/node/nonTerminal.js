@@ -3,7 +3,7 @@
 const arrayUtilities = require('../../utilities/array'),
       NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
 
-const { first, forwardsSome, backwardsSome } = arrayUtilities;
+const { forwardsSome, backwardsSome } = arrayUtilities;
 
 class NonTerminalNode {
   constructor(ruleName, parentNode, childNodes) {

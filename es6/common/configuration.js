@@ -37,6 +37,18 @@ class Configuration {
     return savedIndex;
   }
 
+  getNextToken() {
+    let nextToken = null;
+
+    const tokensLength = this.tokens.length;
+
+    if (this.index < tokensLength) {
+      nextToken = this.tokens[this.index++];
+    }
+
+    return nextToken;
+  }
+
   getNextSignificantToken(nonWhitespace) {
 		let nextSignificantToken = null;
 

@@ -16,7 +16,7 @@ module.exports = `
 
                               |  "<NON_WHITESPACE>"? terminalPart quantifier*
                               
-                              |  moWhitespacePart
+                              |  noWhitespacePart
 
                               ;
 
@@ -42,7 +42,7 @@ module.exports = `
  
                               ;
                               
-      moWhitespacePart     ::=  "<END_OF_LINE>" ;                              
+      noWhitespacePart      ::=  "<NO_WHITESPACE>" ;                              
 
       choiceOfParts         ::=  "(" part ( "|" part )+ ")" ;
 

@@ -18,6 +18,7 @@ module.exports = {
   ChoiceOfPartsRuleName: 'choiceOfParts',
   TerminalSymbolRuleName: 'terminalSymbol',
   NonTerminalPartRuleName: 'nonTerminalPart',
+  NoWhitespacePartRuleName: 'noWhitespacePart',
   LookAheadModifierRuleName: 'lookAheadModifier',
   RegularExpressionRuleName: 'regularExpression',
   OptionalQuantifierRuleName: 'optionalQuantifier',

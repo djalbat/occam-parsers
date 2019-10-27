@@ -10,9 +10,10 @@ const { specialSymbols } = lexers,
 
 class EpsilonNode extends TerminalNode {
   constructor() {
-    const significantToken = null;
+    const significantToken = null,
+          parentNode = undefined;
 
-    super(significantToken);
+    super(significantToken, parentNode);
   }
 
   getContent() {
