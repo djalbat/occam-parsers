@@ -14,20 +14,20 @@ const { PartRuleName } = ruleNames,
 
 class GroupOfPartsDefinition extends Definition {
   constructor() {
-    const noWhitespace = false,
-        partRuleName = PartRuleName,
-        openBracketTerminalSymbolContent = openBracket, ///
-        closeBracketTerminalSymbolContent = closeBracket, ///
-        partRuleNamePart = new RuleNamePart(partRuleName),
-        openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent, noWhitespace),
-        closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent, noWhitespace),
-        oneOrMorePartRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart),
-        parts = [
-          openBracketTerminalSymbolPart,
-          partRuleNamePart,
-          oneOrMorePartRuleNamePartsPart,
-          closeBracketTerminalSymbolPart
-        ];
+    const nonWhitespace = false,
+          partRuleName = PartRuleName,
+          openBracketTerminalSymbolContent = openBracket, ///
+          closeBracketTerminalSymbolContent = closeBracket, ///
+          partRuleNamePart = new RuleNamePart(partRuleName),
+          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent, nonWhitespace),
+          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent, nonWhitespace),
+          oneOrMorePartRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart),
+          parts = [
+            openBracketTerminalSymbolPart,
+            partRuleNamePart,
+            oneOrMorePartRuleNamePartsPart,
+            closeBracketTerminalSymbolPart
+          ];
 
     super(parts)
   }

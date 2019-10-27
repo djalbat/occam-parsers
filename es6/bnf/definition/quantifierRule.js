@@ -6,8 +6,8 @@ const Definition = require('../definition'),
 class QuantifierRuleDefinition extends Definition {
   constructor(terminalSymbolContent) {
     const content = terminalSymbolContent,  ///
-          noWhitespace = true,
-          terminalSymbolPart = new TerminalSymbolPart(content, noWhitespace),
+          nonWhitespace = true,
+          terminalSymbolPart = new TerminalSymbolPart(content, nonWhitespace),
           parts = [
             terminalSymbolPart
           ];

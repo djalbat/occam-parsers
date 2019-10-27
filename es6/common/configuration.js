@@ -37,7 +37,7 @@ class Configuration {
     return savedIndex;
   }
 
-  getNextSignificantToken(noWhitespace) {
+  getNextSignificantToken(nonWhitespace) {
 		let nextSignificantToken = null;
 
   	const tokensLength = this.tokens.length;
@@ -50,7 +50,7 @@ class Configuration {
 				nextSignificantToken = token;	///
 
 				break;
-			} else if (noWhitespace) {
+			} else if (nonWhitespace) {
   			const tokenWhitespaceToken = token.isWhitespaceToken();
 
   			if (tokenWhitespaceToken) {

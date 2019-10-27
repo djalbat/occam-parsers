@@ -67,10 +67,10 @@ class GroupOfPartsPart extends NonTerminalPart {
 
     nodes = allButFirstAndLastNodes;  ///
 
-    const noWhitespace = false,
+    const nonWhitespace = false,
           lookAhead = false,
           parts = nodes.map(function(node) {
-            const part = node.generatePart(noWhitespace, lookAhead);
+            const part = node.generatePart(nonWhitespace, lookAhead);
 
             return part;
           }),

@@ -13,10 +13,10 @@ const { last } = arrayUtilities,
       { OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } = ruleNames;
 
 class PartNode extends NonTerminalNode {
-  generatePart(noWhitespace, lookAhead) {
+  generatePart(nonWhitespace, lookAhead) {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(),
-          part = partFromNodes(nodes, noWhitespace);
+          part = partFromNodes(nodes, nonWhitespace);
 
     return part;
   }
@@ -26,7 +26,7 @@ class PartNode extends NonTerminalNode {
 
 module.exports = PartNode;
 
-function partFromNodes(nodes, noWhitespace) {
+function partFromNodes(nodes, nonWhitespace) {
   let part = null;
 
   const nodesLength = nodes.length;
@@ -35,7 +35,7 @@ function partFromNodes(nodes, noWhitespace) {
     const node = nodes.pop(),
           lookAhead = false;
 
-    part = node.generatePart(noWhitespace, lookAhead);
+    part = node.generatePart(nonWhitespace, lookAhead);
   } else {
     const lastNodeQuantifierNode = isLastNodeQuantifierNode(nodes);
 
@@ -43,7 +43,7 @@ function partFromNodes(nodes, noWhitespace) {
       const node = nodes.pop(),
             quantifierNode = node;  ///
 
-      part = partFromNodes(nodes, noWhitespace);
+      part = partFromNodes(nodes, nonWhitespace);
 
       const ruleName = ruleNameFromQuantifierNode(quantifierNode),
             sequenceOfPartsPart = sequenceOfPartsPartFromPartAndRuleName(part, ruleName);
@@ -52,9 +52,9 @@ function partFromNodes(nodes, noWhitespace) {
     } else {
       nodes.shift();
 
-      noWhitespace = true;
+      nonWhitespace = true;
 
-      part = partFromNodes(nodes, noWhitespace);
+      part = partFromNodes(nodes, nonWhitespace);
     }
   }
 

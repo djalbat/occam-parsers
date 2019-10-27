@@ -3,7 +3,7 @@
 const NonTerminalNode = require('../../../common/node/nonTerminal');
 
 class NonTerminalPartNode extends NonTerminalNode {
-  generatePart(noWhitespace, lookAhead) {
+  generatePart(nonWhitespace, lookAhead) {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(),
           part = partFromNodes(nodes, lookAhead);
@@ -23,9 +23,9 @@ function partFromNodes(nodes, lookAhead) {
 
   if (nodesLength === 1) {
     const node = nodes.pop(),
-          noWhitespace = false;
+          nonWhitespace = false;
 
-    part = node.generatePart(noWhitespace, lookAhead);
+    part = node.generatePart(nonWhitespace, lookAhead);
   } else {
     nodes.pop();
 

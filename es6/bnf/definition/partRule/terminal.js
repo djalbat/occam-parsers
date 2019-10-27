@@ -10,22 +10,22 @@ const ruleNames = require('../../ruleNames'),
       ZeroOrMorePartsPart = require('../../part/nonTerminal/zeroOrMoreParts');
 
 const { specialSymbols } = lexers,
-      { NO_WHITESPACE } = specialSymbols,
+      { NON_WHITESPACE } = specialSymbols,
       { QuantifierRuleName, TerminalPartRuleName } = ruleNames;
 
 class TerminalPartRuleDefinition extends Definition {
   constructor() {
-    const noWhitespace = false,
+    const nonWhitespace = false,
           quantifierRuleName = QuantifierRuleName,
           terminalPartRuleName = TerminalPartRuleName,
-          noWhitespaceTerminalSymbolContent = NO_WHITESPACE,
+          nonWhitespaceTerminalSymbolContent = NON_WHITESPACE,
           quantifierRuleNamePart = new RuleNamePart(quantifierRuleName),
           terminalPartRuleNamePart = new RuleNamePart(terminalPartRuleName),
-          noWhitespaceTerminalSymbolPart = new TerminalSymbolPart(noWhitespaceTerminalSymbolContent, noWhitespace),
+          nonWhitespaceTerminalSymbolPart = new TerminalSymbolPart(nonWhitespaceTerminalSymbolContent, nonWhitespace),
           zeroOrMoreQuantifierRuleNamePartsPart = new ZeroOrMorePartsPart(quantifierRuleNamePart),
-          optionalNoWhitespaceTerminalSymbolPartPart = new OptionalPartPart(noWhitespaceTerminalSymbolPart),
+          optionalNonWhitespaceTerminalSymbolPartPart = new OptionalPartPart(nonWhitespaceTerminalSymbolPart),
           parts = [
-            optionalNoWhitespaceTerminalSymbolPartPart,
+            optionalNonWhitespaceTerminalSymbolPartPart,
             terminalPartRuleNamePart,
             zeroOrMoreQuantifierRuleNamePartsPart
           ];

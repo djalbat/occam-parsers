@@ -14,7 +14,9 @@ module.exports = `
 
       part                  ::=  nonTerminalPart quantifier*
 
-                              |  "<NO_WHITESPACE>"? terminalPart quantifier*
+                              |  "<NON_WHITESPACE>"? terminalPart quantifier*
+                              
+                              |  moWhitespacePart
 
                               ;
 
@@ -39,6 +41,8 @@ module.exports = `
                               |  wildcard
  
                               ;
+                              
+      moWhitespacePart     ::=  "<END_OF_LINE>" ;                              
 
       choiceOfParts         ::=  "(" part ( "|" part )+ ")" ;
 
@@ -54,7 +58,7 @@ module.exports = `
 
       endOfLine             ::=  "<END_OF_LINE>" ;
 
-      epsilon               ::=  "ε" ;
+      epsilon               ::=  "ε" ; 
 
       wildcard              ::=  "." ;
 

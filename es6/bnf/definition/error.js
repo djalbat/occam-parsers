@@ -5,8 +5,8 @@ const Definition = require('../definition'),
 
 class ErrorDefinition extends Definition {
   constructor() {
-    const noWhitespace = false,
-          wildcardPart = new WildcardPart(noWhitespace),
+    const nonWhitespace = false,
+          wildcardPart = new WildcardPart(nonWhitespace),
           parts = [
             wildcardPart
           ];

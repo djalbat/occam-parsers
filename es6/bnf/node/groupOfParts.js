@@ -4,7 +4,7 @@ const NonTerminalNode = require('../../common/node/nonTerminal'),
       GroupOfPartsPart = require('../part/nonTerminal/groupOfParts');
 
 class GroupOfPartsNode extends NonTerminalNode {
-  generatePart(noWhitespace, lookAhead) {
+  generatePart(nonWhitespace, lookAhead) {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(),
           part = GroupOfPartsPart.fromNodes(nodes);

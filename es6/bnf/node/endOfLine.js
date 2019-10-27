@@ -4,8 +4,8 @@ const EndOfLinePart = require('../part/terminal/endOfLine'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class EndOfLineNode extends NonTerminalNode {
-  generatePart(noWhitespace, lookAhead) {
-    const endOfLinePart = new EndOfLinePart(noWhitespace);
+  generatePart(nonWhitespace, lookAhead) {
+    const endOfLinePart = new EndOfLinePart(nonWhitespace);
 
     return endOfLinePart;
   }

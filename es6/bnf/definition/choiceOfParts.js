@@ -15,15 +15,15 @@ const { PartRuleName } = ruleNames,
 
 class ChoiceOfPartsDefinition extends Definition {
   constructor() {
-    const noWhitespace = false,
+    const nonWhitespace = false,
           partRuleName = PartRuleName,
           verticalBarTerminalSymbolContent = verticalBar, ///
           openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
           partRuleNamePart = new RuleNamePart(partRuleName),
-          verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent, noWhitespace),
-          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent, noWhitespace),
-          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent, noWhitespace),
+          verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent, nonWhitespace),
+          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent, nonWhitespace),
+          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent, nonWhitespace),
           verticalBarTerminalSymbolThenPartRuleNameParts = [
             verticalBarTerminalSymbolPart,
             partRuleNamePart
