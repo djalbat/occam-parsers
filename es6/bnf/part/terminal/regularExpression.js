@@ -11,8 +11,8 @@ const { first } = arrayUtilities,
       { NO_WHITESPACE } = specialSymbols;
 
 class RegularExpressionPart extends TerminalPart {
-  constructor(regularExpression, nonWhitespace) {
-    super(nonWhitespace);
+  constructor(regularExpression) {
+    super();
 
     this.regularExpression = regularExpression;
   }
@@ -21,8 +21,7 @@ class RegularExpressionPart extends TerminalPart {
     let terminalNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
-		      nonWhitespace = this.hasNonWhitespace(),
-					nextSignificantToken = configuration.getNextSignificantToken(nonWhitespace),
+		      nextSignificantToken = configuration.getNextSignificantToken(),
 					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
@@ -48,11 +47,7 @@ class RegularExpressionPart extends TerminalPart {
 
   asString() {
     const regularExpressionString = this.regularExpression.toString(),
-		      nonWhitespace = this.hasNonWhitespace(),
-          nonWhitespaceString = nonWhitespace ?
-                                 NO_WHITESPACE :
-                                   '',
-          string = `${nonWhitespaceString}${regularExpressionString}`;
+		      string = regularExpressionString; ///
 
     return string;
   }

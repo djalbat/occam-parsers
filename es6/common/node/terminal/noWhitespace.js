@@ -25,9 +25,9 @@ class NoWhitespaceNode extends TerminalNode {
 
   static fromNothing() {
     const significantToken = null,
-          nonWhitespaceNode = TerminalNode.fromSignificantToken(NoWhitespaceNode, significantToken);
+          noWhitespaceNode = TerminalNode.fromSignificantToken(NoWhitespaceNode, significantToken);
 
-    return nonWhitespaceNode;
+    return noWhitespaceNode;
   }
 }
 

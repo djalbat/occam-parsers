@@ -13,15 +13,14 @@ const { specialSymbols } = lexers,
 
 class RuleDefinition extends Definition {
   constructor() {
-    const nonWhitespace = false,
-          separatorTerminalSymbolContent = separator,
+    const separatorTerminalSymbolContent = separator,
           terminatorTerminalSymbolContent = terminator,
           nameRuleName = NameRuleName,
           definitionsRuleName = DefinitionsRuleName,
           nameRuleNamePart = new RuleNamePart(nameRuleName),
-          separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent, nonWhitespace),
+          separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent),
           definitionsRuleNamePart = new RuleNamePart(definitionsRuleName),
-          terminatorTerminalSymbolPart = new TerminalSymbolPart(terminatorTerminalSymbolContent, nonWhitespace),
+          terminatorTerminalSymbolPart = new TerminalSymbolPart(terminatorTerminalSymbolContent),
           parts = [
             nameRuleNamePart,
             separatorTerminalSymbolPart,

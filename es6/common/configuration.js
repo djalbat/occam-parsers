@@ -49,7 +49,7 @@ class Configuration {
     return nextToken;
   }
 
-  getNextSignificantToken(nonWhitespace) {
+  getNextSignificantToken() {
 		let nextSignificantToken = null;
 
   	const tokensLength = this.tokens.length;
@@ -59,15 +59,11 @@ class Configuration {
 						tokenSignificant = token.isSignificant();
 
   		if (tokenSignificant) {
-				nextSignificantToken = token;	///
+  		  const significantToken = token; ///
+
+				nextSignificantToken = significantToken;	///
 
 				break;
-			} else if (nonWhitespace) {
-  			const tokenWhitespaceToken = token.isWhitespaceToken();
-
-  			if (tokenWhitespaceToken) {
-  				break;
-				}
 			}
   	}
 

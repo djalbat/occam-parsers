@@ -9,8 +9,8 @@ const { specialSymbols } = lexers,
       { NO_WHITESPACE } = specialSymbols;
 
 class SignificantTokenTypePart extends TerminalPart {
-  constructor(significantTokenType, nonWhitespace) {
-    super(nonWhitespace);
+  constructor(significantTokenType) {
+    super();
     
     this.significantTokenType = significantTokenType;
   }
@@ -19,8 +19,7 @@ class SignificantTokenTypePart extends TerminalPart {
     let terminalNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
-		      nonWhitespace = this.hasNonWhitespace(),
-					nextSignificantToken = configuration.getNextSignificantToken(nonWhitespace),
+		      nextSignificantToken = configuration.getNextSignificantToken(),
 					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
@@ -40,11 +39,7 @@ class SignificantTokenTypePart extends TerminalPart {
   }
 
   asString() {
-    const nonWhitespace = this.hasNonWhitespace(),
-		      nonWhitespaceString = nonWhitespace ?
-                                 NO_WHITESPACE :
-                                   '',
-          string = `${nonWhitespaceString}[${this.significantTokenType}]`;
+    const string = `[${this.significantTokenType}]`;
     
     return string;
   }

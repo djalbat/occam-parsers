@@ -14,7 +14,7 @@ module.exports = `
 
       part                  ::=  nonTerminalPart quantifier*
 
-                              |  "<NON_WHITESPACE>"? terminalPart quantifier*
+                              |  terminalPart quantifier*
                               
                               |  noWhitespacePart
 

@@ -10,9 +10,8 @@ const { types } = lexers,
 
 class NameDefinition extends Definition {
   constructor() {
-    const nonWhitespace = false,
-          nameSignificantTokenType = nameType,  ///
-          nameSignificantTokenTypePart = new SignificantTokenTypePart(nameSignificantTokenType, nonWhitespace),
+    const nameSignificantTokenType = nameType,  ///
+          nameSignificantTokenTypePart = new SignificantTokenTypePart(nameSignificantTokenType),
           parts = [
             nameSignificantTokenTypePart
           ];

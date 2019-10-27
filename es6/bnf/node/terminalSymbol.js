@@ -7,9 +7,9 @@ const arrayUtilities = require('../../utilities/array'),
 const { first, second } = arrayUtilities;
 
 class TerminalSymbolNode extends NonTerminalNode {
-  generatePart(nonWhitespace, lookAhead) {
+  generatePart(lookAhead) {
     const content = this.getContent(),
-          terminalSymbolPart = new TerminalSymbolPart(content, nonWhitespace);
+          terminalSymbolPart = new TerminalSymbolPart(content);
 
     return terminalSymbolPart;
   }

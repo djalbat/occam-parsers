@@ -14,13 +14,12 @@ const { PartRuleName } = ruleNames,
 
 class GroupOfPartsDefinition extends Definition {
   constructor() {
-    const nonWhitespace = false,
-          partRuleName = PartRuleName,
+    const partRuleName = PartRuleName,
           openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
           partRuleNamePart = new RuleNamePart(partRuleName),
-          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent, nonWhitespace),
-          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent, nonWhitespace),
+          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent),
+          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent),
           oneOrMorePartRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart),
           parts = [
             openBracketTerminalSymbolPart,

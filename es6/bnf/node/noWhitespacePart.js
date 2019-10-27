@@ -4,8 +4,8 @@ const NoWhitespacePart = require('../part/terminal/noWhitespace'),
       NonTerminalNode = require('../../common/node/nonTerminal');
 
 class NoWhitespacePartNode extends NonTerminalNode {
-  generatePart(nonWhitespace, lookAhead) {
-    const noWhitespacePart = new NoWhitespacePart(nonWhitespace);
+  generatePart(lookAhead) {
+    const noWhitespacePart = new NoWhitespacePart();
 
     return noWhitespacePart;
   }

@@ -5,8 +5,7 @@ const Definition = require('../definition'),
 
 class EpsilonDefinition extends Definition {
   constructor() {
-    const nonWhitespace = false,
-          epsilonPart = new EpsilonPart(nonWhitespace),
+    const epsilonPart = new EpsilonPart(),
           parts = [
             epsilonPart
           ];

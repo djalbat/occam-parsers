@@ -6,11 +6,11 @@ const arrayUtilities = require('../../../utilities/array'),
 const { first } = arrayUtilities;
 
 class TerminalPartNode extends NonTerminalNode {
-  generatePart(nonWhitespace, lookAhead) {
+  generatePart(lookAhead) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           node = firstChildNode,  ///
-          part = node.generatePart(nonWhitespace, lookAhead)
+          part = node.generatePart(lookAhead);
 
     return part;
   }

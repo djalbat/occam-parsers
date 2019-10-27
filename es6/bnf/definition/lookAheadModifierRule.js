@@ -11,8 +11,7 @@ const { specialSymbols } = lexers,
 class LookAheadModifierRuleDefinition extends Definition {
   constructor() {
     const content = exclamationMark,  ///
-          nonWhitespace = true,
-          terminalSymbolPart = new TerminalSymbolPart(content, nonWhitespace),
+          terminalSymbolPart = new TerminalSymbolPart(content),
           parts = [
             terminalSymbolPart
           ];

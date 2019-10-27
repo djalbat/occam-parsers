@@ -1,14 +1,6 @@
 'use strict';
 
 class TerminalPart {
-  constructor(nonWhitespace) {
-    this.nonWhitespace = nonWhitespace;
-  }
-
-  hasNonWhitespace() {
-    return this.nonWhitespace;
-  }
-
   isNonTerminalPart() {
     const nonTerminalPart = false;
 
@@ -27,11 +19,7 @@ class TerminalPart {
     return epsilonPart;
   }
 
-  setNonWhitespace(nonWhitespace) {
-    this.nonWhitespace = nonWhitespace;
-  }
-
-  clone(Part, ...remainingArguments) { return new Part(...remainingArguments, this.nonWhitespace); }
+  clone(Part, ...remainingArguments) { return new Part(...remainingArguments); }
 }
 
 module.exports = TerminalPart;

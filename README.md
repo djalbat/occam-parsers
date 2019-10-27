@@ -35,7 +35,9 @@ All parsers share common functionality. The last two parse content according to 
 
       part                  ::=  nonTerminalPart quantifier*
 
-                              |  "<NO_WHITESPACE>"? terminalPart quantifier*
+                              |  terminalPart quantifier*
+
+                              |  noWhitespacePart
 
                               ;
 
@@ -60,6 +62,8 @@ All parsers share common functionality. The last two parse content according to 
                               |  wildcard
 
                               ;
+
+      noWhitespacePart      ::=  "<NO_WHITESPACE>" ;
 
       choiceOfParts         ::=  "(" part ( "|" part )+ ")" ;
 

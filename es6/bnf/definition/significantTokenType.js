@@ -5,8 +5,7 @@ const Definition = require('../definition'),
 
 class SignificantTokenTypeDefinition extends Definition {
   constructor(significantTokenType) {
-    const nonWhitespace = false,
-          significantTokenTypePart = new SignificantTokenTypePart(significantTokenType, nonWhitespace),
+    const significantTokenTypePart = new SignificantTokenTypePart(significantTokenType),
           parts = [
             significantTokenTypePart
           ];

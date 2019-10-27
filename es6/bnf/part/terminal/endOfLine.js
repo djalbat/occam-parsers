@@ -13,8 +13,7 @@ class EndOfLinePart extends TerminalPart {
     let endOfLineNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
-		      nonWhitespace = this.hasNonWhitespace(),
-          nextSignificantToken = configuration.getNextSignificantToken(nonWhitespace),
+		      nextSignificantToken = configuration.getNextSignificantToken(),
           significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {

@@ -11,8 +11,7 @@ const { specialSymbols } = lexers,
 class NoWhitespacePartDefinition extends Definition {
   constructor() {
     const content = NO_WHITESPACE,
-          nonWhitespace = false,
-          terminalSymbolPart = new TerminalSymbolPart(content, nonWhitespace),
+          terminalSymbolPart = new TerminalSymbolPart(content),
           parts = [
             terminalSymbolPart
           ];

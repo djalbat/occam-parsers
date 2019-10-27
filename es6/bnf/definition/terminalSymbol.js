@@ -5,8 +5,7 @@ const Definition = require('../definition'),
 
 class TerminalSymbolDefinition extends Definition {
   constructor(content) {
-    const nonWhitespace = false,
-          terminalSymbolPart = new TerminalSymbolPart(content, nonWhitespace),
+    const terminalSymbolPart = new TerminalSymbolPart(content),
           parts = [
             terminalSymbolPart
           ];

@@ -9,8 +9,8 @@ const { specialSymbols } = lexers,
       { NO_WHITESPACE } = specialSymbols;
 
 class TerminalSymbolPart extends TerminalPart {
-  constructor(content, nonWhitespace) {
-    super(nonWhitespace);
+  constructor(content) {
+    super();
     
     this.content = content;
   }
@@ -19,8 +19,7 @@ class TerminalSymbolPart extends TerminalPart {
     let terminalNode = null;
     
     const savedIndex = configuration.getSavedIndex(),
-		      nonWhitespace = this.hasNonWhitespace(),
-					nextSignificantToken = configuration.getNextSignificantToken(nonWhitespace),
+		      nextSignificantToken = configuration.getNextSignificantToken(),
 					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
@@ -40,11 +39,7 @@ class TerminalSymbolPart extends TerminalPart {
   }
   
   asString() {
-    const nonWhitespace = this.hasNonWhitespace(),
-		      nonWhitespaceString = nonWhitespace ?
-                                 NO_WHITESPACE :
-                                   '',
-          string = `${nonWhitespaceString}"${this.content}"`;
+    const string = `"${this.content}"`;
     
     return string;
   }
