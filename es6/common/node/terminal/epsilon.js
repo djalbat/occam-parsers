@@ -9,13 +9,6 @@ const { specialSymbols } = lexers,
       { epsilon } = specialSymbols;
 
 class EpsilonNode extends TerminalNode {
-  constructor() {
-    const significantToken = null,
-          parentNode = undefined;
-
-    super(significantToken, parentNode);
-  }
-
   getContent() {
     const content = epsilon;  ///
 
@@ -33,6 +26,13 @@ class EpsilonNode extends TerminalNode {
           parseTree = epsilonNodeParseTree;  ///
 
     return parseTree;
+  }
+
+  static fromNothing() {
+    const significantToken = null,
+          epsilonNode = TerminalNode.fromSignificantToken(EpsilonNode, significantToken);
+
+    return epsilonNode;
   }
 }
 

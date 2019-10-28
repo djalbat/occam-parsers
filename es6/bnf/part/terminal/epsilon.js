@@ -3,16 +3,16 @@
 const lexers = require('occam-lexers');
 
 const TerminalPart = require('../../part/terminal'),
-      EpsilonTerminalNode = require('../../../common/node/terminal/epsilon');
+      EpsilonNode = require('../../../common/node/terminal/epsilon');
 
 const { specialSymbols } = lexers,
       { epsilon } = specialSymbols;
 
 class EpsilonPart extends TerminalPart {
   parse(configuration) {
-    const epsilonTerminalNode = new EpsilonTerminalNode();
+    const epsilonNode = EpsilonNode.fromNothing();
 
-    return epsilonTerminalNode;
+    return epsilonNode;
   }
 
   isEpsilonPart() {
