@@ -49,6 +49,19 @@ class Rule {
     this.definitions.splice(start, deleteCount);
   }
 
+  replaceDefinition(oldDefinition, newDefinition) {
+    const oldDefinitionIndex = this.definitions.indexOf(oldDefinition);
+
+    if (oldDefinitionIndex === -1) {
+      return;
+    }
+
+    const start = oldDefinitionIndex,
+          deleteCount = 1;
+
+    this.definitions.splice(start, deleteCount, newDefinition)
+  }
+
   addDefinition(definition, position) {
     const definitionsIncludesDefinition = this.definitions.includes(definition);
 
