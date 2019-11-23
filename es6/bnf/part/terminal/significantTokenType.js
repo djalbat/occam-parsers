@@ -1,12 +1,7 @@
 'use strict';
 
-const lexers = require('occam-lexers');
-
 const TerminalPart = require('../../part/terminal'),
       TerminalNode = require('../../../common/node/terminal');
-
-const { specialSymbols } = lexers,
-      { NO_WHITESPACE } = specialSymbols;
 
 class SignificantTokenTypePart extends TerminalPart {
   constructor(significantTokenType) {

@@ -1,14 +1,10 @@
 'use strict';
 
-const lexers = require('occam-lexers');
-
 const TerminalPart = require('../../part/terminal'),
       TerminalNode = require('../../../common/node/terminal'),
       arrayUtilities = require('../../../utilities/array');
 
-const { first } = arrayUtilities,
-      { specialSymbols } = lexers,
-      { NO_WHITESPACE } = specialSymbols;
+const { first } = arrayUtilities;
 
 class RegularExpressionPart extends TerminalPart {
   constructor(regularExpression) {
