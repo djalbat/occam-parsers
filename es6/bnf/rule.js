@@ -35,50 +35,44 @@ class Rule {
     this.NonTerminalNode = NonTerminalNode;
   }
 
-  removeDefinition(definition) {
+  addDefinition(definition, position) {
     const definitionsIncludesDefinition = this.definitions.includes(definition);
 
     if (!definitionsIncludesDefinition) {
-      return;
+      if (position === undefined) {
+        const definitionsLength = this.definitions.length;
+
+        position = definitionsLength; ///
+      }
+
+      const start = position, ///
+            deleteCount = 0;
+
+      this.definitions.splice(start, deleteCount, definition);
     }
+  }
 
-    const index = this.definitions.indexOf(definition),
-          start = index,  ///
-          deleteCount = 1;
+  removeDefinition(definition) {
+    const definitionsIncludesDefinition = this.definitions.includes(definition);
 
-    this.definitions.splice(start, deleteCount);
+    if (definitionsIncludesDefinition) {
+      const definitionIndex = this.definitions.indexOf(definition),
+            start = definitionIndex,  ///
+            deleteCount = 1;
+
+      this.definitions.splice(start, deleteCount);
+    }
   }
 
   replaceDefinition(oldDefinition, newDefinition) {
     const oldDefinitionIndex = this.definitions.indexOf(oldDefinition);
 
-    if (oldDefinitionIndex === -1) {
-      return;
+    if (oldDefinitionIndex > 0) {
+      const start = oldDefinitionIndex, ///
+            deleteCount = 1;
+
+      this.definitions.splice(start, deleteCount, newDefinition)
     }
-
-    const start = oldDefinitionIndex,
-          deleteCount = 1;
-
-    this.definitions.splice(start, deleteCount, newDefinition)
-  }
-
-  addDefinition(definition, position) {
-    const definitionsIncludesDefinition = this.definitions.includes(definition);
-
-    if (definitionsIncludesDefinition) {
-      return;
-    }
-
-    if (position === undefined) {
-      const definitionsLength = this.definitions.length;
-
-      position = definitionsLength; ///
-    }
-
-    const start = position, ///
-          deleteCount = 0;
-
-    this.definitions.splice(start, deleteCount, definition);
   }
 
   parse(configuration) {
