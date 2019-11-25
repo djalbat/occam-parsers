@@ -67,7 +67,7 @@ class Rule {
   replaceDefinition(oldDefinition, newDefinition) {
     const oldDefinitionIndex = this.definitions.indexOf(oldDefinition);
 
-    if (oldDefinitionIndex > 0) {
+    if (oldDefinitionIndex > -1) {
       const start = oldDefinitionIndex, ///
             deleteCount = 1;
 
