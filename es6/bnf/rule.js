@@ -142,7 +142,7 @@ class Rule {
               definitionsString = definitionString; ///
             } else {
               definitionsString = multiLine ?
-                                   `${definitionsString}\n\n${maximumPadding}     | ${definitionString}` :
+                                   `${definitionsString}\n\n${maximumPadding}   | ${definitionString}` :
                                      `${definitionsString} | ${definitionString}`;
             }
 
@@ -156,7 +156,7 @@ class Rule {
     const semicolonString = multiLine ?
                              `\n\n${maximumPadding}     ;` :
                                ' ;',
-          string = `\n\n  ${this.name}${padding} ::= ${definitionsString}${semicolonString}`;
+          string = `\n\n${this.name}${padding} ::= ${definitionsString}${semicolonString}`;
 
     return string;
   }
