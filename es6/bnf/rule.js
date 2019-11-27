@@ -156,7 +156,7 @@ class Rule {
     const semicolonString = multiLine ?
                              `\n\n${maximumPadding}     ;` :
                                ' ;',
-          string = `\n\n${this.name}${padding} ::= ${definitionsString}${semicolonString}`;
+          string = `\n\n${this.name}${padding} ::= ${definitionsString}${semicolonString}`.replace(/^\n\n/, '');
 
     return string;
   }
