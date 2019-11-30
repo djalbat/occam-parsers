@@ -154,7 +154,7 @@ class Rule {
           padding = paddingFromPaddingLength(paddingLength);
 
     const semicolonString = multiLine ?
-                             `\n\n${maximumPadding}     ;` :
+                             `\n\n${maximumPadding}   ;` :
                                ' ;',
           string = `\n\n${this.name}${padding} ::= ${definitionsString}${semicolonString}`;
 
