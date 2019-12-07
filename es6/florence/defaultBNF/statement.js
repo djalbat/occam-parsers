@@ -1,22 +1,16 @@
 'use strict';
 
-const statementDefaultBNF = `
-
-
-     statement                            ::=   typeAssertion 
+const statementDefaultBNF = `statement                           ::=   typeAssertion 
                                                   
-                                            |   equality 
-                                                  
-                                            |   nonsense
+                                       |   equality 
+                                              
+                                       |   nonsense
 
-                                            ;
-
-
-     typeAssertion                        ::=   expression ":" typeName ;
-
-     equality                             ::=   expression "=" expression ;
+                                       ;
 
 
-`;
+typeAssertion                        ::=   expression ":" typeName ;
+
+equality                             ::=   expression "=" expression ;`;
 
 module.exports = statementDefaultBNF;

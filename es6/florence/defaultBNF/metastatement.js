@@ -1,32 +1,26 @@
 'use strict';
 
-const metastatementDefaultBNF = `
-
-
-     metastatement                        ::=   contextDefinition 
+const metastatementDefaultBNF = `metastatement                       ::=   contextDefinition 
            
-                                            |   proofAssertion
-           
-                                            |   metavariable 
+                                       |   proofAssertion
+       
+                                       |   metavariable 
 
-                                            |   subproof 
-                                            
-                                            |   nonsense 
+                                       |   subproof 
+                                        
+                                       |   nonsense 
 
-                                            ;
+                                       ;
 
-      
-     contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
+  
+contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
-     proofAssertion                       ::=   context "⊢" judgement ;
-     
-     judgement                            ::=   reference "::" metastatement ;
+proofAssertion                       ::=   context "⊢" judgement ;
+ 
+judgement                            ::=   reference "::" metastatement ;
 
-     subproof                             ::=   supposition "..." metastatement ;
+subproof                             ::=   supposition "..." metastatement ;
 
-     supposition                          ::=   "[" metastatement "]" ;
-
-
-`;
+supposition                          ::=   "[" metastatement "]" ;`;
 
 module.exports = metastatementDefaultBNF;

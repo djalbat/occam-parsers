@@ -1,15 +1,9 @@
 'use strict';
 
-const termDefaultBNF = `
-
-
-     term                                 ::=   [custom] parenthesisedTerms? 
+const termDefaultBNF = `term                                ::=   [custom] parenthesisedTerms? 
      
-                                            |   name
-                                             
-                                            ; 
-                                            
-                                            
-`;
+                                       |   name
+                                 
+                                       ;`;
 
 module.exports = termDefaultBNF;
