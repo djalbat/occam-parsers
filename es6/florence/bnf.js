@@ -1,246 +1,247 @@
 'use strict';
 
-const bnf = `
+const bnf = `document                             ::=   ( rule | axiom | lemma | theorem | conjecture | metalemma | metatheorem | metaconjecture | declaration | verticalSpace | error )+ ;
 
 
-     document                             ::=   ( rule | axiom | lemma | theorem | conjecture | metalemma | metatheorem | metaconjecture | declaration | verticalSpace | error )+ ;
-     
-     
-     
-     rule                                 ::=   "Rule" parenthesisedLabels <END_OF_LINE> ( premise | premises )? conclusion metaproof? ;
 
-     axiom                                ::=   "Axiom" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) ; 
+rule                                 ::=   "Rule" parenthesisedLabels <END_OF_LINE> ( premise | premises )? conclusion metaproof? ;
 
-     lemma                                ::=   "Lemma" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) proof ;
+axiom                                ::=   "Axiom" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) ; 
 
-     theorem                              ::=   "Theorem" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) proof ;
+lemma                                ::=   "Lemma" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) proof ;
 
-     conjecture                           ::=   "Conjecture" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) ;
+theorem                              ::=   "Theorem" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) proof ;
 
-     metalemma                            ::=   "Metalemma" parenthesisedLabels <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) metaproof ;
+conjecture                           ::=   "Conjecture" parenthesisedLabels <END_OF_LINE> ( unqualifiedStatement | indicativeConditional ) ;
 
-     metatheorem                          ::=   "Metatheorem" parenthesisedLabels <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) metaproof ;
+metalemma                            ::=   "Metalemma" parenthesisedLabels <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) metaproof ;
 
-     metaconjecture                       ::=   "Metaconjecture" parenthesisedLabels <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) ;
+metatheorem                          ::=   "Metatheorem" parenthesisedLabels <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) metaproof ;
 
-     declaration                          ::=   "Types" typesDeclaration <END_OF_LINE>
+metaconjecture                       ::=   "Metaconjecture" parenthesisedLabels <END_OF_LINE> ( unqualifiedMetastatement | metaIndicativeConditional ) ;
 
-                                            |   "Contexts" contextsDeclaration <END_OF_LINE>
+declaration                          ::=   "Types" typesDeclaration <END_OF_LINE>
 
-                                            |   "Variables" variablesDeclaration <END_OF_LINE>
+                                       |   "Contexts" contextsDeclaration <END_OF_LINE>
+ 
+                                       |   "Variables" variablesDeclaration <END_OF_LINE>
+ 
+                                       |   "Constructors" constructorsDeclaration <END_OF_LINE>
+ 
+                                       |   "DependentTypes" dependentTypesDeclaration <END_OF_LINE>
+ 
+                                       |   "DisjointTypes" disjointTypesDeclaration <END_OF_LINE>
+ 
+                                       |   "Metavariables" metavariablesDeclaration <END_OF_LINE>
+ 
+                                       |   "Abbreviations" abbreviationsDeclaration <END_OF_LINE>
 
-                                            |   "Constructors" constructorsDeclaration <END_OF_LINE>
+                                       |   "Type" typeDeclaration <END_OF_LINE>
+ 
+                                       |   "Context" contextDeclaration <END_OF_LINE>
+ 
+                                       |   "Variable" variableDeclaration <END_OF_LINE>
+ 
+                                       |   "Constructor" constructorDeclaration <END_OF_LINE>
+ 
+                                       |   "DependentType" dependentTypeDeclaration <END_OF_LINE>
+                                       
+                                       |   "DisjointType" disjointTypeDeclaration <END_OF_LINE>
+                                       
+                                       |   "Metavariable" metavariableDeclaration <END_OF_LINE>
+ 
+                                       |   "Abbreviation" abbreviationDeclaration <END_OF_LINE>
+ 
+                                       ;
+                                      
 
-                                            |   "DependentTypes" dependentTypesDeclaration <END_OF_LINE>
 
-                                            |   "Metavariables" metavariablesDeclaration <END_OF_LINE>
+typesDeclaration                     ::=   typeName ( "," typeName )+ ( ":" typeNames )? ;
 
-                                            |   "Abbreviations" abbreviationsDeclaration <END_OF_LINE>
+contextsDeclaration                  ::=   contextName parenthesisedTypeName? ( "," contextName parenthesisedTypeName? )+ ;
 
-                                            |   "Type" typeDeclaration <END_OF_LINE>
+variablesDeclaration                 ::=   name ( "," name )+ ":" typeNames ;
 
-                                            |   "Context" contextDeclaration <END_OF_LINE>
+constructorsDeclaration              ::=   term ( "," term )+ ":" typeNames ;
 
-                                            |   "Variable" variableDeclaration <END_OF_LINE>
+dependentTypesDeclaration            ::=   typeName parenthesisedTypeName ( "," typeName parenthesisedTypeName )+ ;
 
-                                            |   "Constructor" constructorDeclaration <END_OF_LINE>
+disjointTypesDeclaration             ::=   typeName ( "," typeName )+ ":" typeName ( "," typeName )+ ;
 
-                                            |   "DependentType" dependentTypeDeclaration <END_OF_LINE>
+metavariablesDeclaration             ::=   metavariableName parenthesisedTypeName? ( "," metavariableName parenthesisedTypeName? )+ ;
+
+abbreviationsDeclaration             ::=   name "for" name ( "," name "for" name )+;
+
+
+
+typeDeclaration                      ::=   typeName ( ":" typeNames )? ;
+
+contextDeclaration                   ::=   contextName parenthesisedTypeName? ;
+
+variableDeclaration                  ::=   name ( ":" typeNames )? ;
+
+constructorDeclaration               ::=   term ( ":" typeNames )? ;
+
+dependentTypeDeclaration             ::=   typeName parenthesisedTypeName ;
+
+disjointTypeDeclaration              ::=   typeName ":" typeName ( "," typeName )+ ;
+
+metavariableDeclaration              ::=   metavariableName parenthesisedTypeName? ;
+
+abbreviationDeclaration              ::=   name "for" name ; 
+
+
+  
+premise                              ::=   "Premise" <END_OF_LINE> unqualifiedMetastatement ;
+
+premises                             ::=   "Premises" <END_OF_LINE> unqualifiedMetastatement unqualifiedMetastatement+ ;
+
+conclusion                           ::=   "Conclusion" <END_OF_LINE> qualifiedMetastatement ;
+
+
+
+metaproof                            ::=   "Proof" <END_OF_LINE> 
+
+                                           metastatementDefinition*
+
+                                           metaProofDerivation? 
+                                          
+                                           qualifiedMetastatement ;
+                                          
+                                          
+
+metaProofDerivation                  ::=   ( metaSublemma | qualifiedMetastatement )+  
+
+                                           "Therefore" <END_OF_LINE> ;                                           
+
+metaIndicativeConditional            ::=   "Suppose" <END_OF_LINE> unqualifiedMetastatement+ 
+
+                                           "Hence" <END_OF_LINE> qualifiedMetastatement ;
+
+metaSublemma                         ::=   "Suppose" <END_OF_LINE> 
+
+                                           qualifiedMetastatement+ 
+
+                                           ( 
+                                          
+                                             "Then" <END_OF_LINE> 
                                             
-                                            |   "Metavariable" metavariableDeclaration <END_OF_LINE>
+                                             ( metaSublemma | qualifiedMetastatement )+ 
+                                          
+                                           )? 
+                                          
+                                           "Hence" <END_OF_LINE> qualifiedMetastatement ;
 
-                                            |   "Abbreviation" abbreviationDeclaration <END_OF_LINE>
 
-                                            ;
+
+proof                                ::=   "Proof" <END_OF_LINE> 
+
+                                           statementDefinition*
+
+                                           proofDerivation? 
+                                          
+                                           qualifiedStatement ;
+                                                                                         
+                                                                                         
+                                                                                         
+proofDerivation                      ::=   ( sublemma | qualifiedStatement )+ 
+
+                                           "Therefore" <END_OF_LINE> ;
+
+indicativeConditional                ::=   "Suppose" <END_OF_LINE> unqualifiedStatement+ 
+
+                                           "Hence" <END_OF_LINE> qualifiedStatement ;
+
+sublemma                             ::=   "Suppose" <END_OF_LINE> 
+
+                                           qualifiedStatement+ 
+
+                                           ( 
+                                          
+                                             "Then" <END_OF_LINE> 
                                             
+                                             ( sublemma | qualifiedStatement )+ 
+                                          
+                                           )? 
+                                          
+                                           "Hence" <END_OF_LINE> qualifiedStatement ;
 
 
-     typesDeclaration                     ::=   typeDeclaration ( "," typeDeclaration )+ ;
 
-     contextsDeclaration                  ::=   contextDeclaration ( "," contextDeclaration )+ ;
+metastatementDefinition              ::=   "let" unqualifiedMetastatement ;                                           
+                                          
+statementDefinition                  ::=   "let" unqualifiedStatement ;                                           
 
-     variablesDeclaration                 ::=   variableDeclaration ( "," variableDeclaration )+ ;
+
+
+unqualifiedMetastatement             ::=   metastatement! <END_OF_LINE> ;
+
+qualifiedMetastatement               ::=   metastatement! qualification? <END_OF_LINE> ;
+
+unqualifiedStatement                 ::=   statement! <END_OF_LINE> ;
+
+qualifiedStatement                   ::=   statement! qualification? <END_OF_LINE> ;
+
+qualification                        ::=   ( "by" | "from" ) reference ;
+
+
+
+parenthesisedLabels                  ::=   "(" labels ")" ;                    
+
+labels                               ::=   label ( "," label )* ;
+
+label                                ::=   labelName parenthesisedTerm? ;
+
+
+
+metavariable                         ::=   metavariableName parenthesisedTerm? ;
+
+reference                            ::=   referenceName parenthesisedTerm? ;
+
+context                              ::=   contextName parenthesisedTerm? ;
+
+
+
+parenthesisedTypeNames               ::=   <NO_WHITESPACE>"(" typeNames? ")" ;
+
+parenthesisedTypeName                ::=   <NO_WHITESPACE>"(" typeName ")" ;
+
+parenthesisedTerms                   ::=   <NO_WHITESPACE>"(" terms? ")" ;
+
+parenthesisedTerm                    ::=   <NO_WHITESPACE>"(" term ")" ;   
+
    
-     constructorsDeclaration              ::=   constructorDeclaration ( "," constructorDeclaration )+ ;
-   
-     dependentTypesDeclaration            ::=   dependentTypeDeclaration ( "," dependentTypeDeclaration )* ;
-   
-     metavariablesDeclaration             ::=   metavariableDeclaration ( "," metavariableDeclaration )* ;
-   
-     abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbreviationDeclaration )* ;
+
+typeNames                            ::=   typeName ( "," typeName )* ;
+
+terms                                ::=   term ( "," term )* ;
 
 
 
-     typeDeclaration                      ::=   typeName ( ":" typeName )? ;
-   
-     contextDeclaration                   ::=   contextName parenthesisedTypeName? ;
-   
-     variableDeclaration                  ::=   name ":" typeName ;
-   
-     constructorDeclaration               ::=   term ":" typeName ;
-   
-     dependentTypeDeclaration             ::=   typeName parenthesisedTypeName ;
-   
-     metavariableDeclaration              ::=   metavariableName parenthesisedTypeName? ;
-     
-     abbreviationDeclaration              ::=   name "for" name ; 
-     
-   
-        
-     premise                              ::=   "Premise" <END_OF_LINE> unqualifiedMetastatement ;
+typeName                             ::=   [name] ;
 
-     premises                             ::=   "Premises" <END_OF_LINE> unqualifiedMetastatement unqualifiedMetastatement+ ;
+contextName                          ::=   [name] ;
 
-     conclusion                           ::=   "Conclusion" <END_OF_LINE> qualifiedMetastatement ;
+metavariableName                     ::=   [name] ;
 
-     
-     
-     metaproof                            ::=   "Proof" <END_OF_LINE> 
-     
-                                                metastatementDefinition*
-     
-                                                metaProofDerivation? 
-                                                
-                                                qualifiedMetastatement ;
-                                                
-                                                
+referenceName                        ::=   [name] ;
 
-     metaProofDerivation                  ::=   ( metaSublemma | qualifiedMetastatement )+  
-     
-                                                "Therefore" <END_OF_LINE> ;                                           
-     
-     metaIndicativeConditional            ::=   "Suppose" <END_OF_LINE> unqualifiedMetastatement+ 
-     
-                                                "Hence" <END_OF_LINE> qualifiedMetastatement ;
-
-     metaSublemma                         ::=   "Suppose" <END_OF_LINE> 
-     
-                                                qualifiedMetastatement+ 
-     
-                                                ( 
-                                                
-                                                  "Then" <END_OF_LINE> 
-                                                  
-                                                  ( metaSublemma | qualifiedMetastatement )+ 
-                                                
-                                                )? 
-                                                
-                                                "Hence" <END_OF_LINE> qualifiedMetastatement ;
+labelName                            ::=   [name] ;
 
 
 
-     proof                                ::=   "Proof" <END_OF_LINE> 
-     
-                                                statementDefinition*
-     
-                                                proofDerivation? 
-                                                
-                                                qualifiedStatement ;
-                                                
-                                                
-
-     proofDerivation                      ::=   ( sublemma | qualifiedStatement )+ 
-     
-                                                "Therefore" <END_OF_LINE> ;
-
-     indicativeConditional                ::=   "Suppose" <END_OF_LINE> unqualifiedStatement+ 
-     
-                                                "Hence" <END_OF_LINE> qualifiedStatement ;
-
-     sublemma                             ::=   "Suppose" <END_OF_LINE> 
-     
-                                                qualifiedStatement+ 
-     
-                                                ( 
-                                                
-                                                  "Then" <END_OF_LINE> 
-                                                  
-                                                  ( sublemma | qualifiedStatement )+ 
-                                                
-                                                )? 
-                                                
-                                                "Hence" <END_OF_LINE> qualifiedStatement ;
+name                                 ::=   [name] ;
 
 
 
-     metastatementDefinition              ::=   "let" unqualifiedMetastatement ;                                           
-                                                
-     statementDefinition                  ::=   "let" unqualifiedStatement ;                                           
+nonsense                             ::=   ( [name] | [special] | [custom] )+ ;
 
 
 
-     unqualifiedMetastatement             ::=   metastatement! <END_OF_LINE> ;
-     
-     qualifiedMetastatement               ::=   metastatement! qualification? <END_OF_LINE> ;
-     
-     unqualifiedStatement                 ::=   statement! <END_OF_LINE> ;
-     
-     qualifiedStatement                   ::=   statement! qualification? <END_OF_LINE> ;
-
-     qualification                        ::=   ( "by" | "from" ) reference ;
-     
-     
-
-     parenthesisedLabels                  ::=   "(" labels ")" ;                    
-
-     labels                               ::=   label ( "," label )* ;
-
-     label                                ::=   labelName parenthesisedTerm? ;
+verticalSpace                        ::=   <END_OF_LINE>+ ;
 
 
 
-     metavariable                         ::=   metavariableName parenthesisedTerm? ;
-
-     reference                            ::=   referenceName parenthesisedTerm? ;
-
-     context                              ::=   contextName parenthesisedTerm? ;
-
-
-
-     parenthesisedTypeNames               ::=   <NO_WHITESPACE>"(" typeNames? ")" ;
-
-     parenthesisedTypeName                ::=   <NO_WHITESPACE>"(" typeName ")" ;
-
-     parenthesisedTerms                   ::=   <NO_WHITESPACE>"(" terms? ")" ;
-
-     parenthesisedTerm                    ::=   <NO_WHITESPACE>"(" term ")" ;   
-
-         
-     
-     typeNames                            ::=   typeName ( "," typeName )* ;
-
-     terms                                ::=   term ( "," term )* ;
-     
-
-
-     typeName                             ::=   [name] ;
-
-     contextName                          ::=   [name] ;
-
-     metavariableName                     ::=   [name] ;
-
-     referenceName                        ::=   [name] ;
-
-     labelName                            ::=   [name] ;
-
-     
-   
-     name                                 ::=   [name] ;
-
-
-
-     nonsense                             ::=   ( [name] | [special] | [custom] )+ ;
-
-
-
-     verticalSpace                        ::=   <END_OF_LINE>+ ;
-
-
-
-     error                                ::=   . ;
-
-     
-
-`;
+error                                ::=   . ;`;
 
 module.exports = bnf;
