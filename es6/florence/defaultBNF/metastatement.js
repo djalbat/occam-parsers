@@ -15,7 +15,7 @@ const metastatementDefaultBNF = `metastatement                       ::=   conte
   
 contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
-proofAssertion                       ::=   context "⊢" judgement ;
+proofAssertion                       ::=   context "|-" judgement ;
  
 judgement                            ::=   reference "::" metastatement ;
 
