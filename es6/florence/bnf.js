@@ -234,7 +234,7 @@ name                                 ::=   [name] ;
 
 
 
-nonsense                             ::=   ( [name] | [special] | [custom] )+ ;
+nonsense                             ::=   ( [name] | [custom] | [special] | [unassigned] )+ ;
 
 
 
