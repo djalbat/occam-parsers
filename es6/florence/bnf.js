@@ -58,19 +58,19 @@ declaration                          ::=   "Types" typesDeclaration <END_OF_LINE
 
 typesDeclaration                     ::=   typeName ( "," typeName )+ ( ":" typeNames )? ;
 
-contextsDeclaration                  ::=   contextName parenthesisedTypeName? ( "," contextName parenthesisedTypeName? )+ ;
+contextsDeclaration                  ::=   contextDeclaration ( "," contextDeclaration )+ ;
 
 variablesDeclaration                 ::=   name ( "," name )+ ":" typeNames ;
 
 constructorsDeclaration              ::=   term ( "," term )+ ":" typeNames ;
 
-dependentTypesDeclaration            ::=   typeName parenthesisedTypeName ( "," typeName parenthesisedTypeName )+ ;
+dependentTypesDeclaration            ::=   dependentTypeDeclaration ( "," dependentTypeDeclaration )+ ;
 
 disjointTypesDeclaration             ::=   typeName ( "," typeName )+ ":" typeName ( "," typeName )+ ;
 
-metavariablesDeclaration             ::=   metavariableName parenthesisedTypeName? ( "," metavariableName parenthesisedTypeName? )+ ;
+metavariablesDeclaration             ::=   metavariableDeclaration ( "," metavariableDeclaration )+ ;
 
-abbreviationsDeclaration             ::=   name "for" name ( "," name "for" name )+;
+abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbreviationDeclaration )+;
 
 
 
@@ -88,7 +88,11 @@ disjointTypeDeclaration              ::=   typeName ":" typeName ( "," typeName 
 
 metavariableDeclaration              ::=   metavariableName parenthesisedTypeName? ;
 
-abbreviationDeclaration              ::=   name "for" name ; 
+abbreviationDeclaration              ::=   [custom] "for" [custom] 
+
+                                       |   name "for" name
+                                       
+                                       ; 
 
 
   
