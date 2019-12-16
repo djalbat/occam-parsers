@@ -4,8 +4,6 @@ const statementDefaultBNF = `statement                           ::=   typeAsser
                                                   
                                        |   equality 
                                               
-                                       |   nonsense
-
                                        ;
 
 

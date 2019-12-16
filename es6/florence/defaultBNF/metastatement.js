@@ -8,8 +8,6 @@ const metastatementDefaultBNF = `metastatement                       ::=   conte
 
                                        |   subproof 
                                         
-                                       |   nonsense 
-
                                        ;
 
   
