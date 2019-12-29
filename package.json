@@ -23,7 +23,8 @@
     "chokidar-cli": "^1.2.0",
     "easy": "^7.10.0",
     "easy-layout": "^2.1.46",
-    "juxtapose": "^1.0.89"
+    "juxtapose": "^1.0.89",
+    "occam-lexers": "^10.1.27"
   },
   "scripts": {
     "clean": "rm -rf ./lib",
