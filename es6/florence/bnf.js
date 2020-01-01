@@ -8,11 +8,11 @@ rule                                 ::=   "Rule" parenthesisedLabels <END_OF_LI
 
 axiom                                ::=   "Axiom" parenthesisedLabels <END_OF_LINE> ( indicativeConditional | unqualifiedStatement | unqualifiedNonsense ) ; 
 
-lemma                                ::=   "Lemma" parenthesisedLabels <END_OF_LINE> ( indicativeConditional | unqualifiedStatement | unqualifiedNonsense ) proof ;
+lemma                                ::=   "Lemma" parenthesisedLabels? <END_OF_LINE> ( indicativeConditional | unqualifiedStatement | unqualifiedNonsense ) proof ;
 
 theorem                              ::=   "Theorem" parenthesisedLabels <END_OF_LINE> ( indicativeConditional | unqualifiedStatement | unqualifiedNonsense ) proof ;
 
-conjecture                           ::=   "Conjecture" parenthesisedLabels <END_OF_LINE> ( indicativeConditional | unqualifiedStatement | unqualifiedNonsense ) ;
+conjecture                           ::=   "Conjecture" parenthesisedLabels <END_OF_LINE> ( indicativeConditional | unqualifiedStatement | unqualifiedNonsense ) proof? ;
 
 metalemma                            ::=   "Metalemma" parenthesisedLabels <END_OF_LINE> ( metaIndicativeConditional | unqualifiedMetastatement | unqualifiedNonsense ) metaproof ;
 
