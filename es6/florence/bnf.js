@@ -96,11 +96,11 @@ abbreviationDeclaration              ::=   [custom] "for" [custom]
 
 
   
-premise                              ::=   "Premise" <END_OF_LINE> unqualifiedMetastatement | unqualifiedNonsense ;
+premise                              ::=   "Premise" <END_OF_LINE> ( unqualifiedMetastatement | unqualifiedNonsense ) ;
 
 premises                             ::=   "Premises" <END_OF_LINE> ( unqualifiedMetastatement | unqualifiedNonsense ) ( unqualifiedMetastatement | unqualifiedNonsense )+ ;
 
-conclusion                           ::=   "Conclusion" <END_OF_LINE> qualifiedMetastatement | qualifiedNonsense ;
+conclusion                           ::=   "Conclusion" <END_OF_LINE> ( qualifiedMetastatement | qualifiedNonsense ) ;
 
 
 
