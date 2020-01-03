@@ -1,11 +1,15 @@
 'use strict';
 
-const statementDefaultBNF = `statement                           ::=   typeAssertion 
+const statementDefaultBNF = `statement                           ::=   parenthesisedStatement
+
+                                       |   typeAssertion 
                                                   
                                        |   equality 
                                               
                                        ;
 
+
+parenthesisedStatement               ::=   "(" statement ")" ;
 
 typeAssertion                        ::=   expression ":" typeName ;
 

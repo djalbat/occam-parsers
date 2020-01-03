@@ -1,6 +1,8 @@
 'use strict';
 
-const metastatementDefaultBNF = `metastatement                       ::=   contextDefinition 
+const metastatementDefaultBNF = `metastatement                       ::=   parenthesisedMetastatement
+
+                                       |   contextDefinition 
            
                                        |   proofAssertion
        
@@ -10,6 +12,7 @@ const metastatementDefaultBNF = `metastatement                       ::=   conte
                                         
                                        ;
 
+parenthesisedMetastatement           ::=   "(" metastatement ")" ;
   
 contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
