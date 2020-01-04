@@ -1,6 +1,6 @@
 'use strict';
 
-const metastatementDefaultBNF = `metastatement                       ::=   parenthesisedMetastatement
+const metastatementDefaultBNF = `metastatement                        ::=   parenthesisedMetastatement
 
                                        |   contextDefinition 
            

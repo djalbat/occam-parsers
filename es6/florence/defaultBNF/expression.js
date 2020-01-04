@@ -1,5 +1,5 @@
 'use strict';
 
-const expressionDefaultBNF = `expression                           ::=   term ;`;
+const expressionDefaultBNF = `expression                            ::=   term ;`;
 
 module.exports = expressionDefaultBNF;

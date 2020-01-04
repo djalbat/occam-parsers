@@ -1,6 +1,6 @@
 'use strict';
 
-const statementDefaultBNF = `statement                           ::=   parenthesisedStatement
+const statementDefaultBNF = `statement                            ::=   parenthesisedStatement
 
                                        |   typeAssertion 
                                                   
