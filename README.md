@@ -120,11 +120,8 @@ You will need to do this if you want to look at the examples.
 ## Usage
 
 ```
-const lexers = require('occam-lexers'),
-      parsers = require('occam-parsers';
-
-const { FlorenceLexer } = lexers,
-      { FlorenceParser } = parsers;
+import { FlorenceLexer } from "occam-lexers";
+import { FlorenceParser } from "occam-parsers"
 
 const florenceLexer = FlorenceLexer.fromNothing(),
       florenceParser = FlorenceParser.fromNothing();
