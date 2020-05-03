@@ -29,6 +29,8 @@ import ZeroOrMoreQuantifierRule from "./rule/zeroOrMoreQuantifier";
 import SignificantTokenTypeRule from "./rule/significantTokenType";
 
 export default class BNFParser extends CommonParser {
+  static bnf = bnf;
+
 	rulesFromTokens(tokens) {
     const node = this.parse(tokens),
           rules = (node !== null) ?
@@ -96,9 +98,3 @@ export default class BNFParser extends CommonParser {
     return bnfParser;
   }
 }
-
-Object.assign(BNFParser, {
-  bnf
-});
-
-module.exports = BNFParser;

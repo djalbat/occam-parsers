@@ -7,6 +7,8 @@ import BNFParser from "../bnf/parser";
 import CommonParser from "../common/parser";
 
 export default class BasicParser extends CommonParser {
+  static bnf = bnf;
+
   static fromBNF(bnf) {
     const bnfLexer = BNFLexer.fromNothing(),
           bnfParser = BNFParser.fromNothing(),
@@ -29,7 +31,3 @@ export default class BasicParser extends CommonParser {
     return basicParser;
   }
 }
-
-Object.assign(BasicParser, {
-  bnf
-});

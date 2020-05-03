@@ -94,7 +94,7 @@ export default class View extends Element {
     ]);
   }
 
-  initialise() {
+  initialise(properties) {
     this.assignContext();
 
     const { bnf } = this.Parser,

@@ -11,6 +11,8 @@ import expressionDefaultBNF from "./defaultBNF/expression";
 import metastatementDefaultBNF from "./defaultBNF/metastatement";
 
 export default class FlorenceParser extends CommonParser {
+  static bnf = bnf;
+
   static fromBNF(bnf) {
     bnf = `
     
@@ -41,7 +43,3 @@ export default class FlorenceParser extends CommonParser {
     return florenceParser;
   }
 }
-
-Object.assign(FlorenceParser, {
-  bnf
-});

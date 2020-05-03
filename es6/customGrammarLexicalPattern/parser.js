@@ -7,6 +7,8 @@ import BNFParser from "../bnf/parser";
 import CommonParser from "../common/parser";
 
 export default class CustomGrammarLexicalPatternParser extends CommonParser {
+  static bnf = bnf;
+
   static fromBNF(bnf) {
     const bnfLexer = BNFLexer.fromNothing(),
           bnfParser = BNFParser.fromNothing(),
@@ -23,7 +25,3 @@ export default class CustomGrammarLexicalPatternParser extends CommonParser {
     return customGrammarLexicalPatternParser;
   }
 }
-
-Object.assign(CustomGrammarLexicalPatternParser, {
-  bnf
-});

@@ -119,7 +119,7 @@ You will need to do this if you want to look at the examples.
 
 ## Usage
 
-```js
+```
 const lexers = require('occam-lexers'),
       parsers = require('occam-parsers';
 
