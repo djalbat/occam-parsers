@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = `
+const bnf = `
 
       document              ::=  ( rule | error )+ ;
 
@@ -81,3 +81,5 @@ module.exports = `
       error                 ::=  . ;
 
 `;
+
+export default bnf;

@@ -5,7 +5,7 @@ import NonTerminalPart from "../../part/nonTerminal";
 import { ChoiceOfPartsPartType } from "../../partTypes";
 import { even, allButFirstAndLast } from "../../../utilities/array";
 
-class ChoiceOfPartsPart extends NonTerminalPart {
+export default class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
     const type = ChoiceOfPartsPartType; ///
 
@@ -73,5 +73,3 @@ class ChoiceOfPartsPart extends NonTerminalPart {
     return choiceOfPartsPart;
   }
 }
-
-module.exports = ChoiceOfPartsPart;

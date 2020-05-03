@@ -6,7 +6,7 @@ import ErrorDefinition from "../definition/error";
 
 import { ErrorRuleName } from "../ruleNames";
 
-class ErrorRule extends Rule {
+export default class ErrorRule extends Rule {
   constructor() {
     const errorDefinition = new ErrorDefinition(),
           name = ErrorRuleName,
@@ -18,5 +18,3 @@ class ErrorRule extends Rule {
     super(name, definitions, Node);
   }
 }
-
-module.exports = ErrorRule;

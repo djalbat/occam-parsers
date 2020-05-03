@@ -5,7 +5,7 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
 import { first, second } from "../../utilities/array";
 
-class TerminalSymbolNode extends NonTerminalNode {
+export default class TerminalSymbolNode extends NonTerminalNode {
   generatePart(lookAhead) {
     const content = this.getContent(),
           terminalSymbolPart = new TerminalSymbolPart(content);
@@ -25,9 +25,8 @@ class TerminalSymbolNode extends NonTerminalNode {
     return content;
   }
 
+  static regularExpression = /^"((?:\\.|[^"])*)"$/;
+
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(TerminalSymbolNode, ruleName, childNodes); }
 }
 
-module.exports = TerminalSymbolNode;
-
-TerminalSymbolNode.regularExpression = /^"((?:\\.|[^"])*)"$/;

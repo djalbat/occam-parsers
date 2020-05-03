@@ -3,7 +3,7 @@
 import Definition from "../definition";
 import NonTerminalNode from "../../common/node/nonTerminal";
 
-class DefinitionNode extends NonTerminalNode {
+export default class DefinitionNode extends NonTerminalNode {
   generateDefinition() {
     const childNodes = this.getChildNodes(),
           partNodes = childNodes, ///
@@ -20,5 +20,3 @@ class DefinitionNode extends NonTerminalNode {
 
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(DefinitionNode, ruleName, childNodes); }
 }
-
-module.exports = DefinitionNode;

@@ -9,7 +9,7 @@ import { RuleNamePartType } from "../../partTypes";
 
 const { exclamationMark } = specialSymbols;
 
-class RuleNamePart extends NonTerminalPart {
+export default class RuleNamePart extends NonTerminalPart {
   constructor(ruleName, lookAhead = false) {
     const type = RuleNamePartType; ///
 
@@ -75,5 +75,3 @@ class RuleNamePart extends NonTerminalPart {
 
   clone() { return super.clone(RuleNamePart, this.ruleName, this.lookAhead); }
 }
-
-module.exports = RuleNamePart;

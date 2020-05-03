@@ -6,7 +6,7 @@ import bnf from "./bnf";
 import BNFParser from "../bnf/parser";
 import CommonParser from "../common/parser";
 
-class MetaJSONParser extends CommonParser {
+export default class MetaJSONParser extends CommonParser {
   static fromBNF(bnf) {
     const bnfLexer = BNFLexer.fromNothing(),
           bnfParser = BNFParser.fromNothing(),
@@ -27,5 +27,3 @@ class MetaJSONParser extends CommonParser {
 Object.assign(MetaJSONParser, {
   bnf
 });
-
-module.exports = MetaJSONParser;

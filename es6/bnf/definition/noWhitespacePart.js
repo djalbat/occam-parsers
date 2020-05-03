@@ -7,7 +7,7 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
 const { NO_WHITESPACE } = specialSymbols;
 
-class NoWhitespacePartDefinition extends Definition {
+export default class NoWhitespacePartDefinition extends Definition {
   constructor() {
     const content = NO_WHITESPACE,
           terminalSymbolPart = new TerminalSymbolPart(content),
@@ -18,5 +18,3 @@ class NoWhitespacePartDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = NoWhitespacePartDefinition;

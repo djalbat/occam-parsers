@@ -262,4 +262,4 @@ verticalSpace                        ::=   <END_OF_LINE>+ ;
 
 error                                ::=   . ;`;
 
-module.exports = bnf;
+export default bnf;

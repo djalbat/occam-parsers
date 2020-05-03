@@ -6,7 +6,7 @@ import GroupOfPartsDefinition from "../definition/groupOfParts";
 
 import { GroupOfPartsRuleName } from "../ruleNames";
 
-class GroupOfPartsRule extends Rule {
+export default class GroupOfPartsRule extends Rule {
   constructor() {
     const name = GroupOfPartsRuleName,
           groupOfPartsDefinition = new GroupOfPartsDefinition(),
@@ -18,5 +18,3 @@ class GroupOfPartsRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = GroupOfPartsRule;

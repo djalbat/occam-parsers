@@ -10,7 +10,7 @@ import { SignificantTokenTypeRuleName } from "../ruleNames";
 
 const { typeType } = types;
 
-class SignificantTokenTypeRule extends Rule {
+export default class SignificantTokenTypeRule extends Rule {
   constructor() {
     const typeSignificantTokenType = typeType,  ///
           typeSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(typeSignificantTokenType),
@@ -23,5 +23,3 @@ class SignificantTokenTypeRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = SignificantTokenTypeRule;

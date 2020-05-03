@@ -3,7 +3,7 @@
 import { first } from "../utilities/array";
 import { LookAheadModifierRuleName, QuantifierRuleName, RuleNameRuleName } from "../bnf/ruleNames";
 
-function isNodeChoiceNode(node) {
+export function isNodeChoiceNode(node) {
   let nodeNoChoiceNode = false;
 
   const nodeTerminalNode = node.isTerminalNode();
@@ -18,7 +18,7 @@ function isNodeChoiceNode(node) {
   return nodeNoChoiceNode;
 }
 
-function isNodeRuleNameNode(node) {
+export function isNodeRuleNameNode(node) {
   let nodeRuleNameNode = false;
 
   const nodeTerminalNode = node.isTerminalNode(),
@@ -34,7 +34,7 @@ function isNodeRuleNameNode(node) {
   return nodeRuleNameNode;
 }
 
-function isNodeQuantifierNode(node) {
+export function isNodeQuantifierNode(node) {
   let nodeQuantifierNode = false;
 
   const nodeNonTerminalNode = node.isNonTerminalNode();
@@ -50,7 +50,7 @@ function isNodeQuantifierNode(node) {
   return nodeQuantifierNode;
 }
 
-function isNodeLookAheadModifierNode(node) {
+export function isNodeLookAheadModifierNode(node) {
   let nodeLookAheadModifierNode = false;
 
   const nodeNonTerminalNode = node.isNonTerminalNode();
@@ -67,7 +67,7 @@ function isNodeLookAheadModifierNode(node) {
 
 }
 
-function ruleNameFromQuantifierNode(quantifierNode) {
+export function ruleNameFromQuantifierNode(quantifierNode) {
   let nonTerminalNode;
 
   nonTerminalNode = quantifierNode; ///
@@ -81,11 +81,3 @@ function ruleNameFromQuantifierNode(quantifierNode) {
 
   return ruleName;
 }
-
-module.exports = {
-  isNodeChoiceNode,
-  isNodeRuleNameNode,
-  isNodeQuantifierNode,
-  isNodeLookAheadModifierNode,
-  ruleNameFromQuantifierNode
-};

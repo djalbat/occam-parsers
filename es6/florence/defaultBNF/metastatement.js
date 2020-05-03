@@ -24,4 +24,4 @@ subproof                             ::=   supposition "..." metastatement ;
 
 supposition                          ::=   "[" metastatement "]" ;`;
 
-module.exports = metastatementDefaultBNF;
+export default metastatementDefaultBNF;

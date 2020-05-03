@@ -7,7 +7,7 @@ import NoWhitespaceNode from "../../../common/node/terminal/noWhitespace";
 
 const { NO_WHITESPACE } = specialSymbols;
 
-class NoWhitespacePart extends TerminalPart {
+export default class NoWhitespacePart extends TerminalPart {
   parse(configuration) {
     let noWhitespaceNode = null;
 
@@ -36,5 +36,3 @@ class NoWhitespacePart extends TerminalPart {
 
   clone() { return super.clone(NoWhitespacePart); }
 }
-
-module.exports = NoWhitespacePart;

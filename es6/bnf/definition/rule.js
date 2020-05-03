@@ -10,7 +10,7 @@ import { NameRuleName, DefinitionsRuleName } from "../ruleNames";
 
 const { separator, terminator } = specialSymbols;
 
-class RuleDefinition extends Definition {
+export default class RuleDefinition extends Definition {
   constructor() {
     const separatorTerminalSymbolContent = separator,
           terminatorTerminalSymbolContent = terminator,
@@ -30,5 +30,3 @@ class RuleDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = RuleDefinition;

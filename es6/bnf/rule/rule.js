@@ -6,7 +6,7 @@ import RuleDefinition from "../definition/rule";
 
 import { RuleRuleName } from "../ruleNames";
 
-class RuleRule extends Rule {
+export default class RuleRule extends Rule {
   constructor() {
     const ruleDefinition = new RuleDefinition(),
           name = RuleRuleName,
@@ -18,5 +18,3 @@ class RuleRule extends Rule {
     super(name, definitions, Node);
   }
 }
-
-module.exports = RuleRule;

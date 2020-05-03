@@ -6,7 +6,7 @@ import RuleNameDefinition from "../definition/ruleName";
 
 import { QuantifierRuleName, OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } from "../ruleNames";
 
-class QuantifierRule extends Rule {
+export default class QuantifierRule extends Rule {
   constructor() {
     const name = QuantifierRuleName,
           optionalQuantifierRuleName = OptionalQuantifierRuleName,
@@ -25,5 +25,3 @@ class QuantifierRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = QuantifierRule;

@@ -6,7 +6,7 @@ import OptionalPartPart from "../../../part/nonTerminal/optionalPart";
 
 import { RuleNameRuleName, LookAheadModifierRuleName } from "../../../ruleNames";
 
-class RuleNameNonTerminalPartRuleDefinition extends Definition {
+export default class RuleNameNonTerminalPartRuleDefinition extends Definition {
   constructor() {
     const ruleNameRuleName = RuleNameRuleName,
           lookAheadModifierRuleName = LookAheadModifierRuleName,
@@ -21,5 +21,3 @@ class RuleNameNonTerminalPartRuleDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = RuleNameNonTerminalPartRuleDefinition;

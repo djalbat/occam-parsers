@@ -12,7 +12,7 @@ import { DefinitionRuleName } from "../ruleNames";
 
 const { verticalBar } = specialSymbols;
 
-class DefinitionsDefinition extends Definition {
+export default class DefinitionsDefinition extends Definition {
   constructor() {
     const definitionRuleName = DefinitionRuleName,
           verticalBarTerminalSymbolContent = verticalBar,
@@ -32,5 +32,3 @@ class DefinitionsDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = DefinitionsDefinition;

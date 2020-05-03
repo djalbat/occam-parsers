@@ -3,7 +3,7 @@
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../../common/node/terminal";
 
-class SignificantTokenTypePart extends TerminalPart {
+export default class SignificantTokenTypePart extends TerminalPart {
   constructor(significantTokenType) {
     super();
     
@@ -41,5 +41,3 @@ class SignificantTokenTypePart extends TerminalPart {
 
   clone() { return super.clone(SignificantTokenTypePart, this.significantTokenType); }
 }
-
-module.exports = SignificantTokenTypePart;

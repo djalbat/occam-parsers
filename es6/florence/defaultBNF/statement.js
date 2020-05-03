@@ -15,4 +15,4 @@ typeAssertion                        ::=   expression ":" typeName ;
 
 equality                             ::=   expression "=" expression ;`;
 
-module.exports = statementDefaultBNF;
+export default statementDefaultBNF;

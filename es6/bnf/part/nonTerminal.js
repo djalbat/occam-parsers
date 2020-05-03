@@ -1,6 +1,6 @@
 "use strict";
 
-class NonTerminalPart {
+export default class NonTerminalPart {
   constructor(type) {
     this.type = type;  
   }
@@ -29,5 +29,3 @@ class NonTerminalPart {
 
   clone(Part, ...remainingArguments) { return new Part(...remainingArguments); }
 }
-
-module.exports = NonTerminalPart;

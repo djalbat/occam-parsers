@@ -6,7 +6,7 @@ import NoWhitespacePartDefinition from "../definition/noWhitespacePart";
 
 import { NoWhitespacePartRuleName } from "../ruleNames";
 
-class NoWhitespacePartRule extends Rule {
+export default class NoWhitespacePartRule extends Rule {
   constructor() {
     const noWhitespacePartDefinition = new NoWhitespacePartDefinition(),
           name = NoWhitespacePartRuleName,
@@ -18,5 +18,3 @@ class NoWhitespacePartRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = NoWhitespacePartRule;

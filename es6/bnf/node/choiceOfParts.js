@@ -3,7 +3,7 @@
 import NonTerminalNode from "../../common/node/nonTerminal";
 import ChoiceOfPartsPart from "../part/nonTerminal/choiceOfParts";
 
-class ChoiceOfPartsNode extends NonTerminalNode {
+export default class ChoiceOfPartsNode extends NonTerminalNode {
   generatePart(lookAhead) {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(),
@@ -14,5 +14,3 @@ class ChoiceOfPartsNode extends NonTerminalNode {
 
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(ChoiceOfPartsNode, ruleName, childNodes); }
 }
-
-module.exports = ChoiceOfPartsNode;

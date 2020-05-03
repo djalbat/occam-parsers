@@ -3,7 +3,7 @@
 import Definition from "../definition";
 import EpsilonPart from "../part/terminal/epsilon";
 
-class EpsilonDefinition extends Definition {
+export default class EpsilonDefinition extends Definition {
   constructor() {
     const epsilonPart = new EpsilonPart(),
           parts = [
@@ -13,5 +13,3 @@ class EpsilonDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = EpsilonDefinition;

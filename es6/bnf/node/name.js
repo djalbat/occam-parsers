@@ -4,7 +4,7 @@ import NonTerminalNode from "../../common/node/nonTerminal";
 
 import { first } from "../../utilities/array";
 
-class NameNode extends NonTerminalNode {
+export default class NameNode extends NonTerminalNode {
   getName() {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
@@ -17,5 +17,3 @@ class NameNode extends NonTerminalNode {
 
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(NameNode, ruleName, childNodes); }
 }
-
-module.exports = NameNode;

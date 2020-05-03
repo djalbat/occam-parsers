@@ -14,4 +14,4 @@ const bnf = `
 
 `;
 
-module.exports = bnf;
+export default bnf;

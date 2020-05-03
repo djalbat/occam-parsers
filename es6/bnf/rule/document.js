@@ -6,7 +6,7 @@ import DocumentDefinition from "../definition/document";
 
 import { DocumentRuleName } from "../ruleNames";
 
-class DocumentRule extends Rule {
+export default class DocumentRule extends Rule {
   constructor() {
     const documentDefinition = new DocumentDefinition(),
           name = DocumentRuleName,
@@ -18,5 +18,3 @@ class DocumentRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = DocumentRule;

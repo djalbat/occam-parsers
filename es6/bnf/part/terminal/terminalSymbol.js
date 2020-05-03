@@ -3,7 +3,7 @@
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../../common/node/terminal";
 
-class TerminalSymbolPart extends TerminalPart {
+export default class TerminalSymbolPart extends TerminalPart {
   constructor(content) {
     super();
     
@@ -41,5 +41,3 @@ class TerminalSymbolPart extends TerminalPart {
 
   clone() { return super.clone(TerminalSymbolPart, this.content); }
 }
-
-module.exports = TerminalSymbolPart;

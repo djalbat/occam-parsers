@@ -5,7 +5,7 @@ import NonTerminalPart from "../../part/nonTerminal";
 import { allButFirstAndLast } from "../../../utilities/array";
 import { GroupOfPartsPartType } from "../../partTypes";
 
-class GroupOfPartsPart extends NonTerminalPart {
+export default class GroupOfPartsPart extends NonTerminalPart {
   constructor(parts) {
     const type = GroupOfPartsPartType; ///
 
@@ -76,5 +76,3 @@ class GroupOfPartsPart extends NonTerminalPart {
     return groupOfPartsPart;
   }
 }
-
-module.exports = GroupOfPartsPart;

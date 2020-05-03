@@ -6,7 +6,7 @@ import VerticalBranchParseTree from "./verticalBranch";
 
 const { END_OF_LINE } = specialSymbols;
 
-class EndOfLineNodeParseTree extends VerticalBranchParseTree {
+export default class EndOfLineNodeParseTree extends VerticalBranchParseTree {
   static fromNothing() {
     const string = END_OF_LINE, ///
           stringLength = string.length,
@@ -22,5 +22,3 @@ class EndOfLineNodeParseTree extends VerticalBranchParseTree {
     return epsilonNodeParseTree;
   }
 }
-
-module.exports = EndOfLineNodeParseTree;

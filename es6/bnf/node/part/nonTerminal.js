@@ -2,7 +2,7 @@
 
 import NonTerminalNode from "../../../common/node/nonTerminal";
 
-class NonTerminalPartNode extends NonTerminalNode {
+export default class NonTerminalPartNode extends NonTerminalNode {
   generatePart(lookAhead) {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(),
@@ -13,8 +13,6 @@ class NonTerminalPartNode extends NonTerminalNode {
 
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(NonTerminalPartNode, ruleName, childNodes); }
 }
-
-module.exports = NonTerminalPartNode;
 
 function partFromNodes(nodes, lookAhead) {
   let part = null;

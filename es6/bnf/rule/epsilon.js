@@ -10,7 +10,7 @@ import { EpsilonRuleName } from "../ruleNames";
 
 const { epsilon } = specialSymbols;
 
-class EpsilonRule extends Rule {
+export default class EpsilonRule extends Rule {
   constructor() {
     const epsilonTerminalSymbolContent = epsilon,
           epsilonTerminalSymbolDefinition = new TerminalSymbolDefinition(epsilonTerminalSymbolContent),
@@ -23,5 +23,3 @@ class EpsilonRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = EpsilonRule;

@@ -8,7 +8,7 @@ import { ZeroOrMorePartsPartType } from "../../partTypes";
 
 const { asterisk } = specialSymbols;
 
-class ZeroOrMorePartsPart extends SequenceOfPartsPart {
+export default class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   constructor(part) {
     const type = ZeroOrMorePartsPartType; ///
 
@@ -50,5 +50,3 @@ class ZeroOrMorePartsPart extends SequenceOfPartsPart {
     return zeroOrMorePartsPart;
   }
 }
-
-module.exports = ZeroOrMorePartsPart;

@@ -28,7 +28,7 @@ import OneOrMoreQuantifierRule from "./rule/oneOrMoreQuantifier";
 import ZeroOrMoreQuantifierRule from "./rule/zeroOrMoreQuantifier";
 import SignificantTokenTypeRule from "./rule/significantTokenType";
 
-class BNFParser extends CommonParser {
+export default class BNFParser extends CommonParser {
 	rulesFromTokens(tokens) {
     const node = this.parse(tokens),
           rules = (node !== null) ?

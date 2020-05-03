@@ -3,7 +3,7 @@
 import Definition from "../definition";
 import SignificantTokenTypePart from "../part/terminal/significantTokenType";
 
-class SignificantTokenTypeDefinition extends Definition {
+export default class SignificantTokenTypeDefinition extends Definition {
   constructor(significantTokenType) {
     const significantTokenTypePart = new SignificantTokenTypePart(significantTokenType),
           parts = [
@@ -13,5 +13,3 @@ class SignificantTokenTypeDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = SignificantTokenTypeDefinition;

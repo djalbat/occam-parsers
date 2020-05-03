@@ -7,7 +7,7 @@ import TerminalPart from "../../part/terminal";
 
 const { epsilon } = specialSymbols;
 
-class EpsilonPart extends TerminalPart {
+export default class EpsilonPart extends TerminalPart {
   parse(configuration) {
     const epsilonNode = EpsilonNode.fromNothing();
 
@@ -28,5 +28,3 @@ class EpsilonPart extends TerminalPart {
 
   clone() { return super.clone(EpsilonPart); }
 }
-
-module.exports = EpsilonPart;

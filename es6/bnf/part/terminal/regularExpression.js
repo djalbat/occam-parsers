@@ -5,7 +5,7 @@ import TerminalNode from "../../../common/node/terminal";
 
 import { first } from "../../../utilities/array";
 
-class RegularExpressionPart extends TerminalPart {
+export default class RegularExpressionPart extends TerminalPart {
   constructor(regularExpression) {
     super();
 
@@ -49,5 +49,3 @@ class RegularExpressionPart extends TerminalPart {
 
   clone() { return super.clone(RegularExpressionPart, this.regularExpression); }
 }
-
-module.exports = RegularExpressionPart;

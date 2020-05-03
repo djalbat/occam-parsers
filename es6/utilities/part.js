@@ -1,6 +1,6 @@
 "use strict";
 
-function isPartRuleNamePart(part) {
+export function isPartRuleNamePart(part) {
   let partRuleNamePart = false;
 
   const partTerminalPart = part.isTerminalPart(),
@@ -15,7 +15,3 @@ function isPartRuleNamePart(part) {
 
   return partRuleNamePart;
 }
-
-module.exports = {
-  isPartRuleNamePart
-};

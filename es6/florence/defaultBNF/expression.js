@@ -2,4 +2,4 @@
 
 const expressionDefaultBNF = `expression                           ::=   term ;`;
 
-module.exports = expressionDefaultBNF;
+export default expressionDefaultBNF;

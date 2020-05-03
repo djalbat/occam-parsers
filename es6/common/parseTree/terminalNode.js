@@ -2,7 +2,7 @@
 
 import VerticalBranchParseTree from "./verticalBranch";
 
-class TerminalNodeParseTree extends VerticalBranchParseTree {
+export default class TerminalNodeParseTree extends VerticalBranchParseTree {
   static fromTerminalNodeAndTokens(terminalNode, tokens) {
     const significantToken = terminalNode.getSignificantToken(),
           content = terminalNode.getContent(),
@@ -20,5 +20,3 @@ class TerminalNodeParseTree extends VerticalBranchParseTree {
     return terminalNodeParseTree;
   }
 }
-
-module.exports = TerminalNodeParseTree;

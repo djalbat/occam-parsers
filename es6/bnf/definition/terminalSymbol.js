@@ -3,7 +3,7 @@
 import Definition from "../definition";
 import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
-class TerminalSymbolDefinition extends Definition {
+export default class TerminalSymbolDefinition extends Definition {
   constructor(content) {
     const terminalSymbolPart = new TerminalSymbolPart(content),
           parts = [
@@ -13,5 +13,3 @@ class TerminalSymbolDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = TerminalSymbolDefinition;

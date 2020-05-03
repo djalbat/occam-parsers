@@ -12,7 +12,7 @@ import { PartRuleName } from "../ruleNames";
 
 const { verticalBar, openBracket, closeBracket } = specialSymbols;
 
-class ChoiceOfPartsDefinition extends Definition {
+export default class ChoiceOfPartsDefinition extends Definition {
   constructor() {
     const partRuleName = PartRuleName,
           verticalBarTerminalSymbolContent = verticalBar, ///
@@ -38,5 +38,3 @@ class ChoiceOfPartsDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = ChoiceOfPartsDefinition;

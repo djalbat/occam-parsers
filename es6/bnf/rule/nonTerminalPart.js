@@ -7,7 +7,7 @@ import RuleNameNonTerminalPartRuleDefinition from "../definition/partRule/nonTer
 
 import { NonTerminalPartRuleName, ChoiceOfPartsRuleName, GroupOfPartsRuleName } from "../ruleNames";
 
-class NonTerminalPartRule extends Rule {
+export default class NonTerminalPartRule extends Rule {
   constructor() {
     const name = NonTerminalPartRuleName,
           groupOfPartsRuleName = GroupOfPartsRuleName,
@@ -25,5 +25,3 @@ class NonTerminalPartRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = NonTerminalPartRule;

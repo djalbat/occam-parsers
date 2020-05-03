@@ -2,7 +2,7 @@
 
 import { first } from "../utilities/array";
 
-function isNodeNullified(node) {
+export function isNodeNullified(node) {
   let nodeNullified = false;
 
   const nodeNunTerminalNode = node.isNonTerminalNode();
@@ -28,7 +28,3 @@ function isNodeNullified(node) {
 
   return nodeNullified;
 }
-
-module.exports = {
-  isNodeNullified
-};

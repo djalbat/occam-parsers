@@ -6,3 +6,12 @@ export const GroupOfPartsPartType = "groupOfParts";
 export const ChoiceOfPartsPartType = "choiceOfParts";
 export const OneOrMorePartsPartType = "oneOrMoreParts";
 export const ZeroOrMorePartsPartType = "zeroOrMoreParts";
+
+export default {
+  RuleNamePartType,
+  OptionalPartPartType,
+  GroupOfPartsPartType,
+  ChoiceOfPartsPartType,
+  OneOrMorePartsPartType,
+  ZeroOrMorePartsPartType
+};

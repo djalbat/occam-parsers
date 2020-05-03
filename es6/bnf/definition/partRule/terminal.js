@@ -6,7 +6,7 @@ import ZeroOrMorePartsPart from "../../part/nonTerminal/zeroOrMoreParts";
 
 import { QuantifierRuleName, TerminalPartRuleName } from "../../ruleNames";
 
-class TerminalPartRuleDefinition extends Definition {
+export default class TerminalPartRuleDefinition extends Definition {
   constructor() {
     const quantifierRuleName = QuantifierRuleName,
           terminalPartRuleName = TerminalPartRuleName,
@@ -21,5 +21,3 @@ class TerminalPartRuleDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = TerminalPartRuleDefinition;

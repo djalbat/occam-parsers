@@ -9,7 +9,7 @@ import { OneOrMorePartsPartType } from "../../partTypes";
 
 const { plus } = specialSymbols;
 
-class OneOrMorePartsPart extends SequenceOfPartsPart {
+export default class OneOrMorePartsPart extends SequenceOfPartsPart {
   constructor(part) {
     const type = OneOrMorePartsPartType; ///
 
@@ -47,5 +47,3 @@ class OneOrMorePartsPart extends SequenceOfPartsPart {
     return string;
   }
 }
-
-module.exports = OneOrMorePartsPart;

@@ -2,7 +2,7 @@
 
 import BNFParser from "../bnf/parser";
 
-class CustomGrammarBNFParser extends BNFParser {
+export default class CustomGrammarBNFParser extends BNFParser {
   static fromNothing() {
     const bnfParser = BNFParser.fromNothing(),
           rules = bnfParser.getRules(),
@@ -11,5 +11,3 @@ class CustomGrammarBNFParser extends BNFParser {
     return customGrammarBNFParser;
   }
 }
-
-module.exports = CustomGrammarBNFParser;

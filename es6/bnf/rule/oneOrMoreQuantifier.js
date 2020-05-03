@@ -10,7 +10,7 @@ import { OneOrMoreQuantifierRuleName } from "../ruleNames";
 
 const { plus } = specialSymbols;
 
-class OneOrMoreQuantifierRule extends Rule {
+export default class OneOrMoreQuantifierRule extends Rule {
   constructor() {
     const name = OneOrMoreQuantifierRuleName,
           oneOrMoreQuantifierTerminalSymbolContent = plus, ///
@@ -23,5 +23,3 @@ class OneOrMoreQuantifierRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = OneOrMoreQuantifierRule;

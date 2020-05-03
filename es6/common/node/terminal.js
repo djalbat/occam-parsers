@@ -2,7 +2,7 @@
 
 import TerminalNodeParseTree from "../parseTree/terminalNode";
 
-class TerminalNode {
+export default class TerminalNode {
   constructor(significantToken, parentNode) {
     this.significantToken = significantToken;
     this.parentNode = parentNode;
@@ -78,5 +78,3 @@ class TerminalNode {
     return terminalNode;
   }
 }
-
-module.exports = TerminalNode;

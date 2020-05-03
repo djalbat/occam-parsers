@@ -6,7 +6,7 @@ import VerticalBranchParseTree from "./verticalBranch";
 
 const { NO_WHITESPACE } = specialSymbols;
 
-class NoWhitespaceNodeParseTree extends VerticalBranchParseTree {
+export default class NoWhitespaceNodeParseTree extends VerticalBranchParseTree {
   static fromNothing() {
     const string = NO_WHITESPACE, ///
           stringLength = string.length,
@@ -22,5 +22,3 @@ class NoWhitespaceNodeParseTree extends VerticalBranchParseTree {
     return epsilonNodeParseTree;
   }
 }
-
-module.exports = NoWhitespaceNodeParseTree;

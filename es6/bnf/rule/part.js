@@ -8,7 +8,7 @@ import NonTerminalPartRuleDefinition from "../definition/partRule/nonTerminal";
 
 import { PartRuleName, NoWhitespacePartRuleName } from "../ruleNames";
 
-class PartRule extends Rule {
+export default class PartRule extends Rule {
   constructor() {
     const name = PartRuleName,
           terminalPartRuleDefinition = new TerminalPartRuleDefinition(),
@@ -24,5 +24,3 @@ class PartRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = PartRule;

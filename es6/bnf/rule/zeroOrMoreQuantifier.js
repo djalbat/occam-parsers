@@ -10,7 +10,7 @@ import { ZeroOrMoreQuantifierRuleName } from "../ruleNames";
 
 const { asterisk } = specialSymbols;
 
-class ZeroOrMoreQuantifierRule extends Rule {
+export default class ZeroOrMoreQuantifierRule extends Rule {
   constructor() {
     const name = ZeroOrMoreQuantifierRuleName,
           zeroOrMoreQuantifierTerminalSymbolContent = asterisk, ///
@@ -23,5 +23,3 @@ class ZeroOrMoreQuantifierRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = ZeroOrMoreQuantifierRule;

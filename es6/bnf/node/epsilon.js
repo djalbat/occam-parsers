@@ -3,7 +3,7 @@
 import EpsilonPart from "../part/terminal/epsilon";
 import NonTerminalNode from "../../common/node/nonTerminal";
 
-class EpsilonNode extends NonTerminalNode {
+export default class EpsilonNode extends NonTerminalNode {
   generatePart(lookAhead) {
     const epsilonPart = new EpsilonPart();
 
@@ -12,5 +12,3 @@ class EpsilonNode extends NonTerminalNode {
 
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(EpsilonNode, ruleName, childNodes); }
 }
-
-module.exports = EpsilonNode;

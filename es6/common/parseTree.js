@@ -2,7 +2,7 @@
 
 import { last } from "../utilities/array";
 
-class ParseTree {
+export default class ParseTree {
   constructor(lines) {
     this.lines = lines;
   }
@@ -122,8 +122,6 @@ class ParseTree {
     return string;
   }
 }
-
-module.exports = ParseTree;
 
 function marginStringFromMarginWidth(marginWidth, spaceCharacter) {
   spaceCharacter = spaceCharacter || " ";

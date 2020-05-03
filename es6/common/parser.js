@@ -4,7 +4,7 @@ import Configuration from "./configuration";
 
 import { first } from "../utilities/array";
 
-class CommonParser {
+export default class CommonParser {
   constructor(rules) {
     this.rules = rules;
   }
@@ -35,5 +35,3 @@ class CommonParser {
     return node;
   }
 }
-
-module.exports = CommonParser;

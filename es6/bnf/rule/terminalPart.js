@@ -6,7 +6,7 @@ import RuleNameDefinition from "../definition/ruleName";
 
 import { TerminalPartRuleName, RegularExpressionRuleName, SignificantTokenTypeRuleName, TerminalSymbolRuleName, EndOfLineRuleName, EpsilonRuleName, WildcardRuleName } from "../ruleNames";
 
-class TerminalPartRule extends Rule {
+export default class TerminalPartRule extends Rule {
   constructor() {
     const name = TerminalPartRuleName,
           epsilonRuleName = EpsilonRuleName,
@@ -34,5 +34,3 @@ class TerminalPartRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = TerminalPartRule;

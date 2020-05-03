@@ -6,7 +6,7 @@ import ChoiceOfPartsDefinition from "../definition/choiceOfParts";
 
 import { ChoiceOfPartsRuleName } from "../ruleNames";
 
-class ChoiceOfPartsRule extends Rule {
+export default class ChoiceOfPartsRule extends Rule {
   constructor() {
     const name = ChoiceOfPartsRuleName,
           choiceOfPartsDefinition = new ChoiceOfPartsDefinition(),
@@ -18,5 +18,3 @@ class ChoiceOfPartsRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = ChoiceOfPartsRule;

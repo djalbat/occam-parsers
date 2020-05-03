@@ -7,7 +7,7 @@ import EndOfLineNode from "../../../common/node/terminal/endOfLine";
 
 const { END_OF_LINE } = specialSymbols;
 
-class EndOfLinePart extends TerminalPart {
+export default class EndOfLinePart extends TerminalPart {
   parse(configuration) {
     let endOfLineNode = null;
     
@@ -38,5 +38,3 @@ class EndOfLinePart extends TerminalPart {
 
   clone() { return super.clone(EndOfLinePart); }
 }
-
-module.exports = EndOfLinePart;

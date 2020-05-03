@@ -3,7 +3,7 @@
 import Definition from "../definition";
 import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
-class QuantifierRuleDefinition extends Definition {
+export default class QuantifierRuleDefinition extends Definition {
   constructor(terminalSymbolContent) {
     const content = terminalSymbolContent,  ///
           terminalSymbolPart = new TerminalSymbolPart(content),
@@ -14,5 +14,3 @@ class QuantifierRuleDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = QuantifierRuleDefinition;

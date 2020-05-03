@@ -3,7 +3,7 @@
 import TerminalNode from "../terminal";
 import EndOfLineNodeParseTree from "../../parseTree/endOfLineNode";
 
-class EndOfLineNode extends TerminalNode {
+export default class EndOfLineNode extends TerminalNode {
   getContent() {
     const content = "";  ///
 
@@ -19,5 +19,3 @@ class EndOfLineNode extends TerminalNode {
 
   static fromSignificantToken(significantToken) { return TerminalNode.fromSignificantToken(EndOfLineNode, significantToken); }
 }
-
-module.exports = EndOfLineNode;

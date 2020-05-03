@@ -2,7 +2,7 @@
 
 import ParseTree from "../parseTree";
 
-class HorizontalBranchParseTree extends ParseTree {
+export default class HorizontalBranchParseTree extends ParseTree {
   static fromWidth(width) {
     const string = stringFromCharactersWidth(width, "-"),
           line = string, ///
@@ -12,8 +12,6 @@ class HorizontalBranchParseTree extends ParseTree {
     return horizontalBranchParseTree;
   }
 }
-
-module.exports = HorizontalBranchParseTree;
 
 function stringFromCharactersWidth(charactersWidth, character) {
   let string = "";

@@ -9,7 +9,7 @@ import { last } from "../../utilities/array";
 import { isNodeQuantifierNode, ruleNameFromQuantifierNode } from "../../utilities/bnf";
 import { OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } from "../ruleNames";
 
-class PartNode extends NonTerminalNode {
+export default class PartNode extends NonTerminalNode {
   generatePart(lookAhead) {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(),
@@ -20,8 +20,6 @@ class PartNode extends NonTerminalNode {
 
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(PartNode, ruleName, childNodes); }
 }
-
-module.exports = PartNode;
 
 function partFromNodes(nodes) {
   let part = null;

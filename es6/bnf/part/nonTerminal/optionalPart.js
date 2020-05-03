@@ -8,7 +8,7 @@ import { OptionalPartPartType } from "../../partTypes";
 
 const { questionMark } = specialSymbols;
 
-class OptionalPartPart extends NonTerminalPart {
+export default class OptionalPartPart extends NonTerminalPart {
   constructor(part) {
     const type = OptionalPartPartType; ///
 
@@ -45,5 +45,3 @@ class OptionalPartPart extends NonTerminalPart {
     return string;
   }
 }
-
-module.exports = OptionalPartPart;

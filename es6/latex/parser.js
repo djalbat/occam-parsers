@@ -6,7 +6,7 @@ import bnf from "./bnf";
 import BNFParser from "../bnf/parser";
 import CommonParser from "../common/parser";
 
-class LaTeXParser extends CommonParser {
+export default class LaTeXParser extends CommonParser {
   static fromBNF(bnf) {
     const bnfLexer = BNFLexer.fromNothing(),
           bnfParser = BNFParser.fromNothing(),
@@ -27,5 +27,3 @@ class LaTeXParser extends CommonParser {
 Object.assign(LaTeXParser, {
   bnf
 });
-
-module.exports = LaTeXParser;

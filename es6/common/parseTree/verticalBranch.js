@@ -2,7 +2,7 @@
 
 import ParseTree from "../parseTree";
 
-class VerticalBranchParseTree extends ParseTree {
+export default class VerticalBranchParseTree extends ParseTree {
   constructor(lines, verticalBranchPosition) {
     super(lines);
     
@@ -55,8 +55,6 @@ class VerticalBranchParseTree extends ParseTree {
     return verticalBranchParseTree;
   }
 }
-
-module.exports = VerticalBranchParseTree;
 
 function linesFromDepth(depth) {
   const lines = [];

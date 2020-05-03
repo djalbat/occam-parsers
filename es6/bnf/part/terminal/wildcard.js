@@ -7,7 +7,7 @@ import TerminalNode from "../../../common/node/terminal";
 
 const { wildcard } = specialSymbols;
 
-class WildcardPart extends TerminalPart {
+export default class WildcardPart extends TerminalPart {
   parse(configuration) {
     let terminalNode = null;
     
@@ -34,5 +34,3 @@ class WildcardPart extends TerminalPart {
 
   clone() { return super.clone(WildcardPart); }
 }
-
-module.exports = WildcardPart;

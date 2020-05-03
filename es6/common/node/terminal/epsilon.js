@@ -7,7 +7,7 @@ import EpsilonNodeParseTree from "../../parseTree/epsilonNode";
 
 const { epsilon } = specialSymbols;
 
-class EpsilonNode extends TerminalNode {
+export default class EpsilonNode extends TerminalNode {
   getContent() {
     const content = epsilon;  ///
 
@@ -34,5 +34,3 @@ class EpsilonNode extends TerminalNode {
     return epsilonNode;
   }
 }
-
-module.exports = EpsilonNode;

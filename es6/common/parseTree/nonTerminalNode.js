@@ -6,7 +6,7 @@ import VerticalBranchParseTree from "./verticalBranch";
 
 import { first } from "../../utilities/array";
 
-class NonTerminalNodeParseTree extends VerticalBranchParseTree {
+export default class NonTerminalNodeParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
     const childNodes = nonTerminalNode.getChildNodes(),
           firstChildNode = first(childNodes),
@@ -67,5 +67,3 @@ class NonTerminalNodeParseTree extends VerticalBranchParseTree {
     return nonTerminalNodeParseTree;
   }
 }
-
-module.exports = NonTerminalNodeParseTree;

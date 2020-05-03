@@ -6,4 +6,4 @@ const termDefaultBNF = `term                                 ::=   [custom] pare
                                  
                                        ;`;
 
-module.exports = termDefaultBNF;
+export default termDefaultBNF;

@@ -6,7 +6,7 @@ import LookAheadModifierRuleDefinition from "../definition/lookAheadModifierRule
 
 import { LookAheadModifierRuleName } from "../ruleNames";
 
-class LookAheadModifierRule extends Rule {
+export default class LookAheadModifierRule extends Rule {
   constructor() {
     const name = LookAheadModifierRuleName,
           lookAheadModifierRuleDefinition = new LookAheadModifierRuleDefinition(),
@@ -18,5 +18,3 @@ class LookAheadModifierRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = LookAheadModifierRule;

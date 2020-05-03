@@ -10,7 +10,7 @@ import { WildcardRuleName } from "../ruleNames";
 
 const { wildcard } = specialSymbols;
 
-class WildcardRule extends Rule {
+export default class WildcardRule extends Rule {
   constructor() {
     const wildcardTerminalSymbolContent = wildcard,
           wildcardTerminalSymbolDefinition = new TerminalSymbolDefinition(wildcardTerminalSymbolContent),
@@ -23,5 +23,3 @@ class WildcardRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = WildcardRule;

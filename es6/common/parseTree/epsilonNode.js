@@ -6,7 +6,7 @@ import VerticalBranchParseTree from "./verticalBranch";
 
 const { epsilon } = specialSymbols;
 
-class EpsilonNodeParseTree extends VerticalBranchParseTree {
+export default class EpsilonNodeParseTree extends VerticalBranchParseTree {
   static fromNothing() {
     const string = epsilon, ///
           stringLength = string.length,
@@ -22,5 +22,3 @@ class EpsilonNodeParseTree extends VerticalBranchParseTree {
     return epsilonNodeParseTree;
   }
 }
-
-module.exports = EpsilonNodeParseTree;

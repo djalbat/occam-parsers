@@ -1,6 +1,6 @@
 "use strict";
 
-class TerminalPart {
+export default class TerminalPart {
   isNonTerminalPart() {
     const nonTerminalPart = false;
 
@@ -21,5 +21,3 @@ class TerminalPart {
 
   clone(Part, ...remainingArguments) { return new Part(...remainingArguments); }
 }
-
-module.exports = TerminalPart;

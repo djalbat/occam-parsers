@@ -4,7 +4,7 @@ import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
 import { forwardsSome, backwardsSome } from "../../utilities/array";
 
-class NonTerminalNode {
+export default class NonTerminalNode {
   constructor(ruleName, parentNode, childNodes) {
     this.ruleName = ruleName;
     this.parentNode = parentNode;
@@ -102,5 +102,3 @@ class NonTerminalNode {
     return nonTerminalNode;
   }
 }
-
-module.exports = NonTerminalNode;

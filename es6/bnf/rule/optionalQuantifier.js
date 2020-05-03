@@ -10,7 +10,7 @@ import { OptionalQuantifierRuleName } from "../ruleNames";
 
 const { questionMark } = specialSymbols;
 
-class OptionalQuantifierRule extends Rule {
+export default class OptionalQuantifierRule extends Rule {
   constructor() {
     const name = OptionalQuantifierRuleName,
           optionalQuantifierTerminalSymbolContent = questionMark, ///
@@ -23,5 +23,3 @@ class OptionalQuantifierRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = OptionalQuantifierRule;

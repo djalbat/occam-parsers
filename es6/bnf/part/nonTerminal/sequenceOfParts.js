@@ -2,7 +2,7 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-class SequenceOfPartsPart extends NonTerminalPart {
+export default class SequenceOfPartsPart extends NonTerminalPart {
   constructor(type, part) {
     super(type);
 
@@ -22,5 +22,3 @@ class SequenceOfPartsPart extends NonTerminalPart {
 
   clone(Part) { return super.clone(Part, this.part); }
 }
-
-module.exports = SequenceOfPartsPart;

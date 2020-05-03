@@ -11,7 +11,7 @@ import { PartRuleName } from "../ruleNames";
 
 const { openBracket, closeBracket } = specialSymbols;
 
-class GroupOfPartsDefinition extends Definition {
+export default class GroupOfPartsDefinition extends Definition {
   constructor() {
     const partRuleName = PartRuleName,
           openBracketTerminalSymbolContent = openBracket, ///
@@ -30,5 +30,3 @@ class GroupOfPartsDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = GroupOfPartsDefinition;

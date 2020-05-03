@@ -3,7 +3,7 @@
 import { isPartRuleNamePart } from "../utilities/part";
 import { first, concat, allButFirst } from "../utilities/array";
 
-class Definition {
+export default class Definition {
   constructor(parts) {
     this.parts = parts;
   }
@@ -63,8 +63,6 @@ class Definition {
     return string;
   }
 }
-
-module.exports = Definition;
 
 function parseParts(parts, nodes, configuration) {
   let parsed = false;

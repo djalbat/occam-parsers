@@ -10,7 +10,7 @@ import { RegularExpressionRuleName } from "../ruleNames";
 
 const { regularExpressionType } = types;
 
-class RegularExpressionRule extends Rule {
+export default class RegularExpressionRule extends Rule {
   constructor() {
     const regularExpressionSignificantTokenType = regularExpressionType,  ///
           regularExpressionSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(regularExpressionSignificantTokenType),
@@ -23,5 +23,3 @@ class RegularExpressionRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = RegularExpressionRule;

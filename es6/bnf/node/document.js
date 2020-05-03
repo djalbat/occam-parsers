@@ -4,7 +4,7 @@ import NonTerminalNode from"../../common/node/nonTerminal";
 
 import { RuleRuleName } from "../ruleNames";
 
-class DocumentNode extends NonTerminalNode {
+export default class DocumentNode extends NonTerminalNode {
   generateRules(Rule) {
     const childNodes = this.getChildNodes(),
           ruleNodes = childNodes.reduce(function(ruleNodes, childNode) {
@@ -36,5 +36,3 @@ class DocumentNode extends NonTerminalNode {
 
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(DocumentNode, ruleName, childNodes); }
 }
-
-module.exports = DocumentNode;

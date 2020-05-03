@@ -3,7 +3,7 @@
 import TerminalNode from "../terminal";
 import NoWhitespaceNodeParseTree from "../../parseTree/noWhitespaceNode";
 
-class NoWhitespaceNode extends TerminalNode {
+export default class NoWhitespaceNode extends TerminalNode {
   getType() {
     const type = null;  ///
 
@@ -30,5 +30,3 @@ class NoWhitespaceNode extends TerminalNode {
     return noWhitespaceNode;
   }
 }
-
-module.exports = NoWhitespaceNode;

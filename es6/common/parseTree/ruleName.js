@@ -2,7 +2,7 @@
 
 import VerticalBranchParseTree from "./verticalBranch";
 
-class RuleNameParseTree extends VerticalBranchParseTree {
+export default class RuleNameParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
     const ruleName = nonTerminalNode.getRuleName(),
           tokenIndexes = tokenIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
@@ -18,8 +18,6 @@ class RuleNameParseTree extends VerticalBranchParseTree {
     return ruleNameParseTree;
   }
 }
-
-module.exports = RuleNameParseTree;
 
 function tokenIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
   const firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),

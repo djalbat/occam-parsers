@@ -2,7 +2,7 @@
 
 import { paddingFromPaddingLength } from "../utilities/string";
 
-class Rule {
+export default class Rule {
   constructor(name, definitions, NonTerminalNode) {
     this.name = name;
     this.definitions = definitions;
@@ -174,5 +174,3 @@ class Rule {
     return rule;
   }
 }
-
-module.exports = Rule;

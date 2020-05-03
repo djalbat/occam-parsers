@@ -7,7 +7,7 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
 const { exclamationMark } = specialSymbols;
 
-class LookAheadModifierRuleDefinition extends Definition {
+export default class LookAheadModifierRuleDefinition extends Definition {
   constructor() {
     const content = exclamationMark,  ///
           terminalSymbolPart = new TerminalSymbolPart(content),
@@ -18,5 +18,3 @@ class LookAheadModifierRuleDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = LookAheadModifierRuleDefinition;

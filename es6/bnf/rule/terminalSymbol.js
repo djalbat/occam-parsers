@@ -10,7 +10,7 @@ import { TerminalSymbolRuleName } from "../ruleNames";
 
 const { stringLiteralType } = types;
 
-class TerminalSymbolRule extends Rule {
+export default class TerminalSymbolRule extends Rule {
   constructor() {
     const stringLiteralSignificantTokenType = stringLiteralType,  ///
           stringLiteralSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(stringLiteralSignificantTokenType),
@@ -23,5 +23,3 @@ class TerminalSymbolRule extends Rule {
     super(name, definitions, Node)
   }
 }
-
-module.exports = TerminalSymbolRule;

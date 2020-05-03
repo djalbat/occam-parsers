@@ -5,7 +5,7 @@ import HorizontalBranchParseTree from "./horizontalBranch";
 
 import { first } from "../../utilities/array";
 
-class ChildNodesParseTree extends VerticalBranchParseTree {
+export default class ChildNodesParseTree extends VerticalBranchParseTree {
   static fromChildNodesAndTokens(childNodes, tokens) {
     let childNodesParseTree;
 
@@ -98,5 +98,3 @@ class ChildNodesParseTree extends VerticalBranchParseTree {
     return childNodesParseTree;
   }
 }
-
-module.exports = ChildNodesParseTree;

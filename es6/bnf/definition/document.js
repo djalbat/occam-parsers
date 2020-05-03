@@ -7,7 +7,7 @@ import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 
 import { RuleRuleName, ErrorRuleName } from "../ruleNames";
 
-class DocumentDefinition extends Definition {
+export default class DocumentDefinition extends Definition {
   constructor() {
     const ruleRuleName = RuleRuleName,
           errorRuleName = ErrorRuleName,
@@ -26,5 +26,3 @@ class DocumentDefinition extends Definition {
     super(parts)
   }
 }
-
-module.exports = DocumentDefinition;

@@ -1,6 +1,6 @@
 "use strict";
 
-function paddingFromPaddingLength(paddingLength) {
+export function paddingFromPaddingLength(paddingLength) {
   let padding = "";
 
   for (let position = 0; position < paddingLength; position++) {
@@ -9,7 +9,3 @@ function paddingFromPaddingLength(paddingLength) {
 
   return padding;
 }
-
-module.exports = {
-  paddingFromPaddingLength
-};

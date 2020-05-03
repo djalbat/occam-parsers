@@ -2,7 +2,7 @@
 
 const DEFAULT_MAXIMUM_DEPTH = 99;
 
-class Configuration {
+export default class Configuration {
   constructor(tokens, rules, index, depth, maximumDepth) {
     this.tokens = tokens;
 		this.rules = rules;
@@ -101,5 +101,3 @@ class Configuration {
     return configuration;
   }
 }
-
-module.exports = Configuration;

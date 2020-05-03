@@ -5,7 +5,7 @@ import RegularExpressionPart from "../part/terminal/regularExpression";
 
 import { first, second } from "../../utilities/array";
 
-class RegularExpressionNode extends NonTerminalNode {
+export default class RegularExpressionNode extends NonTerminalNode {
   generatePart(lookAhead) {
     const regularExpression = this.getRegularExpression(),
           regularExpressionPart = new RegularExpressionPart(regularExpression);
@@ -26,9 +26,8 @@ class RegularExpressionNode extends NonTerminalNode {
     return regularExpression;
   }
 
+  static regularExpression = /^\/((?:\\.|[^\/])*)\/$/;
+
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(RegularExpressionNode, ruleName, childNodes); }
 }
 
-module.exports = RegularExpressionNode;
-
-RegularExpressionNode.regularExpression = /^\/((?:\\.|[^\/])*)\/$/;
