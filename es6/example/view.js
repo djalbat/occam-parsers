@@ -1,28 +1,38 @@
 "use strict";
 
-const easy = require("easy"),
-      easyLayout = require("easy-layout");
+import { Element } from "easy";
+import { ColumnsDiv } from "easy-layout";
 
-const BNFTextarea = require("./common/textarea/bnf"),
-      ContentTextarea = require("./common/textarea/content"),
-      ParseTreeTextarea = require("./common/textarea/parseTree"),
-      MainVerticalSplitter = require("./common/verticalSplitter/main"),
-      LexicalEntriesTextarea = require("./common/textarea/lexicalEntries");
+import Heading from "./heading";
+import BackLink from "./link/back";
+import Paragraph from "./paragraph";
+import ColumnDiv from "./div/column";
+import SubHeading from "./subHeading";
+import SizeableDiv from "./div/sizeable";
+import BNFTextarea from "./textarea/bnf";
+import ContentTextarea from "./textarea/content";
+import ParseTreeTextarea from "./textarea/parseTree";
+import VerticalSplitterDiv from "./div/splitter/vertical";
+import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 
-const { Element } = easy,
-      { SizeableElement } = easyLayout;
+export default class View extends Element {
+  getTokens() {
+    const entries = this.getEntries(),
+          content = this.getContent(),
+          lexer = this.Lexer.fromEntries(entries),
+          tokens = lexer.tokenise(content);
 
-class ExampleView extends Element {
+    return tokens;
+  }
+
   getParseTree() {
     let parseTree = null;
 
-    const Lexer = this.getLexer(),
-          Parser = this.getParser(),
-			    lexicalEntries = this.getLexicalEntries(),
-			    bnf = this.getBNF(),
-			    entries = lexicalEntries, ///
-			    lexer = Lexer.fromEntries(entries),
-          parser = Parser.fromBNF(bnf),
+    const lexicalEntries = this.getLexicalEntries(),
+          bnf = this.getBNF(),
+          entries = lexicalEntries, ///
+          lexer = this.Lexer.fromEntries(entries),
+          parser = this.Parser.fromBNF(bnf),
           content = this.getContent(),
           tokens = lexer.tokenise(content),
           node = parser.parse(tokens);
@@ -38,44 +48,48 @@ class ExampleView extends Element {
     try {
       const parseTree = this.getParseTree();
 
-      this.hideError();
-
       this.setParseTree(parseTree);
     } catch (error) {
-      this.showError();
+      console.log(error);
 
       this.clearParseTree();
     }
   }
 
-  getInitialContent() {
-    const initialContent = "";
-
-    return initialContent;
-  }
-
   childElements(properties) {
-    const title = this.getTitle(),
-          keyUpHandler = this.keyUpHandler.bind(this);
+    const keyUpHandler = this.keyUpHandler.bind(this);
 
     return ([
 
-      <h1>{title}</h1>,
-      <div className="columns">
-        <SizeableElement>
-          <h2>Lexical entries</h2>
+      <Heading>
+        {this.heading}
+      </Heading>,
+      <ColumnsDiv>
+        <SizeableDiv>
+          <SubHeading>
+            Lexical entries
+          </SubHeading>
           <LexicalEntriesTextarea onKeyUp={keyUpHandler} />
-          <h2>BNF</h2>
-          <BNFTextarea onKeyUp={keyUpHandler} />
-        </SizeableElement>
-        <MainVerticalSplitter />
-        <div className="column">
-          <h2>Parse tree</h2>
-          <ParseTreeTextarea />
-          <h2>Content</h2>
+          <SubHeading>
+            Content
+          </SubHeading>
           <ContentTextarea onKeyUp={keyUpHandler} />
-        </div>
-      </div>
+        </SizeableDiv>
+        <VerticalSplitterDiv />
+        <ColumnDiv>
+          <SubHeading>
+            BNF
+          </SubHeading>
+          <BNFTextarea />
+          <SubHeading>
+            Parse tree
+          </SubHeading>
+          <ParseTreeTextarea />
+        </ColumnDiv>
+      </ColumnsDiv>,
+      <Paragraph>
+        <BackLink />
+      </Paragraph>
 
     ]);
   }
@@ -83,12 +97,9 @@ class ExampleView extends Element {
   initialise() {
     this.assignContext();
 
-    const Lexer = this.getLexer(),
-          Parser = this.getParser(),
-          initialContent = this.getInitialContent(),
-          { bnf } = Parser,
-          { entries } = Lexer,
-          content = initialContent, ///
+    const { bnf } = this.Parser,
+          { entries } = this.Lexer,
+          content = this.initialContent, ///
           lexicalEntries = entries; ///
 
     this.setBNF(bnf);
@@ -98,20 +109,13 @@ class ExampleView extends Element {
     this.keyUpHandler();
   }
 
-  static fromProperties(Class, properties) {
-    const exampleView = Element.fromProperties(Class, properties);
+  static tagName = "div";
 
-    exampleView.initialise();
+  static fromClass(Class, properties) {
+    const exampleView = Element.fromClass(Class, properties);
+
+    exampleView.initialise(properties);
 
     return exampleView
   }
 }
-
-Object.assign(ExampleView, {
-  tagName: "div",
-  defaultProperties: {
-    className: "example"
-  }
-});
-
-module.exports = ExampleView;

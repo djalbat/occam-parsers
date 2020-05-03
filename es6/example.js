@@ -1,26 +1,34 @@
 "use strict";
 
-require("juxtapose");
+import "juxtapose";
 
-const easy = require("easy");
+import withStyle from "easy-with-style";  ///
 
-const BNFExampleView = require("./example/bnf/view"),
-      BasicExampleView = require("./example/basic/view"),
-      FlorenceExampleView = require("./example/florence/view");
+import { Body } from "easy";
 
-const { Body } = easy;
+import BNFView from "./example/view/bnf";
+import BasicView from "./example/view/basic";
+import FlorenceView from "./example/view/florence";
 
-let ExampleView;
+const { renderStyles } = withStyle;
+
+let View;
 
 const body = new Body(),
-      example = window.location.search.substring(1);
+      example = window.location.search.substring(1);  ///
 
 switch (example) {
-  case "bnf" : ExampleView = BNFExampleView; break;
-  case "basic" : ExampleView = BasicExampleView; break;
-  case "florence" : ExampleView = FlorenceExampleView; break;
+  case "bnf" : View = BNFView; break;
+  case "basic" : View = BasicView; break;
+  case "florence" : View = FlorenceView; break;
 }
 
-const exampleView = <ExampleView />;
+renderStyles();
+
+const exampleView =
+
+  <View />
+
+;
 
 exampleView.appendTo(body);
