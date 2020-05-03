@@ -1,17 +1,16 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const ruleNames = require("../ruleNames"),
-      Definition = require("../definition"),
-      RuleNamePart = require("../part/nonTerminal/ruleName"),
-      GroupOfPartsPart = require("../part/nonTerminal/groupOfParts"),
-      OneOrMorePartsPart = require("../part/nonTerminal/oneOrMoreParts"),
-      TerminalSymbolPart = require("../part/terminal/terminalSymbol");
+import Definition from "../definition";
+import RuleNamePart from "../part/nonTerminal/ruleName";
+import GroupOfPartsPart from "../part/nonTerminal/groupOfParts";
+import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
+import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
-const { PartRuleName } = ruleNames,
-      { specialSymbols } = lexers,
-      { verticalBar, openBracket, closeBracket } = specialSymbols;
+import { PartRuleName } from "../ruleNames";
+
+const { verticalBar, openBracket, closeBracket } = specialSymbols;
 
 class ChoiceOfPartsDefinition extends Definition {
   constructor() {

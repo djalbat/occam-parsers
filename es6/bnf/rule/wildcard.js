@@ -1,15 +1,14 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      WildcardNode = require("../node/wildcard"),
-      TerminalSymbolDefinition = require("../definition/terminalSymbol");
+import Rule from "../rule";
+import WildcardNode from "../node/wildcard";
+import TerminalSymbolDefinition from "../definition/terminalSymbol";
 
-const { specialSymbols } = lexers,
-      { wildcard } = specialSymbols,
-      { WildcardRuleName } = ruleNames;
+import { WildcardRuleName } from "../ruleNames";
+
+const { wildcard } = specialSymbols;
 
 class WildcardRule extends Rule {
   constructor() {

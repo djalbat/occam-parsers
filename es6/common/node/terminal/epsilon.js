@@ -1,12 +1,11 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const TerminalNode = require("../terminal"),
-      EpsilonNodeParseTree = require("../../parseTree/epsilonNode");
+import TerminalNode from "../terminal";
+import EpsilonNodeParseTree from "../../parseTree/epsilonNode";
 
-const { specialSymbols } = lexers,
-      { epsilon } = specialSymbols;
+const { epsilon } = specialSymbols;
 
 class EpsilonNode extends TerminalNode {
   getContent() {

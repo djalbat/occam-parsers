@@ -1,15 +1,13 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const partTypes = require("../../partTypes"),
-      ruleUtilities = require("../../../utilities/rule"),
-      NonTerminalPart = require("../../part/nonTerminal");
+import NonTerminalPart from "../../part/nonTerminal";
 
-const { specialSymbols } = lexers,
-      { findRuleByName } = ruleUtilities,
-      { exclamationMark } = specialSymbols,
-      { RuleNamePartType } = partTypes;
+import { findRuleByName } from "../../../utilities/rule";
+import { RuleNamePartType } from "../../partTypes";
+
+const { exclamationMark } = specialSymbols;
 
 class RuleNamePart extends NonTerminalPart {
   constructor(ruleName, lookAhead = false) {

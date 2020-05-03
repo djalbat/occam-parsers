@@ -1,11 +1,10 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const VerticalBranchParseTree = require("./verticalBranch");
+import VerticalBranchParseTree from "./verticalBranch";
 
-const { specialSymbols } = lexers,
-      { END_OF_LINE } = specialSymbols;
+const { END_OF_LINE } = specialSymbols;
 
 class EndOfLineNodeParseTree extends VerticalBranchParseTree {
   static fromNothing() {

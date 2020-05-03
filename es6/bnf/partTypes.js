@@ -1,10 +1,8 @@
 "use strict";
 
-module.exports = {
-  RuleNamePartType: "ruleNamePart",
-  OptionalPartPartType: "optionalPart",
-  GroupOfPartsPartType: "groupOfParts",
-  ChoiceOfPartsPartType: "choiceOfParts",
-  OneOrMorePartsPartType: "oneOrMoreParts",
-  ZeroOrMorePartsPartType: "zeroOrMoreParts"
-};
+export const RuleNamePartType = "ruleNamePart";
+export const OptionalPartPartType = "optionalPart";
+export const GroupOfPartsPartType = "groupOfParts";
+export const ChoiceOfPartsPartType = "choiceOfParts";
+export const OneOrMorePartsPartType = "oneOrMoreParts";
+export const ZeroOrMorePartsPartType = "zeroOrMoreParts";

@@ -1,15 +1,14 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const ruleNames = require("../ruleNames"),
-      Definition = require("../definition"),
-      RuleNamePart = require("../part/nonTerminal/ruleName"),
-      TerminalSymbolPart = require("../part/terminal/terminalSymbol");
+import Definition from "../definition";
+import RuleNamePart from "../part/nonTerminal/ruleName";
+import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
-const { specialSymbols } = lexers,
-      { separator, terminator } = specialSymbols,
-      { NameRuleName, DefinitionsRuleName } = ruleNames;
+import { NameRuleName, DefinitionsRuleName } from "../ruleNames";
+
+const { separator, terminator } = specialSymbols;
 
 class RuleDefinition extends Definition {
   constructor() {

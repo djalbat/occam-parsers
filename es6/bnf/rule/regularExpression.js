@@ -1,15 +1,14 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { types } from "occam-lexers";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      RegularExpressionNode = require("../node/regularExpression"),
-      SignificantTokenTypeDefinition = require("../definition/significantTokenType");
+import Rule from "../rule";
+import RegularExpressionNode from "../node/regularExpression";
+import SignificantTokenTypeDefinition from "../definition/significantTokenType";
 
-const { types } = lexers,
-      { regularExpressionType } = types,
-      { RegularExpressionRuleName } = ruleNames;
+import { RegularExpressionRuleName } from "../ruleNames";
+
+const { regularExpressionType } = types;
 
 class RegularExpressionRule extends Rule {
   constructor() {

@@ -1,15 +1,14 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      DefinitionNode = require("../node/definition"),
-      QuantifierRuleDefinition = require("../definition/quantifierRule");
+import Rule from "../rule";
+import DefinitionNode from "../node/definition";
+import QuantifierRuleDefinition from "../definition/quantifierRule";
 
-const { specialSymbols } = lexers,
-      { questionMark } = specialSymbols,
-      { OptionalQuantifierRuleName } = ruleNames;
+import { OptionalQuantifierRuleName } from "../ruleNames";
+
+const { questionMark } = specialSymbols;
 
 class OptionalQuantifierRule extends Rule {
   constructor() {

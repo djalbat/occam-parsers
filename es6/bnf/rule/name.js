@@ -1,11 +1,10 @@
 "use strict";
 
-const Rule = require("../rule"),
-      NameNode = require("../node/name"),
-      ruleNames = require("../ruleNames"),
-      NameDefinition = require("../definition/name");
+import Rule from "../rule";
+import NameNode from "../node/name";
+import NameDefinition from "../definition/name";
 
-const { NameRuleName } = ruleNames;
+import { NameRuleName } from "../ruleNames";
 
 class NameRule extends Rule {
   constructor() {

@@ -1,6 +1,6 @@
 "use strict";
 
-const NonTerminalNode = require("../../common/node/nonTerminal");
+import NonTerminalNode from "../../common/node/nonTerminal";
 
 class ErrorNode extends NonTerminalNode {
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(ErrorNode, ruleName, childNodes); }

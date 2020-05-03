@@ -1,12 +1,11 @@
 "use strict";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      RuleNameDefinition = require("../definition/ruleName"),
-      NonTerminalPartNode = require("../node/part/nonTerminal"),
-      RuleNameNonTerminalPartRuleDefinition = require("../definition/partRule/nonTerminal/ruleName");
+import Rule from "../rule";
+import RuleNameDefinition from "../definition/ruleName";
+import NonTerminalPartNode from "../node/part/nonTerminal";
+import RuleNameNonTerminalPartRuleDefinition from "../definition/partRule/nonTerminal/ruleName";
 
-const { NonTerminalPartRuleName, ChoiceOfPartsRuleName, GroupOfPartsRuleName } = ruleNames;
+import { NonTerminalPartRuleName, ChoiceOfPartsRuleName, GroupOfPartsRuleName } from "../ruleNames";
 
 class NonTerminalPartRule extends Rule {
   constructor() {

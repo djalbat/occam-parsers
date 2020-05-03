@@ -1,12 +1,11 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const Definition = require("../definition"),
-      TerminalSymbolPart = require("../part/terminal/terminalSymbol");
+import Definition from "../definition";
+import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
-const { specialSymbols } = lexers,
-      { exclamationMark } = specialSymbols;
+const { exclamationMark } = specialSymbols;
 
 class LookAheadModifierRuleDefinition extends Definition {
   constructor() {

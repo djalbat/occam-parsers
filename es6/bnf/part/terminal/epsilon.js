@@ -1,12 +1,11 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const TerminalPart = require("../../part/terminal"),
-      EpsilonNode = require("../../../common/node/terminal/epsilon");
+import EpsilonNode from "../../../common/node/terminal/epsilon";
+import TerminalPart from "../../part/terminal";
 
-const { specialSymbols } = lexers,
-      { epsilon } = specialSymbols;
+const { epsilon } = specialSymbols;
 
 class EpsilonPart extends TerminalPart {
   parse(configuration) {

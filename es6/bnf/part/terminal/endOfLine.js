@@ -1,12 +1,11 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const TerminalPart = require("../../part/terminal"),
-      EndOfLineNode = require("../../../common/node/terminal/endOfLine");
+import TerminalPart from "../../part/terminal";
+import EndOfLineNode from "../../../common/node/terminal/endOfLine";
 
-const { specialSymbols } = lexers,
-      { END_OF_LINE } = specialSymbols;
+const { END_OF_LINE } = specialSymbols;
 
 class EndOfLinePart extends TerminalPart {
   parse(configuration) {

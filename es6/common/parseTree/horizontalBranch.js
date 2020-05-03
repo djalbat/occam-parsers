@@ -1,6 +1,6 @@
 "use strict";
 
-const ParseTree = require("../parseTree");
+import ParseTree from "../parseTree";
 
 class HorizontalBranchParseTree extends ParseTree {
   static fromWidth(width) {

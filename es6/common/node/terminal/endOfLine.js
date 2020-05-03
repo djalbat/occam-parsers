@@ -1,7 +1,7 @@
 "use strict";
 
-const TerminalNode = require("../terminal"),
-      EndOfLineNodeParseTree = require("../../parseTree/endOfLineNode");
+import TerminalNode from "../terminal";
+import EndOfLineNodeParseTree from "../../parseTree/endOfLineNode";
 
 class EndOfLineNode extends TerminalNode {
   getContent() {

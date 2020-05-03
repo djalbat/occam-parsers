@@ -1,10 +1,9 @@
 "use strict";
 
-const ruleNames = require("../bnf/ruleNames"),
-      arrayUtilities = require("../utilities/array");
+import arrayUtilities from "../utilities/array";
+import { LookAheadModifierRuleName, QuantifierRuleName, RuleNameRuleName } from "../bnf/ruleNames";
 
-const { first } = arrayUtilities,
-      { LookAheadModifierRuleName, QuantifierRuleName, RuleNameRuleName } = ruleNames;
+const { first } = arrayUtilities;
 
 function isNodeChoiceNode(node) {
   let nodeNoChoiceNode = false;

@@ -1,7 +1,7 @@
 "use strict";
 
-const Definition = require("../definition"),
-      TerminalSymbolPart = require("../part/terminal/terminalSymbol");
+import Definition from "../definition";
+import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
 class QuantifierRuleDefinition extends Definition {
   constructor(terminalSymbolContent) {

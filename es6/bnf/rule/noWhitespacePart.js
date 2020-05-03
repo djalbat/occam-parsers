@@ -1,11 +1,10 @@
 "use strict";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      NoWhitespacePartNode = require("../node/noWhitespacePart"),
-      NoWhitespacePartDefinition = require("../definition/noWhitespacePart");
+import Rule from "../rule";
+import NoWhitespacePartNode from "../node/noWhitespacePart";
+import NoWhitespacePartDefinition from "../definition/noWhitespacePart";
 
-const { NoWhitespacePartRuleName } = ruleNames;
+import { NoWhitespacePartRuleName } from "../ruleNames";
 
 class NoWhitespacePartRule extends Rule {
   constructor() {

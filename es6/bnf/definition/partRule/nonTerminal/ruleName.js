@@ -1,11 +1,10 @@
 "use strict";
 
-const ruleNames = require("../../../ruleNames"),
-      Definition = require("../../../definition"),
-      RuleNamePart = require("../../../part/nonTerminal/ruleName"),
-      OptionalPartPart = require("../../../part/nonTerminal/optionalPart");
+import Definition from "../../../definition";
+import RuleNamePart from "../../../part/nonTerminal/ruleName";
+import OptionalPartPart from "../../../part/nonTerminal/optionalPart";
 
-const { RuleNameRuleName, LookAheadModifierRuleName } = ruleNames;
+import { RuleNameRuleName, LookAheadModifierRuleName } from "../../../ruleNames";
 
 class RuleNameNonTerminalPartRuleDefinition extends Definition {
   constructor() {

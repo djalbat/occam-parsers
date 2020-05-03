@@ -1,12 +1,11 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const TerminalPart = require("../../part/terminal"),
-      NoWhitespaceNode = require("../../../common/node/terminal/noWhitespace");
+import TerminalPart from "../../part/terminal";
+import NoWhitespaceNode from "../../../common/node/terminal/noWhitespace";
 
-const { specialSymbols } = lexers,
-      { NO_WHITESPACE } = specialSymbols;
+const { NO_WHITESPACE } = specialSymbols;
 
 class NoWhitespacePart extends TerminalPart {
   parse(configuration) {

@@ -1,8 +1,8 @@
 "use strict";
 
-const arrayUtilities = require("../../utilities/array"),
-      NonTerminalNode = require("../../common/node/nonTerminal"),
-      SignificantTokenTypePart = require("../part/terminal/significantTokenType");
+import arrayUtilities from "../../utilities/array";
+import NonTerminalNode from "../../common/node/nonTerminal";
+import SignificantTokenTypePart from "../part/terminal/significantTokenType";
 
 const { first, second } = arrayUtilities;
 

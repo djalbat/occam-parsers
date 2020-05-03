@@ -1,12 +1,11 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { types } from "occam-lexers";
 
-const Definition = require("../definition"),
-      SignificantTokenTypePart = require("../part/terminal/significantTokenType");
+import Definition from "../definition";
+import SignificantTokenTypePart from "../part/terminal/significantTokenType";
 
-const { types } = lexers,
-      { nameType } = types;
+const { nameType } = types;
 
 class NameDefinition extends Definition {
   constructor() {

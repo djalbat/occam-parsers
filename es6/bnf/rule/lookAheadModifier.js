@@ -1,11 +1,10 @@
 "use strict";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      DefinitionNode = require("../node/definition"),
-      LookAheadModifierRuleDefinition = require("../definition/lookAheadModifierRule");
+import Rule from "../rule";
+import DefinitionNode from "../node/definition";
+import LookAheadModifierRuleDefinition from "../definition/lookAheadModifierRule";
 
-const { LookAheadModifierRuleName } = ruleNames;
+import { LookAheadModifierRuleName } from "../ruleNames";
 
 class LookAheadModifierRule extends Rule {
   constructor() {

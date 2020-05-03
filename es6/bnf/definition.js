@@ -1,10 +1,10 @@
 "use strict";
 
-const partUtilities = require("../utilities/part"),
-      arrayUtilities = require("../utilities/array");
+import arrayUtilities from "../utilities/array";
 
-const { isPartRuleNamePart } = partUtilities,
-      { first, concat, allButFirst } = arrayUtilities;
+import { isPartRuleNamePart } from "../utilities/part";
+
+const { first, concat, allButFirst } = arrayUtilities;
 
 class Definition {
   constructor(parts) {

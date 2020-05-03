@@ -1,7 +1,7 @@
 "use strict";
 
-const Configuration = require("./configuration"),
-      arrayUtilities = require("../utilities/array");
+import Configuration from "./configuration";
+import arrayUtilities from "../utilities/array";
 
 const { first } = arrayUtilities;
 

@@ -1,11 +1,10 @@
 "use strict";
 
-const Rule = require("../rule"),
-      PartNode = require("../node/part"),
-      ruleNames = require("../ruleNames"),
-      RuleNameDefinition = require("../definition/ruleName");
+import Rule from "../rule";
+import PartNode from "../node/part";
+import RuleNameDefinition from "../definition/ruleName";
 
-const { QuantifierRuleName, OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } = ruleNames;
+import { QuantifierRuleName, OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } from "../ruleNames";
 
 class QuantifierRule extends Rule {
   constructor() {

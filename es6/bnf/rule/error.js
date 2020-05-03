@@ -1,11 +1,10 @@
 "use strict";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      ErrorNode = require("../node/error"),
-      ErrorDefinition = require("../definition/error");
+import Rule from "../rule";
+import ErrorNode from "../node/error";
+import ErrorDefinition from "../definition/error";
 
-const { ErrorRuleName } = ruleNames;
+import { ErrorRuleName } from "../ruleNames";
 
 class ErrorRule extends Rule {
   constructor() {

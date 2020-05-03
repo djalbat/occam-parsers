@@ -1,7 +1,7 @@
 "use strict";
 
-const Definition = require("../definition"),
-      NonTerminalNode = require("../../common/node/nonTerminal");
+import Definition from "../definition";
+import NonTerminalNode from "../../common/node/nonTerminal";
 
 class DefinitionNode extends NonTerminalNode {
   generateDefinition() {

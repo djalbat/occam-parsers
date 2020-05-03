@@ -1,11 +1,10 @@
 "use strict";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      TerminalPartNode = require("../node/part/terminal"),
-      RuleNameDefinition = require("../definition/ruleName");
+import Rule from "../rule";
+import TerminalPartNode from "../node/part/terminal";
+import RuleNameDefinition from "../definition/ruleName";
 
-const { TerminalPartRuleName, RegularExpressionRuleName, SignificantTokenTypeRuleName, TerminalSymbolRuleName, EndOfLineRuleName, EpsilonRuleName, WildcardRuleName } = ruleNames;
+import { TerminalPartRuleName, RegularExpressionRuleName, SignificantTokenTypeRuleName, TerminalSymbolRuleName, EndOfLineRuleName, EpsilonRuleName, WildcardRuleName } from "../ruleNames";
 
 class TerminalPartRule extends Rule {
   constructor() {

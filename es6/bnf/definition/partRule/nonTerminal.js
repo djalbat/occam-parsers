@@ -1,11 +1,10 @@
 "use strict";
 
-const ruleNames = require("../../ruleNames"),
-      Definition = require("../../definition"),
-      RuleNamePart = require("../../part/nonTerminal/ruleName"),
-      ZeroOrMorePartsPart = require("../../part/nonTerminal/zeroOrMoreParts");
+import Definition from "../../definition";
+import RuleNamePart from "../../part/nonTerminal/ruleName";
+import ZeroOrMorePartsPart from "../../part/nonTerminal/zeroOrMoreParts";
 
-const { QuantifierRuleName, NonTerminalPartRuleName } = ruleNames;
+import { QuantifierRuleName, NonTerminalPartRuleName } from "../../ruleNames";
 
 class NonTerminalPartRuleDefinition extends Definition {
   constructor() {

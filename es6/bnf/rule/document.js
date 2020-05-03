@@ -1,11 +1,10 @@
 "use strict";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      DocumentNode = require("../node/document"),
-      DocumentDefinition = require("../definition/document");
+import Rule from "../rule";
+import DocumentNode from "../node/document";
+import DocumentDefinition from "../definition/document";
 
-const { DocumentRuleName } = ruleNames;
+import { DocumentRuleName } from "../ruleNames";
 
 class DocumentRule extends Rule {
   constructor() {

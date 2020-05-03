@@ -1,7 +1,7 @@
 "use strict";
 
-const TerminalPart = require("../../part/terminal"),
-      TerminalNode = require("../../../common/node/terminal");
+import TerminalPart from "../../part/terminal";
+import TerminalNode from "../../../common/node/terminal";
 
 class TerminalSymbolPart extends TerminalPart {
   constructor(content) {

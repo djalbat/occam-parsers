@@ -1,11 +1,11 @@
 "use strict";
 
-const partTypes = require("../../partTypes"),
-      arrayUtilities = require("../../../utilities/array"),
-      NonTerminalPart = require("../../part/nonTerminal");
+import arrayUtilities from "../../../utilities/array";
+import NonTerminalPart from "../../part/nonTerminal";
 
-const { allButFirstAndLast } = arrayUtilities,
-      { GroupOfPartsPartType } = partTypes;
+import { GroupOfPartsPartType } from "../../partTypes";
+
+const { allButFirstAndLast } = arrayUtilities;
 
 class GroupOfPartsPart extends NonTerminalPart {
   constructor(parts) {

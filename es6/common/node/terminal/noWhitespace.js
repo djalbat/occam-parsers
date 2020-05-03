@@ -1,7 +1,7 @@
 "use strict";
 
-const TerminalNode = require("../terminal"),
-      NoWhitespaceNodeParseTree = require("../../parseTree/noWhitespaceNode");
+import TerminalNode from "../terminal";
+import NoWhitespaceNodeParseTree from "../../parseTree/noWhitespaceNode";
 
 class NoWhitespaceNode extends TerminalNode {
   getType() {

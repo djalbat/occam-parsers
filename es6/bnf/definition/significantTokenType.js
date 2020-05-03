@@ -1,7 +1,7 @@
 "use strict";
 
-const Definition = require("../definition"),
-      SignificantTokenTypePart = require("../part/terminal/significantTokenType");
+import Definition from "../definition";
+import SignificantTokenTypePart from "../part/terminal/significantTokenType";
 
 class SignificantTokenTypeDefinition extends Definition {
   constructor(significantTokenType) {

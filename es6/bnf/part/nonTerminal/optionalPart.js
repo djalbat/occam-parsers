@@ -1,13 +1,12 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const partTypes = require("../../partTypes"),
-      NonTerminalPart = require("../../part/nonTerminal");
+import NonTerminalPart from "../../part/nonTerminal";
 
-const { specialSymbols } = lexers,
-      { questionMark } = specialSymbols,
-      { OptionalPartPartType } = partTypes;
+import { OptionalPartPartType } from "../../partTypes";
+
+const { questionMark } = specialSymbols;
 
 class OptionalPartPart extends NonTerminalPart {
   constructor(part) {

@@ -1,12 +1,10 @@
 "use strict";
 
-const necessary = require("necessary");
+import arrayUtilities from "../../utilities/array";
+import VerticalBranchParseTree from "./verticalBranch";
+import HorizontalBranchParseTree from "./horizontalBranch";
 
-const VerticalBranchParseTree = require("./verticalBranch"),
-      HorizontalBranchParseTree = require("./horizontalBranch");
-
-const { arrayUtilities } = necessary,
-      { first } = arrayUtilities;
+const { first } = arrayUtilities;
 
 class ChildNodesParseTree extends VerticalBranchParseTree {
   static fromChildNodesAndTokens(childNodes, tokens) {

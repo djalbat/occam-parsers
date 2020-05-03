@@ -1,8 +1,8 @@
 "use strict";
 
-const TerminalPart = require("../../part/terminal"),
-      TerminalNode = require("../../../common/node/terminal"),
-      arrayUtilities = require("../../../utilities/array");
+import TerminalPart from "../../part/terminal";
+import TerminalNode from "../../../common/node/terminal";
+import arrayUtilities from "../../../utilities/array";
 
 const { first } = arrayUtilities;
 

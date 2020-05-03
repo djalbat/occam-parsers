@@ -1,12 +1,11 @@
 "use strict";
 
-const ruleNames = require("../ruleNames"),
-      Definition = require("../definition"),
-      RuleNamePart = require("../part/nonTerminal/ruleName"),
-      ChoiceOfPartsPart = require("../part/nonTerminal/choiceOfParts"),
-      OneOrMorePartsPart = require("../part/nonTerminal/oneOrMoreParts");
+import Definition from "../definition";
+import RuleNamePart from "../part/nonTerminal/ruleName";
+import ChoiceOfPartsPart from "../part/nonTerminal/choiceOfParts";
+import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 
-const { RuleRuleName, ErrorRuleName } = ruleNames;
+import { RuleRuleName, ErrorRuleName } from "../ruleNames";
 
 class DocumentDefinition extends Definition {
   constructor() {

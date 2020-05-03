@@ -1,9 +1,8 @@
 "use strict";
 
-const ruleNames = require("../ruleNames"),
-      NonTerminalNode = require("../../common/node/nonTerminal");
+import NonTerminalNode from"../../common/node/nonTerminal";
 
-const { RuleRuleName } = ruleNames;
+import { RuleRuleName } from "../ruleNames";
 
 class DocumentNode extends NonTerminalNode {
   generateRules(Rule) {

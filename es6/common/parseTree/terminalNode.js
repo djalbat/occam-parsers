@@ -1,6 +1,6 @@
 "use strict";
 
-const VerticalBranchParseTree = require("./verticalBranch");
+import VerticalBranchParseTree from "./verticalBranch";
 
 class TerminalNodeParseTree extends VerticalBranchParseTree {
   static fromTerminalNodeAndTokens(terminalNode, tokens) {

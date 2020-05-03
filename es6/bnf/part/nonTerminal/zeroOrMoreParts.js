@@ -1,13 +1,12 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const partTypes = require("../../partTypes"),
-      SequenceOfPartsPart = require("./sequenceOfParts");
+import SequenceOfPartsPart from "./sequenceOfParts";
 
-const { specialSymbols } = lexers,
-      { asterisk } = specialSymbols,
-      { ZeroOrMorePartsPartType } = partTypes;
+import { ZeroOrMorePartsPartType } from "../../partTypes";
+
+const { asterisk } = specialSymbols;
 
 class ZeroOrMorePartsPart extends SequenceOfPartsPart {
   constructor(part) {

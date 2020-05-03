@@ -1,9 +1,9 @@
 "use strict";
 
-const arrayUtilities = require("../../utilities/array"),
-      RuleNameParseTree = require("./ruleName"),
-      ChildNodesParseTree = require("./childNodes"),
-      VerticalBranchParseTree = require("./verticalBranch");
+import arrayUtilities from "../../utilities/array";
+import RuleNameParseTree from "./ruleName";
+import ChildNodesParseTree from "./childNodes";
+import VerticalBranchParseTree from "./verticalBranch";
 
 const { first } = arrayUtilities;
 

@@ -1,16 +1,15 @@
 "use strict";
 
-const ruleNames = require("../ruleNames"),
-      bnfUtilities = require("../../utilities/bnf"),
-      arrayUtilities = require("../../utilities/array"),
-      NonTerminalNode = require("../../common/node/nonTerminal"),
-      OptionalPartPart = require("../part/nonTerminal/optionalPart"),
-      OneOrMorePartsPart = require("../part/nonTerminal/oneOrMoreParts"),
-      ZeroOrMorePartsPart = require("../part/nonTerminal/zeroOrMoreParts");
+import arrayUtilities from "../../utilities/array";
+import NonTerminalNode from "../../common/node/nonTerminal";
+import OptionalPartPart from "../part/nonTerminal/optionalPart";
+import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
+import ZeroOrMorePartsPart from "../part/nonTerminal/zeroOrMoreParts";
 
-const { last } = arrayUtilities,
-      { isNodeQuantifierNode, ruleNameFromQuantifierNode } = bnfUtilities,
-      { OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } = ruleNames;
+import { isNodeQuantifierNode, ruleNameFromQuantifierNode } from "../../utilities/bnf";
+import { OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } from "../ruleNames";
+
+const { last } = arrayUtilities;
 
 class PartNode extends NonTerminalNode {
   generatePart(lookAhead) {

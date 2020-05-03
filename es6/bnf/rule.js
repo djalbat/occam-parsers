@@ -1,8 +1,6 @@
 "use strict";
 
-const stringUtilities = require("../utilities/string");
-
-const { paddingFromPaddingLength } = stringUtilities;
+import { paddingFromPaddingLength } from "../utilities/string";
 
 class Rule {
   constructor(name, definitions, NonTerminalNode) {

@@ -1,19 +1,16 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { BNFLexer } from "occam-lexers";
 
-const bnf = require("./bnf"),
-      BNFParser = require("../bnf/parser"),
-      CommonParser = require("../common/parser");
-
-const { BNFLexer } = lexers;
-
-const bnfLexer = BNFLexer.fromNothing(),
-      bnfParser = BNFParser.fromNothing();
+import bnf from "./bnf";
+import BNFParser from "../bnf/parser";
+import CommonParser from "../common/parser";
 
 class MetaJSONParser extends CommonParser {
   static fromBNF(bnf) {
-    const tokens = bnfLexer.tokensFromBNF(bnf),
+    const bnfLexer = BNFLexer.fromNothing(),
+          bnfParser = BNFParser.fromNothing(),
+          tokens = bnfLexer.tokensFromBNF(bnf),
           rules = bnfParser.rulesFromTokens(tokens),
           metaJSONParser = new MetaJSONParser(rules);
 

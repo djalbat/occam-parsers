@@ -1,7 +1,7 @@
 "use strict";
 
-const NoWhitespacePart = require("../part/terminal/noWhitespace"),
-      NonTerminalNode = require("../../common/node/nonTerminal");
+import NonTerminalNode from "../../common/node/nonTerminal";
+import NoWhitespacePart from "../part/terminal/noWhitespace";
 
 class NoWhitespacePartNode extends NonTerminalNode {
   generatePart(lookAhead) {

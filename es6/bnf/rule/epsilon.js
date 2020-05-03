@@ -1,15 +1,14 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      EpsilonNode = require("../node/epsilon"),
-      TerminalSymbolDefinition = require("../definition/terminalSymbol");
+import Rule from "../rule";
+import EpsilonNode from "../node/epsilon";
+import TerminalSymbolDefinition from "../definition/terminalSymbol";
 
-const { specialSymbols } = lexers,
-      { epsilon } = specialSymbols,
-      { EpsilonRuleName } = ruleNames;
+import { EpsilonRuleName } from "../ruleNames";
+
+const { epsilon } = specialSymbols;
 
 class EpsilonRule extends Rule {
   constructor() {

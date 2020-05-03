@@ -1,11 +1,10 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const VerticalBranchParseTree = require("./verticalBranch");
+import VerticalBranchParseTree from "./verticalBranch";
 
-const { specialSymbols } = lexers,
-      { NO_WHITESPACE } = specialSymbols;
+const { NO_WHITESPACE } = specialSymbols;
 
 class NoWhitespaceNodeParseTree extends VerticalBranchParseTree {
   static fromNothing() {

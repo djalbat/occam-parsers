@@ -1,11 +1,10 @@
 "use strict";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      ChoiceOfPartsNode = require("../node/choiceOfParts"),
-      ChoiceOfPartsDefinition = require("../definition/choiceOfParts");
+import Rule from "../rule";
+import ChoiceOfPartsNode from "../node/choiceOfParts";
+import ChoiceOfPartsDefinition from "../definition/choiceOfParts";
 
-const { ChoiceOfPartsRuleName } = ruleNames;
+import { ChoiceOfPartsRuleName } from "../ruleNames";
 
 class ChoiceOfPartsRule extends Rule {
   constructor() {

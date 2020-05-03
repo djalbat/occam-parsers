@@ -45,15 +45,15 @@ export default class View extends Element {
   }
 
   keyUpHandler() {
-    try {
+    // try {
       const parseTree = this.getParseTree();
 
       this.setParseTree(parseTree);
-    } catch (error) {
-      console.log(error);
-
-      this.clearParseTree();
-    }
+    // } catch (error) {
+    //   console.log(error);
+    //
+    //   this.clearParseTree();
+    // }
   }
 
   childElements(properties) {

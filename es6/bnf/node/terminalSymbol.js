@@ -1,8 +1,8 @@
 "use strict";
 
-const arrayUtilities = require("../../utilities/array"),
-      NonTerminalNode = require("../../common/node/nonTerminal"),
-      TerminalSymbolPart = require("../part/terminal/terminalSymbol");
+import arrayUtilities from "../../utilities/array";
+import NonTerminalNode from "../../common/node/nonTerminal";
+import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
 const { first, second } = arrayUtilities;
 

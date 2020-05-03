@@ -1,7 +1,7 @@
 "use strict";
 
-const Definition = require("../definition"),
-      EpsilonPart = require("../part/terminal/epsilon");
+import Definition from "../definition";
+import EpsilonPart from "../part/terminal/epsilon";
 
 class EpsilonDefinition extends Definition {
   constructor() {

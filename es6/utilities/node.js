@@ -1,9 +1,8 @@
 "use strict";
 
-const necessary = require("necessary");
+import arrayUtilities from "../utilities/array";
 
-const { arrayUtilities } = necessary,
-      { first } = arrayUtilities;
+const { first } = arrayUtilities;
 
 function isNodeNullified(node) {
   let nodeNullified = false;

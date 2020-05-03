@@ -1,12 +1,11 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const TerminalPart = require("../../part/terminal"),
-      TerminalNode = require("../../../common/node/terminal");
+import TerminalPart from "../../part/terminal";
+import TerminalNode from "../../../common/node/terminal";
 
-const { specialSymbols } = lexers,
-      { wildcard } = specialSymbols;
+const { wildcard } = specialSymbols;
 
 class WildcardPart extends TerminalPart {
   parse(configuration) {

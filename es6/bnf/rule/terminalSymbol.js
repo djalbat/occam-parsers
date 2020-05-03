@@ -1,15 +1,14 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { types } from "occam-lexers";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      TerminalSymbolNode = require("../node/terminalSymbol"),
-      SignificantTokenTypeDefinition = require("../definition/significantTokenType");
+import Rule from "../rule";
+import TerminalSymbolNode from "../node/terminalSymbol";
+import SignificantTokenTypeDefinition from "../definition/significantTokenType";
 
-const { types } = lexers,
-      { stringLiteralType } = types,
-      { TerminalSymbolRuleName } = ruleNames;
+import { TerminalSymbolRuleName } from "../ruleNames";
+
+const { stringLiteralType } = types;
 
 class TerminalSymbolRule extends Rule {
   constructor() {

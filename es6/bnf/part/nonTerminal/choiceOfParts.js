@@ -1,11 +1,11 @@
 "use strict";
 
-const partTypes = require("../../partTypes"),
-      arrayUtilities = require("../../../utilities/array"),
-      NonTerminalPart = require("../../part/nonTerminal");
+import arrayUtilities from "../../../utilities/array";
+import NonTerminalPart from "../../part/nonTerminal";
 
-const { ChoiceOfPartsPartType } = partTypes,
-      { even, allButFirstAndLast } = arrayUtilities;
+import { ChoiceOfPartsPartType } from "../../partTypes";
+
+const { even, allButFirstAndLast } = arrayUtilities;
 
 class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(parts) {

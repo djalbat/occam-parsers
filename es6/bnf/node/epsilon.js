@@ -1,7 +1,7 @@
 "use strict";
 
-const EpsilonPart = require("../part/terminal/epsilon"),
-      NonTerminalNode = require("../../common/node/nonTerminal");
+import EpsilonPart from "../part/terminal/epsilon";
+import NonTerminalNode from "../../common/node/nonTerminal";
 
 class EpsilonNode extends NonTerminalNode {
   generatePart(lookAhead) {

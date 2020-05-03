@@ -1,19 +1,19 @@
 "use strict";
 
-const EpsilonPart = require("./part/terminal/epsilon"),
-      WildcardPart = require("./part/terminal/wildcard"),
-      EndOfLinePart = require("./part/terminal/endOfLine"),
-      TerminalSymbolPart = require("./part/terminal/terminalSymbol"),
-      RegularExpressionPart = require("./part/terminal/regularExpression"),
-      SignificantTokenTypePart = require("./part/terminal/significantTokenType"),
-      RuleNamePart = require("./part/nonTerminal/ruleName"),
-      OptionalPartPart = require("./part/nonTerminal/optionalPart"),
-      ZeroOrMorePartsPart = require("./part/nonTerminal/zeroOrMoreParts"),
-      OneOrMorePartsPart = require("./part/nonTerminal/oneOrMoreParts"),
-      GroupOfPartsPart = require("./part/nonTerminal/groupOfParts"),
-      ChoiceOfPartsPart = require("./part/nonTerminal/choiceOfParts");
+export { default as EpsilonPart } from "./part/terminal/epsilon";
+export { default as WildcardPart } from "./part/terminal/wildcard";
+export { default as EndOfLinePart } from "./part/terminal/endOfLine";
+export { default as TerminalSymbolPart } from "./part/terminal/terminalSymbol";
+export { default as RegularExpressionPart } from "./part/terminal/regularExpression";
+export { default as SignificantTokenTypePart } from "./part/terminal/significantTokenType";
+export { default as RuleNamePart } from "./part/nonTerminal/ruleName";
+export { default as OptionalPartPart } from "./part/nonTerminal/optionalPart";
+export { default as ZeroOrMorePartsPart } from "./part/nonTerminal/zeroOrMoreParts";
+export { default as OneOrMorePartsPart } from "./part/nonTerminal/oneOrMoreParts";
+export { default as GroupOfPartsPart } from "./part/nonTerminal/groupOfParts";
+export { default as ChoiceOfPartsPart } from "./part/nonTerminal/choiceOfParts";
 
-module.exports = {
+export default {
   EpsilonPart,
   WildcardPart,
   EndOfLinePart,

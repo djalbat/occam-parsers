@@ -1,15 +1,14 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { specialSymbols } from "occam-lexers";
 
-const Rule = require("../rule"),
-      ruleNames = require("../ruleNames"),
-      EndOfLineNode = require("../node/endOfLine"),
-      TerminalSymbolDefinition = require("../definition/terminalSymbol");
+import Rule from "../rule";
+import EndOfLineNode from "../node/endOfLine";
+import TerminalSymbolDefinition from "../definition/terminalSymbol";
 
-const { specialSymbols } = lexers,
-      { END_OF_LINE } = specialSymbols,
-      { EndOfLineRuleName } = ruleNames;
+import { EndOfLineRuleName } from "../ruleNames";
+
+const { END_OF_LINE } = specialSymbols;
 
 class EndOfLineRule extends Rule {
   constructor() {

@@ -1,19 +1,14 @@
 "use strict";
 
-const lexers = require("occam-lexers");
+import { BNFLexer } from "occam-lexers";
 
-const bnf = require("./bnf"),
-      BNFParser = require("../bnf/parser"),
-      CommonParser = require("../common/parser"),
-      termDefaultBNF = require("./defaultBNF/term"),
-      statementDefaultBNF = require("./defaultBNF/statement"),
-      expressionDefaultBNF = require("./defaultBNF/expression"),
-      metastatementDefaultBNF = require("./defaultBNF/metastatement");
-
-const { BNFLexer } = lexers;
-
-const bnfLexer = BNFLexer.fromNothing(),
-      bnfParser = BNFParser.fromNothing();
+import bnf from "./bnf";
+import BNFParser from "../bnf/parser";
+import CommonParser from "../common/parser";
+import termDefaultBNF from "./defaultBNF/term";
+import statementDefaultBNF from "./defaultBNF/statement";
+import expressionDefaultBNF from "./defaultBNF/expression";
+import metastatementDefaultBNF from "./defaultBNF/metastatement";
 
 class FlorenceParser extends CommonParser {
   static fromBNF(bnf) {
@@ -31,7 +26,9 @@ class FlorenceParser extends CommonParser {
       
     `; ///
 
-    const tokens = bnfLexer.tokensFromBNF(bnf),
+    const bnfLexer = BNFLexer.fromNothing(),
+          bnfParser = BNFParser.fromNothing(),
+          tokens = bnfLexer.tokensFromBNF(bnf),
           rules = bnfParser.rulesFromTokens(tokens),
           florenceParser = new FlorenceParser(rules);
 
