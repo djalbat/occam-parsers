@@ -6,6 +6,8 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 import { first, second } from "../../utilities/array";
 
 export default class TerminalSymbolNode extends NonTerminalNode {
+  regularExpression = /^"((?:\\.|[^"])*)"$/;
+
   generatePart(lookAhead) {
     const content = this.getContent(),
           terminalSymbolPart = new TerminalSymbolPart(content);
@@ -18,14 +20,12 @@ export default class TerminalSymbolNode extends NonTerminalNode {
           firstChildNode = first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
-          matches = terminalNodeContent.match(TerminalSymbolNode.regularExpression),
+          matches = terminalNodeContent.match(this.regularExpression),
           secondMatch = second(matches),
           content = secondMatch.replace(/\\"/g,""); ///
 
     return content;
   }
-
-  static regularExpression = /^"((?:\\.|[^"])*)"$/;
 
   static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(TerminalSymbolNode, ruleName, childNodes); }
 }
