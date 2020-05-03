@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-const ruleNames = require('../ruleNames'),
-      bnfUtilities = require('../../utilities/bnf'),
-      arrayUtilities = require('../../utilities/array'),
-      NonTerminalNode = require('../../common/node/nonTerminal'),
-      OptionalPartPart = require('../part/nonTerminal/optionalPart'),
-      OneOrMorePartsPart = require('../part/nonTerminal/oneOrMoreParts'),
-      ZeroOrMorePartsPart = require('../part/nonTerminal/zeroOrMoreParts');
+const ruleNames = require("../ruleNames"),
+      bnfUtilities = require("../../utilities/bnf"),
+      arrayUtilities = require("../../utilities/array"),
+      NonTerminalNode = require("../../common/node/nonTerminal"),
+      OptionalPartPart = require("../part/nonTerminal/optionalPart"),
+      OneOrMorePartsPart = require("../part/nonTerminal/oneOrMoreParts"),
+      ZeroOrMorePartsPart = require("../part/nonTerminal/zeroOrMoreParts");
 
 const { last } = arrayUtilities,
       { isNodeQuantifierNode, ruleNameFromQuantifierNode } = bnfUtilities,

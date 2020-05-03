@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers');
+const lexers = require("occam-lexers");
 
-const ExampleView = require('../../example/view'),
-      BasicParser = require('../../basic/parser');
+const ExampleView = require("../../example/view"),
+      BasicParser = require("../../basic/parser");
 
 const { BasicLexer } = lexers;
 
 class BasicExampleView extends ExampleView {
   getTitle() {
-    const title = 'Basic parser example';
+    const title = "Basic parser example";
 
     return title;
   }
@@ -27,7 +27,7 @@ class BasicExampleView extends ExampleView {
   }
 
   getInitialContent() {
-    const initialContent = '(1+2)/3';
+    const initialContent = "(1+2)/3";
 
     return initialContent;
   }
@@ -37,7 +37,7 @@ class BasicExampleView extends ExampleView {
 
 Object.assign(BasicExampleView, {
   defaultProperties: {
-    className: 'basic'
+    className: "basic"
   }
 });
 

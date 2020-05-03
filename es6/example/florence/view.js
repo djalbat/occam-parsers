@@ -1,17 +1,17 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers'),
-      easyLayout = require('easy-layout');
+const lexers = require("occam-lexers"),
+      easyLayout = require("easy-layout");
 
-const ruleUtilities = require('../../utilities/rule'),
-      ExampleView = require('../../example/view'),
-      FlorenceParser = require('../../florence/parser'),
-      RuleNameInput = require('../common/input/ruleName'),
-      BNFTextarea = require('../common/textarea/bnf'),
-      ContentTextarea = require('../common/textarea/content'),
-      ParseTreeTextarea = require('../common/textarea/parseTree'),
-      MainVerticalSplitter = require('../common/verticalSplitter/main'),
-      LexicalEntriesTextarea = require('../common/textarea/lexicalEntries');
+const ruleUtilities = require("../../utilities/rule"),
+      ExampleView = require("../../example/view"),
+      FlorenceParser = require("../../florence/parser"),
+      RuleNameInput = require("../common/input/ruleName"),
+      BNFTextarea = require("../common/textarea/bnf"),
+      ContentTextarea = require("../common/textarea/content"),
+      ParseTreeTextarea = require("../common/textarea/parseTree"),
+      MainVerticalSplitter = require("../common/verticalSplitter/main"),
+      LexicalEntriesTextarea = require("../common/textarea/lexicalEntries");
 
 const { FlorenceLexer } = lexers,
       { findRuleByName } = ruleUtilities,
@@ -85,7 +85,7 @@ class FlorenceExampleView extends ExampleView {
 
 Object.assign(FlorenceExampleView, {
   defaultProperties: {
-    className: 'florence'
+    className: "florence"
   }
 });
 

@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const Configuration = require('./configuration'),
-      arrayUtilities = require('../utilities/array');
+const Configuration = require("./configuration"),
+      arrayUtilities = require("../utilities/array");
 
 const { first } = arrayUtilities;
 

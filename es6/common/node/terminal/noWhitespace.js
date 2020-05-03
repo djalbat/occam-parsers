@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const TerminalNode = require('../terminal'),
-      NoWhitespaceNodeParseTree = require('../../parseTree/noWhitespaceNode');
+const TerminalNode = require("../terminal"),
+      NoWhitespaceNodeParseTree = require("../../parseTree/noWhitespaceNode");
 
 class NoWhitespaceNode extends TerminalNode {
   getType() {
@@ -11,7 +11,7 @@ class NoWhitespaceNode extends TerminalNode {
   }
 
   getContent() {
-    const content = '';  ///
+    const content = "";  ///
 
     return content;
   }

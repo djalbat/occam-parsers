@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const Definition = require('../definition'),
-      RuleNamePart = require('../part/nonTerminal/ruleName');
+const Definition = require("../definition"),
+      RuleNamePart = require("../part/nonTerminal/ruleName");
 
 class RuleNameDefinition extends Definition {
   constructor(ruleName) {

@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const VerticalBranchParseTree = require('./verticalBranch');
+const VerticalBranchParseTree = require("./verticalBranch");
 
 class RuleNameParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {

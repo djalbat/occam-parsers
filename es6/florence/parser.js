@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers');
+const lexers = require("occam-lexers");
 
-const bnf = require('./bnf'),
-      BNFParser = require('../bnf/parser'),
-      CommonParser = require('../common/parser'),
-      termDefaultBNF = require('./defaultBNF/term'),
-      expressionDefaultBNF = require('./defaultBNF/expression'),
-      statementDefaultBNF = require('./defaultBNF/statement'),
-      metastatementDefaultBNF = require('./defaultBNF/metastatement');
+const bnf = require("./bnf"),
+      BNFParser = require("../bnf/parser"),
+      CommonParser = require("../common/parser"),
+      termDefaultBNF = require("./defaultBNF/term"),
+      statementDefaultBNF = require("./defaultBNF/statement"),
+      expressionDefaultBNF = require("./defaultBNF/expression"),
+      metastatementDefaultBNF = require("./defaultBNF/metastatement");
 
 const { BNFLexer } = lexers;
 

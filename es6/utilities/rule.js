@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 function findRuleByName(name, rules) {
   const rule = rules.find(function(rule) {

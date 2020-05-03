@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const Definition = require('../definition'),
-      WildcardPart = require('../part/terminal/wildcard');
+const Definition = require("../definition"),
+      WildcardPart = require("../part/terminal/wildcard");
 
 class ErrorDefinition extends Definition {
   constructor() {

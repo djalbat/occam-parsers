@@ -1,13 +1,13 @@
-'use strict';
+"use strict";
 
-const easy = require('easy'),
-      easyLayout = require('easy-layout');
+const easy = require("easy"),
+      easyLayout = require("easy-layout");
 
-const BNFTextarea = require('./common/textarea/bnf'),
-      ContentTextarea = require('./common/textarea/content'),
-      ParseTreeTextarea = require('./common/textarea/parseTree'),
-      MainVerticalSplitter = require('./common/verticalSplitter/main'),
-      LexicalEntriesTextarea = require('./common/textarea/lexicalEntries');
+const BNFTextarea = require("./common/textarea/bnf"),
+      ContentTextarea = require("./common/textarea/content"),
+      ParseTreeTextarea = require("./common/textarea/parseTree"),
+      MainVerticalSplitter = require("./common/verticalSplitter/main"),
+      LexicalEntriesTextarea = require("./common/textarea/lexicalEntries");
 
 const { Element } = easy,
       { SizeableElement } = easyLayout;
@@ -49,7 +49,7 @@ class ExampleView extends Element {
   }
 
   getInitialContent() {
-    const initialContent = '';
+    const initialContent = "";
 
     return initialContent;
   }
@@ -108,9 +108,9 @@ class ExampleView extends Element {
 }
 
 Object.assign(ExampleView, {
-  tagName: 'div',
+  tagName: "div",
   defaultProperties: {
-    className: 'example'
+    className: "example"
   }
 });
 

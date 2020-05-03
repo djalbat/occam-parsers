@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const ruleNames = require('../ruleNames'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+const ruleNames = require("../ruleNames"),
+      NonTerminalNode = require("../../common/node/nonTerminal");
 
 const { RuleRuleName } = ruleNames;
 

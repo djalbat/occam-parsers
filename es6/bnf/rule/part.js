@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-const Rule = require('../rule'),
-      PartNode = require('../node/part'),
-      ruleNames = require('../ruleNames'),
-      RuleNameDefinition = require('../definition/ruleName'),
-      TerminalPartRuleDefinition = require('../definition/partRule/terminal'),
-      NonTerminalPartRuleDefinition = require('../definition/partRule/nonTerminal');
+const Rule = require("../rule"),
+      PartNode = require("../node/part"),
+      ruleNames = require("../ruleNames"),
+      RuleNameDefinition = require("../definition/ruleName"),
+      TerminalPartRuleDefinition = require("../definition/partRule/terminal"),
+      NonTerminalPartRuleDefinition = require("../definition/partRule/nonTerminal");
 
 const { PartRuleName, NoWhitespacePartRuleName } = ruleNames;
 

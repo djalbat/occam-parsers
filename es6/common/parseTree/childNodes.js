@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const necessary = require('necessary');
+const necessary = require("necessary");
 
-const VerticalBranchParseTree = require('./verticalBranch'),
-      HorizontalBranchParseTree = require('./horizontalBranch');
+const VerticalBranchParseTree = require("./verticalBranch"),
+      HorizontalBranchParseTree = require("./horizontalBranch");
 
 const { arrayUtilities } = necessary,
       { first } = arrayUtilities;

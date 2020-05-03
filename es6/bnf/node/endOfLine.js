@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const EndOfLinePart = require('../part/terminal/endOfLine'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+const EndOfLinePart = require("../part/terminal/endOfLine"),
+      NonTerminalNode = require("../../common/node/nonTerminal");
 
 class EndOfLineNode extends NonTerminalNode {
   generatePart(lookAhead) {

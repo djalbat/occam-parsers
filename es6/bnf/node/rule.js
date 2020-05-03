@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const arrayUtilities = require('../../utilities/array'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+const arrayUtilities = require("../../utilities/array"),
+      NonTerminalNode = require("../../common/node/nonTerminal");
 
 const { first, third } = arrayUtilities;
 

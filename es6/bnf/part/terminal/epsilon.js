@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers');
+const lexers = require("occam-lexers");
 
-const TerminalPart = require('../../part/terminal'),
-      EpsilonNode = require('../../../common/node/terminal/epsilon');
+const TerminalPart = require("../../part/terminal"),
+      EpsilonNode = require("../../../common/node/terminal/epsilon");
 
 const { specialSymbols } = lexers,
       { epsilon } = specialSymbols;

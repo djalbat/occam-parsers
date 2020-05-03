@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const bnf = `document                             ::=   ( rule | axiom | lemma | theorem | conjecture | metalemma | metatheorem | metaconjecture | declaration | verticalSpace | error )+ ;
 

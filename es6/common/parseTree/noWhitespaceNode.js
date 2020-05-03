@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers');
+const lexers = require("occam-lexers");
 
-const VerticalBranchParseTree = require('./verticalBranch');
+const VerticalBranchParseTree = require("./verticalBranch");
 
 const { specialSymbols } = lexers,
       { NO_WHITESPACE } = specialSymbols;

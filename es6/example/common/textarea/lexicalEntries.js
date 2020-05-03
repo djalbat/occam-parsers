@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const easy = require('easy');
+const easy = require("easy");
 
 const { InputElement } = easy;
 
@@ -14,7 +14,7 @@ class LexicalEntriesTextarea extends InputElement {
   }
 
   onKeyUp(keyUpHandler) {
-    this.on('keyUp', keyUpHandler);
+    this.on("keyup", keyUpHandler);
   }
 
   getLexicalEntries() {
@@ -25,7 +25,7 @@ class LexicalEntriesTextarea extends InputElement {
   }
 
   setLexicalEntries(lexicalEntries) {
-    const value = JSON.stringify(lexicalEntries, null, '  ');
+    const value = JSON.stringify(lexicalEntries, null, "  ");
 
     this.setValue(value);
   }
@@ -44,10 +44,10 @@ class LexicalEntriesTextarea extends InputElement {
 }
 
 Object.assign(LexicalEntriesTextarea, {
-  tagName: 'textarea',
+  tagName: "textarea",
   defaultProperties: {
-    className: 'lexical-entries',
-    spellCheck: 'false'
+    className: "lexical-entries",
+    spellCheck: "false"
   }
 });
 

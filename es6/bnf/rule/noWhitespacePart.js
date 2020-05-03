@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const Rule = require('../rule'),
-      ruleNames = require('../ruleNames'),
-      NoWhitespacePartNode = require('../node/noWhitespacePart'),
-      NoWhitespacePartDefinition = require('../definition/noWhitespacePart');
+const Rule = require("../rule"),
+      ruleNames = require("../ruleNames"),
+      NoWhitespacePartNode = require("../node/noWhitespacePart"),
+      NoWhitespacePartDefinition = require("../definition/noWhitespacePart");
 
 const { NoWhitespacePartRuleName } = ruleNames;
 

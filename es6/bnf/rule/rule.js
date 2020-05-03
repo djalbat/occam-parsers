@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const Rule = require('../rule'),
-      ruleNames = require('../ruleNames'),
-      RuleNode = require('../node/rule'),
-      RuleDefinition = require('../definition/rule');
+const Rule = require("../rule"),
+      ruleNames = require("../ruleNames"),
+      RuleNode = require("../node/rule"),
+      RuleDefinition = require("../definition/rule");
 
 const { RuleRuleName } = ruleNames;
 

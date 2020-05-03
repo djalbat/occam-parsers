@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const TerminalPart = require('../../part/terminal'),
-      TerminalNode = require('../../../common/node/terminal');
+const TerminalPart = require("../../part/terminal"),
+      TerminalNode = require("../../../common/node/terminal");
 
 class SignificantTokenTypePart extends TerminalPart {
   constructor(significantTokenType) {

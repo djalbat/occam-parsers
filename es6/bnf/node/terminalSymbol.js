@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-const arrayUtilities = require('../../utilities/array'),
-      NonTerminalNode = require('../../common/node/nonTerminal'),
-      TerminalSymbolPart = require('../part/terminal/terminalSymbol');
+const arrayUtilities = require("../../utilities/array"),
+      NonTerminalNode = require("../../common/node/nonTerminal"),
+      TerminalSymbolPart = require("../part/terminal/terminalSymbol");
 
 const { first, second } = arrayUtilities;
 
@@ -21,7 +21,7 @@ class TerminalSymbolNode extends NonTerminalNode {
           terminalNodeContent = terminalNode.getContent(),
           matches = terminalNodeContent.match(TerminalSymbolNode.regularExpression),
           secondMatch = second(matches),
-          content = secondMatch.replace(/\\"/g,'"'); ///
+          content = secondMatch.replace(/\\"/g,""); ///
 
     return content;
   }

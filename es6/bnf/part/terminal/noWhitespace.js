@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers');
+const lexers = require("occam-lexers");
 
-const TerminalPart = require('../../part/terminal'),
-      NoWhitespaceNode = require('../../../common/node/terminal/noWhitespace');
+const TerminalPart = require("../../part/terminal"),
+      NoWhitespaceNode = require("../../../common/node/terminal/noWhitespace");
 
 const { specialSymbols } = lexers,
       { NO_WHITESPACE } = specialSymbols;

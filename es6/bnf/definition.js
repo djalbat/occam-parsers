@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const partUtilities = require('../utilities/part'),
-      arrayUtilities = require('../utilities/array');
+const partUtilities = require("../utilities/part"),
+      arrayUtilities = require("../utilities/array");
 
 const { isPartRuleNamePart } = partUtilities,
       { first, concat, allButFirst } = arrayUtilities;
@@ -53,14 +53,14 @@ class Definition {
     const partsString = this.parts.reduce(function(partsString, part) {
           const partString = part.asString();
 
-          if (partsString === '') {
+          if (partsString === "") {
             partsString = partString; ///
           } else {
             partsString = `${partsString} ${partString}`;
           }
 
           return partsString;
-        }, ''),
+        }, ""),
         string = partsString; ///
 
     return string;

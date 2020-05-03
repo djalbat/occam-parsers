@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers');
+const lexers = require("occam-lexers");
 
-const partTypes = require('../../partTypes'),
-      SequenceOfPartsPart = require('./sequenceOfParts'),
-      ZeroOrMorePartsPart = require('./zeroOrMoreParts');
+const partTypes = require("../../partTypes"),
+      SequenceOfPartsPart = require("./sequenceOfParts"),
+      ZeroOrMorePartsPart = require("./zeroOrMoreParts");
 
 const { specialSymbols } = lexers,
       { plus } = specialSymbols,

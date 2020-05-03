@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const ruleNames = require('../bnf/ruleNames'),
-      arrayUtilities = require('../utilities/array');
+const ruleNames = require("../bnf/ruleNames"),
+      arrayUtilities = require("../utilities/array");
 
 const { first } = arrayUtilities,
       { LookAheadModifierRuleName, QuantifierRuleName, RuleNameRuleName } = ruleNames;
@@ -15,7 +15,7 @@ function isNodeChoiceNode(node) {
     const terminalNode = node,  ///
           terminalNodeContent = terminalNode.getContent();
 
-    nodeNoChoiceNode = (terminalNodeContent === '|');
+    nodeNoChoiceNode = (terminalNodeContent === "|");
   }
 
   return nodeNoChoiceNode;

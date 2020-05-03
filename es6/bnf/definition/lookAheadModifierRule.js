@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers');
+const lexers = require("occam-lexers");
 
-const Definition = require('../definition'),
-      TerminalSymbolPart = require('../part/terminal/terminalSymbol');
+const Definition = require("../definition"),
+      TerminalSymbolPart = require("../part/terminal/terminalSymbol");
 
 const { specialSymbols } = lexers,
       { exclamationMark } = specialSymbols;

@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const easylayout = require('easy-layout');
+const easylayout = require("easy-layout");
 
 const { Splitter, VerticalSplitter } = easylayout;
 
@@ -18,7 +18,7 @@ class MainVerticalSplitter extends VerticalSplitter {
 
 Object.assign(MainVerticalSplitter, {
   defaultProperties: {
-    className: 'main'
+    className: "main"
   }
 });
 

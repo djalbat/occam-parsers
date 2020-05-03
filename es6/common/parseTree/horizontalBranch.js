@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-const ParseTree = require('../parseTree');
+const ParseTree = require("../parseTree");
 
 class HorizontalBranchParseTree extends ParseTree {
   static fromWidth(width) {
-    const string = stringFromCharactersWidth(width, '-'),
+    const string = stringFromCharactersWidth(width, "-"),
           line = string, ///
           lines = [line],
           horizontalBranchParseTree = new HorizontalBranchParseTree(lines);
@@ -16,7 +16,7 @@ class HorizontalBranchParseTree extends ParseTree {
 module.exports = HorizontalBranchParseTree;
 
 function stringFromCharactersWidth(charactersWidth, character) {
-  let string = '';
+  let string = "";
 
   for (let index = 0; index < charactersWidth; index++) {
     string += character;

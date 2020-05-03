@@ -1,13 +1,13 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers');
+const lexers = require("occam-lexers");
 
-const ruleNames = require('../ruleNames'),
-      Definition = require('../definition'),
-      RuleNamePart = require('../part/nonTerminal/ruleName'),
-      GroupOfPartsPart = require('../part/nonTerminal/groupOfParts'),
-      OneOrMorePartsPart = require('../part/nonTerminal/oneOrMoreParts'),
-      TerminalSymbolPart = require('../part/terminal/terminalSymbol');
+const ruleNames = require("../ruleNames"),
+      Definition = require("../definition"),
+      RuleNamePart = require("../part/nonTerminal/ruleName"),
+      GroupOfPartsPart = require("../part/nonTerminal/groupOfParts"),
+      OneOrMorePartsPart = require("../part/nonTerminal/oneOrMoreParts"),
+      TerminalSymbolPart = require("../part/terminal/terminalSymbol");
 
 const { PartRuleName } = ruleNames,
       { specialSymbols } = lexers,

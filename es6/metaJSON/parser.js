@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers');
+const lexers = require("occam-lexers");
 
-const bnf = require('./bnf'),
-      BNFParser = require('../bnf/parser'),
-      CommonParser = require('../common/parser');
+const bnf = require("./bnf"),
+      BNFParser = require("../bnf/parser"),
+      CommonParser = require("../common/parser");
 
 const { BNFLexer } = lexers;
 

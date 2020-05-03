@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const arrayUtilities = require('../../utilities/array'),
-      NonTerminalNodeParseTree = require('../parseTree/nonTerminalNode');
+const arrayUtilities = require("../../utilities/array"),
+      NonTerminalNodeParseTree = require("../parseTree/nonTerminalNode");
 
 const { forwardsSome, backwardsSome } = arrayUtilities;
 

@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const easy = require('easy');
+const easy = require("easy");
 
 const { InputElement } = easy;
 
@@ -32,10 +32,10 @@ class BNFTextarea extends InputElement {
 }
 
 Object.assign(BNFTextarea, {
-  tagName: 'textarea',
+  tagName: "textarea",
   defaultProperties: {
-    className: 'bnf',
-    spellCheck: 'false'
+    className: "bnf",
+    spellCheck: "false"
   }
 });
 

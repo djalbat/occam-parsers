@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const stringUtilities = require('../utilities/string');
+const stringUtilities = require("../utilities/string");
 
 const { paddingFromPaddingLength } = stringUtilities;
 
@@ -110,7 +110,7 @@ class Rule {
     const tooDeep = configuration.isTooDeep();
 
     if (tooDeep) {
-      throw new Error(`The parse tree is too deep at rule '${this.name}'`);
+      throw new Error(`The parse tree is too deep at rule "${this.name}"`);
     }
 
     const nodes = definition.parse(configuration),
@@ -138,7 +138,7 @@ class Rule {
           definitionsString = this.definitions.reduce(function(definitionsString, definition) {
             const definitionString = definition.asString();
 
-            if (definitionsString === '') {
+            if (definitionsString === "") {
               definitionsString = definitionString; ///
             } else {
               definitionsString = multiLine ?
@@ -147,7 +147,7 @@ class Rule {
             }
 
             return definitionsString;
-          }, ''),
+          }, ""),
           ruleName = this.name, ///
           ruleNameLength = ruleName.length,
           paddingLength = maximumRuleNameLength - ruleNameLength,
@@ -155,7 +155,7 @@ class Rule {
 
     const semicolonString = multiLine ?
                              `\n\n${maximumPadding}   ;` :
-                               ' ;',
+                               " ;",
           string = `\n\n${this.name}${padding} ::= ${definitionsString}${semicolonString}`;
 
     return string;

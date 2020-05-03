@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const ParseTree = require('../parseTree');
+const ParseTree = require("../parseTree");
 
 class VerticalBranchParseTree extends ParseTree {
   constructor(lines, verticalBranchPosition) {
@@ -20,7 +20,7 @@ class VerticalBranchParseTree extends ParseTree {
   }
 
   static fromWidth(width) {
-    const string = '|',
+    const string = "|",
           verticalBranchPosition = 0,
           verticalBranchParseTree = VerticalBranchParseTree.fromStringAndVerticalBranchPosition(VerticalBranchParseTree, string, verticalBranchPosition),
           leftMarginWidth = Math.floor(width/2),
@@ -64,7 +64,7 @@ function linesFromDepth(depth) {
   let index = 0;
 
   while (index < depth) {
-    lines[index++] = '';
+    lines[index++] = "";
   }
 
   return lines;

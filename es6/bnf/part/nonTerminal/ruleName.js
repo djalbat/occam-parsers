@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers');
+const lexers = require("occam-lexers");
 
-const partTypes = require('../../partTypes'),
-      ruleUtilities = require('../../../utilities/rule'),
-      NonTerminalPart = require('../../part/nonTerminal');
+const partTypes = require("../../partTypes"),
+      ruleUtilities = require("../../../utilities/rule"),
+      NonTerminalPart = require("../../part/nonTerminal");
 
 const { specialSymbols } = lexers,
       { findRuleByName } = ruleUtilities,
@@ -69,7 +69,7 @@ class RuleNamePart extends NonTerminalPart {
   asString() {
     const lookAheadString = this.lookAhead ?
                               exclamationMark :
-                                '',
+                                "",
           string = `${this.ruleName}${lookAheadString}`;
 
     return string;

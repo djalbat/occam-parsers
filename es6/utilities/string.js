@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
 function paddingFromPaddingLength(paddingLength) {
-  let padding = '';
+  let padding = "";
 
   for (let position = 0; position < paddingLength; position++) {
     padding += ' ';

@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const Rule = require('../rule'),
-      ruleNames = require('../ruleNames'),
-      TerminalPartNode = require('../node/part/terminal'),
-      RuleNameDefinition = require('../definition/ruleName');
+const Rule = require("../rule"),
+      ruleNames = require("../ruleNames"),
+      TerminalPartNode = require("../node/part/terminal"),
+      RuleNameDefinition = require("../definition/ruleName");
 
 const { TerminalPartRuleName, RegularExpressionRuleName, SignificantTokenTypeRuleName, TerminalSymbolRuleName, EndOfLineRuleName, EpsilonRuleName, WildcardRuleName } = ruleNames;
 

@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const ruleNames = require('../../ruleNames'),
-      Definition = require('../../definition'),
-      RuleNamePart = require('../../part/nonTerminal/ruleName'),
-      ZeroOrMorePartsPart = require('../../part/nonTerminal/zeroOrMoreParts');
+const ruleNames = require("../../ruleNames"),
+      Definition = require("../../definition"),
+      RuleNamePart = require("../../part/nonTerminal/ruleName"),
+      ZeroOrMorePartsPart = require("../../part/nonTerminal/zeroOrMoreParts");
 
 const { QuantifierRuleName, TerminalPartRuleName } = ruleNames;
 

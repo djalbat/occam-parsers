@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-const TerminalNode = require('../terminal'),
-      EndOfLineNodeParseTree = require('../../parseTree/endOfLineNode');
+const TerminalNode = require("../terminal"),
+      EndOfLineNodeParseTree = require("../../parseTree/endOfLineNode");
 
 class EndOfLineNode extends TerminalNode {
   getContent() {
-    const content = '';  ///
+    const content = "";  ///
 
     return content;
   }

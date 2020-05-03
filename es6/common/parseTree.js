@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const arrayUtilities = require('../utilities/array');
+const arrayUtilities = require("../utilities/array");
 
 const { last } = arrayUtilities;
 
@@ -116,10 +116,10 @@ class ParseTree {
 
   asString() {
     const string = this.lines.reduce(function(string, line) {
-      string += line + '\n';
+      string += line + "\n";
 
       return string;
-    }, '');
+    }, "");
 
     return string;
   }
@@ -128,9 +128,9 @@ class ParseTree {
 module.exports = ParseTree;
 
 function marginStringFromMarginWidth(marginWidth, spaceCharacter) {
-  spaceCharacter = spaceCharacter || ' ';
+  spaceCharacter = spaceCharacter || " ";
 
-  let marginString = '';
+  let marginString = "";
 
   for (let index = 0; index < marginWidth; index++) {
     marginString += spaceCharacter;

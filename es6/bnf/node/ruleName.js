@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-const RuleNamePart = require('../part/nonTerminal/ruleName'),
-      arrayUtilities = require('../../utilities/array'),
-      NonTerminalNode = require('../../common/node/nonTerminal');
+const RuleNamePart = require("../part/nonTerminal/ruleName"),
+      arrayUtilities = require("../../utilities/array"),
+      NonTerminalNode = require("../../common/node/nonTerminal");
 
 const { first } = arrayUtilities;
 

@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const Rule = require('../rule'),
-      PartNode = require('../node/part'),
-      ruleNames = require('../ruleNames'),
-      RuleNameDefinition = require('../definition/ruleName');
+const Rule = require("../rule"),
+      PartNode = require("../node/part"),
+      ruleNames = require("../ruleNames"),
+      RuleNameDefinition = require("../definition/ruleName");
 
 const { QuantifierRuleName, OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } = ruleNames;
 

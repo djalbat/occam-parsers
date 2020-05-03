@@ -10,22 +10,24 @@
     "url": "https://github.com/jecs-imperial/occam-parsers"
   },
   "dependencies": {
-    "easy": "^7.10.0",
-    "easy-layout": "^2.1.46",
-    "juxtapose": "^1.0.89",
-    "necessary": "^3.2.13",
-    "occam-lexers": "^10.2.0"
+    "necessary": "^4.1.10",
+    "occam-lexers": "^11.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-transform-react-jsx": "^7.8.3",
     "@babel/preset-env": "^7.8.6",
-    "browserify": "^16.5.0",
-    "watchful-cli": "^1.0.10"
+    "browserify": "^16.5.1",
+    "easy": "^10.1.8",
+    "easy-layout": "^4.1.5",
+    "easy-with-style": "^1.0.11",
+    "juxtapose": "^2.0.1",
+    "watchful-cli": "^1.4.6"
   },
   "scripts": {
     "clean": "rm -rf ./lib",
-    "watchful": "watchful --source-directory=./es6 --temp-directory=./lib --entry-file=example.js --bundle-file=./example.js",
+    "watchful": "watchful --source-directory=./es6 --temp-directory=./lib --entry-file=example.js --bundle-file=./example.js --pause=100",
     "batch": "npm run watchful batch --",
     "batch-debug": "npm run watchful batch -- --debug",
     "incremental": "npm run watchful incremental --",
@@ -34,5 +36,6 @@
     "build-debug": "npm run clean && npm run batch-debug",
     "watch": "npm run clean && npm run batch && npm run incremental",
     "watch-debug": "npm run clean && npm run batch-debug && npm run incremental-debug"
-  }
+  },
+  "main": "./lib/index.js"
 }

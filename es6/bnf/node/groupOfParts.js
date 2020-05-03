@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const NonTerminalNode = require('../../common/node/nonTerminal'),
-      GroupOfPartsPart = require('../part/nonTerminal/groupOfParts');
+const NonTerminalNode = require("../../common/node/nonTerminal"),
+      GroupOfPartsPart = require("../part/nonTerminal/groupOfParts");
 
 class GroupOfPartsNode extends NonTerminalNode {
   generatePart(lookAhead) {

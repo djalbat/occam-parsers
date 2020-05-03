@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const Rule = require('../rule'),
-      ruleNames = require('../ruleNames'),
-      DefinitionNode = require('../node/definition'),
-      LookAheadModifierRuleDefinition = require('../definition/lookAheadModifierRule');
+const Rule = require("../rule"),
+      ruleNames = require("../ruleNames"),
+      DefinitionNode = require("../node/definition"),
+      LookAheadModifierRuleDefinition = require("../definition/lookAheadModifierRule");
 
 const { LookAheadModifierRuleName } = ruleNames;
 

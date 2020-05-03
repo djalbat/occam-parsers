@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const BNFParser = require('../bnf/parser');
+const BNFParser = require("../bnf/parser");
 
 class CustomGrammarBNFParser extends BNFParser {
   static fromNothing() {

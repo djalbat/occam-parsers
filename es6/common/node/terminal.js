@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const TerminalNodeParseTree = require('../parseTree/terminalNode');
+const TerminalNodeParseTree = require("../parseTree/terminalNode");
 
 class TerminalNode {
   constructor(significantToken, parentNode) {

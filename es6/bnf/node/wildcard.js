@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const NonTerminalNode = require('../../common/node/nonTerminal'),
-      WildcardPart = require('../part/terminal/wildcard');
+const NonTerminalNode = require("../../common/node/nonTerminal"),
+      WildcardPart = require("../part/terminal/wildcard");
 
 class WildcardNode extends NonTerminalNode {
   generatePart(lookAhead) {

@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const easy = require('easy');
+const easy = require("easy");
 
 const { InputElement } = easy;
 
@@ -24,11 +24,11 @@ class RuleNameInput extends InputElement {
 }
 
 Object.assign(RuleNameInput, {
-  tagName: 'input',
+  tagName: "input",
   defaultProperties: {
-    type: 'text',
-    className: 'rule-name',
-    spellCheck: 'false'
+    type: "text",
+    className: "rule-name",
+    spellCheck: "false"
   }
 });
 

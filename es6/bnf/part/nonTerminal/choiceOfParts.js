@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-const partTypes = require('../../partTypes'),
-      arrayUtilities = require('../../../utilities/array'),
-      NonTerminalPart = require('../../part/nonTerminal');
+const partTypes = require("../../partTypes"),
+      arrayUtilities = require("../../../utilities/array"),
+      NonTerminalPart = require("../../part/nonTerminal");
 
 const { ChoiceOfPartsPartType } = partTypes,
       { even, allButFirstAndLast } = arrayUtilities;

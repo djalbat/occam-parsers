@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
-const easy = require('easy');
+const easy = require("easy");
 
 const { InputElement } = easy;
 
 class ParseTreeTextarea extends InputElement {
   showError() {
-    this.addClass('error');
+    this.addClass("error");
   }
 
   hideError() {
-    this.removeClass('error');
+    this.removeClass("error");
   }
 
   setParseTree(parseTree) {
@@ -27,7 +27,7 @@ class ParseTreeTextarea extends InputElement {
   }
 
   clearParseTree() {
-    const value = '';
+    const value = "";
 
     this.setValue(value);
   }
@@ -50,10 +50,10 @@ class ParseTreeTextarea extends InputElement {
 }
 
 Object.assign(ParseTreeTextarea, {
-  tagName: 'textarea',
+  tagName: "textarea",
   defaultProperties: {
-    className: 'parse-tree',
-    spellCheck: 'false',
+    className: "parse-tree",
+    spellCheck: "false",
     readOnly: true
   }
 });

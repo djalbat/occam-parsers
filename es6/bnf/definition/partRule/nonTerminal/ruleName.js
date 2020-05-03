@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const ruleNames = require('../../../ruleNames'),
-      Definition = require('../../../definition'),
-      RuleNamePart = require('../../../part/nonTerminal/ruleName'),
-      OptionalPartPart = require('../../../part/nonTerminal/optionalPart');
+const ruleNames = require("../../../ruleNames"),
+      Definition = require("../../../definition"),
+      RuleNamePart = require("../../../part/nonTerminal/ruleName"),
+      OptionalPartPart = require("../../../part/nonTerminal/optionalPart");
 
 const { RuleNameRuleName, LookAheadModifierRuleName } = ruleNames;
 

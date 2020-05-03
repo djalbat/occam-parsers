@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers'),
-      easyLayout = require('easy-layout');
+const lexers = require("occam-lexers"),
+      easyLayout = require("easy-layout");
 
-const BNFParser = require('../../bnf/parser'),
-      ExampleView = require('../../example/view'),
-      BNFTextarea = require('../common/textarea/bnf'),
-      ContentTextarea = require('../common/textarea/content'),
-      ParseTreeTextarea = require('../common/textarea/parseTree'),
-      MainVerticalSplitter = require('../common/verticalSplitter/main'),
-      LexicalEntriesTextarea = require('../common/textarea/lexicalEntries');
+const BNFParser = require("../../bnf/parser"),
+      ExampleView = require("../../example/view"),
+      BNFTextarea = require("../common/textarea/bnf"),
+      ContentTextarea = require("../common/textarea/content"),
+      ParseTreeTextarea = require("../common/textarea/parseTree"),
+      MainVerticalSplitter = require("../common/verticalSplitter/main"),
+      LexicalEntriesTextarea = require("../common/textarea/lexicalEntries");
 
 const { BNFLexer } = lexers,
       { SizeableElement } = easyLayout;
@@ -80,7 +80,7 @@ class BNFExampleView extends ExampleView {
 
 Object.assign(BNFExampleView, {
   defaultProperties: {
-    className: 'bnf'
+    className: "bnf"
   }
 });
 
