@@ -1,9 +1,8 @@
 "use strict";
 
-import arrayUtilities from "../../utilities/array";
 import NonTerminalNode from "../../common/node/nonTerminal";
 
-const { first, third } = arrayUtilities;
+import { first, third } from "../../utilities/array";
 
 class RuleNode extends NonTerminalNode {
   generateRule(Rule) {

@@ -1,9 +1,7 @@
 "use strict";
 
-import arrayUtilities from "../utilities/array";
+import { first } from "../utilities/array";
 import { LookAheadModifierRuleName, QuantifierRuleName, RuleNameRuleName } from "../bnf/ruleNames";
-
-const { first } = arrayUtilities;
 
 function isNodeChoiceNode(node) {
   let nodeNoChoiceNode = false;

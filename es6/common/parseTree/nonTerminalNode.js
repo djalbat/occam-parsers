@@ -1,11 +1,10 @@
 "use strict";
 
-import arrayUtilities from "../../utilities/array";
 import RuleNameParseTree from "./ruleName";
 import ChildNodesParseTree from "./childNodes";
 import VerticalBranchParseTree from "./verticalBranch";
 
-const { first } = arrayUtilities;
+import { first } from "../../utilities/array";
 
 class NonTerminalNodeParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {

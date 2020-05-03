@@ -2,9 +2,8 @@
 
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../../common/node/terminal";
-import arrayUtilities from "../../../utilities/array";
 
-const { first } = arrayUtilities;
+import { first } from "../../../utilities/array";
 
 class RegularExpressionPart extends TerminalPart {
   constructor(regularExpression) {

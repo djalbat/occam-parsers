@@ -1,8 +1,6 @@
 "use strict";
 
-import arrayUtilities from "../utilities/array";
-
-const { last } = arrayUtilities;
+import { last } from "../utilities/array";
 
 class ParseTree {
   constructor(lines) {

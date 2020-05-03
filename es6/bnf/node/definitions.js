@@ -1,9 +1,8 @@
 "use strict";
 
-import arrayUtilities from "../../utilities/array";
 import NonTerminalNode from "../../common/node/nonTerminal";
 
-const { even } = arrayUtilities;
+import { even } from "../../utilities/array";
 
 class DefinitionsNode extends NonTerminalNode {
   generateDefinitions() {

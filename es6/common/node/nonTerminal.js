@@ -1,9 +1,8 @@
 "use strict";
 
-import arrayUtilities from "../../utilities/array";
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
-const { forwardsSome, backwardsSome } = arrayUtilities;
+import { forwardsSome, backwardsSome } from "../../utilities/array";
 
 class NonTerminalNode {
   constructor(ruleName, parentNode, childNodes) {

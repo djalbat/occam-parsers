@@ -1,9 +1,8 @@
 "use strict";
 
-import arrayUtilities from "../../../utilities/array";
 import NonTerminalNode from "../../../common/node/nonTerminal";
 
-const { first } = arrayUtilities;
+import { first } from "../../../utilities/array";
 
 class TerminalPartNode extends NonTerminalNode {
   generatePart(lookAhead) {

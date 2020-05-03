@@ -1,10 +1,7 @@
 "use strict";
 
-import arrayUtilities from "../utilities/array";
-
 import { isPartRuleNamePart } from "../utilities/part";
-
-const { first, concat, allButFirst } = arrayUtilities;
+import { first, concat, allButFirst } from "../utilities/array";
 
 class Definition {
   constructor(parts) {

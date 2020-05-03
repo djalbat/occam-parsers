@@ -1,10 +1,9 @@
 "use strict";
 
-import arrayUtilities from "../../utilities/array";
 import NonTerminalNode from "../../common/node/nonTerminal";
 import RegularExpressionPart from "../part/terminal/regularExpression";
 
-const { first, second } = arrayUtilities;
+import { first, second } from "../../utilities/array";
 
 class RegularExpressionNode extends NonTerminalNode {
   generatePart(lookAhead) {

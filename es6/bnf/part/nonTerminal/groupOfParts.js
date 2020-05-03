@@ -1,11 +1,9 @@
 "use strict";
 
-import arrayUtilities from "../../../utilities/array";
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { allButFirstAndLast } from "../../../utilities/array";
 import { GroupOfPartsPartType } from "../../partTypes";
-
-const { allButFirstAndLast } = arrayUtilities;
 
 class GroupOfPartsPart extends NonTerminalPart {
   constructor(parts) {

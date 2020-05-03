@@ -1,10 +1,9 @@
 "use strict";
 
-import arrayUtilities from "../../utilities/array";
 import VerticalBranchParseTree from "./verticalBranch";
 import HorizontalBranchParseTree from "./horizontalBranch";
 
-const { first } = arrayUtilities;
+import { first } from "../../utilities/array";
 
 class ChildNodesParseTree extends VerticalBranchParseTree {
   static fromChildNodesAndTokens(childNodes, tokens) {

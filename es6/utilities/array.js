@@ -2,19 +2,13 @@
 
 import { arrayUtilities } from "necessary";
 
-function even(array) { return array.filter(function(entry, index) { return isEven(index); }); }
+export const { first, second, third, last, concat, forwardsSome, backwardsSome } = arrayUtilities;
 
-function allButFirst(array) { return discardNth(array, 0); }
+export function even(array) { return array.filter(function(entry, index) { return isEven(index); }); }
 
-function allButFirstAndLast(array) { return discardNth(discardNth(array, -1), 0); }
+export function allButFirst(array) { return discardNth(array, 0); }
 
-Object.assign(arrayUtilities, {
-  even,
-  allButFirst,
-  allButFirstAndLast
-});
-
-export default arrayUtilities;
+export function allButFirstAndLast(array) { return discardNth(discardNth(array, -1), 0); }
 
 function discardNth(array, n) {
   array = array.slice();  ///

@@ -1,11 +1,9 @@
 "use strict";
 
-import arrayUtilities from "../../../utilities/array";
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { ChoiceOfPartsPartType } from "../../partTypes";
-
-const { even, allButFirstAndLast } = arrayUtilities;
+import { even, allButFirstAndLast } from "../../../utilities/array";
 
 class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(parts) {

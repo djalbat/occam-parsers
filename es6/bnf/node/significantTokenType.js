@@ -1,10 +1,9 @@
 "use strict";
 
-import arrayUtilities from "../../utilities/array";
 import NonTerminalNode from "../../common/node/nonTerminal";
 import SignificantTokenTypePart from "../part/terminal/significantTokenType";
 
-const { first, second } = arrayUtilities;
+import { first, second } from "../../utilities/array";
 
 class SignificantTokenTypeNode extends NonTerminalNode {
   generatePart(lookAhead) {

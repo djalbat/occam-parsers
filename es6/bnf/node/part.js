@@ -1,15 +1,13 @@
 "use strict";
 
-import arrayUtilities from "../../utilities/array";
 import NonTerminalNode from "../../common/node/nonTerminal";
 import OptionalPartPart from "../part/nonTerminal/optionalPart";
 import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 import ZeroOrMorePartsPart from "../part/nonTerminal/zeroOrMoreParts";
 
+import { last } from "../../utilities/array";
 import { isNodeQuantifierNode, ruleNameFromQuantifierNode } from "../../utilities/bnf";
 import { OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } from "../ruleNames";
-
-const { last } = arrayUtilities;
 
 class PartNode extends NonTerminalNode {
   generatePart(lookAhead) {

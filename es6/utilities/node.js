@@ -1,8 +1,6 @@
 "use strict";
 
-import arrayUtilities from "../utilities/array";
-
-const { first } = arrayUtilities;
+import { first } from "../utilities/array";
 
 function isNodeNullified(node) {
   let nodeNullified = false;

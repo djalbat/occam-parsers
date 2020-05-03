@@ -1,9 +1,8 @@
 "use strict";
 
 import Configuration from "./configuration";
-import arrayUtilities from "../utilities/array";
 
-const { first } = arrayUtilities;
+import { first } from "../utilities/array";
 
 class CommonParser {
   constructor(rules) {
