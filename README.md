@@ -1,4 +1,4 @@
-# Parsers
+# Occam Parsers
 
 [Occam](https://github.com/jecs-imperial/occam)'s parsers.
 
