@@ -1,6 +1,6 @@
 "use strict";
 
-const statementDefaultBNF = `statement                            ::=   parenthesisedStatement
+const statementDefaultCustomGrammarBNF = `statement                            ::=   parenthesisedStatement
 
                                        |   typeAssertion 
                                                   
@@ -15,4 +15,4 @@ typeAssertion                        ::=   expression ":" typeName ;
 
 equality                             ::=   expression "=" expression ;`;
 
-export default statementDefaultBNF;
+export default statementDefaultCustomGrammarBNF;

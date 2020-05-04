@@ -1,9 +1,9 @@
 "use strict";
 
-const termDefaultBNF = `term                                 ::=   [custom] parenthesisedTerms? 
+const termDefaultCustomGrammarBNF = `term                                 ::=   [custom] parenthesisedTerms? 
      
                                        |   name
                                  
                                        ;`;
 
-export default termDefaultBNF;
+export default termDefaultCustomGrammarBNF;

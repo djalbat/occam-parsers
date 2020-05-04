@@ -1,5 +1,5 @@
 "use strict";
 
-const expressionDefaultBNF = `expression                           ::=   term ;`;
+const expressionCustomGrammarDefaultBNF = `expression                           ::=   term ;`;
 
-export default expressionDefaultBNF;
+export default expressionCustomGrammarDefaultBNF;

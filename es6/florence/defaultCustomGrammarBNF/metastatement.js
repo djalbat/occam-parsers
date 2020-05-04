@@ -1,6 +1,6 @@
 "use strict";
 
-const metastatementDefaultBNF = `metastatement                        ::=   parenthesisedMetastatement
+const metastatementDefaultCustomGrammarBNF = `metastatement                        ::=   parenthesisedMetastatement
 
                                        |   contextDefinition 
            
@@ -24,4 +24,4 @@ subproof                             ::=   supposition "..." metastatement ;
 
 supposition                          ::=   "[" metastatement "]" ;`;
 
-export default metastatementDefaultBNF;
+export default metastatementDefaultCustomGrammarBNF;
