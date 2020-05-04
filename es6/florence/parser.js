@@ -5,10 +5,10 @@ import { BNFLexer } from "occam-lexers";
 import bnf from "./bnf";
 import BNFParser from "../bnf/parser";
 import CommonParser from "../common/parser";
-import termDefaultBNF from "./defaultBNF/term";
-import statementDefaultBNF from "./defaultBNF/statement";
-import expressionDefaultBNF from "./defaultBNF/expression";
-import metastatementDefaultBNF from "./defaultBNF/metastatement";
+import termDefaultCustomGrammarBNF from "./defaultCustomGrammarBNF/term";
+import statementDefaultCustomGrammarBNF from "./defaultCustomGrammarBNF/statement";
+import expressionDefaultCustomGrammarBNF from "./defaultCustomGrammarBNF/expression";
+import metastatementDefaultCustomGrammarBNF from "./defaultCustomGrammarBNF/metastatement";
 
 export default class FlorenceParser extends CommonParser {
   static bnf = bnf;
@@ -18,13 +18,13 @@ export default class FlorenceParser extends CommonParser {
     
       ${bnf}
       
-      ${termDefaultBNF}
+      ${termDefaultCustomGrammarBNF}
       
-      ${expressionDefaultBNF}
+      ${expressionDefaultCustomGrammarBNF}
       
-      ${statementDefaultBNF}
+      ${statementDefaultCustomGrammarBNF}
       
-      ${metastatementDefaultBNF}
+      ${metastatementDefaultCustomGrammarBNF}
       
     `; ///
 
