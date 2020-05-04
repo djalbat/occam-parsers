@@ -16,8 +16,7 @@ class RuleNameInput extends Input {
     const getRuleName = this.getRuleName.bind(this);
 
     return ({
-      getRuleName,
-      setRuleName
+      getRuleName
     });
   }
 

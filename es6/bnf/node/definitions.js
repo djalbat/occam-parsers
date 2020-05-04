@@ -9,7 +9,7 @@ export default class DefinitionsNode extends NonTerminalNode {
     const childNodes = this.getChildNodes(),
           evenChildNodes = even(childNodes),  ///
           definitionNodes = evenChildNodes, ///
-          definitions = definitionNodes.map(function(definitionNode) {
+          definitions = definitionNodes.map((definitionNode) => {
             const definition = definitionNode.generateDefinition();
             
             return definition;

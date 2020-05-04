@@ -9,7 +9,7 @@ export default class ChildNodesParseTree extends VerticalBranchParseTree {
   static fromChildNodesAndTokens(childNodes, tokens) {
     let childNodesParseTree;
 
-    const childNodeParseTrees = childNodes.reduce(function(childNodeParseTrees, childNode) {
+    const childNodeParseTrees = childNodes.reduce((childNodeParseTrees, childNode) => {
             const childNodeParseTree = childNode.asParseTree(tokens);
 
             childNodeParseTrees.push(childNodeParseTree);
@@ -28,7 +28,7 @@ export default class ChildNodesParseTree extends VerticalBranchParseTree {
           childNodeParseTreesWidth = 0,
           childNodeParseTreesDepth = 0;
 
-      childNodeParseTrees.forEach(function(childNodeParseTree, index) {
+      childNodeParseTrees.forEach((childNodeParseTree, index) => {
         const childNodeParseTreeWidth = childNodeParseTree.getWidth(),
               childNodeParseTreeDepth = childNodeParseTree.getDepth();
 
@@ -72,7 +72,7 @@ export default class ChildNodesParseTree extends VerticalBranchParseTree {
 
       childNodesParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(ChildNodesParseTree, childNodeParseTreesDepth, verticalBranchPosition);
 
-      childNodeParseTrees.forEach(function(childNodeParseTree, index) {
+      childNodeParseTrees.forEach((childNodeParseTree, index) => {
         const childNodeParseTreeDepth = childNodeParseTree.getDepth(),
               clonedChildNodeParseTree = childNodeParseTree.clone();
 

@@ -38,7 +38,7 @@ export default class NonTerminalNode {
   getFirstSignificantToken() {
     let firstSignificantToken = null;
 
-    forwardsSome(this.childNodes, function(childNode) {
+    forwardsSome(this.childNodes, (childNode) => {
       firstSignificantToken = childNode.getFirstSignificantToken();
 
       if (firstSignificantToken !== null) {
@@ -52,7 +52,7 @@ export default class NonTerminalNode {
   getLastSignificantToken() {
     let lastSignificantToken = null;
 
-    backwardsSome(this.childNodes, function(childNode) {
+    backwardsSome(this.childNodes, (childNode) => {
       lastSignificantToken = childNode.getLastSignificantToken();
 
       if (lastSignificantToken !== null) {

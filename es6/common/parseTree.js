@@ -43,27 +43,27 @@ export default class ParseTree {
   }
 
   appendToTop(parseTree) {
-    parseTree.forEachLine(function(line) {
+    parseTree.forEachLine((line) => {
       this.lines.unshift(line);
-    }.bind(this));
+    });
   }
 
   appendToLeft(parseTree) {
-    parseTree.forEachLine(function(line, index) {
+    parseTree.forEachLine((line, index) => {
       this.lines[index] = line + this.lines[index];
-    }.bind(this));
+    });
   }
 
   appendToRight(parseTree) {
-    parseTree.forEachLine(function(line, index) {
+    parseTree.forEachLine((line, index) => {
       this.lines[index] = this.lines[index] + line;
-    }.bind(this));
+    });
   }
 
   appendToBottom(parseTree) {
-    parseTree.forEachLine(function(line) {
+    parseTree.forEachLine((line) => {
       this.lines.push(line);
-    }.bind(this));
+    });
   }
 
   addTopMargin(topMarginDepth) {
@@ -113,7 +113,7 @@ export default class ParseTree {
   unshiftLine(line) { this.lines.unshift(line); }
 
   asString() {
-    const string = this.lines.reduce(function(string, line) {
+    const string = this.lines.reduce((string, line) => {
       string += line + "\n";
 
       return string;

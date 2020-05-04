@@ -8,7 +8,7 @@ export default class DefinitionNode extends NonTerminalNode {
     const childNodes = this.getChildNodes(),
           partNodes = childNodes, ///
           lookAhead = false,  ///
-          parts = partNodes.map(function(partNode) {
+          parts = partNodes.map((partNode) => {
             const part = partNode.generatePart(lookAhead);
   
             return part;

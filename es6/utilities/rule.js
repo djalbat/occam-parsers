@@ -1,7 +1,7 @@
 "use strict";
 
 export function findRuleByName(name, rules) {
-  const rule = rules.find(function(rule) {
+  const rule = rules.find((rule) => {
     const ruleName = rule.getName();
 
     if (ruleName === name) {

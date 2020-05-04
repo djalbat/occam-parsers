@@ -47,7 +47,7 @@ export default class Definition {
   }
   
   asString() {
-    const partsString = this.parts.reduce(function(partsString, part) {
+    const partsString = this.parts.reduce((partsString, part) => {
           const partString = part.asString();
 
           if (partsString === "") {
@@ -91,7 +91,7 @@ function parseParts(parts, nodes, configuration) {
     if (lookAhead) {
       const rule = ruleNamePart.findRule(configuration);
 
-      ruleNamePart.parseRuleWithLookAhead(rule, configuration, function(node) {
+      ruleNamePart.parseRuleWithLookAhead(rule, configuration, (node) => {
         const partNodeOrNodes = [];
 
         if (node !== null) {

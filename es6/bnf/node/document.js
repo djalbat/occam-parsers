@@ -7,7 +7,7 @@ import { RuleRuleName } from "../ruleNames";
 export default class DocumentNode extends NonTerminalNode {
   generateRules(Rule) {
     const childNodes = this.getChildNodes(),
-          ruleNodes = childNodes.reduce(function(ruleNodes, childNode) {
+          ruleNodes = childNodes.reduce((ruleNodes, childNode) => {
             const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
             if (childNodeNonTerminalNode) {
@@ -25,7 +25,7 @@ export default class DocumentNode extends NonTerminalNode {
 
             return ruleNodes;
           }, []),
-          rules = ruleNodes.map(function(ruleNode) {
+          rules = ruleNodes.map((ruleNode) => {
             const rule = ruleNode.generateRule(Rule);
             
             return rule;

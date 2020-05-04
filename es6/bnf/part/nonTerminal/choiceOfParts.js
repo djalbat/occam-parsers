@@ -21,7 +21,7 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
   parse(configuration) {
     let nodes = null;
     
-    this.parts.some(function(part) {
+    this.parts.some((part) => {
       const partNodeOrNodes = part.parse(configuration);
 
       if (partNodeOrNodes !== null) {
@@ -35,7 +35,7 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
   }
 
   asString() {
-    const partsString = this.parts.reduce(function(partsString, part) {
+    const partsString = this.parts.reduce((partsString, part) => {
             const partString = part.asString();
     
             if (partsString === null) {
@@ -63,7 +63,7 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     nodes = evenNodes;  ///
 
     const lookAhead = false,
-          parts = nodes.map(function(node) {
+          parts = nodes.map((node) => {
             const part = node.generatePart(lookAhead);
 
             return part;

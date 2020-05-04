@@ -133,7 +133,7 @@ export default class Rule {
     multiLine = multiLine && (definitionsLength > 1);  ///
 
     const maximumPadding = paddingFromPaddingLength(maximumRuleNameLength),
-          definitionsString = this.definitions.reduce(function(definitionsString, definition) {
+          definitionsString = this.definitions.reduce((definitionsString, definition) => {
             const definitionString = definition.asString();
 
             if (definitionsString === "") {

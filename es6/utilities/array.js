@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 export const { first, second, third, last, concat, forwardsSome, backwardsSome } = arrayUtilities;
 
-export function even(array) { return array.filter(function(entry, index) { return isEven(index); }); }
+export function even(array) { return array.filter((entry, index) => isEven(index)); }
 
 export function allButFirst(array) { return discardNth(array, 0); }
 

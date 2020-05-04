@@ -22,7 +22,7 @@ export default class GroupOfPartsPart extends NonTerminalPart {
     let nodes = [];
 
     const savedIndex = configuration.getSavedIndex(),
-          parsed = this.parts.every(function(part) {
+          parsed = this.parts.every((part) => {
             const partNodeOrNodes = part.parse(configuration);
 
             if (partNodeOrNodes !== null) {
@@ -42,7 +42,7 @@ export default class GroupOfPartsPart extends NonTerminalPart {
   }
 
   asString() {
-    const partsString = this.parts.reduce(function(partsString, part) {
+    const partsString = this.parts.reduce((partsString, part) => {
             const partString = part.asString();
 
             if (partsString === null) {
@@ -66,7 +66,7 @@ export default class GroupOfPartsPart extends NonTerminalPart {
     nodes = allButFirstAndLastNodes;  ///
 
     const lookAhead = false,
-          parts = nodes.map(function(node) {
+          parts = nodes.map((node) => {
             const part = node.generatePart(lookAhead);
 
             return part;
