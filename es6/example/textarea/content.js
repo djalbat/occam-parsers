@@ -11,7 +11,7 @@ export default class ContentTextarea extends Textarea {
   }
 
   setContent(content) {
-    const value = content;
+    const value = content;  ///
 
     this.setValue(value);
   }
