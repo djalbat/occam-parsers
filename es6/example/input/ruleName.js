@@ -21,7 +21,7 @@ class RuleNameInput extends Input {
   }
 
   static defaultProperties = {
-    className: "ruleName",
+    className: "rule-name",
     spellCheck: "false"
   };
 }
