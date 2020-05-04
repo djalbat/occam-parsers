@@ -45,15 +45,15 @@ export default class View extends Element {
   }
 
   keyUpHandler() {
-    // try {
+    try {
       const parseTree = this.getParseTree();
 
       this.setParseTree(parseTree);
-    // } catch (error) {
-    //   console.log(error);
-    //
-    //   this.clearParseTree();
-    // }
+    } catch (error) {
+      console.log(error);
+
+      this.clearParseTree();
+    }
   }
 
   childElements(properties) {
@@ -71,16 +71,16 @@ export default class View extends Element {
           </SubHeading>
           <LexicalEntriesTextarea onKeyUp={keyUpHandler} />
           <SubHeading>
-            Content
+            BNF
           </SubHeading>
-          <ContentTextarea onKeyUp={keyUpHandler} />
+          <BNFTextarea onKeyUp={keyUpHandler} />
         </SizeableDiv>
         <VerticalSplitterDiv />
         <ColumnDiv>
           <SubHeading>
-            BNF
+            Content
           </SubHeading>
-          <BNFTextarea />
+          <ContentTextarea onKeyUp={keyUpHandler} />
           <SubHeading>
             Parse tree
           </SubHeading>

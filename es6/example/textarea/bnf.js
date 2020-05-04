@@ -1,10 +1,8 @@
 "use strict";
 
-import withStyle from "easy-with-style";  ///
-
 import Textarea from "../textarea";
 
-class BNFTextarea extends Textarea {
+export default class BNFTextarea extends Textarea {
   getBNF() {
     const value = this.getValue(),
           bnf = value; ///
@@ -28,16 +26,8 @@ class BNFTextarea extends Textarea {
     });
   }
 
-  static tagName = "textarea";
-
   static defaultProperties = {
     className: "bnf",
     spellCheck: "false"
   };
 }
-
-export default withStyle(BNFTextarea)`
-
-  margin-bottom: 0;
-  
-`;

@@ -1,10 +1,8 @@
 "use strict";
 
-import withStyle from "easy-with-style";  ///
-
 import Textarea from "../textarea";
 
-class ParseTreeTextarea extends Textarea {
+export default class ParseTreeTextarea extends Textarea {
   setParseTree(parseTree) {
     if (parseTree !== null) {
       parseTree.shiftLine();  //
@@ -33,10 +31,10 @@ class ParseTreeTextarea extends Textarea {
       clearParseTree
     });
   }
+
+  static defaultProperties = {
+    className: "tokens",
+    spellCheck: "false",
+    readOnly: true
+  };
 }
-
-export default withStyle(ParseTreeTextarea)`
-
-  margin-bottom: 0;
-  
-`;

@@ -26,8 +26,6 @@ export default class LexicalEntriesTextarea extends Textarea {
     });
   }
 
-  static tagName = "textarea";
-
   static defaultProperties = {
     className: "lexical-entries",
     spellCheck: "false"
