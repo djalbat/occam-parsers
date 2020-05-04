@@ -10,10 +10,13 @@ import ColumnDiv from "./div/column";
 import SubHeading from "./subHeading";
 import SizeableDiv from "./div/sizeable";
 import BNFTextarea from "./textarea/bnf";
+import RuleNameInput from "./input/ruleName";
 import ContentTextarea from "./textarea/content";
 import ParseTreeTextarea from "./textarea/parseTree";
 import VerticalSplitterDiv from "./div/splitter/vertical";
 import LexicalEntriesTextarea from "./textarea/lexicalEntries";
+
+import { findRuleByName } from "../utilities/rule";
 
 export default class View extends Element {
   getTokens() {
@@ -34,8 +37,12 @@ export default class View extends Element {
           lexer = this.Lexer.fromEntries(entries),
           parser = this.Parser.fromBNF(bnf),
           content = this.getContent(),
+          ruleName = this.getRuleName(),
           tokens = lexer.tokenise(content),
-          node = parser.parse(tokens);
+          name = ruleName,  ///
+          rules = parser.getRules(),
+          rule = findRuleByName(name, rules),
+          node = parser.parse(tokens, rule);
 
     if (node !== null) {
       parseTree = node.asParseTree(tokens);
@@ -74,6 +81,10 @@ export default class View extends Element {
             BNF
           </SubHeading>
           <BNFTextarea onKeyUp={keyUpHandler} />
+          <SubHeading>
+            Rule name
+          </SubHeading>
+          <RuleNameInput onKeyUp={keyUpHandler} />
         </SizeableDiv>
         <VerticalSplitterDiv />
         <ColumnDiv>

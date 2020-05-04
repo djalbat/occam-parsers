@@ -20,8 +20,6 @@ class RuleNameInput extends Input {
     });
   }
 
-  static tagName = "textarea";
-
   static defaultProperties = {
     className: "ruleName",
     spellCheck: "false"
@@ -30,6 +28,9 @@ class RuleNameInput extends Input {
 
 export default withStyle(RuleNameInput)`
 
-  margin-bottom: 0;
+  border: 1px solid darkgrey;
+  padding: 0.25rem;
+  font-size: 1.2rem;
+  font-family: monospace;
   
 `;
