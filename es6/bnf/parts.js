@@ -1,17 +1,17 @@
 "use strict";
 
-export { default as EpsilonPart } from "./part/terminal/epsilon";
-export { default as WildcardPart } from "./part/terminal/wildcard";
-export { default as EndOfLinePart } from "./part/terminal/endOfLine";
-export { default as TerminalSymbolPart } from "./part/terminal/terminalSymbol";
-export { default as RegularExpressionPart } from "./part/terminal/regularExpression";
-export { default as SignificantTokenTypePart } from "./part/terminal/significantTokenType";
-export { default as RuleNamePart } from "./part/nonTerminal/ruleName";
-export { default as OptionalPartPart } from "./part/nonTerminal/optionalPart";
-export { default as ZeroOrMorePartsPart } from "./part/nonTerminal/zeroOrMoreParts";
-export { default as OneOrMorePartsPart } from "./part/nonTerminal/oneOrMoreParts";
-export { default as GroupOfPartsPart } from "./part/nonTerminal/groupOfParts";
-export { default as ChoiceOfPartsPart } from "./part/nonTerminal/choiceOfParts";
+import EpsilonPart from "./part/terminal/epsilon";
+import WildcardPart from "./part/terminal/wildcard";
+import EndOfLinePart from "./part/terminal/endOfLine";
+import TerminalSymbolPart from "./part/terminal/terminalSymbol";
+import RegularExpressionPart from "./part/terminal/regularExpression";
+import SignificantTokenTypePart from "./part/terminal/significantTokenType";
+import RuleNamePart from "./part/nonTerminal/ruleName";
+import OptionalPartPart from "./part/nonTerminal/optionalPart";
+import ZeroOrMorePartsPart from "./part/nonTerminal/zeroOrMoreParts";
+import OneOrMorePartsPart from "./part/nonTerminal/oneOrMoreParts";
+import GroupOfPartsPart from "./part/nonTerminal/groupOfParts";
+import ChoiceOfPartsPart from "./part/nonTerminal/choiceOfParts";
 
 export default {
   EpsilonPart,
