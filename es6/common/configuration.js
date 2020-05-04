@@ -1,6 +1,6 @@
 "use strict";
 
-const DEFAULT_MAXIMUM_DEPTH = 99;
+import { DEFAULT_MAXIMUM_DEPTH } from "../constants";
 
 export default class Configuration {
   constructor(tokens, rules, index, depth, maximumDepth) {
