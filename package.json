@@ -1,7 +1,7 @@
 {
   "name": "occam-parsers",
   "author": "James Smith",
-  "version": "11.0.14",
+  "version": "11.0.15",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/jecs-imperial/occam-parsers",
   "description": "Occam's parsers.",
@@ -19,10 +19,10 @@
     "@babel/plugin-transform-react-jsx": "^7.8.3",
     "@babel/preset-env": "^7.8.6",
     "browserify": "^16.5.1",
-    "easy": "^10.1.8",
-    "easy-layout": "^4.1.5",
-    "easy-with-style": "^1.0.11",
-    "juxtapose": "^2.0.1",
+    "easy": "^10.2.0",
+    "easy-layout": "^4.1.7",
+    "easy-with-style": "^1.1.5",
+    "juxtapose": "^2.0.2",
     "watchful-cli": "^1.4.6"
   },
   "scripts": {
