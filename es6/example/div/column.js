@@ -8,6 +8,5 @@ export default withStyle(ColumnDiv)`
 
   padding-left: 1rem;
   padding-right: 1rem;
-  flex-direction: column;
   
 `;

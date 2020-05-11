@@ -1,7 +1,7 @@
 "use strict";
 
 import { Element } from "easy";
-import { ColumnsDiv } from "easy-layout";
+import { RowsDiv, ColumnsDiv } from "easy-layout";
 
 import Heading from "./heading";
 import BackLink from "./link/back";
@@ -73,29 +73,33 @@ export default class View extends Element {
       </Heading>,
       <ColumnsDiv>
         <SizeableDiv>
-          <SubHeading>
-            Lexical entries
-          </SubHeading>
-          <LexicalEntriesTextarea onKeyUp={keyUpHandler} />
-          <SubHeading>
-            BNF
-          </SubHeading>
-          <BNFTextarea onKeyUp={keyUpHandler} />
-          <SubHeading>
-            Rule name
-          </SubHeading>
-          <RuleNameInput onKeyUp={keyUpHandler} />
+          <RowsDiv>
+            <SubHeading>
+              Lexical entries
+            </SubHeading>
+            <LexicalEntriesTextarea onKeyUp={keyUpHandler} />
+            <SubHeading>
+              BNF
+            </SubHeading>
+            <BNFTextarea onKeyUp={keyUpHandler} />
+            <SubHeading>
+              Rule name
+            </SubHeading>
+            <RuleNameInput onKeyUp={keyUpHandler} />
+          </RowsDiv>
         </SizeableDiv>
         <VerticalSplitterDiv />
         <ColumnDiv>
-          <SubHeading>
-            Content
-          </SubHeading>
-          <ContentTextarea onKeyUp={keyUpHandler} />
-          <SubHeading>
-            Parse tree
-          </SubHeading>
-          <ParseTreeTextarea />
+          <RowsDiv>
+            <SubHeading>
+              Content
+            </SubHeading>
+            <ContentTextarea onKeyUp={keyUpHandler} />
+            <SubHeading>
+              Parse tree
+            </SubHeading>
+            <ParseTreeTextarea />
+          </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>,
       <Paragraph>
