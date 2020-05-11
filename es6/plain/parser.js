@@ -6,13 +6,14 @@ import bnf from "./bnf";
 import BNFParser from "../bnf/parser";
 import CommonParser from "../common/parser";
 
+const bnfLexer = BNFLexer.fromNothing(),
+      bnfParser = BNFParser.fromNothing();
+
 export default class PlainParser extends CommonParser {
   static bnf = bnf;
 
   static fromBNF(bnf) {
-    const bnfLexer = BNFLexer.fromNothing(),
-          bnfParser = BNFParser.fromNothing(),
-          tokens = bnfLexer.tokensFromBNF(bnf),
+    const tokens = bnfLexer.tokensFromBNF(bnf),
           rules = bnfParser.rulesFromTokens(tokens),
           plainParser = new PlainParser(rules);
 

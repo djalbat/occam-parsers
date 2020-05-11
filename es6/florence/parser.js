@@ -8,6 +8,9 @@ import CommonParser from "../common/parser";
 
 import { termBNF, expressionBNF, statementBNF, metastatementBNF } from "./defaultCustomGrammar";
 
+const bnfLexer = BNFLexer.fromNothing(),
+      bnfParser = BNFParser.fromNothing();
+
 export default class FlorenceParser extends CommonParser {
   static bnf = bnf;
 
@@ -26,9 +29,7 @@ export default class FlorenceParser extends CommonParser {
       
     `; ///
 
-    const bnfLexer = BNFLexer.fromNothing(),
-          bnfParser = BNFParser.fromNothing(),
-          tokens = bnfLexer.tokensFromBNF(bnf),
+    const tokens = bnfLexer.tokensFromBNF(bnf),
           rules = bnfParser.rulesFromTokens(tokens),
           florenceParser = new FlorenceParser(rules);
 
