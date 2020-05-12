@@ -22,7 +22,7 @@ export default class TerminalSymbolNode extends NonTerminalNode {
           terminalNodeContent = terminalNode.getContent(),
           matches = terminalNodeContent.match(this.regularExpression),
           secondMatch = second(matches),
-          content = secondMatch.replace(/\\"/g,""); ///
+          content = secondMatch.replace(/\\"/g,"\""); ///
 
     return content;
   }
