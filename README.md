@@ -119,6 +119,8 @@ You will need to do this if you want to look at the examples.
 
 ## Usage
 
+Import the require parser and its corresponding lexer's classes from this and the `occam-lexers` package, respectively. Then call their `fromNothing(...)` factory methods.
+
 ```
 import { FlorenceLexer } from "occam-lexers";
 import { FlorenceParser } from "occam-parsers"
@@ -136,6 +138,7 @@ const content = `
 
 ...
 ```
+The tokens returned from the lexers's `tokenise(...)` method can be passed directly to the parser's `parse(...)` method, which itself returns a node or `null`.
 
 ## Examples
 
@@ -212,7 +215,7 @@ Now the `ABC` rule will indeed parse the tokens `a`, `b`, `c`, because the secon
 
 It seems that the parser parses with roughly linear complexity as a function of the length of the input, however it is most likely that look-ahead parses take exponential time. For this reason, look-ahead should be used sparingly.
 
-## Building
+## Compiling from source
 
 Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. The pertinent commands are:
 
