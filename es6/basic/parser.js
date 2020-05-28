@@ -20,15 +20,7 @@ export default class BasicParser extends CommonParser {
     return basicParser;
   }
 
-  static fromRules(rules) {
-    const basicParser = new BasicParser(rules);
+  static fromRules(rules) { return new BasicParser(rules); }
 
-    return basicParser;
-  }
-
-  static fromNothing() {
-    const basicParser = BasicParser.fromBNF(bnf);
-
-    return basicParser;
-  }
+  static fromNothing() { return BasicParser.fromBNF(bnf); }
 }

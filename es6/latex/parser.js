@@ -20,9 +20,5 @@ export default class LaTeXParser extends CommonParser {
     return laTeXParser;
   }
 
-  static fromNothing() {
-    const laTeXParser = LaTeXParser.fromBNF(bnf);
-
-    return laTeXParser;
-  }
+  static fromNothing() { return LaTeXParser.fromBNF(bnf); }
 }

@@ -20,9 +20,5 @@ export default class MetaJSONParser extends CommonParser {
     return metaJSONParser;
   }
 
-  static fromNothing() {
-    const metaJSONParser = MetaJSONParser.fromBNF(bnf);
-
-    return metaJSONParser;
-  }
+  static fromNothing() { return MetaJSONParser.fromBNF(bnf); }
 }

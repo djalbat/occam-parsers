@@ -20,9 +20,5 @@ export default class CustomGrammarLexicalPatternParser extends CommonParser {
     return customGrammarLexicalPatternParser;
   }
 
-  static fromNothing() {
-    const customGrammarLexicalPatternParser = CustomGrammarLexicalPatternParser.fromBNF(bnf);
-
-    return customGrammarLexicalPatternParser;
-  }
+  static fromNothing() { return CustomGrammarLexicalPatternParser.fromBNF(bnf); }
 }

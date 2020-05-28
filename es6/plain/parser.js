@@ -20,9 +20,5 @@ export default class PlainParser extends CommonParser {
     return plainParser;
   }
 
-  static fromNothing() {
-    const plainParser = PlainParser.fromBNF(bnf);
-
-    return plainParser;
-  }
+  static fromNothing() { return PlainParser.fromBNF(bnf); }
 }

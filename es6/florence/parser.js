@@ -36,9 +36,5 @@ export default class FlorenceParser extends CommonParser {
     return florenceParser;
   }
 
-  static fromNothing() {
-    const florenceParser = FlorenceParser.fromBNF(bnf);
-
-    return florenceParser;
-  }
+  static fromNothing() { return FlorenceParser.fromBNF(bnf); }
 }
