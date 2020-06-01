@@ -7,7 +7,7 @@ export default class TerminalNodeParseTree extends VerticalBranchParseTree {
     const significantToken = terminalNode.getSignificantToken(),
           content = terminalNode.getContent(),
           type = significantToken.getType(),
-          tokenIndex = tokens.indexOf(significantToken),
+          tokenIndex = significantToken.ofIndex(tokens),
           string = `${content}[${type}](${tokenIndex})`,
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
