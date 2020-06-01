@@ -22,8 +22,8 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
 function tokenIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
   const firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
         lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
-        firstSignificantTokenIndex = firstSignificantToken.ofIndex(tokens),
-        lastSignificantTokenIndex = lastSignificantToken.ofIndex(tokens),
+        firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
+        lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
         tokenIndexes = (firstSignificantTokenIndex !== lastSignificantTokenIndex) ?
                         `(${firstSignificantTokenIndex}-${lastSignificantTokenIndex})` :
                           `(${firstSignificantTokenIndex})`;
