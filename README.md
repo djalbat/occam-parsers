@@ -178,7 +178,7 @@ This can be done with the `<NO_WHITESPACE>` special symbol. For example:
 
      parenthesisedTerms         ::=   <NO_WHITESPACE>"(" terms <NO_WHITESPACE>")" ;
 
-Note that no whitespace can only be stipulated for terminal symbols.
+It is conventional to leave no whitespace between the no whitespace part and the subsequent part.
 
 ### Grouping parts
 
