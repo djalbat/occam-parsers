@@ -25,10 +25,8 @@ switch (example) {
 
 renderStyles();
 
-const exampleView =
+body.mount(
 
   <View />
 
-;
-
-exampleView.appendTo(body);
+);

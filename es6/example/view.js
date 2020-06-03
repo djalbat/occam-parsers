@@ -65,7 +65,7 @@ export default class View extends Element {
     }
   }
 
-  childElements(properties) {
+  childElements() {
     const keyUpHandler = this.keyUpHandler.bind(this);
 
     return ([
@@ -115,7 +115,7 @@ export default class View extends Element {
     ]);
   }
 
-  initialise(properties) {
+  initialise() {
     this.assignContext();
 
     const { bnf } = this.Parser,
@@ -135,7 +135,7 @@ export default class View extends Element {
   static fromClass(Class, properties) {
     const exampleView = Element.fromClass(Class, properties);
 
-    exampleView.initialise(properties);
+    exampleView.initialise();
 
     return exampleView
   }
