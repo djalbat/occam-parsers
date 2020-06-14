@@ -222,6 +222,12 @@ Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have
     npm run build-debug
     npm run watch-debug
 
+You can also start a small development server:
+
+    npm start
+
+The example will then be available at http://localhost:8888/ and will reload automatically when changes are made.
+
 ## Contact
 
 * james.smith@openmathematics.org

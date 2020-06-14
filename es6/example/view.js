@@ -4,8 +4,6 @@ import { Element } from "easy";
 import { RowsDiv, ColumnsDiv } from "easy-layout";
 
 import Heading from "./heading";
-import BackLink from "./link/back";
-import Paragraph from "./paragraph";
 import ColumnDiv from "./div/column";
 import SubHeading from "./subHeading";
 import SizeableDiv from "./div/sizeable";
@@ -107,10 +105,7 @@ export default class View extends Element {
             <ParseTreeTextarea />
           </RowsDiv>
         </ColumnDiv>
-      </ColumnsDiv>,
-      <Paragraph>
-        <BackLink />
-      </Paragraph>
+      </ColumnsDiv>
 
     ]);
   }
