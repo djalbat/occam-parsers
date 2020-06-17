@@ -15,12 +15,12 @@ export default class BasicParser extends CommonParser {
   static fromBNF(bnf) {
     const tokens = bnfLexer.tokensFromBNF(bnf),
           rules = bnfParser.rulesFromTokens(tokens),
-          basicParser = new BasicParser(rules);
+          basicParser = BasicParser.fromRules(rules);
 
     return basicParser;
   }
 
-  static fromRules(rules) { return new BasicParser(rules); }
+  static fromRules(rules) { return CommonParser.fromRules(BasicParser, rules); }
 
   static fromNothing() { return BasicParser.fromBNF(bnf); }
 }

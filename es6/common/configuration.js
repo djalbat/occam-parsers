@@ -3,20 +3,20 @@
 import { DEFAULT_MAXIMUM_DEPTH } from "../constants";
 
 export default class Configuration {
-  constructor(tokens, rules, index, depth, maximumDepth) {
+  constructor(ruleMap, tokens, index, depth, maximumDepth) {
+    this.ruleMap = ruleMap;
     this.tokens = tokens;
-		this.rules = rules;
 		this.index = index;
 		this.depth = depth;
     this.maximumDepth = maximumDepth;
   }
-  
-  getTokens() {
-    return this.tokens;
+
+  getRuleMap() {
+    return this.ruleMap;
   }
 
-  getRules() {
-    return this.rules;
+  getTokens() {
+    return this.tokens;
   }
 
 	getIndex() {
@@ -92,11 +92,11 @@ export default class Configuration {
     this.depth--;
   }
 
-  static fromTokensAndRules(tokens, rules) {
+  static fromTokensAndRuleMap(tokens, ruleMap) {
     const index = 0,
 					depth = 0,
 					maximumDepth = DEFAULT_MAXIMUM_DEPTH,
-					configuration = new Configuration(tokens, rules, index, depth, maximumDepth);
+					configuration = new Configuration(ruleMap, tokens, index, depth, maximumDepth);
 
     return configuration;
   }

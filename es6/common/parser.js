@@ -5,33 +5,38 @@ import Configuration from "./configuration";
 import { first } from "../utilities/array";
 
 export default class CommonParser {
-  constructor(rules) {
-    this.rules = rules;
+  constructor(startRule, ruleMap) {
+    this.startRule = startRule;
+    this.ruleMap = ruleMap;
   }
 
-  getRules() {
-    return this.rules;
+  getStartRule() {
+    return this.startRule;
   }
 
-  parse(tokens, rule = null) {
-    let node = null;
+  getRuleMap() {
+    return this.ruleMap;
+  }
 
-    if (rule === null) {
-      const rulesLength = this.rules.length;
-
-      if (rulesLength > 0) {
-        const firstRule = first(this.rules);
-
-        rule = firstRule; ///
-      }
-    }
-
-    if (rule !== null) {
-      const configuration = Configuration.fromTokensAndRules(tokens, this.rules);
-
-      node = rule.parse(configuration);
-    }
+  parse(tokens, rule = this.startRule) {
+    const configuration = Configuration.fromTokensAndRuleMap(tokens, this.ruleMap),
+          node = rule.parse(configuration);
 
     return node;
+  }
+
+  static fromRules(Parser, rules) {
+    const firstRule = first(rules),
+          startRule = firstRule,  ///
+          ruleMap = rules.reduce((ruleMap, rule) => {
+            const ruleName = rule.getName();
+
+            ruleMap[ruleName] = rule;
+
+            return ruleMap;
+          }, {}),
+          parser = new Parser(startRule, ruleMap);
+
+    return parser;
   }
 }

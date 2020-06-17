@@ -4,7 +4,6 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { findRuleByName } from "../../../utilities/rule";
 import { RuleNamePartType } from "../../partTypes";
 
 const { exclamationMark } = specialSymbols;
@@ -39,9 +38,8 @@ export default class RuleNamePart extends NonTerminalPart {
   }
 
   findRule(configuration) {
-    const name = this.ruleName, ///
-          rules = configuration.getRules(),
-          rule = findRuleByName(name, rules);
+    const ruleMap = configuration.getRuleMap(),
+          rule = ruleMap[this.ruleName] || null;  ///
 
     return rule;
   }

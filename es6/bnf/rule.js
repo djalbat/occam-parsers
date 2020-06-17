@@ -108,14 +108,14 @@ export default class Rule {
     const tooDeep = configuration.isTooDeep();
 
     if (tooDeep) {
-      throw new Error(`The parse tree is too deep at rule "${this.name}"`);
+      throw new Error(`The parse tree is too deep at rule "${this.name}".`);
     }
 
     const nodes = definition.parse(configuration),
           parsed = (nodes !== null);
 
     if (parsed) {
-      const ruleName = this.name,
+      const ruleName = this.name, ///
             childNodes = nodes,  ///
             nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
 

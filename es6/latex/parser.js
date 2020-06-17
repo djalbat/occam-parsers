@@ -15,10 +15,12 @@ export default class LaTeXParser extends CommonParser {
   static fromBNF(bnf) {
     const tokens = bnfLexer.tokensFromBNF(bnf),
           rules = bnfParser.rulesFromTokens(tokens),
-          laTeXParser = new LaTeXParser(rules);
+          laTeXParser = LaTeXParser.fromRules(rules);
 
     return laTeXParser;
   }
+
+  static fromRules(rules) { return CommonParser.fromRules(LaTeXParser, rules); }
 
   static fromNothing() { return LaTeXParser.fromBNF(bnf); }
 }

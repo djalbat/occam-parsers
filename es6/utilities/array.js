@@ -6,14 +6,20 @@ export const { first, second, third, last, concat, forwardsSome, backwardsSome }
 
 export function even(array) { return array.filter((entry, index) => isEven(index)); }
 
-export function allButFirst(array) { return discardNth(array, 0); }
-
-export function allButFirstAndLast(array) { return discardNth(discardNth(array, -1), 0); }
-
-function discardNth(array, n) {
+export function allButFirst(array) {
   array = array.slice();  ///
 
-  array.splice(n, 1);
+  array.shift();
+
+  return array;
+}
+
+export function allButFirstAndLast(array) {
+  array = array.slice();  ///
+
+  array.shift();
+
+  array.pop();
 
   return array;
 }

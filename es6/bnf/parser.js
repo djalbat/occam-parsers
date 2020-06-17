@@ -28,14 +28,27 @@ import OneOrMoreQuantifierRule from "./rule/oneOrMoreQuantifier";
 import ZeroOrMoreQuantifierRule from "./rule/zeroOrMoreQuantifier";
 import SignificantTokenTypeRule from "./rule/significantTokenType";
 
+import { first } from "../utilities/array";
+
 export default class BNFParser extends CommonParser {
   static bnf = bnf;
 
 	rulesFromTokens(tokens) {
-    const node = this.parse(tokens),
-          rules = (node !== null) ?
-                    node.generateRules(Rule) :
-                      [];
+	  let rules;
+
+    const node = this.parse(tokens);
+
+    if (node === null) {
+      throw new Error(`There is no node.`);
+    }
+
+    rules = node.generateRules(Rule);
+
+    const rulesLength = rules.length;
+
+    if (rulesLength === 0) {
+      throw new Error(`There are no rules.`);
+    }
 
     return rules;
   }
@@ -93,7 +106,16 @@ export default class BNFParser extends CommonParser {
       errorRule
     ];
 
-    const bnfParser = new BNFParser(rules);
+    const firstRule = first(rules),
+          startRule = firstRule,  ///
+          ruleMap = rules.reduce((ruleMap, rule) => {
+            const ruleName = rule.getName();
+
+            ruleMap[ruleName] = rule;
+
+            return ruleMap;
+          }, {}),
+          bnfParser = new BNFParser(startRule, ruleMap);
     
     return bnfParser;
   }

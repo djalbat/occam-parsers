@@ -15,10 +15,12 @@ export default class CustomGrammarLexicalPatternParser extends CommonParser {
   static fromBNF(bnf) {
     const tokens = bnfLexer.tokensFromBNF(bnf),
           rules = bnfParser.rulesFromTokens(tokens),
-          customGrammarLexicalPatternParser = new CustomGrammarLexicalPatternParser(rules);
+          customGrammarLexicalPatternParser = CustomGrammarLexicalPatternParser.fromRules(rules);
 
     return customGrammarLexicalPatternParser;
   }
+
+  static fromRules(rules) { return CommonParser.fromRules(CustomGrammarLexicalPatternParser, rules); }
 
   static fromNothing() { return CustomGrammarLexicalPatternParser.fromBNF(bnf); }
 }

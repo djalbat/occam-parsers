@@ -64,25 +64,22 @@ export default class Definition {
   }
 }
 
-function parseParts(parts, nodes, configuration) {
+function parseParts(parts, nodes, configuration, index = 0) {
   let parsed = false;
 
   const partsLength = parts.length;
 
-  if (partsLength === 0) {
+  if (index === partsLength) {
     parsed = true;
 
     return parsed;
   }
 
-  const firstPart = first(parts),
-        allButFirstParts = allButFirst(parts),
-        savedIndex = configuration.getSavedIndex();
-
-  parts = allButFirstParts; ///
-
-  const part = firstPart, ///
+  const part = parts[index],
+        savedIndex = configuration.getSavedIndex(),
         partRuleNamePart = isPartRuleNamePart(part);
+
+  index++;
 
   if (partRuleNamePart) {
     const ruleNamePart = part,  ///
@@ -95,11 +92,11 @@ function parseParts(parts, nodes, configuration) {
         const partNodeOrNodes = [];
 
         if (node !== null) {
-          parsed = parseParts(parts, partNodeOrNodes, configuration);
+          parsed = parseParts(parts, partNodeOrNodes, configuration, index);
         }
 
         if (parsed) {
-          concat(nodes, node);
+          nodes.push(node);
 
           concat(nodes, partNodeOrNodes);
         }
@@ -120,7 +117,7 @@ function parseParts(parts, nodes, configuration) {
   if (partNodeOrNodes !== null) {
     concat(nodes, partNodeOrNodes);
 
-    parsed = parseParts(parts, nodes, configuration);
+    parsed = parseParts(parts, nodes, configuration, index);
 
     if (!parsed) {
       configuration.backtrack(savedIndex);

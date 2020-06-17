@@ -15,8 +15,6 @@ import ParseTreeTextarea from "./textarea/parseTree";
 import VerticalSplitterDiv from "./div/splitter/vertical";
 import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 
-import { findRuleByName } from "../utilities/rule";
-
 export default class View extends Element {
   getTokens() {
     const lexicalEntries = this.getLexicalEntries(),
@@ -34,9 +32,8 @@ export default class View extends Element {
     const bnf = this.getBNF(),
           parser = this.Parser.fromBNF(bnf),
           ruleName = this.getRuleName(),
-          name = ruleName,  ///
-          rules = parser.getRules(),
-          rule = findRuleByName(name, rules),
+          ruleMap = parser.getRuleMap(),
+          rule = ruleMap[ruleName],
           node = parser.parse(tokens, rule);
 
     if (node !== null) {
@@ -47,20 +44,20 @@ export default class View extends Element {
   }
 
   keyUpHandler() {
-    try {
+    // try {
       const tokens = this.getTokens(),
             parseTree = this.getParseTree(tokens);
 
       this.setTokens(tokens);
 
       this.setParseTree(parseTree);
-    } catch (error) {
-      console.log(error);
-
-      this.clearTokens();
-
-      this.clearParseTree();
-    }
+    // } catch (error) {
+    //   console.log(error);
+    //
+    //   this.clearTokens();
+    //
+    //   this.clearParseTree();
+    // }
   }
 
   childElements() {

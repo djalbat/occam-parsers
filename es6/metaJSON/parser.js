@@ -15,10 +15,12 @@ export default class MetaJSONParser extends CommonParser {
   static fromBNF(bnf) {
     const tokens = bnfLexer.tokensFromBNF(bnf),
           rules = bnfParser.rulesFromTokens(tokens),
-          metaJSONParser = new MetaJSONParser(rules);
+          metaJSONParser = MetaJSONParser.fromRules(rules);
 
     return metaJSONParser;
   }
+
+  static fromRules(rules) { return CommonParser.fromRules(MetaJSONParser, rules); }
 
   static fromNothing() { return MetaJSONParser.fromBNF(bnf); }
 }
