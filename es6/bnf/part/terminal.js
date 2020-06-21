@@ -19,5 +19,11 @@ export default class TerminalPart {
     return epsilonPart;
   }
 
+  isNoWhitespacePart() {
+    const noWhitespacePart = false;
+
+    return noWhitespacePart;
+  }
+
   clone(Part, ...remainingArguments) { return new Part(...remainingArguments); }
 }

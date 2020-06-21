@@ -8,6 +8,12 @@ import NoWhitespaceNode from "../../../common/node/terminal/noWhitespace";
 const { NO_WHITESPACE } = specialSymbols;
 
 export default class NoWhitespacePart extends TerminalPart {
+  isNoWhitespacePart() {
+    const noWhitespacePart = true;
+
+    return noWhitespacePart;
+  }
+
   parse(configuration) {
     let noWhitespaceNode = null;
 
