@@ -28,6 +28,12 @@ export default class TerminalNode {
     return lastSignificantToken;
   }
 
+  isNoWhitespaceNode() {
+    const noWhitespaceNode = false;
+
+    return noWhitespaceNode;
+  }
+
   isEpsilonNode() {
     const epsilonNode = false;
 

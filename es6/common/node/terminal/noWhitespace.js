@@ -16,6 +16,12 @@ export default class NoWhitespaceNode extends TerminalNode {
     return content;
   }
 
+  isNoWhitespaceNode() {
+    const noWhitespaceNode = true;
+
+    return noWhitespaceNode;
+  }
+
   asParseTree(tokens) {
     const noWhitespaceNodeParseTree = NoWhitespaceNodeParseTree.fromNothing(),
           parseTree = noWhitespaceNodeParseTree;  ///
