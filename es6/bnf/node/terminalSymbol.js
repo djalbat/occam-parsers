@@ -6,7 +6,7 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 import { first, second } from "../../utilities/array";
 
 export default class TerminalSymbolNode extends NonTerminalNode {
-  regularExpression = /^"((?:\\.|[^"])*)"$/;
+  regularExpression = /^"((?:\\.|[^"\\])*)"$/;
 
   generatePart(lookAhead) {
     const content = this.getContent(),
@@ -22,7 +22,7 @@ export default class TerminalSymbolNode extends NonTerminalNode {
           terminalNodeContent = terminalNode.getContent(),
           matches = terminalNodeContent.match(this.regularExpression),
           secondMatch = second(matches),
-          content = secondMatch.replace(/\\"/g,"\""); ///
+          content = secondMatch.replace(/\\\\/g, "\\");
 
     return content;
   }
