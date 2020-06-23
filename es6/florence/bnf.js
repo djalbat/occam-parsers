@@ -184,23 +184,23 @@ nonsenseDefinition                   ::=   "let" unqualifiedNonsense ;
 
 
 
-unqualifiedMetastatement             ::=   metastatement! <END_OF_LINE> ;
+unqualifiedMetastatement             ::=   metastatement <END_OF_LINE> ;
 
-unqualifiedStatement                 ::=   statement! <END_OF_LINE> ;
+unqualifiedStatement                 ::=   statement <END_OF_LINE> ;
 
-unqualifiedNonsense                  ::=   nonsense! <END_OF_LINE> ;
-
-
-
-qualifiedMetastatement               ::=   metastatement! qualification? <END_OF_LINE> ;
-
-qualifiedStatement                   ::=   statement! qualification? <END_OF_LINE> ;
-
-qualifiedNonsense                    ::=   nonsense! qualification? <END_OF_LINE> ;
+unqualifiedNonsense                  ::=   nonsense <END_OF_LINE> ;
 
 
 
-nonsense                             ::=   ( [name] | [custom] | [special] | [unassigned] )+ ;
+qualifiedMetastatement               ::=   metastatement qualification? <END_OF_LINE> ;
+
+qualifiedStatement                   ::=   statement qualification? <END_OF_LINE> ;
+
+qualifiedNonsense                    ::=   nonsense qualification? <END_OF_LINE> ;
+
+
+
+nonsense                             ::=   ( [name] | [custom] | [special] | [reserved] | [unassigned] )+ ;
 
 
 
@@ -230,17 +230,15 @@ terms                                ::=   term ( "," term )* ;
 
 
 
-typeName                             ::=   [name] ;
-
-contextName                          ::=   [name] ;
-
 metavariableName                     ::=   [name] ;
 
 referenceName                        ::=   [name] ;
 
+contextName                          ::=   [name] ;
+
 labelName                            ::=   [name] ;
 
-
+typeName                             ::=   [name] ;
 
 name                                 ::=   [name] ;
 
