@@ -1,6 +1,6 @@
 "use strict";
 
-export const termBNF = `term                                 ::=   [custom] parenthesisedTerms? 
+export const termBNF = `term                                 ::=   [custom] ( <NO_WHITESPACE>"(" terms? ")" )? 
      
                                        |   name
                                  
@@ -8,7 +8,7 @@ export const termBNF = `term                                 ::=   [custom] pare
 
 export const expressionBNF = `expression                           ::=   term ;`;
 
-export const statementBNF = `statement                            ::=   parenthesisedStatement
+export const statementBNF = `statement                            ::=   "(" statement ")"
 
                                        |   typeAssertion 
                                                   
@@ -17,13 +17,11 @@ export const statementBNF = `statement                            ::=   parenthe
                                        ;
 
 
-parenthesisedStatement               ::=   "(" statement ")" ;
-
 typeAssertion                        ::=   expression ":" typeName ;
 
 equality                             ::=   expression "=" expression ;`;
 
-export const metastatementBNF = `metastatement                        ::=   parenthesisedMetastatement
+export const metastatementBNF = `metastatement                        ::=   "(" metastatement ")"
 
                                        |   contextDefinition 
            
@@ -35,8 +33,6 @@ export const metastatementBNF = `metastatement                        ::=   pare
                                         
                                        ;
 
-parenthesisedMetastatement           ::=   "(" metastatement ")" ;
-  
 contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
 proofAssertion                       ::=   context "|-" judgement ;

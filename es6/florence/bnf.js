@@ -76,17 +76,17 @@ abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbrevi
 
 typeDeclaration                      ::=   typeName ( ":" typeNames )? ;
 
-contextDeclaration                   ::=   contextName parenthesisedTypeName? ;
+contextDeclaration                   ::=   contextName ( <NO_WHITESPACE>"(" typeName ")" )? ;
 
 variableDeclaration                  ::=   name ( ":" typeNames )? ;
 
 constructorDeclaration               ::=   term ( ":" typeNames )? ;
 
-dependentTypeDeclaration             ::=   typeName parenthesisedTypeName ;
+dependentTypeDeclaration             ::=   typeName <NO_WHITESPACE>"(" typeName ")" ;
 
 disjointTypeDeclaration              ::=   typeName ":" typeName ( "," typeName )+ ;
 
-metavariableDeclaration              ::=   metavariableName parenthesisedTypeName? ;
+metavariableDeclaration              ::=   metavariableName ( <NO_WHITESPACE>"(" typeName ")" )? ;
 
 abbreviationDeclaration              ::=   [custom] "for" [custom] 
 
@@ -210,31 +210,21 @@ qualification                        ::=   ( "by" | "from" ) reference ;
 
 parenthesisedLabels                  ::=   "(" labels ")" ;                    
 
-labels                               ::=   label ( "," label )* ;
-
-label                                ::=   labelName parenthesisedTerm? ;
 
 
+metavariable                         ::=   metavariableName ( <NO_WHITESPACE>"(" term ")" )? ;
 
-metavariable                         ::=   metavariableName parenthesisedTerm? ;
+reference                            ::=   referenceName ( <NO_WHITESPACE>"(" term ")" )? ;
 
-reference                            ::=   referenceName parenthesisedTerm? ;
+context                              ::=   contextName ( <NO_WHITESPACE>"(" term ")" )? ;
 
-context                              ::=   contextName parenthesisedTerm? ;
+label                                ::=   labelName ( <NO_WHITESPACE>"(" term ")" )? ;
 
 
-
-parenthesisedTypeNames               ::=   <NO_WHITESPACE>"(" typeNames? ")" ;
-
-parenthesisedTypeName                ::=   <NO_WHITESPACE>"(" typeName ")" ;
-
-parenthesisedTerms                   ::=   <NO_WHITESPACE>"(" terms? ")" ;
-
-parenthesisedTerm                    ::=   <NO_WHITESPACE>"(" term ")" ;   
-
-   
 
 typeNames                            ::=   typeName ( "," typeName )* ;
+
+labels                               ::=   label ( "," label )* ;
 
 terms                                ::=   term ( "," term )* ;
 
