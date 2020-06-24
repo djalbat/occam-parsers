@@ -6,7 +6,9 @@ export const termBNF = `term                                 ::=   [custom] ( <N
                                  
                                        ;`;
 
-export const expressionBNF = `expression                           ::=   term ;`;
+export const expressionBNF = `expression                           ::=   "(" expression ")"
+
+                                       |   term ;`;
 
 export const statementBNF = `statement                            ::=   "(" statement ")"
 

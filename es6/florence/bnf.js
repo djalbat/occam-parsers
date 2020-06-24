@@ -24,6 +24,8 @@ declaration                          ::=   "Types" typesDeclaration <END_OF_LINE
 
                                        |   "Contexts" contextsDeclaration <END_OF_LINE>
  
+                                       |   "Operators" operatorsDeclaration <END_OF_LINE>
+ 
                                        |   "Variables" variablesDeclaration <END_OF_LINE>
  
                                        |   "Constructors" constructorsDeclaration <END_OF_LINE>
@@ -41,6 +43,8 @@ declaration                          ::=   "Types" typesDeclaration <END_OF_LINE
                                        |   "Context" contextDeclaration <END_OF_LINE>
  
                                        |   "Variable" variableDeclaration <END_OF_LINE>
+ 
+                                       |   "Operator" operatorDeclaration <END_OF_LINE>
  
                                        |   "Constructor" constructorDeclaration <END_OF_LINE>
  
@@ -60,6 +64,8 @@ typesDeclaration                     ::=   typeName ( "," typeName )+ ( ":" type
 
 contextsDeclaration                  ::=   contextDeclaration ( "," contextDeclaration )+ ;
 
+operatorsDeclaration                 ::=   statement ( "," statement )+ ;
+
 variablesDeclaration                 ::=   name ( "," name )+ ":" typeNames ;
 
 constructorsDeclaration              ::=   term ( "," term )+ ":" typeNames ;
@@ -77,6 +83,8 @@ abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbrevi
 typeDeclaration                      ::=   typeName ( ":" typeNames )? ;
 
 contextDeclaration                   ::=   contextName ( <NO_WHITESPACE>"(" typeName ")" )? ;
+
+operatorDeclaration                  ::=   statement ;
 
 variableDeclaration                  ::=   name ( ":" typeNames )? ;
 
