@@ -66,9 +66,9 @@ contextsDeclaration                  ::=   contextDeclaration ( "," contextDecla
 
 operatorsDeclaration                 ::=   statement ( "," statement )+ ;
 
-variablesDeclaration                 ::=   name ( "," name )+ ":" typeNames ;
+variablesDeclaration                 ::=   name ( "," name )+ ":" typeName ;
 
-constructorsDeclaration              ::=   term ( "," term )+ ":" typeNames ;
+constructorsDeclaration              ::=   term ( "," term )+ ":" typeName ;
 
 dependentTypesDeclaration            ::=   dependentTypeDeclaration ( "," dependentTypeDeclaration )+ ;
 
@@ -80,15 +80,15 @@ abbreviationsDeclaration             ::=   abbreviationDeclaration ( "," abbrevi
 
 
 
-typeDeclaration                      ::=   typeName ( ":" typeNames )? ;
+typeDeclaration                      ::=   typeName ( ":" typeName )? ;
 
 contextDeclaration                   ::=   contextName ( <NO_WHITESPACE>"(" typeName ")" )? ;
 
 operatorDeclaration                  ::=   statement ;
 
-variableDeclaration                  ::=   name ( ":" typeNames )? ;
+variableDeclaration                  ::=   name ( ":" typeName )? ;
 
-constructorDeclaration               ::=   term ( ":" typeNames )? ;
+constructorDeclaration               ::=   term ( ":" typeName )? ;
 
 dependentTypeDeclaration             ::=   typeName <NO_WHITESPACE>"(" typeName ")" ;
 
