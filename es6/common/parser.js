@@ -1,6 +1,6 @@
 "use strict";
 
-import Configuration from "./configuration";
+import Context from "./context";
 
 import { first } from "../utilities/array";
 
@@ -19,8 +19,8 @@ export default class CommonParser {
   }
 
   parse(tokens, rule = this.startRule) {
-    const configuration = Configuration.fromTokensAndRuleMap(tokens, this.ruleMap),
-          node = rule.parse(configuration);
+    const context = Context.fromTokensAndRuleMap(tokens, this.ruleMap),
+          node = rule.parse(context);
 
     return node;
   }

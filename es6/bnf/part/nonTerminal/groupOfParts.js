@@ -18,12 +18,12 @@ export default class GroupOfPartsPart extends NonTerminalPart {
     return this.parts;
   }
 
-  parse(configuration) {
+  parse(context) {
     let nodes = [];
 
-    const savedIndex = configuration.getSavedIndex(),
+    const savedIndex = context.getSavedIndex(),
           parsed = this.parts.every((part) => {
-            const partNodeOrNodes = part.parse(configuration);
+            const partNodeOrNodes = part.parse(context);
 
             if (partNodeOrNodes !== null) {
               nodes = nodes.concat(partNodeOrNodes);
@@ -33,7 +33,7 @@ export default class GroupOfPartsPart extends NonTerminalPart {
           });
 
     if (!parsed) {
-      configuration.backtrack(savedIndex);
+      context.backtrack(savedIndex);
 
       nodes = null;
     }

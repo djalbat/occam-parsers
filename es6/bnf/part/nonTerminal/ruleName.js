@@ -37,28 +37,28 @@ export default class RuleNamePart extends NonTerminalPart {
     this.lookAhead = lookAhead;
   }
 
-  findRule(configuration) {
-    const ruleMap = configuration.getRuleMap(),
+  findRule(context) {
+    const ruleMap = context.getRuleMap(),
           rule = ruleMap[this.ruleName] || null;  ///
 
     return rule;
   }
 
-  parse(configuration) {
+  parse(context) {
     let node = null;
     
-    const rule = this.findRule(configuration);
+    const rule = this.findRule(context);
 
     if (rule !== null) {
-      node = rule.parse(configuration);
+      node = rule.parse(context);
     }
 
     return node;
   }
 
-  parseRuleWithLookAhead(rule, configuration, callback) {
+  parseRuleWithLookAhead(rule, context, callback) {
     if (rule !== null) {
-      rule.parseWithLookAhead(configuration, callback);
+      rule.parseWithLookAhead(context, callback);
     }
   }
 

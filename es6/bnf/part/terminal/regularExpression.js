@@ -12,11 +12,11 @@ export default class RegularExpressionPart extends TerminalPart {
     this.regularExpression = regularExpression;
   }
 
-  parse(configuration) {
+  parse(context) {
     let terminalNode = null;
     
-    const savedIndex = configuration.getSavedIndex(),
-		      nextSignificantToken = configuration.getNextSignificantToken(),
+    const savedIndex = context.getSavedIndex(),
+		      nextSignificantToken = context.getNextSignificantToken(),
 					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
@@ -34,7 +34,7 @@ export default class RegularExpressionPart extends TerminalPart {
     }
 
     if (terminalNode === null) {
-      configuration.backtrack(savedIndex);
+      context.backtrack(savedIndex);
     }
 
     return terminalNode;

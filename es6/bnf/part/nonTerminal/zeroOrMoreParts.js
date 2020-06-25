@@ -15,13 +15,13 @@ export default class ZeroOrMorePartsPart extends SequenceOfPartsPart {
     super(type, part);
   }
 
-  parse(configuration) {
+  parse(context) {
     let nodes = [];
     
     const part = this.getPart();
 
     for(;;) {
-      const partNodeOrNodes = part.parse(configuration),
+      const partNodeOrNodes = part.parse(context),
             parsed = (partNodeOrNodes !== null);
 
       if (parsed) {

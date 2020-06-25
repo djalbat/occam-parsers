@@ -34,10 +34,10 @@ export default class Definition {
     this.parts.push(part);
   }
 
-  parse(configuration) {
+  parse(context) {
     let nodes = [];
 
-    const parsed = parseParts(this.parts, nodes, configuration);
+    const parsed = parseParts(this.parts, nodes, context);
 
     if (!parsed) {
       nodes = null;
@@ -64,7 +64,7 @@ export default class Definition {
   }
 }
 
-function parseParts(parts, nodes, configuration, index = 0) {
+function parseParts(parts, nodes, context, index = 0) {
   let parsed = false;
 
   const partsLength = parts.length;
@@ -76,7 +76,7 @@ function parseParts(parts, nodes, configuration, index = 0) {
   }
 
   const part = parts[index],
-        savedIndex = configuration.getSavedIndex(),
+        savedIndex = context.getSavedIndex(),
         partRuleNamePart = isPartRuleNamePart(part);
 
   index++;
@@ -86,13 +86,13 @@ function parseParts(parts, nodes, configuration, index = 0) {
           lookAhead = ruleNamePart.isLookAhead();
 
     if (lookAhead) {
-      const rule = ruleNamePart.findRule(configuration);
+      const rule = ruleNamePart.findRule(context);
 
-      ruleNamePart.parseRuleWithLookAhead(rule, configuration, (node) => {
+      ruleNamePart.parseRuleWithLookAhead(rule, context, (node) => {
         const partNodeOrNodes = [];
 
         if (node !== null) {
-          parsed = parseParts(parts, partNodeOrNodes, configuration, index);
+          parsed = parseParts(parts, partNodeOrNodes, context, index);
         }
 
         if (parsed) {
@@ -102,7 +102,7 @@ function parseParts(parts, nodes, configuration, index = 0) {
         }
 
         if (!parsed) {
-          configuration.backtrack(savedIndex);
+          context.backtrack(savedIndex);
         }
 
         return parsed;
@@ -112,15 +112,15 @@ function parseParts(parts, nodes, configuration, index = 0) {
     }
   }
 
-  const partNodeOrNodes = part.parse(configuration);
+  const partNodeOrNodes = part.parse(context);
 
   if (partNodeOrNodes !== null) {
     concat(nodes, partNodeOrNodes);
 
-    parsed = parseParts(parts, nodes, configuration, index);
+    parsed = parseParts(parts, nodes, context, index);
 
     if (!parsed) {
-      configuration.backtrack(savedIndex);
+      context.backtrack(savedIndex);
     }
   }
 

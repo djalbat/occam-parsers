@@ -16,11 +16,11 @@ export default class OneOrMorePartsPart extends SequenceOfPartsPart {
     super(type, part);
   }
   
-  parse(configuration) {
+  parse(context) {
     let nodes = null;
     
     const part = this.getPart(),
-          partNodeOrNodes = part.parse(configuration),
+          partNodeOrNodes = part.parse(context),
           parsed = (partNodeOrNodes !== null);
 
     if (parsed) {
@@ -30,7 +30,7 @@ export default class OneOrMorePartsPart extends SequenceOfPartsPart {
 
       const oneOrMorePartsPart = this,  ///
             zeroOrMorePartsPart = ZeroOrMorePartsPart.fromOneOrMorePartsPart(oneOrMorePartsPart),
-            zeroOrMorePartsPartNodeOrNodes = zeroOrMorePartsPart.parse(configuration);
+            zeroOrMorePartsPartNodeOrNodes = zeroOrMorePartsPart.parse(context);
 
       nodes = nodes.concat(zeroOrMorePartsPartNodeOrNodes);
     }

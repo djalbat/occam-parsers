@@ -14,11 +14,11 @@ export default class NoWhitespacePart extends TerminalPart {
     return noWhitespacePart;
   }
 
-  parse(configuration) {
+  parse(context) {
     let noWhitespaceNode = null;
 
-    const savedIndex = configuration.getSavedIndex(),
-          nextToken = configuration.getNextToken(),
+    const savedIndex = context.getSavedIndex(),
+          nextToken = context.getNextToken(),
           token = nextToken; ///
 
     if (token !== null) {
@@ -29,7 +29,7 @@ export default class NoWhitespacePart extends TerminalPart {
       }
     }
 
-    configuration.backtrack(savedIndex);
+    context.backtrack(savedIndex);
 
     return noWhitespaceNode;
   }
