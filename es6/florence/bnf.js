@@ -68,7 +68,7 @@ operatorsDeclaration                 ::=   statement ( "," statement )+ ;
 
 variablesDeclaration                 ::=   name ( "," name )+ ":" typeName ;
 
-constructorsDeclaration              ::=   term ( "," term )+ ":" typeName ;
+constructorsDeclaration              ::=   term ( "," term )+ ( ":" typeName )? ;
 
 dependentTypesDeclaration            ::=   dependentTypeDeclaration ( "," dependentTypeDeclaration )+ ;
 
