@@ -1,6 +1,6 @@
 "use strict";
 
-export const termBNF = `term                                 ::=   [custom] 
+export const termBNF = `term                                 ::=   name 
                                  
                                        ;`;
 
