@@ -1,8 +1,6 @@
 "use strict";
 
-export const termBNF = `term                                 ::=   [custom] ( <NO_WHITESPACE>"(" terms? ")" )? 
-     
-                                       |   name
+export const termBNF = `term                                 ::=   [custom] 
                                  
                                        ;`;
 

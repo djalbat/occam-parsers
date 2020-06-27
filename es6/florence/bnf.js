@@ -234,8 +234,6 @@ typeNames                            ::=   typeName ( "," typeName )* ;
 
 labels                               ::=   label ( "," label )* ;
 
-terms                                ::=   term ( "," term )* ;
-
 
 
 metavariableName                     ::=   [name] ;
