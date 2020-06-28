@@ -10,16 +10,14 @@ export const expressionBNF = `expression                           ::=   "(" exp
 
 export const statementBNF = `statement                            ::=   "(" statement ")"
 
+                                       |   expression "=" expression 
+                                              
                                        |   typeAssertion 
                                                   
-                                       |   equality 
-                                              
                                        ;
 
 
-typeAssertion                        ::=   expression ":" typeName ;
-
-equality                             ::=   expression "=" expression ;`;
+typeAssertion                        ::=   expression ":" typeName ;`;
 
 export const metastatementBNF = `metastatement                        ::=   "(" metastatement ")"
 
