@@ -2,24 +2,25 @@
 
 export const termBNF = `term                                 ::=   name 
                                  
-                                       ;`;
+                                       ;
+                                       
+                                       `;
 
 export const expressionBNF = `expression                           ::=   "(" expression ")"
 
-                                       |   expression "=" expression 
-                                              
-                                       |   term ;`;
+                                       |   term 
+                                       
+                                       ;
+                                       
+                                       `;
 
 export const statementBNF = `statement                            ::=   "(" statement ")"
 
-                                       |   typeAssertion 
-                                                  
                                        |   expression 
                                                   
                                        ;
 
-
-typeAssertion                        ::=   expression ":" typeName ;`;
+                                       `;
 
 export const metastatementBNF = `metastatement                        ::=   "(" metastatement ")"
 
@@ -27,6 +28,8 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
            
                                        |   proofAssertion
        
+                                       |   typeAssertion 
+                                                  
                                        |   metavariable 
 
                                        |   subproof 
@@ -37,11 +40,15 @@ contextDefinition                    ::=   context "=" ( judgement | context ) (
 
 proofAssertion                       ::=   context "|-" judgement ;
  
+typeAssertion                        ::=   ( type | expression ) ":" typeName 
+
 judgement                            ::=   reference "::" metastatement ;
 
 subproof                             ::=   supposition "..." metastatement ;
 
-supposition                          ::=   "[" metastatement "]" ;`;
+supposition                          ::=   "[" metastatement "]" ;
+
+                                       `;
 
 export default {
   termBNF,
