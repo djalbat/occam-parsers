@@ -6,13 +6,15 @@ export const termBNF = `term                                 ::=   name
 
 export const expressionBNF = `expression                           ::=   "(" expression ")"
 
+                                       |   expression "=" expression 
+                                              
                                        |   term ;`;
 
 export const statementBNF = `statement                            ::=   "(" statement ")"
 
-                                       |   expression "=" expression 
-                                              
                                        |   typeAssertion 
+                                                  
+                                       |   expression 
                                                   
                                        ;
 

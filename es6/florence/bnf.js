@@ -64,7 +64,7 @@ typesDeclaration                     ::=   typeName ( "," typeName )+ ( ":" type
 
 contextsDeclaration                  ::=   contextDeclaration ( "," contextDeclaration )+ ;
 
-operatorsDeclaration                 ::=   statement ( "," statement )+ ;
+operatorsDeclaration                 ::=   expression ( "," expression )+  ( ":" typeName )? ;
 
 variablesDeclaration                 ::=   name ( "," name )+ ":" typeName ;
 
@@ -84,7 +84,7 @@ typeDeclaration                      ::=   typeName ( ":" typeName )? ;
 
 contextDeclaration                   ::=   contextName ( <NO_WHITESPACE>"(" typeName ")" )? ;
 
-operatorDeclaration                  ::=   statement ;
+operatorDeclaration                  ::=   expression ( ":" typeName )? ;
 
 variableDeclaration                  ::=   name ( ":" typeName )? ;
 
