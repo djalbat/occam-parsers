@@ -18,7 +18,7 @@ Three parsers are documented:
 
 * A BNF parser, actually a variant of [extended BNF](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form).
 * A basic parser, for illustrative purposes, and for developing new grammars.
-* The Florence parser, namely the parser for the [BNF part](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/bnf.js) of Occam's vernacular.
+* The common parser, which can be extended.
 
 All parsers share common functionality. The last two parse content according to rules defined in the aforementioned variant of extended BNF. The BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant that they implement:
 
@@ -122,19 +122,19 @@ You will need to do this if you want to look at the examples.
 Import the requisite parser and its corresponding lexer from this package and the `occam-lexers` package, respectively. Then call their `fromNothing(...)` factory methods.
 
 ```
-import { FlorenceLexer } from "occam-lexers";
-import { FlorenceParser } from "occam-parsers"
+import { BasicLexer } from "occam-lexers";
+import { BasicParser } from "occam-parsers"
 
-const florenceLexer = FlorenceLexer.fromNothing(),
-      florenceParser = FlorenceParser.fromNothing();
+const basicLexer = BasicLexer.fromNothing(),
+      basicParser = BasicParser.fromNothing();
 
 const content = `
 
         ...
 
       `,
-      tokens = florenceLexer.tokenise(content),
-      node = florenceParser.parse(tokens);
+      tokens = basicLexer.tokenise(content),
+      node = basicParser.parse(tokens);
 
 ...
 ```
