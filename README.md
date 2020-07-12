@@ -119,7 +119,7 @@ You will need to do this if you want to look at the examples.
 
 ## Usage
 
-Import the require parser and its corresponding lexer's classes from this and the `occam-lexers` package, respectively. Then call their `fromNothing(...)` factory methods.
+Import the requisite parser and its corresponding lexer from this package and the `occam-lexers` package, respectively. Then call their `fromNothing(...)` factory methods.
 
 ```
 import { FlorenceLexer } from "occam-lexers";
