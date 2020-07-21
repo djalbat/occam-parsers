@@ -135,11 +135,12 @@ export default class View extends Element {
 
 /*
 
-  initialContent = "(n) <= s EOL";  ///"1+2/3";
+initialContent = "(n) <= s EOL";
 
 
 
-    const bnf = `
+const bnf = `
+
 unqualifiedStatement ::= statement! "EOL" ;
 
 statement            ::= statement_ ;
@@ -152,6 +153,7 @@ statement_           ::= "(" statement ")"
 
 expression           ::= "(" . ")" "<=" . ;
 `;
+
 
     const entries =  [
       {
