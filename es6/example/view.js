@@ -132,3 +132,33 @@ export default class View extends Element {
     return exampleView
   }
 }
+
+/*
+
+  initialContent = "(n) <= s EOL";  ///"1+2/3";
+
+
+
+    const bnf = `
+unqualifiedStatement ::= statement! "EOL" ;
+
+statement            ::= statement_ ;
+
+statement_           ::= "(" statement ")"
+
+                       | expression
+
+                       ;
+
+expression           ::= "(" . ")" "<=" . ;
+`;
+
+    const entries =  [
+      {
+        "custom": "^(?:EOL|<=|.)"
+      }
+    ];
+
+
+
+ */

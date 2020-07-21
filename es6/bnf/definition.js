@@ -34,10 +34,11 @@ export default class Definition {
     this.parts.push(part);
   }
 
-  parse(context) {
+  parse(context, callback) {
     let nodes = [];
 
-    const parsed = parseParts(this.parts, nodes, context);
+    const index = 0,
+          parsed = parseParts(this.parts, nodes, index, context, callback);
 
     if (!parsed) {
       nodes = null;
@@ -45,7 +46,7 @@ export default class Definition {
 
     return nodes;
   }
-  
+
   asString() {
     const partsString = this.parts.reduce((partsString, part) => {
           const partString = part.asString();
@@ -64,63 +65,65 @@ export default class Definition {
   }
 }
 
-function parseParts(parts, nodes, context, index = 0) {
+function parseParts(parts, nodes, index, context, callback) {
   let parsed = false;
 
   const partsLength = parts.length;
 
   if (index === partsLength) {
-    parsed = true;
+    parsed = callback ?
+               callback() :
+                 true;
+  } else {
+    const part = parts[index++];
 
-    return parsed;
+    parsed = parsePart(part, parts, nodes, index, context, callback);
   }
 
-  const part = parts[index],
-        savedIndex = context.getSavedIndex(),
-        partRuleNamePart = isPartRuleNamePart(part);
+  return parsed;
+}
 
-  index++;
+function parsePart(part, parts, nodes, index, context, callback) {
+  let parsed = false;
+
+  const partRuleNamePart = isPartRuleNamePart(part);
 
   if (partRuleNamePart) {
-    const ruleNamePart = part,  ///
-          lookAhead = ruleNamePart.isLookAhead();
+    const ruleNamePart = part;  ///
 
-    if (lookAhead) {
-      const rule = ruleNamePart.findRule(context);
+    if (!callback) {
+      const lookAhead = ruleNamePart.isLookAhead();  ///
 
-      ruleNamePart.parseRuleWithLookAhead(rule, context, (node) => {
-        const partNodeOrNodes = [];
-
-        if (node !== null) {
-          parsed = parseParts(parts, partNodeOrNodes, context, index);
-        }
-
-        if (parsed) {
-          nodes.push(node);
-
-          concat(nodes, partNodeOrNodes);
-        }
-
-        if (!parsed) {
-          context.backtrack(savedIndex);
-        }
-
-        return parsed;
-      });
-
-      return parsed;
+      if (lookAhead) {
+        callback = () => true;  ///
+      }
     }
-  }
 
-  const partNodeOrNodes = part.parse(context);
+    if (callback) {
+      const partsNodeOrNodes = [],
+            partNodeOrNodes = ruleNamePart.parse(context, () => parseParts(parts, partsNodeOrNodes, index, context) && callback());
 
-  if (partNodeOrNodes !== null) {
-    concat(nodes, partNodeOrNodes);
+      if (partNodeOrNodes !== null) {
+        concat(nodes, partNodeOrNodes, partsNodeOrNodes);
 
-    parsed = parseParts(parts, nodes, context, index);
+        parsed = true;
+      }
+    } else {
+      const partNodeOrNodes = ruleNamePart.parse(context);
 
-    if (!parsed) {
-      context.backtrack(savedIndex);
+      if (partNodeOrNodes !== null) {
+        concat(nodes, partNodeOrNodes);
+
+        parsed = parseParts(parts, nodes, index, context);
+      }
+    }
+  } else {
+    const partNodeOrNodes = part.parse(context, callback);
+
+    if (partNodeOrNodes !== null) {
+      concat(nodes, partNodeOrNodes);
+
+      parsed = parseParts(parts, nodes, index, context, callback);
     }
   }
 
