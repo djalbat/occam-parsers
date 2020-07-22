@@ -2,14 +2,14 @@
 
 import { specialSymbols } from "occam-lexers";
 
-import SequenceOfPartsPart from "./sequenceOfParts";
 import ZeroOrMorePartsPart from "./zeroOrMoreParts";
+import CollectionOfPartsPart from "./collectionOfParts";
 
 import { OneOrMorePartsPartType } from "../../partTypes";
 
 const { plus } = specialSymbols;
 
-export default class OneOrMorePartsPart extends SequenceOfPartsPart {
+export default class OneOrMorePartsPart extends CollectionOfPartsPart {
   constructor(part) {
     const type = OneOrMorePartsPartType; ///
 

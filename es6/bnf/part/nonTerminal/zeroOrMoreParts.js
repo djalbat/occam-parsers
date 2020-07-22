@@ -2,13 +2,13 @@
 
 import { specialSymbols } from "occam-lexers";
 
-import SequenceOfPartsPart from "./sequenceOfParts";
+import CollectionOfPartsPart from "./collectionOfParts";
 
 import { ZeroOrMorePartsPartType } from "../../partTypes";
 
 const { asterisk } = specialSymbols;
 
-export default class ZeroOrMorePartsPart extends SequenceOfPartsPart {
+export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
   constructor(part) {
     const type = ZeroOrMorePartsPartType; ///
 

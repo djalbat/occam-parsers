@@ -11,7 +11,7 @@ import { PartRuleName } from "../ruleNames";
 
 const { openBracket, closeBracket } = specialSymbols;
 
-export default class GroupOfPartsDefinition extends Definition {
+export default class SequenceOfPartsDefinition extends Definition {
   constructor() {
     const partRuleName = PartRuleName,
           openBracketTerminalSymbolContent = openBracket, ///

@@ -22,7 +22,7 @@ const bnf = `
 
       nonTerminalPart       ::=  choiceOfParts
 
-                              |  groupOfParts
+                              |  sequenceOfParts
 
                               |  ruleName lookAheadModifier?
 
@@ -46,7 +46,7 @@ const bnf = `
 
       choiceOfParts         ::=  "(" part ( "|" part )+ ")" ;
 
-      groupOfParts          ::=  "(" part part+ ")" ;
+      sequenceOfParts       ::=  "(" part part+ ")" ;
 
       ruleName              ::=  [name] ;
 

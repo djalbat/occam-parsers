@@ -34,7 +34,8 @@ export default class TerminalSymbolPart extends TerminalPart {
   }
   
   asString() {
-    const string = `"${this.content}"`;
+    const content = this.content.replace(/\\/, "\\\\"),
+          string = `"${content}"`;
     
     return string;
   }

@@ -10,7 +10,7 @@ import RuleNamePart from "./part/nonTerminal/ruleName";
 import OptionalPartPart from "./part/nonTerminal/optionalPart";
 import ZeroOrMorePartsPart from "./part/nonTerminal/zeroOrMoreParts";
 import OneOrMorePartsPart from "./part/nonTerminal/oneOrMoreParts";
-import GroupOfPartsPart from "./part/nonTerminal/groupOfParts";
+import SequenceOfPartsPart from "./part/nonTerminal/sequenceOfParts";
 import ChoiceOfPartsPart from "./part/nonTerminal/choiceOfParts";
 
 export default {
@@ -24,6 +24,6 @@ export default {
   OptionalPartPart,
   ZeroOrMorePartsPart,
   OneOrMorePartsPart,
-  GroupOfPartsPart,
+  SequenceOfPartsPart,
   ChoiceOfPartsPart
 };

@@ -16,10 +16,10 @@ import QuantifierRule from "./rule/quantifier";
 import DefinitionRule from "./rule/definition";
 import DefinitionsRule from "./rule/definitions";
 import TerminalPartRule from "./rule/terminalPart";
-import GroupOfPartsRule from "./rule/groupOfParts";
 import ChoiceOfPartsRule from "./rule/choiceOfParts";
 import TerminalSymbolRule from "./rule/terminalSymbol";
 import NonTerminalPartRule from "./rule/nonTerminalPart";
+import SequenceOfPartsRule from "./rule/sequenceOfParts";
 import NoWhitespacePartRule from "./rule/noWhitespacePart";
 import LookAheadModifierRule from "./rule/lookAheadModifier";
 import RegularExpressionRule from "./rule/regularExpression";
@@ -67,10 +67,10 @@ export default class BNFParser extends CommonParser {
           definitionRule = new DefinitionRule(),
           definitionsRule = new DefinitionsRule(),
           terminalPartRule = new TerminalPartRule(),
-          groupOfPartsRule = new GroupOfPartsRule(),
           choiceOfPartsRule = new ChoiceOfPartsRule(),
           terminalSymbolRule = new TerminalSymbolRule(),
           nonTerminalPartRule = new NonTerminalPartRule(),
+          sequenceOfPartsRule = new SequenceOfPartsRule(),
           noWhitespacePartRule = new NoWhitespacePartRule(),
           regularExpressionRule = new RegularExpressionRule(),
           lookAheadModifierRule = new LookAheadModifierRule(),
@@ -89,8 +89,8 @@ export default class BNFParser extends CommonParser {
       nonTerminalPartRule,
       terminalPartRule,
       noWhitespacePartRule,
+      sequenceOfPartsRule,
       choiceOfPartsRule,
-      groupOfPartsRule,
       ruleNameRule,
       significantTokenTypeRule,
       regularExpressionRule,

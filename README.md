@@ -43,7 +43,7 @@ All parsers share common functionality. The last two parse content according to 
 
       nonTerminalPart       ::=  choiceOfParts
 
-                              |  groupOfParts
+                              |  sequenceOfParts
 
                               |  ruleName lookAheadModifier?
 
@@ -65,9 +65,9 @@ All parsers share common functionality. The last two parse content according to 
 
       noWhitespacePart      ::=  "<NO_WHITESPACE>" ;
 
-      choiceOfParts         ::=  "(" part ( "|" part )+ ")" ;
+      sequenceOfParts       ::=  "(" part part+ ")" ;
 
-      groupOfParts          ::=  "(" part part+ ")" ;
+      choiceOfParts         ::=  "(" part ( "|" part )+ ")" ;
 
       ruleName              ::=  [name] ;
 
@@ -180,7 +180,7 @@ This can be done with the `<NO_WHITESPACE>` special symbol. For example:
 
 It is conventional to leave no whitespace between the symbol and its subsequent part.
 
-### Grouping parts
+### Sequences of parts
 
 This can be done with the brackets. For example:
 

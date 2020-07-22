@@ -41,9 +41,9 @@ function partFromNodes(nodes) {
       part = partFromNodes(nodes);
 
       const ruleName = ruleNameFromQuantifierNode(quantifierNode),
-            sequenceOfPartsPart = sequenceOfPartsPartFromPartAndRuleName(part, ruleName);
+            collectionOfPartsPart = collectionOfPartsPartFromPartAndRuleName(part, ruleName);
 
-      part = sequenceOfPartsPart; ///
+      part = collectionOfPartsPart; ///
     } else {
       nodes.shift();
 
@@ -61,28 +61,28 @@ function isLastNodeQuantifierNode(nodes) {
   return lastNodeQuantifierNode;
 }
 
-function sequenceOfPartsPartFromPartAndRuleName(part, ruleName) {
-  let sequenceOfPartsPart;
+function collectionOfPartsPartFromPartAndRuleName(part, ruleName) {
+  let collectionOfPartsPart;
 
   switch (ruleName) {
     case OptionalQuantifierRuleName :
       const optionalPartPart = new OptionalPartPart(part);
 
-      sequenceOfPartsPart = optionalPartPart; ///
+      collectionOfPartsPart = optionalPartPart; ///
       break;
 
     case OneOrMoreQuantifierRuleName :
       const oneOrMorePartsPart = new OneOrMorePartsPart(part);
 
-      sequenceOfPartsPart = oneOrMorePartsPart; ///
+      collectionOfPartsPart = oneOrMorePartsPart; ///
       break;
 
     case ZeroOrMoreQuantifierRuleName :
       const zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
 
-      sequenceOfPartsPart = zeroOrMorePartsPart;  ///
+      collectionOfPartsPart = zeroOrMorePartsPart;  ///
       break;
   }
 
-  return sequenceOfPartsPart;
+  return collectionOfPartsPart;
 }

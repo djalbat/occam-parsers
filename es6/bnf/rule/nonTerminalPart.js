@@ -5,19 +5,19 @@ import RuleNameDefinition from "../definition/ruleName";
 import NonTerminalPartNode from "../node/part/nonTerminal";
 import RuleNameNonTerminalPartRuleDefinition from "../definition/partRule/nonTerminal/ruleName";
 
-import { NonTerminalPartRuleName, ChoiceOfPartsRuleName, GroupOfPartsRuleName } from "../ruleNames";
+import { NonTerminalPartRuleName, ChoiceOfPartsRuleName, SequenceOfPartsRuleName } from "../ruleNames";
 
 export default class NonTerminalPartRule extends Rule {
   constructor() {
     const name = NonTerminalPartRuleName,
-          groupOfPartsRuleName = GroupOfPartsRuleName,
           choiceOfPartsRuleName = ChoiceOfPartsRuleName,
-          groupOfPartsRuleNameDefinition = new RuleNameDefinition(groupOfPartsRuleName),
+          sequenceOfPartsRuleName = SequenceOfPartsRuleName,
           choiceOfPartsRuleNameDefinition = new RuleNameDefinition(choiceOfPartsRuleName),
+        sequenceOfPartsRuleNameDefinition = new RuleNameDefinition(sequenceOfPartsRuleName),
           ruleNameNonTerminalPartRuleDefinition = new RuleNameNonTerminalPartRuleDefinition(),
           definitions = [
             choiceOfPartsRuleNameDefinition,
-            groupOfPartsRuleNameDefinition,
+            sequenceOfPartsRuleNameDefinition,
             ruleNameNonTerminalPartRuleDefinition
           ],
           Node = NonTerminalPartNode;
