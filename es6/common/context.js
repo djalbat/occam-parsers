@@ -70,6 +70,20 @@ export default class Context {
 		return nextSignificantToken;
   }
 
+  isNextTokenWhitespaceToken() {
+    let nextTokenWhitespaceToken = false;
+
+    const tokensLength = this.tokens.length;
+
+    if (this.index < tokensLength) {
+      const nextToken = this.tokens[this.index];
+
+      nextTokenWhitespaceToken = nextToken.isWhitespaceToken();
+    }
+
+    return nextTokenWhitespaceToken;
+  }
+
   isTooDeep() {
     const tooDeep = (this.depth > this.maximumDepth);
 

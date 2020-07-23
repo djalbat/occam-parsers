@@ -20,7 +20,9 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
 
   parse(context) {
     let nodes = null;
-    
+
+    const savedIndex = context.getSavedIndex();
+
     this.parts.some((part) => {
       const partNodeOrNodes = part.parse(context);
 
@@ -29,6 +31,8 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
 
         return true;
       }
+
+      context.backtrack(savedIndex);
     });
     
     return nodes;

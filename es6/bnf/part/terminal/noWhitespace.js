@@ -17,19 +17,11 @@ export default class NoWhitespacePart extends TerminalPart {
   parse(context) {
     let noWhitespaceNode = null;
 
-    const savedIndex = context.getSavedIndex(),
-          nextToken = context.getNextToken(),
-          token = nextToken; ///
+    const nextTokenWhitespaceToken = context.isNextTokenWhitespaceToken();
 
-    if (token !== null) {
-      const tokenWhitespaceToken = token.isWhitespaceToken();
-
-      if (!tokenWhitespaceToken) {
-        noWhitespaceNode = NoWhitespaceNode.fromNothing();
-      }
+    if (!nextTokenWhitespaceToken) {
+      noWhitespaceNode = NoWhitespaceNode.fromNothing();
     }
-
-    context.backtrack(savedIndex);
 
     return noWhitespaceNode;
   }
