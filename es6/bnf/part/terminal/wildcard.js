@@ -11,13 +11,18 @@ export default class WildcardPart extends TerminalPart {
   parse(context) {
     let terminalNode = null;
     
-    const nextSignificantToken = context.getNextSignificantToken(),
+    const savedIndex = context.getSavedIndex(),
+		      nextSignificantToken = context.getNextSignificantToken(),
 					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
       terminalNode = TerminalNode.fromSignificantToken(significantToken);
     }
     
+    if (terminalNode === null) {
+      context.backtrack(savedIndex);
+    }
+
     return terminalNode;
   }
 
