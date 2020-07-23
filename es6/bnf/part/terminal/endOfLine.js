@@ -11,8 +11,7 @@ export default class EndOfLinePart extends TerminalPart {
   parse(context) {
     let endOfLineNode = null;
     
-    const savedIndex = context.getSavedIndex(),
-		      nextSignificantToken = context.getNextSignificantToken(),
+    const nextSignificantToken = context.getNextSignificantToken(),
           significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
@@ -23,10 +22,6 @@ export default class EndOfLinePart extends TerminalPart {
       }
     }
     
-    if (endOfLineNode === null) {
-      context.backtrack(savedIndex);
-    }
-
     return endOfLineNode;
   }
 
