@@ -122,32 +122,6 @@ function parsePart(part, parts, nodes, index, context, callback) {
         }
       }
     }
-    // if (!callback) {
-    //   const lookAhead = ruleNamePart.isLookAhead();  ///
-    //
-    //   if (lookAhead) {
-    //     callback = () => true;  ///
-    //   }
-    // }
-    //
-    // if (callback) {
-    //   const partsNodeOrNodes = [],
-    //         partNodeOrNodes = ruleNamePart.parse(context, () => parseParts(parts, partsNodeOrNodes, index, context) && callback());
-    //
-    //   if (partNodeOrNodes !== null) {
-    //     concat(nodes, partNodeOrNodes, partsNodeOrNodes);
-    //
-    //     parsed = true;
-    //   }
-    // } else {
-    //   const partNodeOrNodes = ruleNamePart.parse(context);
-    //
-    //   if (partNodeOrNodes !== null) {
-    //     concat(nodes, partNodeOrNodes);
-    //
-    //     parsed = parseParts(parts, nodes, index, context);
-    //   }
-    // }
   } else {
     const partNodeOrNodes = part.parse(context, callback);
 
