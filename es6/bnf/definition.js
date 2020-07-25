@@ -91,14 +91,6 @@ function parsePart(part, parts, nodes, index, context, callback) {
   if (partRuleNamePart) {
     const ruleNamePart = part;  ///
 
-    if (!callback) {
-      const lookAhead = ruleNamePart.isLookAhead();  ///
-
-      if (lookAhead) {
-        callback = () => true;  ///
-      }
-    }
-
     if (callback) {
       const partsNodeOrNodes = [],
             partNodeOrNodes = ruleNamePart.parse(context, () => parseParts(parts, partsNodeOrNodes, index, context) && callback());
@@ -109,14 +101,53 @@ function parsePart(part, parts, nodes, index, context, callback) {
         parsed = true;
       }
     } else {
-      const partNodeOrNodes = ruleNamePart.parse(context);
+      const lookAhead = ruleNamePart.isLookAhead();  ///
 
-      if (partNodeOrNodes !== null) {
-        concat(nodes, partNodeOrNodes);
+      if (lookAhead) {
+        const partsNodeOrNodes = [],
+              partNodeOrNodes = ruleNamePart.parse(context, () => parseParts(parts, partsNodeOrNodes, index, context));
 
-        parsed = parseParts(parts, nodes, index, context);
+        if (partNodeOrNodes !== null) {
+          concat(nodes, partNodeOrNodes, partsNodeOrNodes);
+
+          parsed = true;
+        }
+      } else {
+        const partNodeOrNodes = ruleNamePart.parse(context);
+
+        if (partNodeOrNodes !== null) {
+          concat(nodes, partNodeOrNodes);
+
+          parsed = parseParts(parts, nodes, index, context);
+        }
       }
     }
+    // if (!callback) {
+    //   const lookAhead = ruleNamePart.isLookAhead();  ///
+    //
+    //   if (lookAhead) {
+    //     callback = () => true;  ///
+    //   }
+    // }
+    //
+    // if (callback) {
+    //   const partsNodeOrNodes = [],
+    //         partNodeOrNodes = ruleNamePart.parse(context, () => parseParts(parts, partsNodeOrNodes, index, context) && callback());
+    //
+    //   if (partNodeOrNodes !== null) {
+    //     concat(nodes, partNodeOrNodes, partsNodeOrNodes);
+    //
+    //     parsed = true;
+    //   }
+    // } else {
+    //   const partNodeOrNodes = ruleNamePart.parse(context);
+    //
+    //   if (partNodeOrNodes !== null) {
+    //     concat(nodes, partNodeOrNodes);
+    //
+    //     parsed = parseParts(parts, nodes, index, context);
+    //   }
+    // }
   } else {
     const partNodeOrNodes = part.parse(context, callback);
 
