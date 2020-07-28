@@ -15,13 +15,13 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
     super(type, part);
   }
 
-  parse(context) {
+  parse(context, callback) {
     let nodes = [];
     
     const part = this.getPart();
 
     for(;;) {
-      const partNodeOrNodes = part.parse(context),
+      const partNodeOrNodes = part.parse(context, callback),
             parsed = (partNodeOrNodes !== null);
 
       if (parsed) {

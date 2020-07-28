@@ -12,7 +12,9 @@ export default class RegularExpressionPart extends TerminalPart {
     this.regularExpression = regularExpression;
   }
 
-  parse(context) {
+  parse(context, callback) {
+    let parsed;
+
     let terminalNode = null;
     
     const savedIndex = context.getSavedIndex(),
@@ -24,17 +26,26 @@ export default class RegularExpressionPart extends TerminalPart {
             matches = content.match(this.regularExpression);
 
       if (matches !== null) {
-        const firstMatch = first(matches),
-              parsed = (firstMatch === content);  ///
+        const firstMatch = first(matches);
 
-        if (parsed) {
+        if (firstMatch === content) {
           terminalNode = TerminalNode.fromSignificantToken(significantToken);
         }
       }
     }
 
-    if (terminalNode === null) {
+    parsed = (terminalNode !== null);
+
+    if (parsed) {
+      if (callback) {
+        parsed = callback();
+      }
+    }
+
+    if (!parsed) {
       context.backtrack(savedIndex);
+
+      terminalNode = null;
     }
 
     return terminalNode;

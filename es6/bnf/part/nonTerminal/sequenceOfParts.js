@@ -18,12 +18,12 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     return this.parts;
   }
 
-  parse(context) {
+  parse(context, callback) {
     let nodes = [];
 
     const savedIndex = context.getSavedIndex(),
           parsed = this.parts.every((part) => {
-            const partNodeOrNodes = part.parse(context);
+            const partNodeOrNodes = part.parse(context, callback);
 
             if (partNodeOrNodes !== null) {
               nodes = nodes.concat(partNodeOrNodes);

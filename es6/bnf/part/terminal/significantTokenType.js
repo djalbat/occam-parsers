@@ -10,7 +10,9 @@ export default class SignificantTokenTypePart extends TerminalPart {
     this.significantTokenType = significantTokenType;
   }
 
-  parse(context) {
+  parse(context, callback) {
+    let parsed;
+
     let terminalNode = null;
     
     const savedIndex = context.getSavedIndex(),
@@ -18,16 +20,25 @@ export default class SignificantTokenTypePart extends TerminalPart {
 					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
-      const significantTokenType = significantToken.getType(),
-            parsed = (significantTokenType === this.significantTokenType);
+      const significantTokenType = significantToken.getType();
 
-      if (parsed) {
+      if (significantTokenType === this.significantTokenType) {
         terminalNode = TerminalNode.fromSignificantToken(significantToken);
       }
     }
 
-    if (terminalNode === null) {
+    parsed = (terminalNode !== null);
+
+    if (parsed) {
+      if (callback) {
+        parsed = callback();
+      }
+    }
+
+    if (!parsed) {
       context.backtrack(savedIndex);
+
+      terminalNode = null;
     }
 
     return terminalNode;

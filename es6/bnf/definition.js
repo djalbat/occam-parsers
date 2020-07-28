@@ -35,10 +35,13 @@ export default class Definition {
   }
 
   parse(context, callback) {
+    let parsed;
+
     let nodes = [];
 
-    const index = 0,
-          parsed = parseParts(this.parts, nodes, index, context, callback);
+    const index = 0;
+
+    parsed = parseParts(this.parts, nodes, index, context, callback);
 
     if (!parsed) {
       nodes = null;
@@ -66,14 +69,16 @@ export default class Definition {
 }
 
 function parseParts(parts, nodes, index, context, callback) {
-  let parsed = false;
+  let parsed;
 
   const partsLength = parts.length;
 
   if (index === partsLength) {
-    parsed = callback ?
-               callback() :
-                 true;
+    parsed = true;
+
+    if (callback) {
+      parsed = callback();
+    }
   } else {
     const part = parts[index++];
 
@@ -86,22 +91,21 @@ function parseParts(parts, nodes, index, context, callback) {
 function parsePart(part, parts, nodes, index, context, callback) {
   let parsed = false;
 
-  const partRuleNamePart = isPartRuleNamePart(part);
+  if (callback) {
+    const remainingNodes = [],
+          partNodeOrNodes = part.parse(context, () => parseParts(parts, remainingNodes, index, context, callback));
 
-  if (partRuleNamePart) {
-    const ruleNamePart = part;  ///
+    if (partNodeOrNodes !== null) {
+      concat(nodes, partNodeOrNodes, remainingNodes);
 
-    if (callback) {
-      const remainingNodes = [],
-            partNodeOrNodes = ruleNamePart.parse(context, () => parseParts(parts, remainingNodes, index, context) && callback());
+      parsed = true;
+    }
+  } else {
+    const partRuleNamePart = isPartRuleNamePart(part);
 
-      if (partNodeOrNodes !== null) {
-        concat(nodes, partNodeOrNodes, remainingNodes);
-
-        parsed = true;
-      }
-    } else {
-      const lookAhead = ruleNamePart.isLookAhead();  ///
+    if (partRuleNamePart) {
+      const ruleNamePart = part,  ///
+            lookAhead = ruleNamePart.isLookAhead();  ///
 
       if (lookAhead) {
         const remainingNodes = [],
@@ -121,14 +125,14 @@ function parsePart(part, parts, nodes, index, context, callback) {
           parsed = parseParts(parts, nodes, index, context);
         }
       }
-    }
-  } else {
-    const partNodeOrNodes = part.parse(context, callback);
+    } else {
+      const partNodeOrNodes = part.parse(context);
 
-    if (partNodeOrNodes !== null) {
-      concat(nodes, partNodeOrNodes);
+      if (partNodeOrNodes !== null) {
+        concat(nodes, partNodeOrNodes);
 
-      parsed = parseParts(parts, nodes, index, context, callback);
+        parsed = parseParts(parts, nodes, index, context);
+      }
     }
   }
 

@@ -8,7 +8,9 @@ import TerminalNode from "../../../common/node/terminal";
 const { wildcard } = specialSymbols;
 
 export default class WildcardPart extends TerminalPart {
-  parse(context) {
+  parse(context, callback) {
+    let parsed;
+
     let terminalNode = null;
     
     const savedIndex = context.getSavedIndex(),
@@ -18,9 +20,19 @@ export default class WildcardPart extends TerminalPart {
     if (significantToken !== null) {
       terminalNode = TerminalNode.fromSignificantToken(significantToken);
     }
-    
-    if (terminalNode === null) {
+
+    parsed = (terminalNode !== null);
+
+    if (parsed) {
+      if (callback) {
+        parsed = callback();
+      }
+    }
+
+    if (!parsed) {
       context.backtrack(savedIndex);
+
+      terminalNode = null;
     }
 
     return terminalNode;

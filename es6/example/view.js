@@ -18,7 +18,7 @@ import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 export default class View extends Element {
   getTokens() {
     const lexicalEntries = this.getLexicalEntries(),
-          entries = lexicalEntries, ///
+          entries = lexicalEntries, ///1
           lexer = this.Lexer.fromEntries(entries),
           content = this.getContent(),
           tokens = lexer.tokenise(content);

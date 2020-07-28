@@ -14,13 +14,30 @@ export default class NoWhitespacePart extends TerminalPart {
     return noWhitespacePart;
   }
 
-  parse(context) {
+  parse(context, callback) {
+    let parsed;
+
     let noWhitespaceNode = null;
 
-    const nextTokenWhitespaceToken = context.isNextTokenWhitespaceToken();
+    const savedIndex = context.getSavedIndex(),
+          nextTokenWhitespaceToken = context.isNextTokenWhitespaceToken();
 
     if (!nextTokenWhitespaceToken) {
       noWhitespaceNode = NoWhitespaceNode.fromNothing();
+    }
+
+    parsed = (noWhitespaceNode !== null);
+
+    if (parsed) {
+      if (callback) {
+        parsed = callback();
+      }
+    }
+
+    if (!parsed) {
+      context.backtrack(savedIndex);
+
+      noWhitespaceNode = null;
     }
 
     return noWhitespaceNode;

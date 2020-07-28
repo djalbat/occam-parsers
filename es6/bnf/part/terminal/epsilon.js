@@ -8,8 +8,22 @@ import TerminalPart from "../../part/terminal";
 const { epsilon } = specialSymbols;
 
 export default class EpsilonPart extends TerminalPart {
-  parse(context) {
-    const epsilonNode = EpsilonNode.fromNothing();
+  parse(context, callback) {
+    let parsed;
+
+    let epsilonNode = EpsilonNode.fromNothing();
+
+    parsed = (epsilonNode !== null);
+
+    if (parsed) {
+      if (callback) {
+        parsed = callback();
+      }
+    }
+
+    if (!parsed) {
+      epsilonNode = null;
+    }
 
     return epsilonNode;
   }
