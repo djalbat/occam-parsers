@@ -2,17 +2,27 @@
 
 import { arrayUtilities } from "necessary";
 
-export const { first, second, third, last, push, filter, forwardsSome, backwardsSome } = arrayUtilities;
+export const { first, second, third, last, filter, forwardsSome, backwardsSome } = arrayUtilities;
 
 export function even(array) { return array.filter((entry, index) => isEven(index)); }
 
+export function push(array1, elementOrArray2) {
+  const array2 = guaranteeArray(elementOrArray2);
+
+  Array.prototype.push.apply(array1, array2);
+}
+
+export function unshift(array1, elementOrArray2) {
+  const array2 = guaranteeArray(elementOrArray2);
+
+  Array.prototype.unshift.apply(array1, array2);
+}
+
 export function concat(array1, ...elementOrArray2Array) {
   elementOrArray2Array.forEach((elementOrArray2) => {
-    const array2 = (elementOrArray2 instanceof Array) ?
-                      elementOrArray2 :
-                      [ elementOrArray2 ];
+    const array2 = guaranteeArray(elementOrArray2);
 
-    push(array1, array2);
+    Array.prototype.push.apply(array1, array2);
   });
 }
 
@@ -38,4 +48,12 @@ function isEven(index) {
   const even = (Math.floor(index/2) === index/2);
 
   return even;
+}
+
+function guaranteeArray(elementOrArray) {
+  const array = (elementOrArray instanceof Array) ?
+                   elementOrArray :
+                   [ elementOrArray ];
+
+  return array;
 }
