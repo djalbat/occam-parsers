@@ -46,13 +46,13 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
 
             if (parsed) {
               unshift(partsNodes, partNodeOrNodes);
+
+              count++;
             } else {
               terminate = true;
             }
           }
         }
-
-        count++;
 
         return parsed;
       }
@@ -65,10 +65,10 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
             terminate = true;
           } else {
             push(partsNodes, partNodeOrNodes);
+
+            count++;
           }
         }
-
-        count++;
 
         return terminate;
       });

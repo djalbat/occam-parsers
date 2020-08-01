@@ -1,8 +1,8 @@
 "use strict";
 
 export function whilst(callback) {
-  for(let count = 0; count < Infinity; count++) {
-    const terminate = callback(count);
+  for(;;) {
+    const terminate = callback();
 
     if (terminate) {
       return;
