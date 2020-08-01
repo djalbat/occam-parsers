@@ -203,7 +203,7 @@ Consider the following rules:
 
        BC  ::=  "b" "c" ;
 
-This will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse the `a` and `b` tokens, leaving only the `c` token for the `BC` rule to parse. This situation can be addressed by making the `AAB` rule look ahead, that is, try each of its definitions in turn until one is found that allows the next rule to parse. The look-ahead modifier is an exclamation mark, thus the rules above become:
+These will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse the `a` and `b` tokens, leaving only the `c` token for the `BC` rule to parse. This situation can be addressed by making the `AAB` rule look ahead, that is, try each of its definitions in turn until one is found that allows the remainder of the parent rule to parse. The look-ahead modifier is an exclamation mark, thus the rules above become:
 
       ABC  ::=  AAB! BC ;
 
@@ -211,9 +211,9 @@ This will not parse the tokens `a`, `b`, `c` because the first definition of the
 
        BC  ::=  "b" "c" ;
 
-Now the `ABC` rule will indeed parse the tokens `a`, `b`, `c`, because the second definition of the `AAB` rule will be tried after the first definition fails to allow the `BC` rule to parse.
+Now the `ABC` rule will indeed parse the tokens `a`, `b`, `c`, because the second definition of the `AAB` rule will be tried after the first definition fails to allow the `BC` rule name part to parse.
 
-It seems that the parser parses with roughly linear complexity as a function of the length of the input, however it is most likely that look-ahead parses take exponential time. For this reason, look-ahead should be used sparingly. Also note that look-ahead is carried out to arbitrary depth, another reason to use it with caution.
+It seems that the parser parses with roughly linear complexity as a function of the length of the input, however it is most likely that look-ahead parses take exponential time. For this reason, look-ahead should be used sparingly. Also note that look-ahead is carried out to arbitrary depth and also affects the behaviour of the `?`, `*`, `+` quantifiers, another reason to use it with caution.
 
 ## Building
 

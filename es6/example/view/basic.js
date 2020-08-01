@@ -12,7 +12,7 @@ export default class BasicView extends View {
 
   heading = "Basic parser example";
 
-  initialContent = "1+2/3";
+  initialContent = "(1+2)/3";
 
   static defaultProperties = {
     className: "basic"

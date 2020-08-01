@@ -4,7 +4,6 @@ import { specialSymbols } from "occam-lexers";
 
 import CollectionOfPartsPart from "./collectionOfParts";
 
-import { whilst } from "../../../utilities/synchronous";
 import { push, unshift } from "../../../utilities/array";
 import { OneOrMorePartsPartType } from "../../partTypes";
 
@@ -18,64 +17,50 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
   }
 
   parse(context, callback) {
-    let nodes = null;
+    let nodes;
 
-    const part = this.getPart(),
-          partsNodes = [];
-
-    let terminate = false,
-        count = 0;
+    const part = this.getPart();
 
     if (callback) {
-      parsePart(context, callback);
+      const partsNodes = [],
+            parsed = parseParts(callback);
 
-      function parsePart(context, callback) {
-        let parsed;
+      nodes = parsed ?
+                partsNodes :
+                  null;
 
-        if (terminate) {
-          parsed = true;
-        } else {
-          parsed = callback();
+      function parseParts(callback) {
+        const partNodeOrNodes = part.parse(context, () => callback() || parseParts(callback)), ///
+              parsed = (partNodeOrNodes !== null);
 
-          if (parsed) {
-            terminate = true;
-          } else {
-            const partNodeOrNodes = part.parse(context, () => parsePart(context, callback));
-
-            parsed = (partNodeOrNodes !== null);
-
-            if (parsed) {
-              unshift(partsNodes, partNodeOrNodes);
-
-              count++;
-            } else {
-              terminate = true;
-            }
-          }
+        if (parsed) {
+          unshift(partsNodes, partNodeOrNodes);
         }
 
         return parsed;
       }
     } else {
-      whilst(() => {
-        if (!terminate) {
-          const partNodeOrNodes = part.parse(context);
+      let count = 0;
 
-          if (partNodeOrNodes === null) {
-            terminate = true;
-          } else {
-            push(partsNodes, partNodeOrNodes);
+      const partsNodes = [];
 
-            count++;
-          }
+      for (;;) {
+        const partNodeOrNodes = part.parse(context);
+
+        if (partNodeOrNodes === null) {
+          break;
         }
 
-        return terminate;
-      });
-    }
+        push(partsNodes, partNodeOrNodes);
 
-    if (count >= 1) {
-      nodes = partsNodes; ///
+        count++;
+      }
+
+      const parsed = (count >= 1);
+
+      nodes = parsed ?
+                partsNodes :
+                  null;
     }
 
     return nodes;
