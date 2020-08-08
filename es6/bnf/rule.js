@@ -84,15 +84,23 @@ export default class Rule {
       throw new Error(`The parse tree is too deep at rule "${this.name}".`);
     }
 
+    let nodes;
+
     this.definitions.some((definition) => {
-      node = this.parseDefinition(definition, context, callback);
+      nodes = this.parseDefinition(definition, context, callback);
 
-      let parsed = (node !== null);
-
-      if (parsed) {
+      if (nodes !== null) {
         return true;
       }
     });
+
+    if (nodes !== null) {
+      const ruleName = this.name, ///
+            childNodes = nodes,  ///
+            nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
+
+      node = nonTerminalNode; ///
+    }
 
     context.decreaseDepth();
 
@@ -100,24 +108,14 @@ export default class Rule {
   }
 
   parseDefinition(definition, context, callback) {
-    let node = null;
+    const savedIndex = context.getSavedIndex(),
+          nodes = definition.parse(context, callback);
 
-    const savedIndex = context.getSavedIndex();
-
-    const nodes = definition.parse(context, callback),
-          parsed = (nodes !== null);
-
-    if (parsed) {
-      const ruleName = this.name, ///
-            childNodes = nodes,  ///
-            nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
-
-      node = nonTerminalNode; ///
-    } else {
+    if (nodes === null) {
       context.backtrack(savedIndex);
     }
 
-    return node;
+    return nodes;
   }
 
   asString(maximumRuleNameLength, multiLine = true) {

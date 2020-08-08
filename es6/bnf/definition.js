@@ -1,7 +1,7 @@
 "use strict";
 
-import { isPartRuleNamePart } from "../utilities/part";
-import { first, concat, allButFirst } from "../utilities/array";
+import { first, allButFirst } from "../utilities/array";
+import { isPartRuleNamePartWithLookAhead } from "../utilities/part";
 
 export default class Definition {
   constructor(parts) {
@@ -35,17 +35,11 @@ export default class Definition {
   }
 
   parse(context, callback) {
-    let parsed;
-
     let nodes = [];
 
     const index = 0;
 
-    parsed = parseParts(this.parts, nodes, index, context, callback);
-
-    if (!parsed) {
-      nodes = null;
-    }
+    nodes = parseParts(this.parts, nodes, index, context, callback);
 
     return nodes;
   }
@@ -69,72 +63,53 @@ export default class Definition {
 }
 
 function parseParts(parts, nodes, index, context, callback) {
-  let parsed;
-
   const partsLength = parts.length;
 
   if (index === partsLength) {
-    parsed = true;
-
     if (callback) {
-      parsed = callback();
+      callback();
     }
   } else {
     const part = parts[index++];
 
-    parsed = parsePart(part, parts, nodes, index, context, callback);
+    nodes = parsePart(part, parts, nodes, index, context, callback);
   }
 
-  return parsed;
+  return nodes;
 }
 
 function parsePart(part, parts, nodes, index, context, callback) {
-  let parsed = false;
-
   if (callback) {
-    const remainingNodes = [],
-          partNodeOrNodes = part.parse(context, () => parseParts(parts, remainingNodes, index, context, callback));
+    // const immediateCallback = () => parseParts(parts, nodes, index, context, callback);
 
-    if (partNodeOrNodes !== null) {
-      concat(nodes, partNodeOrNodes, remainingNodes);
+    nodes = part.parse(nodes, context, callback);
 
-      parsed = true;
+    if (nodes !== null) {
+      nodes = parseParts(parts, nodes, index, context, callback);
     }
   } else {
-    const partRuleNamePart = isPartRuleNamePart(part);
+    const partRuleNamePartWithLookAhead = isPartRuleNamePartWithLookAhead(part);
 
-    if (partRuleNamePart) {
-      const ruleNamePart = part,  ///
-            lookAhead = ruleNamePart.isLookAhead();  ///
+    if (partRuleNamePartWithLookAhead) {
+      let partNodes = [];
 
-      if (lookAhead) {
-        const remainingNodes = [],
-              partNodeOrNodes = ruleNamePart.parse(context, () => parseParts(parts, remainingNodes, index, context));
+      const ruleNamePartWithLookAhead = part; ///
 
-        if (partNodeOrNodes !== null) {
-          concat(nodes, partNodeOrNodes, remainingNodes);
+      nodes = ruleNamePartWithLookAhead.parse(nodes, context, () => {
+        partNodes = parseParts(parts, partNodes, index, context)
+      });
 
-          parsed = true;
-        }
-      } else {
-        const partNodeOrNodes = ruleNamePart.parse(context);
-
-        if (partNodeOrNodes !== null) {
-          concat(nodes, partNodeOrNodes);
-
-          parsed = parseParts(parts, nodes, index, context);
-        }
-      }
+      nodes = (partNodes === null) ?
+                null :
+                  [ ...nodes, ...partNodes ];
     } else {
-      const partNodeOrNodes = part.parse(context);
+      nodes = part.parse(nodes, context);
 
-      if (partNodeOrNodes !== null) {
-        concat(nodes, partNodeOrNodes);
-
-        parsed = parseParts(parts, nodes, index, context);
+      if (nodes !== null) {
+        nodes = parseParts(parts, nodes, index, context);
       }
     }
   }
 
-  return parsed;
+  return nodes;
 }

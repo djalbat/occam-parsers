@@ -1,11 +1,11 @@
 "use strict";
 
-export function whilst(callback) {
-  for(;;) {
-    const terminate = callback();
+export function paddingFromPaddingLength(paddingLength) {
+  let padding = "";
 
-    if (terminate) {
-      return;
-    }
+  for (let position = 0; position < paddingLength; position++) {
+    padding += " ";
   }
+
+  return padding;
 }

@@ -4,7 +4,6 @@ import { specialSymbols } from "occam-lexers";
 
 import CollectionOfPartsPart from "./collectionOfParts";
 
-import { push, unshift } from "../../../utilities/array";
 import { ZeroOrMorePartsPartType } from "../../partTypes";
 
 const { asterisk } = specialSymbols;
@@ -16,49 +15,47 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
     super(type, part);
   }
 
-  parse(context, callback) {
-    let nodes;
-
+  parse(nodes, context, callback) {
     const part = this.getPart();
 
     if (callback) {
-      const parsed = callback();
+      const partNodes = callback(nodes);
 
-      if (parsed) {
-        nodes = [];
+      if (partNodes !== null) {
+        nodes = partNodes;  ///
       } else {
-        const partsNodes = [],
-              parsed = parseParts(callback);
+        const partNodes = parsePart(nodes, callback);
 
-        nodes = parsed ?
-                  partsNodes :
-                    null;
+        if (partNodes !== null) {
+          nodes = partNodes;  ///
+        }
 
-        function parseParts(callback) {
-          const partNodeOrNodes = part.parse(context, () => callback() || parseParts(callback)), ///
-                parsed = (partNodeOrNodes !== null);
+        function parsePart(nodes, callback) {
+          const partNodes = part.parse(nodes, context, (nodes) => {
+            const partNodes = callback(nodes);
 
-          if (parsed) {
-            unshift(partsNodes, partNodeOrNodes);
-          }
+            if (partNodes !== null) {
+              nodes = partNodes;  ///
+            } else {
+              nodes = parsePart(nodes, callback);
+            }
 
-          return parsed;
+            return nodes;
+          });
+
+          return partNodes;
         }
       }
     } else {
-      const partsNodes = [];
-
       for (;;) {
-        const partNodeOrNodes = part.parse(context);
+        const partNodes = part.parse(nodes, context);
 
-        if (partNodeOrNodes === null) {
+        if (partNodes === null) {
           break;
         }
 
-        push(partsNodes, partNodeOrNodes);
+        nodes = partNodes;  ///
       }
-
-      nodes = partsNodes; ///
     }
 
     return nodes;

@@ -8,9 +8,7 @@ import EndOfLineNode from "../../../common/node/terminal/endOfLine";
 const { END_OF_LINE } = specialSymbols;
 
 export default class EndOfLinePart extends TerminalPart {
-  parse(context, callback) {
-    let parsed;
-
+  parse(nodes, context, callback) {
     let endOfLineNode = null;
     
     const savedIndex = context.getSavedIndex(),
@@ -25,21 +23,15 @@ export default class EndOfLinePart extends TerminalPart {
       }
     }
 
-    parsed = (endOfLineNode !== null);
+    nodes = (endOfLineNode === null) ?
+              null :
+                [ ...nodes, endOfLineNode ];
 
-    if (parsed) {
-      if (callback) {
-        parsed = callback();
-      }
-    }
-
-    if (!parsed) {
+    if (nodes === null) {
       context.backtrack(savedIndex);
-
-      endOfLineNode = null;
     }
 
-    return endOfLineNode;
+    return nodes;
   }
 
   asString() {

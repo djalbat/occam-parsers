@@ -44,20 +44,20 @@ export default class View extends Element {
   }
 
   keyUpHandler() {
-    try {
+    // try {
       const tokens = this.getTokens(),
             parseTree = this.getParseTree(tokens);
 
       this.setTokens(tokens);
 
       this.setParseTree(parseTree);
-    } catch (error) {
-      console.log(error);
-
-      this.clearTokens();
-
-      this.clearParseTree();
-    }
+    // } catch (error) {
+    //   console.log(error);
+    //
+    //   this.clearTokens();
+    //
+    //   this.clearParseTree();
+    // }
   }
 
   childElements() {

@@ -10,9 +10,7 @@ export default class TerminalSymbolPart extends TerminalPart {
     this.content = content;
   }
 
-  parse(context, callback) {
-    let parsed;
-
+  parse(nodes, context, callback) {
     let terminalNode = null;
     
     const savedIndex = context.getSavedIndex(),
@@ -27,21 +25,15 @@ export default class TerminalSymbolPart extends TerminalPart {
       }
     }
 
-    parsed = (terminalNode !== null);
+    nodes = (terminalNode === null) ?
+              null :
+                [ ...nodes, terminalNode ];
 
-    if (parsed) {
-      if (callback) {
-        parsed = callback();
-      }
-    }
-
-    if (!parsed) {
+    if (nodes === null) {
       context.backtrack(savedIndex);
-
-      terminalNode = null;
     }
 
-    return terminalNode;
+    return nodes;
   }
   
   asString() {

@@ -4,7 +4,6 @@ import { specialSymbols } from "occam-lexers";
 
 import CollectionOfPartsPart from "./collectionOfParts";
 
-import { push, unshift } from "../../../utilities/array";
 import { OneOrMorePartsPartType } from "../../partTypes";
 
 const { plus } = specialSymbols;
@@ -16,51 +15,45 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
     super(type, part);
   }
 
-  parse(context, callback) {
-    let nodes;
-
+  parse(nodes, context, callback) {
     const part = this.getPart();
 
     if (callback) {
-      const partsNodes = [],
-            parsed = parseParts(callback);
+      nodes  = parsePart(nodes, callback);
 
-      nodes = parsed ?
-                partsNodes :
-                  null;
+      function parsePart(nodes, callback) {
+        const partNodes = part.parse(nodes, context, (nodes) => {
+          const partNodes = callback(nodes);
 
-      function parseParts(callback) {
-        const partNodeOrNodes = part.parse(context, () => callback() || parseParts(callback)), ///
-              parsed = (partNodeOrNodes !== null);
+          if (partNodes !== null) {
+            nodes = partNodes;  ///
+          } else {
+            nodes = parsePart(nodes, callback);
+          }
 
-        if (parsed) {
-          unshift(partsNodes, partNodeOrNodes);
-        }
+          return nodes;
+        });
 
-        return parsed;
+        return partNodes;
       }
     } else {
       let count = 0;
 
-      const partsNodes = [];
-
       for (;;) {
-        const partNodeOrNodes = part.parse(context);
+        const partNodes = part.parse(nodes, context);
 
-        if (partNodeOrNodes === null) {
+        if (partNodes === null) {
           break;
         }
 
-        push(partsNodes, partNodeOrNodes);
+        nodes = partNodes;  ///
 
         count++;
       }
 
-      const parsed = (count >= 1);
-
-      nodes = parsed ?
-                partsNodes :
-                  null;
+      if (count === 0) {
+        nodes = null;
+      }
     }
 
     return nodes;

@@ -18,24 +18,29 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     return this.parts;
   }
 
-  parse(context, callback) {
-    let nodes = [];
+  parse(nodes, context, callback) {
+    const savedIndex = context.getSavedIndex();
 
-    const savedIndex = context.getSavedIndex(),
-          parsed = this.parts.every((part) => {
-            const partNodeOrNodes = part.parse(context, callback);
+    let partNodes = nodes;  ///
 
-            if (partNodeOrNodes !== null) {
-              nodes = nodes.concat(partNodeOrNodes);
+    if (callback) {
+      debugger
+    } else {
+      this.parts.every((part) => {
+        partNodes = part.parse(partNodes, context, callback);
 
-              return true;
-            }
-          });
+        if (partNodes !== null) {
+          return true;
+        }
+      });
+    }
 
-    if (!parsed) {
+    nodes = (partNodes !== null) ?
+              partNodes : ///
+                null;
+
+    if (nodes === null) {
       context.backtrack(savedIndex);
-
-      nodes = null;
     }
 
     return nodes;

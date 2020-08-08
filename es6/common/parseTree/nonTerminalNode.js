@@ -4,28 +4,21 @@ import RuleNameParseTree from "./ruleName";
 import ChildNodesParseTree from "./childNodes";
 import VerticalBranchParseTree from "./verticalBranch";
 
-import { first } from "../../utilities/array";
-
 export default class NonTerminalNodeParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
     const childNodes = nonTerminalNode.getChildNodes(),
-          firstChildNode = first(childNodes),
-          childNode = firstChildNode,
-          childNodesLength = childNodes.length,
-          childNodeOrNodesParseTree = (childNodesLength === 1) ?
-                                        childNode.asParseTree(tokens) :
-                                          ChildNodesParseTree.fromChildNodesAndTokens(childNodes, tokens),
-          ruleNameParseTree = RuleNameParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens);
+          ruleNameParseTree = RuleNameParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
+          childNodesParseTree = ChildNodesParseTree.fromChildNodesAndTokens(childNodes, tokens);
     
     let ruleNameParseTreeVerticalBranchPosition = ruleNameParseTree.getVerticalBranchPosition();
     
-    const childNodeOrNodesParseTreeVerticalBranchPosition = childNodeOrNodesParseTree.getVerticalBranchPosition(),
-          verticalBranchPositionsDifference = ruleNameParseTreeVerticalBranchPosition - childNodeOrNodesParseTreeVerticalBranchPosition;
+    const childNodesParseTreeVerticalBranchPosition = childNodesParseTree.getVerticalBranchPosition(),
+          verticalBranchPositionsDifference = ruleNameParseTreeVerticalBranchPosition - childNodesParseTreeVerticalBranchPosition;
     
     let leftMarginWidth = undefined;
 
     if (false) {
-
+      ///
     } else if (verticalBranchPositionsDifference < 0) {
       leftMarginWidth = -verticalBranchPositionsDifference;
 
@@ -33,17 +26,17 @@ export default class NonTerminalNodeParseTree extends VerticalBranchParseTree {
     } else if (verticalBranchPositionsDifference > 0) {
       leftMarginWidth = +verticalBranchPositionsDifference;
 
-      childNodeOrNodesParseTree.addLeftMargin(leftMarginWidth);
+      childNodesParseTree.addLeftMargin(leftMarginWidth);
     }
 
     const ruleNameParseTreeWidth = ruleNameParseTree.getWidth(),
-          childNodeOrNodesParseTreeWidth = childNodeOrNodesParseTree.getWidth(),
-          widthsDifference = ruleNameParseTreeWidth - childNodeOrNodesParseTreeWidth;
+          childNodesParseTreeWidth = childNodesParseTree.getWidth(),
+          widthsDifference = ruleNameParseTreeWidth - childNodesParseTreeWidth;
     
     let rightMarginWidth = undefined;
 
     if (false) {
-
+      ///
     } else if (widthsDifference < 0) {
       rightMarginWidth = -widthsDifference;
       
@@ -51,7 +44,7 @@ export default class NonTerminalNodeParseTree extends VerticalBranchParseTree {
     } else if (widthsDifference > 0) {
       rightMarginWidth = +widthsDifference;
 
-      childNodeOrNodesParseTree.addRightMargin(rightMarginWidth);
+      childNodesParseTree.addRightMargin(rightMarginWidth);
     }
 
     ruleNameParseTreeVerticalBranchPosition = ruleNameParseTree.getVerticalBranchPosition();
@@ -62,7 +55,7 @@ export default class NonTerminalNodeParseTree extends VerticalBranchParseTree {
           nonTerminalNodeParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(NonTerminalNodeParseTree, nonTerminalNodeParseTreeDepth, verticalBranchPosition);
 
     nonTerminalNodeParseTree.appendToRight(ruleNameParseTree);
-    nonTerminalNodeParseTree.appendToBottom(childNodeOrNodesParseTree);
+    nonTerminalNodeParseTree.appendToBottom(childNodesParseTree);
 
     return nonTerminalNodeParseTree;
   }

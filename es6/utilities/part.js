@@ -15,3 +15,20 @@ export function isPartRuleNamePart(part) {
 
   return partRuleNamePart;
 }
+
+export function isPartRuleNamePartWithLookAhead(part) {
+  let partRuleNamePartWithLookAhead = false;
+
+  const partRuleNamePart = isPartRuleNamePart(part);
+
+  if (partRuleNamePart) {
+    const ruleNamePart = part,  ///
+          lookAhead = ruleNamePart.isLookAhead();
+
+    if (lookAhead) {
+      partRuleNamePartWithLookAhead = true;
+    }
+  }
+
+  return partRuleNamePartWithLookAhead;
+}

@@ -12,9 +12,7 @@ export default class RegularExpressionPart extends TerminalPart {
     this.regularExpression = regularExpression;
   }
 
-  parse(context, callback) {
-    let parsed;
-
+  parse(nodes, context, callback) {
     let terminalNode = null;
     
     const savedIndex = context.getSavedIndex(),
@@ -34,21 +32,15 @@ export default class RegularExpressionPart extends TerminalPart {
       }
     }
 
-    parsed = (terminalNode !== null);
+    nodes = (terminalNode === null) ?
+              null :
+                [ ...nodes, terminalNode ];
 
-    if (parsed) {
-      if (callback) {
-        parsed = callback();
-      }
-    }
-
-    if (!parsed) {
+    if (nodes === null) {
       context.backtrack(savedIndex);
-
-      terminalNode = null;
     }
 
-    return terminalNode;
+    return nodes;
   }
 
   asString() {
