@@ -24,9 +24,19 @@ export default class NoWhitespacePart extends TerminalPart {
       noWhitespaceNode = NoWhitespaceNode.fromNothing();
     }
 
-    nodes = (noWhitespaceNode === null) ?
-              null :
-                [ ...nodes, noWhitespaceNode ];
+    if (noWhitespaceNode === null) {
+      nodes = null;
+    } else {
+      nodes = [ ...nodes, noWhitespaceNode ];
+
+      if (callback) {
+        const parsed = callback();
+
+        if (!parsed) {
+          nodes = null;
+        }
+      }
+    }
 
     if (nodes === null) {
       context.backtrack(savedIndex);

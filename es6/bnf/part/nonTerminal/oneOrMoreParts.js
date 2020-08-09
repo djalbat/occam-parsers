@@ -19,22 +19,36 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
     const part = this.getPart();
 
     if (callback) {
-      nodes  = parsePart(nodes, callback);
+      let count = 0;
 
-      function parsePart(nodes, callback) {
-        const partNodes = part.parse(nodes, context, (nodes) => {
-          const partNodes = callback(nodes);
+      parsePart();
 
-          if (partNodes !== null) {
-            nodes = partNodes;  ///
-          } else {
-            nodes = parsePart(nodes, callback);
+      function parsePart() {
+        let partNodes = [];
+
+        partNodes = part.parse(partNodes, context, () => {
+          let parsed = callback();
+
+          if (!parsed) {
+            parsed = parsePart();
           }
 
-          return nodes;
+          return parsed;
         });
 
-        return partNodes;
+        const parsed = (partNodes !== null);
+
+        if (parsed) {
+          count++;
+
+          nodes = [ ...partNodes, ...nodes ];
+        }
+
+        return parsed;
+      }
+
+      if (count === 0) {
+        nodes = null;
       }
     } else {
       let count = 0;

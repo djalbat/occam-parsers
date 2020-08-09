@@ -4,6 +4,7 @@ import NonTerminalPart from "../../part/nonTerminal";
 
 import { allButFirstAndLast } from "../../../utilities/array";
 import { SequenceOfPartsPartType } from "../../partTypes";
+import {isPartRuleNamePartWithLookAhead} from "../../../utilities/part";
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
@@ -21,11 +22,52 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
   parse(nodes, context, callback) {
     const savedIndex = context.getSavedIndex();
 
-    let partNodes = nodes;  ///
-
     if (callback) {
-      debugger
+      let index = 0.
+
+      const parts = this.parts,
+            partsLength = parts.length;
+
+      nodes = parseParts(nodes);
+
+      function parseParts(nodes) {
+        if (index === partsLength) {
+          const parsed = callback();
+
+          if (!parsed) {
+            nodes = null;
+          }
+        } else {
+          const part = parts[index++];
+
+          nodes = parsePart(part, nodes);
+        }
+
+        return nodes;
+      }
+
+      function parsePart(part, nodes) {
+        let partNodes = null;
+
+        nodes = part.parse(nodes, context, () => {
+          partNodes = [];
+
+          partNodes = parseParts(partNodes);
+
+          const parsed = (partNodes !== null);
+
+          return parsed;
+        });
+
+        nodes = (partNodes !== null) ?
+                  [ ...nodes, ...partNodes ] :
+                    null;
+
+        return nodes;
+      }
     } else {
+      let partNodes = nodes;  ///
+
       this.parts.every((part) => {
         partNodes = part.parse(partNodes, context, callback);
 
@@ -33,11 +75,11 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
           return true;
         }
       });
-    }
 
-    nodes = (partNodes !== null) ?
-              partNodes : ///
-                null;
+      nodes = (partNodes !== null) ?
+                partNodes : ///
+                  null;
+    }
 
     if (nodes === null) {
       context.backtrack(savedIndex);

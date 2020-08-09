@@ -25,9 +25,19 @@ export default class SignificantTokenTypePart extends TerminalPart {
       }
     }
 
-    nodes = (terminalNode === null) ?
-              null :
-                [ ...nodes, terminalNode ];
+    if (terminalNode === null) {
+      nodes = null;
+    } else {
+      nodes = [ ...nodes, terminalNode ];
+
+      if (callback) {
+        const parsed = callback();
+
+        if (!parsed) {
+          nodes = null;
+        }
+      }
+    }
 
     if (nodes === null) {
       context.backtrack(savedIndex);

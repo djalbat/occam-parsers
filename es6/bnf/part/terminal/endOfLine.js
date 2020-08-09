@@ -23,9 +23,19 @@ export default class EndOfLinePart extends TerminalPart {
       }
     }
 
-    nodes = (endOfLineNode === null) ?
-              null :
-                [ ...nodes, endOfLineNode ];
+    if (endOfLineNode === null) {
+      nodes = null;
+    } else {
+      nodes = [ ...nodes, endOfLineNode ];
+
+      if (callback) {
+        const parsed = callback();
+
+        if (!parsed) {
+          nodes = null;
+        }
+      }
+    }
 
     if (nodes === null) {
       context.backtrack(savedIndex);

@@ -13,6 +13,14 @@ export default class EpsilonPart extends TerminalPart {
 
     nodes = [ ...nodes, epsilonNode ];
 
+    if (callback) {
+      const parsed = callback();
+
+      if (!parsed) {
+        nodes = null;
+      }
+    }
+
     return nodes;
   }
 

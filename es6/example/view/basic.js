@@ -17,9 +17,9 @@ const entries = [
 
 const bnf = `
 
-    unqualifiedStatement ::= "X" _statement! "EOL";
+    unqualifiedStatement ::= "X" _statement "EOL" ;
     
-    _statement           ::= "a" ;
+    _statement           ::= ( "a" "b" ) "c" ;
                            
     dummy                ::= "(" . ")" ;
 
@@ -40,7 +40,7 @@ export default class BasicView extends View {
 
   heading = "Basic parser example";
 
-  initialContent = `X a
+  initialContent = `X a b c
           
     EOL
     
