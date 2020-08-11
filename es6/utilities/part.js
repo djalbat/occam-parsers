@@ -1,21 +1,5 @@
 "use strict";
 
-export function isPartRuleNamePart(part) {
-  let partRuleNamePart = false;
-
-  const partTerminalPart = part.isTerminalPart(),
-        partNonTerminalPart = !partTerminalPart;
-
-  if (partNonTerminalPart) {
-    const nonTerminalPart = part,
-          nonTerminalPartRuleNamePart = nonTerminalPart.isRuleNamePart();
-
-    partRuleNamePart = nonTerminalPartRuleNamePart; ///
-  }
-
-  return partRuleNamePart;
-}
-
 export function isPartRuleNamePartWithLookAhead(part) {
   let partRuleNamePartWithLookAhead = false;
 
@@ -31,4 +15,20 @@ export function isPartRuleNamePartWithLookAhead(part) {
   }
 
   return partRuleNamePartWithLookAhead;
+}
+
+function isPartRuleNamePart(part) {
+  let partRuleNamePart = false;
+
+  const partTerminalPart = part.isTerminalPart(),
+        partNonTerminalPart = !partTerminalPart;
+
+  if (partNonTerminalPart) {
+    const nonTerminalPart = part,
+          nonTerminalPartRuleNamePart = nonTerminalPart.isRuleNamePart();
+
+    partRuleNamePart = nonTerminalPartRuleNamePart; ///
+  }
+
+  return partRuleNamePart;
 }
