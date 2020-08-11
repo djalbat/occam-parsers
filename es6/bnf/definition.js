@@ -84,20 +84,20 @@ function parseParts(parts, nodes, index, context, callback) {
 
 function parsePart(part, parts, nodes, index, context, callback) {
   if (callback) {
-    let partNodes = null;
+    let partsNodes = null;
 
     nodes = part.parse(nodes, context, () => {
-      partNodes = [];
+      partsNodes = [];
 
-      partNodes = parseParts(parts, partNodes, index, context, callback);
+      partsNodes = parseParts(parts, partsNodes, index, context, callback);
 
-      const parsed = (partNodes !== null);
+      const parsed = (partsNodes !== null);
 
       return parsed;
     });
 
-    nodes = (partNodes !== null) ?
-              [ ...nodes, ...partNodes ] :
+    nodes = (partsNodes !== null) ?
+              [ ...nodes, ...partsNodes ] :
                 null;
   } else {
     const partRuleNamePartWithLookAhead = isPartRuleNamePartWithLookAhead(part);
@@ -105,20 +105,20 @@ function parsePart(part, parts, nodes, index, context, callback) {
     if (partRuleNamePartWithLookAhead) {
       const ruleNamePart = part; ///
 
-      let partNodes = null;
+      let partsNodes = null;
 
       nodes = ruleNamePart.parse(nodes, context, () => {
-        partNodes = [];
+        partsNodes = [];
 
-        partNodes = parseParts(parts, partNodes, index, context);
+        partsNodes = parseParts(parts, partsNodes, index, context);
 
-        const parsed = (partNodes !== null);
+        const parsed = (partsNodes !== null);
 
         return parsed;
       });
 
-      nodes = (partNodes !== null) ?
-                [ ...nodes, ...partNodes ] :
+      nodes = (partsNodes !== null) ?
+                [ ...nodes, ...partsNodes ] :
                   null;
     } else {
       nodes = part.parse(nodes, context);
