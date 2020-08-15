@@ -18,8 +18,6 @@ export default class BasicView extends View {
 
   initialContent = `X 
           
-          a 
-          b 
           c 
           d 
           
@@ -47,7 +45,7 @@ const bnf = `
 
   unqualifiedStatement ::= "X" _statement! "EOL" ;
 
-  _statement           ::= dummy1 "b" dummy2 "d" ;
+  _statement           ::= ( dummy1 "d" ) ;
 
   dummy1                ::= . ; 
 

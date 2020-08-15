@@ -24,9 +24,7 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
       parsed = callback();
 
       if (!parsed) {
-        parsePart();
-
-        function parsePart() {
+        const parsePart = () => {
           const parsed = part.parse(nodes, context, () => {
             let parsed = callback();
 
@@ -39,6 +37,8 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
 
           return parsed;
         }
+
+        parsePart();
       }
     } else {
       for (;;) {

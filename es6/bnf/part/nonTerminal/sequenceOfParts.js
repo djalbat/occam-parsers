@@ -24,44 +24,67 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
 
     const savedIndex = context.getSavedIndex();
 
-    const partsNodes = [];
+    const partsNodes = [],
+          partsLength = this.parts.length;
 
     if (callback) {
       let index = 0.
 
-      const parts = this.parts,
-            partsLength = parts.length;
-
-      parsed = parseParts();
-
-      function parseParts() {
+      const parseParts = (nodes) => {
         let parsed;
 
         if (index === partsLength) {
           parsed = callback();
         } else {
-          const part = parts[index++];
+          const part = this.parts[index++];
 
-          parsed = parsePart(part);
+          parsed = parsePart(part, nodes);
         }
 
         return parsed;
       }
 
-      function parsePart(part) {
-        const parsed = part.parse(partsNodes, context, () => parseParts());
+      const parsePart = (part, nodes) => {
+        const partNodes = [];
 
-        return parsed;
-      }
-    } else {
-      this.parts.every((part) => {
-        parsed = part.parse(partsNodes, context, callback);
+        const parsed = part.parse(nodes, context, () => parseParts(partNodes));
 
         if (parsed) {
-          return true;
+          push(nodes, partNodes);
         }
-      });
 
+        return parsed;
+      }
+
+      parsed = parseParts(partsNodes);
+    } else {
+      let index = 0;
+
+      const parseParts = (nodes) => {
+        let parsed;
+
+        if (index === partsLength) {
+          parsed = true
+        } else {
+          const part = this.parts[index++];
+
+          parsed = parsePart(part, nodes);
+        }
+
+        return parsed;
+      }
+
+      const parsePart = (part, nodes) => {
+        let parsed = part.parse(nodes, context);
+
+        if (parsed) {
+          parsed = parseParts(nodes);
+        }
+
+        return parsed;
+      }
+
+      parsed = parseParts(partsNodes);
     }
 
     if (parsed) {
