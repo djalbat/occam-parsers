@@ -1,6 +1,6 @@
 "use strict";
 
-import { first, allButFirst } from "../utilities/array";
+import { push, first, allButFirst } from "../utilities/array";
 import { isPartRuleNamePartWithLookAhead } from "../utilities/part";
 
 export default class Definition {
@@ -34,14 +34,14 @@ export default class Definition {
     this.parts.push(part);
   }
 
-  parse(context, callback) {
-    let nodes = [];
+  parse(nodes, context, callback) {
+    let parsed;
 
     const index = 0;
 
-    nodes = parseParts(this.parts, nodes, index, context, callback);
+    parsed = parseParts(this.parts, nodes, index, context, callback);
 
-    return nodes;
+    return parsed;
   }
 
   asString() {
@@ -63,71 +63,57 @@ export default class Definition {
 }
 
 function parseParts(parts, nodes, index, context, callback) {
+  let parsed;
+
   const partsLength = parts.length;
 
   if (index === partsLength) {
-    if (callback) {
-      const parsed = callback();
+    parsed = true;
 
-      if (!parsed) {
-        nodes = null;
-      }
+    if (callback) {
+       parsed = callback();
     }
   } else {
     const part = parts[index++];
 
-    nodes = parsePart(part, parts, nodes, index, context, callback);
+    parsed = parsePart(part, parts, nodes, index, context, callback);
   }
 
-  return nodes;
+  return parsed;
 }
 
 function parsePart(part, parts, nodes, index, context, callback) {
+  let parsed;
+
   if (callback) {
-    let partsNodes = null;
+    const partsNodes = [];
 
-    nodes = part.parse(nodes, context, () => {
-      partsNodes = [];
+    parsed = part.parse(nodes, context, () => parseParts(parts, partsNodes, index, context, callback));
 
-      partsNodes = parseParts(parts, partsNodes, index, context, callback);
-
-      const parsed = (partsNodes !== null);
-
-      return parsed;
-    });
-
-    nodes = (partsNodes !== null) ?
-              [ ...nodes, ...partsNodes ] :
-                null;
+    if (parsed) {
+      push(nodes, partsNodes);
+    }
   } else {
     const partRuleNamePartWithLookAhead = isPartRuleNamePartWithLookAhead(part);
 
     if (partRuleNamePartWithLookAhead) {
       const ruleNamePart = part; ///
 
-      let partsNodes = null;
+      const partsNodes = [];
 
-      nodes = ruleNamePart.parse(nodes, context, () => {
-        partsNodes = [];
+      parsed = ruleNamePart.parse(nodes, context, () => parseParts(parts, partsNodes, index, context));
 
-        partsNodes = parseParts(parts, partsNodes, index, context);
-
-        const parsed = (partsNodes !== null);
-
-        return parsed;
-      });
-
-      nodes = (partsNodes !== null) ?
-                [ ...nodes, ...partsNodes ] :
-                  null;
+      if (parsed) {
+        push(nodes, partsNodes);
+      }
     } else {
-      nodes = part.parse(nodes, context);
+      parsed = part.parse(nodes, context);
 
-      if (nodes !== null) {
-        nodes = parseParts(parts, nodes, index, context);
+      if (parsed) {
+        parsed = parseParts(parts, nodes, index, context);
       }
     }
   }
 
-  return nodes;
+  return parsed;
 }

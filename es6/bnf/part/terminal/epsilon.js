@@ -9,19 +9,25 @@ const { epsilon } = specialSymbols;
 
 export default class EpsilonPart extends TerminalPart {
   parse(nodes, context, callback) {
+    let parsed;
+
     const epsilonNode = EpsilonNode.fromNothing();
 
-    nodes = [ ...nodes, epsilonNode ];
+    parsed = (epsilonNode !== null);
 
-    if (callback) {
-      const parsed = callback();
+    if (parsed) {
+      nodes.push(epsilonNode);
 
-      if (!parsed) {
-        nodes = null;
+      if (callback) {
+        parsed = callback();
+
+        if (!parsed) {
+          nodes.pop();
+        }
       }
     }
 
-    return nodes;
+    return parsed;
   }
 
   isEpsilonPart() {

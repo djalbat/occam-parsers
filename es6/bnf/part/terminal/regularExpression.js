@@ -13,6 +13,8 @@ export default class RegularExpressionPart extends TerminalPart {
   }
 
   parse(nodes, context, callback) {
+    let parsed;
+
     let terminalNode = null;
     
     const savedIndex = context.getSavedIndex(),
@@ -32,25 +34,25 @@ export default class RegularExpressionPart extends TerminalPart {
       }
     }
 
-    if (terminalNode === null) {
-      nodes = null;
-    } else {
-      nodes = [ ...nodes, terminalNode ];
+    parsed = (terminalNode !== null);
+
+    if (parsed) {
+      nodes.push(terminalNode);
 
       if (callback) {
-        const parsed = callback();
+        parsed = callback();
 
         if (!parsed) {
-          nodes = null;
+          nodes.pop();
         }
       }
     }
 
-    if (nodes === null) {
+    if (!parsed) {
       context.backtrack(savedIndex);
     }
 
-    return nodes;
+    return parsed;
   }
 
   asString() {

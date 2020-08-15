@@ -2,9 +2,9 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { push } from "../../../utilities/array";
 import { allButFirstAndLast } from "../../../utilities/array";
 import { SequenceOfPartsPartType } from "../../partTypes";
-import {isPartRuleNamePartWithLookAhead} from "../../../utilities/part";
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
@@ -20,7 +20,11 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
   }
 
   parse(nodes, context, callback) {
+    let parsed;
+
     const savedIndex = context.getSavedIndex();
+
+    const partsNodes = [];
 
     if (callback) {
       let index = 0.
@@ -28,64 +32,47 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
       const parts = this.parts,
             partsLength = parts.length;
 
-      nodes = parseParts(nodes);
+      parsed = parseParts();
 
-      function parseParts(nodes) {
+      function parseParts() {
+        let parsed;
+
         if (index === partsLength) {
-          const parsed = callback();
-
-          if (!parsed) {
-            nodes = null;
-          }
+          parsed = callback();
         } else {
           const part = parts[index++];
 
-          nodes = parsePart(part, nodes);
+          parsed = parsePart(part);
         }
 
-        return nodes;
+        return parsed;
       }
 
-      function parsePart(part, nodes) {
-        let partNodes = null;
+      function parsePart(part) {
+        const parsed = part.parse(partsNodes, context, () => parseParts());
 
-        nodes = part.parse(nodes, context, () => {
-          partNodes = [];
-
-          partNodes = parseParts(partNodes);
-
-          const parsed = (partNodes !== null);
-
-          return parsed;
-        });
-
-        nodes = (partNodes !== null) ?
-                  [ ...nodes, ...partNodes ] :
-                    null;
-
-        return nodes;
+        return parsed;
       }
     } else {
-      let partNodes = nodes;  ///
-
       this.parts.every((part) => {
-        partNodes = part.parse(partNodes, context, callback);
+        parsed = part.parse(partsNodes, context, callback);
 
-        if (partNodes !== null) {
+        if (parsed) {
           return true;
         }
       });
 
-      nodes = (partNodes !== null) ?
-                partNodes : ///
-                  null;
     }
 
-    if (nodes === null) {
+    if (parsed) {
+      push(nodes, partsNodes);
+    }
+
+    if (!parsed) {
       context.backtrack(savedIndex);
     }
 
-    return nodes;
+    return parsed;
   }
 
   asString() {

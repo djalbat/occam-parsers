@@ -16,18 +16,18 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
   }
 
   parse(nodes, context, callback) {
+    let parsed;
+
     const part = this.getPart();
 
     if (callback) {
-      const parsed = callback();
+      parsed = callback();
 
       if (!parsed) {
         parsePart();
 
         function parsePart() {
-          let partNodes = [];
-
-          partNodes = part.parse(partNodes, context, () => {
+          const parsed = part.parse(nodes, context, () => {
             let parsed = callback();
 
             if (!parsed) {
@@ -37,28 +37,22 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
             return parsed;
           });
 
-          const parsed = (partNodes !== null);
-
-          if (parsed) {
-            nodes = [ ...partNodes, ...nodes ];
-          }
-
           return parsed;
         }
       }
     } else {
       for (;;) {
-        const partNodes = part.parse(nodes, context);
+        parsed = part.parse(nodes, context);
 
-        if (partNodes === null) {
+        if (!parsed) {
           break;
         }
-
-        nodes = partNodes;  ///
       }
     }
 
-    return nodes;
+    parsed = true;
+
+    return parsed;
   }
 
   asString() {

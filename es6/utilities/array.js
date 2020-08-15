@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-export const { first, second, third, last, filter, forwardsSome, backwardsSome } = arrayUtilities;
+export const { first, second, third, last, push, filter, forwardsSome, backwardsSome } = arrayUtilities;
 
 export function even(array) { return array.filter((entry, index) => isEven(index)); }
 

@@ -15,6 +15,8 @@ export default class NoWhitespacePart extends TerminalPart {
   }
 
   parse(nodes, context, callback) {
+    let parsed;
+
     let noWhitespaceNode = null;
 
     const savedIndex = context.getSavedIndex(),
@@ -24,25 +26,25 @@ export default class NoWhitespacePart extends TerminalPart {
       noWhitespaceNode = NoWhitespaceNode.fromNothing();
     }
 
-    if (noWhitespaceNode === null) {
-      nodes = null;
-    } else {
-      nodes = [ ...nodes, noWhitespaceNode ];
+    parsed = (noWhitespaceNode !== null)
+
+    if (parsed) {
+      nodes.push(noWhitespaceNode);
 
       if (callback) {
-        const parsed = callback();
+        parsed = callback();
 
         if (!parsed) {
-          nodes = null;
+          nodes.pop();
         }
       }
     }
 
-    if (nodes === null) {
+    if (!parsed) {
       context.backtrack(savedIndex);
     }
 
-    return nodes;
+    return parsed;
   }
 
   asString() {

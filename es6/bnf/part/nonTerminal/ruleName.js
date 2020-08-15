@@ -45,18 +45,23 @@ export default class RuleNamePart extends NonTerminalPart {
   }
 
   parse(nodes, context, callback) {
-    const rule = this.findRule(context),
-          node = (rule === null) ?
-                   null :
-                     rule.parse(context, callback);
+    let parsed;
 
-    if (node === null) {
-      nodes = null;
+    const rule = this.findRule(context);
+
+    if (rule === null) {
+      parsed = false;
     } else {
-      nodes = [ ...nodes, node ];
+      const ruleNode = rule.parse(context, callback);
+
+      parsed = (ruleNode !== null);
+
+      if (parsed) {
+        nodes.push(ruleNode);
+      }
     }
 
-    return nodes;
+    return parsed;
   }
 
   asString() {

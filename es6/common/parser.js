@@ -20,7 +20,8 @@ export default class CommonParser {
 
   parse(tokens, rule = this.startRule) {
     const context = Context.fromTokensAndRuleMap(tokens, this.ruleMap),
-          node = rule.parse( context);
+          ruleNode = rule.parse(context),
+          node = ruleNode; ///
 
     return node;
   }

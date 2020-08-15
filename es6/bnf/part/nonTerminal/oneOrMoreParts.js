@@ -4,6 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import CollectionOfPartsPart from "./collectionOfParts";
 
+import { push } from "../../../utilities/array";
 import { OneOrMorePartsPartType } from "../../partTypes";
 
 const { plus } = specialSymbols;
@@ -16,17 +17,21 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
   }
 
   parse(nodes, context, callback) {
+    let parsed;
+
     const part = this.getPart();
 
-    if (callback) {
-      let count = 0;
+    const savedIndex = context.getSavedIndex();
 
+    const partsNodes = [];
+
+    let count = 0;
+
+    if (callback) {
       parsePart();
 
       function parsePart() {
-        let partNodes = [];
-
-        partNodes = part.parse(partNodes, context, () => {
+        const parsed = part.parse(partsNodes, context, () => {
           let parsed = callback();
 
           if (!parsed) {
@@ -36,41 +41,35 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
           return parsed;
         });
 
-        const parsed = (partNodes !== null);
-
         if (parsed) {
           count++;
-
-          nodes = [ ...partNodes, ...nodes ];
         }
 
         return parsed;
       }
-
-      if (count === 0) {
-        nodes = null;
-      }
     } else {
-      let count = 0;
-
       for (;;) {
-        const partNodes = part.parse(nodes, context);
+        const parsed = part.parse(partsNodes, context);
 
-        if (partNodes === null) {
+        if (!parsed) {
           break;
         }
 
-        nodes = partNodes;  ///
-
         count++;
-      }
-
-      if (count === 0) {
-        nodes = null;
       }
     }
 
-    return nodes;
+    parsed = (count !== 0);
+
+    if (parsed) {
+      push(nodes, partsNodes);
+    }
+
+    if (!parsed) {
+      context.backtrack(savedIndex);
+    }
+
+    return parsed;
   }
 
   asString() {
