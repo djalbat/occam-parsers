@@ -45,10 +45,8 @@ const bnf = `
 
   unqualifiedStatement ::= "X" _statement! "EOL" ;
 
-  _statement           ::= ( dummy1 "d" ) ;
+  _statement           ::=  ( dummy "d" ) ;
 
-  dummy1                ::= . ; 
-
-  dummy2                ::= . ; 
+  dummy                 ::= .* ; 
 
 `;

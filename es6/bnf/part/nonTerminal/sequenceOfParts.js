@@ -24,13 +24,14 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
 
     const savedIndex = context.getSavedIndex();
 
-    const partsNodes = [],
-          partsLength = this.parts.length;
+    const partsNodes = [];
 
     if (callback) {
-      let index = 0.
+      const index = 0;
 
-      const parseParts = (nodes) => {
+      const partsLength = this.parts.length;
+
+      const parseParts = (nodes, index) => {
         let parsed;
 
         if (index === partsLength) {
@@ -38,53 +39,37 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
         } else {
           const part = this.parts[index++];
 
-          parsed = parsePart(part, nodes);
+          parsed = parsePart(part, nodes, index);
         }
 
         return parsed;
       }
 
-      const parsePart = (part, nodes) => {
-        const partNodes = [];
+      const parsePart = (part, nodes, index) => {
+        const partsNodes = [];
 
-        const parsed = part.parse(nodes, context, () => parseParts(partNodes));
+        const parsed = part.parse(nodes, context, () => {
+          const parsed = parseParts(partsNodes, index);
+
+          return parsed;
+        });
 
         if (parsed) {
-          push(nodes, partNodes);
+          push(nodes, partsNodes);
         }
 
         return parsed;
       }
 
-      parsed = parseParts(partsNodes);
+      parsed = parseParts(partsNodes, index);
     } else {
-      let index = 0;
-
-      const parseParts = (nodes) => {
-        let parsed;
-
-        if (index === partsLength) {
-          parsed = true
-        } else {
-          const part = this.parts[index++];
-
-          parsed = parsePart(part, nodes);
-        }
-
-        return parsed;
-      }
-
-      const parsePart = (part, nodes) => {
-        let parsed = part.parse(nodes, context);
+      this.parts.every((part) => {
+        parsed = part.parse(partsNodes, context);
 
         if (parsed) {
-          parsed = parseParts(nodes);
+          return true;
         }
-
-        return parsed;
-      }
-
-      parsed = parseParts(partsNodes);
+      });
     }
 
     if (parsed) {
