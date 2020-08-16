@@ -38,7 +38,7 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
           return parsed;
         }
 
-        parsePart();
+        parsed = parsePart();
       }
     } else {
       for (;;) {
@@ -48,9 +48,9 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
           break;
         }
       }
-    }
 
-    parsed = true;
+      parsed = true;
+    }
 
     return parsed;
   }

@@ -34,9 +34,9 @@ export default class OptionalPartPart extends NonTerminalPart {
       }
     } else {
       parsed = part.parse(nodes, context);
-    }
 
-    parsed = true;
+      parsed = true;
+    }
 
     return parsed;
   }
