@@ -5,6 +5,9 @@ import { BasicParser } from "../../index";  ///
 
 import View from "../view";
 
+const { bnf } = BasicParser,
+      { entries } = BasicLexer;
+
 export default class BasicView extends View {
   Lexer = class extends BasicLexer {
     static entries = entries;
@@ -16,37 +19,9 @@ export default class BasicView extends View {
 
   heading = "Basic parser example";
 
-  initialContent = `X 
-          
-          c 
-          d 
-          
-    EOL
-    
-    
-   `; ///"(1+2)/3";
+  initialContent = "(1+2)/3";
 
   static defaultProperties = {
     className: "basic"
   };
 }
-
-const entries = [
-
-  { "bracket": "^(?:\\(|\\))" },
-
-  { "special": "^(?:=>|EOL|EOF)" },
-
-  { "unassigned": "^." }
-
-];
-
-const bnf = `
-
-  unqualifiedStatement ::= "X" _statement! "EOL" ;
-
-  _statement           ::=  ( dummy "d" ) ;
-
-  dummy                 ::= .* ; 
-
-`;

@@ -97,9 +97,8 @@ function parsePart(part, parts, nodes, index, context, callback) {
     const partRuleNamePartWithLookAhead = isPartRuleNamePartWithLookAhead(part);
 
     if (partRuleNamePartWithLookAhead) {
-      const ruleNamePart = part; ///
-
-      const partsNodes = [];
+      const ruleNamePart = part, ///
+            partsNodes = [];
 
       parsed = ruleNamePart.parse(nodes, context, () => parseParts(parts, partsNodes, index, context));
 

@@ -84,9 +84,8 @@ export default class Rule {
       throw new Error(`The parse tree is too deep at rule "${this.name}".`);
     }
 
-    let parsed
-
-    let definitionNodes;
+    let parsed,
+        definitionNodes;
 
     this.definitions.some((definition) => {
       definitionNodes = [];
