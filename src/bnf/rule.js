@@ -156,7 +156,7 @@ ${maximumPadding}   | ${definitionString}` :
 ${maximumPadding}   ;` :
                                " ;",
           string = `
-          
+
 ${this.name}${padding} ::= ${definitionsString}${semicolonString}`;
 
     return string;
