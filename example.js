@@ -22381,11 +22381,11 @@
               if (definitionsString1 === "") {
                 definitionsString1 = definitionString;
               } else {
-                definitionsString1 = multiLine ? "".concat(definitionsString1, "\n\n").concat(maximumPadding, "   | ").concat(definitionString) : "".concat(definitionsString1, " | ").concat(definitionString);
+                definitionsString1 = multiLine ? "".concat(definitionsString1, "\n                                   \n").concat(maximumPadding, "   | ").concat(definitionString) : "".concat(definitionsString1, " | ").concat(definitionString);
               }
               return definitionsString1;
             }, ""), ruleName = this.name, ruleNameLength = ruleName.length, paddingLength = maximumRuleNameLength - ruleNameLength, padding = _string.paddingFromPaddingLength(paddingLength);
-            var semicolonString = multiLine ? "\\n\\n".concat(maximumPadding, "   ;") : " ;", string = "\\n\\n".concat(this.name).concat(padding, " ::= ").concat(definitionsString).concat(semicolonString);
+            var semicolonString = multiLine ? "\n                             \n".concat(maximumPadding, "   ;") : " ;", string = "\n          \n".concat(this.name).concat(padding, " ::= ").concat(definitionsString).concat(semicolonString);
             return string;
           }
         }
