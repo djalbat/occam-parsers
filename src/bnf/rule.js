@@ -138,7 +138,7 @@ export default class Rule {
             } else {
               definitionsString = multiLine ?
                                    `${definitionsString}
-                                   
+
 ${maximumPadding}   | ${definitionString}` :
                                      `${definitionsString} | ${definitionString}`;
             }
@@ -152,7 +152,7 @@ ${maximumPadding}   | ${definitionString}` :
 
     const semicolonString = multiLine ?
                              `
-                             
+
 ${maximumPadding}   ;` :
                                " ;",
           string = `
