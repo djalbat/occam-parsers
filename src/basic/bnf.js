@@ -18,7 +18,7 @@ const bnf = `
 
                 ;
 
-  term        ::= /\d+/ ;
+  term        ::= /\\d+/ ;
 
   expression_ ::= "(" expression ")"
 
