@@ -1,6 +1,6 @@
 "use strict";
 
-import { DEFAULT_MAXIMUM_DEPTH } from "../constants";
+import { DEFAULT_MAXIMUM_DEPTH } from "../defaults";
 
 export default class Context {
   constructor(ruleMap, tokens, index, depth, maximumDepth) {

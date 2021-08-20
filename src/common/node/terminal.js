@@ -74,7 +74,7 @@ export default class TerminalNode {
 
   static fromSignificantToken(Class, significantToken) {
     if (significantToken === undefined) {
-      significantToken = Class;
+      significantToken = Class; ///
       Class = TerminalNode; ///
     }
 

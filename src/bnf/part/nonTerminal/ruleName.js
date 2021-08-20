@@ -4,6 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { EMPTY_STRING } from "../../../constants";
 import { RuleNamePartType } from "../../partTypes";
 
 const { exclamationMark } = specialSymbols;
@@ -67,7 +68,7 @@ export default class RuleNamePart extends NonTerminalPart {
   asString() {
     const lookAheadString = this.lookAhead ?
                               exclamationMark :
-                                "",
+                                EMPTY_STRING,
           string = `${this.ruleName}${lookAheadString}`;
 
     return string;

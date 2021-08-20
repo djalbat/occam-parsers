@@ -2,6 +2,8 @@
 
 import { last } from "../utilities/array";
 
+import { NEW_LINE, EMPTY_STRING, SINGLE_SPACE } from "../constants";
+
 export default class ParseTree {
   constructor(lines) {
     this.lines = lines;
@@ -114,19 +116,19 @@ export default class ParseTree {
 
   asString() {
     const string = this.lines.reduce((string, line) => {
-      string += line + "\n";
+      string += line + NEW_LINE;
 
       return string;
-    }, "");
+    }, EMPTY_STRING);
 
     return string;
   }
 }
 
 function marginStringFromMarginWidth(marginWidth, spaceCharacter) {
-  spaceCharacter = spaceCharacter || " ";
+  spaceCharacter = spaceCharacter || SINGLE_SPACE;
 
-  let marginString = "";
+  let marginString = EMPTY_STRING;
 
   for (let index = 0; index < marginWidth; index++) {
     marginString += spaceCharacter;

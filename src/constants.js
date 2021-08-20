@@ -1,3 +1,7 @@
 "use strict";
 
-export const DEFAULT_MAXIMUM_DEPTH = 99;
+export const BAR = "|";
+export const DASH = "-";
+export const NEW_LINE = "\n";
+export const EMPTY_STRING = "";
+export const SINGLE_SPACE = " ";

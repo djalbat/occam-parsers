@@ -85,8 +85,8 @@ export default class NonTerminalNode {
 
   static fromRuleNameAndChildNodes(Class, ruleName, childNodes) {
     if (childNodes === undefined) {
-      childNodes = ruleName;
-      ruleName = Class;
+      childNodes = ruleName;  ///
+      ruleName = Class; ///
       Class = NonTerminalNode;  ///
     }
 

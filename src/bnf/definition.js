@@ -1,5 +1,6 @@
 "use strict";
 
+import { EMPTY_STRING } from "../constants";
 import { push, first, allButFirst } from "../utilities/array";
 import { isPartRuleNamePartWithLookAhead } from "../utilities/part";
 
@@ -48,14 +49,14 @@ export default class Definition {
     const partsString = this.parts.reduce((partsString, part) => {
           const partString = part.asString();
 
-          if (partsString === "") {
+          if (partsString === EMPTY_STRING) {
             partsString = partString; ///
           } else {
             partsString = `${partsString} ${partString}`;
           }
 
           return partsString;
-        }, ""),
+        }, EMPTY_STRING),
         string = partsString; ///
 
     return string;

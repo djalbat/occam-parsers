@@ -2,6 +2,8 @@
 
 import Textarea from "../textarea";
 
+import { EMPTY_STRING } from "../../constants";
+
 export default class ParseTreeTextarea extends Textarea {
   setParseTree(parseTree) {
     if (parseTree !== null) {
@@ -17,7 +19,7 @@ export default class ParseTreeTextarea extends Textarea {
   }
 
   clearParseTree() {
-    const value = "";
+    const value = EMPTY_STRING;
 
     this.setValue(value);
   }

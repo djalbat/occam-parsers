@@ -2,6 +2,8 @@
 
 import Textarea from "../textarea";
 
+import { EMPTY_STRING } from "../../constants";
+
 export default class TokensTextarea extends Textarea {
   setTokens(tokens) {
     let lineNumber = 1,
@@ -25,13 +27,13 @@ export default class TokensTextarea extends Textarea {
       previousToken = token;
 
       return html;
-    }, "");
+    }, EMPTY_STRING);
 
     this.html(html);
   }
 
   clearTokens() {
-    const html = "";
+    const html = EMPTY_STRING;
 
     this.html(html);
   }

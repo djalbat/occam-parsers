@@ -13,7 +13,7 @@ export default class NonTerminalPartRule extends Rule {
           choiceOfPartsRuleName = ChoiceOfPartsRuleName,
           sequenceOfPartsRuleName = SequenceOfPartsRuleName,
           choiceOfPartsRuleNameDefinition = new RuleNameDefinition(choiceOfPartsRuleName),
-        sequenceOfPartsRuleNameDefinition = new RuleNameDefinition(sequenceOfPartsRuleName),
+          sequenceOfPartsRuleNameDefinition = new RuleNameDefinition(sequenceOfPartsRuleName),
           ruleNameNonTerminalPartRuleDefinition = new RuleNameNonTerminalPartRuleDefinition(),
           definitions = [
             choiceOfPartsRuleNameDefinition,

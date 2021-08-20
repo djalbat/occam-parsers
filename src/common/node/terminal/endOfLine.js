@@ -3,9 +3,11 @@
 import TerminalNode from "../terminal";
 import EndOfLineNodeParseTree from "../../parseTree/endOfLineNode";
 
+import { EMPTY_STRING } from "../../../constants";
+
 export default class EndOfLineNode extends TerminalNode {
   getContent() {
-    const content = "";  ///
+    const content = EMPTY_STRING;
 
     return content;
   }

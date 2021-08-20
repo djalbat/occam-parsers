@@ -2,6 +2,8 @@
 
 import ParseTree from "../parseTree";
 
+import { BAR, EMPTY_STRING } from "../../constants";
+
 export default class VerticalBranchParseTree extends ParseTree {
   constructor(lines, verticalBranchPosition) {
     super(lines);
@@ -20,7 +22,7 @@ export default class VerticalBranchParseTree extends ParseTree {
   }
 
   static fromWidth(width) {
-    const string = "|",
+    const string = BAR,
           verticalBranchPosition = 0,
           verticalBranchParseTree = VerticalBranchParseTree.fromStringAndVerticalBranchPosition(VerticalBranchParseTree, string, verticalBranchPosition),
           leftMarginWidth = Math.floor(width/2),
@@ -42,9 +44,9 @@ export default class VerticalBranchParseTree extends ParseTree {
 
   static fromStringAndVerticalBranchPosition(Class, string, verticalBranchPosition) {
     if (verticalBranchPosition === undefined) {
-      verticalBranchPosition = string;
-      string = Class;
-      Class = ParseTree;
+      verticalBranchPosition = string;  ///
+      string = Class; ///
+      Class = ParseTree;  ///
     }
     
     const line = string, ///
@@ -62,7 +64,7 @@ function linesFromDepth(depth) {
   let index = 0;
 
   while (index < depth) {
-    lines[index++] = "";
+    lines[index++] = EMPTY_STRING;
   }
 
   return lines;

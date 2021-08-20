@@ -3,6 +3,8 @@
 import TerminalNode from "../terminal";
 import NoWhitespaceNodeParseTree from "../../parseTree/noWhitespaceNode";
 
+import { EMPTY_STRING } from "../../../constants";
+
 export default class NoWhitespaceNode extends TerminalNode {
   getType() {
     const type = null;  ///
@@ -11,7 +13,7 @@ export default class NoWhitespaceNode extends TerminalNode {
   }
 
   getContent() {
-    const content = "";  ///
+    const content = EMPTY_STRING;
 
     return content;
   }

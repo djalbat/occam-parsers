@@ -1,5 +1,6 @@
 "use strict";
 
+import { EMPTY_STRING } from "../constants";
 import { paddingFromPaddingLength } from "../utilities/string";
 
 export default class Rule {
@@ -133,7 +134,7 @@ export default class Rule {
           definitionsString = this.definitions.reduce((definitionsString, definition) => {
             const definitionString = definition.asString();
 
-            if (definitionsString === "") {
+            if (definitionsString === EMPTY_STRING) {
               definitionsString = definitionString; ///
             } else {
               definitionsString = multiLine ?
@@ -144,7 +145,7 @@ ${maximumPadding}   | ${definitionString}` :
             }
 
             return definitionsString;
-          }, ""),
+          }, EMPTY_STRING),
           ruleName = this.name, ///
           ruleNameLength = ruleName.length,
           paddingLength = maximumRuleNameLength - ruleNameLength,
