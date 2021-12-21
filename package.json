@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "necessary": "^10.0.7",
-    "occam-lexers": "^14.0.76"
+    "occam-lexers": "^14.0.79"
   },
   "devDependencies": {
     "@swc/core": "^1.2.50",
