@@ -1,11 +1,10 @@
 "use strict";
 
 import { Element } from "easy";
-import { RowsDiv, ColumnsDiv } from "easy-layout";
+import { RowsDiv, ColumnDiv } from "easy-layout";
 
-import Heading from "./heading";
-import ColumnDiv from "./div/column";
 import SubHeading from "./subHeading";
+import ColumnsDiv from "./div/columns";
 import SizeableDiv from "./div/sizeable";
 import BNFTextarea from "./textarea/bnf";
 import RuleNameInput from "./input/ruleName";
@@ -65,9 +64,6 @@ export default class View extends Element {
 
     return ([
 
-      <Heading>
-        {this.heading}
-      </Heading>,
       <ColumnsDiv>
         <SizeableDiv>
           <RowsDiv>

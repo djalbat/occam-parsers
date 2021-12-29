@@ -12,8 +12,6 @@ export default class BNFView extends View {
 
   Parser = BNFParser;
 
-  heading = "BNF parser example";
-
   initialContent = bnf; ///
 
   getParseTree() {

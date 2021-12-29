@@ -17,8 +17,6 @@ export default class BasicView extends View {
     static bnf = bnf;
   };
 
-  heading = "Basic parser example";
-
   initialContent = "(1+2)/3";
 
   static defaultProperties = {

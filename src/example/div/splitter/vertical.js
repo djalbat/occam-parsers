@@ -6,6 +6,6 @@ import { VerticalSplitterDiv } from "easy-layout";
 
 export default withStyle(VerticalSplitterDiv)`
 
-  background-color: lightgrey;
+  background-color: white;
   
 `;
