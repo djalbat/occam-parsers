@@ -1,20 +1,20 @@
 "use strict";
 
+import withStyle from "easy-with-style";  ///
+
 import { Element } from "easy";
-import { RowsDiv, ColumnDiv } from "easy-layout";
+import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 
 import SubHeading from "./subHeading";
-import ColumnsDiv from "./div/columns";
 import SizeableDiv from "./div/sizeable";
 import BNFTextarea from "./textarea/bnf";
 import RuleNameInput from "./input/ruleName";
 import TokensTextarea from "./textarea/tokens";
 import ContentTextarea from "./textarea/content";
 import ParseTreeTextarea from "./textarea/parseTree";
-import VerticalSplitterDiv from "./div/splitter/vertical";
 import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 
-export default class View extends Element {
+class View extends Element {
   getTokens() {
     const lexicalEntries = this.getLexicalEntries(),
           entries = lexicalEntries, ///
@@ -119,4 +119,14 @@ export default class View extends Element {
   }
 
   static tagName = "div";
+
+  static defaultProperties = {
+    className: "view"
+  };
 }
+
+export default withStyle(View)`
+
+  padding: 1rem;
+  
+`;
