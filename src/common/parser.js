@@ -1,14 +1,8 @@
 "use strict";
 
-import { BNFLexer } from "occam-lexers";
-
 import Context from "../context";
-import BNFParser from "../bnf/parser";
 
-import { startRuleFromRules, ruleMapFromRules } from "../utilities/rules";
-
-const bnfLexer = BNFLexer.fromNothing(),
-      bnfParser = BNFParser.fromNothing();
+import { rulesFromBNF, parserFromRules } from "../utilities/parser";
 
 export default class CommonParser {
   constructor(startRule, ruleMap) {
@@ -34,29 +28,21 @@ export default class CommonParser {
 
   static fromNothing(Class) {
     const { bnf } = Class,
-          tokens = bnfLexer.tokensFromBNF(bnf),
-          rules = bnfParser.rulesFromTokens(tokens),
-          startRule = startRuleFromRules(rules),
-          ruleMap = ruleMapFromRules(rules),
-          parser = new Class(startRule, ruleMap);
+          rules = rulesFromBNF(bnf),
+          parser = parserFromRules(Class, rules);
 
     return parser;
   }
 
   static fromBNF(Class, bnf) {
-    const tokens = bnfLexer.tokensFromBNF(bnf),
-          rules = bnfParser.rulesFromTokens(tokens),
-          startRule = startRuleFromRules(rules),
-          ruleMap = ruleMapFromRules(rules),
-          parser = new Class(startRule, ruleMap);
+    const rules = rulesFromBNF(bnf),
+          parser = parserFromRules(Class, rules);
 
     return parser;
   }
 
   static fromRules(Class, rules) {
-    const startRule = startRuleFromRules(rules),
-          ruleMap = ruleMapFromRules(rules),
-          parser = new Class(startRule, ruleMap);
+    const parser = parserFromRules(Class, rules);
 
     return parser;
   }
