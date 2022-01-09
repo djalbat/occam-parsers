@@ -2,12 +2,12 @@
 
 import bnf from "./bnf";
 import Rule from "./rule";
+import Context from "../context";
 import NameRule from "./rule/name";
 import PartRule from "./rule/part";
 import RuleRule from "./rule/rule";
 import ErrorRule from "./rule/error";
 import EpsilonRule from "./rule/epsilon";
-import CommonParser from "../common/parser";
 import DocumentRule from "./rule/document";
 import RuleNameRule from "./rule/ruleName";
 import WildcardRule from "./rule/wildcard";
@@ -28,10 +28,29 @@ import OneOrMoreQuantifierRule from "./rule/oneOrMoreQuantifier";
 import ZeroOrMoreQuantifierRule from "./rule/zeroOrMoreQuantifier";
 import SignificantTokenTypeRule from "./rule/significantTokenType";
 
-import { first } from "../utilities/array";
+import { startRuleFromRules, ruleMapFromRules } from "../utilities/rules";
 
-export default class BNFParser extends CommonParser {
-  static bnf = bnf;
+export default class BNFParser {
+  constructor(startRule, ruleMap) {
+    this.startRule = startRule;
+    this.ruleMap = ruleMap;
+  }
+
+  getStartRule() {
+    return this.startRule;
+  }
+
+  getRuleMap() {
+    return this.ruleMap;
+  }
+
+  parse(tokens, rule = this.startRule) {
+    const context = Context.fromTokensAndRuleMap(tokens, this.ruleMap),
+          ruleNode = rule.parse(context),
+          node = ruleNode; ///
+
+    return node;
+  }
 
 	rulesFromTokens(tokens) {
 	  let rules;
@@ -52,6 +71,8 @@ export default class BNFParser extends CommonParser {
 
     return rules;
   }
+
+  static bnf = bnf;
 
   static fromNothing() {
     const nameRule = new NameRule(),
@@ -106,15 +127,8 @@ export default class BNFParser extends CommonParser {
       errorRule
     ];
 
-    const firstRule = first(rules),
-          startRule = firstRule,  ///
-          ruleMap = rules.reduce((ruleMap, rule) => {
-            const ruleName = rule.getName();
-
-            ruleMap[ruleName] = rule;
-
-            return ruleMap;
-          }, {}),
+    const startRule = startRuleFromRules(rules),
+          ruleMap = ruleMapFromRules(rules),
           bnfParser = new BNFParser(startRule, ruleMap);
     
     return bnfParser;
