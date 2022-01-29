@@ -1,8 +1,12 @@
 "use strict";
 
+import { characters } from "necessary";
+
 import { last } from "../utilities/array";
 
-import { NEW_LINE, EMPTY_STRING, SINGLE_SPACE } from "../constants";
+import { EMPTY_STRING } from "../constants";
+
+const { NEW_LINE_CHARACTER, SPACE_CHARACTER } = characters;
 
 export default class ParseTree {
   constructor(lines) {
@@ -116,7 +120,7 @@ export default class ParseTree {
 
   asString() {
     const string = this.lines.reduce((string, line) => {
-      string += line + NEW_LINE;
+      string += line + NEW_LINE_CHARACTER;
 
       return string;
     }, EMPTY_STRING);
@@ -126,7 +130,7 @@ export default class ParseTree {
 }
 
 function marginStringFromMarginWidth(marginWidth, spaceCharacter) {
-  spaceCharacter = spaceCharacter || SINGLE_SPACE;
+  spaceCharacter = spaceCharacter || SPACE_CHARACTER;
 
   let marginString = EMPTY_STRING;
 

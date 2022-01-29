@@ -1,8 +1,12 @@
 "use strict";
 
+import { characters } from "necessary";
+
 import ParseTree from "../parseTree";
 
-import { BAR, EMPTY_STRING } from "../../constants";
+import { EMPTY_STRING } from "../../constants";
+
+const { BAR_CHARACTER } = characters;
 
 export default class VerticalBranchParseTree extends ParseTree {
   constructor(lines, verticalBranchPosition) {
@@ -22,7 +26,7 @@ export default class VerticalBranchParseTree extends ParseTree {
   }
 
   static fromWidth(width) {
-    const string = BAR,
+    const string = BAR_CHARACTER,
           verticalBranchPosition = 0,
           verticalBranchParseTree = VerticalBranchParseTree.fromStringAndVerticalBranchPosition(VerticalBranchParseTree, string, verticalBranchPosition),
           leftMarginWidth = Math.floor(width/2),
