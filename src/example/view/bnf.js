@@ -14,16 +14,18 @@ export default class BNFView extends View {
 
   initialContent = bnf; ///
 
-  getParseTree() {
+  getParseTree(tokens) {
     let parseTree = null;
 
     const lexicalEntries = this.getLexicalEntries(),
           entries = lexicalEntries, ///
           lexer = this.Lexer.fromEntries(entries),
           parser = this.Parser.fromNothing(),
-          content = this.getContent(),
-          tokens = lexer.tokenise(content),
-          node = parser.parse(tokens);
+          content = this.getContent();
+
+    tokens = lexer.tokenise(content);
+
+    const node = parser.parse(tokens);
 
     if (node !== null) {
       parseTree = node.asParseTree(tokens);
