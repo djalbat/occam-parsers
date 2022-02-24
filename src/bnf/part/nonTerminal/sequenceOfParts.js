@@ -3,6 +3,7 @@
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { push } from "../../../utilities/array";
+import { parseParts } from "../../../utilities/lookAhead";
 import { allButFirstAndLast } from "../../../utilities/array";
 import { SequenceOfPartsPartType } from "../../partTypes";
 
@@ -23,57 +24,10 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     let parsed;
 
     const savedIndex = state.getSavedIndex(),
-          partsNodes = [];
+          partsNodes = [],
+          index = 0;
 
-    if (callback !== null) {
-      const index = 0;
-
-      const parseParts = (nodes, index) => {
-        let parsed;
-
-        const partsLength = this.parts.length;
-
-        if (index === partsLength) {
-          parsed = callback();
-        } else {
-          const part = this.parts[index];
-
-          parsed = parsePart(part, nodes, index);
-        }
-
-        return parsed;
-      }
-
-      const parsePart = (part, nodes, index) => {
-        let parsed;
-
-        const partsNodes = [];
-
-        parsed = part.parse(nodes, state, () => {
-          index++;
-
-          parseParts(partsNodes, index);
-        });
-
-        if (parsed) {
-          push(nodes, partsNodes);
-        }
-
-        return parsed;
-      }
-
-      parsed = parseParts(partsNodes, index);
-    } else {
-      this.parts.every((part) => {
-        const callback = null;
-
-        parsed = part.parse(partsNodes, state, callback);
-
-        if (parsed) {
-          return true;
-        }
-      });
-    }
+    parsed = parseParts(this.parts, partsNodes, index, state, callback);
 
     if (parsed) {
       push(nodes, partsNodes);

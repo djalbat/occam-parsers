@@ -1,8 +1,8 @@
 "use strict";
 
+import { parseParts } from "../utilities/lookAhead";
 import { EMPTY_STRING } from "../constants";
-import { push, first, allButFirst } from "../utilities/array";
-import { isPartRuleNamePartWithLookAhead } from "../utilities/part";
+import { first, allButFirst } from "../utilities/array";
 
 export default class Definition {
   constructor(parts) {
@@ -61,73 +61,4 @@ export default class Definition {
 
     return string;
   }
-}
-
-function parseParts(parts, nodes, index, state, callback) {
-  let parsed;
-
-  const partsLength = parts.length;
-
-  if (index === partsLength) {
-    parsed = true;
-
-    if (callback !== null) {
-       parsed = callback();
-    }
-  } else {
-    const part = parts[index];
-
-    parsed = parsePart(part, parts, nodes, index, state, callback);
-  }
-
-  return parsed;
-}
-
-function parsePart(part, parts, nodes, index, state, callback) {
-  let parsed;
-
-  if (callback !== null) {
-    const partsNodes = [];
-
-    parsed = part.parse(nodes, state, () => {
-      index++;
-
-      parseParts(parts, partsNodes, index, state, callback);
-    });
-
-    if (parsed) {
-      push(nodes, partsNodes);
-    }
-  } else {
-    const partRuleNamePartWithLookAhead = isPartRuleNamePartWithLookAhead(part);
-
-    if (partRuleNamePartWithLookAhead) {
-      const ruleNamePart = part, ///
-            partsNodes = [];
-
-      parsed = ruleNamePart.parse(nodes, state, () => {
-        const callback = null;
-
-        index++;
-
-        parseParts(parts, partsNodes, index, state, callback);
-      });
-
-      if (parsed) {
-        push(nodes, partsNodes);
-      }
-    } else {
-      const callback = null;
-
-      parsed = part.parse(nodes, state, callback);
-
-      if (parsed) {
-        index++;
-
-        parsed = parseParts(parts, nodes, index, state, callback);
-      }
-    }
-  }
-
-  return parsed;
 }
