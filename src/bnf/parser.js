@@ -2,7 +2,7 @@
 
 import bnf from "./bnf";
 import Rule from "./rule";
-import Context from "../context";
+import State from "../state";
 import NameRule from "./rule/name";
 import PartRule from "./rule/part";
 import RuleRule from "./rule/rule";
@@ -45,8 +45,9 @@ export default class BNFParser {
   }
 
   parse(tokens, rule = this.startRule) {
-    const context = Context.fromTokensAndRuleMap(tokens, this.ruleMap),
-          ruleNode = rule.parse(context),
+    const state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
+          callback = null,
+          ruleNode = rule.parse(state, callback),
           node = ruleNode; ///
 
     return node;

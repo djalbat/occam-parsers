@@ -16,18 +16,18 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
     super(type, part);
   }
 
-  parse(nodes, context, callback) {
+  parse(nodes, state, callback) {
     let parsed;
 
     const part = this.getPart(),
-          savedIndex = context.getSavedIndex(),
+          savedIndex = state.getSavedIndex(),
           partsNodes = [];
 
     let count = 0;
 
-    if (callback) {
+    if (callback !== null) {
       const parsePart = () => {
-        const parsed = part.parse(partsNodes, context, () => {
+        const parsed = part.parse(partsNodes, state, () => {
           let parsed = callback();
 
           if (!parsed) {
@@ -46,8 +46,10 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
 
       parsePart();
     } else {
+      const callback = null;
+
       for (;;) {
-        const parsed = part.parse(partsNodes, context);
+        const parsed = part.parse(partsNodes, state, callback);
 
         if (!parsed) {
           break;
@@ -64,7 +66,7 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
     }
 
     if (!parsed) {
-      context.backtrack(savedIndex);
+      state.backtrack(savedIndex);
     }
 
     return parsed;

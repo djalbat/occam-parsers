@@ -2,7 +2,7 @@
 
 import { DEFAULT_MAXIMUM_DEPTH } from "./defaults";
 
-export default class Context {
+export default class State {
   constructor(ruleMap, tokens, index, depth, maximumDepth) {
     this.ruleMap = ruleMap;
     this.tokens = tokens;
@@ -110,8 +110,8 @@ export default class Context {
     const index = 0,
 					depth = 0,
 					maximumDepth = DEFAULT_MAXIMUM_DEPTH,
-					context = new Context(ruleMap, tokens, index, depth, maximumDepth);
+					state = new State(ruleMap, tokens, index, depth, maximumDepth);
 
-    return context;
+    return state;
   }
 }

@@ -14,13 +14,13 @@ export default class NoWhitespacePart extends TerminalPart {
     return noWhitespacePart;
   }
 
-  parse(nodes, context, callback) {
+  parse(nodes, state, callback) {
     let parsed;
 
     let noWhitespaceNode = null;
 
-    const savedIndex = context.getSavedIndex(),
-          nextTokenWhitespaceToken = context.isNextTokenWhitespaceToken();
+    const savedIndex = state.getSavedIndex(),
+          nextTokenWhitespaceToken = state.isNextTokenWhitespaceToken();
 
     if (!nextTokenWhitespaceToken) {
       noWhitespaceNode = NoWhitespaceNode.fromNothing();
@@ -31,7 +31,7 @@ export default class NoWhitespacePart extends TerminalPart {
     if (parsed) {
       nodes.push(noWhitespaceNode);
 
-      if (callback) {
+      if (callback !== null) {
         parsed = callback();
 
         if (!parsed) {
@@ -41,7 +41,7 @@ export default class NoWhitespacePart extends TerminalPart {
     }
 
     if (!parsed) {
-      context.backtrack(savedIndex);
+      state.backtrack(savedIndex);
     }
 
     return parsed;

@@ -15,17 +15,17 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
     super(type, part);
   }
 
-  parse(nodes, context, callback) {
+  parse(nodes, state, callback) {
     let parsed;
 
     const part = this.getPart();
 
-    if (callback) {
+    if (callback !== null) {
       parsed = callback();
 
       if (!parsed) {
         const parsePart = () => {
-          const parsed = part.parse(nodes, context, () => {
+          const parsed = part.parse(nodes, state, () => {
             let parsed = callback();
 
             if (!parsed) {
@@ -41,8 +41,10 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
         parsed = parsePart();
       }
     } else {
+      const callback = null;
+
       for (;;) {
-        parsed = part.parse(nodes, context);
+        parsed = part.parse(nodes, state, callback);
 
         if (!parsed) {
           break;

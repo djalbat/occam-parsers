@@ -1,6 +1,6 @@
 "use strict";
 
-import Context from "../context";
+import State from "../state";
 
 import { rulesFromBNF, parserFromRules } from "../utilities/parser";
 
@@ -19,8 +19,9 @@ export default class CommonParser {
   }
 
   parse(tokens, rule = this.startRule) {
-    const context = Context.fromTokensAndRuleMap(tokens, this.ruleMap),
-          ruleNode = rule.parse(context),
+    const state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
+          callback = null,
+          ruleNode = rule.parse(state, callback),
           node = ruleNode; ///
 
     return node;

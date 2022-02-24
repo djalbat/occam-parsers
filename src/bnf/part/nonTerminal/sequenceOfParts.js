@@ -19,23 +19,24 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     return this.parts;
   }
 
-  parse(nodes, context, callback) {
+  parse(nodes, state, callback) {
     let parsed;
 
-    const savedIndex = context.getSavedIndex(),
+    const savedIndex = state.getSavedIndex(),
           partsNodes = [];
 
-    if (callback) {
-      const index = 0,
-            partsLength = this.parts.length;
+    if (callback !== null) {
+      const index = 0;
 
       const parseParts = (nodes, index) => {
         let parsed;
 
+        const partsLength = this.parts.length;
+
         if (index === partsLength) {
           parsed = callback();
         } else {
-          const part = this.parts[index++];
+          const part = this.parts[index];
 
           parsed = parsePart(part, nodes, index);
         }
@@ -48,7 +49,11 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
 
         const partsNodes = [];
 
-        parsed = part.parse(nodes, context, () => parseParts(partsNodes, index));
+        parsed = part.parse(nodes, state, () => {
+          index++;
+
+          parseParts(partsNodes, index);
+        });
 
         if (parsed) {
           push(nodes, partsNodes);
@@ -60,7 +65,9 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
       parsed = parseParts(partsNodes, index);
     } else {
       this.parts.every((part) => {
-        parsed = part.parse(partsNodes, context);
+        const callback = null;
+
+        parsed = part.parse(partsNodes, state, callback);
 
         if (parsed) {
           return true;
@@ -73,7 +80,7 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     }
 
     if (!parsed) {
-      context.backtrack(savedIndex);
+      state.backtrack(savedIndex);
     }
 
     return parsed;

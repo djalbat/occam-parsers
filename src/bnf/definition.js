@@ -35,12 +35,12 @@ export default class Definition {
     this.parts.push(part);
   }
 
-  parse(nodes, context, callback) {
+  parse(nodes, state, callback) {
     let parsed;
 
     const index = 0;
 
-    parsed = parseParts(this.parts, nodes, index, context, callback);
+    parsed = parseParts(this.parts, nodes, index, state, callback);
 
     return parsed;
   }
@@ -63,7 +63,7 @@ export default class Definition {
   }
 }
 
-function parseParts(parts, nodes, index, context, callback) {
+function parseParts(parts, nodes, index, state, callback) {
   let parsed;
 
   const partsLength = parts.length;
@@ -71,25 +71,29 @@ function parseParts(parts, nodes, index, context, callback) {
   if (index === partsLength) {
     parsed = true;
 
-    if (callback) {
+    if (callback !== null) {
        parsed = callback();
     }
   } else {
-    const part = parts[index++];
+    const part = parts[index];
 
-    parsed = parsePart(part, parts, nodes, index, context, callback);
+    parsed = parsePart(part, parts, nodes, index, state, callback);
   }
 
   return parsed;
 }
 
-function parsePart(part, parts, nodes, index, context, callback) {
+function parsePart(part, parts, nodes, index, state, callback) {
   let parsed;
 
-  if (callback) {
+  if (callback !== null) {
     const partsNodes = [];
 
-    parsed = part.parse(nodes, context, () => parseParts(parts, partsNodes, index, context, callback));
+    parsed = part.parse(nodes, state, () => {
+      index++;
+
+      parseParts(parts, partsNodes, index, state, callback);
+    });
 
     if (parsed) {
       push(nodes, partsNodes);
@@ -101,16 +105,26 @@ function parsePart(part, parts, nodes, index, context, callback) {
       const ruleNamePart = part, ///
             partsNodes = [];
 
-      parsed = ruleNamePart.parse(nodes, context, () => parseParts(parts, partsNodes, index, context));
+      parsed = ruleNamePart.parse(nodes, state, () => {
+        const callback = null;
+
+        index++;
+
+        parseParts(parts, partsNodes, index, state, callback);
+      });
 
       if (parsed) {
         push(nodes, partsNodes);
       }
     } else {
-      parsed = part.parse(nodes, context);
+      const callback = null;
+
+      parsed = part.parse(nodes, state, callback);
 
       if (parsed) {
-        parsed = parseParts(parts, nodes, index, context);
+        index++;
+
+        parsed = parseParts(parts, nodes, index, state, callback);
       }
     }
   }

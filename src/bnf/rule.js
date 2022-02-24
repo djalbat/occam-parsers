@@ -74,12 +74,12 @@ export default class Rule {
     }
   }
 
-  parse(context, callback) {
+  parse(state, callback) {
     let ruleNode = null;
 
-    context.increaseDepth();
+    state.increaseDepth();
 
-    const tooDeep = context.isTooDeep();
+    const tooDeep = state.isTooDeep();
 
     if (tooDeep) {
       throw new Error(`The parse tree is too deep at rule "${this.name}".`);
@@ -91,7 +91,7 @@ export default class Rule {
     this.definitions.some((definition) => {
       definitionNodes = [];
 
-      parsed = this.parseDefinition(definition, definitionNodes, context, callback);
+      parsed = this.parseDefinition(definition, definitionNodes, state, callback);
 
       if (parsed) {
         return true;
@@ -106,20 +106,20 @@ export default class Rule {
       ruleNode = nonTerminalNode; ///
     }
 
-    context.decreaseDepth();
+    state.decreaseDepth();
 
     return ruleNode;
   }
 
-  parseDefinition(definition, nodes, context, callback) {
+  parseDefinition(definition, nodes, state, callback) {
     let parsed;
 
-    const savedIndex = context.getSavedIndex();
+    const savedIndex = state.getSavedIndex();
 
-    parsed = definition.parse(nodes, context, callback);
+    parsed = definition.parse(nodes, state, callback);
 
     if (!parsed) {
-      context.backtrack(savedIndex);
+      state.backtrack(savedIndex);
     }
 
     return parsed;

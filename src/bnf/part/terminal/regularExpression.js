@@ -12,13 +12,13 @@ export default class RegularExpressionPart extends TerminalPart {
     this.regularExpression = regularExpression;
   }
 
-  parse(nodes, context, callback) {
+  parse(nodes, state, callback) {
     let parsed;
 
     let terminalNode = null;
     
-    const savedIndex = context.getSavedIndex(),
-		      nextSignificantToken = context.getNextSignificantToken(),
+    const savedIndex = state.getSavedIndex(),
+		      nextSignificantToken = state.getNextSignificantToken(),
 					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
@@ -39,7 +39,7 @@ export default class RegularExpressionPart extends TerminalPart {
     if (parsed) {
       nodes.push(terminalNode);
 
-      if (callback) {
+      if (callback !== null) {
         parsed = callback();
 
         if (!parsed) {
@@ -49,7 +49,7 @@ export default class RegularExpressionPart extends TerminalPart {
     }
 
     if (!parsed) {
-      context.backtrack(savedIndex);
+      state.backtrack(savedIndex);
     }
 
     return parsed;

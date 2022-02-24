@@ -199,7 +199,7 @@ Consider the following rules:
 
       ABC  ::=  AAB BC ;
 
-      AAB  ::=  "a" "b" | "a";
+      AAB  ::=  "a" "b" | "a" ;
 
        BC  ::=  "b" "c" ;
 
@@ -207,7 +207,7 @@ These will not parse the tokens `a`, `b`, `c` because the first definition of th
 
       ABC  ::=  AAB! BC ;
 
-      AAB  ::=  "a" "b" | "a";
+      AAB  ::=  "a" "b" | "a" ;
 
        BC  ::=  "b" "c" ;
 

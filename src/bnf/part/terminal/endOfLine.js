@@ -8,13 +8,13 @@ import EndOfLineNode from "../../../common/node/terminal/endOfLine";
 const { END_OF_LINE } = specialSymbols;
 
 export default class EndOfLinePart extends TerminalPart {
-  parse(nodes, context, callback) {
+  parse(nodes, state, callback) {
     let parsed;
 
     let endOfLineNode = null;
     
-    const savedIndex = context.getSavedIndex(),
-		      nextSignificantToken = context.getNextSignificantToken(),
+    const savedIndex = state.getSavedIndex(),
+		      nextSignificantToken = state.getNextSignificantToken(),
           significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
@@ -30,7 +30,7 @@ export default class EndOfLinePart extends TerminalPart {
     if (parsed) {
       nodes.push(endOfLineNode);
 
-      if (callback) {
+      if (callback !== null) {
         parsed = callback();
 
         if (!parsed) {
@@ -40,7 +40,7 @@ export default class EndOfLinePart extends TerminalPart {
     }
 
     if (!parsed) {
-      context.backtrack(savedIndex);
+      state.backtrack(savedIndex);
     }
 
     return parsed;
