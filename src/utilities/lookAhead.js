@@ -9,33 +9,27 @@ export function parseParts(parts, nodes, index, state, callback) {
   const partsLength = parts.length;
 
   if (index === partsLength) {
-    if (callback !== null) {
-      parsed = callback();
-    } else {
-      parsed = true;
-    }
+    parsed = (callback !== null) ?
+                callback() :
+                  true;
   } else {
     const part = parts[index];
 
-    parsed = parsePart(part, parts, nodes, index, state, callback);
+    parsed = parsePartOfParts(part, parts, nodes, index, state, callback);
   }
 
   return parsed;
 }
 
-function parsePart(part, parts, nodes, index, state, callback) {
+function parsePartOfParts(part, parts, nodes, index, state, callback) {
   let parsed;
 
   if (callback !== null) {
     const partsNodes = [];
 
-    parsed = part.parse(nodes, state, () => {
-      index++;
+    index++;
 
-      const parsed = parseParts(parts, partsNodes, index, state, callback);
-
-      return parsed;
-    });
+    parsed = part.parse(nodes, state, () => parseParts(parts, partsNodes, index, state, callback));
 
     if (parsed) {
       push(nodes, partsNodes);
@@ -47,21 +41,14 @@ function parsePart(part, parts, nodes, index, state, callback) {
       const ruleNamePart = part, ///
             partsNodes = [];
 
-      parsed = ruleNamePart.parse(nodes, state, () => {
-        index++;
+      index++;
 
-        const callback = null,
-              parsed = parseParts(parts, partsNodes, index, state, callback);
-
-        return parsed;
-      });
+      parsed = ruleNamePart.parse(nodes, state, () => parseParts(parts, partsNodes, index, state, callback));
 
       if (parsed) {
         push(nodes, partsNodes);
       }
     } else {
-      const callback = null;
-
       parsed = part.parse(nodes, state, callback);
 
       if (parsed) {
