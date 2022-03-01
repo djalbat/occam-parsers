@@ -4,10 +4,10 @@ const bnf = `
 
   ABC  ::=  AAB! BC ;
 
-  AAB  ::=  "a" "b" | "a" ;
+  AAB  ::=  "a" "b"+ ;
 
    BC  ::=  "b" "c" ;
-  
+   
 `;
 
 export default bnf;

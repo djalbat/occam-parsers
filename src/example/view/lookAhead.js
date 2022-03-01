@@ -17,7 +17,7 @@ export default class LookAheadView extends View {
     static bnf = bnf;
   };
 
-  initialContent = "a b c";
+  initialContent = "a b b b c";
 
   static defaultProperties = {
     className: "lookAhead"

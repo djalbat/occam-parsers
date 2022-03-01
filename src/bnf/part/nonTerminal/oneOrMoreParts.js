@@ -20,49 +20,13 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
     let parsed;
 
     const part = this.getPart(),
-          savedIndex = state.getSavedIndex(),
-          partsNodes = [];
+          partNodes = [],
+          savedIndex = state.getSavedIndex();
 
-    let count = 0;
-
-    if (callback !== null) {
-      const parsePart = () => {
-        const parsed = part.parse(partsNodes, state, () => {
-          let parsed = callback();
-
-          if (!parsed) {
-            parsed = parsePart();
-          }
-
-          return parsed;
-        });
-
-        if (parsed) {
-          count++;
-        }
-
-        return parsed;
-      }
-
-      parsePart();
-    } else {
-      const callback = null;
-
-      for (;;) {
-        const parsed = part.parse(partsNodes, state, callback);
-
-        if (!parsed) {
-          break;
-        }
-
-        count++;
-      }
-    }
-
-    parsed = (count !== 0);
+    parsed = parsePart(part, partNodes, state, callback);
 
     if (parsed) {
-      push(nodes, partsNodes);
+      push(nodes, partNodes);
     }
 
     if (!parsed) {
@@ -80,4 +44,28 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
   }
 
   clone() { return super.clone(OneOrMorePartsPart); }
+}
+
+function parsePart(part, nodes, state, callback) {
+  let parsed;
+
+  if (callback !== null) {
+    parsed = part.parse(nodes, state, () => {
+      let parsed = callback();
+
+      if (!parsed) {
+        parsed = parsePart(part, nodes, state, callback);
+      }
+
+      return parsed;
+    })
+  } else {
+    parsed = part.parse(nodes, state, callback);
+
+    if (parsed) {
+      parsePart(part, nodes, state, callback)
+    }
+  }
+
+  return parsed;
 }

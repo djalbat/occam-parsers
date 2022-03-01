@@ -26,19 +26,9 @@ export default class OptionalPartPart extends NonTerminalPart {
 
     const part = this.getPart();
 
-    if (callback !== null) {
-      parsed = callback();
+    parsePart(part, nodes, state, callback);
 
-      if (!parsed) {
-        parsed = part.parse(nodes, state, callback);
-      }
-    } else {
-      const callback = null;
-
-      parsed = part.parse(nodes, state, callback);
-
-      parsed = true;
-    }
+    parsed = true;
 
     return parsed;
   }
@@ -52,4 +42,16 @@ export default class OptionalPartPart extends NonTerminalPart {
   }
 
   clone() { return super.clone(OptionalPartPart, this.part); }
+}
+
+function parsePart(part, nodes, state, callback) {
+  if (callback !== null) {
+    const parsed = callback();
+
+    if (!parsed) {
+      part.parse(nodes, state, callback);
+    }
+  } else {
+    part.parse(nodes, state, callback);
+  }
 }

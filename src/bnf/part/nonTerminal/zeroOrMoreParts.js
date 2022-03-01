@@ -20,39 +20,9 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
 
     const part = this.getPart();
 
-    if (callback !== null) {
-      parsed = callback();
+    parsePart(part, nodes, state, callback);
 
-      if (!parsed) {
-        const parsePart = () => {
-          const parsed = part.parse(nodes, state, () => {
-            let parsed = callback();
-
-            if (!parsed) {
-              parsed = parsePart();
-            }
-
-            return parsed;
-          });
-
-          return parsed;
-        }
-
-        parsed = parsePart();
-      }
-    } else {
-      const callback = null;
-
-      for (;;) {
-        parsed = part.parse(nodes, state, callback);
-
-        if (!parsed) {
-          break;
-        }
-      }
-
-      parsed = true;
-    }
+    parsed = true;
 
     return parsed;
   }
@@ -65,4 +35,24 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
   }
 
   clone() { return super.clone(ZeroOrMorePartsPart); }
+}
+
+function parsePart(part, nodes, state, callback) {
+  let parsed;
+
+  if (callback !== null) {
+    parsed = callback();
+
+    if (!parsed) {
+      part.parse(nodes, state, () => parsePart(part, nodes, state, callback));
+    }
+  } else {
+    parsed = part.parse(nodes, state, callback);
+
+    if (parsed) {
+      parsePart(part, nodes, state, callback);
+    }
+  }
+
+  return parsed;
 }
