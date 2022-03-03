@@ -4,7 +4,7 @@ import Definition from "../../../definition";
 import RuleNamePart from "../../../part/nonTerminal/ruleName";
 import OptionalPartPart from "../../../part/nonTerminal/optionalPart";
 
-import { RuleNameRuleName, LookAheadModifierRuleName } from "../../../bnf/ruleNames";
+import { RuleNameRuleName, LookAheadModifierRuleName } from "../../../ruleNames";
 
 export default class RuleNameNonTerminalPartRuleDefinition extends Definition {
   constructor() {

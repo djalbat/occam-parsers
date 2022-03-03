@@ -4,7 +4,7 @@ import Definition from "../definition";
 import RuleNamePart from "../part/nonTerminal/ruleName";
 import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 
-import { PartRuleName } from "../bnf/ruleNames";
+import { PartRuleName } from "../ruleNames";
 
 export default class DefinitionDefinition extends Definition {
   constructor() {

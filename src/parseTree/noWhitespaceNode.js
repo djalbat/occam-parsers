@@ -17,8 +17,8 @@ export default class NoWhitespaceNodeParseTree extends VerticalBranchParseTree {
 
     terminalNodeParseTree.appendToTop(verticalBranchParseTree);
 
-    const epsilonNodeParseTree = terminalNodeParseTree; ///
+    const noWhitespaceNodeParseTree = terminalNodeParseTree; ///
 
-    return epsilonNodeParseTree;
+    return noWhitespaceNodeParseTree;
   }
 }

@@ -4,7 +4,7 @@ import NonTerminalNode from "../../node/nonTerminal";
 
 import { even } from "../../utilities/array";
 
-export default class DefinitionsNode extends NonTerminalNode {
+export default class DefinitionsBNFNode extends NonTerminalNode {
   generateDefinitions() {
     const childNodes = this.getChildNodes(),
           evenChildNodes = even(childNodes),  ///
@@ -18,5 +18,5 @@ export default class DefinitionsNode extends NonTerminalNode {
     return definitions;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(DefinitionsNode, ruleName, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(DefinitionsBNFNode, ruleName, childNodes); }
 }

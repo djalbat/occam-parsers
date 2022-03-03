@@ -4,7 +4,7 @@ import NonTerminalNode from "../../../node/nonTerminal";
 
 import { first } from "../../../utilities/array";
 
-export default class TerminalPartNode extends NonTerminalNode {
+export default class TerminalPartBNFNode extends NonTerminalNode {
   generatePart(lookAhead) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
@@ -14,5 +14,5 @@ export default class TerminalPartNode extends NonTerminalNode {
     return part;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(TerminalPartNode, ruleName, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(TerminalPartBNFNode, ruleName, childNodes); }
 }

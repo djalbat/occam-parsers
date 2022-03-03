@@ -36,8 +36,6 @@ const bnf = `
  
                               |  endOfLine
  
-                              |  epsilon
- 
                               |  wildcard
  
                               ;
@@ -57,8 +55,6 @@ const bnf = `
       terminalSymbol        ::=  [string-literal] ;
 
       endOfLine             ::=  "<END_OF_LINE>" ;
-
-      epsilon               ::=  "ε" ; 
 
       wildcard              ::=  "." ;
 

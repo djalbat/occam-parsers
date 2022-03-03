@@ -5,7 +5,7 @@ import RegularExpressionPart from "../../part/terminal/regularExpression";
 
 import { first, second } from "../../utilities/array";
 
-export default class RegularExpressionNode extends NonTerminalNode {
+export default class RegularExpressionBNFNode extends NonTerminalNode {
   regularExpression = /^\/((?:\\.|[^\/])*)\/$/;
 
   generatePart(lookAhead) {
@@ -28,6 +28,6 @@ export default class RegularExpressionNode extends NonTerminalNode {
     return regularExpression;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(RegularExpressionNode, ruleName, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(RegularExpressionBNFNode, ruleName, childNodes); }
 }
 

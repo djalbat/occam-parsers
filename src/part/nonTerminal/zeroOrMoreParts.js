@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import CollectionOfPartsPart from "./collectionOfParts";
 
-import { ZeroOrMorePartsPartType } from "../../bnf/partTypes";
+import { ZeroOrMorePartsPartType } from "../../partTypes";
 
 const { asterisk } = specialSymbols;
 

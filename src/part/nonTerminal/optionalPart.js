@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { OptionalPartPartType } from "../../bnf/partTypes";
+import { OptionalPartPartType } from "../../partTypes";
 
 const { questionMark } = specialSymbols;
 

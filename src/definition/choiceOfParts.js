@@ -8,7 +8,7 @@ import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 import SequenceOfPartsPart from "../part/nonTerminal/sequenceOfParts";
 
-import { PartRuleName } from "../bnf/ruleNames";
+import { PartRuleName } from "../ruleNames";
 
 const { verticalBar, openBracket, closeBracket } = specialSymbols;
 

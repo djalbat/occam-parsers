@@ -6,7 +6,7 @@ import Definition from "../definition";
 import RuleNamePart from "../part/nonTerminal/ruleName";
 import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
-import { NameRuleName, DefinitionsRuleName } from "../bnf/ruleNames";
+import { NameRuleName, DefinitionsRuleName } from "../ruleNames";
 
 const { separator, terminator } = specialSymbols;
 

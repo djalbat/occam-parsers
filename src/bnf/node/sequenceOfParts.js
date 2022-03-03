@@ -3,7 +3,7 @@
 import NonTerminalNode from "../../node/nonTerminal";
 import SequenceOfPartsPart from "../../part/nonTerminal/sequenceOfParts";
 
-export default class SequenceOfPartsNode extends NonTerminalNode {
+export default class SequenceOfPartsBNFNode extends NonTerminalNode {
   generatePart(lookAhead) {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(),
@@ -12,5 +12,5 @@ export default class SequenceOfPartsNode extends NonTerminalNode {
     return part;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(SequenceOfPartsNode, ruleName, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(SequenceOfPartsBNFNode, ruleName, childNodes); }
 }

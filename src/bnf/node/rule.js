@@ -4,7 +4,7 @@ import NonTerminalNode from "../../node/nonTerminal";
 
 import { first, third } from "../../utilities/array";
 
-export default class RuleNode extends NonTerminalNode {
+export default class RuleBNFNode extends NonTerminalNode {
   generateRule(Rule) {
     const name = this.getName(),
           definitions = this.generateDefinitions(),
@@ -17,8 +17,8 @@ export default class RuleNode extends NonTerminalNode {
   getName() {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
-          nameNode = firstChildNode,  ///
-          name = nameNode.getName();
+          nameBNFNode = firstChildNode,  ///
+          name = nameBNFNode.getName();
     
     return name;
   }
@@ -32,5 +32,5 @@ export default class RuleNode extends NonTerminalNode {
     return definitions;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(RuleNode, ruleName, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(RuleBNFNode, ruleName, childNodes); }
 }

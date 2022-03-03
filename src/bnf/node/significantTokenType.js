@@ -5,7 +5,7 @@ import SignificantTokenTypePart from "../../part/terminal/significantTokenType";
 
 import { first, second } from "../../utilities/array";
 
-export default class SignificantTokenTypeNode extends NonTerminalNode {
+export default class SignificantTokenTypeBNFNode extends NonTerminalNode {
   regularExpression = /^\[([^\]]+)]$/;
 
   generatePart(lookAhead) {
@@ -27,9 +27,9 @@ export default class SignificantTokenTypeNode extends NonTerminalNode {
     return significantTokenType;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(SignificantTokenTypeNode, ruleName, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(SignificantTokenTypeBNFNode, ruleName, childNodes); }
 }
 
-module.exports = SignificantTokenTypeNode;
+module.exports = SignificantTokenTypeBNFNode;
 
 

@@ -1,32 +1,31 @@
 "use strict";
 
 import bnf from "./bnf";
-import Rule from "./rule";
+import Rule from "../rule";
 import State from "../state";
-import NameRule from "./rule/name";
-import PartRule from "./rule/part";
-import RuleRule from "./rule/rule";
-import ErrorRule from "./rule/error";
-import EpsilonRule from "./rule/epsilon";
-import DocumentRule from "./rule/document";
-import RuleNameRule from "./rule/ruleName";
-import WildcardRule from "./rule/wildcard";
-import EndOfLineRule from "./rule/endOfLine";
-import QuantifierRule from "./rule/quantifier";
-import DefinitionRule from "./rule/definition";
-import DefinitionsRule from "./rule/definitions";
-import TerminalPartRule from "./rule/terminalPart";
-import ChoiceOfPartsRule from "./rule/choiceOfParts";
-import TerminalSymbolRule from "./rule/terminalSymbol";
-import NonTerminalPartRule from "./rule/nonTerminalPart";
-import SequenceOfPartsRule from "./rule/sequenceOfParts";
-import NoWhitespacePartRule from "./rule/noWhitespacePart";
-import LookAheadModifierRule from "./rule/lookAheadModifier";
-import RegularExpressionRule from "./rule/regularExpression";
-import OptionalQuantifierRule from "./rule/optionalQuantifier";
-import OneOrMoreQuantifierRule from "./rule/oneOrMoreQuantifier";
-import ZeroOrMoreQuantifierRule from "./rule/zeroOrMoreQuantifier";
-import SignificantTokenTypeRule from "./rule/significantTokenType";
+import NameRule from "../rule/name";
+import PartRule from "../rule/part";
+import RuleRule from "../rule/rule";
+import ErrorRule from "../rule/error";
+import DocumentRule from "../rule/document";
+import RuleNameRule from "../rule/ruleName";
+import WildcardRule from "../rule/wildcard";
+import EndOfLineRule from "../rule/endOfLine";
+import QuantifierRule from "../rule/quantifier";
+import DefinitionRule from "../rule/definition";
+import DefinitionsRule from "../rule/definitions";
+import TerminalPartRule from "../rule/terminalPart";
+import ChoiceOfPartsRule from "../rule/choiceOfParts";
+import TerminalSymbolRule from "../rule/terminalSymbol";
+import NonTerminalPartRule from "../rule/nonTerminalPart";
+import SequenceOfPartsRule from "../rule/sequenceOfParts";
+import NoWhitespacePartRule from "../rule/noWhitespacePart";
+import LookAheadModifierRule from "../rule/lookAheadModifier";
+import RegularExpressionRule from "../rule/regularExpression";
+import OptionalQuantifierRule from "../rule/optionalQuantifier";
+import OneOrMoreQuantifierRule from "../rule/oneOrMoreQuantifier";
+import ZeroOrMoreQuantifierRule from "../rule/zeroOrMoreQuantifier";
+import SignificantTokenTypeRule from "../rule/significantTokenType";
 
 import { startRuleFromRules, ruleMapFromRules } from "../utilities/rules";
 
@@ -80,7 +79,6 @@ export default class BNFParser {
           partRule = new PartRule(),
           ruleRule = new RuleRule(),
           errorRule = new ErrorRule(),
-          epsilonRule = new EpsilonRule(),
           documentRule = new DocumentRule(),
           ruleNameRule = new RuleNameRule(),
           wildcardRule = new WildcardRule(),
@@ -118,7 +116,6 @@ export default class BNFParser {
       regularExpressionRule,
       terminalSymbolRule,
       endOfLineRule,
-      epsilonRule,
       wildcardRule,
       quantifierRule,
       lookAheadModifierRule,

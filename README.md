@@ -56,8 +56,6 @@ All parsers share common functionality. The last two parse content according to 
 
                               |  endOfLine
 
-                              |  epsilon
-
                               |  wildcard
 
                               ;
@@ -77,8 +75,6 @@ All parsers share common functionality. The last two parse content according to 
       terminalSymbol        ::=  [string-literal] ;
 
       endOfLine             ::=  "<END_OF_LINE>" ;
-
-      epsilon               ::=  "ε" ;
 
       wildcard              ::=  "." ;
 

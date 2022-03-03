@@ -5,7 +5,7 @@ import { specialSymbols } from "occam-lexers";
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { EMPTY_STRING } from "../../constants";
-import { RuleNamePartType } from "../../bnf/partTypes";
+import { RuleNamePartType } from "../../partTypes";
 
 const { exclamationMark } = specialSymbols;
 

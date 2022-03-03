@@ -2,7 +2,7 @@
 
 import NonTerminalNode from "../../../node/nonTerminal";
 
-export default class NonTerminalPartNode extends NonTerminalNode {
+export default class NonTerminalPartBNFNode extends NonTerminalNode {
   generatePart(lookAhead) {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(),
@@ -11,7 +11,7 @@ export default class NonTerminalPartNode extends NonTerminalNode {
     return part;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(NonTerminalPartNode, ruleName, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(NonTerminalPartBNFNode, ruleName, childNodes); }
 }
 
 function partFromNodes(nodes, lookAhead) {

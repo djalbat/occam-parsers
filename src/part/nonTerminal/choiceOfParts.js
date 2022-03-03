@@ -2,7 +2,7 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { ChoiceOfPartsPartType } from "../../bnf/partTypes";
+import { ChoiceOfPartsPartType } from "../../partTypes";
 import { even, allButFirstAndLast } from "../../utilities/array";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {

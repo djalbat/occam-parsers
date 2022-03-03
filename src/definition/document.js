@@ -5,7 +5,7 @@ import RuleNamePart from "../part/nonTerminal/ruleName";
 import ChoiceOfPartsPart from "../part/nonTerminal/choiceOfParts";
 import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 
-import { RuleRuleName, ErrorRuleName } from "../bnf/ruleNames";
+import { RuleRuleName, ErrorRuleName } from "../ruleNames";
 
 export default class DocumentDefinition extends Definition {
   constructor() {

@@ -2,9 +2,9 @@
 
 import NonTerminalNode from"../../node/nonTerminal";
 
-import { RuleRuleName } from "../ruleNames";
+import { RuleRuleName } from "../../ruleNames";
 
-export default class DocumentNode extends NonTerminalNode {
+export default class DocumentBNFNode extends NonTerminalNode {
   generateRules(Rule) {
     const childNodes = this.getChildNodes(),
           ruleNodes = childNodes.reduce((ruleNodes, childNode) => {
@@ -34,5 +34,5 @@ export default class DocumentNode extends NonTerminalNode {
     return rules;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(DocumentNode, ruleName, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(DocumentBNFNode, ruleName, childNodes); }
 }

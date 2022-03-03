@@ -5,7 +5,7 @@ import { specialSymbols } from "occam-lexers";
 import CollectionOfPartsPart from "./collectionOfParts";
 
 import { push } from "../../utilities/array";
-import { OneOrMorePartsPartType } from "../../bnf/partTypes";
+import { OneOrMorePartsPartType } from "../../partTypes";
 
 const { plus } = specialSymbols;
 

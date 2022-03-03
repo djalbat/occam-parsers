@@ -13,12 +13,6 @@ export default class TerminalPart {
     return terminalPart;
   }
 
-  isEpsilonPart() {
-    const epsilonPart = false;
-    
-    return epsilonPart;
-  }
-
   isNoWhitespacePart() {
     const noWhitespacePart = false;
 

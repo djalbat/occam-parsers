@@ -8,7 +8,7 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 import ZeroOrMorePartsPart from "../part/nonTerminal/zeroOrMoreParts";
 import SequenceOfPartsPart from "../part/nonTerminal/sequenceOfParts";
 
-import { DefinitionRuleName } from "../bnf/ruleNames";
+import { DefinitionRuleName } from "../ruleNames";
 
 const { verticalBar } = specialSymbols;
 

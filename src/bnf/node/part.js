@@ -7,9 +7,9 @@ import ZeroOrMorePartsPart from "../../part/nonTerminal/zeroOrMoreParts";
 
 import { last } from "../../utilities/array";
 import { isNodeQuantifierNode, ruleNameFromQuantifierNode } from "../../utilities/bnf";
-import { OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } from "../ruleNames";
+import { OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } from "../../ruleNames";
 
-export default class PartNode extends NonTerminalNode {
+export default class PartBNFNode extends NonTerminalNode {
   generatePart(lookAhead) {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(),
@@ -18,7 +18,7 @@ export default class PartNode extends NonTerminalNode {
     return part;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(PartNode, ruleName, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(PartBNFNode, ruleName, childNodes); }
 }
 
 function partFromNodes(nodes) {

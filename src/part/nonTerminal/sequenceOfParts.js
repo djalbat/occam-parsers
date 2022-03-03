@@ -5,7 +5,7 @@ import NonTerminalPart from "../../part/nonTerminal";
 import { push } from "../../utilities/array";
 import { parseParts } from "../../utilities/lookAhead";
 import { allButFirstAndLast } from "../../utilities/array";
-import { SequenceOfPartsPartType } from "../../bnf/partTypes";
+import { SequenceOfPartsPartType } from "../../partTypes";
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
   constructor(parts) {

@@ -1,7 +1,7 @@
 "use strict";
 
 import { first } from "../utilities/array";
-import { LookAheadModifierRuleName, QuantifierRuleName, RuleNameRuleName } from "../bnf/ruleNames";
+import { LookAheadModifierRuleName, QuantifierRuleName, RuleNameRuleName } from "../ruleNames";
 
 export function isNodeChoiceNode(node) {
   let nodeNoChoiceNode = false;

@@ -34,12 +34,6 @@ export default class TerminalNode {
     return noWhitespaceNode;
   }
 
-  isEpsilonNode() {
-    const epsilonNode = false;
-
-    return epsilonNode;
-  }
-
   isTerminalNode() {
     const terminalNode = true;
     

@@ -7,7 +7,7 @@ import RuleNamePart from "../part/nonTerminal/ruleName";
 import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 
-import { PartRuleName } from "../bnf/ruleNames";
+import { PartRuleName } from "../ruleNames";
 
 const { openBracket, closeBracket } = specialSymbols;
 
