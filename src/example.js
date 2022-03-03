@@ -8,7 +8,6 @@ import { Body } from "easy";
 
 import BNFView from "./example/view/bnf";
 import BasicView from "./example/view/basic";
-import LookAheadView from "./example/view/lookAhead";
 
 const { renderStyles } = withStyle;
 
@@ -20,7 +19,6 @@ const body = new Body(),
 switch (example) {
   case "bnf" : View = BNFView; break;
   case "basic" : View = BasicView; break;
-  case "lookAhead" : View = LookAheadView; break;
 }
 
 renderStyles();
