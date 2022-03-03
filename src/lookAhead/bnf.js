@@ -2,11 +2,9 @@
 
 const bnf = `
 
-  ABC  ::=  AAB! BC ;
+  ABC  ::=  AAB! ;
 
-  AAB  ::=  "a" "b"+ ;
-
-   BC  ::=  "b" "c" ;
+  AAB  ::=  "a" "b"+ "b" "c" ;
    
 `;
 

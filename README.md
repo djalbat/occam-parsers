@@ -22,7 +22,6 @@ Three parsers are documented:
 
 All parsers share common functionality. The last two parse content according to rules defined in the aforementioned variant of extended BNF. The BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant that they implement:
 
-
       document              ::=  ( rule | error )+ ;
 
       rule                  ::=  name "::=" definitions ";" ;
@@ -213,7 +212,19 @@ These will not parse the tokens `a`, `b`, `c` because the first definition of th
 
 Now the `ABC` rule will indeed parse the tokens `a`, `b`, `c`, because the second definition of the `AAB` rule will be tried after the first definition fails to allow the `BC` rule name part to parse.
 
-It seems that the parser parses with roughly linear complexity as a function of the length of the input, however it is most likely that look-ahead parses take exponential time. For this reason, look-ahead should be used sparingly. Also bear in mind that look-ahead is carried out to arbitrary depth and this it affects the behaviour of the `?`, `*`, `+` quantifiers, which become lazy. Another reason to use it with caution.
+Also bear in mind that look-ahead is carried out to arbitrary depth and this it affects the behaviour of the `?`, `*`, `+` quantifiers, which become lazy. For example:
+
+    ABC  ::=  AAB! ;
+
+    AAB  ::=  "a" "b"+ "b" "c" ;
+
+Here the look-ahead modifier on the `AAB` rule name part forces the `+` quantifier on the `"b"` terminal part to be lazy, allowing the following to parse:
+
+    a b b b c
+
+Without look-ahead, the `"b"+` part would consume all of the `b` tokens, leaving none for the subsequent `"b"` terminal part.
+
+It seems that the parser parses with roughly linear complexity as a function of the length of the input, however it is most likely that look-ahead parses take exponential time given their nested nature. For this reason, look-ahead should be used sparingly.
 
 ## Building
 
