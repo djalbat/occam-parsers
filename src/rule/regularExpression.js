@@ -3,7 +3,7 @@
 import { types } from "occam-lexers";
 
 import Rule from "../rule";
-import RegularExpressionBNFNode from "../bnf/node/regularExpression";
+import RegularExpressionBNFNode from "../node/bnf/regularExpression";
 import SignificantTokenTypeDefinition from "../definition/significantTokenType";
 
 import { RegularExpressionRuleName } from "../ruleNames";

@@ -1,7 +1,7 @@
 "use strict";
 
 import Rule from "../rule";
-import TerminalPartBNFNode from "../bnf/node/part/terminal";
+import TerminalPartBNFNode from "../node/bnf/part/terminal";
 import RuleNameDefinition from "../definition/ruleName";
 
 import { TerminalPartRuleName, RegularExpressionRuleName, SignificantTokenTypeRuleName, TerminalSymbolRuleName, EndOfLineRuleName, WildcardRuleName } from "../ruleNames";

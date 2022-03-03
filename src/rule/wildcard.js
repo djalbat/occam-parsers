@@ -3,7 +3,7 @@
 import { specialSymbols } from "occam-lexers";
 
 import Rule from "../rule";
-import WildcardBNFNode from "../bnf/node/wildcard";
+import WildcardBNFNode from "../node/bnf/wildcard";
 import TerminalSymbolDefinition from "../definition/terminalSymbol";
 
 import { WildcardRuleName } from "../ruleNames";

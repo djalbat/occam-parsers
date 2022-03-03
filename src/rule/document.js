@@ -1,7 +1,7 @@
 "use strict";
 
 import Rule from "../rule";
-import DocumentBNFNode from "../bnf/node/document";
+import DocumentBNFNode from "../node/bnf/document";
 import DocumentDefinition from "../definition/document";
 
 import { DocumentRuleName } from "../ruleNames";

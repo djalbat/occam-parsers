@@ -1,7 +1,7 @@
 "use strict";
 
 import Rule from "../rule";
-import PartBNFNode from "../bnf/node/part";
+import PartBNFNode from "../node/bnf/part";
 import RuleNameDefinition from "../definition/ruleName";
 
 import { QuantifierRuleName, OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } from "../ruleNames";

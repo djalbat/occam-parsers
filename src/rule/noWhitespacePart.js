@@ -1,7 +1,7 @@
 "use strict";
 
 import Rule from "../rule";
-import NoWhitespacePartBNFNode from "../bnf/node/noWhitespacePart";
+import NoWhitespacePartBNFNode from "../node/bnf/noWhitespacePart";
 import NoWhitespacePartDefinition from "../definition/noWhitespacePart";
 
 import { NoWhitespacePartRuleName } from "../ruleNames";

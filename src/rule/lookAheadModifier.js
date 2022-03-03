@@ -1,7 +1,7 @@
 "use strict";
 
 import Rule from "../rule";
-import DefinitionBNFNode from "../bnf/node/definition";
+import DefinitionBNFNode from "../node/bnf/definition";
 import LookAheadModifierRuleDefinition from "../definition/lookAheadModifierRule";
 
 import { LookAheadModifierRuleName } from "../ruleNames";

@@ -3,7 +3,7 @@
 import { types } from "occam-lexers";
 
 import Rule from "../rule";
-import TerminalSymbolBNFNode from "../bnf/node/terminalSymbol";
+import TerminalSymbolBNFNode from "../node/bnf/terminalSymbol";
 import SignificantTokenTypeDefinition from "../definition/significantTokenType";
 
 import { TerminalSymbolRuleName } from "../ruleNames";

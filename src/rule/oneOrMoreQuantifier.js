@@ -3,7 +3,7 @@
 import { specialSymbols } from "occam-lexers";
 
 import Rule from "../rule";
-import DefinitionBNFNode from "../bnf/node/definition";
+import DefinitionBNFNode from "../node/bnf/definition";
 import QuantifierRuleDefinition from "../definition/quantifierRule";
 
 import { OneOrMoreQuantifierRuleName } from "../ruleNames";

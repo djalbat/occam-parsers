@@ -2,7 +2,7 @@
 
 import Rule from "../rule";
 import RuleNameDefinition from "../definition/ruleName";
-import NonTerminalPartBNFNode from "../bnf/node/part/nonTerminal";
+import NonTerminalPartBNFNode from "../node/bnf/part/nonTerminal";
 import RuleNameNonTerminalPartRuleDefinition from "../definition/partRule/nonTerminal/ruleName";
 
 import { NonTerminalPartRuleName, ChoiceOfPartsRuleName, SequenceOfPartsRuleName } from "../ruleNames";

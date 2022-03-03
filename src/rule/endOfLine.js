@@ -3,7 +3,7 @@
 import { specialSymbols } from "occam-lexers";
 
 import Rule from "../rule";
-import EndOfLineBNFNode from "../bnf/node/endOfLine";
+import EndOfLineBNFNode from "../node/bnf/endOfLine";
 import TerminalSymbolDefinition from "../definition/terminalSymbol";
 
 import { EndOfLineRuleName } from "../ruleNames";

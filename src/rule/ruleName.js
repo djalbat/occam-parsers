@@ -2,7 +2,7 @@
 
 import Rule from "../rule";
 import NameDefinition from "../definition/name";
-import RuleNameBNFNode from "../bnf/node/ruleName";
+import RuleNameBNFNode from "../node/bnf/ruleName";
 
 import { RuleNameRuleName } from "../ruleNames";
 

@@ -3,7 +3,7 @@
 import { types } from "occam-lexers";
 
 import Rule from "../rule";
-import SignificantTokenTypeBNFNode from "../bnf/node/significantTokenType";
+import SignificantTokenTypeBNFNode from "../node/bnf/significantTokenType";
 import SignificantTokenTypeDefinition from "../definition/significantTokenType";
 
 import { SignificantTokenTypeRuleName } from "../ruleNames";

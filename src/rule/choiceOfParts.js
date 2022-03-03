@@ -1,7 +1,7 @@
 "use strict";
 
 import Rule from "../rule";
-import ChoiceOfPartsBNFNode from "../bnf/node/choiceOfParts";
+import ChoiceOfPartsBNFNode from "../node/bnf/choiceOfParts";
 import ChoiceOfPartsDefinition from "../definition/choiceOfParts";
 
 import { ChoiceOfPartsRuleName } from "../ruleNames";
