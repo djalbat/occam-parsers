@@ -224,7 +224,7 @@ Here the look-ahead modifier on the `AAB` rule name part forces the `+` quantifi
 
 Without look-ahead, the `"b"+` part would consume all of the `b` tokens, leaving none for the subsequent `"b"` terminal part.
 
-It seems that the parser parses in time roughly directly proportionally to the length of the input, however it is most likely that look-ahead takes exponential time given its nested nature. For this reason, look-ahead should be used sparingly.
+It seems that the parser parses in time that is roughly directly proportional to the length of the input. However, on the ohter hand it is most likely that look-ahead takes exponential time given its nested nature. For this reason, look-ahead should be used sparingly.
 
 ## Building
 
