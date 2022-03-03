@@ -212,7 +212,7 @@ These will not parse the tokens `a`, `b`, `c` because the first definition of th
 
 Now the `ABC` rule will indeed parse the tokens `a`, `b`, `c`, because the second definition of the `AAB` rule will be tried after the first definition fails to allow the `BC` rule name part to parse.
 
-Also bear in mind that look-ahead is carried out to arbitrary depth and this it affects the behaviour of the `?`, `*`, `+` quantifiers, which become lazy. For example:
+Also bear in mind that look-ahead is carried out to arbitrary depth and this it affects the behaviour of the `?`, `*` and `+` quantifiers, which become lazy. For example:
 
     ABC  ::=  AAB! ;
 
@@ -224,7 +224,7 @@ Here the look-ahead modifier on the `AAB` rule name part forces the `+` quantifi
 
 Without look-ahead, the `"b"+` part would consume all of the `b` tokens, leaving none for the subsequent `"b"` terminal part.
 
-It seems that the parser parses with roughly linear complexity as a function of the length of the input, however it is most likely that look-ahead parses take exponential time given their nested nature. For this reason, look-ahead should be used sparingly.
+It seems that the parser parses in time roughly directly proportionally to the length of the input, however it is most likely that look-ahead takes exponential time given its nested nature. For this reason, look-ahead should be used sparingly.
 
 ## Building
 
