@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import Rule from "../rule";
 import WildcardNode from "../node/wildcard";
-import TerminalSymbolDefinition from "../definition/terminalSymbol";
+import TerminalSymbolDefinition from "../../definition/terminalSymbol";
 
 import { WildcardRuleName } from "../ruleNames";
 

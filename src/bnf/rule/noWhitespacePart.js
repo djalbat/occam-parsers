@@ -2,7 +2,7 @@
 
 import Rule from "../rule";
 import NoWhitespacePartNode from "../node/noWhitespacePart";
-import NoWhitespacePartDefinition from "../definition/noWhitespacePart";
+import NoWhitespacePartDefinition from "../../definition/noWhitespacePart";
 
 import { NoWhitespacePartRuleName } from "../ruleNames";
 

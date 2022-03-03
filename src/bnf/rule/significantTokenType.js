@@ -4,7 +4,7 @@ import { types } from "occam-lexers";
 
 import Rule from "../rule";
 import SignificantTokenTypeNode from "../node/significantTokenType";
-import SignificantTokenTypeDefinition from "../definition/significantTokenType";
+import SignificantTokenTypeDefinition from "../../definition/significantTokenType";
 
 import { SignificantTokenTypeRuleName } from "../ruleNames";
 

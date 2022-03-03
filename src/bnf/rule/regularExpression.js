@@ -4,7 +4,7 @@ import { types } from "occam-lexers";
 
 import Rule from "../rule";
 import RegularExpressionNode from "../node/regularExpression";
-import SignificantTokenTypeDefinition from "../definition/significantTokenType";
+import SignificantTokenTypeDefinition from "../../definition/significantTokenType";
 
 import { RegularExpressionRuleName } from "../ruleNames";
 

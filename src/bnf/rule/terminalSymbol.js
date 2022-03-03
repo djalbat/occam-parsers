@@ -4,7 +4,7 @@ import { types } from "occam-lexers";
 
 import Rule from "../rule";
 import TerminalSymbolNode from "../node/terminalSymbol";
-import SignificantTokenTypeDefinition from "../definition/significantTokenType";
+import SignificantTokenTypeDefinition from "../../definition/significantTokenType";
 
 import { TerminalSymbolRuleName } from "../ruleNames";
 

@@ -1,7 +1,7 @@
 "use strict";
 
-import NonTerminalNode from "../../common/node/nonTerminal";
-import NoWhitespacePart from "../part/terminal/noWhitespace";
+import NonTerminalNode from "../../node/nonTerminal";
+import NoWhitespacePart from "../../part/terminal/noWhitespace";
 
 export default class NoWhitespacePartNode extends NonTerminalNode {
   generatePart(lookAhead) {

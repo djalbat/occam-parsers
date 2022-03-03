@@ -1,7 +1,7 @@
 "use strict";
 
-import RuleNamePart from "../part/nonTerminal/ruleName";
-import NonTerminalNode from "../../common/node/nonTerminal";
+import RuleNamePart from "../../part/nonTerminal/ruleName";
+import NonTerminalNode from "../../node/nonTerminal";
 
 import { first } from "../../utilities/array";
 

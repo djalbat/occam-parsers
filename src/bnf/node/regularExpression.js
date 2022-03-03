@@ -1,7 +1,7 @@
 "use strict";
 
-import NonTerminalNode from "../../common/node/nonTerminal";
-import RegularExpressionPart from "../part/terminal/regularExpression";
+import NonTerminalNode from "../../node/nonTerminal";
+import RegularExpressionPart from "../../part/terminal/regularExpression";
 
 import { first, second } from "../../utilities/array";
 

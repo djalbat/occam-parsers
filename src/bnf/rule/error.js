@@ -2,7 +2,7 @@
 
 import Rule from "../rule";
 import ErrorNode from "../node/error";
-import ErrorDefinition from "../definition/error";
+import ErrorDefinition from "../../definition/error";
 
 import { ErrorRuleName } from "../ruleNames";
 

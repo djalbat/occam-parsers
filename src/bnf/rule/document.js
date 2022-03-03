@@ -2,7 +2,7 @@
 
 import Rule from "../rule";
 import DocumentNode from "../node/document";
-import DocumentDefinition from "../definition/document";
+import DocumentDefinition from "../../definition/document";
 
 import { DocumentRuleName } from "../ruleNames";
 

@@ -1,7 +1,7 @@
 "use strict";
 
-import NonTerminalNode from "../../common/node/nonTerminal";
-import SequenceOfPartsPart from "../part/nonTerminal/sequenceOfParts";
+import NonTerminalNode from "../../node/nonTerminal";
+import SequenceOfPartsPart from "../../part/nonTerminal/sequenceOfParts";
 
 export default class SequenceOfPartsNode extends NonTerminalNode {
   generatePart(lookAhead) {

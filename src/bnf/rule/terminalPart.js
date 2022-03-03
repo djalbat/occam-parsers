@@ -2,7 +2,7 @@
 
 import Rule from "../rule";
 import TerminalPartNode from "../node/part/terminal";
-import RuleNameDefinition from "../definition/ruleName";
+import RuleNameDefinition from "../../definition/ruleName";
 
 import { TerminalPartRuleName, RegularExpressionRuleName, SignificantTokenTypeRuleName, TerminalSymbolRuleName, EndOfLineRuleName, EpsilonRuleName, WildcardRuleName } from "../ruleNames";
 

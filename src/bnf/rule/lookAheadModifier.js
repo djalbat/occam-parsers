@@ -2,7 +2,7 @@
 
 import Rule from "../rule";
 import DefinitionNode from "../node/definition";
-import LookAheadModifierRuleDefinition from "../definition/lookAheadModifierRule";
+import LookAheadModifierRuleDefinition from "../../definition/lookAheadModifierRule";
 
 import { LookAheadModifierRuleName } from "../ruleNames";
 

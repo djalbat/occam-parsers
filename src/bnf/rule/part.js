@@ -2,9 +2,9 @@
 
 import Rule from "../rule";
 import PartNode from "../node/part";
-import RuleNameDefinition from "../definition/ruleName";
-import TerminalPartRuleDefinition from "../definition/partRule/terminal";
-import NonTerminalPartRuleDefinition from "../definition/partRule/nonTerminal";
+import RuleNameDefinition from "../../definition/ruleName";
+import TerminalPartRuleDefinition from "../../definition/partRule/terminal";
+import NonTerminalPartRuleDefinition from "../../definition/partRule/nonTerminal";
 
 import { PartRuleName, NoWhitespacePartRuleName } from "../ruleNames";
 

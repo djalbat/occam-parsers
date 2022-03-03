@@ -1,9 +1,9 @@
 "use strict";
 
-import NonTerminalNode from "../../common/node/nonTerminal";
-import OptionalPartPart from "../part/nonTerminal/optionalPart";
-import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
-import ZeroOrMorePartsPart from "../part/nonTerminal/zeroOrMoreParts";
+import NonTerminalNode from "../../node/nonTerminal";
+import OptionalPartPart from "../../part/nonTerminal/optionalPart";
+import OneOrMorePartsPart from "../../part/nonTerminal/oneOrMoreParts";
+import ZeroOrMorePartsPart from "../../part/nonTerminal/zeroOrMoreParts";
 
 import { last } from "../../utilities/array";
 import { isNodeQuantifierNode, ruleNameFromQuantifierNode } from "../../utilities/bnf";

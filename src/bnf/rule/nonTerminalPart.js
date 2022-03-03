@@ -1,9 +1,9 @@
 "use strict";
 
 import Rule from "../rule";
-import RuleNameDefinition from "../definition/ruleName";
+import RuleNameDefinition from "../../definition/ruleName";
 import NonTerminalPartNode from "../node/part/nonTerminal";
-import RuleNameNonTerminalPartRuleDefinition from "../definition/partRule/nonTerminal/ruleName";
+import RuleNameNonTerminalPartRuleDefinition from "../../definition/partRule/nonTerminal/ruleName";
 
 import { NonTerminalPartRuleName, ChoiceOfPartsRuleName, SequenceOfPartsRuleName } from "../ruleNames";
 

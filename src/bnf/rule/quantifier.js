@@ -2,7 +2,7 @@
 
 import Rule from "../rule";
 import PartNode from "../node/part";
-import RuleNameDefinition from "../definition/ruleName";
+import RuleNameDefinition from "../../definition/ruleName";
 
 import { QuantifierRuleName, OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } from "../ruleNames";
 

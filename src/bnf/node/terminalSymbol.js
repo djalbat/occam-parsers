@@ -1,7 +1,7 @@
 "use strict";
 
-import NonTerminalNode from "../../common/node/nonTerminal";
-import TerminalSymbolPart from "../part/terminal/terminalSymbol";
+import NonTerminalNode from "../../node/nonTerminal";
+import TerminalSymbolPart from "../../part/terminal/terminalSymbol";
 
 import { first, second } from "../../utilities/array";
 

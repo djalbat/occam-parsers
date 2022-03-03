@@ -1,7 +1,7 @@
 "use strict";
 
-import NonTerminalNode from "../../common/node/nonTerminal";
-import ChoiceOfPartsPart from "../part/nonTerminal/choiceOfParts";
+import NonTerminalNode from "../../node/nonTerminal";
+import ChoiceOfPartsPart from "../../part/nonTerminal/choiceOfParts";
 
 export default class ChoiceOfPartsNode extends NonTerminalNode {
   generatePart(lookAhead) {

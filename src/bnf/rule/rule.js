@@ -2,7 +2,7 @@
 
 import Rule from "../rule";
 import RuleNode from "../node/rule";
-import RuleDefinition from "../definition/rule";
+import RuleDefinition from "../../definition/rule";
 
 import { RuleRuleName } from "../ruleNames";
 

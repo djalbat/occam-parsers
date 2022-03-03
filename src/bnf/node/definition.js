@@ -1,7 +1,7 @@
 "use strict";
 
-import Definition from "../definition";
-import NonTerminalNode from "../../common/node/nonTerminal";
+import Definition from "../../definition";
+import NonTerminalNode from "../../node/nonTerminal";
 
 export default class DefinitionNode extends NonTerminalNode {
   generateDefinition() {

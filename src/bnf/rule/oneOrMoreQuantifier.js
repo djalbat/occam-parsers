@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import Rule from "../rule";
 import DefinitionNode from "../node/definition";
-import QuantifierRuleDefinition from "../definition/quantifierRule";
+import QuantifierRuleDefinition from "../../definition/quantifierRule";
 
 import { OneOrMoreQuantifierRuleName } from "../ruleNames";
 

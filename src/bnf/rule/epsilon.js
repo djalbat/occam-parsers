@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import Rule from "../rule";
 import EpsilonNode from "../node/epsilon";
-import TerminalSymbolDefinition from "../definition/terminalSymbol";
+import TerminalSymbolDefinition from "../../definition/terminalSymbol";
 
 import { EpsilonRuleName } from "../ruleNames";
 

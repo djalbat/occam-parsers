@@ -1,7 +1,7 @@
 "use strict";
 
-import WildcardPart from "../part/terminal/wildcard";
-import NonTerminalNode from "../../common/node/nonTerminal";
+import WildcardPart from "../../part/terminal/wildcard";
+import NonTerminalNode from "../../node/nonTerminal";
 
 export default class WildcardNode extends NonTerminalNode {
   generatePart(lookAhead) {

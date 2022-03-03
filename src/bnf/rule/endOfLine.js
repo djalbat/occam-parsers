@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import Rule from "../rule";
 import EndOfLineNode from "../node/endOfLine";
-import TerminalSymbolDefinition from "../definition/terminalSymbol";
+import TerminalSymbolDefinition from "../../definition/terminalSymbol";
 
 import { EndOfLineRuleName } from "../ruleNames";
 

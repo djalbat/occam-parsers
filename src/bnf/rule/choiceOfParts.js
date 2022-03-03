@@ -2,7 +2,7 @@
 
 import Rule from "../rule";
 import ChoiceOfPartsNode from "../node/choiceOfParts";
-import ChoiceOfPartsDefinition from "../definition/choiceOfParts";
+import ChoiceOfPartsDefinition from "../../definition/choiceOfParts";
 
 import { ChoiceOfPartsRuleName } from "../ruleNames";
 

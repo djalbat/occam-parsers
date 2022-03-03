@@ -2,7 +2,7 @@
 
 import Rule from "../rule";
 import SequenceOfPartsNode from "../node/sequenceOfParts";
-import SequenceOfPartsDefinition from "../definition/sequenceOfParts";
+import SequenceOfPartsDefinition from "../../definition/sequenceOfParts";
 
 import { SequenceOfPartsRuleName } from "../ruleNames";
 

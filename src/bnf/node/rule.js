@@ -1,6 +1,6 @@
 "use strict";
 
-import NonTerminalNode from "../../common/node/nonTerminal";
+import NonTerminalNode from "../../node/nonTerminal";
 
 import { first, third } from "../../utilities/array";
 
