@@ -8,19 +8,20 @@ import View from "../view";
 const { bnf } = BNFParser;
 
 export default class BNFView extends View {
-  Lexer = BNFLexer;
+  static Lexer = BNFLexer;
 
-  Parser = BNFParser;
+  static Parser = BNFParser;
 
-  initialContent = bnf; ///
+  static initialContent = bnf; ///
 
   getParseTree(tokens) {
     let parseTree = null;
 
-    const lexicalEntries = this.getLexicalEntries(),
+    const { Lexer, Parser } = this.constructor,
+          lexicalEntries = this.getLexicalEntries(),
           entries = lexicalEntries, ///
-          lexer = this.Lexer.fromEntries(entries),
-          parser = this.Parser.fromNothing(),
+          lexer = Lexer.fromEntries(entries),
+          parser = Parser.fromNothing(),
           content = this.getContent();
 
     tokens = lexer.tokenise(content);

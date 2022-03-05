@@ -20,9 +20,7 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
 
     const part = this.getPart();
 
-    parsePart(part, nodes, state, callback);
-
-    parsed = true;
+    parsed = parsePart(part, nodes, state, callback);
 
     return parsed;
   }
@@ -44,7 +42,7 @@ function parsePart(part, nodes, state, callback) {
     parsed = callback();
 
     if (!parsed) {
-      part.parse(nodes, state, () => parsePart(part, nodes, state, callback));
+      parsed = part.parse(nodes, state, () => parsePart(part, nodes, state, callback));
     }
   } else {
     parsed = part.parse(nodes, state, callback);
@@ -52,6 +50,8 @@ function parsePart(part, nodes, state, callback) {
     if (parsed) {
       parsePart(part, nodes, state, callback);
     }
+
+    parsed = true;
   }
 
   return parsed;
