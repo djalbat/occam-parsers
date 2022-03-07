@@ -4,6 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import CollectionOfPartsPart from "./collectionOfParts";
 
+import { push } from "../../utilities/array";
 import { ZeroOrMorePartsPartType } from "../../partTypes";
 
 const { asterisk } = specialSymbols;
@@ -18,9 +19,19 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
   parse(nodes, state, callback) {
     let parsed;
 
-    const part = this.getPart();
+    const part = this.getPart(),
+          partNodes = [],
+          savedIndex = state.getSavedIndex();
 
-    parsed = parsePart(part, nodes, state, callback);
+    parsed = parsePart(part, partNodes, state, callback);
+
+    if (parsed) {
+      push(nodes, partNodes);
+    }
+
+    if (!parsed) {
+      state.backtrack(savedIndex);
+    }
 
     return parsed;
   }

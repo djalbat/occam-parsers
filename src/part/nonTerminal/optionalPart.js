@@ -4,6 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { push } from "../../utilities/array";
 import { OptionalPartPartType } from "../../partTypes";
 
 const { questionMark } = specialSymbols;
@@ -24,9 +25,19 @@ export default class OptionalPartPart extends NonTerminalPart {
   parse(nodes, state, callback) {
     let parsed;
 
-    const part = this.getPart();
+    const part = this.getPart(),
+          partNodes = [],
+          savedIndex = state.getSavedIndex();
 
-    parsed = parsePart(part, nodes, state, callback);
+    parsed = parsePart(part, partNodes, state, callback);
+
+    if (parsed) {
+      push(nodes, partNodes);
+    }
+
+    if (!parsed) {
+      state.backtrack(savedIndex);
+    }
 
     return parsed;
   }
