@@ -58,7 +58,7 @@ function parsePart(part, nodes, state, callback) {
       }
 
       return parsed;
-    })
+    });
   } else {
     parsed = part.parse(nodes, state, callback);
 
