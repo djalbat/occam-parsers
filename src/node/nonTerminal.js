@@ -5,9 +5,8 @@ import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 import { forwardsSome, backwardsSome } from "../utilities/array";
 
 export default class NonTerminalNode {
-  constructor(ruleName, parentNode, childNodes) {
+  constructor(ruleName, childNodes) {
     this.ruleName = ruleName;
-    this.parentNode = parentNode;
     this.childNodes = childNodes;
   }
 
@@ -25,10 +24,6 @@ export default class NonTerminalNode {
 
   getRuleName() {
     return this.ruleName;
-  }
-
-  getParentNode() {
-    return this.parentNode;
   }
 
   getChildNodes() {
@@ -67,10 +62,6 @@ export default class NonTerminalNode {
     this.ruleName = ruleName;
   }
 
-  setParentNode(parentNode) {
-    this.parentNode = parentNode;
-  }
-
   setChildNodes(childNodes) {
     this.childNodes = childNodes;
   }
@@ -96,8 +87,7 @@ export default class NonTerminalNode {
       throw new Error(`There are no child nodes at rule '${ruleName}'.`);
     }
     
-    const parentNode = undefined, ///
-          nonTerminalNode = new Class(ruleName, parentNode, childNodes);
+    const nonTerminalNode = new Class(ruleName, childNodes);
 
     return nonTerminalNode;
   }

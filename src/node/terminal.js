@@ -3,17 +3,12 @@
 import TerminalNodeParseTree from "../parseTree/terminalNode";
 
 export default class TerminalNode {
-  constructor(significantToken, parentNode) {
+  constructor(significantToken) {
     this.significantToken = significantToken;
-    this.parentNode = parentNode;
   }
 
   getSignificantToken() {
     return this.significantToken;
-  }
-
-  getParentNode() {
-    return this.parentNode;
   }
 
   getFirstSignificantToken() {
@@ -54,10 +49,6 @@ export default class TerminalNode {
     this.significantToken = significantToken;
   }
 
-  setParentNode(parentNode) {
-    this.parentNode = parentNode;
-  }
-
   asParseTree(tokens) {
     const terminalNode = this,  ///
           terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeAndTokens(terminalNode, tokens),
@@ -72,8 +63,7 @@ export default class TerminalNode {
       Class = TerminalNode; ///
     }
 
-    const parentNode = undefined, ///
-          terminalNode = new Class(significantToken, parentNode);
+    const terminalNode = new Class(significantToken);
     
     return terminalNode;
   }
