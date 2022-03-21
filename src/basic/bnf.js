@@ -2,7 +2,7 @@
 
 const bnf = `
 
-  expression  ::= expression_ operator expression expression~*
+  expression   ::= expression_ operator expression expression~*
 
                  | expression_
 

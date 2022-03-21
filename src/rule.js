@@ -1,7 +1,11 @@
 "use strict";
 
+import { specialSymbols } from "occam-lexers";
+
 import { EMPTY_STRING } from "./constants";
 import { paddingFromPaddingLength } from "./utilities/string";
+
+const { exclamationMark } = specialSymbols;
 
 export default class Rule {
   constructor(name, ambiguous, definitions, NonTerminalNode) {
@@ -157,7 +161,11 @@ ${maximumPadding}   | ${definitionString}` :
           }, EMPTY_STRING),
           ruleName = this.name, ///
           ruleNameLength = ruleName.length,
-          paddingLength = maximumRuleNameLength - ruleNameLength,
+          ambiguousString = this.ambiguous ?
+                              exclamationMark :
+                                EMPTY_STRING,
+          ambiguousStringLength = ambiguousString.length,
+          paddingLength = maximumRuleNameLength - ruleNameLength - ambiguousStringLength,
           padding = paddingFromPaddingLength(paddingLength);
 
     const semicolonString = multiLine ?
@@ -167,7 +175,7 @@ ${maximumPadding}   ;` :
                                " ;",
           string = `
 
-${this.name}${padding} ::= ${definitionsString}${semicolonString}`;
+${this.name}${ambiguousString}${padding} ::= ${definitionsString}${semicolonString}`;
 
     return string;
   }
