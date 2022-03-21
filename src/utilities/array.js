@@ -2,17 +2,9 @@
 
 import { arrayUtilities } from "necessary";
 
-export const { first, second, third, last, push, filter, forwardsSome, backwardsSome } = arrayUtilities;
+export const { first, second, third, fourth, last, push, filter, forwardsSome, backwardsSome } = arrayUtilities;
 
 export function even(array) { return array.filter((entry, index) => isEven(index)); }
-
-export function allButFirst(array) {
-  array = array.slice();  ///
-
-  array.shift();
-
-  return array;
-}
 
 export function allButFirstAndLast(array) {
   array = array.slice();  ///

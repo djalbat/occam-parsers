@@ -10,11 +10,12 @@ export default class ChoiceOfPartsRule extends Rule {
   constructor() {
     const name = ChoiceOfPartsRuleName,
           choiceOfPartsDefinition = new ChoiceOfPartsDefinition(),
+          ambiguous = false,
           definitions = [
             choiceOfPartsDefinition
           ],
           Node = ChoiceOfPartsBNFNode;
     
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

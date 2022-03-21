@@ -18,6 +18,7 @@ export const NonTerminalPartRuleName = "nonTerminalPart";
 export const SequenceOfPartsRuleName = "sequenceOfParts";
 export const NoWhitespacePartRuleName = "noWhitespacePart";
 export const LookAheadModifierRuleName = "lookAheadModifier";
+export const AmbiguousModifierRuleName = "AmbiguousModifier";
 export const RegularExpressionRuleName = "regularExpression";
 export const OptionalQuantifierRuleName = "optionalQuantifier";
 export const OneOrMoreQuantifierRuleName = "oneOrMoreQuantifier";

@@ -4,14 +4,19 @@ import { EMPTY_STRING } from "./constants";
 import { paddingFromPaddingLength } from "./utilities/string";
 
 export default class Rule {
-  constructor(name, definitions, NonTerminalNode) {
+  constructor(name, ambiguous, definitions, NonTerminalNode) {
     this.name = name;
+    this.ambiguous = ambiguous;
     this.definitions = definitions;
     this.NonTerminalNode = NonTerminalNode;
   }
 
   getName() {
     return this.name;
+  }
+
+  isAmbiguous() {
+    return this.ambiguous;
   }
 
   getDefinitions() {
@@ -24,6 +29,10 @@ export default class Rule {
 
   setName(name) {
     this.name = name;
+  }
+
+  setAmbiguous(ambiguous) {
+    this.ambiguous = ambiguous;
   }
 
   setDefinitions(definitions) {
@@ -170,10 +179,11 @@ ${this.name}${padding} ::= ${definitionsString}${semicolonString}`;
     }
     
     const name = rule.getName(),
+          ambiguous = rule.isAmbiguous(),
           definitions = rule.getDefinitions(),
           NonTerminalNode = rule.getNonTerminalNode();
 
-    rule = new Class(name, definitions, NonTerminalNode);
+    rule = new Class(name, ambiguous, definitions, NonTerminalNode);
 
     return rule;
   }

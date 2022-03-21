@@ -21,6 +21,7 @@ import NonTerminalPartRule from "../rule/nonTerminalPart";
 import SequenceOfPartsRule from "../rule/sequenceOfParts";
 import NoWhitespacePartRule from "../rule/noWhitespacePart";
 import LookAheadModifierRule from "../rule/lookAheadModifier";
+import AmbiguousModifierRule from "../rule/ambiguousModifier";
 import RegularExpressionRule from "../rule/regularExpression";
 import OptionalQuantifierRule from "../rule/optionalQuantifier";
 import OneOrMoreQuantifierRule from "../rule/oneOrMoreQuantifier";
@@ -94,6 +95,7 @@ export default class BNFParser {
           noWhitespacePartRule = new NoWhitespacePartRule(),
           regularExpressionRule = new RegularExpressionRule(),
           lookAheadModifierRule = new LookAheadModifierRule(),
+          ambiguousModifierRule = new AmbiguousModifierRule(),
           optionalQuantifierRule = new OptionalQuantifierRule(),
           oneOrMoreQuantifierRule = new OneOrMoreQuantifierRule(),
           zeroOrMoreQuantifierRule = new ZeroOrMoreQuantifierRule(),
@@ -118,6 +120,7 @@ export default class BNFParser {
       endOfLineRule,
       wildcardRule,
       quantifierRule,
+      ambiguousModifierRule,
       lookAheadModifierRule,
       optionalQuantifierRule,
       oneOrMoreQuantifierRule,

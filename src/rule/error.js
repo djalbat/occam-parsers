@@ -10,11 +10,12 @@ export default class ErrorRule extends Rule {
   constructor() {
     const errorDefinition = new ErrorDefinition(),
           name = ErrorRuleName,
+          ambiguous = false,
           definitions = [
             errorDefinition
           ],
           Node = ErrorBNFNode;
     
-    super(name, definitions, Node);
+    super(name, ambiguous, definitions, Node);
   }
 }

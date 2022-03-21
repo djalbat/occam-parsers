@@ -15,11 +15,12 @@ export default class SignificantTokenTypeRule extends Rule {
     const typeSignificantTokenType = typeType,  ///
           typeSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(typeSignificantTokenType),
           name = SignificantTokenTypeRuleName,
+          ambiguous = false,
           definitions = [
             typeSignificantTokenTypeDefinition
           ],
           Node = SignificantTokenTypeBNFNode;
     
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

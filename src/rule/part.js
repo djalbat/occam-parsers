@@ -14,6 +14,7 @@ export default class PartRule extends Rule {
           terminalPartRuleDefinition = new TerminalPartRuleDefinition(),
           nonTerminalPartRuleDefinition = new NonTerminalPartRuleDefinition(),
           noWhitespacePartRuleNameDefinition = new RuleNameDefinition(NoWhitespacePartRuleName),
+          ambiguous = false,
           definitions = [
             nonTerminalPartRuleDefinition,
             terminalPartRuleDefinition,
@@ -21,6 +22,6 @@ export default class PartRule extends Rule {
           ],
           Node = PartBNFNode;
     
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

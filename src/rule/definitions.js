@@ -10,11 +10,12 @@ export default class DefinitionsRule extends Rule {
   constructor() {
     const definitionsDefinition = new DefinitionsDefinition(),
           name = DefinitionsRuleName,
+          ambiguous = false,
           definitions = [
             definitionsDefinition
           ],
           Node = DefinitionsBNFNode;
     
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

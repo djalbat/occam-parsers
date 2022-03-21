@@ -10,11 +10,12 @@ export default class DocumentRule extends Rule {
   constructor() {
     const documentDefinition = new DocumentDefinition(),
           name = DocumentRuleName,
+          ambiguous = false,
           definitions = [
             documentDefinition
           ],
           Node = DocumentBNFNode;
     
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

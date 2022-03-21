@@ -1,8 +1,8 @@
 "use strict";
 
+import { first } from "./utilities/array";
 import { parseParts } from "./utilities/lookAhead";
 import { EMPTY_STRING } from "./constants";
-import { first, allButFirst } from "./utilities/array";
 
 export default class Definition {
   constructor(parts) {
@@ -23,12 +23,6 @@ export default class Definition {
     const partsLength = this.parts.length;
 
     return partsLength;
-  }
-
-  getAllButFirstParts() {
-    const allButFirstParts = allButFirst(this.parts);
-
-    return allButFirstParts;
   }
 
   addPart(part) {

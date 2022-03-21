@@ -1,7 +1,7 @@
 "use strict";
 
 import TerminalNode from "../terminal";
-import EndOfLineBNFNodeParseTree from "../../parseTree/endOfLineNode";
+import EndOfLineNodeParseTree from "../../parseTree/endOfLineNode";
 
 import { EMPTY_STRING } from "../../constants";
 
@@ -13,8 +13,8 @@ export default class EndOfLineBNFNode extends TerminalNode {
   }
 
   asParseTree(tokens) {
-    const endOfLineBNFNodeParseTree = EndOfLineBNFNodeParseTree.fromNothing(),
-          parseTree = endOfLineBNFNodeParseTree;  ///
+    const endOfLineNodeParseTree = EndOfLineNodeParseTree.fromNothing(),
+          parseTree = endOfLineNodeParseTree;  ///
 
     return parseTree;
   }

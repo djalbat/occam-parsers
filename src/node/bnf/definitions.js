@@ -8,9 +8,9 @@ export default class DefinitionsBNFNode extends NonTerminalNode {
   generateDefinitions() {
     const childNodes = this.getChildNodes(),
           evenChildNodes = even(childNodes),  ///
-          definitionNodes = evenChildNodes, ///
-          definitions = definitionNodes.map((definitionNode) => {
-            const definition = definitionNode.generateDefinition();
+          definitionBNFNodes = evenChildNodes, ///
+          definitions = definitionBNFNodes.map((definitionBNFNode) => {
+            const definition = definitionBNFNode.generateDefinition();
             
             return definition;
           });

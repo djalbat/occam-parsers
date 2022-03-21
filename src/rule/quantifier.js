@@ -15,6 +15,7 @@ export default class QuantifierRule extends Rule {
           optionalQuantifierRuleNameDefinition = new RuleNameDefinition(optionalQuantifierRuleName),
           oneOrMoreQuantifierRuleNameDefinition = new RuleNameDefinition(oneOrMoreQuantifierRuleName),
           zeroOrMoreQuantifierRuleNameDefinition = new RuleNameDefinition(zeroOrMoreQuantifierRuleName),
+          ambiguous = false,
           definitions = [
             optionalQuantifierRuleNameDefinition,
             oneOrMoreQuantifierRuleNameDefinition,
@@ -22,6 +23,6 @@ export default class QuantifierRule extends Rule {
           ],
           Node = PartBNFNode;
     
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

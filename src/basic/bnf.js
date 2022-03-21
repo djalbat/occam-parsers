@@ -4,29 +4,29 @@ const bnf = `
 
   expression  ::= expression_ operator expression expression~*
 
-                | expression_
+                 | expression_
 
-                ;
+                 ;
 
-  operator    ::= "+"
+  operator     ::= "+"
 
-                | "-"
+                 | "-"
 
-                | "/"
+                 | "/"
 
-                | "*"
+                 | "*"
 
-                ;
+                 ;
 
-  term        ::= /\\d+/ ;
+  term         ::= /\\d+/ ;
 
-  expression_ ::= "(" expression ")"
+  expression_  ::= "(" expression ")"
 
-                | term
+                 | term
 
-                ;
+                 ;
 
-  expression~ ::= operator expression ;
+  expression~  ::= operator expression ;
   
 `;
 

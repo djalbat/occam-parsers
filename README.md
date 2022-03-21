@@ -22,79 +22,81 @@ Three parsers are documented:
 
 All parsers share common functionality. The last two parse content according to rules defined in the aforementioned variant of extended BNF. The BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant that they implement:
 
-      document              ::=  ( rule | error )+ ;
+      document                 ::=  ( rule | error )+ ;
 
-      rule                  ::=  name "::=" definitions ";" ;
+      rule                     ::=  name ambiguousModifier? "::=" definitions ";" ;
 
-      name                  ::=  [name] ;
+      name                     ::=  [name] ;
 
-      definitions           ::=  definition ( "|" definition )* ;
+      definitions              ::=  definition ( "|" definition )* ;
 
-      definition            ::=  part+ ;
+      definition               ::=  part+ ;
+ 
+      part                     ::=  nonTerminalPart quantifier*
 
-      part                  ::=  nonTerminalPart quantifier*
+                                 |  terminalPart quantifier*
+                              
+                                 |  noWhitespacePart
 
-                              |  terminalPart quantifier*
+                                 ;
 
-                              |  noWhitespacePart
+      nonTerminalPart          ::=  choiceOfParts
 
-                              ;
+                                 |  sequenceOfParts
 
-      nonTerminalPart       ::=  choiceOfParts
+                                 |  ruleName lookAheadModifier?
 
-                              |  sequenceOfParts
+                                 ;
 
-                              |  ruleName lookAheadModifier?
+      terminalPart             ::=  significantTokenType
+  
+                                 |  regularExpression
+ 
+                                 |  terminalSymbol
+  
+                                 |  endOfLine
+  
+                                 |  wildcard
+  
+                                 ;
+                              
+      noWhitespacePart         ::=  "<NO_WHITESPACE>" ;                              
 
-                              ;
+      choiceOfParts            ::=  "(" part ( "|" part )+ ")" ;
 
-      terminalPart          ::=  significantTokenType
+      sequenceOfParts          ::=  "(" part part+ ")" ;
 
-                              |  regularExpression
+      ruleName                 ::=  [name] ;
 
-                              |  terminalSymbol
+      significantTokenType     ::=  [type] ;
 
-                              |  endOfLine
+      regularExpression        ::=  [regular-expression] ;
 
-                              |  wildcard
+      terminalSymbol           ::=  [string-literal] ;
 
-                              ;
+      endOfLine                ::=  "<END_OF_LINE>" ;
 
-      noWhitespacePart      ::=  "<NO_WHITESPACE>" ;
+      wildcard                 ::=  "." ;
 
-      sequenceOfParts       ::=  "(" part part+ ")" ;
+      quantifier               ::=  optionalQuantifier
+ 
+                                 |  oneOrMoreQuantifier
+  
+                                 |  zeroOrMoreQuantifier
+  
+                                 ;
 
-      choiceOfParts         ::=  "(" part ( "|" part )+ ")" ;
+      ambiguousModifier        ::=  <NO_WHITESPACE>"!" ;
 
-      ruleName              ::=  [name] ;
+      lookAheadModifier        ::=  <NO_WHITESPACE>"..." ;
 
-      significantTokenType  ::=  [type] ;
+      optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
 
-      regularExpression     ::=  [regular-expression] ;
+      oneOrMoreQuantifier      ::=  <NO_WHITESPACE>"+" ;
 
-      terminalSymbol        ::=  [string-literal] ;
+      zeroOrMoreQuantifier     ::=  <NO_WHITESPACE>"*" ;
 
-      endOfLine             ::=  "<END_OF_LINE>" ;
-
-      wildcard              ::=  "." ;
-
-      quantifier            ::=  optionalQuantifier
-
-                              |  oneOrMoreQuantifier
-
-                              |  zeroOrMoreQuantifier
-
-                              ;
-
-      lookAheadModifier     ::=  <NO_WHITESPACE>"!" ;
-
-      optionalQuantifier    ::=  <NO_WHITESPACE>"?" ;
-
-      oneOrMoreQuantifier   ::=  <NO_WHITESPACE>"+" ;
-
-      zeroOrMoreQuantifier  ::=  <NO_WHITESPACE>"*" ;
-
-      error                 ::=  . ;
+      error                    ::=  . ;
 
 ## Installation
 
@@ -198,9 +200,9 @@ Consider the following rules:
 
        BC  ::=  "b" "c" ;
 
-These will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse the `a` and `b` tokens, leaving only the `c` token for the `BC` rule to parse. This situation can be addressed by making the `AAB` rule look ahead, that is, try each of its definitions in turn until one is found that allows the remainder of the parent rule to parse. The look-ahead modifier is an exclamation mark, thus the rules above become:
+These will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse the `a` and `b` tokens, leaving only the `c` token for the `BC` rule to parse. This situation can be addressed by making the `AAB` rule look ahead, that is, try each of its definitions in turn until one is found that allows the remainder of the parent rule to parse. The look-ahead modifier is an ellipsis, thus the rules above become:
 
-      ABC  ::=  AAB! BC ;
+      ABC  ::=  AAB... BC ;
 
       AAB  ::=  "a" "b" | "a" ;
 
@@ -210,7 +212,7 @@ Now the `ABC` rule will indeed parse the tokens `a`, `b`, `c`, because the secon
 
 Also bear in mind that look-ahead is carried out to arbitrary depth and this it affects the behaviour of the `?`, `*` and `+` quantifiers, which become lazy. For example:
 
-    ABC  ::=  AAB! ;
+    ABC  ::=  AAB... ;
 
     AAB  ::=  "a" "b"+ "b" "c" ;
 

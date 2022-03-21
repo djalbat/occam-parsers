@@ -15,6 +15,7 @@ export default class NonTerminalPartRule extends Rule {
           choiceOfPartsRuleNameDefinition = new RuleNameDefinition(choiceOfPartsRuleName),
           sequenceOfPartsRuleNameDefinition = new RuleNameDefinition(sequenceOfPartsRuleName),
           ruleNameNonTerminalPartRuleDefinition = new RuleNameNonTerminalPartRuleDefinition(),
+          ambiguous = false,
           definitions = [
             choiceOfPartsRuleNameDefinition,
             sequenceOfPartsRuleNameDefinition,
@@ -22,6 +23,6 @@ export default class NonTerminalPartRule extends Rule {
           ],
           Node = NonTerminalPartBNFNode;
     
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

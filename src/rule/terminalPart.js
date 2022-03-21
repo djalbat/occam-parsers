@@ -19,6 +19,7 @@ export default class TerminalPartRule extends Rule {
           terminalSymbolRuleNameDefinition = new RuleNameDefinition(terminalSymbolRuleName),
           regularExpressionRuleNameDefinition = new RuleNameDefinition(regularExpressionRuleName),
           significantTokenTypeRuleNameDefinition = new RuleNameDefinition(significantTokenTypeRuleName),
+          ambiguous = false,
           definitions = [
             significantTokenTypeRuleNameDefinition,
             regularExpressionRuleNameDefinition,
@@ -28,6 +29,6 @@ export default class TerminalPartRule extends Rule {
           ],
           Node = TerminalPartBNFNode;
     
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

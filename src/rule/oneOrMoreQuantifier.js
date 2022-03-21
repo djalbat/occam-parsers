@@ -3,7 +3,7 @@
 import { specialSymbols } from "occam-lexers";
 
 import Rule from "../rule";
-import DefinitionBNFNode from "../node/bnf/definition";
+import QuantifierBNFNode from "../node/bnf/quantifier";
 import QuantifierRuleDefinition from "../definition/quantifierRule";
 
 import { OneOrMoreQuantifierRuleName } from "../ruleNames";
@@ -15,11 +15,12 @@ export default class OneOrMoreQuantifierRule extends Rule {
     const name = OneOrMoreQuantifierRuleName,
           oneOrMoreQuantifierTerminalSymbolContent = plus, ///
           oneOrMoreQuantifierRuleDefinition = new QuantifierRuleDefinition(oneOrMoreQuantifierTerminalSymbolContent),
+          ambiguous = false,
           definitions = [
             oneOrMoreQuantifierRuleDefinition
           ],
-          Node = DefinitionBNFNode;
+          Node = QuantifierBNFNode;
     
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

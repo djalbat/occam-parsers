@@ -10,11 +10,12 @@ export default class NoWhitespacePartRule extends Rule {
   constructor() {
     const noWhitespacePartDefinition = new NoWhitespacePartDefinition(),
           name = NoWhitespacePartRuleName,
+          ambiguous = false,
           definitions = [
             noWhitespacePartDefinition
           ],
           Node = NoWhitespacePartBNFNode;
 
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

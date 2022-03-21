@@ -15,11 +15,12 @@ export default class EndOfLineRule extends Rule {
     const endOfLineTerminalSymbolContent = END_OF_LINE,
           endOfLineTerminalSymbolDefinition = new TerminalSymbolDefinition(endOfLineTerminalSymbolContent),
           name = EndOfLineRuleName,
+          ambiguous = false,
           definitions = [
             endOfLineTerminalSymbolDefinition
           ],
           Node = EndOfLineBNFNode;
 
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

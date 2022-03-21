@@ -7,7 +7,7 @@ import NonTerminalPart from "../../part/nonTerminal";
 import { EMPTY_STRING } from "../../constants";
 import { RuleNamePartType } from "../../partTypes";
 
-const { exclamationMark } = specialSymbols;
+const { ellipsis } = specialSymbols;
 
 export default class RuleNamePart extends NonTerminalPart {
   constructor(ruleName, lookAhead = false) {
@@ -67,7 +67,7 @@ export default class RuleNamePart extends NonTerminalPart {
 
   asString() {
     const lookAheadString = this.lookAhead ?
-                              exclamationMark :
+                              ellipsis :
                                 EMPTY_STRING,
           string = `${this.ruleName}${lookAheadString}`;
 

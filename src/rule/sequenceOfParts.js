@@ -10,11 +10,12 @@ export default class SequenceOfPartsRule extends Rule {
   constructor() {
     const name = SequenceOfPartsRuleName,
           sequenceOfPartsDefinition = new SequenceOfPartsDefinition(),
+          ambiguous = false,
           definitions = [
             sequenceOfPartsDefinition
           ],
           Node = SequenceOfPartsBNFNode;
 
-    super(name, definitions, Node)
+    super(name, ambiguous, definitions, Node)
   }
 }

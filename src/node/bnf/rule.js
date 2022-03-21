@@ -2,16 +2,26 @@
 
 import NonTerminalNode from "../../node/nonTerminal";
 
-import { first, third } from "../../utilities/array";
+import { first, second, third, fourth } from "../../utilities/array";
 
 export default class RuleBNFNode extends NonTerminalNode {
   generateRule(Rule) {
     const name = this.getName(),
+          ambiguous = this.isAmbiguous(),
           definitions = this.generateDefinitions(),
           Node = NonTerminalNode,
-          rule = new Rule(name, definitions, Node);
+          rule = new Rule(name, ambiguous, definitions, Node);
 
     return rule;
+  }
+
+  isAmbiguous() {
+    const childNodes = this.getChildNodes(),
+          secondChildNode = second(childNodes),
+          secondChildNodeTerminalNode = secondChildNode.isTerminalNode(),
+          ambiguous = !secondChildNodeTerminalNode;
+
+    return ambiguous;
   }
 
   getName() {
@@ -25,9 +35,13 @@ export default class RuleBNFNode extends NonTerminalNode {
   
   generateDefinitions() {
     const childNodes = this.getChildNodes(),
+          childNodesLength = childNodes.length,
           thirdChildNode = third(childNodes),
-          definitionsNode = thirdChildNode,  ///
-          definitions = definitionsNode.generateDefinitions();
+          fourthChildNode = fourth(childNodes),
+          definitionsBNFNode = (childNodesLength === 4) ?
+                                 thirdChildNode :  ///
+                                   fourthChildNode, ///
+          definitions = definitionsBNFNode.generateDefinitions();
     
     return definitions;
   }
