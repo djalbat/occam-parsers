@@ -66,9 +66,9 @@ export default class NonTerminalNode {
     this.childNodes = childNodes;
   }
   
-  asParseTree(tokens) {
+  asParseTree(tokens, abridged = false) {
     const nonTerminalNode = this,  ///
-          nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
+          nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens, abridged),
           parseTree = nonTerminalNodeParseTree;  ///
 
     return parseTree;

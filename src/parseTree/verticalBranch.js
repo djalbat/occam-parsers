@@ -40,7 +40,7 @@ export default class VerticalBranchParseTree extends ParseTree {
 
   static fromDepthAndVerticalBranchPosition(Class, depth, verticalBranchPosition) {
     const lines = linesFromDepth(depth),
-          args = [null, lines, verticalBranchPosition],
+          args = [ null, lines, verticalBranchPosition ],
           verticalBranchParseTree = new (Function.prototype.bind.apply(Class, args));  ///
 
     return verticalBranchParseTree;
@@ -55,7 +55,7 @@ export default class VerticalBranchParseTree extends ParseTree {
     
     const line = string, ///
           lines = [line],
-          args = [null, lines, verticalBranchPosition],
+          args = [ null, lines, verticalBranchPosition ],
           verticalBranchParseTree = new (Function.prototype.bind.apply(Class, args));  ///
 
     return verticalBranchParseTree;

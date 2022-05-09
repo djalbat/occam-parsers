@@ -6,11 +6,11 @@ import HorizontalBranchParseTree from "./horizontalBranch";
 import { first } from "../utilities/array";
 
 export default class ChildNodesParseTree extends VerticalBranchParseTree {
-  static fromChildNodesAndTokens(childNodes, tokens) {
+  static fromChildNodesAndTokens(childNodes, tokens, abridged) {
     let childNodesParseTree;
 
     const childNodeParseTrees = childNodes.reduce((childNodeParseTrees, childNode) => {
-            const childNodeParseTree = childNode.asParseTree(tokens);
+            const childNodeParseTree = childNode.asParseTree(tokens, abridged);
 
             childNodeParseTrees.push(childNodeParseTree);
 

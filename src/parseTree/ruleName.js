@@ -3,10 +3,18 @@
 import VerticalBranchParseTree from "./verticalBranch";
 
 export default class RuleNameParseTree extends VerticalBranchParseTree {
-  static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
+  static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens, abridged) {
     const ruleName = nonTerminalNode.getRuleName(),
-          tokenIndexes = tokenIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
-          string = `${ruleName}${tokenIndexes}`,
+          firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
+          lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
+          firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
+          lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
+          tokenIndexes = (firstSignificantTokenIndex !== lastSignificantTokenIndex) ?
+                           `${firstSignificantTokenIndex}-${lastSignificantTokenIndex}` :
+                             `${firstSignificantTokenIndex}`,
+          string = abridged ?
+                     `${ruleName}` :
+                       `${ruleName}(${tokenIndexes})`,
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
@@ -17,16 +25,4 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
 
     return ruleNameParseTree;
   }
-}
-
-function tokenIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
-  const firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
-        lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
-        firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
-        lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
-        tokenIndexes = (firstSignificantTokenIndex !== lastSignificantTokenIndex) ?
-                        `(${firstSignificantTokenIndex}-${lastSignificantTokenIndex})` :
-                          `(${firstSignificantTokenIndex})`;
-
-  return tokenIndexes;
 }
