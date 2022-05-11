@@ -3,7 +3,7 @@
 import VerticalBranchParseTree from "./verticalBranch";
 
 export default class TerminalNodeParseTree extends VerticalBranchParseTree {
-  static fromTerminalNodeAndTokens(terminalNode, tokens, abridged) {
+  static fromTerminalNodeTokensAndAbridged(terminalNode, tokens, abridged) {
     const significantToken = terminalNode.getSignificantToken(),
           content = terminalNode.getContent(),
           type = significantToken.getType(),

@@ -51,7 +51,7 @@ export default class TerminalNode {
 
   asParseTree(tokens, abridged = false) {
     const terminalNode = this,  ///
-          terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeAndTokens(terminalNode, tokens, abridged),
+          terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeTokensAndAbridged(terminalNode, tokens, abridged),
           parseTree = terminalNodeParseTree;  ///
 
     return parseTree;

@@ -76,14 +76,14 @@ export default class Rule {
     }
   }
 
-  replaceDefinition(oldDefinition, newDefinition) {
-    const oldDefinitionIndex = this.definitions.indexOf(oldDefinition);
+  replaceDefinition(replaceDefinition, replacementDefinition) {
+    const replaceDefinitionIndex = this.definitions.indexOf(replaceDefinition);
 
-    if (oldDefinitionIndex > -1) {
-      const start = oldDefinitionIndex, ///
+    if (replaceDefinitionIndex > -1) {
+      const start = replaceDefinitionIndex, ///
             deleteCount = 1;
 
-      this.definitions.splice(start, deleteCount, newDefinition)
+      this.definitions.splice(start, deleteCount, replacementDefinition)
     }
   }
 

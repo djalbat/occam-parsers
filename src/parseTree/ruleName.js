@@ -3,7 +3,7 @@
 import VerticalBranchParseTree from "./verticalBranch";
 
 export default class RuleNameParseTree extends VerticalBranchParseTree {
-  static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens, abridged) {
+  static fromNonTerminalNodeTokensAndAbridged(nonTerminalNode, tokens, abridged) {
     const ruleName = nonTerminalNode.getRuleName(),
           firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
           lastSignificantToken = nonTerminalNode.getLastSignificantToken(),

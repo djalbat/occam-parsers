@@ -5,10 +5,10 @@ import ChildNodesParseTree from "./childNodes";
 import VerticalBranchParseTree from "./verticalBranch";
 
 export default class NonTerminalNodeParseTree extends VerticalBranchParseTree {
-  static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens, abridged) {
+  static fromNonTerminalNodeTokensAndAbridged(nonTerminalNode, tokens, abridged) {
     const childNodes = nonTerminalNode.getChildNodes(),
-          ruleNameParseTree = RuleNameParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens, abridged),
-          childNodesParseTree = ChildNodesParseTree.fromChildNodesAndTokens(childNodes, tokens, abridged);
+          ruleNameParseTree = RuleNameParseTree.fromNonTerminalNodeTokensAndAbridged(nonTerminalNode, tokens, abridged),
+          childNodesParseTree = ChildNodesParseTree.fromChildNodesTokensAndAbridged(childNodes, tokens, abridged);
     
     let ruleNameParseTreeVerticalBranchPosition = ruleNameParseTree.getVerticalBranchPosition();
     
