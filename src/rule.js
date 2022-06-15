@@ -47,29 +47,15 @@ export default class Rule {
     this.NonTerminalNode = NonTerminalNode;
   }
 
-  addDefinition(definition, position) {
-    const definitionsIncludesDefinition = this.definitions.includes(definition);
-
-    if (!definitionsIncludesDefinition) {
-      if (position === undefined) {
-        const definitionsLength = this.definitions.length;
-
-        position = definitionsLength; ///
-      }
-
-      const start = position, ///
-            deleteCount = 0;
-
-      this.definitions.splice(start, deleteCount, definition);
-    }
+  addDefinition(definition) {
+    this.definitions.push(definition);
   }
 
   removeDefinition(definition) {
-    const definitionsIncludesDefinition = this.definitions.includes(definition);
+    const index = this.definitions.indexOf(definition);
 
-    if (definitionsIncludesDefinition) {
-      const definitionIndex = this.definitions.indexOf(definition),
-            start = definitionIndex,  ///
+    if (index > -1) {
+      const start = index,  ///
             deleteCount = 1;
 
       this.definitions.splice(start, deleteCount);
@@ -77,10 +63,10 @@ export default class Rule {
   }
 
   replaceDefinition(replaceDefinition, ...replacementDefinition) {
-    const replaceDefinitionIndex = this.definitions.indexOf(replaceDefinition);
+    const index = this.definitions.indexOf(replaceDefinition);
 
-    if (replaceDefinitionIndex > -1) {
-      const start = replaceDefinitionIndex, ///
+    if (index > -1) {
+      const start = index, ///
             deleteCount = 1;
 
       this.definitions.splice(start, deleteCount, ...replacementDefinition)
