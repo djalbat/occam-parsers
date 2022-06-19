@@ -62,6 +62,12 @@ export default class Rule {
     }
   }
 
+  removeDefinitions(definitions) {
+    definitions.forEach((definition) => {
+      this.removeDefinition(definition);
+    })
+  }
+
   replaceDefinition(replaceDefinition, ...replacementDefinitions) {
     const index = this.definitions.indexOf(replaceDefinition),
           start = index, ///
