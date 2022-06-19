@@ -1,6 +1,5 @@
 "use strict";
 
-import { first } from "./utilities/array";
 import { parseParts } from "./utilities/lookAhead";
 import { EMPTY_STRING } from "./constants";
 
@@ -13,20 +12,15 @@ export default class Definition {
     return this.parts;
   }
 
-  getFirstPart() {
-    const firstPart = first(this.parts);
-
-    return firstPart;
-  }
-
-  getPartsLength() {
-    const partsLength = this.parts.length;
-
-    return partsLength;
-  }
-
   addPart(part) {
     this.parts.push(part);
+  }
+
+  replaceParts(start, ...replacementParts) {
+    const deleteCount = Infinity,
+          replacedParts = this.parts.splice(start, deleteCount, ...replacementParts);
+
+    return replacedParts;
   }
 
   parse(nodes, state, callback) {

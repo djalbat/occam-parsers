@@ -62,15 +62,16 @@ export default class Rule {
     }
   }
 
-  replaceDefinition(replaceDefinition, ...replacementDefinition) {
-    const index = this.definitions.indexOf(replaceDefinition);
+  replaceDefinition(replaceDefinition, ...replacementDefinitions) {
+    const index = this.definitions.indexOf(replaceDefinition),
+          start = index, ///
+          deleteCount = 1;
 
-    if (index > -1) {
-      const start = index, ///
-            deleteCount = 1;
+    this.definitions.splice(start, deleteCount, ...replacementDefinitions)
+  }
 
-      this.definitions.splice(start, deleteCount, ...replacementDefinition)
-    }
+  removeAllDefinitions() {
+    this.definitions.splice(0); ///
   }
 
   parse(state, callback) {
