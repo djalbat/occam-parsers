@@ -26,6 +26,4 @@ export default class NonTerminalPart {
 
     return ruleNamePart;
   }
-
-  clone(Part, ...remainingArguments) { return new Part(...remainingArguments); }
 }

@@ -57,7 +57,12 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     return string;
   }
 
-  clone() { return super.clone(SequenceOfPartsPart, this.parts); }
+  clone() {
+    const parts = this.parts.map((part) => part.clone()),
+          sequenceOfPartsPart = new SequenceOfPartsPart(parts);
+
+    return sequenceOfPartsPart;
+  }
 
   static fromNodes(nodes) {
     const allButFirstAndLastNodes = allButFirstAndLast(nodes);

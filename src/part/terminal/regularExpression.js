@@ -62,5 +62,5 @@ export default class RegularExpressionPart extends TerminalPart {
     return string;
   }
 
-  clone() { return super.clone(RegularExpressionPart, this.regularExpression); }
+  clone() { return new RegularExpressionPart(this.regularExpression); }
 }

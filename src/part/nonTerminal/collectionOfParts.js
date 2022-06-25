@@ -19,6 +19,4 @@ export default class CollectionOfPartsPart extends NonTerminalPart {
 
     return string;
   }
-
-  clone(Part) { return super.clone(Part, this.part); }
 }

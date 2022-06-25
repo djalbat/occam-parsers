@@ -43,7 +43,12 @@ export default class OneOrMorePartsPart extends CollectionOfPartsPart {
     return string;
   }
 
-  clone() { return super.clone(OneOrMorePartsPart); }
+  clone() {
+    const part = this.part.clone(),
+          oneOrMorePartsPart = new OneOrMorePartsPart(part);
+
+    return oneOrMorePartsPart;
+  }
 }
 
 function parsePart(part, nodes, state, callback) {

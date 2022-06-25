@@ -18,6 +18,4 @@ export default class TerminalPart {
 
     return noWhitespacePart;
   }
-
-  clone(Part, ...remainingArguments) { return new Part(...remainingArguments); }
 }

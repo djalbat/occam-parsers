@@ -31,22 +31,6 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
-  setName(name) {
-    this.name = name;
-  }
-
-  setAmbiguous(ambiguous) {
-    this.ambiguous = ambiguous;
-  }
-
-  setDefinitions(definitions) {
-    this.definitions = definitions;
-  }
-
-  setNonTerminalNode(NonTerminalNode) {
-    this.NonTerminalNode = NonTerminalNode;
-  }
-
   addDefinition(definition) {
     this.definitions.push(definition);
   }
@@ -78,6 +62,20 @@ export default class Rule {
 
   removeAllDefinitions() {
     this.definitions.splice(0); ///
+  }
+
+  parseDefinition(definition, nodes, state, callback) {
+    let parsed;
+
+    const savedIndex = state.getSavedIndex();
+
+    parsed = definition.parse(nodes, state, callback);
+
+    if (!parsed) {
+      state.backtrack(savedIndex);
+    }
+
+    return parsed;
   }
 
   parse(state, callback) {
@@ -115,20 +113,6 @@ export default class Rule {
     state.decreaseDepth();
 
     return ruleNode;
-  }
-
-  parseDefinition(definition, nodes, state, callback) {
-    let parsed;
-
-    const savedIndex = state.getSavedIndex();
-
-    parsed = definition.parse(nodes, state, callback);
-
-    if (!parsed) {
-      state.backtrack(savedIndex);
-    }
-
-    return parsed;
   }
 
   asString(maximumRuleNameLength, multiLine = true) {
@@ -171,21 +155,5 @@ ${maximumPadding}   ;` :
 ${this.name}${ambiguousString}${padding} ::= ${definitionsString}${semicolonString}`;
 
     return string;
-  }
-
-  static fromRule(Class, rule) {
-    if (rule === undefined) {
-      rule = Class;
-      Class = Rule;
-    }
-    
-    const name = rule.getName(),
-          ambiguous = rule.isAmbiguous(),
-          definitions = rule.getDefinitions(),
-          NonTerminalNode = rule.getNonTerminalNode();
-
-    rule = new Class(name, ambiguous, definitions, NonTerminalNode);
-
-    return rule;
   }
 }

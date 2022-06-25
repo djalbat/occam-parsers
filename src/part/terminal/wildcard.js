@@ -48,5 +48,5 @@ export default class WildcardPart extends TerminalPart {
     return string;
   }
 
-  clone() { return super.clone(WildcardPart); }
+  clone() { return new WildcardPart(); }
 }

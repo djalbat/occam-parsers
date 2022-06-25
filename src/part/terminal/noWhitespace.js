@@ -53,5 +53,5 @@ export default class NoWhitespacePart extends TerminalPart {
     return string;
   }
 
-  clone() { return super.clone(NoWhitespacePart); }
+  clone() { return new NoWhitespacePart(); }
 }

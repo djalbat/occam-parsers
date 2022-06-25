@@ -12,17 +12,6 @@ export default class Definition {
     return this.parts;
   }
 
-  addPart(part) {
-    this.parts.push(part);
-  }
-
-  replaceParts(start, ...replacementParts) {
-    const deleteCount = Infinity,
-          replacedParts = this.parts.splice(start, deleteCount, ...replacementParts);
-
-    return replacedParts;
-  }
-
   parse(nodes, state, callback) {
     let parsed;
 

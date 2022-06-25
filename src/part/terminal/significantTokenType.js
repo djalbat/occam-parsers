@@ -54,5 +54,5 @@ export default class SignificantTokenTypePart extends TerminalPart {
     return string;
   }
 
-  clone() { return super.clone(SignificantTokenTypePart, this.significantTokenType); }
+  clone() { return new SignificantTokenTypePart(this.significantTokenType); }
 }

@@ -49,7 +49,12 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     return string;
   }
 
-  clone() { return super.clone(ChoiceOfPartsPart, this.parts); }
+  clone() {
+    const parts = this.parts.map((part) => part.clone()),
+          choiceOfPartsPart = new ChoiceOfPartsPart(parts);
+
+    return choiceOfPartsPart;
+  }
 
   static fromNodes(nodes) {
     const allButFirstAndLastNodes = allButFirstAndLast(nodes);
