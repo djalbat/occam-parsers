@@ -2,18 +2,31 @@
 
 import { specialSymbols } from "occam-lexers";
 
-import CollectionOfPartsPart from "./collectionOfParts";
+import NonTerminalPart from "../../part/nonTerminal";
 
 import { push } from "../../utilities/array";
 import { ZeroOrMorePartsPartType } from "../../partTypes";
 
 const { asterisk } = specialSymbols;
 
-export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
+export default class ZeroOrMorePartsPart extends NonTerminalPart {
   constructor(part) {
     const type = ZeroOrMorePartsPartType; ///
 
-    super(type, part);
+    super(type);
+
+    this.part = part;
+  }
+
+  getPart() {
+    return this.part;
+  }
+
+  asString() {
+    const partString = this.part.asString(),
+          string = `${partString}${asterisk}`;
+
+    return string;
   }
 
   parse(nodes, state, callback) {
@@ -34,13 +47,6 @@ export default class ZeroOrMorePartsPart extends CollectionOfPartsPart {
     }
 
     return parsed;
-  }
-
-  asString() {
-    const operatorString = asterisk,  ///
-          string = super.asString(operatorString);
-
-    return string;
   }
 
   clone() {

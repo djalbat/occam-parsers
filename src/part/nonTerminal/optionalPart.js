@@ -43,9 +43,8 @@ export default class OptionalPartPart extends NonTerminalPart {
   }
 
   asString() {
-    const operatorString = questionMark,  ///
-          partString = this.part.asString(),
-          string = `${partString}${operatorString}`;
+    const partString = this.part.asString(),
+          string = `${partString}${questionMark}`;
 
     return string;
   }
