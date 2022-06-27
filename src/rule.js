@@ -36,14 +36,11 @@ export default class Rule {
   }
 
   removeDefinition(definition) {
-    const index = this.definitions.indexOf(definition);
+    const index = this.definitions.indexOf(definition),
+          start = index,  ///
+          deleteCount = 1;
 
-    if (index > -1) {
-      const start = index,  ///
-            deleteCount = 1;
-
-      this.definitions.splice(start, deleteCount);
-    }
+    this.definitions.splice(start, deleteCount);
   }
 
   removeDefinitions(definitions) {
