@@ -35,6 +35,12 @@ export default class Rule {
     this.definitions.push(definition);
   }
 
+  addDefinitions(definitions) {
+    definitions.forEach((definition) => {
+      this.addDefinition(definition);
+    });
+  }
+
   removeDefinition(definition) {
     const index = this.definitions.indexOf(definition),
           start = index,  ///
@@ -46,7 +52,7 @@ export default class Rule {
   removeDefinitions(definitions) {
     definitions.forEach((definition) => {
       this.removeDefinition(definition);
-    })
+    });
   }
 
   replaceDefinition(replaceDefinition, ...replacementDefinitions) {
@@ -58,7 +64,17 @@ export default class Rule {
   }
 
   removeAllDefinitions() {
-    this.definitions.splice(0); ///
+    const start = 0;
+
+    this.definitions.splice(start);
+  }
+
+  replaceAllDefinitions(...replacementDefinitions) {
+    const start = 0,
+          length = this.definitions.length,
+          deleteCount = length; ///
+
+    this.definitions.splice(start, deleteCount, ...replacementDefinitions)
   }
 
   parseDefinition(definition, nodes, state, callback) {
