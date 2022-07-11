@@ -31,42 +31,12 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
-  addDefinition(definition) {
-    this.definitions.push(definition);
-  }
-
-  addDefinitions(definitions) {
-    definitions.forEach((definition) => {
-      this.addDefinition(definition);
-    });
-  }
-
-  removeDefinition(definition) {
-    const index = this.definitions.indexOf(definition),
-          start = index,  ///
-          deleteCount = 1;
-
-    this.definitions.splice(start, deleteCount);
-  }
-
-  removeDefinitions(definitions) {
-    definitions.forEach((definition) => {
-      this.removeDefinition(definition);
-    });
-  }
-
   replaceDefinition(replaceDefinition, ...replacementDefinitions) {
     const index = this.definitions.indexOf(replaceDefinition),
           start = index, ///
           deleteCount = 1;
 
     this.definitions.splice(start, deleteCount, ...replacementDefinitions)
-  }
-
-  removeAllDefinitions() {
-    const start = 0;
-
-    this.definitions.splice(start);
   }
 
   replaceAllDefinitions(...replacementDefinitions) {

@@ -2,7 +2,8 @@
 
 import State from "../state";
 
-import { rulesFromBNF, parserFromRules } from "../utilities/parser";
+import { rulesFromBNF } from "../utilities/rules";
+import { parserFromRules } from "../utilities/parser";
 
 export default class CommonParser {
   constructor(startRule, ruleMap) {
