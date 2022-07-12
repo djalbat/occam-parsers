@@ -1,21 +1,8 @@
 "use strict";
 
 import { first } from "../utilities/array";
-import { BNFLexer } from "occam-lexers";
-
-import BNFParser from "../bnf/parser";
 
 import { EMPTY_STRING } from "../constants";
-
-const bnfLexer = BNFLexer.fromNothing(),
-      bnfParser = BNFParser.fromNothing();
-
-export function rulesFromBNF(bnf) {
-  const tokens = bnfLexer.tokensFromBNF(bnf),
-        rules = bnfParser.rulesFromTokens(tokens);
-
-  return rules;
-}
 
 export function rulesAsString(rules, multiLine) {
   const maximumRuleNameLength = rules.reduce((maximumRuleNameLength, rule) => {
@@ -51,13 +38,12 @@ export function ruleMapFromRules(rules) {
 
 export function startRuleFromRules(rules) {
   const firstRule = first(rules),
-      startRule = firstRule;  ///
+        startRule = firstRule;  ///
 
   return startRule;
 }
 
 export default {
-  rulesFromBNF,
   rulesAsString,
   ruleMapFromRules,
   startRuleFromRules

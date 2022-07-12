@@ -28,7 +28,7 @@ import OneOrMoreQuantifierRule from "../rule/oneOrMoreQuantifier";
 import ZeroOrMoreQuantifierRule from "../rule/zeroOrMoreQuantifier";
 import SignificantTokenTypeRule from "../rule/significantTokenType";
 
-import { startRuleFromRules, ruleMapFromRules } from "../utilities/rules";
+import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
 
 export default class BNFParser {
   constructor(startRule, ruleMap) {
