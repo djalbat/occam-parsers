@@ -1,5 +1,6 @@
 "use strict";
 
+import EpsilonPart from "./part/terminal/epsilon";
 import WildcardPart from "./part/terminal/wildcard";
 import EndOfLinePart from "./part/terminal/endOfLine";
 import TerminalSymbolPart from "./part/terminal/terminalSymbol";
@@ -13,6 +14,7 @@ import SequenceOfPartsPart from "./part/nonTerminal/sequenceOfParts";
 import ChoiceOfPartsPart from "./part/nonTerminal/choiceOfParts";
 
 export default {
+  EpsilonPart,
   WildcardPart,
   EndOfLinePart,
   TerminalSymbolPart,
