@@ -1,12 +1,14 @@
 "use strict";
 
+import { specialSymbols } from "occam-lexers";
+
 import VerticalBranchParseTree from "../parseTree/verticalBranch";
 
-import { EPSILON } from "../constants";
+const { epsilon } = specialSymbols;
 
 class EpsilonNodeParseTree extends VerticalBranchParseTree {
   static fromNothing() {
-    const string = EPSILON, ///
+    const string = epsilon, ///
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),

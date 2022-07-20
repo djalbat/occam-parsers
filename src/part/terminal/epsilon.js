@@ -1,9 +1,11 @@
 "use strict";
 
+import { specialSymbols } from "occam-lexers";
+
 import TerminalPart from "../../part/terminal";
 import EpsilonBNFNode from "../../node/terminal/epsilon";
 
-import { EPSILON } from "../../constants";
+const { epsilon } = specialSymbols;
 
 export default class EpsilonPart extends TerminalPart {
   parse(nodes, state, callback) {
@@ -34,7 +36,7 @@ export default class EpsilonPart extends TerminalPart {
   }
 
   asString() {
-    const string = EPSILON; ///
+    const string = epsilon; ///
 
     return string;
   }
