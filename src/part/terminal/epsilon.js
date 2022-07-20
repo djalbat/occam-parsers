@@ -1,7 +1,7 @@
 "use strict";
 
 import TerminalPart from "../../part/terminal";
-import EpsilonBNFNode from "../../node/terminal/endOfLine";
+import EpsilonBNFNode from "../../node/terminal/epsilon";
 
 import { EPSILON } from "../../constants";
 

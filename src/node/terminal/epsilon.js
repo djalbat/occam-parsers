@@ -14,10 +14,15 @@ export default class EpsilonBNFNode extends TerminalNode {
 
   asParseTree(tokens) {
     const epsilonNodeParseTree = EpsilonNodeParseTree.fromNothing(),
-          parseTree = epsilonNodeParseTree;  ///
+        parseTree = epsilonNodeParseTree;  ///
 
     return parseTree;
   }
 
-  static fromSignificantToken(significantToken) { return TerminalNode.fromSignificantToken(EpsilonBNFNode, significantToken); }
+  static fromNothing() {
+    const significantToken = null,
+          epsilonBNFNode = TerminalNode.fromSignificantToken(EpsilonBNFNode, significantToken);
+
+    return epsilonBNFNode;
+  }
 }
