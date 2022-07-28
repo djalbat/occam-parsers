@@ -31,13 +31,13 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
-  removeDefinitions(rule, definitions) {
+  removeDefinitions(definitions) {
     definitions.forEach((definition) => {
       const index = this.definitions.indexOf(definition);
 
       if (index > -1) {
         const start = index,  ///
-            deleteCount = 1;
+              deleteCount = 1;
 
         this.definitions.splice(start, deleteCount);
       }
