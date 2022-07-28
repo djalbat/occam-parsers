@@ -31,6 +31,19 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
+  removeDefinitions(rule, definitions) {
+    definitions.forEach((definition) => {
+      const index = this.definitions.indexOf(definition);
+
+      if (index > -1) {
+        const start = index,  ///
+            deleteCount = 1;
+
+        this.definitions.splice(start, deleteCount);
+      }
+    });
+  }
+
   replaceDefinition(replaceDefinition, ...replacementDefinitions) {
     const index = this.definitions.indexOf(replaceDefinition),
           start = index, ///
