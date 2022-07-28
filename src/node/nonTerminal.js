@@ -81,12 +81,6 @@ export default class NonTerminalNode {
       Class = NonTerminalNode;  ///
     }
 
-    const childNodesLength = childNodes.length;
-
-    if (childNodesLength === 0) {
-      throw new Error(`There are no child nodes at rule '${ruleName}'.`);
-    }
-    
     const nonTerminalNode = new Class(ruleName, childNodes);
 
     return nonTerminalNode;

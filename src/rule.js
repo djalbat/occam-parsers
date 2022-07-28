@@ -86,12 +86,20 @@ export default class Rule {
     }
 
     let parsed,
-        definitionNodes;
+        nodes;
 
     this.definitions.some((definition) => {
-      definitionNodes = [];
+      nodes = [];
 
-      parsed = this.parseDefinition(definition, definitionNodes, state, callback);
+      parsed = this.parseDefinition(definition, nodes, state, callback);
+
+      if (parsed) {
+        const nodesLength = nodes.length;
+
+        if (nodesLength === 0) {
+          parsed = false;
+        }
+      }
 
       if (parsed) {
         return true;
@@ -100,7 +108,7 @@ export default class Rule {
 
     if (parsed) {
       const ruleName = this.name, ///
-            childNodes = definitionNodes,  ///
+            childNodes = nodes,  ///
             nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
 
       ruleNode = nonTerminalNode; ///
