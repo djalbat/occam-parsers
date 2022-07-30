@@ -1,14 +1,10 @@
 "use strict";
 
-import { DEFAULT_MAXIMUM_DEPTH } from "./defaults";
-
 export default class State {
-  constructor(ruleMap, tokens, index, depth, maximumDepth) {
+  constructor(ruleMap, tokens, index) {
     this.ruleMap = ruleMap;
     this.tokens = tokens;
 		this.index = index;
-		this.depth = depth;
-    this.maximumDepth = maximumDepth;
   }
 
   getRuleMap() {
@@ -21,14 +17,6 @@ export default class State {
 
 	getIndex() {
 		return this.index;
-	}
-
-  getDepth() {
-    return this.depth;
-  }
-
-	getMaximumDepth() {
-		return this.maximumDepth;
 	}
 
 	getSavedIndex() {
@@ -84,12 +72,6 @@ export default class State {
     return nextTokenWhitespaceToken;
   }
 
-  isTooDeep() {
-    const tooDeep = (this.depth > this.maximumDepth);
-
-    return tooDeep;
-  }
-
 	backtrack(savedIndex) {
 		this.index = savedIndex;  ///
 	}
@@ -98,19 +80,9 @@ export default class State {
     this.index = index;
   }
 
-  increaseDepth() {
-    this.depth++;
-  }
-
-  decreaseDepth() {
-    this.depth--;
-  }
-
   static fromTokensAndRuleMap(tokens, ruleMap) {
     const index = 0,
-					depth = 0,
-					maximumDepth = DEFAULT_MAXIMUM_DEPTH,
-					state = new State(ruleMap, tokens, index, depth, maximumDepth);
+					state = new State(ruleMap, tokens, index);
 
     return state;
   }

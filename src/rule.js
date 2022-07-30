@@ -31,6 +31,21 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
+  addDefinition(definition) {
+    this.definitions.push(definition);
+  }
+
+  removeDefinition(definition) {
+    const index = this.definitions.indexOf(definition);
+
+    if (index > -1) {
+      const start = index,  ///
+            deleteCount = 1;  ///
+
+      this.definitions.splice(start, deleteCount);
+    }
+  }
+
   removeDefinitions(definitions) {
     definitions.forEach((definition) => {
       const index = this.definitions.indexOf(definition);
@@ -75,18 +90,10 @@ export default class Rule {
   }
 
   parse(state, callback) {
-    let ruleNode = null;
-
-    state.increaseDepth();
-
-    const tooDeep = state.isTooDeep();
-
-    if (tooDeep) {
-      throw new Error(`The parse tree is too deep at rule "${this.name}".`);
-    }
-
     let parsed,
         nodes;
+
+    let ruleNode = null;
 
     this.definitions.some((definition) => {
       nodes = [];
@@ -113,8 +120,6 @@ export default class Rule {
 
       ruleNode = nonTerminalNode; ///
     }
-
-    state.decreaseDepth();
 
     return ruleNode;
   }
