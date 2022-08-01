@@ -8,6 +8,12 @@ import EpsilonNodeParseTree from "../../parseTree/epsilonNode";
 const { epsilon } = specialSymbols;
 
 export default class EpsilonBNFNode extends TerminalNode {
+  getType() {
+    const type = null;  ///
+
+    return type;
+  }
+
   getContent() {
     const content = epsilon;  ///
 
