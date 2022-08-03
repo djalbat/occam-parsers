@@ -7,7 +7,7 @@ import ZeroOrMorePartsPart from "../../part/nonTerminal/zeroOrMoreParts";
 
 import { last } from "../../utilities/array";
 import { isNodeQuantifierNode, ruleNameFromQuantifierNode } from "../../utilities/bnf";
-import { OptionalQuantifierRuleName, OneOrMoreQuantifierRuleName, ZeroOrMoreQuantifierRuleName } from "../../ruleNames";
+import { optionalQuantifierRuleName, oneOrMoreQuantifierRuleName, zeroOrMoreQuantifierRuleName } from "../../ruleNames";
 
 export default class PartBNFNode extends NonTerminalNode {
   generatePart(lookAhead) {
@@ -65,19 +65,19 @@ function collectionOfPartsPartFromPartAndRuleName(part, ruleName) {
   let collectionOfPartsPart;
 
   switch (ruleName) {
-    case OptionalQuantifierRuleName :
+    case optionalQuantifierRuleName :
       const optionalPartPart = new OptionalPartPart(part);
 
       collectionOfPartsPart = optionalPartPart; ///
       break;
 
-    case OneOrMoreQuantifierRuleName :
+    case oneOrMoreQuantifierRuleName :
       const oneOrMorePartsPart = new OneOrMorePartsPart(part);
 
       collectionOfPartsPart = oneOrMorePartsPart; ///
       break;
 
-    case ZeroOrMoreQuantifierRuleName :
+    case zeroOrMoreQuantifierRuleName :
       const zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
 
       collectionOfPartsPart = zeroOrMorePartsPart;  ///

@@ -5,13 +5,11 @@ import RuleNamePart from "../part/nonTerminal/ruleName";
 import ChoiceOfPartsPart from "../part/nonTerminal/choiceOfParts";
 import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 
-import { RuleRuleName, ErrorRuleName } from "../ruleNames";
+import { ruleRuleName, errorRuleName } from "../ruleNames";
 
 export default class DocumentDefinition extends Definition {
   constructor() {
-    const ruleRuleName = RuleRuleName,
-          errorRuleName = ErrorRuleName,
-          ruleRuleNamePart = new RuleNamePart(ruleRuleName),
+    const ruleRuleNamePart = new RuleNamePart(ruleRuleName),
           errorRuleNamePart = new RuleNamePart(errorRuleName),
           ruleRuleNameAndErrorRuleNameParts = [
             ruleRuleNamePart,

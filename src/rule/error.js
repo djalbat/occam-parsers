@@ -4,12 +4,12 @@ import Rule from "../rule";
 import ErrorBNFNode from "../node/bnf/error";
 import ErrorDefinition from "../definition/error";
 
-import { ErrorRuleName } from "../ruleNames";
+import { errorRuleName } from "../ruleNames";
 
 export default class ErrorRule extends Rule {
   constructor() {
     const errorDefinition = new ErrorDefinition(),
-          name = ErrorRuleName,
+          name = errorRuleName, ///
           ambiguous = false,
           definitions = [
             errorDefinition

@@ -6,7 +6,7 @@ import Rule from "../rule";
 import RegularExpressionBNFNode from "../node/bnf/regularExpression";
 import SignificantTokenTypeDefinition from "../definition/significantTokenType";
 
-import { RegularExpressionRuleName } from "../ruleNames";
+import { regularExpressionRuleName } from "../ruleNames";
 
 const { regularExpressionType } = types;
 
@@ -14,7 +14,7 @@ export default class RegularExpressionRule extends Rule {
   constructor() {
     const regularExpressionSignificantTokenType = regularExpressionType,  ///
           regularExpressionSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(regularExpressionSignificantTokenType),
-          name = RegularExpressionRuleName,
+          name = regularExpressionRuleName, ///
           ambiguous = false,
           definitions = [
             regularExpressionSignificantTokenTypeDefinition

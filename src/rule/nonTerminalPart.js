@@ -5,13 +5,11 @@ import RuleNameDefinition from "../definition/ruleName";
 import NonTerminalPartBNFNode from "../node/bnf/part/nonTerminal";
 import RuleNameNonTerminalPartRuleDefinition from "../definition/partRule/nonTerminal/ruleName";
 
-import { NonTerminalPartRuleName, ChoiceOfPartsRuleName, SequenceOfPartsRuleName } from "../ruleNames";
+import { nonTerminalPartRuleName, choiceOfPartsRuleName, sequenceOfPartsRuleName } from "../ruleNames";
 
 export default class NonTerminalPartRule extends Rule {
   constructor() {
-    const name = NonTerminalPartRuleName,
-          choiceOfPartsRuleName = ChoiceOfPartsRuleName,
-          sequenceOfPartsRuleName = SequenceOfPartsRuleName,
+    const name = nonTerminalPartRuleName, ///
           choiceOfPartsRuleNameDefinition = new RuleNameDefinition(choiceOfPartsRuleName),
           sequenceOfPartsRuleNameDefinition = new RuleNameDefinition(sequenceOfPartsRuleName),
           ruleNameNonTerminalPartRuleDefinition = new RuleNameNonTerminalPartRuleDefinition(),

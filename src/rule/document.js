@@ -4,12 +4,12 @@ import Rule from "../rule";
 import DocumentBNFNode from "../node/bnf/document";
 import DocumentDefinition from "../definition/document";
 
-import { DocumentRuleName } from "../ruleNames";
+import { documentRuleName } from "../ruleNames";
 
 export default class DocumentRule extends Rule {
   constructor() {
     const documentDefinition = new DocumentDefinition(),
-          name = DocumentRuleName,
+          name = documentRuleName,  ///
           ambiguous = false,
           definitions = [
             documentDefinition

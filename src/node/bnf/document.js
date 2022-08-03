@@ -2,7 +2,7 @@
 
 import NonTerminalNode from"../../node/nonTerminal";
 
-import { RuleRuleName } from "../../ruleNames";
+import { ruleRuleName } from "../../ruleNames";
 
 export default class DocumentBNFNode extends NonTerminalNode {
   generateRules(Rule) {
@@ -13,7 +13,7 @@ export default class DocumentBNFNode extends NonTerminalNode {
             if (childNodeNonTerminalNode) {
               const nonTerminalNode = childNode,  ///
                     ruleName = childNode.getRuleName(),
-                    ruleNameRuleRuleName = (ruleName === RuleRuleName),
+                    ruleNameRuleRuleName = (ruleName === ruleRuleName),
                     nonTerminalNodeRuleNode = ruleNameRuleRuleName;  ///
 
               if (nonTerminalNodeRuleNode) {

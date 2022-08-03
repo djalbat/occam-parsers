@@ -6,14 +6,14 @@ import RuleNameDefinition from "../definition/ruleName";
 import TerminalPartRuleDefinition from "../definition/partRule/terminal";
 import NonTerminalPartRuleDefinition from "../definition/partRule/nonTerminal";
 
-import { PartRuleName, NoWhitespacePartRuleName } from "../ruleNames";
+import { partRuleName, noWhitespacePartRuleName } from "../ruleNames";
 
 export default class PartRule extends Rule {
   constructor() {
-    const name = PartRuleName,
+    const name = partRuleName,  ///
           terminalPartRuleDefinition = new TerminalPartRuleDefinition(),
           nonTerminalPartRuleDefinition = new NonTerminalPartRuleDefinition(),
-          noWhitespacePartRuleNameDefinition = new RuleNameDefinition(NoWhitespacePartRuleName),
+          noWhitespacePartRuleNameDefinition = new RuleNameDefinition(noWhitespacePartRuleName),
           ambiguous = false,
           definitions = [
             nonTerminalPartRuleDefinition,

@@ -4,11 +4,11 @@ import Rule from "../rule";
 import ChoiceOfPartsBNFNode from "../node/bnf/choiceOfParts";
 import ChoiceOfPartsDefinition from "../definition/choiceOfParts";
 
-import { ChoiceOfPartsRuleName } from "../ruleNames";
+import { choiceOfPartsRuleName } from "../ruleNames";
 
 export default class ChoiceOfPartsRule extends Rule {
   constructor() {
-    const name = ChoiceOfPartsRuleName,
+    const name = choiceOfPartsRuleName, ///
           choiceOfPartsDefinition = new ChoiceOfPartsDefinition(),
           ambiguous = false,
           definitions = [

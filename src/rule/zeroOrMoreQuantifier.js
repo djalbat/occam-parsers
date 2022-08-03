@@ -6,13 +6,13 @@ import Rule from "../rule";
 import QuantifierBNFNode from "../node/bnf/quantifier";
 import QuantifierRuleDefinition from "../definition/quantifierRule";
 
-import { ZeroOrMoreQuantifierRuleName } from "../ruleNames";
+import { zeroOrMoreQuantifierRuleName } from "../ruleNames";
 
 const { asterisk } = specialSymbols;
 
 export default class ZeroOrMoreQuantifierRule extends Rule {
   constructor() {
-    const name = ZeroOrMoreQuantifierRuleName,
+    const name = zeroOrMoreQuantifierRuleName,  ///
           zeroOrMoreQuantifierTerminalSymbolContent = asterisk, ///
           zeroOrMoreQuantifierRuleDefinition = new QuantifierRuleDefinition(zeroOrMoreQuantifierTerminalSymbolContent),
           ambiguous = false,

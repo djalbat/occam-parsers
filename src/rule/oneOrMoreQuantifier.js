@@ -6,13 +6,13 @@ import Rule from "../rule";
 import QuantifierBNFNode from "../node/bnf/quantifier";
 import QuantifierRuleDefinition from "../definition/quantifierRule";
 
-import { OneOrMoreQuantifierRuleName } from "../ruleNames";
+import { oneOrMoreQuantifierRuleName } from "../ruleNames";
 
 const { plus } = specialSymbols;
 
 export default class OneOrMoreQuantifierRule extends Rule {
   constructor() {
-    const name = OneOrMoreQuantifierRuleName,
+    const name = oneOrMoreQuantifierRuleName, ///
           oneOrMoreQuantifierTerminalSymbolContent = plus, ///
           oneOrMoreQuantifierRuleDefinition = new QuantifierRuleDefinition(oneOrMoreQuantifierTerminalSymbolContent),
           ambiguous = false,

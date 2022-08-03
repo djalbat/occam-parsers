@@ -4,11 +4,11 @@ import Rule from "../rule";
 import ModifierBNFNode from "../node/bnf/modifier";
 import LookAheadModifierRuleDefinition from "../definition/lookAheadModifierRule";
 
-import { LookAheadModifierRuleName } from "../ruleNames";
+import { lookAheadModifierRuleName } from "../ruleNames";
 
 export default class LookAheadModifierRule extends Rule {
   constructor() {
-    const name = LookAheadModifierRuleName,
+    const name = lookAheadModifierRuleName, ///
           lookAheadModifierRuleDefinition = new LookAheadModifierRuleDefinition(),
           ambiguous = false,
           definitions = [

@@ -6,7 +6,7 @@ import Rule from "../rule";
 import TerminalSymbolBNFNode from "../node/bnf/terminalSymbol";
 import SignificantTokenTypeDefinition from "../definition/significantTokenType";
 
-import { TerminalSymbolRuleName } from "../ruleNames";
+import { terminalSymbolRuleName } from "../ruleNames";
 
 const { stringLiteralType } = types;
 
@@ -14,7 +14,7 @@ export default class TerminalSymbolRule extends Rule {
   constructor() {
     const stringLiteralSignificantTokenType = stringLiteralType,  ///
           stringLiteralSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(stringLiteralSignificantTokenType),
-          name = TerminalSymbolRuleName,
+          name = terminalSymbolRuleName,  ///
           ambiguous = false,
           definitions = [
             stringLiteralSignificantTokenTypeDefinition

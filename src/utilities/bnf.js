@@ -1,7 +1,7 @@
 "use strict";
 
 import { first } from "../utilities/array";
-import { LookAheadModifierRuleName, QuantifierRuleName, RuleNameRuleName } from "../ruleNames";
+import { lookAheadModifierRuleName, quantifierRuleName, ruleNameRuleName } from "../ruleNames";
 
 export function isNodeChoiceNode(node) {
   let nodeNoChoiceNode = false;
@@ -28,7 +28,7 @@ export function isNodeRuleNameNode(node) {
     const nonTerminalNode = node, ///
           nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
 
-    nodeRuleNameNode = (nonTerminalNodeRuleName === RuleNameRuleName);
+    nodeRuleNameNode = (nonTerminalNodeRuleName === ruleNameRuleName);
   }
 
   return nodeRuleNameNode;
@@ -42,7 +42,7 @@ export function isNodeQuantifierNode(node) {
   if (nodeNonTerminalNode) {
     const nonTerminalNode = node, ///
           ruleName = nonTerminalNode.getRuleName(),
-          ruleNameQuantifierRuleName = (ruleName === QuantifierRuleName);
+          ruleNameQuantifierRuleName = (ruleName === quantifierRuleName);
 
     nodeQuantifierNode = ruleNameQuantifierRuleName;  ///
   }
@@ -58,7 +58,7 @@ export function isNodeLookAheadModifierNode(node) {
   if (nodeNonTerminalNode) {
     const nonTerminalNode = node, ///
           ruleName = nonTerminalNode.getRuleName(),
-          ruleNameLookAheadModifierRuleName = (ruleName === LookAheadModifierRuleName);
+          ruleNameLookAheadModifierRuleName = (ruleName === lookAheadModifierRuleName);
 
     nodeLookAheadModifierNode = ruleNameLookAheadModifierRuleName;  ///
   }

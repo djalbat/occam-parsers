@@ -6,7 +6,7 @@ import Rule from "../rule";
 import WildcardBNFNode from "../node/bnf/wildcard";
 import TerminalSymbolDefinition from "../definition/terminalSymbol";
 
-import { WildcardRuleName } from "../ruleNames";
+import { wildcardRuleName } from "../ruleNames";
 
 const { wildcard } = specialSymbols;
 
@@ -14,7 +14,7 @@ export default class WildcardRule extends Rule {
   constructor() {
     const wildcardTerminalSymbolContent = wildcard, ///
           wildcardTerminalSymbolDefinition = new TerminalSymbolDefinition(wildcardTerminalSymbolContent),
-          name = WildcardRuleName,
+          name = wildcardRuleName,  ///
           ambiguous = false,
           definitions = [
             wildcardTerminalSymbolDefinition

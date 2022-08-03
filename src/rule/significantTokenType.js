@@ -6,7 +6,7 @@ import Rule from "../rule";
 import SignificantTokenTypeBNFNode from "../node/bnf/significantTokenType";
 import SignificantTokenTypeDefinition from "../definition/significantTokenType";
 
-import { SignificantTokenTypeRuleName } from "../ruleNames";
+import { significantTokenTypeRuleName } from "../ruleNames";
 
 const { typeType } = types;
 
@@ -14,7 +14,7 @@ export default class SignificantTokenTypeRule extends Rule {
   constructor() {
     const typeSignificantTokenType = typeType,  ///
           typeSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(typeSignificantTokenType),
-          name = SignificantTokenTypeRuleName,
+          name = significantTokenTypeRuleName,  ///
           ambiguous = false,
           definitions = [
             typeSignificantTokenTypeDefinition

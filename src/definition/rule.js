@@ -7,7 +7,7 @@ import RuleNamePart from "../part/nonTerminal/ruleName";
 import OptionalPartPart from "../part/nonTerminal/optionalPart";
 import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
-import { NameRuleName, DefinitionsRuleName, AmbiguousModifierRuleName } from "../ruleNames";
+import { nameRuleName, definitionsRuleName, ambiguousModifierRuleName } from "../ruleNames";
 
 const { separator, terminator } = specialSymbols;
 
@@ -15,9 +15,6 @@ export default class RuleDefinition extends Definition {
   constructor() {
     const separatorTerminalSymbolContent = separator,
           terminatorTerminalSymbolContent = terminator,
-          nameRuleName = NameRuleName,
-          definitionsRuleName = DefinitionsRuleName,
-          ambiguousModifierRuleName = AmbiguousModifierRuleName,
           ambiguousModifierRuleNamePart = new RuleNamePart(ambiguousModifierRuleName),
           nameRuleNamePart = new RuleNamePart(nameRuleName),
           optionalAmbiguousRuleNamePartPart = new OptionalPartPart(ambiguousModifierRuleNamePart),

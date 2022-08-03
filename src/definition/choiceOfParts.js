@@ -8,14 +8,13 @@ import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 import SequenceOfPartsPart from "../part/nonTerminal/sequenceOfParts";
 
-import { PartRuleName } from "../ruleNames";
+import { partRuleName } from "../ruleNames";
 
 const { verticalBar, openBracket, closeBracket } = specialSymbols;
 
 export default class ChoiceOfPartsDefinition extends Definition {
   constructor() {
-    const partRuleName = PartRuleName,
-          verticalBarTerminalSymbolContent = verticalBar, ///
+    const verticalBarTerminalSymbolContent = verticalBar, ///
           openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
           partRuleNamePart = new RuleNamePart(partRuleName),

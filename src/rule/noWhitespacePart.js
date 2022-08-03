@@ -4,12 +4,12 @@ import Rule from "../rule";
 import NoWhitespacePartBNFNode from "../node/bnf/noWhitespacePart";
 import NoWhitespacePartDefinition from "../definition/noWhitespacePart";
 
-import { NoWhitespacePartRuleName } from "../ruleNames";
+import { noWhitespacePartRuleName } from "../ruleNames";
 
 export default class NoWhitespacePartRule extends Rule {
   constructor() {
     const noWhitespacePartDefinition = new NoWhitespacePartDefinition(),
-          name = NoWhitespacePartRuleName,
+          name = noWhitespacePartRuleName,  ///
           ambiguous = false,
           definitions = [
             noWhitespacePartDefinition
