@@ -4,6 +4,7 @@ export const NameRuleName = "name";
 export const PartRuleName = "part";
 export const RuleRuleName = "rule";
 export const ErrorRuleName = "error";
+export const EpsilonRuleName = "epsilon";
 export const RuleNameRuleName = "ruleName";
 export const DocumentRuleName = "document";
 export const WildcardRuleName = "wildcard";

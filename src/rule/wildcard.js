@@ -12,7 +12,7 @@ const { wildcard } = specialSymbols;
 
 export default class WildcardRule extends Rule {
   constructor() {
-    const wildcardTerminalSymbolContent = wildcard,
+    const wildcardTerminalSymbolContent = wildcard, ///
           wildcardTerminalSymbolDefinition = new TerminalSymbolDefinition(wildcardTerminalSymbolContent),
           name = WildcardRuleName,
           ambiguous = false,

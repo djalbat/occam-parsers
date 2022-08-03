@@ -58,6 +58,8 @@ All parsers share common functionality. The last two parse content according to 
   
                                  |  wildcard
   
+                                 |  epsilon
+
                                  ;
                               
       noWhitespacePart         ::=  "<NO_WHITESPACE>" ;                              
@@ -77,6 +79,8 @@ All parsers share common functionality. The last two parse content according to 
       endOfLine                ::=  "<END_OF_LINE>" ;
 
       wildcard                 ::=  "." ;
+
+      epsilon                  ::=  "ε" ;
 
       quantifier               ::=  optionalQuantifier
  

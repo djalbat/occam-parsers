@@ -7,6 +7,7 @@ import NameRule from "../rule/name";
 import PartRule from "../rule/part";
 import RuleRule from "../rule/rule";
 import ErrorRule from "../rule/error";
+import EpsilonRule from "../rule/epsilon";
 import DocumentRule from "../rule/document";
 import RuleNameRule from "../rule/ruleName";
 import WildcardRule from "../rule/wildcard";
@@ -80,6 +81,7 @@ export default class BNFParser {
           partRule = new PartRule(),
           ruleRule = new RuleRule(),
           errorRule = new ErrorRule(),
+          epsilonRule = new EpsilonRule(),
           documentRule = new DocumentRule(),
           ruleNameRule = new RuleNameRule(),
           wildcardRule = new WildcardRule(),
@@ -119,6 +121,7 @@ export default class BNFParser {
       terminalSymbolRule,
       endOfLineRule,
       wildcardRule,
+      epsilonRule,
       quantifierRule,
       ambiguousModifierRule,
       lookAheadModifierRule,
