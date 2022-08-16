@@ -1,11 +1,13 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
 import { specialSymbols } from "occam-lexers";
 
 import { EMPTY_STRING } from "./constants";
 import { paddingFromPaddingLength } from "./utilities/string";
 
-const { exclamationMark } = specialSymbols;
+const { push } = arrayUtilities,
+      { exclamationMark } = specialSymbols;
 
 export default class Rule {
   constructor(name, ambiguous, definitions, NonTerminalNode) {
@@ -33,6 +35,10 @@ export default class Rule {
 
   addDefinition(definition) {
     this.definitions.push(definition);
+  }
+
+  addDefinitions(definitions) {
+    push(this.definitions, definitions);
   }
 
   removeDefinition(definition) {
@@ -65,6 +71,13 @@ export default class Rule {
           deleteCount = 1;
 
     this.definitions.splice(start, deleteCount, ...replacementDefinitions)
+  }
+
+  removeAllDefinitions() {
+    const start = 0,
+          deleteCount = Infinity;
+
+    this.definitions.splice(start, deleteCount);
   }
 
   replaceAllDefinitions(...replacementDefinitions) {
