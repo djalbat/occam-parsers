@@ -31,3 +31,9 @@ export function parserFromRulesAndStartRuleName(Class, rules, startRuleName) {
 
   return parser;
 }
+
+export default {
+  rulesFromBNF,
+  parserFromRules,
+  parserFromRulesAndStartRuleName
+};
