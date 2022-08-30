@@ -5,6 +5,7 @@ export { default as BasicParser } from "./basic/parser";
 export { default as CommonParser } from "./common/parser";
 
 export { default as rulesUtilities } from "./utilities/rules";
+export { default as parserUtilities } from "./utilities/parser";
 
 export { default as Rule } from "./rule";
 export { default as Parts } from "./parts";

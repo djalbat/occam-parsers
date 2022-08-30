@@ -23,3 +23,11 @@ export function parserFromRules(Class, rules) {
 
   return parser;
 }
+
+export function parserFromRulesAndStartRuleName(Class, rules, startRuleName) {
+  const startRule = startRuleFromRulesAndStartRuleName(rules, startRuleName),
+        ruleMap = ruleMapFromRules(rules),
+        parser = new Class(startRule, ruleMap);
+
+  return parser;
+}
