@@ -4,7 +4,7 @@ import { BNFLexer } from "occam-lexers";
 
 import BNFParser from "../bnf/parser";
 
-import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
+import { ruleMapFromRules, startRuleFromRules, startRuleFromRulesAndStartRuleName } from "../utilities/rules";
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
