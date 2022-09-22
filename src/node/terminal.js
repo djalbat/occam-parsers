@@ -76,7 +76,7 @@ export default class TerminalNode {
       if (!terminalNodeEpsilonNode && !terminalNodeNoWhitespaceNode) {
         const significantToken = terminalNode.getSignificantToken();
 
-        matches = this.significantToken.matches(significantToken);
+        matches = this.significantToken.match(significantToken);
       }
     }
 
