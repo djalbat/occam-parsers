@@ -29,6 +29,12 @@ export default class TerminalNode {
     return noWhitespaceNode;
   }
 
+  isEpsilonNode() {
+    const epsilonNode = false;
+
+    return epsilonNode;
+  }
+
   isTerminalNode() {
     const terminalNode = true;
     
@@ -55,6 +61,26 @@ export default class TerminalNode {
           parseTree = terminalNodeParseTree;  ///
 
     return parseTree;
+  }
+
+  match(node) {
+    let matches = false;
+
+    const nodeTerminalNode = node.isTerminalNode();
+
+    if (nodeTerminalNode) {
+      const terminalNode = node,  ///
+            terminalNodeEpsilonNode = terminalNode.isEpsilonNode(),
+            terminalNodeNoWhitespaceNode = terminalNode.isNoWhitespaceNode();
+
+      if (!terminalNodeEpsilonNode && !terminalNodeNoWhitespaceNode) {
+        const significantToken = terminalNode.getSignificantToken();
+
+        matches = this.significantToken.matches(significantToken);
+      }
+    }
+
+    return matches;
   }
 
   static fromSignificantToken(Class, significantToken) {
