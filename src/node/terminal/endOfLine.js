@@ -5,9 +5,9 @@ import EndOfLineNodeParseTree from "../../parseTree/endOfLineNode";
 
 import { EMPTY_STRING } from "../../constants";
 
-export default class EndOfLineBNFNode extends TerminalNode {
+export default class EndOfLineNode extends TerminalNode {
   getContent() {
-    const content = EMPTY_STRING;
+    const content = EMPTY_STRING; ///
 
     return content;
   }
@@ -19,5 +19,7 @@ export default class EndOfLineBNFNode extends TerminalNode {
     return parseTree;
   }
 
-  static fromSignificantToken(significantToken) { return TerminalNode.fromSignificantToken(EndOfLineBNFNode, significantToken); }
+  clone() { return super.clone(EndOfLineNode); }
+
+  static fromSignificantToken(significantToken) { return TerminalNode.fromSignificantToken(EndOfLineNode, significantToken); }
 }

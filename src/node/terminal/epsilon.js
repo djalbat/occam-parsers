@@ -7,7 +7,7 @@ import EpsilonNodeParseTree from "../../parseTree/epsilonNode";
 
 const { epsilon } = specialSymbols;
 
-export default class EpsilonBNFNode extends TerminalNode {
+export default class EpsilonNode extends TerminalNode {
   isEpsilonNode() {
     const epsilonNode = true;
 
@@ -50,10 +50,16 @@ export default class EpsilonBNFNode extends TerminalNode {
     return matches;
   }
 
+  clone() {
+    const epsilonNode = EpsilonNode.fromNothing();
+
+    return epsilonNode;
+  }
+
   static fromNothing() {
     const significantToken = null,
-          epsilonBNFNode = TerminalNode.fromSignificantToken(EpsilonBNFNode, significantToken);
+          epsilonNode = TerminalNode.fromSignificantToken(EpsilonNode, significantToken);
 
-    return epsilonBNFNode;
+    return epsilonNode;
   }
 }

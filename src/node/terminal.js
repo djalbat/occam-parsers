@@ -83,6 +83,22 @@ export default class TerminalNode {
     return matches;
   }
 
+  clone(Class) {
+    if (Class === undefined) {
+      const { constructor } = this;
+
+      Class = constructor;
+    }
+
+    const contentLength = this.significantToken.getContentLength(),
+          startPosition = 0,
+          endPosition = contentLength,  ///
+          significantToken = this.significantToken.clone(startPosition, endPosition),
+          terminalNode = Class.fromSignificantToken(significantToken);
+
+    return terminalNode;
+  }
+
   static fromSignificantToken(Class, significantToken) {
     if (significantToken === undefined) {
       significantToken = Class; ///

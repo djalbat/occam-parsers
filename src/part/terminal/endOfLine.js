@@ -3,7 +3,7 @@
 import { specialSymbols } from "occam-lexers";
 
 import TerminalPart from "../../part/terminal";
-import EndOfLineBNFNode from "../../node/terminal/endOfLine";
+import EndOfLineNode from "../../node/terminal/endOfLine";
 
 const { END_OF_LINE } = specialSymbols;
 
@@ -11,7 +11,7 @@ export default class EndOfLinePart extends TerminalPart {
   parse(nodes, state, callback) {
     let parsed;
 
-    let endOfLineBNFNode = null;
+    let endOfLineNode = null;
     
     const savedIndex = state.getSavedIndex(),
 		      nextSignificantToken = state.getNextSignificantToken(),
@@ -21,14 +21,14 @@ export default class EndOfLinePart extends TerminalPart {
       const significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
 
       if (significantTokenEndOfLineToken) {
-        endOfLineBNFNode = EndOfLineBNFNode.fromSignificantToken(significantToken);
+        endOfLineNode = EndOfLineNode.fromSignificantToken(significantToken);
       }
     }
 
-    parsed = (endOfLineBNFNode !== null);
+    parsed = (endOfLineNode !== null);
 
     if (parsed) {
-      nodes.push(endOfLineBNFNode);
+      nodes.push(endOfLineNode);
 
       if (callback !== null) {
         parsed = callback();

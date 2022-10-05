@@ -74,6 +74,22 @@ export default class NonTerminalNode {
     return parseTree;
   }
 
+  clone(Class) {
+    if (Class === undefined) {
+      Class = NonTerminalNode;
+    }
+
+    const ruleName = this.ruleName,
+          childNodes = this.childNodes.map((childNode) => {
+            childNode = childNode.clone();
+
+            return childNode;
+          }),
+          nonTerminalNode = new Class(ruleName, childNodes);
+
+    return nonTerminalNode;
+  }
+
   static fromRuleNameAndChildNodes(Class, ruleName, childNodes) {
     if (childNodes === undefined) {
       childNodes = ruleName;  ///
