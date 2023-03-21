@@ -48,12 +48,6 @@ export default class NoWhitespaceNode extends TerminalNode {
     return matches;
   }
 
-  clone() {
-    const noWhitespaceNode = NoWhitespaceNode.fromNothing();
-
-    return noWhitespaceNode;
-  }
-
   static fromNothing() {
     const significantToken = null,
           noWhitespaceNode = TerminalNode.fromSignificantToken(NoWhitespaceNode, significantToken);

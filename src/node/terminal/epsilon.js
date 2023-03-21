@@ -50,12 +50,6 @@ export default class EpsilonNode extends TerminalNode {
     return matches;
   }
 
-  clone() {
-    const epsilonNode = EpsilonNode.fromNothing();
-
-    return epsilonNode;
-  }
-
   static fromNothing() {
     const significantToken = null,
           epsilonNode = TerminalNode.fromSignificantToken(EpsilonNode, significantToken);

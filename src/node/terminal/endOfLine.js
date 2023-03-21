@@ -19,7 +19,5 @@ export default class EndOfLineNode extends TerminalNode {
     return parseTree;
   }
 
-  clone() { return super.clone(EndOfLineNode); }
-
   static fromSignificantToken(significantToken) { return TerminalNode.fromSignificantToken(EndOfLineNode, significantToken); }
 }
