@@ -51,6 +51,23 @@ export default class TerminalNode {
 
   getContent() { return this.significantToken.getContent(); }
 
+  isEqualTo(node) {
+    let equalTo = false;
+
+    const nodeTerminalNode = node.isTerminalNode();
+
+    if (nodeTerminalNode) {
+      const terminalNode = node,  ///
+            nodeSignificantToken = terminalNode.getSignificantToken();
+
+      if (nodeSignificantToken === this.significantToken) {
+        equalTo = true;
+      }
+    }
+
+    return equalTo;
+  }
+
   setSignificantToken(significantToken) {
     this.significantToken = significantToken;
   }

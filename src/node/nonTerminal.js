@@ -57,6 +57,36 @@ export default class NonTerminalNode {
 
     return lastSignificantToken;
   }
+
+  isEqualTo(node) {
+    let equalTo = false;
+
+    const nodeNonTerminalNode = node.isNonTerminalNode();
+
+    if (nodeNonTerminalNode) {
+      const nonTerminalNode = node, ///
+            nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
+
+      if (nonTerminalNodeRuleName === this.ruleName) {
+        const childNodesLength = this.childNodes.length,
+              nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes(),
+              nonTerminalNodeChildNodesLength = nonTerminalNodeChildNodes.length;
+
+        if (childNodesLength === nonTerminalNodeChildNodesLength) {
+          equalTo = this.childNodes.every((childNode, index) => {
+            const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
+                  childNodeEqualToNodeChildNode = childNode.isEqualTo(nonTerminalNodeChildNode);
+
+            if (childNodeEqualToNodeChildNode) {
+              return true;
+            }
+          });
+        }
+      }
+    }
+
+    return equalTo;
+  }
   
   setRuleName(ruleName) {
     this.ruleName = ruleName;
