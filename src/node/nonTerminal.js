@@ -58,6 +58,31 @@ export default class NonTerminalNode {
     return lastSignificantToken;
   }
 
+  isIncludedIn(node) {
+    let includedIn = false;
+
+    if (this === node) {
+      includedIn = true;
+    } else {
+      const nodeNonTerminalNode = node.isNonTerminalNode();
+
+      if (nodeNonTerminalNode) {
+        const nonTerminalNode = node, ///
+              childNodes = nonTerminalNode.getChildNodes();
+
+        includedIn = childNodes.some((childNode) => {
+          const includedInChildNode = this.isIncludedIn(childNode);
+
+          if (includedInChildNode) {
+            return true;
+          }
+        });
+      }
+    }
+
+    return includedIn;
+  }
+
   isEqualTo(node) {
     let equalTo = false;
 
@@ -74,13 +99,13 @@ export default class NonTerminalNode {
 
         if (childNodesLength === nonTerminalNodeChildNodesLength) {
           equalTo = this.childNodes.every((childNode, index) => {
-            const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
-                  childNodeEqualToNodeChildNode = childNode.isEqualTo(nonTerminalNodeChildNode);
+                      const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
+                            childNodeEqualToNodeChildNode = childNode.isEqualTo(nonTerminalNodeChildNode);
 
-            if (childNodeEqualToNodeChildNode) {
-              return true;
-            }
-          });
+                      if (childNodeEqualToNodeChildNode) {
+                        return true;
+                      }
+                    });
         }
       }
     }
