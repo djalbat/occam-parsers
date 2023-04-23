@@ -2,6 +2,7 @@
 
 import Textarea from "../textarea";
 
+import { tokenAsHTML } from "../utilities/token";
 import { EMPTY_STRING } from "../../constants";
 
 export default class TokensTextarea extends Textarea {
@@ -10,7 +11,7 @@ export default class TokensTextarea extends Textarea {
         previousToken = null;
 
     const html = tokens.reduce((html, token) => {
-      const tokenHTML = token.asHTML();
+      const tokenHTML = tokenAsHTML(token);
 
       if (previousToken === null) {
         html += `${lineNumber++}: `;
