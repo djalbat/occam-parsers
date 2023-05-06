@@ -48,13 +48,6 @@ export default class OptionalPartPart extends NonTerminalPart {
 
     return string;
   }
-
-  clone() {
-    const part = this.part.clone(),
-          optionalPartPart = new OptionalPartPart(part);
-
-    return optionalPartPart;
-  }
 }
 
 function parsePart(part, nodes, state, callback) {

@@ -40,6 +40,4 @@ export default class EpsilonPart extends TerminalPart {
 
     return string;
   }
-
-  clone() { return new EpsilonPart(); }
 }

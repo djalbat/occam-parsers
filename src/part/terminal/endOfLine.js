@@ -51,6 +51,4 @@ export default class EndOfLinePart extends TerminalPart {
 
     return string;
   }
-
-  clone() { return new EndOfLinePart(); }
 }

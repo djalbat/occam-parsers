@@ -49,19 +49,6 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     return string;
   }
 
-  clone() {
-    const parts = this.parts.map((part) => {
-            const clonedPart = part.clone();
-
-            part = clonedPart;  ///
-
-            return part;
-          }),
-          choiceOfPartsPart = new ChoiceOfPartsPart(parts);
-
-    return choiceOfPartsPart;
-  }
-
   static fromNodes(nodes) {
     const allButFirstAndLastNodes = allButFirstAndLast(nodes);
 

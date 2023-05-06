@@ -73,12 +73,4 @@ export default class RuleNamePart extends NonTerminalPart {
 
     return string;
   }
-
-  clone() {
-    const ruleName = this.ruleName,
-          lookAhead = this.lookAhead,
-          ruleNamePart = new RuleNamePart(ruleName, lookAhead);
-
-    return ruleNamePart;
-  }
 }

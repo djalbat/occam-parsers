@@ -54,6 +54,4 @@ export default class TerminalSymbolPart extends TerminalPart {
     
     return string;
   }
-
-  clone() { return new TerminalSymbolPart(this.content); }
 }

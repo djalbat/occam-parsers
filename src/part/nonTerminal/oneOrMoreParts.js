@@ -48,13 +48,6 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
 
     return parsed;
   }
-
-  clone() {
-    const part = this.part.clone(),
-          oneOrMorePartsPart = new OneOrMorePartsPart(part);
-
-    return oneOrMorePartsPart;
-  }
 }
 
 function parsePart(part, nodes, state, callback) {
