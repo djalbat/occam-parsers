@@ -243,4 +243,5 @@ The example will then be available at http://localhost:8888 and will reload auto
 
 ## Contact
 
-* james.smith@openmathematics.org
+* james.smith@djalbat.com
+
