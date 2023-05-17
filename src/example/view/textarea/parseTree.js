@@ -2,7 +2,7 @@
 
 import Textarea from "../textarea";
 
-import { EMPTY_STRING } from "../../constants";
+import { EMPTY_STRING } from "../../../constants";
 
 export default class ParseTreeTextarea extends Textarea {
   setParseTree(parseTree) {

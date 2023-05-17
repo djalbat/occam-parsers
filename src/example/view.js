@@ -5,14 +5,14 @@ import withStyle from "easy-with-style";  ///
 import { Element } from "easy";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 
-import SubHeading from "./subHeading";
-import SizeableDiv from "./div/sizeable";
-import BNFTextarea from "./textarea/bnf";
-import RuleNameInput from "./input/ruleName";
-import TokensTextarea from "./textarea/tokens";
-import ContentTextarea from "./textarea/content";
-import ParseTreeTextarea from "./textarea/parseTree";
-import LexicalEntriesTextarea from "./textarea/lexicalEntries";
+import SubHeading from "./view/subHeading";
+import SizeableDiv from "./view/div/sizeable";
+import BNFTextarea from "./view/textarea/bnf";
+import RuleNameInput from "./view/input/ruleName";
+import TokensTextarea from "./view/textarea/tokens";
+import ContentTextarea from "./view/textarea/content";
+import ParseTreeTextarea from "./view/textarea/parseTree";
+import LexicalEntriesTextarea from "./view/textarea/lexicalEntries";
 
 class View extends Element {
   keyUpHandler = (event, element) => {
