@@ -76,21 +76,19 @@ export default class TerminalNode {
     return includedIn;
   }
 
-  isEqualTo(node) {
-    let equalTo = false;
+  match(node, depth) {
+    let matches = false;
 
     const nodeTerminalNode = node.isTerminalNode();
 
     if (nodeTerminalNode) {
       const terminalNode = node,  ///
-            nodeSignificantToken = terminalNode.getSignificantToken();
+            significantToken = terminalNode.getSignificantToken();
 
-      if (nodeSignificantToken === this.significantToken) {
-        equalTo = true;
-      }
+      matches = this.significantToken.match(significantToken);
     }
 
-    return equalTo;
+    return matches;
   }
 
   setSignificantToken(significantToken) {
@@ -103,26 +101,6 @@ export default class TerminalNode {
           parseTree = terminalNodeParseTree;  ///
 
     return parseTree;
-  }
-
-  match(node) {
-    let matches = false;
-
-    const nodeTerminalNode = node.isTerminalNode();
-
-    if (nodeTerminalNode) {
-      const terminalNode = node,  ///
-            terminalNodeEpsilonNode = terminalNode.isEpsilonNode(),
-            terminalNodeNoWhitespaceNode = terminalNode.isNoWhitespaceNode();
-
-      if (!terminalNodeEpsilonNode && !terminalNodeNoWhitespaceNode) {
-        const significantToken = terminalNode.getSignificantToken();
-
-        matches = this.significantToken.match(significantToken);
-      }
-    }
-
-    return matches;
   }
 
   static fromSignificantToken(Class, significantToken) {

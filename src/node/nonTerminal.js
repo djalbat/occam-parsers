@@ -83,34 +83,40 @@ export default class NonTerminalNode {
     return includedIn;
   }
 
-  isEqualTo(node) {
-    let equalTo = false;
+  match(node, depth = Infinity) {
+    let matches = false;
 
-    const nodeNonTerminalNode = node.isNonTerminalNode();
+    if (depth === 0) {
+      matches = true;
+    } else {
+      const nodeNonTerminalNode = node.isNonTerminalNode();
 
-    if (nodeNonTerminalNode) {
-      const nonTerminalNode = node, ///
-            nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
+      if (nodeNonTerminalNode) {
+        const nonTerminalNode = node, ///
+              nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
 
-      if (nonTerminalNodeRuleName === this.ruleName) {
-        const childNodesLength = this.childNodes.length,
-              nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes(),
-              nonTerminalNodeChildNodesLength = nonTerminalNodeChildNodes.length;
+        if (nonTerminalNodeRuleName === this.ruleName) {
+          const childNodesLength = this.childNodes.length,
+                nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes(),
+                nonTerminalNodeChildNodesLength = nonTerminalNodeChildNodes.length;
 
-        if (childNodesLength === nonTerminalNodeChildNodesLength) {
-          equalTo = this.childNodes.every((childNode, index) => {
-                      const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
-                            childNodeEqualToNodeChildNode = childNode.isEqualTo(nonTerminalNodeChildNode);
+          if (childNodesLength === nonTerminalNodeChildNodesLength) {
+            depth--;
 
-                      if (childNodeEqualToNodeChildNode) {
-                        return true;
-                      }
-                    });
+            matches = this.childNodes.every((childNode, index) => {
+              const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
+                    childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth);
+
+              if (childNodeMatchesNonTerminalNodeChildNode) {
+                return true;
+              }
+            });
+          }
         }
       }
     }
 
-    return equalTo;
+    return matches;
   }
   
   setRuleName(ruleName) {

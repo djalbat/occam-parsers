@@ -31,7 +31,7 @@ export default class NoWhitespaceNode extends TerminalNode {
     return parseTree;
   }
 
-  match(node) {
+  match(node, depth) {
     let matches = false;
 
     const nodeTerminalNode = node.isTerminalNode();
