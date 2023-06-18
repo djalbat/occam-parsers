@@ -14,6 +14,7 @@ import WildcardRule from "../rule/wildcard";
 import EndOfLineRule from "../rule/endOfLine";
 import QuantifierRule from "../rule/quantifier";
 import DefinitionRule from "../rule/definition";
+import PrecedentsRule from "../rule/precedence";
 import DefinitionsRule from "../rule/definitions";
 import TerminalPartRule from "../rule/terminalPart";
 import ChoiceOfPartsRule from "../rule/choiceOfParts";
@@ -88,6 +89,7 @@ export default class BNFParser {
           endOfLineRule = new EndOfLineRule(),
           quantifierRule = new QuantifierRule(),
           definitionRule = new DefinitionRule(),
+          precedentsRule = new PrecedentsRule(),
           definitionsRule = new DefinitionsRule(),
           terminalPartRule = new TerminalPartRule(),
           choiceOfPartsRule = new ChoiceOfPartsRule(),
@@ -119,6 +121,7 @@ export default class BNFParser {
       significantTokenTypeRule,
       regularExpressionRule,
       terminalSymbolRule,
+      precedentsRule,
       endOfLineRule,
       wildcardRule,
       epsilonRule,

@@ -10,6 +10,7 @@ export const documentRuleName = "document";
 export const wildcardRuleName = "wildcard";
 export const endOfLineRuleName = "endOfLine";
 export const definitionRuleName = "definition";
+export const precedenceRuleName = "precedence";
 export const quantifierRuleName = "quantifier";
 export const definitionsRuleName = "definitions";
 export const terminalPartRuleName = "terminalPart";

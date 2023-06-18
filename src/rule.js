@@ -1,13 +1,11 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
 import { specialSymbols } from "occam-lexers";
 
 import { EMPTY_STRING } from "./constants";
 import { paddingFromPaddingLength } from "./utilities/string";
 
-const { push } = arrayUtilities,
-      { exclamationMark } = specialSymbols;
+const { exclamationMark } = specialSymbols;
 
 export default class Rule {
   constructor(name, ambiguous, definitions, NonTerminalNode) {
@@ -31,61 +29,6 @@ export default class Rule {
 
   getNonTerminalNode() {
     return this.NonTerminalNode;
-  }
-
-  addDefinition(definition) {
-    this.definitions.push(definition);
-  }
-
-  addDefinitions(definitions) {
-    push(this.definitions, definitions);
-  }
-
-  removeDefinition(definition) {
-    const index = this.definitions.indexOf(definition);
-
-    if (index > -1) {
-      const start = index,  ///
-            deleteCount = 1;  ///
-
-      this.definitions.splice(start, deleteCount);
-    }
-  }
-
-  removeDefinitions(definitions) {
-    definitions.forEach((definition) => {
-      const index = this.definitions.indexOf(definition);
-
-      if (index > -1) {
-        const start = index,  ///
-              deleteCount = 1;
-
-        this.definitions.splice(start, deleteCount);
-      }
-    });
-  }
-
-  replaceDefinition(replaceDefinition, ...replacementDefinitions) {
-    const index = this.definitions.indexOf(replaceDefinition),
-          start = index, ///
-          deleteCount = 1;
-
-    this.definitions.splice(start, deleteCount, ...replacementDefinitions)
-  }
-
-  removeAllDefinitions() {
-    const start = 0,
-          deleteCount = Infinity;
-
-    this.definitions.splice(start, deleteCount);
-  }
-
-  replaceAllDefinitions(...replacementDefinitions) {
-    const start = 0,
-          length = this.definitions.length,
-          deleteCount = length; ///
-
-    this.definitions.splice(start, deleteCount, ...replacementDefinitions)
   }
 
   parseDefinition(definition, nodes, state, callback) {

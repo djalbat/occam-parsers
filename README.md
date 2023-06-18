@@ -28,7 +28,7 @@ All parsers share common functionality. The last two parse content according to 
 
       name                     ::=  [name] ;
 
-      definitions              ::=  definition ( "|" definition )* ;
+      definitions              ::=  definition precedence? ( "|" definition precedence? )* ;
 
       definition               ::=  part+ ;
  
@@ -59,12 +59,12 @@ All parsers share common functionality. The last two parse content according to 
                                  |  wildcard
   
                                  |  epsilon
-
+  
                                  ;
                               
       noWhitespacePart         ::=  "<NO_WHITESPACE>" ;                              
 
-      choiceOfParts            ::=  "(" part ( "|" part )+ ")" ;
+      choiceOfParts            ::=  "(" part precedence? ( "|" part precedence? )+ ")" ;
 
       sequenceOfParts          ::=  "(" part part+ ")" ;
 
@@ -76,8 +76,10 @@ All parsers share common functionality. The last two parse content according to 
 
       terminalSymbol           ::=  [string-literal] ;
 
+      precedence               ::=  "("<NO_WHITESPACE>[number]<NO_WHITESPACE>")" ;
+      
       endOfLine                ::=  "<END_OF_LINE>" ;
-
+      
       wildcard                 ::=  "." ;
 
       epsilon                  ::=  "ε" ;

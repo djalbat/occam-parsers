@@ -18,11 +18,17 @@ class View extends Element {
   keyUpHandler = (event, element) => {
     try {
       const tokens = this.getTokens(),
-            parseTree = this.getParseTree(tokens);
+            node = this.getNode(tokens);
 
       this.setTokens(tokens);
 
-      this.setParseTree(parseTree);
+      if (node !== null) {
+        const parseTree = node.asParseTree(tokens);
+
+        this.setParseTree(parseTree);
+      } else {
+        this.clearParseTree();
+      }
     } catch (error) {
       console.log(error);
 
@@ -43,9 +49,7 @@ class View extends Element {
     return tokens;
   }
 
-  getParseTree(tokens) {
-    let parseTree = null;
-
+  getNode(tokens) {
     const { Parser } = this.constructor,
           bnf = this.getBNF(),
           parser = Parser.fromBNF(bnf),
@@ -54,11 +58,7 @@ class View extends Element {
           rule = ruleMap[ruleName],
           node = parser.parse(tokens, rule);
 
-    if (node !== null) {
-      parseTree = node.asParseTree(tokens);
-    }
-
-    return parseTree;
+    return node;
   }
 
   childElements() {

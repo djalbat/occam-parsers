@@ -8,7 +8,7 @@ const bnf = `
 
       name                     ::=  [name] ;
 
-      definitions              ::=  definition ( "|" definition )* ;
+      definitions              ::=  definition precedence? ( "|" definition precedence? )* ;
 
       definition               ::=  part+ ;
  
@@ -44,7 +44,7 @@ const bnf = `
                               
       noWhitespacePart         ::=  "<NO_WHITESPACE>" ;                              
 
-      choiceOfParts            ::=  "(" part ( "|" part )+ ")" ;
+      choiceOfParts            ::=  "(" part precedence? ( "|" part precedence? )+ ")" ;
 
       sequenceOfParts          ::=  "(" part part+ ")" ;
 
@@ -56,8 +56,10 @@ const bnf = `
 
       terminalSymbol           ::=  [string-literal] ;
 
+      precedence               ::=  "("<NO_WHITESPACE>[number]<NO_WHITESPACE>")" ;
+      
       endOfLine                ::=  "<END_OF_LINE>" ;
-
+      
       wildcard                 ::=  "." ;
 
       epsilon                  ::=  "ε" ;
