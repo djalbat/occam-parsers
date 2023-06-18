@@ -28,9 +28,9 @@ All parsers share common functionality. The last two parse content according to 
 
       name                     ::=  [name] ;
 
-      definitions              ::=  definition precedence? ( "|" definition precedence? )* ;
+      definitions              ::=  definition ( "|" definition )* ;
 
-      definition               ::=  part+ ;
+      definition               ::=  part+ precedence? ;
  
       part                     ::=  nonTerminalPart quantifier*
 

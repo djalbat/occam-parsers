@@ -3,13 +3,16 @@
 import Definition from "../../definition";
 import NonTerminalNode from "../../node/nonTerminal";
 
+import { partRuleName } from "../../ruleNames";
+import { nodesFromChildNodesAndRuleName } from "../../utilities/node";
+
 export default class DefinitionBNFNode extends NonTerminalNode {
   generateDefinition() {
     const childNodes = this.getChildNodes(),
-          partNodes = childNodes, ///
+          partBNFNodes = nodesFromChildNodesAndRuleName(childNodes, partRuleName),
           lookAhead = false,  ///
-          parts = partNodes.map((partNode) => {
-            const part = partNode.generatePart(lookAhead);
+          parts = partBNFNodes.map((partBNFNode) => {
+            const part = partBNFNode.generatePart(lookAhead);
   
             return part;
           }),

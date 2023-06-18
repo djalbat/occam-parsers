@@ -4,23 +4,12 @@ import NonTerminalNode from "../../node/nonTerminal";
 import ChoiceOfPartsPart from "../../part/nonTerminal/choiceOfParts";
 
 import { partRuleName } from "../../ruleNames";
+import { nodesFromChildNodesAndRuleName } from "../../utilities/node";
 
 export default class ChoiceOfPartsBNFNode extends NonTerminalNode {
   generatePart(lookAhead) {
     const childNodes = this.getChildNodes(),
-          partBNFNodes = childNodes.filter((childNode) => {
-            const childNodeNonTerminalNode = childNode.isNonTerminalNode();
-
-            if (childNodeNonTerminalNode) {
-              const nonTerminalNode = childNode,  ///
-                    ruleName = nonTerminalNode.getRuleName(),
-                    ruleNamePartRuleName = (ruleName === partRuleName);
-
-              if (ruleNamePartRuleName) {
-                return true;
-              }
-            }
-          });
+          partBNFNodes = nodesFromChildNodesAndRuleName(childNodes, partRuleName);
 
     lookAhead = false;  ///
 
