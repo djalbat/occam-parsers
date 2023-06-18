@@ -29,17 +29,17 @@ export default class Definition {
 
   asString() {
     const partsString = this.parts.reduce((partsString, part) => {
-          const partString = part.asString();
+            const partString = part.asString();
 
-          if (partsString === EMPTY_STRING) {
-            partsString = partString; ///
-          } else {
-            partsString = `${partsString} ${partString}`;
-          }
+            if (partsString === EMPTY_STRING) {
+              partsString = partString; ///
+            } else {
+              partsString = `${partsString} ${partString}`;
+            }
 
-          return partsString;
-        }, EMPTY_STRING),
-        string = partsString; ///
+            return partsString;
+          }, EMPTY_STRING),
+          string = partsString; ///
 
     return string;
   }
