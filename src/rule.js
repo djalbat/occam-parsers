@@ -31,31 +31,21 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
-  parseDefinition(definition, nodes, state, callback) {
-    let parsed;
-
-    const savedIndex = state.getSavedIndex();
-
-    parsed = definition.parse(nodes, state, callback);
-
-    if (!parsed) {
-      state.backtrack(savedIndex);
-    }
-
-    return parsed;
-  }
-
   parse(state, callback) {
     let parsed,
-        nodes;
+        nodes,
+        precedence;
 
-    let ruleNode = null,
-        precedence = null;
+    let ruleNode = null;
 
     this.definitions.some((definition) => {
+      const savedIndex = state.getSavedIndex();
+
       nodes = [];
 
-      parsed = this.parseDefinition(definition, nodes, state, callback);
+      precedence = null;
+
+      parsed = definition.parse(nodes, state, callback)
 
       if (parsed) {
         const nodesLength = nodes.length;
@@ -66,12 +56,26 @@ export default class Rule {
       }
 
       if (parsed) {
-        if (precedence === null) {
-          precedence = definition.getPrecedence();
-        }
+        precedence = definition.getPrecedence();
 
+        nodes.some((node) => {
+          const nodePrecedence = node.getPrecedence();
+
+          if (nodePrecedence !== null) {
+            if (nodePrecedence < precedence) {
+              parsed = false;
+
+              return true;
+            }
+          }
+        });
+      }
+
+      if (parsed) {
         return true;
       }
+
+      state.backtrack(savedIndex);
     });
 
     if (parsed) {
