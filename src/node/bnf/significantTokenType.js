@@ -1,9 +1,11 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import NonTerminalNode from "../../node/nonTerminal";
 import SignificantTokenTypePart from "../../part/terminal/significantTokenType";
 
-import { first, second } from "../../utilities/array";
+const { first, second } = arrayUtilities;
 
 export default class SignificantTokenTypeBNFNode extends NonTerminalNode {
   regularExpression = /^\[([^\]]+)]$/;

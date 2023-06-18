@@ -13,11 +13,7 @@ export default class BNFView extends View {
 
   static Parser = BNFParser;
 
-  static initialContent = `
-  
-    rule ::= "blah" (1) ;
-  
-  `;
+  static initialContent = bnf;  ///
 
   getNode(tokens) {
     const { Parser } = this.constructor,

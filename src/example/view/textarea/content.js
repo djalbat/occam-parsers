@@ -1,8 +1,10 @@
 "use strict";
 
+import withStyle from "easy-with-style";  ///
+
 import Textarea from "../textarea";
 
-export default class ContentTextarea extends Textarea {
+class ContentTextarea extends Textarea {
   getContent() {
     const value = this.getValue(),
           content = value; ///
@@ -31,3 +33,9 @@ export default class ContentTextarea extends Textarea {
     spellCheck: "false"
   };
 }
+
+export default withStyle(ContentTextarea)`
+
+  height: 6rem;
+  
+`;

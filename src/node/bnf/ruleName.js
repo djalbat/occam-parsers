@@ -1,9 +1,11 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import RuleNamePart from "../../part/nonTerminal/ruleName";
 import NonTerminalNode from "../../node/nonTerminal";
 
-import { first } from "../../utilities/array";
+const { first } = arrayUtilities;
 
 export default class RuleNameBNFNode extends NonTerminalNode {
   generatePart(lookAhead) {

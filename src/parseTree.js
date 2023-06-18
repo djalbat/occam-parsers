@@ -1,12 +1,11 @@
 "use strict";
 
-import { characters } from "necessary";
-
-import { last } from "./utilities/array";
+import { characters, arrayUtilities } from "necessary";
 
 import { EMPTY_STRING } from "./constants";
 
-const { NEW_LINE_CHARACTER, SPACE_CHARACTER } = characters;
+const { last } = arrayUtilities,
+      { NEW_LINE_CHARACTER, SPACE_CHARACTER } = characters;
 
 export default class ParseTree {
   constructor(lines) {

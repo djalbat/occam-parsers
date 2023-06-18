@@ -1,8 +1,10 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import NonTerminalNode from "../../node/nonTerminal";
 
-import { first } from "../../utilities/array";
+const { first } = arrayUtilities;
 
 export default class NameBNFNode extends NonTerminalNode {
   getName() {

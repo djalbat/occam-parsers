@@ -1,7 +1,10 @@
 "use strict";
 
-import { first } from "../utilities/array";
+import { arrayUtilities } from "necessary";
+
 import { lookAheadModifierRuleName, quantifierRuleName, ruleNameRuleName } from "../ruleNames";
+
+const { first } = arrayUtilities;
 
 export function isNodeChoiceNode(node) {
   let nodeNoChoiceNode = false;

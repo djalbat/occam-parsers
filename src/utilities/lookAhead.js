@@ -1,7 +1,10 @@
 "use strict";
 
-import { push } from "../utilities/array";
+import { arrayUtilities } from "necessary";
+
 import { isPartRuleNamePartWithLookAhead } from "./part";
+
+const { push } = arrayUtilities;
 
 export function parseParts(parts, nodes, index, state, callback) {
   let parsed;

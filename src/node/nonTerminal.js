@@ -1,8 +1,10 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
-import { forwardsSome, backwardsSome } from "../utilities/array";
+const { forwardsSome, backwardsSome } = arrayUtilities;
 
 export default class NonTerminalNode {
   constructor(ruleName, precedence, childNodes) {

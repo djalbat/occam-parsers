@@ -1,8 +1,10 @@
 "use strict";
 
+import withStyle from "easy-with-style";  ///
+
 import Textarea from "../textarea";
 
-export default class LexicalEntriesTextarea extends Textarea {
+class LexicalEntriesTextarea extends Textarea {
   getLexicalEntries() {
     const value = this.getValue(),
           lexicalEntries = JSON.parse(value);
@@ -31,3 +33,9 @@ export default class LexicalEntriesTextarea extends Textarea {
     spellCheck: "false"
   };
 }
+
+export default withStyle(LexicalEntriesTextarea)`
+
+  height: 24rem;
+  
+`;

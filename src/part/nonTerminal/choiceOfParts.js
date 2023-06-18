@@ -3,7 +3,8 @@
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { ChoiceOfPartsPartType } from "../../partTypes";
-import { even, allButFirstAndLast } from "../../utilities/array";
+
+import { partRuleName } from "../../ruleNames";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
@@ -49,18 +50,23 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     return string;
   }
 
-  static fromNodes(nodes) {
-    const allButFirstAndLastNodes = allButFirstAndLast(nodes);
+  static fromBNFNodes(bnfNodes) {
+    const partBNFNodes = bnfNodes.filter((bnfNode) => {
+            const bnfNodeNonTerminalNode = bnfNode.isNonTerminalNode();
 
-    nodes = allButFirstAndLastNodes;  ///
-    
-    const evenNodes = even(nodes);
+            if (bnfNodeNonTerminalNode) {
+              const nonTerminalNode = bnfNode,  ///
+                    ruleName = nonTerminalNode.getRuleName(),
+                    ruleNamePartRuleName = (ruleName === partRuleName);
 
-    nodes = evenNodes;  ///
-
-    const lookAhead = false,
-          parts = nodes.map((node) => {
-            const part = node.generatePart(lookAhead);
+              if (ruleNamePartRuleName) {
+                return true;
+              }
+            }
+          }),
+          lookAhead = false,
+          parts = partBNFNodes.map((partBNFNode) => {
+            const part = partBNFNode.generatePart(lookAhead);
 
             return part;
           }),

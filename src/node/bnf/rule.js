@@ -1,8 +1,10 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import NonTerminalNode from "../../node/nonTerminal";
 
-import { first, second, third, fourth } from "../../utilities/array";
+const { first, second, third, fourth } = arrayUtilities;
 
 export default class RuleBNFNode extends NonTerminalNode {
   generateRule(Rule) {

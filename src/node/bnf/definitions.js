@@ -2,13 +2,24 @@
 
 import NonTerminalNode from "../../node/nonTerminal";
 
-import { even } from "../../utilities/array";
+import { definitionRuleName } from "../../ruleNames";
 
 export default class DefinitionsBNFNode extends NonTerminalNode {
   generateDefinitions() {
     const childNodes = this.getChildNodes(),
-          evenChildNodes = even(childNodes),  ///
-          definitionBNFNodes = evenChildNodes, ///
+          definitionBNFNodes = childNodes.filter((childNode) => {
+            const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+
+            if (childNodeNonTerminalNode) {
+              const nonTerminalNode = childNode,  ///
+                    ruleName = nonTerminalNode.getRuleName(),
+                    ruleNameDefinitionRuleName = (ruleName === definitionRuleName);
+
+              if (ruleNameDefinitionRuleName) {
+                return true;
+              }
+            }
+          }),
           definitions = definitionBNFNodes.map((definitionBNFNode) => {
             const definition = definitionBNFNode.generateDefinition();
             

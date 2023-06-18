@@ -1,9 +1,11 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../node/terminal";
 
-import { first } from "../../utilities/array";
+const { first } = arrayUtilities;
 
 export default class RegularExpressionPart extends TerminalPart {
   constructor(regularExpression) {

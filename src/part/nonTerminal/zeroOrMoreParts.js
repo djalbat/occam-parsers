@@ -1,13 +1,14 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
 import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { push } from "../../utilities/array";
 import { ZeroOrMorePartsPartType } from "../../partTypes";
 
-const { asterisk } = specialSymbols;
+const { push } = arrayUtilities,
+      { asterisk } = specialSymbols;
 
 export default class ZeroOrMorePartsPart extends NonTerminalPart {
   constructor(part) {

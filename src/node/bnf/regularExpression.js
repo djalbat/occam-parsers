@@ -1,9 +1,11 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import NonTerminalNode from "../../node/nonTerminal";
 import RegularExpressionPart from "../../part/terminal/regularExpression";
 
-import { first, second } from "../../utilities/array";
+const { first, second } = arrayUtilities;
 
 export default class RegularExpressionBNFNode extends NonTerminalNode {
   regularExpression = /^\/((?:\\.|[^\/])*)\/$/;

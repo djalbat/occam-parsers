@@ -1,11 +1,15 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { push } from "../../utilities/array";
 import { parseParts } from "../../utilities/lookAhead";
-import { allButFirstAndLast } from "../../utilities/array";
 import { SequenceOfPartsPartType } from "../../partTypes";
+
+import { partRuleName } from "../../ruleNames";
+
+const { push } = arrayUtilities;
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
@@ -57,14 +61,23 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     return string;
   }
 
-  static fromNodes(nodes) {
-    const allButFirstAndLastNodes = allButFirstAndLast(nodes);
+  static fromBNFNodes(bnfNodes) {
+    const partBNFNodes = bnfNodes.filter((bnfNode) => {
+            const bnfNodeNonTerminalNode = bnfNode.isNonTerminalNode();
 
-    nodes = allButFirstAndLastNodes;  ///
+            if (bnfNodeNonTerminalNode) {
+              const nonTerminalNode = bnfNode,  ///
+                ruleName = nonTerminalNode.getRuleName(),
+                ruleNamePartRuleName = (ruleName === partRuleName);
 
-    const lookAhead = false,
-          parts = nodes.map((node) => {
-            const part = node.generatePart(lookAhead);
+              if (ruleNamePartRuleName) {
+                return true;
+              }
+            }
+          }),
+          lookAhead = false,
+          parts = partBNFNodes.map((partBNFNode) => {
+            const part = partBNFNode.generatePart(lookAhead);
 
             return part;
           }),

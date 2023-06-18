@@ -1,9 +1,11 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import NonTerminalNode from "../../node/nonTerminal";
 import TerminalSymbolPart from "../../part/terminal/terminalSymbol";
 
-import { first, second } from "../../utilities/array";
+const { first, second } = arrayUtilities;
 
 export default class TerminalSymbolBNFNode extends NonTerminalNode {
   regularExpression = /^"((?:\\.|[^"\\])*)"$/;
