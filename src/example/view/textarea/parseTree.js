@@ -1,10 +1,12 @@
 "use strict";
 
+import withStyle from "easy-with-style";
+
 import Textarea from "../textarea";
 
 import { EMPTY_STRING } from "../../../constants";
 
-export default class ParseTreeTextarea extends Textarea {
+class ParseTreeTextarea extends Textarea {
   setParseTree(parseTree) {
     if (parseTree !== null) {
       parseTree.shiftLine();  //
@@ -40,3 +42,10 @@ export default class ParseTreeTextarea extends Textarea {
     readOnly: true
   };
 }
+
+export default withStyle(ParseTreeTextarea)`
+
+  height: 36rem;
+  
+`;
+

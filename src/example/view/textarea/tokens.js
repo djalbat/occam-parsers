@@ -1,10 +1,12 @@
 "use strict";
 
+import withStyle from "easy-with-style";  ///
+
 import Textarea from "../textarea";
 
 import { EMPTY_STRING } from "../../../constants";
 
-export default class TokensTextarea extends Textarea {
+class TokensTextarea extends Textarea {
   setTokens(tokens) {
     let lineNumber = 1,
         previousToken = null;
@@ -54,3 +56,9 @@ export default class TokensTextarea extends Textarea {
     readOnly: true
   };
 }
+
+export default withStyle(TokensTextarea)`
+
+  height: 12rem; 
+  
+`;
