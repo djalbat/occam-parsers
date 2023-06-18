@@ -7,15 +7,16 @@ import DefinitionDefinition from "../definition/definition";
 import { definitionRuleName } from "../ruleNames";
 
 export default class DefinitionRule extends Rule {
-  constructor() {
+  static fromNothing() {
     const name = definitionRuleName,  ///
-          definitionDefinition = new DefinitionDefinition(),
+          definitionDefinition = DefinitionDefinition.fromNothing(),
           ambiguous = false,
           definitions = [
             definitionDefinition
           ],
-          Node = DefinitionBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = DefinitionBNFNode,  ///
+          definitionRule = new DefinitionRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return definitionRule;
   }
 }

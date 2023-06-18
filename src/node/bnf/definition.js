@@ -13,7 +13,8 @@ export default class DefinitionBNFNode extends NonTerminalNode {
   
             return part;
           }),
-          definition = new Definition(parts);
+          precedence = null,
+          definition = new Definition(parts, precedence);
 
     return definition;
   }

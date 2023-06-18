@@ -11,16 +11,17 @@ import { oneOrMoreQuantifierRuleName } from "../ruleNames";
 const { plus } = specialSymbols;
 
 export default class OneOrMoreQuantifierRule extends Rule {
-  constructor() {
+  static fromNothing() {
     const name = oneOrMoreQuantifierRuleName, ///
-          oneOrMoreQuantifierTerminalSymbolContent = plus, ///
-          oneOrMoreQuantifierRuleDefinition = new QuantifierRuleDefinition(oneOrMoreQuantifierTerminalSymbolContent),
+          specialSymbol = plus, ///
+          oneOrMoreQuantifierRuleDefinition = QuantifierRuleDefinition.fromSpecialSymbol(specialSymbol),
           ambiguous = false,
           definitions = [
             oneOrMoreQuantifierRuleDefinition
           ],
-          Node = QuantifierBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = QuantifierBNFNode,  ///
+          oneOrMoreQuantifierRule = new OneOrMoreQuantifierRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return oneOrMoreQuantifierRule;
   }
 }

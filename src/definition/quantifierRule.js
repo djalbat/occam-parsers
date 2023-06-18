@@ -5,15 +5,17 @@ import NoWhitespacePart from "../part/terminal/noWhitespace";
 import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
 export default class QuantifierRuleDefinition extends Definition {
-  constructor(terminalSymbolContent) {
-    const content = terminalSymbolContent,  ///
+  static fromSpecialSymbol(specialSymbol) {
+    const content = specialSymbol,  ///
           noWhitespacePart = new NoWhitespacePart(),
           terminalSymbolPart = new TerminalSymbolPart(content),
           parts = [
             noWhitespacePart,
             terminalSymbolPart
-          ];
+          ],
+          precedence = null,
+          quantifierRuleDefinition = new QuantifierRuleDefinition(parts, precedence);
 
-    super(parts)
+    return quantifierRuleDefinition;
   }
 }

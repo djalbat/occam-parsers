@@ -7,15 +7,17 @@ import ZeroOrMorePartsPart from "../../part/nonTerminal/zeroOrMoreParts";
 import { quantifierRuleName, nonTerminalPartRuleName } from "../../ruleNames";
 
 export default class NonTerminalPartRuleDefinition extends Definition {
-  constructor() {
+  static fromNothing() {
     const quantifierRuleNamePart = new RuleNamePart(quantifierRuleName),
           nonTerminalPartRuleNamePart = new RuleNamePart(nonTerminalPartRuleName),
           zeroOrMoreQuantifierRuleNamePartsPart = new ZeroOrMorePartsPart(quantifierRuleNamePart),
           parts = [
             nonTerminalPartRuleNamePart,
             zeroOrMoreQuantifierRuleNamePartsPart
-          ];
+          ],
+          precedence = null,
+          nonTerminalPartRuleDefinition = new NonTerminalPartRuleDefinition(parts, precedence);
     
-    super(parts)
+    return nonTerminalPartRuleDefinition;
   }
 }

@@ -8,19 +8,20 @@ import RuleNameNonTerminalPartRuleDefinition from "../definition/partRule/nonTer
 import { nonTerminalPartRuleName, choiceOfPartsRuleName, sequenceOfPartsRuleName } from "../ruleNames";
 
 export default class NonTerminalPartRule extends Rule {
-  constructor() {
+  static fromNothing() {
     const name = nonTerminalPartRuleName, ///
-          choiceOfPartsRuleNameDefinition = new RuleNameDefinition(choiceOfPartsRuleName),
-          sequenceOfPartsRuleNameDefinition = new RuleNameDefinition(sequenceOfPartsRuleName),
-          ruleNameNonTerminalPartRuleDefinition = new RuleNameNonTerminalPartRuleDefinition(),
+          choiceOfPartsRuleNameDefinition = RuleNameDefinition.fromRuleName(choiceOfPartsRuleName),
+          sequenceOfPartsRuleNameDefinition = RuleNameDefinition.fromRuleName(sequenceOfPartsRuleName),
+          ruleNameNonTerminalPartRuleDefinition = RuleNameNonTerminalPartRuleDefinition.fromNothing(),
           ambiguous = false,
           definitions = [
             choiceOfPartsRuleNameDefinition,
             sequenceOfPartsRuleNameDefinition,
             ruleNameNonTerminalPartRuleDefinition
           ],
-          Node = NonTerminalPartBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = NonTerminalPartBNFNode, ///
+          nonTerminalPartRule = new NonTerminalPartRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return nonTerminalPartRule;
   }
 }

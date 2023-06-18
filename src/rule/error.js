@@ -7,15 +7,16 @@ import ErrorDefinition from "../definition/error";
 import { errorRuleName } from "../ruleNames";
 
 export default class ErrorRule extends Rule {
-  constructor() {
-    const errorDefinition = new ErrorDefinition(),
+  static fromNothing() {
+    const errorDefinition = ErrorDefinition.fromNothing(),
           name = errorRuleName, ///
           ambiguous = false,
           definitions = [
             errorDefinition
           ],
-          Node = ErrorBNFNode;
-    
-    super(name, ambiguous, definitions, Node);
+          NonTerminalNode = ErrorBNFNode,
+          errorRule = new ErrorRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return errorRule;
   }
 }

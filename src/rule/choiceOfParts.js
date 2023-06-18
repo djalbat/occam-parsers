@@ -7,15 +7,16 @@ import ChoiceOfPartsDefinition from "../definition/choiceOfParts";
 import { choiceOfPartsRuleName } from "../ruleNames";
 
 export default class ChoiceOfPartsRule extends Rule {
-  constructor() {
+  static fromNothing() {
     const name = choiceOfPartsRuleName, ///
-          choiceOfPartsDefinition = new ChoiceOfPartsDefinition(),
+          choiceOfPartsDefinition = ChoiceOfPartsDefinition.fromNothing(),
           ambiguous = false,
           definitions = [
             choiceOfPartsDefinition
           ],
-          Node = ChoiceOfPartsBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = ChoiceOfPartsBNFNode, ///
+          choiceOfPartsRule = new ChoiceOfPartsRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return choiceOfPartsRule;
   }
 }

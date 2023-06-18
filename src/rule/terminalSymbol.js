@@ -11,16 +11,17 @@ import { terminalSymbolRuleName } from "../ruleNames";
 const { stringLiteralType } = types;
 
 export default class TerminalSymbolRule extends Rule {
-  constructor() {
-    const stringLiteralSignificantTokenType = stringLiteralType,  ///
-          stringLiteralSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(stringLiteralSignificantTokenType),
+  static fromNothing() {
+    const significantTokenType = stringLiteralType,  ///
+          stringLiteralSignificantTokenTypeDefinition = SignificantTokenTypeDefinition.fromSignificantTokenType(significantTokenType),
           name = terminalSymbolRuleName,  ///
           ambiguous = false,
           definitions = [
             stringLiteralSignificantTokenTypeDefinition
           ],
-          Node = TerminalSymbolBNFNode;
+          NonTerminalNode = TerminalSymbolBNFNode,
+          terminalSymbolRule = new TerminalSymbolRule(name, ambiguous, definitions, NonTerminalNode);
 
-    super(name, ambiguous, definitions, Node)
+    return terminalSymbolRule;
   }
 }

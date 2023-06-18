@@ -7,15 +7,16 @@ import NameDefinition from "../definition/name";
 import { nameRuleName } from "../ruleNames";
 
 export default class NameRule extends Rule {
-  constructor() {
-    const nameDefinition = new NameDefinition(),
+  static fromNothing() {
+    const nameDefinition = NameDefinition.fromNothing(),
           name = nameRuleName,  ///
           ambiguous = false,
           definitions = [
             nameDefinition
           ],
-          Node = NameBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = NameBNFNode,  ///
+          nameRule = new NameRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return nameRule;
   }
 }

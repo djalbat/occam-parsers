@@ -1,8 +1,8 @@
 "use strict";
 
 import Rule from "../rule";
-import TerminalPartBNFNode from "../node/bnf/part/terminal";
 import RuleNameDefinition from "../definition/ruleName";
+import TerminalPartBNFNode from "../node/bnf/part/terminal";
 
 import { epsilonRuleName,
          wildcardRuleName,
@@ -13,14 +13,14 @@ import { epsilonRuleName,
          significantTokenTypeRuleName } from "../ruleNames";
 
 export default class TerminalPartRule extends Rule {
-  constructor() {
+  static fromNothing() {
     const name = terminalPartRuleName,
-          epsilonRuleNameDefinition = new RuleNameDefinition(epsilonRuleName),
-          wildcardRuleNameDefinition = new RuleNameDefinition(wildcardRuleName),
-          endOfLineRuleNameDefinition = new RuleNameDefinition(endOfLineRuleName),
-          terminalSymbolRuleNameDefinition = new RuleNameDefinition(terminalSymbolRuleName),
-          regularExpressionRuleNameDefinition = new RuleNameDefinition(regularExpressionRuleName),
-          significantTokenTypeRuleNameDefinition = new RuleNameDefinition(significantTokenTypeRuleName),
+          epsilonRuleNameDefinition = RuleNameDefinition.fromRuleName(epsilonRuleName),
+          wildcardRuleNameDefinition = RuleNameDefinition.fromRuleName(wildcardRuleName),
+          endOfLineRuleNameDefinition = RuleNameDefinition.fromRuleName(endOfLineRuleName),
+          terminalSymbolRuleNameDefinition = RuleNameDefinition.fromRuleName(terminalSymbolRuleName),
+          regularExpressionRuleNameDefinition = RuleNameDefinition.fromRuleName(regularExpressionRuleName),
+          significantTokenTypeRuleNameDefinition = RuleNameDefinition.fromRuleName(significantTokenTypeRuleName),
           ambiguous = false,
           definitions = [
             significantTokenTypeRuleNameDefinition,
@@ -30,8 +30,9 @@ export default class TerminalPartRule extends Rule {
             wildcardRuleNameDefinition,
             epsilonRuleNameDefinition
           ],
-          Node = TerminalPartBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = TerminalPartBNFNode,
+          terminalPartRule = new TerminalPartRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return terminalPartRule;
   }
 }

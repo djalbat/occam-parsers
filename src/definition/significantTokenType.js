@@ -4,12 +4,14 @@ import Definition from "../definition";
 import SignificantTokenTypePart from "../part/terminal/significantTokenType";
 
 export default class SignificantTokenTypeDefinition extends Definition {
-  constructor(significantTokenType) {
+  static fromSignificantTokenType(significantTokenType) {
     const significantTokenTypePart = new SignificantTokenTypePart(significantTokenType),
           parts = [
             significantTokenTypePart
-          ];
-    
-    super(parts)
+          ],
+          precedence = null,
+          significantTokenTypeDefinition = new SignificantTokenTypeDefinition(parts, precedence);
+
+    return significantTokenTypeDefinition;
   }
 }

@@ -7,15 +7,16 @@ import DocumentDefinition from "../definition/document";
 import { documentRuleName } from "../ruleNames";
 
 export default class DocumentRule extends Rule {
-  constructor() {
-    const documentDefinition = new DocumentDefinition(),
+  static fromNothing() {
+    const documentDefinition = DocumentDefinition.fromNothing(),
           name = documentRuleName,  ///
           ambiguous = false,
           definitions = [
             documentDefinition
           ],
-          Node = DocumentBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = DocumentBNFNode,  ///
+          documentRule = new DocumentRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return documentRule;
   }
 }

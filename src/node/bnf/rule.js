@@ -11,8 +11,7 @@ export default class RuleBNFNode extends NonTerminalNode {
     const name = this.getName(),
           ambiguous = this.isAmbiguous(),
           definitions = this.generateDefinitions(),
-          Node = NonTerminalNode,
-          rule = new Rule(name, ambiguous, definitions, Node);
+          rule = Rule.fromNameAmbiguousDefinitionsAndNonTerminalNode(name, ambiguous, definitions, NonTerminalNode);
 
     return rule;
   }

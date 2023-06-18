@@ -11,7 +11,7 @@ const { numberType } = types,
       { openBracket, closeBracket } = specialSymbols;
 
 export default class PrecedenceDefinition extends Definition {
-  constructor() {
+  static fromNothing() {
     const numberSignificantTokenType = numberType,  ///
           openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
@@ -25,8 +25,10 @@ export default class PrecedenceDefinition extends Definition {
             numberSignificantTokenTypePart,
             noWhitespacePart,
             closeBracketTerminalSymbolPart
-          ];
+          ],
+          precedence = null,
+          precedenceDefinition = new PrecedenceDefinition(parts, precedence);
 
-    super(parts)
+    return precedenceDefinition;
   }
 }

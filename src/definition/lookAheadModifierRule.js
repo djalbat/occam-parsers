@@ -9,15 +9,17 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 const { ellipsis } = specialSymbols;
 
 export default class LookAheadModifierRuleDefinition extends Definition {
-  constructor() {
+  static fromNothing() {
     const content = ellipsis,  ///
           noWhitespacePart = new NoWhitespacePart(),
           terminalSymbolPart = new TerminalSymbolPart(content),
           parts = [
             noWhitespacePart,
             terminalSymbolPart
-          ];
+          ],
+          precedence = null,
+          lookAheadModifierRuleDefinition = new LookAheadModifierRuleDefinition(parts, precedence);
 
-    super(parts)
+    return lookAheadModifierRuleDefinition;
   }
 }

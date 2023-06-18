@@ -14,7 +14,7 @@ import { partRuleName, precedenceRuleName } from "../ruleNames";
 const { verticalBar, openBracket, closeBracket } = specialSymbols;
 
 export default class ChoiceOfPartsDefinition extends Definition {
-  constructor() {
+  static fromNothing() {
     const verticalBarTerminalSymbolContent = verticalBar, ///
           openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
@@ -37,8 +37,10 @@ export default class ChoiceOfPartsDefinition extends Definition {
             optionalPrecedenceRuleNamePartPart,
             oneOrMoreSequenceOfPartsPart,
             closeBracketTerminalSymbolPart
-          ];
+          ],
+          precedence = null,
+          choiceOfPartsDefinition = new ChoiceOfPartsDefinition(parts, precedence);
 
-    super(parts)
+    return choiceOfPartsDefinition;
   }
 }

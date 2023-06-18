@@ -8,13 +8,15 @@ import SignificantTokenTypePart from "../part/terminal/significantTokenType";
 const { nameType } = types;
 
 export default class NameDefinition extends Definition {
-  constructor() {
+  static fromNothing() {
     const nameSignificantTokenType = nameType,  ///
           nameSignificantTokenTypePart = new SignificantTokenTypePart(nameSignificantTokenType),
           parts = [
             nameSignificantTokenTypePart
-          ];
+          ],
+          precedence = null,
+          nameDefinition = new NameDefinition(parts, precedence);
 
-    super(parts)
+    return nameDefinition;
   }
 }

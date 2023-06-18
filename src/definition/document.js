@@ -8,7 +8,7 @@ import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 import { ruleRuleName, errorRuleName } from "../ruleNames";
 
 export default class DocumentDefinition extends Definition {
-  constructor() {
+  static fromNothing() {
     const ruleRuleNamePart = new RuleNamePart(ruleRuleName),
           errorRuleNamePart = new RuleNamePart(errorRuleName),
           ruleRuleNameAndErrorRuleNameParts = [
@@ -19,8 +19,10 @@ export default class DocumentDefinition extends Definition {
           oneOrMoreChoiceOfRuleRuleNameAndErrorRuleNamePartsPartsPart = new OneOrMorePartsPart(choiceOfRuleRuleNameAndErrorRuleNamePartsPart),
           parts = [
             oneOrMoreChoiceOfRuleRuleNameAndErrorRuleNamePartsPartsPart
-          ];
-    
-    super(parts)
+          ],
+          precedence = null,
+          documentDefinition = new DocumentDefinition(parts, precedence);
+
+    return documentDefinition;
   }
 }

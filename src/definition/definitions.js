@@ -14,7 +14,7 @@ import { definitionRuleName, precedenceRuleName } from "../ruleNames";
 const { verticalBar } = specialSymbols;
 
 export default class DefinitionsDefinition extends Definition {
-  constructor() {
+  static fromNothing() {
     const verticalBarTerminalSymbolContent = verticalBar,
           definitionRuleNamePart = new RuleNamePart(definitionRuleName),
           precedenceRuleNamePart = new RuleNamePart(precedenceRuleName),
@@ -31,8 +31,10 @@ export default class DefinitionsDefinition extends Definition {
             definitionRuleNamePart,
             optionalPrecedenceRuleNamePartPart,
             zeroOrMoreSequenceOfPartsPart
-          ];
-    
-    super(parts)
+          ],
+          precedence = null,
+          definitionsDefinition = new DefinitionsDefinition(parts, precedence);
+
+    return definitionsDefinition;
   }
 }

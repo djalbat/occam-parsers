@@ -7,15 +7,16 @@ import LookAheadModifierRuleDefinition from "../definition/lookAheadModifierRule
 import { lookAheadModifierRuleName } from "../ruleNames";
 
 export default class LookAheadModifierRule extends Rule {
-  constructor() {
+  static fromNothing() {
     const name = lookAheadModifierRuleName, ///
-          lookAheadModifierRuleDefinition = new LookAheadModifierRuleDefinition(),
+          lookAheadModifierRuleDefinition = LookAheadModifierRuleDefinition.fromNothing(),
           ambiguous = false,
           definitions = [
             lookAheadModifierRuleDefinition
           ],
-          Node = ModifierBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = ModifierBNFNode,  ///
+          lookAheadModifierRule = new LookAheadModifierRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return lookAheadModifierRule;
   }
 }

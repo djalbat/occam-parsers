@@ -7,15 +7,16 @@ import PrecedenceDefinition from "../definition/precedence";
 import { precedenceRuleName } from "../ruleNames";
 
 export default class PrecedenceRule extends Rule {
-  constructor() {
+  static fromNothing() {
     const name = precedenceRuleName,  ///
-          precedenceDefinition = new PrecedenceDefinition(),
+          precedenceDefinition = PrecedenceDefinition.fromNothing(),
           ambiguous = false,
           definitions = [
             precedenceDefinition
           ],
-          Node = PrecedenceBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = PrecedenceBNFNode,  ///
+          precedenceRule = new PrecedenceRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return precedenceRule;
   }
 }

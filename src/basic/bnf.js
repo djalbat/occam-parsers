@@ -2,33 +2,15 @@
 
 const bnf = `
 
-    term              ::= term_ term~* ;
+    term  ::=  "1" "+" "2" "/" term    (2) 
     
-    compoundTerm      ::= term_ term~* compoundTerm~term ;
+            |  "3"                     (1)
+            
+            |  "1" "+" term            (1)
     
-    number            ::= /\\d+/ ;
+            |  "2" "/" "3"             (2)
     
-    term_             ::= "(" term ")"
-    
-                        | number
-    
-                        ;
-    
-    term~compoundTerm ::= ε ;
-    
-    compoundTerm~term ::= "+" term (1) 
-    
-                        | "-" term (2) 
-                        
-                        | "/" term (3) 
-                        
-                        | "*" term (4)
-                          
-                        ;
-    
-    term~             ::= compoundTerm~term compoundTerm~* term~compoundTerm ;
-    
-    compoundTerm~     ::= term~compoundTerm term~* compoundTerm~term ;
+            ;
   
 `;
 

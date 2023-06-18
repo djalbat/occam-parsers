@@ -12,7 +12,7 @@ import { nameRuleName, definitionsRuleName, ambiguousModifierRuleName } from "..
 const { separator, terminator } = specialSymbols;
 
 export default class RuleDefinition extends Definition {
-  constructor() {
+  static fromNothing() {
     const separatorTerminalSymbolContent = separator,
           terminatorTerminalSymbolContent = terminator,
           ambiguousModifierRuleNamePart = new RuleNamePart(ambiguousModifierRuleName),
@@ -27,8 +27,10 @@ export default class RuleDefinition extends Definition {
             separatorTerminalSymbolPart,
             definitionsRuleNamePart,
             terminatorTerminalSymbolPart
-          ];
-    
-    super(parts)
+          ],
+          precedence = null,
+          ruleDefinition = new RuleDefinition(parts, precedence);
+
+    return ruleDefinition;
   }
 }

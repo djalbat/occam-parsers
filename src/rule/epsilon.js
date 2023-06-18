@@ -11,16 +11,17 @@ import { epsilonRuleName } from "../ruleNames";
 const { epsilon } = specialSymbols;
 
 export default class EpsilonRule extends Rule {
-  constructor() {
-    const epsilonTerminalSymbolContent = epsilon, ///
-          epsilonTerminalSymbolDefinition = new TerminalSymbolDefinition(epsilonTerminalSymbolContent),
+  static fromNothing() {
+    const content = epsilon, ///
+          epsilonTerminalSymbolDefinition = TerminalSymbolDefinition.fromContent(content),
           name = epsilonRuleName, ///
           ambiguous = false,
           definitions = [
             epsilonTerminalSymbolDefinition
           ],
-          Node = EpsilonBNFNode;
+          NonTerminalNode = EpsilonBNFNode, ///
+          epsilonRule = new EpsilonRule(name, ambiguous, definitions, NonTerminalNode);
 
-    super(name, ambiguous, definitions, Node)
+    return epsilonRule;
   }
 }

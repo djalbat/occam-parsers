@@ -7,19 +7,20 @@ import RuleNameDefinition from "../definition/ruleName";
 import { quantifierRuleName, optionalQuantifierRuleName, oneOrMoreQuantifierRuleName, zeroOrMoreQuantifierRuleName } from "../ruleNames";
 
 export default class QuantifierRule extends Rule {
-  constructor() {
+  static fromNothing() {
     const name = quantifierRuleName,  ///
-          optionalQuantifierRuleNameDefinition = new RuleNameDefinition(optionalQuantifierRuleName),
-          oneOrMoreQuantifierRuleNameDefinition = new RuleNameDefinition(oneOrMoreQuantifierRuleName),
-          zeroOrMoreQuantifierRuleNameDefinition = new RuleNameDefinition(zeroOrMoreQuantifierRuleName),
+          optionalQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(optionalQuantifierRuleName),
+          oneOrMoreQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(oneOrMoreQuantifierRuleName),
+          zeroOrMoreQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(zeroOrMoreQuantifierRuleName),
           ambiguous = false,
           definitions = [
             optionalQuantifierRuleNameDefinition,
             oneOrMoreQuantifierRuleNameDefinition,
             zeroOrMoreQuantifierRuleNameDefinition
           ],
-          Node = PartBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = PartBNFNode,  ///
+          quantifierRule = new QuantifierRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return quantifierRule;
   }
 }

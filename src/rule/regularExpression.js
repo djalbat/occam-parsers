@@ -11,16 +11,17 @@ import { regularExpressionRuleName } from "../ruleNames";
 const { regularExpressionType } = types;
 
 export default class RegularExpressionRule extends Rule {
-  constructor() {
-    const regularExpressionSignificantTokenType = regularExpressionType,  ///
-          regularExpressionSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(regularExpressionSignificantTokenType),
+  static fromNothing() {
+    const significantTokenType = regularExpressionType,  ///
+          regularExpressionSignificantTokenTypeDefinition = SignificantTokenTypeDefinition.fromSignificantTokenType(significantTokenType),
           name = regularExpressionRuleName, ///
           ambiguous = false,
           definitions = [
             regularExpressionSignificantTokenTypeDefinition
           ],
-          Node = RegularExpressionBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = RegularExpressionBNFNode, ///
+          regularExpressionRule = new RegularExpressionRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return regularExpressionRule;
   }
 }

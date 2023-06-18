@@ -4,12 +4,17 @@ import { parseParts } from "./utilities/lookAhead";
 import { EMPTY_STRING } from "./constants";
 
 export default class Definition {
-  constructor(parts) {
+  constructor(parts, precedence) {
     this.parts = parts;
+    this.precedence = precedence;
   }
 
   getParts() {
     return this.parts;
+  }
+
+  getPrecedence() {
+    return this.precedence;
   }
 
   parse(nodes, state, callback) {
@@ -37,5 +42,32 @@ export default class Definition {
         string = partsString; ///
 
     return string;
+  }
+
+  static fromParts(Class, parts) {
+    if (parts === undefined) {
+      parts = Class;  ///
+
+      Class = Definition; ///
+    }
+
+    const precedence = null,
+          definition = new Class(parts, precedence);
+
+    return definition;
+  }
+
+  static fromPartsAndPrecedence(Class, parts, precedence) {
+    if (precedence === undefined) {
+      precedence = parts; ///
+
+      parts = Class;  ///
+
+      Class = Definition; ///
+    }
+
+    const definition = new Class(parts, precedence);
+
+    return definition;
   }
 }

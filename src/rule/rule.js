@@ -7,15 +7,16 @@ import RuleDefinition from "../definition/rule";
 import { ruleRuleName } from "../ruleNames";
 
 export default class RuleRule extends Rule {
-  constructor() {
-    const ruleDefinition = new RuleDefinition(),
+  static fromNothing() {
+    const ruleDefinition = RuleDefinition.fromNothing(),
           name = ruleRuleName,  ///
           ambiguous = false,
           definitions = [
             ruleDefinition
           ],
-          Node = RuleBNFNode;
-    
-    super(name, ambiguous, definitions, Node);
+          NonTerminalNode = RuleBNFNode,
+          ruleRule = new RuleRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return ruleRule;
   }
 }

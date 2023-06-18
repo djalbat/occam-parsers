@@ -7,15 +7,16 @@ import SequenceOfPartsDefinition from "../definition/sequenceOfParts";
 import { sequenceOfPartsRuleName } from "../ruleNames";
 
 export default class SequenceOfPartsRule extends Rule {
-  constructor() {
+  static fromNothing() {
     const name = sequenceOfPartsRuleName, ///
-          sequenceOfPartsDefinition = new SequenceOfPartsDefinition(),
+          sequenceOfPartsDefinition = SequenceOfPartsDefinition.fromNothing(),
           ambiguous = false,
           definitions = [
             sequenceOfPartsDefinition
           ],
-          Node = SequenceOfPartsBNFNode;
+          NonTerminalNode = SequenceOfPartsBNFNode, ///
+          sequenceOfPartsRule = new SequenceOfPartsRule(name, ambiguous, definitions, NonTerminalNode);
 
-    super(name, ambiguous, definitions, Node)
+    return sequenceOfPartsRule;
   }
 }

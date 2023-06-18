@@ -12,7 +12,7 @@ import { partRuleName } from "../ruleNames";
 const { openBracket, closeBracket } = specialSymbols;
 
 export default class SequenceOfPartsDefinition extends Definition {
-  constructor() {
+  static fromNothing() {
     const openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
           partRuleNamePart = new RuleNamePart(partRuleName),
@@ -24,8 +24,10 @@ export default class SequenceOfPartsDefinition extends Definition {
             partRuleNamePart,
             oneOrMorePartRuleNamePartsPart,
             closeBracketTerminalSymbolPart
-          ];
+          ],
+          precedence = null,
+          sequenceOfPartsDefinition = new SequenceOfPartsDefinition(parts, precedence);
 
-    super(parts)
+    return sequenceOfPartsDefinition;
   }
 }

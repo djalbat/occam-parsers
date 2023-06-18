@@ -11,16 +11,17 @@ import { endOfLineRuleName } from "../ruleNames";
 const { END_OF_LINE } = specialSymbols;
 
 export default class EndOfLineRule extends Rule {
-  constructor() {
-    const endOfLineTerminalSymbolContent = END_OF_LINE,
-          endOfLineTerminalSymbolDefinition = new TerminalSymbolDefinition(endOfLineTerminalSymbolContent),
+  static fromNothing() {
+    const content = END_OF_LINE,
+          endOfLineTerminalSymbolDefinition = TerminalSymbolDefinition.fromContent(content),
           name = endOfLineRuleName, ///
           ambiguous = false,
           definitions = [
             endOfLineTerminalSymbolDefinition
           ],
-          Node = EndOfLineBNFNode;
+          NonTerminalNode = EndOfLineBNFNode, ///
+          endOfLineRule = new EndOfLineRule(name, ambiguous, definitions, NonTerminalNode);
 
-    super(name, ambiguous, definitions, Node)
+    return endOfLineRule;
   }
 }

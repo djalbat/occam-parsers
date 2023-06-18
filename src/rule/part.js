@@ -9,19 +9,20 @@ import NonTerminalPartRuleDefinition from "../definition/partRule/nonTerminal";
 import { partRuleName, noWhitespacePartRuleName } from "../ruleNames";
 
 export default class PartRule extends Rule {
-  constructor() {
+  static fromNothing() {
     const name = partRuleName,  ///
-          terminalPartRuleDefinition = new TerminalPartRuleDefinition(),
-          nonTerminalPartRuleDefinition = new NonTerminalPartRuleDefinition(),
-          noWhitespacePartRuleNameDefinition = new RuleNameDefinition(noWhitespacePartRuleName),
+          terminalPartRuleDefinition = TerminalPartRuleDefinition.fromNothing(),
+          nonTerminalPartRuleDefinition = NonTerminalPartRuleDefinition.fromNothing(),
+          noWhitespacePartRuleNameDefinition = RuleNameDefinition.fromRuleName(noWhitespacePartRuleName),
           ambiguous = false,
           definitions = [
             nonTerminalPartRuleDefinition,
             terminalPartRuleDefinition,
             noWhitespacePartRuleNameDefinition
           ],
-          Node = PartBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = PartBNFNode,  ///
+          partRule = new PartRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return partRule;
   }
 }

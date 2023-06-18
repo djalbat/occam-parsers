@@ -49,7 +49,8 @@ export default class Rule {
     let parsed,
         nodes;
 
-    let ruleNode = null;
+    let ruleNode = null,
+        precedence = null;
 
     this.definitions.some((definition) => {
       nodes = [];
@@ -65,13 +66,16 @@ export default class Rule {
       }
 
       if (parsed) {
+        if (precedence === null) {
+          precedence = definition.getPrecedence();
+        }
+
         return true;
       }
     });
 
     if (parsed) {
       const ruleName = this.name, ///
-            precedence = null,
             childNodes = nodes,  ///
             nonTerminalNode = this.NonTerminalNode.fromRuleNamePrecedenceAndChildNodes(ruleName, precedence, childNodes);
 
@@ -121,5 +125,21 @@ ${maximumPadding}   ;` :
 ${this.name}${ambiguousString}${padding} ::= ${definitionsString}${semicolonString}`;
 
     return string;
+  }
+
+  static fromNameAmbiguousDefinitionsAndNonTerminalNode(Class, name, ambiguous, definitions, NonTerminalNode) {
+    if (NonTerminalNode === undefined) {
+      NonTerminalNode = definitions;  ///
+
+      definitions = ambiguous;  ///
+
+      name = Class; ///
+
+      Class = Rule; ///
+    }
+
+    const rule = new Class(name, ambiguous, definitions, NonTerminalNode);
+
+    return rule;
   }
 }

@@ -11,16 +11,17 @@ import { significantTokenTypeRuleName } from "../ruleNames";
 const { typeType } = types;
 
 export default class SignificantTokenTypeRule extends Rule {
-  constructor() {
-    const typeSignificantTokenType = typeType,  ///
-          typeSignificantTokenTypeDefinition = new SignificantTokenTypeDefinition(typeSignificantTokenType),
+  static fromNothing() {
+    const significantTokenType = typeType,  ///
+          typeSignificantTokenTypeDefinition = SignificantTokenTypeDefinition.fromSignificantTokenType(significantTokenType),
           name = significantTokenTypeRuleName,  ///
           ambiguous = false,
           definitions = [
             typeSignificantTokenTypeDefinition
           ],
-          Node = SignificantTokenTypeBNFNode;
-    
-    super(name, ambiguous, definitions, Node)
+          NonTerminalNode = SignificantTokenTypeBNFNode,  ///
+          significantTokenTypeRule = new SignificantTokenTypeRule(name, ambiguous, definitions, NonTerminalNode);
+
+    return significantTokenTypeRule;
   }
 }
