@@ -20,16 +20,9 @@ export default class BNFView extends View {
   `;
 
   getNode(tokens) {
-    const { Lexer, Parser } = this.constructor,
-          lexicalEntries = this.getLexicalEntries(),
-          entries = lexicalEntries, ///
-          lexer = Lexer.fromEntries(entries),
+    const { Parser } = this.constructor,
           parser = Parser.fromNothing(),
-          content = this.getContent();
-
-    tokens = lexer.tokenise(content); ///
-
-    const node = parser.parse(tokens);
+          node = parser.parse(tokens);
 
     return node;
   }

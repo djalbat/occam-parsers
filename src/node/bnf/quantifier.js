@@ -3,5 +3,5 @@
 import NonTerminalNode from "../../node/nonTerminal";
 
 export default class QuantifierBNFNode extends NonTerminalNode {
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(QuantifierBNFNode, ruleName, childNodes); }
+  static fromRuleNamePrecedenceAndChildNodes(ruleName, precedence, childNodes) { return NonTerminalNode.fromRuleNamePrecedenceAndChildNodes(QuantifierBNFNode, ruleName, precedence, childNodes); }
 }

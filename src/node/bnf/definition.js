@@ -18,5 +18,5 @@ export default class DefinitionBNFNode extends NonTerminalNode {
     return definition;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(DefinitionBNFNode, ruleName, childNodes); }
+  static fromRuleNamePrecedenceAndChildNodes(ruleName, precedence, childNodes) { return NonTerminalNode.fromRuleNamePrecedenceAndChildNodes(DefinitionBNFNode, ruleName, precedence, childNodes); }
 }

@@ -10,5 +10,5 @@ export default class EpsilonBNFNode extends NonTerminalNode {
     return epsilonPart;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(EpsilonBNFNode, ruleName, childNodes); }
+  static fromRuleNamePrecedenceAndChildNodes(ruleName, precedence, childNodes) { return NonTerminalNode.fromRuleNamePrecedenceAndChildNodes(EpsilonBNFNode, ruleName, precedence, childNodes); }
 }

@@ -27,6 +27,6 @@ export default class TerminalSymbolBNFNode extends NonTerminalNode {
     return content;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(TerminalSymbolBNFNode, ruleName, childNodes); }
+  static fromRuleNamePrecedenceAndChildNodes(ruleName, precedence, childNodes) { return NonTerminalNode.fromRuleNamePrecedenceAndChildNodes(TerminalSymbolBNFNode, ruleName, precedence, childNodes); }
 }
 
