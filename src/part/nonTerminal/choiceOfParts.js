@@ -4,8 +4,6 @@ import NonTerminalPart from "../../part/nonTerminal";
 
 import { ChoiceOfPartsPartType } from "../../partTypes";
 
-import { partRuleName } from "../../ruleNames";
-
 export default class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(parts) {
     const type = ChoiceOfPartsPartType; ///
@@ -48,30 +46,5 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
           string = `( ${partsString} )`;
     
     return string;
-  }
-
-  static fromBNFNodes(bnfNodes) {
-    const partBNFNodes = bnfNodes.filter((bnfNode) => {
-            const bnfNodeNonTerminalNode = bnfNode.isNonTerminalNode();
-
-            if (bnfNodeNonTerminalNode) {
-              const nonTerminalNode = bnfNode,  ///
-                    ruleName = nonTerminalNode.getRuleName(),
-                    ruleNamePartRuleName = (ruleName === partRuleName);
-
-              if (ruleNamePartRuleName) {
-                return true;
-              }
-            }
-          }),
-          lookAhead = false,
-          parts = partBNFNodes.map((partBNFNode) => {
-            const part = partBNFNode.generatePart(lookAhead);
-
-            return part;
-          }),
-          choiceOfPartsPart = new ChoiceOfPartsPart(parts);
-
-    return choiceOfPartsPart;
   }
 }

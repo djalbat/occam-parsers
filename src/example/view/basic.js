@@ -8,14 +8,37 @@ import View from "../view";
 const { bnf } = BasicParser,
       { entries } = BasicLexer;
 
-export default class BasicView extends View {
-  static Lexer = class extends BasicLexer {
-    static entries = entries;
-  };
+const basicLexer = BasicLexer.fromEntries(entries),
+      basicParser = BasicParser.fromBNF(bnf);
 
-  static Parser = class extends BasicParser {
-    static bnf = bnf;
-  };
+export default class BasicView extends View {
+  getTokens(content) {
+    const tokens = basicLexer.tokenise(content);
+
+    return tokens;
+  }
+
+  getNode(tokens) {
+    const node = basicParser.parse(tokens);
+
+    return node;
+  }
+
+  initialise() {
+    this.assignContext();
+
+    const { initialContent } = this.constructor,
+          content = initialContent, ///
+          lexicalEntries = entries; ///
+
+    this.setBNF(bnf);
+
+    this.setContent(content);
+
+    this.setLexicalEntries(lexicalEntries);
+
+    this.keyUpHandler();
+  }
 
   static initialContent = "(1+2)/3";
 

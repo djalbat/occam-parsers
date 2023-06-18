@@ -7,8 +7,6 @@ import NonTerminalPart from "../../part/nonTerminal";
 import { parseParts } from "../../utilities/lookAhead";
 import { SequenceOfPartsPartType } from "../../partTypes";
 
-import { partRuleName } from "../../ruleNames";
-
 const { push } = arrayUtilities;
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
@@ -59,30 +57,5 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
           string = `( ${partsString} )`;
 
     return string;
-  }
-
-  static fromBNFNodes(bnfNodes) {
-    const partBNFNodes = bnfNodes.filter((bnfNode) => {
-            const bnfNodeNonTerminalNode = bnfNode.isNonTerminalNode();
-
-            if (bnfNodeNonTerminalNode) {
-              const nonTerminalNode = bnfNode,  ///
-                ruleName = nonTerminalNode.getRuleName(),
-                ruleNamePartRuleName = (ruleName === partRuleName);
-
-              if (ruleNamePartRuleName) {
-                return true;
-              }
-            }
-          }),
-          lookAhead = false,
-          parts = partBNFNodes.map((partBNFNode) => {
-            const part = partBNFNode.generatePart(lookAhead);
-
-            return part;
-          }),
-          sequenceOfPartsPart = new SequenceOfPartsPart(parts);
-
-    return sequenceOfPartsPart;
   }
 }

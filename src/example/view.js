@@ -17,7 +17,8 @@ import LexicalEntriesTextarea from "./view/textarea/lexicalEntries";
 class View extends Element {
   keyUpHandler = (event, element) => {
     try {
-      const tokens = this.getTokens(),
+      const content = this.getContent(),
+            tokens = this.getTokens(content),
             node = this.getNode(tokens);
 
       this.setTokens(tokens);
@@ -38,12 +39,11 @@ class View extends Element {
     }
   }
 
-  getTokens() {
+  getTokens(content) {
     const { Lexer } = this.constructor,
           lexicalEntries = this.getLexicalEntries(),
           entries = lexicalEntries, ///
           lexer = Lexer.fromEntries(entries),
-          content = this.getContent(),
           tokens = lexer.tokenise(content);
 
     return tokens;
@@ -113,7 +113,9 @@ class View extends Element {
           lexicalEntries = entries; ///
 
     this.setBNF(bnf);
+
     this.setContent(content);
+
     this.setLexicalEntries(lexicalEntries);
 
     this.keyUpHandler();

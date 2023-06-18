@@ -16,17 +16,15 @@ const bnf = `
     
     term~compoundTerm ::= ε ;
     
-    compoundTerm~term ::= ( 
+    compoundTerm~term ::= "+" term (1) 
     
-                            "+" (1) | 
-                            
-                            "-" (2) | 
-                            
-                            "/" (3) | 
-                            
-                            "*" (4)
+                        | "-" term (2) 
+                        
+                        | "/" term (3) 
+                        
+                        | "*" term (4)
                           
-                          ) term ;
+                        ;
     
     term~             ::= compoundTerm~term compoundTerm~* term~compoundTerm ;
     
