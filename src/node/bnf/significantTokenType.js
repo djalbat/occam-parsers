@@ -12,7 +12,7 @@ export default class SignificantTokenTypeBNFNode extends NonTerminalNode {
 
   generatePart(lookAhead) {
     const significantTokenType = this.getSignificantTokenType(),
-          significantTokenTypePart = new SignificantTokenTypePart(significantTokenType);
+          significantTokenTypePart = SignificantTokenTypePart.fromSignificantTokenType(significantTokenType);
 
     return significantTokenTypePart;
   }

@@ -5,7 +5,7 @@ import NonTerminalNode from "../../node/nonTerminal";
 
 export default class WildcardBNFNode extends NonTerminalNode {
   generatePart(lookAhead) {
-    const wildcardPart = new WildcardPart();
+    const wildcardPart = WildcardPart.fromNothing();
 
     return wildcardPart;
   }

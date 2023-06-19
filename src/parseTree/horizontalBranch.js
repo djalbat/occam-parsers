@@ -12,7 +12,9 @@ export default class HorizontalBranchParseTree extends ParseTree {
   static fromWidth(width) {
     const string = stringFromCharactersWidth(width, DASH_CHARACTER),
           line = string, ///
-          lines = [line],
+          lines = [
+            line
+          ],
           horizontalBranchParseTree = new HorizontalBranchParseTree(lines);
 
     return horizontalBranchParseTree;

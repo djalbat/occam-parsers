@@ -69,19 +69,19 @@ function collectionOfPartsPartFromPartAndRuleName(part, ruleName) {
 
   switch (ruleName) {
     case optionalQuantifierRuleName :
-      const optionalPartPart = new OptionalPartPart(part);
+      const optionalPartPart = OptionalPartPart.fromPart(part);
 
       collectionOfPartsPart = optionalPartPart; ///
       break;
 
     case oneOrMoreQuantifierRuleName :
-      const oneOrMorePartsPart = new OneOrMorePartsPart(part);
+      const oneOrMorePartsPart = OneOrMorePartsPart.fromPart(part);
 
       collectionOfPartsPart = oneOrMorePartsPart; ///
       break;
 
     case zeroOrMoreQuantifierRuleName :
-      const zeroOrMorePartsPart = new ZeroOrMorePartsPart(part);
+      const zeroOrMorePartsPart = ZeroOrMorePartsPart.fromPart(part);
 
       collectionOfPartsPart = zeroOrMorePartsPart;  ///
       break;

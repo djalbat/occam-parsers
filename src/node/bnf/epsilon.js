@@ -5,7 +5,7 @@ import NonTerminalNode from "../../node/nonTerminal";
 
 export default class EpsilonBNFNode extends NonTerminalNode {
   generatePart(lookAhead) {
-    const epsilonPart = new EpsilonPart();
+    const epsilonPart = EpsilonPart.fromNothing();
 
     return epsilonPart;
   }

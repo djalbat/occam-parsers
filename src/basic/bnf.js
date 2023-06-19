@@ -2,8 +2,6 @@
 
 const bnf = `
 
-    expression  ::=  term... "." ;
-
           term  ::=  "1" "+" "2" "/" term    (1)
           
                   |  "3"                     (2)

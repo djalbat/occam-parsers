@@ -18,7 +18,7 @@ export default class ChoiceOfPartsBNFNode extends NonTerminalNode {
 
             return part;
           }),
-          choiceOfPartsPart = new ChoiceOfPartsPart(parts),
+          choiceOfPartsPart = ChoiceOfPartsPart.fromParts(parts),
           part = choiceOfPartsPart; ///
 
     return part;

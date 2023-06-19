@@ -12,7 +12,7 @@ export default class TerminalSymbolBNFNode extends NonTerminalNode {
 
   generatePart(lookAhead) {
     const content = this.getContent(),
-          terminalSymbolPart = new TerminalSymbolPart(content);
+          terminalSymbolPart = TerminalSymbolPart.fromContent(content);
 
     return terminalSymbolPart;
   }

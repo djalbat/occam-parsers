@@ -18,7 +18,7 @@ export default class SequenceOfPartsBNFNode extends NonTerminalNode {
 
             return part;
           }),
-          sequenceOfPartsPart = new SequenceOfPartsPart(parts),
+          sequenceOfPartsPart = SequenceOfPartsPart.fromParts(parts),
           part = sequenceOfPartsPart; ///
 
     return part;

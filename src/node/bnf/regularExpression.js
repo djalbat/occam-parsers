@@ -12,7 +12,7 @@ export default class RegularExpressionBNFNode extends NonTerminalNode {
 
   generatePart(lookAhead) {
     const regularExpression = this.getRegularExpression(),
-          regularExpressionPart = new RegularExpressionPart(regularExpression);
+          regularExpressionPart = RegularExpressionPart.fromRegularExpression(regularExpression);
 
     return regularExpressionPart;
   }
