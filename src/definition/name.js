@@ -9,8 +9,8 @@ const { nameType } = types;
 
 export default class NameDefinition extends Definition {
   static fromNothing() {
-    const nameSignificantTokenType = nameType,  ///
-          nameSignificantTokenTypePart = new SignificantTokenTypePart(nameSignificantTokenType),
+    const significantTokenType = nameType,  ///
+          nameSignificantTokenTypePart = SignificantTokenTypePart.fromSignificantTokenType(significantTokenType),
           parts = [
             nameSignificantTokenTypePart
           ],

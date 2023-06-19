@@ -5,9 +5,7 @@ import NonTerminalPart from "../../part/nonTerminal";
 import { ChoiceOfPartsPartType } from "../../partTypes";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
-  constructor(parts) {
-    const type = ChoiceOfPartsPartType; ///
-
+  constructor(type, parts) {
     super(type);
     
     this.parts = parts;
@@ -46,5 +44,12 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
           string = `( ${partsString} )`;
     
     return string;
+  }
+
+  static fromParts(parts) {
+    const type = ChoiceOfPartsPartType,
+          choiceOfPartsPart = new ChoiceOfPartsPart(type, parts);
+
+    return choiceOfPartsPart;
   }
 }

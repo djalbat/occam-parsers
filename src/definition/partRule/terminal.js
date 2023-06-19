@@ -8,9 +8,9 @@ import { quantifierRuleName, terminalPartRuleName } from "../../ruleNames";
 
 export default class TerminalPartRuleDefinition extends Definition {
   static fromNothing() {
-    const quantifierRuleNamePart = new RuleNamePart(quantifierRuleName),
-          terminalPartRuleNamePart = new RuleNamePart(terminalPartRuleName),
-          zeroOrMoreQuantifierRuleNamePartsPart = new ZeroOrMorePartsPart(quantifierRuleNamePart),
+    const quantifierRuleNamePart = RuleNamePart.fromRuleName(quantifierRuleName),
+          terminalPartRuleNamePart = RuleNamePart.fromRuleName(terminalPartRuleName),
+          zeroOrMoreQuantifierRuleNamePartsPart = ZeroOrMorePartsPart.fromPart(quantifierRuleNamePart),
           parts = [
             terminalPartRuleNamePart,
             zeroOrMoreQuantifierRuleNamePartsPart

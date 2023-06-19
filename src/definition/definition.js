@@ -9,10 +9,10 @@ import { partRuleName, precedenceRuleName } from "../ruleNames";
 
 export default class DefinitionDefinition extends Definition {
   static fromNothing() {
-    const partRuleNamePart = new RuleNamePart(partRuleName),
-          precedenceRuleNamePart = new RuleNamePart(precedenceRuleName),
-          oneOrMoreRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart),
-          optionalPrecedenceRuleNamePartPart = new OptionalPartPart(precedenceRuleNamePart),
+    const partRuleNamePart = RuleNamePart.fromRuleName(partRuleName),
+          precedenceRuleNamePart = RuleNamePart.fromRuleName(precedenceRuleName),
+          oneOrMoreRuleNamePartsPart = OneOrMorePartsPart.fromPart(partRuleNamePart),
+          optionalPrecedenceRuleNamePartPart = OptionalPartPart.fromPart(precedenceRuleNamePart),
           parts = [
             oneOrMoreRuleNamePartsPart,
             optionalPrecedenceRuleNamePartPart

@@ -5,7 +5,7 @@ import RuleNamePart from "../part/nonTerminal/ruleName";
 
 export default class RuleNameDefinition extends Definition {
   static fromRuleName(ruleName) {
-    const ruleNameRuleNamePart = new RuleNamePart(ruleName),
+    const ruleNameRuleNamePart = RuleNamePart.fromRuleName(ruleName),
           parts = [
             ruleNameRuleNamePart
           ],

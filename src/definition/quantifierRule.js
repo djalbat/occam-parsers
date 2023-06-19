@@ -7,8 +7,8 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 export default class QuantifierRuleDefinition extends Definition {
   static fromSpecialSymbol(specialSymbol) {
     const content = specialSymbol,  ///
-          noWhitespacePart = new NoWhitespacePart(),
-          terminalSymbolPart = new TerminalSymbolPart(content),
+          noWhitespacePart = NoWhitespacePart.fromNothing(),
+          terminalSymbolPart = TerminalSymbolPart.fromContent(content),
           parts = [
             noWhitespacePart,
             terminalSymbolPart

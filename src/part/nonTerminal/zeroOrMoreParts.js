@@ -11,9 +11,7 @@ const { push } = arrayUtilities,
       { asterisk } = specialSymbols;
 
 export default class ZeroOrMorePartsPart extends NonTerminalPart {
-  constructor(part) {
-    const type = ZeroOrMorePartsPartType; ///
-
+  constructor(type, part) {
     super(type);
 
     this.part = part;
@@ -48,6 +46,13 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
     }
 
     return parsed;
+  }
+
+  static fromPart(part) {
+    const type = ZeroOrMorePartsPartType,
+          zeroOrMorePartsPart = new ZeroOrMorePartsPart(type, part);
+
+    return zeroOrMorePartsPart;
   }
 }
 

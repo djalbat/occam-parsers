@@ -5,7 +5,7 @@ import SignificantTokenTypePart from "../part/terminal/significantTokenType";
 
 export default class SignificantTokenTypeDefinition extends Definition {
   static fromSignificantTokenType(significantTokenType) {
-    const significantTokenTypePart = new SignificantTokenTypePart(significantTokenType),
+    const significantTokenTypePart = SignificantTokenTypePart.fromSignificantTokenType(significantTokenType),
           parts = [
             significantTokenTypePart
           ],

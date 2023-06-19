@@ -15,10 +15,10 @@ export default class SequenceOfPartsDefinition extends Definition {
   static fromNothing() {
     const openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
-          partRuleNamePart = new RuleNamePart(partRuleName),
-          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent),
-          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent),
-          oneOrMorePartRuleNamePartsPart = new OneOrMorePartsPart(partRuleNamePart),
+          partRuleNamePart = RuleNamePart.fromRuleName(partRuleName),
+          openBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(openBracketTerminalSymbolContent),
+          closeBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(closeBracketTerminalSymbolContent),
+          oneOrMorePartRuleNamePartsPart = OneOrMorePartsPart.fromPart(partRuleNamePart),
           parts = [
             openBracketTerminalSymbolPart,
             partRuleNamePart,

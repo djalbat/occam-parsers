@@ -8,9 +8,9 @@ import { ruleNameRuleName, lookAheadModifierRuleName } from "../../../ruleNames"
 
 export default class RuleNameNonTerminalPartRuleDefinition extends Definition {
   static fromNothing() {
-    const ruleNameRuleNamePart = new RuleNamePart(ruleNameRuleName),
-          lookAheadModifierRuleNamePart = new RuleNamePart(lookAheadModifierRuleName),
-          optionalLookAheadRuleNamePartPart = new OptionalPartPart(lookAheadModifierRuleNamePart),
+    const ruleNameRuleNamePart = RuleNamePart.fromRuleName(ruleNameRuleName),
+          lookAheadModifierRuleNamePart = RuleNamePart.fromRuleName(lookAheadModifierRuleName),
+          optionalLookAheadRuleNamePartPart = OptionalPartPart.fromPart(lookAheadModifierRuleNamePart),
           parts = [
             ruleNameRuleNamePart,
             optionalLookAheadRuleNamePartPart

@@ -5,7 +5,7 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
 export default class TerminalSymbolDefinition extends Definition {
   static fromContent(content) {
-    const terminalSymbolPart = new TerminalSymbolPart(content),
+    const terminalSymbolPart = TerminalSymbolPart.fromContent(content),
           parts = [
             terminalSymbolPart
           ],

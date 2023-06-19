@@ -9,8 +9,8 @@ const { NO_WHITESPACE } = specialSymbols;
 
 export default class NoWhitespacePartDefinition extends Definition {
   static fromNothing() {
-    const content = NO_WHITESPACE,
-          terminalSymbolPart = new TerminalSymbolPart(content),
+    const content = NO_WHITESPACE,  ///
+          terminalSymbolPart = TerminalSymbolPart.fromContent(content),
           parts = [
             terminalSymbolPart
           ],

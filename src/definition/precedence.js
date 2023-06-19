@@ -12,13 +12,13 @@ const { numberType } = types,
 
 export default class PrecedenceDefinition extends Definition {
   static fromNothing() {
-    const numberSignificantTokenType = numberType,  ///
+    const significantTokenType = numberType,  ///
           openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
-          noWhitespacePart = new NoWhitespacePart(),
-          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent),
-          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent),
-          numberSignificantTokenTypePart = new SignificantTokenTypePart(numberSignificantTokenType),
+          noWhitespacePart = NoWhitespacePart.fromNothing(),
+          openBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(openBracketTerminalSymbolContent),
+          closeBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(closeBracketTerminalSymbolContent),
+          numberSignificantTokenTypePart = SignificantTokenTypePart.fromSignificantTokenType(significantTokenType),
           parts = [
             openBracketTerminalSymbolPart,
             noWhitespacePart,

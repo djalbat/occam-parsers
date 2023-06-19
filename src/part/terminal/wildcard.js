@@ -47,4 +47,10 @@ export default class WildcardPart extends TerminalPart {
 
     return string;
   }
+
+  static fromNothing() {
+    const wildcardPart = new WildcardPart();
+
+    return wildcardPart;
+  }
 }

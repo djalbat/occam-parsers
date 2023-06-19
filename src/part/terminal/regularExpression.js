@@ -63,4 +63,10 @@ export default class RegularExpressionPart extends TerminalPart {
 
     return string;
   }
+
+  static fromRegularExpression(regularExpression) {
+    const regularExpressionPart = new RegularExpressionPart(regularExpression);
+
+    return regularExpressionPart;
+  }
 }

@@ -53,4 +53,10 @@ export default class SignificantTokenTypePart extends TerminalPart {
     
     return string;
   }
+
+  static fromSignificantTokenType(significantTokenType) {
+    const significantTokenTypePart = new SignificantTokenTypePart(significantTokenType);
+
+    return significantTokenTypePart;
+  }
 }

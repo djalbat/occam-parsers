@@ -15,12 +15,12 @@ export default class RuleDefinition extends Definition {
   static fromNothing() {
     const separatorTerminalSymbolContent = separator,
           terminatorTerminalSymbolContent = terminator,
-          ambiguousModifierRuleNamePart = new RuleNamePart(ambiguousModifierRuleName),
-          nameRuleNamePart = new RuleNamePart(nameRuleName),
-          optionalAmbiguousRuleNamePartPart = new OptionalPartPart(ambiguousModifierRuleNamePart),
-          separatorTerminalSymbolPart = new TerminalSymbolPart(separatorTerminalSymbolContent),
-          definitionsRuleNamePart = new RuleNamePart(definitionsRuleName),
-          terminatorTerminalSymbolPart = new TerminalSymbolPart(terminatorTerminalSymbolContent),
+          ambiguousModifierRuleNamePart = RuleNamePart.fromRuleName(ambiguousModifierRuleName),
+          nameRuleNamePart = RuleNamePart.fromRuleName(nameRuleName),
+          optionalAmbiguousRuleNamePartPart = OptionalPartPart.fromPart(ambiguousModifierRuleNamePart),
+          separatorTerminalSymbolPart = TerminalSymbolPart.fromContent(separatorTerminalSymbolContent),
+          definitionsRuleNamePart = RuleNamePart.fromRuleName(definitionsRuleName),
+          terminatorTerminalSymbolPart = TerminalSymbolPart.fromContent(terminatorTerminalSymbolContent),
           parts = [
             nameRuleNamePart,
             optionalAmbiguousRuleNamePartPart,

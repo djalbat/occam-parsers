@@ -40,4 +40,10 @@ export default class EpsilonPart extends TerminalPart {
 
     return string;
   }
+
+  static fromNothing() {
+    const epsilonPart = new EpsilonPart();
+
+    return epsilonPart;
+  }
 }

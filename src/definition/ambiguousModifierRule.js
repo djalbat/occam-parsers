@@ -11,8 +11,8 @@ const { exclamationMark } = specialSymbols;
 export default class AmbiguousModifierRuleDefinition extends Definition {
   static fromNothing() {
     const content = exclamationMark,  ///
-          noWhitespacePart = new NoWhitespacePart(),
-          terminalSymbolPart = new TerminalSymbolPart(content),
+          noWhitespacePart = NoWhitespacePart.fromNothing(),
+          terminalSymbolPart = TerminalSymbolPart.fromContent(content),
           parts = [
             noWhitespacePart,
             terminalSymbolPart

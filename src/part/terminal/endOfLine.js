@@ -51,4 +51,10 @@ export default class EndOfLinePart extends TerminalPart {
 
     return string;
   }
+
+  static fromNothing() {
+    const endOfLinePart = new EndOfLinePart();
+
+    return endOfLinePart;
+  }
 }

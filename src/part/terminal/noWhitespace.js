@@ -52,4 +52,10 @@ export default class NoWhitespacePart extends TerminalPart {
 
     return string;
   }
+
+  static fromNothing() {
+    const noWhitespacePart = new NoWhitespacePart();
+
+    return noWhitespacePart;
+  }
 }

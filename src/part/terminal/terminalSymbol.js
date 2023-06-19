@@ -54,4 +54,10 @@ export default class TerminalSymbolPart extends TerminalPart {
     
     return string;
   }
+
+  static fromContent(content) {
+    const terminalSymbolPart = new TerminalSymbolPart(content);
+
+    return terminalSymbolPart;
+  }
 }

@@ -5,7 +5,7 @@ import WildcardPart from "../part/terminal/wildcard";
 
 export default class ErrorDefinition extends Definition {
   static fromNothing() {
-    const wildcardPart = new WildcardPart(),
+    const wildcardPart = WildcardPart.fromNothing(),
           parts = [
             wildcardPart
           ],

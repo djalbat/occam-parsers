@@ -20,12 +20,12 @@ export default class ChoiceOfPartsDefinition extends Definition {
     const verticalBarTerminalSymbolContent = verticalBar, ///
           openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
-          partRuleNamePart = new RuleNamePart(partRuleName),
-          precedenceRuleNamePart = new RuleNamePart(precedenceRuleName),
-          verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent),
-          openBracketTerminalSymbolPart = new TerminalSymbolPart(openBracketTerminalSymbolContent),
-          closeBracketTerminalSymbolPart = new TerminalSymbolPart(closeBracketTerminalSymbolContent),
-          optionalPrecedenceRuleNamePartPart = new OptionalPartPart(precedenceRuleNamePart);
+          partRuleNamePart = RuleNamePart.fromRuleName(partRuleName),
+          precedenceRuleNamePart = RuleNamePart.fromRuleName(precedenceRuleName),
+          verticalBarTerminalSymbolPart = TerminalSymbolPart.fromContent(verticalBarTerminalSymbolContent),
+          openBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(openBracketTerminalSymbolContent),
+          closeBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(closeBracketTerminalSymbolContent),
+          optionalPrecedenceRuleNamePartPart = OptionalPartPart.fromPart(precedenceRuleNamePart);
 
     parts = [
       verticalBarTerminalSymbolPart,
@@ -33,8 +33,8 @@ export default class ChoiceOfPartsDefinition extends Definition {
       optionalPrecedenceRuleNamePartPart
     ];
 
-    const sequenceOfPartsPart = new SequenceOfPartsPart(parts),
-          oneOrMoreSequenceOfPartsPart = new OneOrMorePartsPart(sequenceOfPartsPart);
+    const sequenceOfPartsPart = SequenceOfPartsPart.fromParts(parts),
+          oneOrMoreSequenceOfPartsPart = OneOrMorePartsPart.fromPart(sequenceOfPartsPart);
 
     parts = [
       openBracketTerminalSymbolPart,

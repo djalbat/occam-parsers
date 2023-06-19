@@ -11,8 +11,8 @@ const { ellipsis } = specialSymbols;
 export default class LookAheadModifierRuleDefinition extends Definition {
   static fromNothing() {
     const content = ellipsis,  ///
-          noWhitespacePart = new NoWhitespacePart(),
-          terminalSymbolPart = new TerminalSymbolPart(content),
+          noWhitespacePart = NoWhitespacePart.fromNothing(),
+          terminalSymbolPart = TerminalSymbolPart.fromContent(content),
           parts = [
             noWhitespacePart,
             terminalSymbolPart

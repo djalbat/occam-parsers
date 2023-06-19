@@ -16,17 +16,17 @@ export default class DefinitionsDefinition extends Definition {
   static fromNothing() {
     let parts;
 
-    const verticalBarTerminalSymbolContent = verticalBar,
-          definitionRuleNamePart = new RuleNamePart(definitionRuleName),
-          verticalBarTerminalSymbolPart = new TerminalSymbolPart(verticalBarTerminalSymbolContent);
+    const content = verticalBar,  ///
+          definitionRuleNamePart = RuleNamePart.fromRuleName(definitionRuleName),
+          verticalBarTerminalSymbolPart = TerminalSymbolPart.fromContent(content);
 
     parts = [
       verticalBarTerminalSymbolPart,
       definitionRuleNamePart
     ];
 
-    const sequenceOfPartsPart = new SequenceOfPartsPart(parts),
-          zeroOrMoreSequenceOfPartsPart = new ZeroOrMorePartsPart(sequenceOfPartsPart);
+    const sequenceOfPartsPart = SequenceOfPartsPart.fromParts(parts),
+          zeroOrMoreSequenceOfPartsPart = ZeroOrMorePartsPart.fromPart(sequenceOfPartsPart);
 
     parts = [
       definitionRuleNamePart,
