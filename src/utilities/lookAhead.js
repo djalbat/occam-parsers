@@ -24,7 +24,7 @@ export function parseParts(parts, nodes, index, state, callback) {
   return parsed;
 }
 
-function parsePartOfParts(part, parts, nodes, index, state, callback) {
+export function parsePartOfParts(part, parts, nodes, index, state, callback) {
   let parsed;
 
   if (callback !== null) {

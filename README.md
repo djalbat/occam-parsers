@@ -64,9 +64,9 @@ All parsers share common functionality. The last two parse content according to 
                               
       noWhitespacePart         ::=  "<NO_WHITESPACE>" ;                              
 
-      choiceOfParts            ::=  "(" part precedence? ( "|" part precedence? )+ ")" ;
-
       sequenceOfParts          ::=  "(" part part+ ")" ;
+
+      choiceOfParts            ::=  "(" part precedence? ( "|" part precedence? )+ ")" ;
 
       ruleName                 ::=  [name] ;
 

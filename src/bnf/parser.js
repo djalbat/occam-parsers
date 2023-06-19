@@ -12,6 +12,7 @@ import DocumentRule from "../rule/document";
 import RuleNameRule from "../rule/ruleName";
 import WildcardRule from "../rule/wildcard";
 import EndOfLineRule from "../rule/endOfLine";
+import PartChoiceRule from "../rule/partChoice";
 import QuantifierRule from "../rule/quantifier";
 import DefinitionRule from "../rule/definition";
 import PrecedentsRule from "../rule/precedence";
@@ -87,6 +88,7 @@ export default class BNFParser {
           ruleNameRule = RuleNameRule.fromNothing(),
           wildcardRule = WildcardRule.fromNothing(),
           endOfLineRule = EndOfLineRule.fromNothing(),
+          partChoiceRule = PartChoiceRule.fromNothing(),
           quantifierRule = QuantifierRule.fromNothing(),
           definitionRule = DefinitionRule.fromNothing(),
           precedentsRule = PrecedentsRule.fromNothing(),
@@ -117,6 +119,7 @@ export default class BNFParser {
       noWhitespacePartRule,
       sequenceOfPartsRule,
       choiceOfPartsRule,
+      partChoiceRule,
       ruleNameRule,
       significantTokenTypeRule,
       regularExpressionRule,

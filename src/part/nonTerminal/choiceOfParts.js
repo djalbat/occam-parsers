@@ -5,21 +5,21 @@ import NonTerminalPart from "../../part/nonTerminal";
 import { ChoiceOfPartsPartType } from "../../partTypes";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
-  constructor(type, parts) {
+  constructor(type, partChoices) {
     super(type);
     
-    this.parts = parts;
+    this.partChoices = partChoices;
   }
   
-  getParts() {
-    return this.parts;
+  getPartChoices() {
+    return this.partChoices;
   }
 
   parse(nodes, state, callback) {
     let parsed;
 
-    this.parts.some((part) => {
-      parsed = part.parse(nodes, state, callback);
+    this.partChoices.some((partChoice) => {
+      parsed = partChoice.parse(nodes, state, callback);
 
       if (parsed) {
         return true;
@@ -30,25 +30,25 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
   }
 
   asString() {
-    const partsString = this.parts.reduce((partsString, part) => {
-            const partString = part.asString();
+    const partChoicesString = this.partChoices.reduce((partChoicesString, partChoice) => {
+            const partChoiceString = partChoice.asString();
     
-            if (partsString === null) {
-              partsString = partString;
+            if (partChoicesString === null) {
+              partChoicesString = partChoiceString;
             } else {
-              partsString = `${partsString} | ${partString}`;
+              partChoicesString = `${partChoicesString} | ${partChoiceString}`;
             }
     
-            return partsString;
+            return partChoicesString;
           }, null),
-          string = `( ${partsString} )`;
+          string = `( ${partChoicesString} )`;
     
     return string;
   }
 
-  static fromParts(parts) {
+  static fromPartChoices(partChoices) {
     const type = ChoiceOfPartsPartType,
-          choiceOfPartsPart = new ChoiceOfPartsPart(type, parts);
+          choiceOfPartsPart = new ChoiceOfPartsPart(type, partChoices);
 
     return choiceOfPartsPart;
   }

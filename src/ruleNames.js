@@ -12,6 +12,7 @@ export const endOfLineRuleName = "endOfLine";
 export const definitionRuleName = "definition";
 export const precedenceRuleName = "precedence";
 export const quantifierRuleName = "quantifier";
+export const partChoiceRuleName = "partChoice";
 export const definitionsRuleName = "definitions";
 export const terminalPartRuleName = "terminalPart";
 export const choiceOfPartsRuleName = "choiceOfParts";

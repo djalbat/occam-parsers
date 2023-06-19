@@ -44,9 +44,11 @@ const bnf = `
                               
       noWhitespacePart         ::=  "<NO_WHITESPACE>" ;                              
 
-      choiceOfParts            ::=  "(" part precedence? ( "|" part precedence? )+ ")" ;
-
       sequenceOfParts          ::=  "(" part part+ ")" ;
+
+      choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
+
+      partChoice               ::=  part precedence? ;
 
       ruleName                 ::=  [name] ;
 

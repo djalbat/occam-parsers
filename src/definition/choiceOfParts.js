@@ -9,7 +9,7 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 import SequenceOfPartsPart from "../part/nonTerminal/sequenceOfParts";
 
-import { partRuleName, precedenceRuleName } from "../ruleNames";
+import { partChoiceRuleName } from "../ruleNames";
 
 const { verticalBar, openBracket, closeBracket } = specialSymbols;
 
@@ -20,17 +20,14 @@ export default class ChoiceOfPartsDefinition extends Definition {
     const verticalBarTerminalSymbolContent = verticalBar, ///
           openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
-          partRuleNamePart = RuleNamePart.fromRuleName(partRuleName),
-          precedenceRuleNamePart = RuleNamePart.fromRuleName(precedenceRuleName),
+          partChoiceRuleNamePart = RuleNamePart.fromRuleName(partChoiceRuleName),
           verticalBarTerminalSymbolPart = TerminalSymbolPart.fromContent(verticalBarTerminalSymbolContent),
           openBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(openBracketTerminalSymbolContent),
-          closeBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(closeBracketTerminalSymbolContent),
-          optionalPrecedenceRuleNamePartPart = OptionalPartPart.fromPart(precedenceRuleNamePart);
+          closeBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(closeBracketTerminalSymbolContent);
 
     parts = [
       verticalBarTerminalSymbolPart,
-      partRuleNamePart,
-      optionalPrecedenceRuleNamePartPart
+      partChoiceRuleNamePart
     ];
 
     const sequenceOfPartsPart = SequenceOfPartsPart.fromParts(parts),
@@ -38,8 +35,7 @@ export default class ChoiceOfPartsDefinition extends Definition {
 
     parts = [
       openBracketTerminalSymbolPart,
-      partRuleNamePart,
-      optionalPrecedenceRuleNamePartPart,
+      partChoiceRuleNamePart,
       oneOrMoreSequenceOfPartsPart,
       closeBracketTerminalSymbolPart
     ];
