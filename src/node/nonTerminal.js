@@ -90,6 +90,18 @@ export default class NonTerminalNode {
     return includedIn;
   }
 
+  isHigherPrecedence(precedence, ruleName) {
+    let higherPrecedence = false;  ///
+
+    if (this.precedence !== null) {
+      if (this.ruleName === ruleName) {
+        higherPrecedence = (this.precedence > precedence);
+      }
+    }
+
+    return higherPrecedence;
+  }
+
   match(node, depth = Infinity) {
     let matches = false;
 

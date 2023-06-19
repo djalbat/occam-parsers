@@ -51,12 +51,6 @@ export default class TerminalNode {
 
   getContent() { return this.significantToken.getContent(); }
 
-  getPrecedence() {
-    const precedence = null;  ///
-
-    return precedence;
-  }
-
   isIncludedIn(node) {
     let includedIn = false;
 
@@ -80,6 +74,12 @@ export default class TerminalNode {
     }
 
     return includedIn;
+  }
+
+  isHigherPrecedence(precedence, ruleName) {
+    const higherPrecedence = false;  ///
+
+    return higherPrecedence;
   }
 
   match(node, depth) {

@@ -6,7 +6,7 @@ import { SizeableDiv } from "easy-layout";
 
 export default withStyle(SizeableDiv)`
 
-  width: 72rem;
+  width: 56rem;
   min-width: 24rem;
   
 `;

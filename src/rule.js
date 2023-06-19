@@ -58,17 +58,19 @@ export default class Rule {
       if (parsed) {
         precedence = definition.getPrecedence();
 
-        nodes.some((node) => {
-          const nodePrecedence = node.getPrecedence();
+        if (precedence !== null) {
+          const ruleName = this.name; ///
 
-          if (nodePrecedence !== null) {
-            if (nodePrecedence < precedence) {
+          nodes.some((node) => {
+            const nodeHigherPrecedence = node.isHigherPrecedence(precedence, ruleName);
+
+            if (nodeHigherPrecedence) {
               parsed = false;
 
               return true;
             }
-          }
-        });
+          });
+        }
       }
 
       if (parsed) {
