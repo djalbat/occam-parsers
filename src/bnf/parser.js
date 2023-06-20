@@ -51,7 +51,8 @@ export default class BNFParser {
     const state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
           callback = null,
           precedence = null,
-          ruleNode = rule.parse(state, callback, precedence),
+          ruleName = null,
+          ruleNode = rule.parse(state, callback, precedence, ruleName),
           node = ruleNode; ///
 
     return node;

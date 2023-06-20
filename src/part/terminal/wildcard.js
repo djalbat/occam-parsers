@@ -8,7 +8,7 @@ import TerminalNode from "../../node/terminal";
 const { wildcard } = specialSymbols;
 
 export default class WildcardPart extends TerminalPart {
-  parse(nodes, state, callback, precedence) {
+  parse(nodes, state, callback, precedence, ruleName) {
     let parsed;
 
     let terminalNode = null;
@@ -27,7 +27,7 @@ export default class WildcardPart extends TerminalPart {
       nodes.push(terminalNode);
 
       if (callback !== null) {
-        parsed = callback(precedence);
+        parsed = callback(precedence, ruleName);
 
         if (!parsed) {
           nodes.pop();

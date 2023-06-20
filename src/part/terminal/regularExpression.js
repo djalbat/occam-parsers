@@ -14,7 +14,7 @@ export default class RegularExpressionPart extends TerminalPart {
     this.regularExpression = regularExpression;
   }
 
-  parse(nodes, state, callback, precedence) {
+  parse(nodes, state, callback, precedence, ruleName) {
     let parsed;
 
     let terminalNode = null;
@@ -42,7 +42,7 @@ export default class RegularExpressionPart extends TerminalPart {
       nodes.push(terminalNode);
 
       if (callback !== null) {
-        parsed = callback(precedence);
+        parsed = callback(precedence, ruleName);
 
         if (!parsed) {
           nodes.pop();
