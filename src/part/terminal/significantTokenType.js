@@ -10,7 +10,7 @@ export default class SignificantTokenTypePart extends TerminalPart {
     this.significantTokenType = significantTokenType;
   }
 
-  parse(nodes, state, callback) {
+  parse(nodes, state, callback, precedence) {
     let parsed;
 
     let terminalNode = null;
@@ -23,7 +23,7 @@ export default class SignificantTokenTypePart extends TerminalPart {
       const significantTokenType = significantToken.getType();
 
       if (significantTokenType === this.significantTokenType) {
-        terminalNode = TerminalNode.fromSignificantToken(significantToken);
+        terminalNode = TerminalNode.fromPrecedenceAndSignificantToken(precedence, significantToken);
       }
     }
 
@@ -33,7 +33,7 @@ export default class SignificantTokenTypePart extends TerminalPart {
       nodes.push(terminalNode);
 
       if (callback !== null) {
-        parsed = callback();
+        parsed = callback(precedence);
 
         if (!parsed) {
           nodes.pop();

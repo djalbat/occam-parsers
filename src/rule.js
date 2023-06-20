@@ -1,11 +1,13 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
 import { specialSymbols } from "occam-lexers";
 
 import { EMPTY_STRING } from "./constants";
 import { paddingFromPaddingLength } from "./utilities/string";
 
-const { exclamationMark } = specialSymbols;
+const { clear } = arrayUtilities,
+      { exclamationMark } = specialSymbols;
 
 export default class Rule {
   constructor(name, ambiguous, definitions, NonTerminalNode) {
@@ -31,57 +33,55 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
-  parse(state, callback) {
-    let parsed,
-        nodes,
-        precedence;
+  parseDefinition(definition, nodes, state, callback, precedence) {
+    let parsed;
 
+    const savedIndex = state.getSavedIndex();
+
+    clear(nodes);
+
+    parsed = definition.parse(nodes, state, callback, precedence);
+
+    if (parsed) {
+      const nodesLength = nodes.length;
+
+      if (nodesLength === 0) {
+        parsed = false;
+      }
+    }
+
+    if (parsed) {
+      const definitionLowerPrecedence = definition.isLowerPrecedence(precedence);
+
+      if (definitionLowerPrecedence) {
+        parsed = false;
+      }
+    }
+
+    if (!parsed) {
+      state.backtrack(savedIndex);
+    }
+
+    return parsed;
+  }
+
+  parse(state, callback, precedence) {
     let ruleNode = null;
 
+    let nodes = [],
+        parsed;
+
     this.definitions.some((definition) => {
-      const savedIndex = state.getSavedIndex();
-
-      nodes = [];
-
-      precedence = null;
-
-      parsed = definition.parse(nodes, state, callback)
-
-      if (parsed) {
-        const nodesLength = nodes.length;
-
-        if (nodesLength === 0) {
-          parsed = false;
-        }
-      }
-
-      if (parsed) {
-        precedence = definition.getPrecedence();
-
-        if (precedence !== null) {
-          const ruleName = this.name; ///
-
-          nodes.some((node) => {
-            const nodeHigherPrecedence = node.isHigherPrecedence(precedence, ruleName);
-
-            if (nodeHigherPrecedence) {
-              parsed = false;
-
-              return true;
-            }
-          });
-        }
-      }
+      parsed = this.parseDefinition(definition, nodes, state, callback, precedence);
 
       if (parsed) {
         return true;
       }
-
-      state.backtrack(savedIndex);
     });
 
     if (parsed) {
       const ruleName = this.name, ///
+            precedence = null,
             childNodes = nodes,  ///
             nonTerminalNode = this.NonTerminalNode.fromRuleNamePrecedenceAndChildNodes(ruleName, precedence, childNodes);
 
@@ -148,4 +148,20 @@ ${this.name}${ambiguousString}${padding} ::= ${definitionsString}${semicolonStri
 
     return rule;
   }
+}
+
+function areNodesLowerPrecedence(nodes, precedence, ruleName) {
+  let nodesLowerPrecedence = false;
+
+  if (precedence !== null) {
+    nodesLowerPrecedence = nodes.some((node) => {
+      const nodeLowerPrecedence = node.isLowerPrecedence(precedence, ruleName);
+
+      if (nodeLowerPrecedence) {
+        return true;
+      }
+    });
+  }
+
+  return nodesLowerPrecedence;
 }

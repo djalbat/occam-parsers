@@ -13,6 +13,24 @@ export default class NonTerminalNode {
     this.childNodes = childNodes;
   }
 
+  getRuleName() {
+    return this.ruleName;
+  }
+
+  getChildNodes() {
+    return this.childNodes;
+  }
+
+  getPrecedence(ruleName) {
+    let precedence = null;
+
+    if (this.ruleName !== ruleName) {
+      precedence = this.precedence;
+    }
+
+    return precedence;
+  }
+
   isTerminalNode() {
     const terminalNode = false;
 
@@ -23,18 +41,6 @@ export default class NonTerminalNode {
     const nonTerminalNode = true;
 
     return nonTerminalNode;
-  }
-
-  getRuleName() {
-    return this.ruleName;
-  }
-
-  getPrecedence() {
-    return this.precedence;
-  }
-
-  getChildNodes() {
-    return this.childNodes;
   }
 
   getFirstSignificantToken() {
@@ -65,6 +71,20 @@ export default class NonTerminalNode {
     return lastSignificantToken;
   }
 
+  isLowerPrecedence(precedence, ruleName) {
+    let lowerPrecedence = false;
+
+    if (precedence !== null) {
+      if (this.precedence !== null) {
+        if (this.ruleName === ruleName) {
+          lowerPrecedence = (this.precedence < precedence);
+        }
+      }
+    }
+
+    return lowerPrecedence;
+  }
+
   isIncludedIn(node) {
     let includedIn = false;
 
@@ -88,18 +108,6 @@ export default class NonTerminalNode {
     }
 
     return includedIn;
-  }
-
-  isHigherPrecedence(precedence, ruleName) {
-    let higherPrecedence = false;  ///
-
-    if (this.precedence !== null) {
-      if (this.ruleName === ruleName) {
-        higherPrecedence = (this.precedence > precedence);
-      }
-    }
-
-    return higherPrecedence;
   }
 
   match(node, depth = Infinity) {

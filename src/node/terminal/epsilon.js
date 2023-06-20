@@ -50,10 +50,5 @@ export default class EpsilonNode extends TerminalNode {
     return matches;
   }
 
-  static fromNothing() {
-    const significantToken = null,
-          epsilonNode = TerminalNode.fromSignificantToken(EpsilonNode, significantToken);
-
-    return epsilonNode;
-  }
+  static fromPrecedence(precedence) { return TerminalNode.fromPrecedence(EpsilonNode, precedence); }
 }

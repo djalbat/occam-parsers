@@ -6,25 +6,25 @@ import { isPartRuleNamePartWithLookAhead } from "./part";
 
 const { push } = arrayUtilities;
 
-export function parseParts(parts, nodes, index, state, callback) {
+export function parseParts(parts, nodes, index, state, callback, precedence) {
   let parsed;
 
   const partsLength = parts.length;
 
   if (index === partsLength) {
     parsed = (callback !== null) ?
-                callback() :
+                callback(precedence) :
                   true;
   } else {
     const part = parts[index];
 
-    parsed = parsePartOfParts(part, parts, nodes, index, state, callback);
+    parsed = parsePartOfParts(part, parts, nodes, index, state, callback, precedence);
   }
 
   return parsed;
 }
 
-export function parsePartOfParts(part, parts, nodes, index, state, callback) {
+export function parsePartOfParts(part, parts, nodes, index, state, callback, precedence) {
   let parsed;
 
   if (callback !== null) {
@@ -32,7 +32,11 @@ export function parsePartOfParts(part, parts, nodes, index, state, callback) {
 
     index++;
 
-    parsed = part.parse(nodes, state, () => parseParts(parts, partsNodes, index, state, callback));
+    parsed = part.parse(nodes, state, (precedence) => {
+      const parsed = parseParts(parts, partsNodes, index, state, callback, precedence);
+
+      return parsed;
+    }, precedence);
 
     if (parsed) {
       push(nodes, partsNodes);
@@ -46,18 +50,22 @@ export function parsePartOfParts(part, parts, nodes, index, state, callback) {
 
       index++;
 
-      parsed = ruleNamePart.parse(nodes, state, () => parseParts(parts, partsNodes, index, state, callback));
+      parsed = ruleNamePart.parse(nodes, state, (precedence) => {
+        const parsed = parseParts(parts, partsNodes, index, state, callback, precedence);
+
+        return parsed;
+      }, precedence);
 
       if (parsed) {
         push(nodes, partsNodes);
       }
     } else {
-      parsed = part.parse(nodes, state, callback);
+      parsed = part.parse(nodes, state, callback, precedence);
 
       if (parsed) {
         index++;
 
-        parsed = parseParts(parts, nodes, index, state, callback);
+        parsed = parseParts(parts, nodes, index, state, callback, precedence);
       }
     }
   }

@@ -42,7 +42,7 @@ export default class RuleNamePart extends NonTerminalPart {
     return rule;
   }
 
-  parse(nodes, state, callback) {
+  parse(nodes, state, callback, precedence) {
     let parsed;
 
     const rule = this.findRule(state);
@@ -50,7 +50,7 @@ export default class RuleNamePart extends NonTerminalPart {
     if (rule === null) {
       parsed = false;
     } else {
-      const ruleNode = rule.parse(state, callback);
+      const ruleNode = rule.parse(state, callback, precedence);
 
       parsed = (ruleNode !== null);
 

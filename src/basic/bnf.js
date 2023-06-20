@@ -2,31 +2,28 @@
 
 const bnf = `
 
-              term  ::=  "1" 
-              
-                         ( 
-                          
-                           plus2DividedBy           (1) 
-                            
-                           | 
-                            
-                           plus                     (4) 
-                          
-                         ) 
-                          
-                         term    
-              
-                      |  "3"                        (2)                      
+        expression  ::=  term... "." ;
 
-                      |  "2" "/" "3"                (3)
-                      
+              term  ::=  "1"
+
+                         (
+
+                           ( "+" "2" "/" )          (3)
+
+                           |
+
+                           "+"                      (0)
+
+                         )
+
+                         term
+
+                      |  "2" "/" "3"                (1)
+
+                      |  "3"                        (2)
+
                       ;
-                      
-    plus2DividedBy  ::=  "+" "2" "/" ;         
-    
-              plus  ::=  "+" ;         
       
 `;
 
 export default bnf;
-

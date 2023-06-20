@@ -17,7 +17,7 @@ export default class PartChoice {
     return this.precedence;
   }
 
-  parse(nodes, state, callback) {
+  parse(nodes, state, callback, precedence) {
     let parsed;
 
     const parts = [
@@ -25,7 +25,7 @@ export default class PartChoice {
           ],
           index = 0;
 
-    parsed = parsePartOfParts(this.part, parts, nodes, index, state, callback);
+    parsed = parsePartOfParts(this.part, parts, nodes, index, state, callback, this.precedence);
 
     return parsed;
   }
