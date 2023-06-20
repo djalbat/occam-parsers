@@ -23,7 +23,7 @@ export default class NoWhitespacePart extends TerminalPart {
           nextTokenWhitespaceToken = state.isNextTokenWhitespaceToken();
 
     if (!nextTokenWhitespaceToken) {
-      noWhitespaceNode = NoWhitespaceNode.fromPrecedence(precedence);
+      noWhitespaceNode = NoWhitespaceNode.fromNothing();
     }
 
     parsed = (noWhitespaceNode !== null)

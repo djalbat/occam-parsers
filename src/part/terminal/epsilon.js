@@ -12,7 +12,7 @@ export default class EpsilonPart extends TerminalPart {
     let parsed;
 
     const savedIndex = state.getSavedIndex(),
-          epsilonBNFNode = EpsilonBNFNode.fromPrecedence(precedence);
+          epsilonBNFNode = EpsilonBNFNode.fromNothing();
 
     parsed = (epsilonBNFNode !== null);
 

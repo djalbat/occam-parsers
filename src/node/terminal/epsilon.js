@@ -50,5 +50,5 @@ export default class EpsilonNode extends TerminalNode {
     return matches;
   }
 
-  static fromPrecedence(precedence) { return TerminalNode.fromPrecedence(EpsilonNode, precedence); }
+  static fromNothing() { return TerminalNode.fromNothing(EpsilonNode); }
 }

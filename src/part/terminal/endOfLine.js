@@ -21,7 +21,7 @@ export default class EndOfLinePart extends TerminalPart {
       const significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
 
       if (significantTokenEndOfLineToken) {
-        endOfLineNode = EndOfLineNode.fromPrecedenceAndSignificantToken(precedence, significantToken);
+        endOfLineNode = EndOfLineNode.fromSignificantToken(significantToken);
       }
     }
 

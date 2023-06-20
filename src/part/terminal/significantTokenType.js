@@ -23,7 +23,7 @@ export default class SignificantTokenTypePart extends TerminalPart {
       const significantTokenType = significantToken.getType();
 
       if (significantTokenType === this.significantTokenType) {
-        terminalNode = TerminalNode.fromPrecedenceAndSignificantToken(precedence, significantToken);
+        terminalNode = TerminalNode.fromSignificantToken(significantToken);
       }
     }
 

@@ -31,7 +31,7 @@ export default class RegularExpressionPart extends TerminalPart {
         const firstMatch = first(matches);
 
         if (firstMatch === content) {
-          terminalNode = TerminalNode.fromPrecedenceAndSignificantToken(precedence, significantToken);
+          terminalNode = TerminalNode.fromSignificantToken(significantToken);
         }
       }
     }

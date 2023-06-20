@@ -48,5 +48,5 @@ export default class NoWhitespaceNode extends TerminalNode {
     return matches;
   }
 
-  static fromPrecedence(precedence) { return TerminalNode.fromPrecedence(NoWhitespaceNode, precedence); }
+  static fromNothing() { return TerminalNode.fromNothing(NoWhitespaceNode); }
 }

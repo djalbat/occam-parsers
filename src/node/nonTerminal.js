@@ -7,9 +7,8 @@ import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 const { forwardsSome, backwardsSome } = arrayUtilities;
 
 export default class NonTerminalNode {
-  constructor(ruleName, precedence, childNodes) {
+  constructor(ruleName, childNodes) {
     this.ruleName = ruleName;
-    this.precedence = precedence;
     this.childNodes = childNodes;
   }
 
@@ -19,16 +18,6 @@ export default class NonTerminalNode {
 
   getChildNodes() {
     return this.childNodes;
-  }
-
-  getPrecedence(ruleName) {
-    let precedence = null;
-
-    if (this.ruleName !== ruleName) {
-      precedence = this.precedence;
-    }
-
-    return precedence;
   }
 
   isTerminalNode() {
@@ -69,20 +58,6 @@ export default class NonTerminalNode {
     });
 
     return lastSignificantToken;
-  }
-
-  isLowerPrecedence(precedence, ruleName) {
-    let lowerPrecedence = false;
-
-    if (precedence !== null) {
-      if (this.precedence !== null) {
-        if (this.ruleName === ruleName) {
-          lowerPrecedence = (this.precedence < precedence);
-        }
-      }
-    }
-
-    return lowerPrecedence;
   }
 
   isIncludedIn(node) {
@@ -150,10 +125,6 @@ export default class NonTerminalNode {
     this.ruleName = ruleName;
   }
 
-  setPrecedence(precedence) {
-    this.precedence = precedence;
-  }
-
   setChildNodes(childNodes) {
     this.childNodes = childNodes;
   }
@@ -166,18 +137,16 @@ export default class NonTerminalNode {
     return parseTree;
   }
 
-  static fromRuleNamePrecedenceAndChildNodes(Class, ruleName, precedence, childNodes) {
+  static fromRuleNameAndChildNodes(Class, ruleName, childNodes) {
     if (childNodes === undefined) {
-      childNodes = precedence;  ///
-
-      precedence = ruleName;  ///
+      childNodes = ruleName;  ///
 
       ruleName = Class; ///
 
       Class = NonTerminalNode;  ///
     }
 
-    const nonTerminalNode = new Class(ruleName, precedence, childNodes);
+    const nonTerminalNode = new Class(ruleName, childNodes);
 
     return nonTerminalNode;
   }

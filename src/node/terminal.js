@@ -3,13 +3,8 @@
 import TerminalNodeParseTree from "../parseTree/terminalNode";
 
 export default class TerminalNode {
-  constructor(precedence, significantToken) {
-    this.precedence = precedence;
+  constructor(significantToken) {
     this.significantToken = significantToken;
-  }
-
-  getPrecedence() {
-    return this.precedence;
   }
 
   getSignificantToken() {
@@ -56,12 +51,6 @@ export default class TerminalNode {
 
   getContent() { return this.significantToken.getContent(); }
 
-  isLowerPrecedence(precedence, ruleName) {
-    const lowerPrecedence = false;  ///
-
-    return lowerPrecedence;
-  }
-
   isIncludedIn(node) {
     let includedIn = false;
 
@@ -102,10 +91,6 @@ export default class TerminalNode {
     return matches;
   }
 
-  setPrecedence(precedence) {
-    this.precedence = precedence;
-  }
-
   setSignificantToken(significantToken) {
     this.significantToken = significantToken;
   }
@@ -118,29 +103,25 @@ export default class TerminalNode {
     return parseTree;
   }
 
-  static fromPrecedence(Class, precedence) {
-    if (precedence === undefined) {
-      precedence = Class; ///
-
+  static fromNothing(Class) {
+    if (Class === undefined) {
       Class = TerminalNode; ///
     }
 
     const significantToken = null,
-          terminalNode = new Class(precedence, significantToken);
+          terminalNode = new Class(significantToken);
 
     return terminalNode;
   }
 
-  static fromPrecedenceAndSignificantToken(Class, precedence, significantToken) {
+  static fromSignificantToken(Class, significantToken) {
     if (significantToken === undefined) {
-      significantToken = precedence; ///
-
-      precedence = Class; ///
+      significantToken = Class; ///
 
       Class = TerminalNode; ///
     }
 
-    const terminalNode = new Class(precedence, significantToken);
+    const terminalNode = new Class(significantToken);
     
     return terminalNode;
   }

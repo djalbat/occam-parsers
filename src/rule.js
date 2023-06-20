@@ -81,9 +81,8 @@ export default class Rule {
 
     if (parsed) {
       const ruleName = this.name, ///
-            precedence = null,
             childNodes = nodes,  ///
-            nonTerminalNode = this.NonTerminalNode.fromRuleNamePrecedenceAndChildNodes(ruleName, precedence, childNodes);
+            nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
 
       ruleNode = nonTerminalNode; ///
     }
@@ -148,20 +147,4 @@ ${this.name}${ambiguousString}${padding} ::= ${definitionsString}${semicolonStri
 
     return rule;
   }
-}
-
-function areNodesLowerPrecedence(nodes, precedence, ruleName) {
-  let nodesLowerPrecedence = false;
-
-  if (precedence !== null) {
-    nodesLowerPrecedence = nodes.some((node) => {
-      const nodeLowerPrecedence = node.isLowerPrecedence(precedence, ruleName);
-
-      if (nodeLowerPrecedence) {
-        return true;
-      }
-    });
-  }
-
-  return nodesLowerPrecedence;
 }

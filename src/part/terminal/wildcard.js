@@ -18,7 +18,7 @@ export default class WildcardPart extends TerminalPart {
 					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
-      terminalNode = TerminalNode.fromPrecedenceAndSignificantToken(precedence, significantToken);
+      terminalNode = TerminalNode.fromSignificantToken(significantToken);
     }
 
     parsed = (terminalNode !== null);

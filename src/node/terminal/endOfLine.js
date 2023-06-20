@@ -19,5 +19,5 @@ export default class EndOfLineNode extends TerminalNode {
     return parseTree;
   }
 
-  static fromPrecedenceAndSignificantToken(precedence, significantToken) { return TerminalNode.fromPrecedenceAndSignificantToken(EndOfLineNode, precedence, significantToken); }
+  static fromSignificantToken(significantToken) { return TerminalNode.fromSignificantToken(EndOfLineNode, significantToken); }
 }

@@ -24,5 +24,5 @@ export default class SequenceOfPartsBNFNode extends NonTerminalNode {
     return part;
   }
 
-  static fromRuleNamePrecedenceAndChildNodes(ruleName, precedence, childNodes) { return NonTerminalNode.fromRuleNamePrecedenceAndChildNodes(SequenceOfPartsBNFNode, ruleName, precedence, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(SequenceOfPartsBNFNode, ruleName, childNodes); }
 }

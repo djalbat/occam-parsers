@@ -18,5 +18,5 @@ export default class DocumentBNFNode extends NonTerminalNode {
     return rules;
   }
 
-  static fromRuleNamePrecedenceAndChildNodes(ruleName, precedence, childNodes) { return NonTerminalNode.fromRuleNamePrecedenceAndChildNodes(DocumentBNFNode, ruleName, precedence, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(DocumentBNFNode, ruleName, childNodes); }
 }

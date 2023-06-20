@@ -21,7 +21,7 @@ export default class PartBNFNode extends NonTerminalNode {
     return part;
   }
 
-  static fromRuleNamePrecedenceAndChildNodes(ruleName, precedence, childNodes) { return NonTerminalNode.fromRuleNamePrecedenceAndChildNodes(PartBNFNode, ruleName, precedence, childNodes); }
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(PartBNFNode, ruleName, childNodes); }
 }
 
 function partFromNodes(nodes) {

@@ -23,7 +23,7 @@ export default class TerminalSymbolPart extends TerminalPart {
       const content = significantToken.getContent();
 
       if (content === this.content) {
-        terminalNode = TerminalNode.fromPrecedenceAndSignificantToken(precedence, significantToken);
+        terminalNode = TerminalNode.fromSignificantToken(significantToken);
       }
     }
 
