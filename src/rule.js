@@ -140,6 +140,8 @@ ${this.name}${ambiguousString}${padding} ::= ${definitionsString}${semicolonStri
 
       definitions = ambiguous;  ///
 
+      ambiguous = name; ///
+
       name = Class; ///
 
       Class = Rule; ///
