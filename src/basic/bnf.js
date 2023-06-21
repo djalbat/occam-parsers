@@ -2,28 +2,46 @@
 
 const bnf = `
 
-        expression  ::=  term... "." ;
+  expression  ::=  term... "." ;
 
-              term  ::=  "1" 
-              
-                         (
-                         
-                           ( "+" "2" "/" )          (3)
+        term  ::=  "1"
 
-                           | 
-                          
-                           "+"                      (0)
-                           
-                         )
-                         
-                         term
+                   (
 
-                      |  "2" "/" "3"                (1)
+                     ( "+" "2" "/" )          (3)
 
-                      |  "3"                        (2)
+                     |
 
-                      ;
+                     "+"                      (0)
+
+                   )
+
+                   term
+
+                |  "2" "/" "3"                (1)
+
+                |  "3"                        (2)
+
+                ;
       
 `;
 
 export default bnf;
+
+/*
+    expression ::= term... "." ;
+
+    term       ::= term_ term~* ;
+
+    number     ::= /\d+/ ;
+
+    term_      ::= "(" term ")"
+
+                 | number
+
+                 ;
+
+    term~term  ::= ( "/" (1) | "*" (2) | "+" (3) | "-" (4) ) term ;
+
+    term~      ::= term~term ;
+*/

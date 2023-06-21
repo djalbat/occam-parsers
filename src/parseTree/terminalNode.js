@@ -3,14 +3,12 @@
 import VerticalBranchParseTree from "./verticalBranch";
 
 export default class TerminalNodeParseTree extends VerticalBranchParseTree {
-  static fromTerminalNodeTokensAndAbridged(terminalNode, tokens, abridged) {
+  static fromTerminalNodeAndTokens(terminalNode, tokens) {
     const significantToken = terminalNode.getSignificantToken(),
           content = terminalNode.getContent(),
           type = significantToken.getType(),
           tokenIndex = tokens.indexOf(significantToken),
-          string = abridged ?
-                     `${content}[${type}]` :
-                       `${content}[${type}](${tokenIndex})`,
+          string = `${content}[${type}](${tokenIndex})`,
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),

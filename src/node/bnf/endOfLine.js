@@ -10,5 +10,5 @@ export default class EndOfLineBNFNode extends NonTerminalNode {
     return endOfLinePart;
   }
 
-  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(EndOfLineBNFNode, ruleName, childNodes); }
+  static fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence) { return NonTerminalNode.fromRuleNameChildNodesAndPrecedence(EndOfLineBNFNode, ruleName, childNodes, precedence); }
 }

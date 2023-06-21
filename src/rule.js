@@ -84,7 +84,7 @@ export default class Rule {
     if (parsed) {
       const ruleName = this.name, ///
             childNodes = nodes,  ///
-            nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
+            nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence);
 
       ruleNode = nonTerminalNode; ///
     }
