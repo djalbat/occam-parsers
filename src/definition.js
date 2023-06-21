@@ -29,14 +29,14 @@ export default class Definition {
     return lowerPrecedence;
   }
 
-  parse(nodes, state, callback, precedence, ruleName) {
+  parse(nodes, state, callback, precedence, parentRuleName) {
     let parsed;
 
     const index = 0;
 
     precedence = this.precedence; ///
 
-    parsed = parseParts(this.parts, nodes, index, state, callback, precedence, ruleName);
+    parsed = parseParts(this.parts, nodes, index, state, callback, precedence, parentRuleName);
 
     return parsed;
   }

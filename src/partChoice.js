@@ -17,7 +17,7 @@ export default class PartChoice {
     return this.precedence;
   }
 
-  parse(nodes, state, callback, precedence, ruleName) {
+  parse(nodes, state, callback, precedence, parentRuleName) {
     let parsed;
 
     const parts = [
@@ -27,7 +27,7 @@ export default class PartChoice {
 
     precedence = this.precedence; ///
 
-    parsed = parsePartOfParts(this.part, parts, nodes, index, state, callback, precedence, ruleName);
+    parsed = parsePartOfParts(this.part, parts, nodes, index, state, callback, precedence, parentRuleName);
 
     return parsed;
   }

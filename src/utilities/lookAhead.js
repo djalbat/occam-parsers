@@ -6,25 +6,25 @@ import { isPartRuleNamePartWithLookAhead } from "./part";
 
 const { push } = arrayUtilities;
 
-export function parseParts(parts, nodes, index, state, callback, precedence, ruleName) {
+export function parseParts(parts, nodes, index, state, callback, precedence, parentRuleName) {
   let parsed;
 
   const partsLength = parts.length;
 
   if (index === partsLength) {
     parsed = (callback !== null) ?
-                callback(precedence, ruleName) :
+                callback(precedence, parentRuleName) :
                   true;
   } else {
     const part = parts[index];
 
-    parsed = parsePartOfParts(part, parts, nodes, index, state, callback, precedence, ruleName);
+    parsed = parsePartOfParts(part, parts, nodes, index, state, callback, precedence, parentRuleName);
   }
 
   return parsed;
 }
 
-export function parsePartOfParts(part, parts, nodes, index, state, callback, precedence, ruleName) {
+export function parsePartOfParts(part, parts, nodes, index, state, callback, precedence, parentRuleName) {
   let parsed;
 
   if (callback !== null) {
@@ -32,11 +32,11 @@ export function parsePartOfParts(part, parts, nodes, index, state, callback, pre
 
     index++;
 
-    parsed = part.parse(nodes, state, (precedence, ruleName) => {
-      const parsed = parseParts(parts, partsNodes, index, state, callback, precedence, ruleName);
+    parsed = part.parse(nodes, state, (precedence, parentRuleName) => {
+      const parsed = parseParts(parts, partsNodes, index, state, callback, precedence, parentRuleName);
 
       return parsed;
-    }, precedence, ruleName);
+    }, precedence, parentRuleName);
 
     if (parsed) {
       push(nodes, partsNodes);
@@ -50,22 +50,22 @@ export function parsePartOfParts(part, parts, nodes, index, state, callback, pre
 
       index++;
 
-      parsed = ruleNamePart.parse(nodes, state, (precedence, ruleName) => {
-        const parsed = parseParts(parts, partsNodes, index, state, callback, precedence, ruleName);
+      parsed = ruleNamePart.parse(nodes, state, (precedence, parentRuleName) => {
+        const parsed = parseParts(parts, partsNodes, index, state, callback, precedence, parentRuleName);
 
         return parsed;
-      }, precedence, ruleName);
+      }, precedence, parentRuleName);
 
       if (parsed) {
         push(nodes, partsNodes);
       }
     } else {
-      parsed = part.parse(nodes, state, callback, precedence, ruleName);
+      parsed = part.parse(nodes, state, callback, precedence, parentRuleName);
 
       if (parsed) {
         index++;
 
-        parsed = parseParts(parts, nodes, index, state, callback, precedence, ruleName);
+        parsed = parseParts(parts, nodes, index, state, callback, precedence, parentRuleName);
       }
     }
   }

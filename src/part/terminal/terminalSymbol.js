@@ -10,7 +10,7 @@ export default class TerminalSymbolPart extends TerminalPart {
     this.content = content;
   }
 
-  parse(nodes, state, callback, precedence, ruleName) {
+  parse(nodes, state, callback, precedence, parentRuleName) {
     let parsed;
 
     let terminalNode = null;
@@ -33,7 +33,7 @@ export default class TerminalSymbolPart extends TerminalPart {
       nodes.push(terminalNode);
 
       if (callback !== null) {
-        parsed = callback(precedence, ruleName);
+        parsed = callback(precedence, parentRuleName);
 
         if (!parsed) {
           nodes.pop();

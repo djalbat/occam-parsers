@@ -33,7 +33,7 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
-  parseDefinition(definition, nodes, state, callback, precedence, ruleName) {
+  parseDefinition(definition, nodes, state, callback, precedence, parentRuleName) {
     let parsed;
 
     const savedIndex = state.getSavedIndex();
@@ -51,7 +51,7 @@ export default class Rule {
     }
 
     if (parsed) {
-      if (this.name === ruleName) {
+      if (this.name === parentRuleName) {
         const definitionLowerPrecedence = definition.isLowerPrecedence(precedence);
 
         if (definitionLowerPrecedence) {
@@ -67,14 +67,14 @@ export default class Rule {
     return parsed;
   }
 
-  parse(state, callback, precedence, ruleName) {
+  parse(state, callback, precedence, parentRuleName) {
     let ruleNode = null;
 
     let nodes = [],
         parsed;
 
     this.definitions.some((definition) => {
-      parsed = this.parseDefinition(definition, nodes, state, callback, precedence, ruleName);
+      parsed = this.parseDefinition(definition, nodes, state, callback, precedence, parentRuleName);
 
       if (parsed) {
         return true;
