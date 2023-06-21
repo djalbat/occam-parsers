@@ -15,6 +15,16 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     return this.partChoices;
   }
 
+  getParts() {
+    const parts = this.partChoices.map((partChoice) => {
+      const part = partChoice.getPart();
+
+      return part;
+    });
+
+    return parts;
+  }
+
   parse(nodes, state, callback, precedence, ruleName) {
     let parsed;
 
