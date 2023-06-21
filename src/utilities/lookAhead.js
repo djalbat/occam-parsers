@@ -28,11 +28,13 @@ export function parsePartOfParts(part, parts, nodes, index, state, callback) {
   let parsed;
 
   if (callback !== null) {
-    const partsNodes = [];
+    let partsNodes;
 
     index++;
 
     parsed = part.parse(nodes, state, () => {
+      partsNodes = [];
+
       const parsed = parseParts(parts, partsNodes, index, state, callback);
 
       return parsed;
