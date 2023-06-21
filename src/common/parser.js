@@ -21,9 +21,7 @@ export default class CommonParser {
   parse(tokens, rule = this.startRule) {
     const state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
           callback = null,
-          precedence = null,
-          parentRuleName = null,
-          ruleNode = rule.parse(state, callback, precedence, parentRuleName),
+          ruleNode = rule.parse(state, callback),
           node = ruleNode; ///
 
     return node;

@@ -10,7 +10,7 @@ export default class SignificantTokenTypePart extends TerminalPart {
     this.significantTokenType = significantTokenType;
   }
 
-  parse(nodes, state, callback, precedence, parentRuleName) {
+  parse(nodes, state, callback) {
     let parsed;
 
     let terminalNode = null;
@@ -33,7 +33,7 @@ export default class SignificantTokenTypePart extends TerminalPart {
       nodes.push(terminalNode);
 
       if (callback !== null) {
-        parsed = callback(precedence, parentRuleName);
+        parsed = callback();
 
         if (!parsed) {
           nodes.pop();

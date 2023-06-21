@@ -5,6 +5,32 @@ const bnf = `
   expression  ::=  term... "." ;
 
         term  ::=  "1"
+        
+                   (
+        
+                     "+"                       (0)
+                     
+                     |
+
+                     ( "+" "2" "/" )           (3)
+                     
+                   ) 
+                   
+                   term
+
+                |  "2" "/" "3"                  (1)
+
+                |  "3"                          (4)
+
+                ;
+      
+`;
+
+export default bnf;
+
+/*
+
+        term  ::=  "1"
 
                    (
 
@@ -23,12 +49,8 @@ const bnf = `
                 |  "3"                        (2)
 
                 ;
-      
-`;
 
-export default bnf;
 
-/*
     expression ::= term... "." ;
 
     term       ::= term_ term~* ;

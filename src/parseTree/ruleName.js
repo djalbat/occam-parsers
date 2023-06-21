@@ -13,7 +13,7 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
                           `${firstSignificantTokenIndex}-${lastSignificantTokenIndex}` :
                             `${firstSignificantTokenIndex}`;
 
-    let string = `${ruleName}[${tokenIndexes}]`;
+    let string = `${ruleName} {${tokenIndexes}}`;
 
     const precedence = nonTerminalNode.getPrecedence();
 

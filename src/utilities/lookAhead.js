@@ -6,25 +6,25 @@ import { isPartRuleNamePartWithLookAhead } from "./part";
 
 const { push } = arrayUtilities;
 
-export function parseParts(parts, nodes, index, state, callback, precedence, parentRuleName) {
+export function parseParts(parts, nodes, index, state, callback) {
   let parsed;
 
   const partsLength = parts.length;
 
   if (index === partsLength) {
     parsed = (callback !== null) ?
-                callback(precedence, parentRuleName) :
+                callback() :
                   true;
   } else {
     const part = parts[index];
 
-    parsed = parsePartOfParts(part, parts, nodes, index, state, callback, precedence, parentRuleName);
+    parsed = parsePartOfParts(part, parts, nodes, index, state, callback);
   }
 
   return parsed;
 }
 
-export function parsePartOfParts(part, parts, nodes, index, state, callback, precedence, parentRuleName) {
+export function parsePartOfParts(part, parts, nodes, index, state, callback) {
   let parsed;
 
   if (callback !== null) {
@@ -32,11 +32,11 @@ export function parsePartOfParts(part, parts, nodes, index, state, callback, pre
 
     index++;
 
-    parsed = part.parse(nodes, state, (precedence, parentRuleName) => {
-      const parsed = parseParts(parts, partsNodes, index, state, callback, precedence, parentRuleName);
+    parsed = part.parse(nodes, state, () => {
+      const parsed = parseParts(parts, partsNodes, index, state, callback);
 
       return parsed;
-    }, precedence, parentRuleName);
+    });
 
     if (parsed) {
       push(nodes, partsNodes);
@@ -50,22 +50,22 @@ export function parsePartOfParts(part, parts, nodes, index, state, callback, pre
 
       index++;
 
-      parsed = ruleNamePart.parse(nodes, state, (precedence, parentRuleName) => {
-        const parsed = parseParts(parts, partsNodes, index, state, callback, precedence, parentRuleName);
+      parsed = ruleNamePart.parse(nodes, state, () => {
+        const parsed = parseParts(parts, partsNodes, index, state, callback);
 
         return parsed;
-      }, precedence, parentRuleName);
+      });
 
       if (parsed) {
         push(nodes, partsNodes);
       }
     } else {
-      parsed = part.parse(nodes, state, callback, precedence, parentRuleName);
+      parsed = part.parse(nodes, state, callback);
 
       if (parsed) {
         index++;
 
-        parsed = parseParts(parts, nodes, index, state, callback, precedence, parentRuleName);
+        parsed = parseParts(parts, nodes, index, state, callback);
       }
     }
   }

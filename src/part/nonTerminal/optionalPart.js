@@ -21,14 +21,14 @@ export default class OptionalPartPart extends NonTerminalPart {
     return this.part;
   }
 
-  parse(nodes, state, callback, precedence, parentRuleName) {
+  parse(nodes, state, callback) {
     let parsed;
 
     const part = this.getPart(),
           partNodes = [],
           savedIndex = state.getSavedIndex();
 
-    parsed = parsePart(part, partNodes, state, callback, precedence, parentRuleName);
+    parsed = parsePart(part, partNodes, state, callback);
 
     if (parsed) {
       push(nodes, partNodes);
@@ -56,17 +56,17 @@ export default class OptionalPartPart extends NonTerminalPart {
   }
 }
 
-function parsePart(part, nodes, state, callback, precedence, parentRuleName) {
+function parsePart(part, nodes, state, callback) {
   let parsed;
 
   if (callback !== null) {
-    parsed = callback(precedence, parentRuleName);
+    parsed = callback();
 
     if (!parsed) {
-      parsed = part.parse(nodes, state, callback, precedence, parentRuleName);
+      parsed = part.parse(nodes, state, callback);
     }
   } else {
-    part.parse(nodes, state, callback, precedence, parentRuleName);
+    part.parse(nodes, state, callback);
 
     parsed = true;
   }

@@ -33,14 +33,14 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
-  parseDefinition(definition, nodes, state, callback, precedence, parentRuleName) {
+  parseDefinition(definition, nodes, state, callback, parentRuleName, parentPrecedence) {
     let parsed;
 
     const savedIndex = state.getSavedIndex();
 
     clear(nodes);
 
-    parsed = definition.parse(nodes, state, callback, precedence, this.name); ///
+    parsed = definition.parse(nodes, state, callback);
 
     if (parsed) {
       const nodesLength = nodes.length;
@@ -51,8 +51,10 @@ export default class Rule {
     }
 
     if (parsed) {
-      if (this.name === parentRuleName) {
-        const definitionLowerPrecedence = definition.isLowerPrecedence(precedence);
+      const ruleName = this.name; ///
+
+      if (ruleName === parentRuleName) {
+        const definitionLowerPrecedence = definition.isLowerPrecedence(parentPrecedence);
 
         if (definitionLowerPrecedence) {
           parsed = false;
@@ -67,27 +69,44 @@ export default class Rule {
     return parsed;
   }
 
-  parse(state, callback, precedence, parentRuleName) {
+  parse(state, callback) {
     let ruleNode = null;
 
-    let nodes = [],
-        parsed;
+    let ruleName = state.getRuleName(),
+        precedence = state.getPrecedence();
 
-    this.definitions.some((definition) => {
-      parsed = this.parseDefinition(definition, nodes, state, callback, precedence, parentRuleName);
+    const parentRuleName = ruleName,  ///
+          parentPrecedence = precedence;  ///
 
-      if (parsed) {
-        return true;
-      }
-    });
+    ruleName = this.name; ///
+
+    state.setRuleName(ruleName);
+
+    const nodes = [],
+          parsed = this.definitions.some((definition) => {
+            const parsed = this.parseDefinition(definition, nodes, state, callback, parentRuleName, parentPrecedence);
+
+            if (parsed) {
+              return true;
+            }
+          });
 
     if (parsed) {
       const ruleName = this.name, ///
             childNodes = nodes,  ///
+            precedence = state.getPrecedence(),
             nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence);
 
       ruleNode = nonTerminalNode; ///
     }
+
+    precedence = parentPrecedence;  ///
+
+    ruleName = parentRuleName;  ///
+
+    state.setPrecedence(precedence);
+
+    state.setRuleName(ruleName);
 
     return ruleNode;
   }

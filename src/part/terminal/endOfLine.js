@@ -8,7 +8,7 @@ import EndOfLineNode from "../../node/terminal/endOfLine";
 const { END_OF_LINE } = specialSymbols;
 
 export default class EndOfLinePart extends TerminalPart {
-  parse(nodes, state, callback, precedence, parentRuleName) {
+  parse(nodes, state, callback) {
     let parsed;
 
     let endOfLineNode = null;
@@ -31,7 +31,7 @@ export default class EndOfLinePart extends TerminalPart {
       nodes.push(endOfLineNode);
 
       if (callback !== null) {
-        parsed = callback(precedence, parentRuleName);
+        parsed = callback();
 
         if (!parsed) {
           nodes.pop();

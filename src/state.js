@@ -1,25 +1,55 @@
 "use strict";
 
 export default class State {
-  constructor(ruleMap, tokens, index) {
-    this.ruleMap = ruleMap;
-    this.tokens = tokens;
+  constructor(index, tokens, ruleMap, ruleName, precedence) {
 		this.index = index;
+    this.tokens = tokens;
+    this.ruleMap = ruleMap;
+    this.ruleName = ruleName;
+    this.precedence = precedence;
   }
 
-  getRuleMap() {
-    return this.ruleMap;
+  getIndex() {
+    return this.index;
   }
 
   getTokens() {
     return this.tokens;
   }
 
-	getIndex() {
-		return this.index;
-	}
+  getRuleMap() {
+    return this.ruleMap;
+  }
 
-	getSavedIndex() {
+  getRuleName() {
+    return this.ruleName;
+  }
+
+  getPrecedence() {
+    return this.precedence;
+  }
+
+  setIndex(index) {
+    this.index = index;
+  }
+
+  setTokens(tokens) {
+    this.tokens = tokens;
+  }
+
+  setRuleMap(ruleMap) {
+    this.ruleMap = ruleMap;
+  }
+
+  setRuleName(ruleName) {
+    this.ruleName = ruleName;
+  }
+
+  setPrecedence(precedence) {
+    this.precedence = precedence;
+  }
+
+  getSavedIndex() {
     const savedIndex = this.index; ///
   
     return savedIndex;
@@ -76,13 +106,11 @@ export default class State {
 		this.index = savedIndex;  ///
 	}
 
-  setIndex(index) {
-    this.index = index;
-  }
-
   static fromTokensAndRuleMap(tokens, ruleMap) {
     const index = 0,
-					state = new State(ruleMap, tokens, index);
+          ruleName = null,
+          precedence = null,
+					state = new State(index, tokens, ruleMap, ruleName, precedence);
 
     return state;
   }

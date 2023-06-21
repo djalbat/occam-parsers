@@ -17,26 +17,26 @@ export default class Definition {
     return this.precedence;
   }
 
-  isLowerPrecedence(precedence) {
+  isLowerPrecedence(parentPrecedence) {
     let lowerPrecedence = false;
 
-    if (precedence !== null) {
+    if (parentPrecedence !== null) {
       if (this.precedence !== null) {
-        lowerPrecedence = (this.precedence < precedence);
+        lowerPrecedence = (this.precedence < parentPrecedence);
       }
     }
 
     return lowerPrecedence;
   }
 
-  parse(nodes, state, callback, precedence, parentRuleName) {
+  parse(nodes, state, callback) {
     let parsed;
+
+    state.setPrecedence(this.precedence);
 
     const index = 0;
 
-    precedence = this.precedence; ///
-
-    parsed = parseParts(this.parts, nodes, index, state, callback, precedence, parentRuleName);
+    parsed = parseParts(this.parts, nodes, index, state, callback);
 
     return parsed;
   }

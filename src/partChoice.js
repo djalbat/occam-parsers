@@ -17,17 +17,19 @@ export default class PartChoice {
     return this.precedence;
   }
 
-  parse(nodes, state, callback, precedence, parentRuleName) {
+  parse(nodes, state, callback) {
     let parsed;
+
+    if (this.precedence !== null) {
+      state.setPrecedence(this.precedence);
+    }
 
     const parts = [
             this.part
           ],
           index = 0;
 
-    precedence = this.precedence; ///
-
-    parsed = parsePartOfParts(this.part, parts, nodes, index, state, callback, precedence, parentRuleName);
+    parsed = parsePartOfParts(this.part, parts, nodes, index, state, callback);
 
     return parsed;
   }
