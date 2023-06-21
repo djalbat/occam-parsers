@@ -45,12 +45,15 @@ export function parsePartOfParts(part, parts, nodes, index, state, callback) {
     const partRuleNamePartWithLookAhead = isPartRuleNamePartWithLookAhead(part);
 
     if (partRuleNamePartWithLookAhead) {
-      const ruleNamePart = part, ///
-            partsNodes = [];
+      const ruleNamePart = part; ///
+
+      let partsNodes;
 
       index++;
 
       parsed = ruleNamePart.parse(nodes, state, () => {
+        partsNodes = [];
+
         const parsed = parseParts(parts, partsNodes, index, state, callback);
 
         return parsed;
