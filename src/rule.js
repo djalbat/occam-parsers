@@ -1,13 +1,11 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
 import { specialSymbols } from "occam-lexers";
 
 import { EMPTY_STRING } from "./constants";
 import { paddingFromPaddingLength } from "./utilities/string";
 
-const { clear } = arrayUtilities,
-      { exclamationMark } = specialSymbols;
+const { exclamationMark } = specialSymbols;
 
 export default class Rule {
   constructor(name, ambiguous, definitions, NonTerminalNode) {
@@ -37,8 +35,6 @@ export default class Rule {
     let parsed;
 
     const savedIndex = state.getSavedIndex();
-
-    clear(nodes);
 
     parsed = definition.parse(nodes, state, callback);
 
@@ -82,14 +78,18 @@ export default class Rule {
 
     state.setRuleName(ruleName);
 
-    const nodes = [],
-          parsed = this.definitions.some((definition) => {
-            const parsed = this.parseDefinition(definition, nodes, state, callback, parentRuleName, parentPrecedence);
+    let nodes,
+        parsed;
 
-            if (parsed) {
-              return true;
-            }
-          });
+    this.definitions.some((definition) => {
+      nodes = [];
+
+      parsed = this.parseDefinition(definition, nodes, state, callback, parentRuleName, parentPrecedence);
+
+      if (parsed) {
+        return true;
+      }
+    });
 
     if (parsed) {
       const ruleName = this.name, ///
