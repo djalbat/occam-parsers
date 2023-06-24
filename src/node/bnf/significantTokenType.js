@@ -29,6 +29,8 @@ export default class SignificantTokenTypeBNFNode extends NonTerminalNode {
     return significantTokenType;
   }
 
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(SignificantTokenTypeBNFNode, ruleName, childNodes); }
+
   static fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence) { return NonTerminalNode.fromRuleNameChildNodesAndPrecedence(SignificantTokenTypeBNFNode, ruleName, childNodes, precedence); }
 }
 

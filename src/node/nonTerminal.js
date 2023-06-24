@@ -146,6 +146,21 @@ export default class NonTerminalNode {
     return parseTree;
   }
 
+  static fromRuleNameAndChildNodes(Class, ruleName, childNodes) {
+    if (childNodes === undefined) {
+      childNodes = ruleName;  ///
+
+      ruleName = Class; ///
+
+      Class = NonTerminalNode;  ///
+    }
+
+    const precedence = null,
+          nonTerminalNode = new Class(ruleName, childNodes, precedence);
+
+    return nonTerminalNode;
+  }
+
   static fromRuleNameChildNodesAndPrecedence(Class, ruleName, childNodes, precedence) {
     if (precedence === undefined) {
       precedence = childNodes;  ///

@@ -23,5 +23,7 @@ export default class PartChoiceBNFNode extends NonTerminalNode {
     return definition;
   }
 
+  static fromRuleNameAndChildNodes(ruleName, childNodes) { return NonTerminalNode.fromRuleNameAndChildNodes(PartChoiceBNFNode, ruleName, childNodes); }
+
   static fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence) { return NonTerminalNode.fromRuleNameChildNodesAndPrecedence(PartChoiceBNFNode, ruleName, childNodes, precedence); }
 }
