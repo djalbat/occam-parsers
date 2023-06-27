@@ -24,10 +24,9 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     let parsed;
 
     const savedIndex = state.getSavedIndex(),
-          partsNodes = [],
-          index = 0;
+          partsNodes = [];
 
-    parsed = parseParts(this.parts, partsNodes, index, state, callback);
+    parsed = parseParts(this.parts, partsNodes, state, callback);
 
     if (parsed) {
       push(nodes, partsNodes);

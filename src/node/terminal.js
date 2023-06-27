@@ -51,6 +51,12 @@ export default class TerminalNode {
 
   getContent() { return this.significantToken.getContent(); }
 
+  isLowerPrecedence(ruleName, precedence) {
+    const lowerPrecedence = false;
+
+    return lowerPrecedence;
+  }
+
   isIncludedIn(node) {
     let includedIn = false;
 

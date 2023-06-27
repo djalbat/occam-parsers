@@ -1,12 +1,12 @@
 "use strict";
 
 export default class State {
-  constructor(index, tokens, ruleMap, ruleName, precedence) {
+  constructor(index, tokens, ruleMap, precedence) {
 		this.index = index;
     this.tokens = tokens;
     this.ruleMap = ruleMap;
-    this.ruleName = ruleName;
     this.precedence = precedence;
+    this.callbacks = [];
   }
 
   getIndex() {
@@ -19,10 +19,6 @@ export default class State {
 
   getRuleMap() {
     return this.ruleMap;
-  }
-
-  getRuleName() {
-    return this.ruleName;
   }
 
   getPrecedence() {
@@ -39,10 +35,6 @@ export default class State {
 
   setRuleMap(ruleMap) {
     this.ruleMap = ruleMap;
-  }
-
-  setRuleName(ruleName) {
-    this.ruleName = ruleName;
   }
 
   setPrecedence(precedence) {
@@ -108,9 +100,8 @@ export default class State {
 
   static fromTokensAndRuleMap(tokens, ruleMap) {
     const index = 0,
-          ruleName = null,
           precedence = null,
-					state = new State(index, tokens, ruleMap, ruleName, precedence);
+					state = new State(index, tokens, ruleMap, precedence);
 
     return state;
   }

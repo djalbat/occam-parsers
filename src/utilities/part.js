@@ -1,7 +1,7 @@
 "use strict";
 
-export function isPartRuleNamePartWithLookAhead(part) {
-  let partRuleNamePartWithLookAhead = false;
+export function isPartLookAhead(part) {
+  let partLookAhead = false;
 
   const partRuleNamePart = isPartRuleNamePart(part);
 
@@ -9,12 +9,10 @@ export function isPartRuleNamePartWithLookAhead(part) {
     const ruleNamePart = part,  ///
           lookAhead = ruleNamePart.isLookAhead();
 
-    if (lookAhead) {
-      partRuleNamePartWithLookAhead = true;
-    }
+    partLookAhead = lookAhead;  ///
   }
 
-  return partRuleNamePartWithLookAhead;
+  return partLookAhead;
 }
 
 function isPartRuleNamePart(part) {

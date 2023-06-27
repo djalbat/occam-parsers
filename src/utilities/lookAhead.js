@@ -2,75 +2,100 @@
 
 import { arrayUtilities } from "necessary";
 
-import { isPartRuleNamePartWithLookAhead } from "./part";
+import { isPartLookAhead } from "./part";
 
 const { push } = arrayUtilities;
 
-export function parseParts(parts, nodes, index, state, callback) {
+export function parsePart(part, nodes, state, callback) {
+  let parsed;
+
+  const parts = [
+    part
+  ];
+
+  parsed = parseParts(parts, nodes, state, callback);
+
+  return parsed;
+}
+
+export function parseParts(parts, nodes, state, callback) {
+  const index = 0,
+        parsed = parsePartOfParts(index, parts, nodes, state, callback);
+
+  return parsed;
+}
+
+function parsePartOfParts(index, parts, nodes, state, callback) {
   let parsed;
 
   const partsLength = parts.length;
 
   if (index === partsLength) {
     parsed = (callback !== null) ?
-                callback() :
-                  true;
+               callback() :
+                 true;
   } else {
     const part = parts[index];
 
-    parsed = parsePartOfParts(part, parts, nodes, index, state, callback);
-  }
-
-  return parsed;
-}
-
-export function parsePartOfParts(part, parts, nodes, index, state, callback) {
-  let parsed;
-
-  if (callback !== null) {
-    let partsNodes;
-
-    index++;
-
-    parsed = part.parse(nodes, state, () => {
-      partsNodes = [];
-
-      const parsed = parseParts(parts, partsNodes, index, state, callback);
-
-      return parsed;
-    });
-
-    if (parsed) {
-      push(nodes, partsNodes);
-    }
-  } else {
-    const partRuleNamePartWithLookAhead = isPartRuleNamePartWithLookAhead(part);
-
-    if (partRuleNamePartWithLookAhead) {
-      const ruleNamePart = part; ///
-
-      let partsNodes;
-
+    if (callback !== null) {
       index++;
 
-      parsed = ruleNamePart.parse(nodes, state, () => {
-        partsNodes = [];
-
-        const parsed = parseParts(parts, partsNodes, index, state, callback);
+      const intermediatePartCallback = () => {
+        const parsed = parsePartOfParts(index, parts, nodes, state, callback);
 
         return parsed;
+      };
+
+      Object.assign(intermediatePartCallback, {
+        callback,
+        part
       });
 
-      if (parsed) {
-        push(nodes, partsNodes);
-      }
-    } else {
-      parsed = part.parse(nodes, state, callback);
+      state.callbacks.push(intermediatePartCallback);
 
-      if (parsed) {
+      parsed = part.parse(nodes, state, intermediatePartCallback);
+
+      state.callbacks.pop();
+
+    } else {
+      const partLookAhead = isPartLookAhead(part);
+
+      if (partLookAhead) {
+        let remainingNodes;
+
         index++;
 
-        parsed = parseParts(parts, nodes, index, state, callback);
+        const initialPartCallback = () => {
+          remainingNodes = [];
+
+          const parsed = parsePartOfParts(index, parts, remainingNodes, state, callback);
+
+          return parsed;
+        };
+
+        Object.assign(initialPartCallback, {
+          callback,
+          part
+        });
+
+        state.callbacks.push(initialPartCallback);
+
+        parsed = part.parse(nodes, state, initialPartCallback);
+
+        state.callbacks.pop();
+
+        if (parsed) {
+          push(nodes, remainingNodes);
+        }
+
+      } else {
+        parsed = part.parse(nodes, state, callback);
+
+        if (parsed) {
+          index++;
+
+          parsed = parsePartOfParts(index, parts, nodes, state, callback);
+        }
       }
     }
   }

@@ -65,6 +65,18 @@ export default class NonTerminalNode {
     return lastSignificantToken;
   }
 
+  isLowerPrecedence(ruleName, precedence) {
+    let lowerPrecedence = false;
+
+    if (this.ruleName === ruleName) {
+      if ((this.precedence !== null) && (precedence !== null)) {
+          lowerPrecedence = (this.precedence < precedence);
+      }
+    }
+
+    return lowerPrecedence;
+  }
+
   isIncludedIn(node) {
     let includedIn = false;
 

@@ -63,11 +63,23 @@ function parsePart(part, nodes, state, callback) {
     parsed = callback();
 
     if (!parsed) {
-      parsed = part.parse(nodes, state, () => {
+      const zeroOrMorePartsPartCallback = () => {
         const parsed = parsePart(part, nodes, state, callback);
 
         return parsed;
+      };
+
+      Object.assign(zeroOrMorePartsPartCallback, {
+        callback,
+        part
       });
+
+      state.callbacks.push(zeroOrMorePartsPartCallback);
+
+      parsed = part.parse(nodes, state, () => zeroOrMorePartsPartCallback);
+
+      state.callbacks.pop();
+
     }
   } else {
     parsed = part.parse(nodes, state, callback);

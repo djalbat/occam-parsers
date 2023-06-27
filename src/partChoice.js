@@ -1,7 +1,7 @@
 "use strict";
 
+import { parsePart } from "./utilities/lookAhead";
 import { EMPTY_STRING } from "./constants";
-import { parsePartOfParts } from "./utilities/lookAhead";
 
 export default class PartChoice {
   constructor(part, precedence) {
@@ -20,16 +20,9 @@ export default class PartChoice {
   parse(nodes, state, callback) {
     let parsed;
 
-    if (this.precedence !== null) {
-      state.setPrecedence(this.precedence);
-    }
+    state.setPrecedence(this.precedence);
 
-    const parts = [
-            this.part
-          ],
-          index = 0;
-
-    parsed = parsePartOfParts(this.part, parts, nodes, index, state, callback);
+    parsed = parsePart(this.part, nodes, state, callback);
 
     return parsed;
   }
