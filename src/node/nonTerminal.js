@@ -69,7 +69,7 @@ export default class NonTerminalNode {
     let lowerPrecedence = false;
 
     if (this.ruleName === ruleName) {
-      if ((this.precedence !== null) && (precedence !== null)) {
+      if (this.precedence !== null) {
           lowerPrecedence = (this.precedence < precedence);
       }
     }

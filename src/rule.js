@@ -31,36 +31,26 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
-  parseDefinition(definition, nodes, state, callback) {
-    let parsed;
+  parse(state, callback) {
+    let ruleNode = null;
 
-    const savedIndex = state.getSavedIndex();
+    let nodes,
+        parsed,
+        precedence;
 
-    if (callback === null) {
-      parsed = definition.parse(nodes, state, callback);
+    this.definitions.some((definition) => {
+      nodes = [];
 
-      if (parsed) {
-        const nodesLength = nodes.length;
+      precedence = definition.getPrecedence();
 
-        if (nodesLength === 0) {
-          parsed = false;
-        }
-      }
-    } else {
-      const definitionCallback = () => {
-        let parsed = true;
+      if (precedence === null) {
+        parsed = definition.parse(nodes, state, callback);
+      } else {
+        const precedenceCallback = () => {
+          let parsed;
 
-        if (parsed) {
-          const nodesLength = nodes.length;
-
-          if (nodesLength === 0) {
-            parsed = false;
-          }
-        }
-
-        if (parsed) {
           const ruleName = this.name, ///
-                precedence = state.getPrecedence(),
+                precedence = definition.getPrecedence(),
                 nodesLowerPrecedence = nodes.some((node) => {
                   const nodeLowerPrecedence = node.isLowerPrecedence(ruleName, precedence);
 
@@ -69,50 +59,23 @@ export default class Rule {
                   }
                 });
 
-          if (nodesLowerPrecedence) {
-            parsed = false;
+          parsed = !nodesLowerPrecedence;
+
+          if (parsed === true) {
+            if (callback !== null) {
+              parsed = callback();
+            }
           }
-        }
 
-        if (parsed) {
-          parsed = callback();
-        }
+          return parsed;
+        };
 
-        return parsed;
+        Object.assign(precedenceCallback, {
+          definition
+        });
+
+        parsed = definition.parse(nodes, state, precedenceCallback);
       }
-
-      Object.assign(definitionCallback, {
-        callback,
-        definition
-      });
-
-      state.callbacks.push(definitionCallback);
-
-      parsed = definition.parse(nodes, state, definitionCallback);
-
-      state.callbacks.pop();
-
-    }
-
-    if (!parsed) {
-      state.backtrack(savedIndex);
-    }
-
-    return parsed;
-  }
-
-  parse(state, callback) {
-    let ruleNode = null;
-
-    let nodes,
-        parsed;
-
-    const precedence = state.getPrecedence();
-
-    this.definitions.some((definition) => {
-      nodes = [];
-
-      parsed = this.parseDefinition(definition, nodes, state, callback);
 
       if (parsed) {
         return true;
@@ -121,14 +84,11 @@ export default class Rule {
 
     if (parsed) {
       const ruleName = this.name, ///
-            childNodes = nodes,  ///
-            precedence = state.getPrecedence(),
+            childNodes = nodes,
             nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence);
 
       ruleNode = nonTerminalNode; ///
     }
-
-    state.setPrecedence(precedence);
 
     return ruleNode;
   }

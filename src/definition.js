@@ -1,6 +1,6 @@
 "use strict";
 
-import { parseParts } from "./utilities/lookAhead";
+import { parseParts } from "./utilities/parse";
 import { EMPTY_STRING } from "./constants";
 
 export default class Definition {
@@ -20,9 +20,21 @@ export default class Definition {
   parse(nodes, state, callback) {
     let parsed;
 
-    state.setPrecedence(this.precedence);
+    const savedIndex = state.getSavedIndex();
 
     parsed = parseParts(this.parts, nodes, state, callback);
+
+    if (parsed) {
+      const nodesLength = nodes.length;
+
+      if (nodesLength === 0) {
+        parsed = false;
+      }
+    }
+
+    if (!parsed) {
+      state.backtrack(savedIndex);
+    }
 
     return parsed;
   }

@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { parseParts } from "../../utilities/lookAhead";
+import { parseParts } from "../../utilities/parse";
 import { SequenceOfPartsPartType } from "../../partTypes";
 
 const { push } = arrayUtilities;

@@ -7,6 +7,12 @@ import NonTerminalPart from "../../part/nonTerminal";
 import { EMPTY_STRING } from "../../constants";
 import { RuleNamePartType } from "../../partTypes";
 
+// import { arrayUtilities } from "necessary";
+//
+// import { isPartLookAhead } from "./part";
+//
+// const { push } = arrayUtilities;
+
 const { ellipsis } = specialSymbols;
 
 export default class RuleNamePart extends NonTerminalPart {
@@ -58,6 +64,47 @@ export default class RuleNamePart extends NonTerminalPart {
         nodes.push(ruleNode);
       }
     }
+
+
+    // const partLookAhead = isPartLookAhead(part);
+    //
+    // if (partLookAhead) {
+    //   let remainingNodes;
+    //
+    //   index++;
+    //
+    //   const lookAheadCallback = () => {
+    //     remainingNodes = [];
+    //
+    //     const parsed = parsePartOfParts(index, parts, remainingNodes, state, callback);
+    //
+    //     return parsed;
+    //   };
+    //
+    //   Object.assign(lookAheadCallback, {
+    //     callback,
+    //     part
+    //   });
+    //
+    //   state.callbacks.push(lookAheadCallback);
+    //
+    //   parsed = part.parse(nodes, state, lookAheadCallback);
+    //
+    //   state.callbacks.pop();
+    //
+    //   if (parsed) {
+    //     push(nodes, remainingNodes);
+    //   }
+    //
+    // } else {
+    //   parsed = part.parse(nodes, state, callback);
+    //
+    //   if (parsed) {
+    //     index++;
+    //
+    //     parsed = parsePartOfParts(index, parts, nodes, state, callback);
+    //   }
+    // }
 
     return parsed;
   }
