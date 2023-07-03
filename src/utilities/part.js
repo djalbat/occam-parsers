@@ -22,7 +22,7 @@ function isPartRuleNamePart(part) {
         partNonTerminalPart = !partTerminalPart;
 
   if (partNonTerminalPart) {
-    const nonTerminalPart = part,
+    const nonTerminalPart = part, ///
           nonTerminalPartRuleNamePart = nonTerminalPart.isRuleNamePart();
 
     partRuleNamePart = nonTerminalPartRuleNamePart; ///

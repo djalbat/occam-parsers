@@ -1,5 +1,11 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
+import { isPartLookAhead } from "../utilities/part";
+
+const { push } = arrayUtilities;
+
 export function parsePart(part, nodes, state, callback) {
   let parsed;
 
@@ -38,10 +44,28 @@ function parsePartOfParts(index, parts, nodes, state, callback) {
     index++;
 
     if (callback === null) {
-      parsed = part.parse(nodes, state, callback);
+      const partLookAhead = isPartLookAhead(part);
 
-      if (parsed) {
-        parsed = parsePartOfParts(index, parts, nodes, state, callback);
+      if (partLookAhead) {
+        let remainingNodes;
+
+        parsed = part.parse(nodes, state, () => {
+          remainingNodes = [];
+
+          const parsed = parsePartOfParts(index, parts, remainingNodes, state, callback);
+
+          return parsed;
+        });
+
+        if (parsed) {
+          push(nodes, remainingNodes);
+        }
+      } else {
+        parsed = part.parse(nodes, state, callback);
+
+        if (parsed) {
+          parsed = parsePartOfParts(index, parts, nodes, state, callback);
+        }
       }
     } else {
       parsed = part.parse(nodes, state, () => {
