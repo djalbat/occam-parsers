@@ -2,21 +2,31 @@
 
 const bnf = `
 
+   S ::= AB... "b" ;
+  
+  AB ::= "a" "b"? 
+  
+       | "a"
+       
+       ; 
+  
+   
+`;
+
+export default bnf;
+
+/*
+
         term  ::=  "1" "+" "2" "/" term   (4)
-                     
+
                 |  "1" "+" term           (0)
-                     
+
                 |  "2" "/" "3"            (1)
 
                 |  "3"                    (3)
 
                 ;
 
-`;
-
-export default bnf;
-
-/*
 
   expression  ::=  term... "." ;
 
