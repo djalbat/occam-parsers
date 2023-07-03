@@ -17,17 +17,18 @@ export default class Definition {
     return this.precedence;
   }
 
-  parse(nodes, state, callback) {
+  parse(childNodes, state, callback) {
     let parsed;
 
-    const savedIndex = state.getSavedIndex();
+    const savedIndex = state.getSavedIndex(),
+          nodes = childNodes; ///
 
     parsed = parseParts(this.parts, nodes, state, callback);
 
     if (parsed) {
-      const nodesLength = nodes.length;
+      const childNodesLength = childNodes.length;
 
-      if (nodesLength === 0) {
+      if (childNodesLength === 0) {
         parsed = false;
       }
     }
