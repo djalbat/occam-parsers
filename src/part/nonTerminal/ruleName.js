@@ -53,18 +53,9 @@ export default class RuleNamePart extends NonTerminalPart {
 
     const rule = this.findRule(state);
 
-    if (rule === null) {
-      parsed = false;
-    } else {
-      const ruleNode = rule.parse(state, callback);
-
-      parsed = (ruleNode !== null);
-
-      if (parsed) {
-        nodes.push(ruleNode);
-      }
-    }
-
+    parsed = (rule !== null) ?
+                rule.parse(nodes, state, callback) :
+                  false;
 
     // const partLookAhead = isPartLookAhead(part);
     //
@@ -81,16 +72,7 @@ export default class RuleNamePart extends NonTerminalPart {
     //     return parsed;
     //   };
     //
-    //   Object.assign(lookAheadCallback, {
-    //     callback,
-    //     part
-    //   });
-    //
-    //   state.callbacks.push(lookAheadCallback);
-    //
     //   parsed = part.parse(nodes, state, lookAheadCallback);
-    //
-    //   state.callbacks.pop();
     //
     //   if (parsed) {
     //     push(nodes, remainingNodes);

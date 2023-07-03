@@ -5,7 +5,6 @@ export default class State {
 		this.index = index;
     this.tokens = tokens;
     this.ruleMap = ruleMap;
-    this.callbacks = [];
   }
 
   getIndex() {

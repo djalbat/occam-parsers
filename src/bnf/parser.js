@@ -1,5 +1,7 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import bnf from "./bnf";
 import Rule from "../rule";
 import State from "../state";
@@ -33,6 +35,8 @@ import SignificantTokenTypeRule from "../rule/significantTokenType";
 
 import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
 
+const { first } = arrayUtilities;
+
 export default class BNFParser {
   constructor(startRule, ruleMap) {
     this.startRule = startRule;
@@ -48,10 +52,18 @@ export default class BNFParser {
   }
 
   parse(tokens, rule = this.startRule) {
-    const state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
+    let node = null;
+
+    const nodes = [],
+          state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
           callback = null,
-          ruleNode = rule.parse(state, callback),
-          node = ruleNode; ///
+          parsed = rule.parse(nodes, state, callback);
+
+    if (parsed) {
+      const firstNode = first(nodes);
+
+      node = firstNode; ///
+    }
 
     return node;
   }

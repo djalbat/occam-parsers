@@ -1,8 +1,12 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import State from "../state";
 
 import { rulesFromBNF, parserFromRules } from "../utilities/parser";
+
+const { first } = arrayUtilities;
 
 export default class CommonParser {
   constructor(startRule, ruleMap) {
@@ -19,10 +23,18 @@ export default class CommonParser {
   }
 
   parse(tokens, rule = this.startRule) {
-    const state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
+    let node = null;
+
+    const nodes = [],
+          state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
           callback = null,
-          ruleNode = rule.parse(state, callback),
-          node = ruleNode; ///
+          parsed = rule.parse(nodes, state, callback);
+
+    if (parsed) {
+      const firstNode = first(nodes);
+
+      node = firstNode; ///
+    }
 
     return node;
   }
