@@ -54,7 +54,9 @@ export default class Definition {
 
             return partsString;
           }, EMPTY_STRING),
-          string = partsString; ///
+          string = (this.precedence !== null) ?
+                     `${partsString} (${this.precedence})` :
+                        partsString; ///
 
     return string;
   }
