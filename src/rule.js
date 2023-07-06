@@ -34,18 +34,20 @@ export default class Rule {
   parse(nodes, state, callback) {
     let parsed = false;
 
+    const savedPrecedence = state.getSavedPrecedence();
+
     this.definitions.some((definition) => {
       const childNodes = [];
 
       parsed = definition.parse(childNodes, state, () => {
-        let parsed;
+        let parsed = true,
+            precedence = state.getPrecedence();
 
-        const ruleName = this.name, ///
-              precedence = state.getPrecedence();
+        state.resetPrecedence(savedPrecedence);
 
-        if (precedence === null) {
-          parsed = true;
-        } else {
+        const ruleName = this.name; ///
+
+        if (precedence !== null) {
           const childNodesLowerPrecedence = childNodes.some((childNode) => {  ///
             const childNodeLowerPrecedence = childNode.isLowerPrecedence(ruleName, precedence);
 
@@ -54,7 +56,9 @@ export default class Rule {
             }
           });
 
-          parsed = !childNodesLowerPrecedence;
+          if (childNodesLowerPrecedence) {
+            parsed = false;
+          }
         }
 
         if (parsed) {

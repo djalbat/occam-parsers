@@ -40,6 +40,12 @@ export default class State {
     this.precedence = precedence;
   }
 
+  getSavedPrecedence() {
+    const savedPrecedence = this.precedence;
+
+    return savedPrecedence;
+  }
+
   getSavedIndex() {
     const savedIndex = this.index; ///
   
@@ -96,6 +102,10 @@ export default class State {
 	backtrack(savedIndex) {
 		this.index = savedIndex;  ///
 	}
+
+  resetPrecedence(savedPrecedence) {
+    this.precedence = savedPrecedence;  ///
+  }
 
   static fromTokensAndRuleMap(tokens, ruleMap) {
     const index = 0,
