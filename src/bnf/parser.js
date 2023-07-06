@@ -1,10 +1,7 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import bnf from "./bnf";
 import Rule from "../rule";
-import State from "../state";
 import NameRule from "../rule/name";
 import PartRule from "../rule/part";
 import RuleRule from "../rule/rule";
@@ -13,6 +10,7 @@ import EpsilonRule from "../rule/epsilon";
 import DocumentRule from "../rule/document";
 import RuleNameRule from "../rule/ruleName";
 import WildcardRule from "../rule/wildcard";
+import parserMixins from "../mixins/parser";
 import EndOfLineRule from "../rule/endOfLine";
 import PartChoiceRule from "../rule/partChoice";
 import QuantifierRule from "../rule/quantifier";
@@ -35,8 +33,6 @@ import SignificantTokenTypeRule from "../rule/significantTokenType";
 
 import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
 
-const { first } = arrayUtilities;
-
 export default class BNFParser {
   constructor(startRule, ruleMap) {
     this.startRule = startRule;
@@ -49,23 +45,6 @@ export default class BNFParser {
 
   getRuleMap() {
     return this.ruleMap;
-  }
-
-  parse(tokens, rule = this.startRule) {
-    let node = null;
-
-    const nodes = [],
-          state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
-          callback = null,
-          parsed = rule.parse(nodes, state, callback);
-
-    if (parsed) {
-      const firstNode = first(nodes);
-
-      node = firstNode; ///
-    }
-
-    return node;
   }
 
 	rulesFromTokens(tokens) {
@@ -156,3 +135,5 @@ export default class BNFParser {
     return bnfParser;
   }
 }
+
+Object.assign(BNFParser.prototype, parserMixins);

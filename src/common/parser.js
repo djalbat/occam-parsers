@@ -1,12 +1,8 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
-import State from "../state";
+import parserMixins from "../mixins/parser";
 
 import { rulesFromBNF, parserFromRules } from "../utilities/parser";
-
-const { first } = arrayUtilities;
 
 export default class CommonParser {
   constructor(startRule, ruleMap) {
@@ -20,23 +16,6 @@ export default class CommonParser {
 
   getRuleMap() {
     return this.ruleMap;
-  }
-
-  parse(tokens, rule = this.startRule) {
-    let node = null;
-
-    const nodes = [],
-          state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
-          callback = null,
-          parsed = rule.parse(nodes, state, callback);
-
-    if (parsed) {
-      const firstNode = first(nodes);
-
-      node = firstNode; ///
-    }
-
-    return node;
   }
 
   static fromNothing(Class) {
@@ -60,3 +39,5 @@ export default class CommonParser {
     return parser;
   }
 }
+
+Object.assign(CommonParser.prototype, parserMixins);
