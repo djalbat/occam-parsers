@@ -10,8 +10,8 @@ import { SequenceOfPartsPartType } from "../../partTypes";
 const { push } = arrayUtilities;
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
-  constructor(type, parts) {
-    super(type);
+  constructor(type, lookAhead, parts) {
+    super(type, lookAhead);
 
     this.parts = parts;
   }
@@ -58,7 +58,8 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
 
   static fromParts(parts) {
     const type = SequenceOfPartsPartType,
-          sequenceOfPartsPart = new SequenceOfPartsPart(type, parts);
+          lookAhead = false,
+          sequenceOfPartsPart = new SequenceOfPartsPart(type, lookAhead, parts);
 
     return sequenceOfPartsPart;
   }

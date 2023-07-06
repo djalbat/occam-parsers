@@ -2,8 +2,6 @@
 
 import { arrayUtilities } from "necessary";
 
-import { isPartLookAhead } from "../utilities/part";
-
 const { push } = arrayUtilities;
 
 export function parsePart(part, nodes, state, callback) {
@@ -44,7 +42,7 @@ function parsePartOfParts(index, parts, nodes, state, callback) {
     index++;
 
     if (callback === null) {
-      const partLookAhead = isPartLookAhead(part);
+      const partLookAhead = part.isLookAhead();
 
       if (partLookAhead) {
         let remainingNodes;

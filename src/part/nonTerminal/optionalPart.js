@@ -11,8 +11,8 @@ const { push } = arrayUtilities,
       { questionMark } = specialSymbols;
 
 export default class OptionalPartPart extends NonTerminalPart {
-  constructor(type, part) {
-    super(type);
+  constructor(type, lookAhead, part) {
+    super(type, lookAhead);
 
     this.part = part;
   }
@@ -50,7 +50,8 @@ export default class OptionalPartPart extends NonTerminalPart {
 
   static fromPart(part) {
     const type = OptionalPartPartType,
-          optionalPartPart = new OptionalPartPart(type, part);
+          lookAhead = false,
+          optionalPartPart = new OptionalPartPart(type, lookAhead, part);
 
     return optionalPartPart;
   }

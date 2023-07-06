@@ -13,8 +13,8 @@ export default class RuleNameBNFNode extends NonTerminalNode {
           firstChildNode = first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
-          ruleName = terminalNodeContent,
-          ruleNamePart = RuleNamePart.fromRuleNameAndLookAhead(ruleName, lookAhead);
+          ruleName = terminalNodeContent, ///
+          ruleNamePart = RuleNamePart.fromLookAheadAndRuleName(lookAhead, ruleName);
 
     return ruleNamePart;
   }

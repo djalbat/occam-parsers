@@ -1,12 +1,17 @@
 "use strict";
 
 export default class NonTerminalPart {
-  constructor(type) {
-    this.type = type;  
+  constructor(type, lookAhead) {
+    this.type = type;
+    this.lookAhead = lookAhead;
   }
   
   getType() {
     return this.type;
+  }
+
+  isLookAhead() {
+    return this.lookAhead;
   }
 
   isNonTerminalPart() {

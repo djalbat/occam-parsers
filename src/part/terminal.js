@@ -1,6 +1,12 @@
 "use strict";
 
 export default class TerminalPart {
+  isLookAhead() {
+    const lookAhead = false;
+
+    return lookAhead;
+  }
+
   isNonTerminalPart() {
     const nonTerminalPart = false;
 
