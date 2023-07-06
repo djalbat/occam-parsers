@@ -40,18 +40,26 @@ export default class Rule {
       parsed = definition.parse(childNodes, state, () => {
         let parsed;
 
-        const precedence = definition.getPrecedence();
+        const ruleName = this.name, ///
+              precedence = state.getPrecedence();
 
         if (precedence === null) {
           parsed = true;
         } else {
-          const childNodesLowerPrecedence = this.areChildNodesLowerPrecedence(childNodes, precedence);
+          const childNodesLowerPrecedence = childNodes.some((childNode) => {  ///
+            const childNodeLowerPrecedence = childNode.isLowerPrecedence(ruleName, precedence);
+
+            if (childNodeLowerPrecedence) {
+              return true;
+            }
+          });
 
           parsed = !childNodesLowerPrecedence;
         }
 
         if (parsed) {
-          const node = this.nodeFromChildNodesAndPrecedence(childNodes, precedence);
+          const nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence),
+                node = nonTerminalNode; ///
 
           nodes.push(node);
 
@@ -73,27 +81,6 @@ export default class Rule {
     });
 
     return parsed;
-  }
-
-  areChildNodesLowerPrecedence(childNodes, precedence) {
-    const ruleName = this.name, ///
-          childNodesLowerPrecedence = childNodes.some((childNode) => {  ///
-            const childNodeLowerPrecedence = childNode.isLowerPrecedence(ruleName, precedence);
-
-            if (childNodeLowerPrecedence) {
-              return true;
-            }
-          });
-
-    return childNodesLowerPrecedence;
-  }
-
-  nodeFromChildNodesAndPrecedence(childNodes, precedence) {
-    const ruleName = this.name, ///
-          nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence),
-          node = nonTerminalNode; ///
-
-    return node;
   }
 
   asString(maximumRuleNameLength, multiLine = true) {
