@@ -35,45 +35,37 @@ export default class Rule {
     let parsed = false;
 
     this.definitions.some((definition) => {
-      const precedence = definition.getPrecedence();
+      const childNodes = [];
 
-      if (precedence === null) {
-        const childNodes = [];
+      parsed = definition.parse(childNodes, state, () => {
+        let parsed;
 
-        parsed = definition.parse(childNodes, state, callback);
+        const precedence = definition.getPrecedence();
+
+        if (precedence === null) {
+          parsed = true;
+        } else {
+          const childNodesLowerPrecedence = this.areChildNodesLowerPrecedence(childNodes, precedence);
+
+          parsed = !childNodesLowerPrecedence;
+        }
 
         if (parsed) {
           const node = this.nodeFromChildNodesAndPrecedence(childNodes, precedence);
 
           nodes.push(node);
-        }
-      } else {
-        const childNodes = [];
 
-        parsed = definition.parse(childNodes, state, () => {
-          let parsed;
+          if (callback !== null) {
+            parsed = callback();
 
-          const childNodesLowerPrecedence = this.areChildNodesLowerPrecedence(childNodes, precedence);
-
-          parsed = !childNodesLowerPrecedence;
-
-          if (parsed) {
-            const node = this.nodeFromChildNodesAndPrecedence(childNodes, precedence);
-
-            nodes.push(node);
-
-            if (callback !== null) {
-              parsed = callback();
-
-              if (!parsed) {
-                nodes.pop();
-              }
+            if (!parsed) {
+              nodes.pop();
             }
           }
+        }
 
-          return parsed;
-        });
-      }
+        return parsed;
+      });
 
       if (parsed) {
         return true;

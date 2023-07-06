@@ -20,8 +20,8 @@ export default class Definition {
   parse(childNodes, state, callback) {
     let parsed;
 
-    const savedIndex = state.getSavedIndex(),
-          nodes = childNodes; ///
+    const nodes = childNodes, ///
+          savedIndex = state.getSavedIndex();
 
     parsed = parseParts(this.parts, nodes, state, callback);
 
