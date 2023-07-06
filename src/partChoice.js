@@ -20,6 +20,10 @@ export default class PartChoice {
   parse(nodes, state, callback) {
     let parsed;
 
+    if (this.precedence !== null) {
+      state.setPrecedence(this.precedence);
+    }
+
     parsed = parsePart(this.part, nodes, state, callback);
 
     return parsed;
