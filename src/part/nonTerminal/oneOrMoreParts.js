@@ -6,6 +6,7 @@ import { specialSymbols } from "occam-lexers";
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { OneOrMorePartsPartType } from "../../partTypes";
+import { parseZeroOrMorePartsPart } from "../../part/nonTerminal/zeroOrMoreParts";
 
 const { push } = arrayUtilities,
       { plus } = specialSymbols;
@@ -33,7 +34,7 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
       ruleName
     });
 
-    parsed = parsePart(this.part, partNodes, state, callback, callAhead);
+    parsed = parseOneOrMorePartsPart(this.part, partNodes, state, callback, callAhead);
 
     if (parsed) {
       push(nodes, partNodes);
@@ -62,7 +63,7 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
   }
 }
 
-function parsePart(part, partNodes, state, callback, callAhead) {
+export function parseOneOrMorePartsPart(part, partNodes, state, callback, callAhead) {
   let parsed;
 
 
@@ -79,24 +80,10 @@ function parsePart(part, partNodes, state, callback, callAhead) {
     parsed = part.parse(nodes, state, () => {
       let parsed;
 
-      parsed = callback();
-
-      if (parsed) {
-        if (callAhead !== null) {
-          parsed = callAhead();
-        }
-      }
-
-      if (!parsed) {
-        parsed = parsePart(part, nodes, state, callback, callAhead);
-      }
+      parsed = parseZeroOrMorePartsPart(part, partNodes, state, callback, callAhead);
 
       return parsed;
     }, callAhead);
-
-
-
-
 
 
   return parsed;

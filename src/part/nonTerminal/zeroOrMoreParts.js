@@ -33,7 +33,7 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
       ruleName
     });
 
-    parsed = parsePart(this.part, partNodes, state, callback, callAhead);
+    parsed = parseZeroOrMorePartsPart(this.part, partNodes, state, callback, callAhead);
 
     if (parsed) {
       push(nodes, partNodes);
@@ -62,7 +62,7 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
   }
 }
 
-function parsePart(part, partNodes, state, callback, callAhead) {
+export function parseZeroOrMorePartsPart(part, partNodes, state, callback, callAhead) {
   let parsed;
 
   parsed = callback();
@@ -79,31 +79,11 @@ function parsePart(part, partNodes, state, callback, callAhead) {
     parsed = part.parse(nodes, state, () => {
       let parsed;
 
-
-
-
-
-
-
-
-
-
-        parsed = parsePart(part, nodes, state, callback, callAhead);
-
+      parsed = parseZeroOrMorePartsPart(part, partNodes, state, callback, callAhead);
 
       return parsed;
     }, callAhead);
-
-    if (callAhead === null) {
-      parsed = true;
-    }
   }
 
   return parsed;
 }
-
-
-
-
-
-

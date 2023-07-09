@@ -33,7 +33,7 @@ export default class OptionalPartPart extends NonTerminalPart {
       ruleName
     });
 
-    parsed = parsePart(this.part, partNodes, state, callback, callAhead);
+    parsed = parseOptionalPart(this.part, partNodes, state, callback, callAhead);
 
     if (parsed) {
       push(nodes, partNodes);
@@ -62,7 +62,7 @@ export default class OptionalPartPart extends NonTerminalPart {
   }
 }
 
-function parsePart(part, partNodes, state, callback, callAhead) {
+export function parseOptionalPart(part, partNodes, state, callback, callAhead) {
   let parsed;
 
   parsed = callback();
@@ -83,20 +83,6 @@ function parsePart(part, partNodes, state, callback, callAhead) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    if (callAhead === null) {
-      parsed = true;
-    }
   }
 
   return parsed;
