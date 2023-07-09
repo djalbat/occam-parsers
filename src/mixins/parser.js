@@ -11,8 +11,9 @@ function parse(tokens, rule = this.startRule) {
 
   const nodes = [],
         state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
-        callback = null,
-        parsed = rule.parse(nodes, state, callback);
+        callback = () => true,  ///
+        callAhead = null,
+        parsed = rule.parse(nodes, state, callback, callAhead);
 
   if (parsed) {
     const firstNode = first(nodes);

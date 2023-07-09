@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 const { push } = arrayUtilities;
 
-export function parsePart(part, nodes, state, callback) {
+export function parsePart(part, nodes, state, callback, callAhead) {
   let parsed;
 
   const index = 0,
@@ -12,65 +12,62 @@ export function parsePart(part, nodes, state, callback) {
           part
         ];
 
-  parsed = parsePartOfParts(index, parts, nodes, state, callback);
+  parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
 
   return parsed;
 }
 
-export function parseParts(parts, nodes, state, callback) {
+export function parseParts(parts, nodes, state, callback, callAhead) {
   let parsed;
 
   const index = 0;
 
-  parsed = parsePartOfParts(index, parts, nodes, state, callback);
+  parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
 
   return parsed;
 }
 
-function parsePartOfParts(index, parts, nodes, state, callback) {
+function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
   let parsed;
 
   const partsLength = parts.length;
 
   if (index === partsLength) {
-    parsed = (callback !== null) ?
-               callback() :
-                 true;
+    parsed = callback();
+
+    if (parsed) {
+      parsed = (callAhead !== null) ?
+                  callAhead() :
+                    true;
+    }
   } else {
-    const part = parts[index];
+    const part = parts[index],
+          partLookAhead = part.isLookAhead(),
+          partCallAhead = (callAhead === null);
 
     index++;
 
-    if (callback === null) {
-      const partLookAhead = part.isLookAhead();
+    if (partLookAhead && partCallAhead) {
+      let partNodes;
 
-      if (partLookAhead) {
-        let remainingNodes;
+      parsed = part.parse(nodes, state, callback, () => {
+        partNodes = [];
 
-        parsed = part.parse(nodes, state, () => {
-          remainingNodes = [];
-
-          const parsed = parsePartOfParts(index, parts, remainingNodes, state, callback);
-
-          return parsed;
-        });
-
-        if (parsed) {
-          push(nodes, remainingNodes);
-        }
-      } else {
-        parsed = part.parse(nodes, state, callback);
-
-        if (parsed) {
-          parsed = parsePartOfParts(index, parts, nodes, state, callback);
-        }
-      }
-    } else {
-      parsed = part.parse(nodes, state, () => {
-        const parsed = parsePartOfParts(index, parts, nodes, state, callback);
+        const nodes = partNodes,  ///
+              parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
 
         return parsed;
       });
+
+      if (parsed) {
+        push(nodes, partNodes);
+      }
+    } else {
+      parsed = part.parse(nodes, state, () => {
+        const parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
+
+        return parsed;
+      }, callAhead);
     }
   }
 

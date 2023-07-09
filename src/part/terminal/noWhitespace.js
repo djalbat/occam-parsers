@@ -14,7 +14,7 @@ export default class NoWhitespacePart extends TerminalPart {
     return noWhitespacePart;
   }
 
-  parse(nodes, state, callback) {
+  parse(nodes, state, callback, callAhead) {
     let parsed;
 
     let noWhitespaceNode = null;
@@ -31,12 +31,16 @@ export default class NoWhitespacePart extends TerminalPart {
     if (parsed) {
       nodes.push(noWhitespaceNode);
 
-      if (callback !== null) {
-        parsed = callback();
+      parsed = callback();
 
-        if (!parsed) {
-          nodes.pop();
+      if (parsed) {
+        if (callAhead !== null) {
+          parsed = callAhead();
         }
+      }
+
+      if (!parsed) {
+        nodes.pop();
       }
     }
 

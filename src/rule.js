@@ -31,21 +31,24 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
-  parse(nodes, state, callback) {
+  parse(nodes, state, callback, callAhead) {
     let parsed = false;
 
     const savedPrecedence = state.getSavedPrecedence();
 
     this.definitions.some((definition) => {
-      const childNodes = [];
+      const ruleName = this.name, ///
+            childNodes = [];
+
+      Object.assign(childNodes, {
+        ruleName
+      });
 
       parsed = definition.parse(childNodes, state, () => {
         let parsed = true,
             precedence = state.getPrecedence();
 
         state.resetPrecedence(savedPrecedence);
-
-        const ruleName = this.name; ///
 
         if (precedence !== null) {
           const childNodesLowerPrecedence = childNodes.some((childNode) => {  ///
@@ -67,17 +70,21 @@ export default class Rule {
 
           nodes.push(node);
 
-          if (callback !== null) {
-            parsed = callback();
+          parsed = callback();
 
-            if (!parsed) {
-              nodes.pop();
+          if (parsed) {
+            if (callAhead !== null) {
+              parsed = callAhead();
             }
+          }
+
+          if (!parsed) {
+            nodes.pop();
           }
         }
 
         return parsed;
-      });
+      }, callAhead);
 
       if (parsed) {
         return true;

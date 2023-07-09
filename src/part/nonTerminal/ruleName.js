@@ -33,13 +33,13 @@ export default class RuleNamePart extends NonTerminalPart {
     return rule;
   }
 
-  parse(nodes, state, callback) {
+  parse(nodes, state, callback, callAhead) {
     let parsed;
 
     const rule = this.findRule(state);
 
     parsed = (rule !== null) ?
-               rule.parse(nodes, state, callback) :
+               rule.parse(nodes, state, callback, callAhead) :
                  null;
 
     return parsed;

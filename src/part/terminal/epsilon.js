@@ -8,7 +8,7 @@ import EpsilonBNFNode from "../../node/terminal/epsilon";
 const { epsilon } = specialSymbols;
 
 export default class EpsilonPart extends TerminalPart {
-  parse(nodes, state, callback) {
+  parse(nodes, state, callback, callAhead) {
     let parsed;
 
     const savedIndex = state.getSavedIndex(),
@@ -19,12 +19,16 @@ export default class EpsilonPart extends TerminalPart {
     if (parsed) {
       nodes.push(epsilonBNFNode);
 
-      if (callback !== null) {
-        parsed = callback();
+      parsed = callback();
 
-        if (!parsed) {
-          nodes.pop();
+      if (parsed) {
+        if (callAhead !== null) {
+          parsed = callAhead();
         }
+      }
+
+      if (!parsed) {
+        nodes.pop();
       }
     }
 

@@ -21,21 +21,19 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
     return this.part;
   }
 
-  asString() {
-    const partString = this.part.asString(),
-          string = `${partString}${plus}`;
-
-    return string;
-  }
-
-  parse(nodes, state, callback) {
+  parse(nodes, state, callback, callAhead) {
     let parsed;
 
-    const part = this.getPart(),
-          partNodes = [],
+    const partNodes = [],
           savedIndex = state.getSavedIndex();
 
-    parsed = parsePart(part, partNodes, state, callback);
+    const { ruleName } = nodes;
+
+    Object.assign(partNodes, {
+      ruleName
+    });
+
+    parsed = parsePart(this.part, partNodes, state, callback, callAhead);
 
     if (parsed) {
       push(nodes, partNodes);
@@ -48,6 +46,13 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
     return parsed;
   }
 
+  asString() {
+    const partString = this.part.asString(),
+          string = `${partString}${plus}`;
+
+    return string;
+  }
+
   static fromPart(part) {
     const type = OneOrMorePartsPartType,
           lookAhead = false,
@@ -57,26 +62,42 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
   }
 }
 
-function parsePart(part, nodes, state, callback) {
+function parsePart(part, partNodes, state, callback, callAhead) {
   let parsed;
 
-  if (callback === null) {
-    parsed = part.parse(nodes, state, callback);
 
-    if (parsed) {
-      parsePart(part, nodes, state, callback)
-    }
-  } else {
+
+
+
+
+
+
+
+
+    const nodes = partNodes;  ///
+
     parsed = part.parse(nodes, state, () => {
-      let parsed = callback();
+      let parsed;
+
+      parsed = callback();
+
+      if (parsed) {
+        if (callAhead !== null) {
+          parsed = callAhead();
+        }
+      }
 
       if (!parsed) {
-        parsed = parsePart(part, nodes, state, callback);
+        parsed = parsePart(part, nodes, state, callback, callAhead);
       }
 
       return parsed;
-    });
-  }
+    }, callAhead);
+
+
+
+
+
 
   return parsed;
 }
