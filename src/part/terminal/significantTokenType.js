@@ -32,8 +32,6 @@ export default class SignificantTokenTypePart extends TerminalPart {
     if (parsed) {
       nodes.push(terminalNode);
 
-      parsed = callback();
-
       if (parsed) {
         if (callAhead !== null) {
           parsed = callAhead();

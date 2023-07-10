@@ -70,8 +70,6 @@ export default class Rule {
 
           nodes.push(node);
 
-          parsed = callback();
-
           if (parsed) {
             if (callAhead !== null) {
               parsed = callAhead();

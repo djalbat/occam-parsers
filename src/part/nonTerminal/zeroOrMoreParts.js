@@ -65,24 +65,32 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
 export function parseZeroOrMorePartsPart(part, partNodes, state, callback, callAhead) {
   let parsed;
 
-  parsed = callback();
+  const nodes = partNodes;  ///
 
-  if (parsed) {
-    if (callAhead !== null) {
-      parsed = callAhead();
+  if (callAhead !== null) {
+    parsed = callAhead();
+
+    if (!parsed) {
+      parsed = part.parse(nodes, state, () => {
+        let parsed;
+
+
+
+
+          parsed = parseZeroOrMorePartsPart(part, nodes, state, callback, callAhead);
+
+
+        return parsed;
+      });
     }
-  }
+  } else {
+    parsed = part.parse(nodes, state, callback, callAhead);
 
-  if (!parsed) {
-    const nodes = partNodes;  ///
+    if (parsed) {
+      parseZeroOrMorePartsPart(part, nodes, state, callback, callAhead);
+    }
 
-    parsed = part.parse(nodes, state, () => {
-      let parsed;
-
-      parsed = parseZeroOrMorePartsPart(part, partNodes, state, callback, callAhead);
-
-      return parsed;
-    }, callAhead);
+    parsed = true;
   }
 
   return parsed;

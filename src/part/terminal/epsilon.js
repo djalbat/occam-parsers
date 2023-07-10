@@ -19,8 +19,6 @@ export default class EpsilonPart extends TerminalPart {
     if (parsed) {
       nodes.push(epsilonBNFNode);
 
-      parsed = callback();
-
       if (parsed) {
         if (callAhead !== null) {
           parsed = callAhead();

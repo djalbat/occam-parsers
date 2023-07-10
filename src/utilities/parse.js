@@ -34,33 +34,35 @@ function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
 
   if (index === partsLength) {
     parsed = callback();
-
-    if (parsed) {
-      parsed = (callAhead !== null) ?
-                  callAhead() :
-                    true;
-    }
   } else {
-    const part = parts[index],
-          partLookAhead = part.isLookAhead(),
-          partCallAhead = (callAhead === null);
+    const part = parts[index];
 
     index++;
 
-    if (partLookAhead && partCallAhead) {
-      let partNodes;
+    if (callAhead === null) {
+      const partLookAhead = part.isLookAhead();
 
-      parsed = part.parse(nodes, state, callback, () => {
-        partNodes = [];
+      if (partLookAhead) {
+        let partNodes;
 
-        const nodes = partNodes,  ///
-              parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
+        parsed = part.parse(nodes, state, callback, () => {
+          partNodes = [];
 
-        return parsed;
-      });
+          const nodes = partNodes,  ///
+                parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
 
-      if (parsed) {
-        push(nodes, partNodes);
+          return parsed;
+        });
+
+        if (parsed) {
+          push(nodes, partNodes);
+        }
+      } else {
+        parsed = part.parse(nodes, state, callback, callAhead);
+
+        if (parsed) {
+          parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
+        }
       }
     } else {
       parsed = part.parse(nodes, state, () => {

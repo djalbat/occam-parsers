@@ -30,8 +30,6 @@ export default class EndOfLinePart extends TerminalPart {
     if (parsed) {
       nodes.push(endOfLineNode);
 
-      parsed = callback();
-
       if (parsed) {
         if (callAhead !== null) {
           parsed = callAhead();

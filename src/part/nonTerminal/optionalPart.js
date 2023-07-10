@@ -65,24 +65,32 @@ export default class OptionalPartPart extends NonTerminalPart {
 export function parseOptionalPart(part, partNodes, state, callback, callAhead) {
   let parsed;
 
-  parsed = callback();
+  const nodes = partNodes;  ///
 
-  if (parsed) {
-    if (callAhead !== null) {
-      parsed = callAhead();
+  if (callAhead !== null) {
+    parsed = callAhead();
+
+    if (!parsed) {
+      parsed = part.parse(nodes, state, callback, callAhead);
+
+
+
+
+
+
+
+
+
+
     }
-  }
-
-  if (!parsed) {
-    const nodes = partNodes;  ///
-
+  } else {
     parsed = part.parse(nodes, state, callback, callAhead);
 
 
 
 
 
-
+    parsed = true;
   }
 
   return parsed;

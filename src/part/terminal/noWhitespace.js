@@ -31,8 +31,6 @@ export default class NoWhitespacePart extends TerminalPart {
     if (parsed) {
       nodes.push(noWhitespaceNode);
 
-      parsed = callback();
-
       if (parsed) {
         if (callAhead !== null) {
           parsed = callAhead();
