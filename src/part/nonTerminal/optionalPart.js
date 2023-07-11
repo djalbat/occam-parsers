@@ -27,12 +27,6 @@ export default class OptionalPartPart extends NonTerminalPart {
     const partNodes = [],
           savedIndex = state.getSavedIndex();
 
-    const { ruleName } = nodes;
-
-    Object.assign(partNodes, {
-      ruleName
-    });
-
     parsed = parseOptionalPart(this.part, partNodes, state, callback, callAhead);
 
     if (parsed) {

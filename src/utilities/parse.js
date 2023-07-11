@@ -33,7 +33,9 @@ function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
   const partsLength = parts.length;
 
   if (index === partsLength) {
-    parsed = callback();
+    parsed = (callback !== null) ?
+               callback() :
+                 true;
   } else {
     const part = parts[index];
 
@@ -65,11 +67,11 @@ function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
         }
       }
     } else {
-      parsed = part.parse(nodes, state, () => {
+      parsed = part.parse(nodes, state, callback, () => {
         const parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
 
         return parsed;
-      }, callAhead);
+      });
     }
   }
 

@@ -24,6 +24,8 @@ export default class PartChoice {
       state.setPrecedence(this.precedence);
     }
 
+    callback = null;  ///
+
     parsed = parsePart(this.part, nodes, state, callback, callAhead);
 
     return parsed;

@@ -26,6 +26,8 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     const savedIndex = state.getSavedIndex(),
           partsNodes = [];
 
+    callback = null;  ///
+
     parsed = parseParts(this.parts, partsNodes, state, callback, callAhead);
 
     if (parsed) {

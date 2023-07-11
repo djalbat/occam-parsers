@@ -28,8 +28,8 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
   parse(nodes, state, callback, callAhead) {
     let parsed;
 
-    this.partChoices.some((partChoice) => {
-      parsed = partChoice.parse(nodes, state, callback, callAhead);
+    parsed = this.partChoices.some((partChoice) => {
+      const parsed = partChoice.parse(nodes, state, callback, callAhead);
 
       if (parsed) {
         return true;

@@ -50,17 +50,27 @@ export default class Rule {
 
         state.resetPrecedence(savedPrecedence);
 
-        if (precedence !== null) {
-          const childNodesLowerPrecedence = childNodes.some((childNode) => {  ///
-            const childNodeLowerPrecedence = childNode.isLowerPrecedence(ruleName, precedence);
+        if (parsed) {
+          const childNodesLength = childNodes.length;
 
-            if (childNodeLowerPrecedence) {
-              return true;
-            }
-          });
-
-          if (childNodesLowerPrecedence) {
+          if (childNodesLength === 0) {
             parsed = false;
+          }
+        }
+
+        if (parsed) {
+          if (precedence !== null) {
+            const childNodesLowerPrecedence = childNodes.some((childNode) => {  ///
+              const childNodeLowerPrecedence = childNode.isLowerPrecedence(ruleName, precedence);
+
+              if (childNodeLowerPrecedence) {
+                return true;
+              }
+            });
+
+            if (childNodesLowerPrecedence) {
+              parsed = false;
+            }
           }
         }
 

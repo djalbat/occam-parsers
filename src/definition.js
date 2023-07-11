@@ -20,20 +20,12 @@ export default class Definition {
   parse(childNodes, state, callback, callAhead) {
     let parsed;
 
-    state.setPrecedence(this.precedence);
-
     const nodes = childNodes, ///
           savedIndex = state.getSavedIndex();
 
+    state.setPrecedence(this.precedence);
+
     parsed = parseParts(this.parts, nodes, state, callback, callAhead);
-
-    if (parsed) {
-      const childNodesLength = childNodes.length;
-
-      if (childNodesLength === 0) {
-        parsed = false;
-      }
-    }
 
     if (!parsed) {
       state.backtrack(savedIndex);

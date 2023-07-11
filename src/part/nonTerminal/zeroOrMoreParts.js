@@ -27,12 +27,6 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
     const partNodes = [],
           savedIndex = state.getSavedIndex();
 
-    const { ruleName } = nodes;
-
-    Object.assign(partNodes, {
-      ruleName
-    });
-
     parsed = parseZeroOrMorePartsPart(this.part, partNodes, state, callback, callAhead);
 
     if (parsed) {
@@ -71,7 +65,7 @@ export function parseZeroOrMorePartsPart(part, partNodes, state, callback, callA
     parsed = callAhead();
 
     if (!parsed) {
-      parsed = part.parse(nodes, state, () => {
+      parsed = part.parse(nodes, state, callback, () => {
         let parsed;
 
 

@@ -28,7 +28,9 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
     const partNodes = [],
           savedIndex = state.getSavedIndex();
 
-    const { ruleName } = nodes;
+    let { ruleName } = nodes;
+
+    ruleName = `${ruleName} (partNodes)`;
 
     Object.assign(partNodes, {
       ruleName
@@ -72,7 +74,7 @@ export function parseOneOrMorePartsPart(part, partNodes, state, callback, callAh
 
 
 
-      parsed = part.parse(nodes, state, () => {
+      parsed = part.parse(nodes, state, callback, () => {
         let parsed;
 
         parsed = callAhead();
@@ -88,7 +90,7 @@ export function parseOneOrMorePartsPart(part, partNodes, state, callback, callAh
     parsed = part.parse(nodes, state, callback, callAhead);
 
     if (parsed) {
-      parseOneOrMorePartsPart(part, nodes, state, callback, callAhead)
+      parseOneOrMorePartsPart(part, nodes, state, callback, callAhead);
     }
 
 

@@ -2,8 +2,10 @@
 
 const bnf = `
 
-    S ::= "a"? "a" ;
+    S ::= BB ;
    
+   BB ::= "b"* ;
+
 `;
 
 export default bnf;

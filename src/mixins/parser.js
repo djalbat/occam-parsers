@@ -11,7 +11,7 @@ function parse(tokens, rule = this.startRule) {
 
   const nodes = [],
         state = State.fromTokensAndRuleMap(tokens, this.ruleMap),
-        callback = () => true,  ///
+        callback = null,
         callAhead = null,
         parsed = rule.parse(nodes, state, callback, callAhead);
 
