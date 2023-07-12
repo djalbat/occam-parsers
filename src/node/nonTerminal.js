@@ -77,6 +77,26 @@ export default class NonTerminalNode {
     return lowerPrecedence;
   }
 
+  isUnprecedented(precedence) {
+    let unprecedented = false;
+
+    if (precedence !== null) {
+      const childNodesLowerPrecedence = this.childNodes.some((childNode) => {  ///
+        const childNodeLowerPrecedence = childNode.isLowerPrecedence(this.ruleName, precedence);
+
+        if (childNodeLowerPrecedence) {
+          return true;
+        }
+      });
+
+      if (childNodesLowerPrecedence) {
+        unprecedented = true;
+      }
+    }
+
+    return unprecedented;
+  }
+
   isIncludedIn(node) {
     let includedIn = false;
 
@@ -100,6 +120,13 @@ export default class NonTerminalNode {
     }
 
     return includedIn;
+  }
+
+  isEmpty() {
+    const childNodesLength = this.childNodes.length,
+          empty = (childNodesLength === 0);
+
+    return empty;
   }
 
   match(node, depth = Infinity) {

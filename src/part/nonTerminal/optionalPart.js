@@ -5,6 +5,7 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { popPartNodes } from "../../utilities/nodes";
 import { OptionalPartPartType } from "../../partTypes";
 
 const { push } = arrayUtilities,
@@ -27,10 +28,28 @@ export default class OptionalPartPart extends NonTerminalPart {
     const partNodes = [],
           savedIndex = state.getSavedIndex();
 
-    parsed = parseOptionalPart(this.part, partNodes, state, callback, callAhead);
+    if (callAhead === null) {
+      parsed = parseOptionalPart(this.part, partNodes, state, callback, callAhead);
 
-    if (parsed) {
-      push(nodes, partNodes);
+      if (parsed) {
+        push(nodes, partNodes);
+      }
+    } else {
+      callback = () => {  ///
+        let parsed;
+
+        push(nodes, partNodes);
+
+        parsed = callAhead();
+
+        if (!parsed) {
+          popPartNodes(nodes, partNodes);
+        }
+
+        return parsed;
+      };
+
+      parsed = parseOptionalPart(this.part, partNodes, state, callback, callAhead);
     }
 
     if (!parsed) {
@@ -61,7 +80,15 @@ export function parseOptionalPart(part, partNodes, state, callback, callAhead) {
 
   const nodes = partNodes;  ///
 
-  if (callAhead !== null) {
+  if (callAhead === null) {
+    parsed = part.parse(nodes, state, callback, callAhead);
+
+
+
+
+
+    parsed = true;
+  } else {
     parsed = callAhead();
 
     if (!parsed) {
@@ -77,14 +104,6 @@ export function parseOptionalPart(part, partNodes, state, callback, callAhead) {
 
 
     }
-  } else {
-    parsed = part.parse(nodes, state, callback, callAhead);
-
-
-
-
-
-    parsed = true;
   }
 
   return parsed;

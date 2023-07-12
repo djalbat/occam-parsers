@@ -5,6 +5,7 @@ import { arrayUtilities } from "necessary";
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { parseParts } from "../../utilities/parse";
+import { popPartNodes } from "../../utilities/nodes";
 import { SequenceOfPartsPartType } from "../../partTypes";
 
 const { push } = arrayUtilities;
@@ -23,15 +24,33 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
   parse(nodes, state, callback, callAhead) {
     let parsed;
 
-    const savedIndex = state.getSavedIndex(),
-          partsNodes = [];
+    const partNodes = [],
+          savedIndex = state.getSavedIndex();
 
-    callback = null;  ///
+    if (callAhead === null) {
+      callback = null;  ///
 
-    parsed = parseParts(this.parts, partsNodes, state, callback, callAhead);
+      parsed = parseParts(this.parts, partNodes, state, callback, callAhead);
 
-    if (parsed) {
-      push(nodes, partsNodes);
+      if (parsed) {
+        push(nodes, partNodes);
+      }
+    } else {
+      callback = () => {  ///
+        let parsed;
+
+        push(nodes, partNodes);
+
+        parsed = callAhead();
+
+        if (!parsed) {
+          popPartNodes(nodes, partNodes);
+        }
+
+        return parsed;
+      };
+
+      parsed = parseParts(this.parts, partNodes, state, callback, callAhead);
     }
 
     if (!parsed) {

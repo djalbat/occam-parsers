@@ -5,8 +5,8 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { popPartNodes } from "../../utilities/nodes";
 import { OneOrMorePartsPartType } from "../../partTypes";
-import { parseZeroOrMorePartsPart } from "../../part/nonTerminal/zeroOrMoreParts";
 
 const { push } = arrayUtilities,
       { plus } = specialSymbols;
@@ -28,18 +28,28 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
     const partNodes = [],
           savedIndex = state.getSavedIndex();
 
-    let { ruleName } = nodes;
+    if (callAhead === null) {
+      parsed = parseOneOrMorePartsPart(this.part, partNodes, state, callback, callAhead);
 
-    ruleName = `${ruleName} (partNodes)`;
+      if (parsed) {
+        push(nodes, partNodes);
+      }
+    } else {
+      callback = () => {  ///
+        let parsed;
 
-    Object.assign(partNodes, {
-      ruleName
-    });
+        push(nodes, partNodes);
 
-    parsed = parseOneOrMorePartsPart(this.part, partNodes, state, callback, callAhead);
+        parsed = callAhead();
 
-    if (parsed) {
-      push(nodes, partNodes);
+        if (!parsed) {
+          popPartNodes(nodes, partNodes);
+        }
+
+        return parsed;
+      };
+
+      parsed = parseOneOrMorePartsPart(this.part, partNodes, state, callback, callAhead);
     }
 
     if (!parsed) {
@@ -70,7 +80,16 @@ export function parseOneOrMorePartsPart(part, partNodes, state, callback, callAh
 
   const nodes = partNodes;  ///
 
-  if (callAhead !== null) {
+  if (callAhead === null) {
+    parsed = part.parse(nodes, state, callback, callAhead);
+
+    if (parsed) {
+      parseOneOrMorePartsPart(part, nodes, state, callback, callAhead);
+    }
+
+
+  } else {
+
 
 
 
@@ -85,14 +104,6 @@ export function parseOneOrMorePartsPart(part, partNodes, state, callback, callAh
 
         return parsed;
       });
-
-  } else {
-    parsed = part.parse(nodes, state, callback, callAhead);
-
-    if (parsed) {
-      parseOneOrMorePartsPart(part, nodes, state, callback, callAhead);
-    }
-
 
   }
 

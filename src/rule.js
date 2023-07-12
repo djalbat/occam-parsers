@@ -40,55 +40,44 @@ export default class Rule {
       const ruleName = this.name, ///
             childNodes = [];
 
-      Object.assign(childNodes, {
-        ruleName
-      });
-
       parsed = definition.parse(childNodes, state, () => {
-        let parsed = true,
-            precedence = state.getPrecedence();
+        let parsed;
+
+        parsed = true;
+
+        const precedence = state.getPrecedence();
 
         state.resetPrecedence(savedPrecedence);
 
-        if (parsed) {
-          const childNodesLength = childNodes.length;
+        const nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence),
+              node = nonTerminalNode; ///
 
-          if (childNodesLength === 0) {
+        nodes.push(node);
+
+        if (parsed) {
+          const empty = nonTerminalNode.isEmpty();
+
+          if (empty) {
             parsed = false;
           }
         }
 
         if (parsed) {
-          if (precedence !== null) {
-            const childNodesLowerPrecedence = childNodes.some((childNode) => {  ///
-              const childNodeLowerPrecedence = childNode.isLowerPrecedence(ruleName, precedence);
+          const unprecedented = nonTerminalNode.isUnprecedented(precedence);
 
-              if (childNodeLowerPrecedence) {
-                return true;
-              }
-            });
-
-            if (childNodesLowerPrecedence) {
-              parsed = false;
-            }
+          if (unprecedented) {
+            parsed = false;
           }
         }
 
         if (parsed) {
-          const nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence),
-                node = nonTerminalNode; ///
-
-          nodes.push(node);
-
-          if (parsed) {
-            if (callAhead !== null) {
-              parsed = callAhead();
-            }
+          if (callAhead !== null) {
+            parsed = callAhead();
           }
+        }
 
-          if (!parsed) {
-            nodes.pop();
-          }
+        if (!parsed) {
+          nodes.pop();
         }
 
         return parsed;

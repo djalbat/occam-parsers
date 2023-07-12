@@ -2,7 +2,7 @@
 
 const bnf = `
 
-    S ::= BB ;
+    S ::= BB... "b" ;
    
    BB ::= "b"* ;
 

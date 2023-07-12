@@ -1,8 +1,14 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { parsePart } from "../../utilities/parse";
+import { popPartNodes } from "../../utilities/nodes";
 import { ChoiceOfPartsPartType } from "../../partTypes";
+
+const { push } = arrayUtilities;
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(type, lookAhead, partChoices) {
@@ -15,25 +21,52 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     return this.partChoices;
   }
 
-  getParts() {
-    const parts = this.partChoices.map((partChoice) => {
-      const part = partChoice.getPart();
-
-      return part;
-    });
-
-    return parts;
-  }
-
   parse(nodes, state, callback, callAhead) {
     let parsed;
 
     parsed = this.partChoices.some((partChoice) => {
-      const parsed = partChoice.parse(nodes, state, callback, callAhead);
+      let parsed;
 
-      if (parsed) {
-        return true;
+      const part = partChoice.getPart(),
+            partNodes = [],
+            savedIndex = state.getSavedIndex(),
+            precedence = partChoice.getPrecedence();
+
+      if (precedence !== null) {
+        state.setPrecedence(precedence);
       }
+
+      if (callAhead === null) {
+        callback = null;  ///
+
+        parsed = parsePart(part, partNodes, state, callback, callAhead);
+
+        if (parsed) {
+          push(nodes, partNodes);
+        }
+      } else {
+        callback = () => {  ///
+          let parsed;
+
+          push(nodes, partNodes);
+
+          parsed = callAhead();
+
+          if (!parsed) {
+            popPartNodes(nodes, partNodes);
+          }
+
+          return parsed;
+        };
+
+        parsed = parsePart(part, partNodes, state, callback, callAhead);
+      }
+
+      if (!parsed) {
+        state.backtrack(savedIndex);
+      }
+
+      return parsed;
     });
 
     return parsed;

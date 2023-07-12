@@ -68,7 +68,9 @@ function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
       }
     } else {
       parsed = part.parse(nodes, state, callback, () => {
-        const parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
+        let parsed;
+
+        parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
 
         return parsed;
       });
