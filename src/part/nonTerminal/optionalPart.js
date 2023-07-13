@@ -1,15 +1,13 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
 import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { popPartNodes } from "../../utilities/nodes";
 import { OptionalPartPartType } from "../../partTypes";
 
-const { push } = arrayUtilities,
-      { questionMark } = specialSymbols;
+
+const { questionMark } = specialSymbols;
 
 export default class OptionalPartPart extends NonTerminalPart {
   constructor(type, lookAhead, part) {
@@ -25,34 +23,16 @@ export default class OptionalPartPart extends NonTerminalPart {
   parse(nodes, state, callback, callAhead) {
     let parsed;
 
-    const partNodes = [],
-          savedIndex = state.getSavedIndex();
+    const savedIndex = state.getSavedIndex(),
+          nodesLength = nodes.length;
 
-    if (callAhead === null) {
-      parsed = parseOptionalPart(this.part, partNodes, state, callback, callAhead);
-
-      if (parsed) {
-        push(nodes, partNodes);
-      }
-    } else {
-      callback = () => {  ///
-        let parsed;
-
-        push(nodes, partNodes);
-
-        parsed = callAhead();
-
-        if (!parsed) {
-          popPartNodes(nodes, partNodes);
-        }
-
-        return parsed;
-      };
-
-      parsed = parseOptionalPart(this.part, partNodes, state, callback, callAhead);
-    }
+    parsed = parseOptionalPart(this.part, nodes, state, callback, callAhead);
 
     if (!parsed) {
+      const start = nodesLength;  ///
+
+      nodes.splice(start);
+
       state.backtrack(savedIndex);
     }
 
@@ -75,10 +55,8 @@ export default class OptionalPartPart extends NonTerminalPart {
   }
 }
 
-export function parseOptionalPart(part, partNodes, state, callback, callAhead) {
+export function parseOptionalPart(part, nodes, state, callback, callAhead) {
   let parsed;
-
-  const nodes = partNodes;  ///
 
   if (callAhead === null) {
     parsed = part.parse(nodes, state, callback, callAhead);
@@ -92,17 +70,17 @@ export function parseOptionalPart(part, partNodes, state, callback, callAhead) {
     parsed = callAhead();
 
     if (!parsed) {
-      parsed = part.parse(nodes, state, callback, callAhead);
+      parsed = part.parse(nodes, state, callback, () => {
+        let parsed;
+
+        parsed = callAhead();
 
 
 
 
 
-
-
-
-
-
+        return parsed;
+      });
     }
   }
 

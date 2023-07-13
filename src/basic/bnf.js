@@ -4,7 +4,7 @@ const bnf = `
 
     S ::= BB... "b" ;
    
-   BB ::= "b"* ;
+   BB ::= "b" "b"? ;
 
 `;
 

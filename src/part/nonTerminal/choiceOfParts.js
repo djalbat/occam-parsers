@@ -1,14 +1,9 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { parsePart } from "../../utilities/parse";
-import { popPartNodes } from "../../utilities/nodes";
 import { ChoiceOfPartsPartType } from "../../partTypes";
-
-const { push } = arrayUtilities;
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(type, lookAhead, partChoices) {
@@ -28,41 +23,23 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
       let parsed;
 
       const part = partChoice.getPart(),
-            partNodes = [],
             savedIndex = state.getSavedIndex(),
-            precedence = partChoice.getPrecedence();
+            precedence = partChoice.getPrecedence(),
+            nodesLength = nodes.length;
 
       if (precedence !== null) {
         state.setPrecedence(precedence);
       }
 
-      if (callAhead === null) {
-        callback = null;  ///
+      callback = null;  ///
 
-        parsed = parsePart(part, partNodes, state, callback, callAhead);
-
-        if (parsed) {
-          push(nodes, partNodes);
-        }
-      } else {
-        callback = () => {  ///
-          let parsed;
-
-          push(nodes, partNodes);
-
-          parsed = callAhead();
-
-          if (!parsed) {
-            popPartNodes(nodes, partNodes);
-          }
-
-          return parsed;
-        };
-
-        parsed = parsePart(part, partNodes, state, callback, callAhead);
-      }
+      parsed = parsePart(part, nodes, state, callback, callAhead);
 
       if (!parsed) {
+        const start = nodesLength;  ///
+
+        nodes.splice(start);
+
         state.backtrack(savedIndex);
       }
 

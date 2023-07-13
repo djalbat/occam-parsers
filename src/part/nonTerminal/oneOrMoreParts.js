@@ -1,15 +1,13 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
 import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { popPartNodes } from "../../utilities/nodes";
 import { OneOrMorePartsPartType } from "../../partTypes";
+import { parseZeroOrMorePartsPart } from "./zeroOrMoreParts";
 
-const { push } = arrayUtilities,
-      { plus } = specialSymbols;
+const { plus } = specialSymbols;
 
 export default class OneOrMorePartsPart extends NonTerminalPart {
   constructor(type, lookAhead, part) {
@@ -25,34 +23,16 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
   parse(nodes, state, callback, callAhead) {
     let parsed;
 
-    const partNodes = [],
-          savedIndex = state.getSavedIndex();
+    const savedIndex = state.getSavedIndex(),
+          nodesLength = nodes.length;
 
-    if (callAhead === null) {
-      parsed = parseOneOrMorePartsPart(this.part, partNodes, state, callback, callAhead);
-
-      if (parsed) {
-        push(nodes, partNodes);
-      }
-    } else {
-      callback = () => {  ///
-        let parsed;
-
-        push(nodes, partNodes);
-
-        parsed = callAhead();
-
-        if (!parsed) {
-          popPartNodes(nodes, partNodes);
-        }
-
-        return parsed;
-      };
-
-      parsed = parseOneOrMorePartsPart(this.part, partNodes, state, callback, callAhead);
-    }
+    parsed = parseOneOrMorePartsPart(this.part, nodes, state, callback, callAhead);
 
     if (!parsed) {
+      const start = nodesLength;  ///
+
+      nodes.splice(start);
+
       state.backtrack(savedIndex);
     }
 
@@ -75,21 +55,18 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
   }
 }
 
-export function parseOneOrMorePartsPart(part, partNodes, state, callback, callAhead) {
+export function parseOneOrMorePartsPart(part, nodes, state, callback, callAhead) {
   let parsed;
-
-  const nodes = partNodes;  ///
 
   if (callAhead === null) {
     parsed = part.parse(nodes, state, callback, callAhead);
 
     if (parsed) {
-      parseOneOrMorePartsPart(part, nodes, state, callback, callAhead);
+      parseZeroOrMorePartsPart(part, nodes, state, callback, callAhead);
     }
 
 
   } else {
-
 
 
 
@@ -99,7 +76,7 @@ export function parseOneOrMorePartsPart(part, partNodes, state, callback, callAh
         parsed = callAhead();
 
         if (!parsed) {
-          parsed = parseOneOrMorePartsPart(part, nodes, state, callback, callAhead);
+          parsed = parseZeroOrMorePartsPart(part, nodes, state, callback, callAhead);
         }
 
         return parsed;
