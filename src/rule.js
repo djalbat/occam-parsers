@@ -31,6 +31,10 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
+  rewriteNonTerminalNode(nonTerminalNode) {
+    ///
+  }
+
   parse(nodes, state, callback, callAhead) {
     let parsed = false;
 
@@ -49,8 +53,11 @@ export default class Rule {
 
         state.resetPrecedence(savedPrecedence);
 
-        const nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence),
-              node = nonTerminalNode; ///
+        const nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence);
+
+        this.rewriteNonTerminalNode(nonTerminalNode);
+
+        const node = nonTerminalNode; ///
 
         nodes.push(node);
 
