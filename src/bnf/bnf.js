@@ -58,7 +58,7 @@ const bnf = `
 
       terminalSymbol           ::=  [string-literal] ;
 
-      precedence               ::=  "("<NO_WHITESPACE>[number]<NO_WHITESPACE>")" ;
+      precedence               ::=  "(" [number]? ")" ;
       
       endOfLine                ::=  "<END_OF_LINE>" ;
       

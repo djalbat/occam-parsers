@@ -76,7 +76,7 @@ All parsers share common functionality. The last two parse content according to 
 
       terminalSymbol           ::=  [string-literal] ;
 
-      precedence               ::=  "("<NO_WHITESPACE>[number]<NO_WHITESPACE>")" ;
+      precedence               ::=  "(" [number]? ")" ;
       
       endOfLine                ::=  "<END_OF_LINE>" ;
       

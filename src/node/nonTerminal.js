@@ -21,8 +21,24 @@ export default class NonTerminalNode {
     return this.childNodes;
   }
 
-  getPrecedence() {
-    return this.precedence;
+  getPrecedence(recursive = false) {
+    let precedence;
+
+    if (recursive && (this.precedence === Infinity)) {
+      precedence = null;
+
+      this.childNodes.some((childNode) => {
+        precedence = childNode.getPrecedence(); ///
+
+        if (precedence !== null) {
+          return true;
+        }
+      });
+    } else {
+      precedence = this.precedence;
+    }
+
+    return precedence;
   }
 
   isTerminalNode() {
@@ -65,12 +81,15 @@ export default class NonTerminalNode {
     return lastSignificantToken;
   }
 
-  isLowerPrecedence(ruleName, precedence) {
+  isLowerPrecedence(parentRuleName, parentPrecedence) {
     let lowerPrecedence = false;
 
-    if (this.ruleName === ruleName) {
-      if (this.precedence !== null) {
-          lowerPrecedence = (this.precedence < precedence);
+    if (this.ruleName === parentRuleName) {
+      const recursive = true,
+            precedence = this.getPrecedence(recursive);
+
+      if (precedence !== null) {
+        lowerPrecedence = (precedence < parentPrecedence);
       }
     }
 
@@ -81,13 +100,15 @@ export default class NonTerminalNode {
     let unprecedented = false;
 
     if (precedence !== null) {
-      const childNodesLowerPrecedence = this.childNodes.some((childNode) => {  ///
-        const childNodeLowerPrecedence = childNode.isLowerPrecedence(this.ruleName, precedence);
+      const parentRuleName = this.ruleName, ///
+            parentPrecedence = precedence,  ///
+            childNodesLowerPrecedence = this.childNodes.some((childNode) => {  ///
+              const childNodeLowerPrecedence = childNode.isLowerPrecedence(parentRuleName, parentPrecedence);
 
-        if (childNodeLowerPrecedence) {
-          return true;
-        }
-      });
+              if (childNodeLowerPrecedence) {
+                return true;
+              }
+            });
 
       if (childNodesLowerPrecedence) {
         unprecedented = true;

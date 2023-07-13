@@ -4,15 +4,22 @@ import { arrayUtilities } from "necessary";
 
 import NonTerminalNode from "../../node/nonTerminal";
 
-const { third } = arrayUtilities;
+const { second } = arrayUtilities;
 
 export default class PrecedenceBNFNode extends NonTerminalNode {
   getPrecedence() {
+    let precedence = Infinity;
+
     const childNodes = this.getChildNodes(),
-          thirdChildNode = third(childNodes),
-          terminalNode = thirdChildNode,  ///
-          content = terminalNode.getContent(),
-          precedence = Number(content); ///
+          childNodesLength = childNodes.length;
+
+    if (childNodesLength === 3) {
+      const secondChildNode = second(childNodes),
+            terminalNode = secondChildNode,  ///
+            content = terminalNode.getContent();
+
+      precedence = Number(content); ///
+    }
 
     return precedence;
   }

@@ -2,6 +2,8 @@
 
 import VerticalBranchParseTree from "./verticalBranch";
 
+import { EMPTY_STRING } from "../constants";
+
 export default class RuleNameParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
     const ruleName = nonTerminalNode.getRuleName(),
@@ -15,9 +17,13 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
 
     let string = `${ruleName} {${tokenIndexes}}`;
 
-    const precedence = nonTerminalNode.getPrecedence();
+    let precedence = nonTerminalNode.getPrecedence();
 
     if (precedence !== null) {
+      if (precedence === Infinity) {
+        precedence = EMPTY_STRING;
+      }
+
       string = `${string} (${precedence})`;
     }
 

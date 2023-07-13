@@ -3,7 +3,7 @@
 import { types, specialSymbols } from "occam-lexers";
 
 import Definition from "../definition";
-import NoWhitespacePart from "../part/terminal/noWhitespace";
+import OptionalPartPart from "../part/nonTerminal/optionalPart";
 import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 import SignificantTokenTypePart from "../part/terminal/significantTokenType";
 
@@ -15,15 +15,13 @@ export default class PrecedenceDefinition extends Definition {
     const significantTokenType = numberType,  ///
           openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
-          noWhitespacePart = NoWhitespacePart.fromNothing(),
           openBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(openBracketTerminalSymbolContent),
           closeBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(closeBracketTerminalSymbolContent),
           numberSignificantTokenTypePart = SignificantTokenTypePart.fromSignificantTokenType(significantTokenType),
+          optionalNumberSignificantTokenTypePartPart = OptionalPartPart.fromPart(numberSignificantTokenTypePart),
           parts = [
             openBracketTerminalSymbolPart,
-            noWhitespacePart,
-            numberSignificantTokenTypePart,
-            noWhitespacePart,
+            optionalNumberSignificantTokenTypePartPart,
             closeBracketTerminalSymbolPart
           ],
           precedence = null,
