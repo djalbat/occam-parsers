@@ -31,7 +31,15 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
         state.setPrecedence(precedence);
       }
 
-      callback = null;  ///
+      callback = (callAhead === null) ?
+                    null :
+                      () => {  ///
+                        let parsed;
+
+                        parsed = callAhead();
+
+                        return parsed;
+                      };
 
       parsed = parsePart(part, nodes, state, callback, callAhead);
 

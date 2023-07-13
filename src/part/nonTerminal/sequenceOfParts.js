@@ -22,7 +22,15 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     const savedIndex = state.getSavedIndex(),
           nodesLength = nodes.length;
 
-    callback = null;  ///
+    callback = (callAhead === null) ?
+                  null :
+                    () => {  ///
+                      let parsed;
+
+                      parsed = callAhead();
+
+                      return parsed;
+                    };
 
     parsed = parseParts(this.parts, nodes, state, callback, callAhead);
 
