@@ -87,6 +87,8 @@ export default class Rule {
           nodes.pop();
         }
 
+        state.resetPrecedence(savedPrecedence);
+
         return parsed;
       }, callAhead);
 
