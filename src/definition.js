@@ -23,8 +23,6 @@ export default class Definition {
     const nodes = childNodes, ///
           savedIndex = state.getSavedIndex();
 
-    state.setPrecedence(this.precedence);
-
     parsed = parseParts(this.parts, nodes, state, callback, callAhead);
 
     if (!parsed) {

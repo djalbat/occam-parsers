@@ -42,18 +42,18 @@ export default class Rule {
 
     this.definitions.some((definition) => {
       const ruleName = this.name, ///
+            precedence = definition.getPrecedence(),
             childNodes = [];
+
+      state.setPrecedence(precedence);
 
       parsed = definition.parse(childNodes, state, () => {
         let parsed;
 
         parsed = true;
 
-        const precedence = state.getPrecedence();
-
-        state.resetPrecedence(savedPrecedence);
-
-        const nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence);
+        const precedence = state.getPrecedence(),
+              nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence);
 
         this.rewriteNonTerminalNode(nonTerminalNode);
 
@@ -94,6 +94,8 @@ export default class Rule {
         return true;
       }
     });
+
+    state.resetPrecedence(savedPrecedence);
 
     return parsed;
   }
