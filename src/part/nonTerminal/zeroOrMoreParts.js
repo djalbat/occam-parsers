@@ -73,11 +73,7 @@ export function parseZeroOrMorePartsPart(part, nodes, state, callback, callAhead
       parsed = part.parse(nodes, state, callback, () => {
         let parsed;
 
-        parsed = callAhead();
-
-        if (!parsed) {
-          parsed = parseZeroOrMorePartsPart(part, nodes, state, callback, callAhead);
-        }
+        parsed = parseZeroOrMorePartsPart(part, nodes, state, callback, callAhead);
 
         return parsed;
       });

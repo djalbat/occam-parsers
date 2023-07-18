@@ -70,17 +70,13 @@ export function parseOptionalPart(part, nodes, state, callback, callAhead) {
     parsed = callAhead();
 
     if (!parsed) {
-      parsed = part.parse(nodes, state, callback, () => {
-        let parsed;
-
-        parsed = callAhead();
+      parsed = part.parse(nodes, state, callback, callAhead);
 
 
 
 
 
-        return parsed;
-      });
+
     }
   }
 

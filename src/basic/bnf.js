@@ -2,7 +2,7 @@
 
 const bnf = `
       
-      expression ::= term "." ;
+      expression ::= term... "." ;
     
       term       ::= /\\d+/ term~term* ;
       
