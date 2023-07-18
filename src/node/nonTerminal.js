@@ -96,12 +96,12 @@ export default class NonTerminalNode {
     return lowerPrecedence;
   }
 
-  isUnprecedented(precedence) {
+  isUnprecedented() {
     let unprecedented = false;
 
-    if (precedence !== null) {
+    if (this.precedence !== null) {
       const parentRuleName = this.ruleName, ///
-            parentPrecedence = precedence,  ///
+            parentPrecedence = this.precedence,  ///
             childNodesLowerPrecedence = this.childNodes.some((childNode) => {  ///
               const childNodeLowerPrecedence = childNode.isLowerPrecedence(parentRuleName, parentPrecedence);
 

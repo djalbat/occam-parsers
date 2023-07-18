@@ -76,7 +76,7 @@ export default class Rule {
         }
 
         if (parsed) {
-          const unprecedented = nonTerminalNode.isUnprecedented(precedence);
+          const unprecedented = nonTerminalNode.isUnprecedented();
 
           if (unprecedented) {
             parsed = false;
