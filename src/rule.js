@@ -42,23 +42,26 @@ export default class Rule {
 
     this.definitions.some((definition) => {
       const ruleName = this.name, ///
-            precedence = definition.getPrecedence(),
-            childNodes = [];
+            childNodes = [],
+            nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
 
       Object.assign(childNodes, {
         ruleName
       });
+
+      const precedence = definition.getPrecedence();
 
       state.setPrecedence(precedence);
 
       parsed = definition.parse(childNodes, state, () => {
         let parsed;
 
-        const precedence = state.getPrecedence(),
-              nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence),
-              node = nonTerminalNode; ///
+        const node = nonTerminalNode, ///
+              precedence = state.getPrecedence();
 
         this.rewriteNonTerminalNode(nonTerminalNode);
+
+        nonTerminalNode.setPrecedence(precedence);
 
         nodes.push(node);
 
