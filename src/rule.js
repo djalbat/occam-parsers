@@ -32,7 +32,9 @@ export default class Rule {
   }
 
   rewriteNonTerminalNode(nonTerminalNode) {
-    ///
+    const parsed = true;
+
+    return parsed;
   }
 
   parse(nodes, state, callback, callAhead) {
@@ -50,16 +52,13 @@ export default class Rule {
       parsed = definition.parse(childNodes, state, () => {
         let parsed;
 
-        parsed = true;
-
         const precedence = state.getPrecedence(),
-              nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence);
-
-        this.rewriteNonTerminalNode(nonTerminalNode);
-
-        const node = nonTerminalNode; ///
+              nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence),
+              node = nonTerminalNode; ///
 
         nodes.push(node);
+
+        parsed = this.rewriteNonTerminalNode(nonTerminalNode);
 
         if (parsed) {
           const empty = nonTerminalNode.isEmpty();
@@ -79,6 +78,8 @@ export default class Rule {
 
         if (parsed) {
           if (callAhead !== null) {
+            state.resetPrecedence(savedPrecedence);
+
             parsed = callAhead();
           }
         }
@@ -86,8 +87,6 @@ export default class Rule {
         if (!parsed) {
           nodes.pop();
         }
-
-        state.resetPrecedence(savedPrecedence);
 
         return parsed;
       }, callAhead);
@@ -97,7 +96,9 @@ export default class Rule {
       }
     });
 
-    state.resetPrecedence(savedPrecedence);
+    if (callAhead === null) {
+      state.resetPrecedence(savedPrecedence);
+    }
 
     return parsed;
   }
