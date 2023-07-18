@@ -45,6 +45,10 @@ export default class Rule {
             precedence = definition.getPrecedence(),
             childNodes = [];
 
+      Object.assign(childNodes, {
+        ruleName
+      });
+
       state.setPrecedence(precedence);
 
       parsed = definition.parse(childNodes, state, () => {

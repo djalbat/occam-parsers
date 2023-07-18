@@ -47,8 +47,14 @@ function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
       if (partLookAhead) {
         let partNodes;
 
+        const { ruleName } = nodes;
+
         parsed = part.parse(nodes, state, callback, () => {
           partNodes = [];
+
+          Object.assign(partNodes, {
+            ruleName
+          });
 
           const nodes = partNodes,  ///
                 parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
