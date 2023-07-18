@@ -32,9 +32,7 @@ export default class Rule {
   }
 
   rewriteNonTerminalNode(nonTerminalNode) {
-    const parsed = true;
-
-    return parsed;
+    ///
   }
 
   parse(nodes, state, callback, callAhead) {
@@ -56,9 +54,11 @@ export default class Rule {
               nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndPrecedence(ruleName, childNodes, precedence),
               node = nonTerminalNode; ///
 
+        this.rewriteNonTerminalNode(nonTerminalNode);
+
         nodes.push(node);
 
-        parsed = this.rewriteNonTerminalNode(nonTerminalNode);
+        parsed = true;
 
         if (parsed) {
           const empty = nonTerminalNode.isEmpty();
