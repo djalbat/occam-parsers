@@ -31,10 +31,6 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
-  rewriteNonTerminalNode(nonTerminalNode) {
-    ///
-  }
-
   parse(nodes, state, callback, callAhead) {
     let parsed = false;
 
@@ -59,7 +55,7 @@ export default class Rule {
         const node = nonTerminalNode, ///
               precedence = state.getPrecedence();
 
-        this.rewriteNonTerminalNode(nonTerminalNode);
+        nonTerminalNode.rewrite();
 
         nonTerminalNode.setPrecedence(precedence);
 

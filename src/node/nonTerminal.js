@@ -179,6 +179,10 @@ export default class NonTerminalNode {
     return matches;
   }
 
+  rewrite() {
+    ///
+  }
+
   unrewrite() {
     ///
   }
