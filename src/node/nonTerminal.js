@@ -178,6 +178,10 @@ export default class NonTerminalNode {
 
     return matches;
   }
+
+  unrewrite() {
+    ///
+  }
   
   setRuleName(ruleName) {
     this.ruleName = ruleName;

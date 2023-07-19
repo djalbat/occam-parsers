@@ -92,6 +92,8 @@ export default class Rule {
         }
 
         if (!parsed) {
+          nonTerminalNode.unrewrite();
+
           nodes.pop();
         }
 
