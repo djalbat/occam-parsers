@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
-const { forwardsSome, backwardsSome } = arrayUtilities;
+const { first, forwardsSome, backwardsSome } = arrayUtilities;
 
 export default class NonTerminalNode {
   constructor(ruleName, childNodes, precedence) {
@@ -21,19 +21,13 @@ export default class NonTerminalNode {
     return this.childNodes;
   }
 
-  getPrecedence(recursive = false) {
+  getPrecedence() {
     let precedence;
 
-    if (recursive && (this.precedence === Infinity)) {
-      precedence = null;
+    if (this.precedence === Infinity) {
+      const firstChildNode = first(this.childNodes);
 
-      this.childNodes.some((childNode) => {
-        precedence = childNode.getPrecedence(); ///
-
-        if (precedence !== null) {
-          return true;
-        }
-      });
+      precedence = firstChildNode.getPrecedence();
     } else {
       precedence = this.precedence;
     }
@@ -85,8 +79,7 @@ export default class NonTerminalNode {
     let lowerPrecedence = false;
 
     if (this.ruleName === parentRuleName) {
-      const recursive = true,
-            precedence = this.getPrecedence(recursive);
+      const precedence = this.getPrecedence();
 
       if (precedence !== null) {
         lowerPrecedence = (precedence < parentPrecedence);
