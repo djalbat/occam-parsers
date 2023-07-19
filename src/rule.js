@@ -55,9 +55,9 @@ export default class Rule {
         const node = nonTerminalNode, ///
               precedence = state.getPrecedence();
 
-        nonTerminalNode.rewrite();
-
         nonTerminalNode.setPrecedence(precedence);
+
+        nonTerminalNode.rewrite();
 
         nodes.push(node);
 
