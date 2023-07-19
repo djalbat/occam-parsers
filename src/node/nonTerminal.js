@@ -184,7 +184,9 @@ export default class NonTerminalNode {
   }
 
   unrewrite() {
-    ///
+    this.childNodes.forEach((childNode) => {
+      childNode.unrewrite();
+    });
   }
   
   setRuleName(ruleName) {
