@@ -103,6 +103,14 @@ export default class TerminalNode {
     return matches;
   }
 
+  rewrite() {
+    ///
+  }
+
+  unrewrite() {
+    ///
+  }
+
   setSignificantToken(significantToken) {
     this.significantToken = significantToken;
   }
