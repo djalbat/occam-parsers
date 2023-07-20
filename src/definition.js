@@ -21,11 +21,16 @@ export default class Definition {
     let parsed;
 
     const nodes = childNodes, ///
-          savedIndex = state.getSavedIndex();
+          savedIndex = state.getSavedIndex(),
+          nodesLength = nodes.length;
 
     parsed = parseParts(this.parts, nodes, state, callback, callAhead);
 
     if (!parsed) {
+      const start = nodesLength;  ///
+
+      nodes.splice(start);
+
       state.backtrack(savedIndex);
     }
 

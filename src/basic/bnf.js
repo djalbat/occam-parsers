@@ -4,9 +4,13 @@ const bnf = `
       
       expression ::= term... "." ;
     
-      term       ::= /\\d+/ term~term* ;
+      term       ::= "1" term~term ;
       
-      term~term  ::= "+" term (2) ;
+      term~term  ::= "+" "2" "."
+      
+                   | "+" "2" 
+                   
+                   ;
       
 `;
 

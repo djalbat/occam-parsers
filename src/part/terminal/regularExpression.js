@@ -19,8 +19,7 @@ export default class RegularExpressionPart extends TerminalPart {
 
     let terminalNode = null;
     
-    const savedIndex = state.getSavedIndex(),
-		      nextSignificantToken = state.getNextSignificantToken(),
+    const nextSignificantToken = state.getNextSignificantToken(),
 					significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
@@ -46,14 +45,6 @@ export default class RegularExpressionPart extends TerminalPart {
           parsed = callAhead();
         }
       }
-
-      if (!parsed) {
-        nodes.pop();
-      }
-    }
-
-    if (!parsed) {
-      state.backtrack(savedIndex);
     }
 
     return parsed;

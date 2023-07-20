@@ -41,15 +41,15 @@ function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
 
     index++;
 
+    const { ruleName } = nodes;
+
     if (callAhead === null) {
       const partLookAhead = part.isLookAhead();
 
       if (partLookAhead) {
         let partNodes;
 
-        const { ruleName } = nodes;
-
-        parsed = part.parse(nodes, state, callback, () => {
+        parsed = part.parse(nodes, state, callback, Object.assign(() => {
           partNodes = [];
 
           Object.assign(partNodes, {
@@ -60,7 +60,7 @@ function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
                 parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
 
           return parsed;
-        });
+        }, { ruleName }));
 
         if (parsed) {
           push(nodes, partNodes);
@@ -73,13 +73,13 @@ function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
         }
       }
     } else {
-      parsed = part.parse(nodes, state, callback, () => {
+      parsed = part.parse(nodes, state, callback, Object.assign(() => {
         let parsed;
 
         parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
 
         return parsed;
-      });
+      }, { ruleName }));
     }
   }
 

@@ -45,21 +45,21 @@ export default class Rule {
         ruleName
       });
 
-      const precedence = definition.getPrecedence();
+      const node = nonTerminalNode, ///
+            precedence = definition.getPrecedence();
+
+      nodes.push(node);
 
       state.setPrecedence(precedence);
 
       parsed = definition.parse(childNodes, state, () => {
         let parsed;
 
-        const node = nonTerminalNode, ///
-              precedence = state.getPrecedence();
+        const precedence = state.getPrecedence();
 
         nonTerminalNode.setPrecedence(precedence);
 
         nonTerminalNode.rewrite();
-
-        nodes.push(node);
 
         parsed = true;
 
@@ -89,12 +89,14 @@ export default class Rule {
 
         if (!parsed) {
           nonTerminalNode.unrewrite();
-
-          nodes.pop();
         }
 
         return parsed;
       }, callAhead);
+
+      if (!parsed) {
+        nodes.pop();
+      }
 
       if (parsed) {
         return true;

@@ -11,8 +11,7 @@ export default class EpsilonPart extends TerminalPart {
   parse(nodes, state, callback, callAhead) {
     let parsed;
 
-    const savedIndex = state.getSavedIndex(),
-          epsilonBNFNode = EpsilonBNFNode.fromNothing();
+    const epsilonBNFNode = EpsilonBNFNode.fromNothing();
 
     parsed = (epsilonBNFNode !== null);
 
@@ -24,14 +23,6 @@ export default class EpsilonPart extends TerminalPart {
           parsed = callAhead();
         }
       }
-
-      if (!parsed) {
-        nodes.pop();
-      }
-    }
-
-    if (!parsed) {
-      state.backtrack(savedIndex);
     }
 
     return parsed;
