@@ -65,20 +65,20 @@ export default class Rule {
 
         const rewrittenNonTerminalNode = nonTerminalNode.rewrite();
 
-        if (rewrittenNonTerminalNode !== null) {
-          nodes.pop();
-
-          nonTerminalNode = rewrittenNonTerminalNode; ///
-
-          const node = nonTerminalNode; ///
-
-          nodes.push(node);
-        }
-
         parsed = true;
 
+        if (rewrittenNonTerminalNode !== null) {
+          if (parsed) {
+            nodes.pop();
+
+            const node = rewrittenNonTerminalNode; ///
+
+            nodes.push(node);
+          }
+        }
+
         if (parsed) {
-          const empty = nonTerminalNode.isEmpty();
+          const empty = node.isEmpty();
 
           if (empty) {
             parsed = false;
@@ -86,7 +86,7 @@ export default class Rule {
         }
 
         if (parsed) {
-          const unprecedented = nonTerminalNode.isUnprecedented();
+          const unprecedented = node.isUnprecedented();
 
           if (unprecedented) {
             parsed = false;
@@ -98,6 +98,16 @@ export default class Rule {
             state.resetPrecedence(savedPrecedence);
 
             parsed = callAhead();
+          }
+        }
+
+        if (rewrittenNonTerminalNode !== null) {
+          if (!parsed) {
+            nodes.pop();
+
+            const node = nonTerminalNode; ///
+
+            nodes.push(node);
           }
         }
 

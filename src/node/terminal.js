@@ -57,7 +57,7 @@ export default class TerminalNode {
     return precedence;
   }
 
-  isLowerPrecedence(ruleName, precedence) {
+  isLowerPrecedence(parentRuleName, parentPrecedence) {
     const lowerPrecedence = false;
 
     return lowerPrecedence;
