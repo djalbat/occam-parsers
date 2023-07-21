@@ -59,13 +59,13 @@ export default class Rule {
       parsed = definition.parse(childNodes, state, () => {
         let parsed;
 
+        parsed = true;
+
         const precedence = state.getPrecedence();
 
         nonTerminalNode.setPrecedence(precedence);
 
         const rewrittenNonTerminalNode = nonTerminalNode.rewrite();
-
-        parsed = true;
 
         if (rewrittenNonTerminalNode !== null) {
           if (parsed) {
