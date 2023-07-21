@@ -88,7 +88,7 @@ export default class Rule {
         }
 
         if (!parsed) {
-          nonTerminalNode.unrewrite();
+          nonTerminalNode.reset();
         }
 
         return parsed;

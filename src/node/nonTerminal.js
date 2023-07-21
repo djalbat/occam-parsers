@@ -179,16 +179,14 @@ export default class NonTerminalNode {
     return matches;
   }
 
+  reset() {
+    ///
+  }
+
   rewrite() {
     ///
   }
 
-  unrewrite() {
-    this.childNodes.forEach((childNode) => {
-      childNode.unrewrite();
-    });
-  }
-  
   setRuleName(ruleName) {
     this.ruleName = ruleName;
   }
