@@ -37,20 +37,24 @@ export default class Rule {
     const savedPrecedence = state.getSavedPrecedence();
 
     this.definitions.some((definition) => {
+      let nonTerminalNode;
+
       const ruleName = this.name, ///
-            childNodes = [],
-            nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
+            childNodes = [];
+
+      nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
 
       Object.assign(childNodes, {
         ruleName
       });
 
-      const node = nonTerminalNode, ///
-            precedence = definition.getPrecedence();
-
-      nodes.push(node);
+      const precedence = definition.getPrecedence();
 
       state.setPrecedence(precedence);
+
+      const node = nonTerminalNode; ///
+
+      nodes.push(node);
 
       parsed = definition.parse(childNodes, state, () => {
         let parsed;
@@ -59,7 +63,17 @@ export default class Rule {
 
         nonTerminalNode.setPrecedence(precedence);
 
-        nonTerminalNode.rewrite();
+        const rewrittenNonTerminalNode = nonTerminalNode.rewrite();
+
+        if (rewrittenNonTerminalNode !== null) {
+          nodes.pop();
+
+          nonTerminalNode = rewrittenNonTerminalNode; ///
+
+          const node = nonTerminalNode; ///
+
+          nodes.push(node);
+        }
 
         parsed = true;
 
@@ -85,10 +99,6 @@ export default class Rule {
 
             parsed = callAhead();
           }
-        }
-
-        if (!parsed) {
-          nonTerminalNode.reset();
         }
 
         return parsed;

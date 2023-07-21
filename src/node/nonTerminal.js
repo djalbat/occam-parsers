@@ -179,12 +179,10 @@ export default class NonTerminalNode {
     return matches;
   }
 
-  reset() {
-    ///
-  }
-
   rewrite() {
-    ///
+    const rewrittenNonTerminalNode = null;
+
+    return rewrittenNonTerminalNode;
   }
 
   setRuleName(ruleName) {
