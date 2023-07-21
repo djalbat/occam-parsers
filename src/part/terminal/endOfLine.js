@@ -13,7 +13,8 @@ export default class EndOfLinePart extends TerminalPart {
 
     let endOfLineNode = null;
     
-    const nextSignificantToken = state.getNextSignificantToken(),
+    const savedIndex = state.getSavedIndex(),
+          nextSignificantToken = state.getNextSignificantToken(),
           significantToken = nextSignificantToken; ///
 
     if (significantToken !== null) {
@@ -34,6 +35,10 @@ export default class EndOfLinePart extends TerminalPart {
           parsed = callAhead();
         }
       }
+    }
+
+    if (!parsed) {
+      state.backtrack(savedIndex);
     }
 
     return parsed;

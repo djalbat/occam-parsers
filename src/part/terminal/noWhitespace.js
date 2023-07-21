@@ -19,7 +19,8 @@ export default class NoWhitespacePart extends TerminalPart {
 
     let noWhitespaceNode = null;
 
-    const nextTokenWhitespaceToken = state.isNextTokenWhitespaceToken();
+    const savedIndex = state.getSavedIndex(),
+          nextTokenWhitespaceToken = state.isNextTokenWhitespaceToken();
 
     if (!nextTokenWhitespaceToken) {
       noWhitespaceNode = NoWhitespaceNode.fromNothing();
@@ -35,6 +36,10 @@ export default class NoWhitespacePart extends TerminalPart {
           parsed = callAhead();
         }
       }
+    }
+
+    if (!parsed) {
+      state.backtrack(savedIndex);
     }
 
     return parsed;
