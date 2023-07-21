@@ -115,6 +115,14 @@ export default class TerminalNode {
     return parseTree;
   }
 
+  clone() {
+    const Class = this.constructor,
+          significantToken = this.significantToken,
+          terminalNode = new Class(significantToken);
+
+    return terminalNode;
+  }
+
   static fromNothing(Class) {
     if (Class === undefined) {
       Class = TerminalNode; ///
