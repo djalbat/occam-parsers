@@ -1,7 +1,11 @@
 "use strict";
 
+import { characters } from "necessary";
+
 import { parseParts } from "./utilities/parse";
 import { EMPTY_STRING } from "./constants";
+
+const { SPACE_CHARACTER } = characters;
 
 export default class Definition {
   constructor(parts, precedence) {
@@ -51,7 +55,7 @@ export default class Definition {
 
     if (this.precedence !== null) {
       const precedence = (this.precedence === Infinity) ?
-                           EMPTY_STRING :
+                           SPACE_CHARACTER :
                              this.precedence;
 
       string = `${string} (${precedence})`;

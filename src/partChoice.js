@@ -1,6 +1,10 @@
 "use strict";
 
+import { characters } from "necessary";
+
 import { EMPTY_STRING } from "./constants";
+
+const { SPACE_CHARACTER } = characters;
 
 export default class PartChoice {
   constructor(part, precedence) {
@@ -25,7 +29,7 @@ export default class PartChoice {
 
     if (this.precedence !== null) {
       const precedence = (this.precedence === Infinity) ?
-                           EMPTY_STRING :
+                           SPACE_CHARACTER :
                              this.precedence;
 
       string = `${string} (${precedence})`;
