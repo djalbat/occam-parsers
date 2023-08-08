@@ -33,6 +33,8 @@ export default class Definition {
   }
 
   asString() {
+    let string;
+
     const partsString = this.parts.reduce((partsString, part) => {
             const partString = part.asString();
 
@@ -43,10 +45,17 @@ export default class Definition {
             }
 
             return partsString;
-          }, EMPTY_STRING),
-          string = (this.precedence !== null) ?
-                     `${partsString} (${this.precedence})` :
-                        partsString; ///
+          }, EMPTY_STRING);
+
+    string = partsString; ///
+
+    if (this.precedence !== null) {
+      const precedence = (this.precedence === Infinity) ?
+                           EMPTY_STRING :
+                             this.precedence;
+
+      string = `${string} (${precedence})`;
+    }
 
     return string;
   }

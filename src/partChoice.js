@@ -17,11 +17,19 @@ export default class PartChoice {
   }
 
   asString() {
-    const partString = this.part.asString(),
-          precedenceString = (this.precedence === null) ?
-                               EMPTY_STRING :
-                                ` (${this.precedence})`,
-          string = `${partString}${precedenceString}`;
+    let string;
+
+    const partString = this.part.asString();
+
+    string = partString;  ///
+
+    if (this.precedence !== null) {
+      const precedence = (this.precedence === Infinity) ?
+                           EMPTY_STRING :
+                             this.precedence;
+
+      string = `${string} (${precedence})`;
+    }
 
     return string;
   }
