@@ -21,18 +21,8 @@ export default class NonTerminalNode {
     return this.childNodes;
   }
 
-  getPrecedence(recursively = true) {
-    let precedence = this.precedence;
-
-    if (recursively) {
-      if (precedence === Infinity) {
-        const firstChildNode = first(this.childNodes);
-
-        precedence = firstChildNode.getPrecedence();
-      }
-    }
-
-    return precedence;
+  getPrecedence() {
+    return this.precedence;
   }
 
   isTerminalNode() {
@@ -75,16 +65,22 @@ export default class NonTerminalNode {
     return lastSignificantToken;
   }
 
-  isLowerPrecedence(parentRuleName, parentPrecedence) {
-    let lowerPrecedence = false;
+  isLowerPrecedence(ruleName, precedence) {
+    let lowerPrecedence;
 
-    const precedence = this.getPrecedence();
+    if (false) {
+      ///
+    } else if (this.precedence === null) {
+      lowerPrecedence = false;
+    } else if (this.precedence === Infinity) {
+      const firstChildNode = first(this.childNodes);
 
-    if (precedence !== null) {
-      const ruleName = this.getRuleName();
-
-      if ((ruleName === parentRuleName) && (precedence < parentPrecedence)) {
+      lowerPrecedence = firstChildNode.isLowerPrecedence(ruleName, precedence);
+    } else {
+      if ((this.ruleName === ruleName) && (this.precedence < precedence)) {
         lowerPrecedence = true;
+      } else {
+        lowerPrecedence = false;
       }
     }
 
@@ -95,19 +91,13 @@ export default class NonTerminalNode {
     let unprecedented = false;
 
     if (this.precedence !== null) {
-      const parentRuleName = this.ruleName, ///
-            parentPrecedence = this.precedence,  ///
-            childNodesLowerPrecedence = this.childNodes.some((childNode) => {  ///
-              const childNodeLowerPrecedence = childNode.isLowerPrecedence(parentRuleName, parentPrecedence);
+      unprecedented = this.childNodes.some((childNode) => {  ///
+        const childNodeLowerPrecedence = childNode.isLowerPrecedence(this.ruleName, this.precedence);
 
-              if (childNodeLowerPrecedence) {
-                return true;
-              }
-            });
-
-      if (childNodesLowerPrecedence) {
-        unprecedented = true;
-      }
+        if (childNodeLowerPrecedence) {
+          return true;
+        }
+      });
     }
 
     return unprecedented;
