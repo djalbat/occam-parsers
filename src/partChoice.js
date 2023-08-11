@@ -2,8 +2,6 @@
 
 import { characters } from "necessary";
 
-import { EMPTY_STRING } from "./constants";
-
 const { SPACE_CHARACTER } = characters;
 
 export default class PartChoice {

@@ -21,15 +21,15 @@ export default class NonTerminalNode {
     return this.childNodes;
   }
 
-  getPrecedence() {
-    let precedence;
+  getPrecedence(recursively = true) {
+    let precedence = this.precedence;
 
-    if (this.precedence === Infinity) {
-      const firstChildNode = first(this.childNodes);
+    if (recursively) {
+      if (precedence === Infinity) {
+        const firstChildNode = first(this.childNodes);
 
-      precedence = firstChildNode.getPrecedence();
-    } else {
-      precedence = this.precedence;
+        precedence = firstChildNode.getPrecedence();
+      }
     }
 
     return precedence;
