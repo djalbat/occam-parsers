@@ -77,11 +77,7 @@ export default class NonTerminalNode {
 
       lowerPrecedence = firstChildNode.isLowerPrecedence(ruleName, precedence);
     } else {
-      if ((this.ruleName === ruleName) && (this.precedence < precedence)) {
-        lowerPrecedence = true;
-      } else {
-        lowerPrecedence = false;
-      }
+      lowerPrecedence = ((this.ruleName === ruleName) && (this.precedence < precedence));
     }
 
     return lowerPrecedence;
