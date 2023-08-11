@@ -13,11 +13,12 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
           lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
           tokenIndexes = (firstSignificantTokenIndex !== lastSignificantTokenIndex) ?
                           `${firstSignificantTokenIndex}-${lastSignificantTokenIndex}` :
-                            `${firstSignificantTokenIndex}`;
+                            `${firstSignificantTokenIndex}`,
+          recursively = false;
 
     let string = `${ruleName} {${tokenIndexes}}`;
 
-    let precedence = nonTerminalNode.getPrecedence();
+    let precedence = nonTerminalNode.getPrecedence(recursively);
 
     if (precedence !== null) {
       if (precedence === Infinity) {
