@@ -1,8 +1,10 @@
 "use strict";
 
+import { characters} from "necessary";
+
 import VerticalBranchParseTree from "./verticalBranch";
 
-import { EMPTY_STRING } from "../constants";
+const { SPACE_CHARACTER } = characters;
 
 export default class RuleNameParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
@@ -22,7 +24,7 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
 
     if (precedence !== null) {
       if (precedence === Infinity) {
-        precedence = EMPTY_STRING;
+        precedence = SPACE_CHARACTER;
       }
 
       string = `${string} (${precedence})`;
