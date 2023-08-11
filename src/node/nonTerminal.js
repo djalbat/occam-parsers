@@ -78,11 +78,13 @@ export default class NonTerminalNode {
   isLowerPrecedence(parentRuleName, parentPrecedence) {
     let lowerPrecedence = false;
 
-    if (this.ruleName === parentRuleName) {
-      const precedence = this.getPrecedence();
+    const precedence = this.getPrecedence();
 
-      if (precedence !== null) {
-        lowerPrecedence = (precedence < parentPrecedence);
+    if (precedence !== null) {
+      const ruleName = this.getRuleName();
+
+      if ((ruleName === parentRuleName) && (precedence < parentPrecedence)) {
+        lowerPrecedence = true;
       }
     }
 
