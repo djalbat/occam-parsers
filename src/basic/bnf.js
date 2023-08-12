@@ -2,31 +2,32 @@
 
 const bnf = `
       
-      expression ::= term... "." ;
+      expression   ::= expression_ operator expression expression~*
     
-      term       ::= "1" term~term* ;
-      
-      term~term  ::= "+" "2"
-      
-                   | "+" "2" 
-                   
-                   ;
-                   
+                     | expression_
+    
+                     ;
+    
+      operator     ::= "+"
+    
+                     | "-"
+    
+                     | "/"
+    
+                     | "*"
+    
+                     ;
+    
+      term         ::= /\\d+/ ;
+    
+      expression_  ::= "(" expression ")"
+    
+                     | term
+    
+                     ;
+    
+      expression~  ::= operator expression ;                   
       
 `;
 
 export default bnf;
-
-`
-
-      expression ::= term... "." ;
-    
-      term       ::= "1" term~term* ;
-      
-      term~term  ::= "+" "2" "."
-      
-                   | "+" "2" 
-                   
-                   ;
-
-`
