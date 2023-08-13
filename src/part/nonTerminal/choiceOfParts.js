@@ -29,7 +29,7 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
   parse(nodes, state, callback, callAhead) {
     let parsed;
 
-    const precedence = state.getPrecedence();
+    const savedPrecedence = state.getSavedPrecedence();
 
     parsed = this.partChoices.some((partChoice) => {
       let parsed;
@@ -67,7 +67,7 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     });
 
     if (!parsed) {
-      state.setPrecedence(precedence);
+      state.resetPrecedence(savedPrecedence);
     }
 
     return parsed;

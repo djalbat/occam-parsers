@@ -32,11 +32,11 @@ export default class Rule {
   }
 
   parse(nodes, state, callback, callAhead) {
-    let parsed = false;
+    let parsed;
 
     const savedPrecedence = state.getSavedPrecedence();
 
-    this.definitions.some((definition) => {
+    parsed = this.definitions.some((definition) => {
       let node,
           nonTerminalNode;
 
@@ -52,7 +52,7 @@ export default class Rule {
 
       nodes.push(node);
 
-      parsed = definition.parse(childNodes, state, () => {
+      const parsed = definition.parse(childNodes, state, () => {
         let parsed;
 
         parsed = true;
@@ -112,11 +112,11 @@ export default class Rule {
 
       if (!parsed) {
         nodes.pop();
+
+        state.resetPrecedence(savedPrecedence);
       }
 
-      if (parsed) {
-        return true;
-      }
+      return parsed;
     });
 
     if (callAhead === null) {

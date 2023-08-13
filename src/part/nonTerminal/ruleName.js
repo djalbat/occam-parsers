@@ -40,7 +40,7 @@ export default class RuleNamePart extends NonTerminalPart {
 
     parsed = (rule !== null) ?
                rule.parse(nodes, state, callback, callAhead) :
-                 null;
+                 false;
 
     return parsed;
   }
