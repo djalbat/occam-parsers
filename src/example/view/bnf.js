@@ -2,9 +2,8 @@
 
 import { BNFLexer } from "occam-lexers";
 
-import BNFParser from "../../bnf/parser";
-
 import View from "../view";
+import BNFParser from "../../bnf/parser";
 
 const { bnf } = BNFParser;
 

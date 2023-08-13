@@ -1,9 +1,9 @@
 "use strict";
 
-import { BasicLexer } from "occam-lexers/src";
-import { BasicParser } from "../../index";  ///
+import { BasicLexer } from "occam-lexers";
 
 import View from "../view";
+import BasicParser from "../../basic/parser";
 
 const { bnf } = BasicParser,
       { entries } = BasicLexer;
@@ -40,7 +40,7 @@ export default class BasicView extends View {
     this.keyUpHandler();
   }
 
-  static initialContent = "1+2/3";
+  static initialContent = "1+2/3.";
 
   static defaultProperties = {
     className: "basic"
