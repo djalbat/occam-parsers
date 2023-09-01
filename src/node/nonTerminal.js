@@ -144,21 +144,25 @@ export default class NonTerminalNode {
               nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
 
         if (nonTerminalNodeRuleName === this.ruleName) {
-          const childNodesLength = this.childNodes.length,
-                nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes(),
-                nonTerminalNodeChildNodesLength = nonTerminalNodeChildNodes.length;
+          const nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
 
-          if (childNodesLength === nonTerminalNodeChildNodesLength) {
-            depth--;
+          if (nonTerminalNodePrecedence === this.precedence) {
+            const childNodesLength = this.childNodes.length,
+                  nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes(),
+                  nonTerminalNodeChildNodesLength = nonTerminalNodeChildNodes.length;
 
-            matches = this.childNodes.every((childNode, index) => {
-              const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
-                    childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth);
+            if (childNodesLength === nonTerminalNodeChildNodesLength) {
+              depth--;
 
-              if (childNodeMatchesNonTerminalNodeChildNode) {
-                return true;
-              }
-            });
+              matches = this.childNodes.every((childNode, index) => {
+                const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
+                      childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth);
+
+                if (childNodeMatchesNonTerminalNodeChildNode) {
+                  return true;
+                }
+              });
+            }
           }
         }
       }
