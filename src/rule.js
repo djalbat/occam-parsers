@@ -48,9 +48,9 @@ export default class Rule {
 
       node = nonTerminalNode; ///
 
-      state.setPrecedence(precedence);
-
       nodes.push(node);
+
+      state.setPrecedence(precedence);
 
       const parsed = definition.parse(childNodes, state, () => {
         let parsed;
