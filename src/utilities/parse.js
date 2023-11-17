@@ -41,8 +41,6 @@ function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
 
     index++;
 
-    const { ruleName } = nodes;
-
     if (callAhead === null) {
       const partLookAhead = part.isLookAhead();
 
