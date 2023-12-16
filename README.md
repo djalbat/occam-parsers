@@ -6,8 +6,8 @@
 
 - [Introduction](#introduction)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Examples](#examples)
+- [Usage](#usage)
 - [Features](#features)
 - [Building](#building)
 - [Contact](#contact)
@@ -120,6 +120,24 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
 You can also run a development server, see the section on building later on.
 
+## Examples
+
+There is a small development server that can be run from within the project's directory with the following command:
+
+    npm start
+
+The examples will then be available at the following URL:
+
+http://localhost:8888
+
+The source for the examples can be found in the `src/example.js` file and corresponding `src/example` folder. You are encouraged to try the examples whilst reading what follows. You can rebuild them on the fly with the following command:
+
+    npm run watch-debug
+
+The development server will reload the page whenever you make changes.
+
+One last thing to bear in mind is that this package is included by way of a relative rather than a package import. If you are importing it into your own application, however, you should use the standard package import.
+
 ## Usage
 
 Import the requisite parser and its corresponding lexer from this package and the `occam-lexers` package, respectively. Then call their `fromNothing(...)` factory methods.
@@ -142,10 +160,6 @@ const content = `
 ...
 ```
 The tokens returned from the lexers's `tokenise(...)` method can be passed directly to the parser's `parse(...)` method, which itself returns a node or `null`.
-
-## Examples
-
-There are three examples, one for each parser. To view them, open the `index.html` file in the root of the repository. Each example shows a representation of the parse tree, which is useful for debugging.
 
 ## Features
 
@@ -236,10 +250,6 @@ Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have
 
     npm run build-debug
     npm run watch-debug
-
-You can also start a small development server:
-
-    npm start
 
 The example will then be available at http://localhost:8888 and will reload automatically when changes are made.
 
