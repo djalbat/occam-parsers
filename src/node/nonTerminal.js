@@ -131,7 +131,7 @@ export default class NonTerminalNode {
     return empty;
   }
 
-  match(node, depth = Infinity) {
+  match(node, depth = Infinity, exactly = false) {
     let matches = false;
 
     if (depth === 0) {
@@ -156,7 +156,7 @@ export default class NonTerminalNode {
 
               matches = this.childNodes.every((childNode, index) => {
                 const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
-                      childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth);
+                      childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth, exactly);
 
                 if (childNodeMatchesNonTerminalNodeChildNode) {
                   return true;

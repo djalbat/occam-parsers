@@ -88,7 +88,7 @@ export default class TerminalNode {
     return includedIn;
   }
 
-  match(node, depth) {
+  match(node, depth = Infinity, exactly = false) {
     let matches = false;
 
     const nodeTerminalNode = node.isTerminalNode();
@@ -97,7 +97,9 @@ export default class TerminalNode {
       const terminalNode = node,  ///
             significantToken = terminalNode.getSignificantToken();
 
-      matches = this.significantToken.match(significantToken);
+      matches = exactly ?
+                  (this.significantToken === significantToken) :
+                     this.significantToken.match(significantToken);
     }
 
     return matches;
