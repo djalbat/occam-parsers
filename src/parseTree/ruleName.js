@@ -4,6 +4,8 @@ import { characters} from "necessary";
 
 import VerticalBranchParseTree from "./verticalBranch";
 
+import { tokenLineIndexFromTokenAndTokens } from "../utilities/tokens";
+
 const { SPACE_CHARACTER } = characters;
 
 export default class RuleNameParseTree extends VerticalBranchParseTree {
@@ -11,13 +13,13 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
     const ruleName = nonTerminalNode.getRuleName(),
           firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
           lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
-          firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
-          lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
-          tokenIndexes = (firstSignificantTokenIndex !== lastSignificantTokenIndex) ?
-                          `${firstSignificantTokenIndex}-${lastSignificantTokenIndex}` :
-                            `${firstSignificantTokenIndex}`;
+          firstSignificantTokenLineIndex = tokenLineIndexFromTokenAndTokens(firstSignificantToken, tokens),
+          lastSignificantTokenLineIndex = tokenLineIndexFromTokenAndTokens(lastSignificantToken, tokens),
+          tokenLineIndexes = (firstSignificantTokenLineIndex !== lastSignificantTokenLineIndex) ?
+                              `${firstSignificantTokenLineIndex}-${lastSignificantTokenLineIndex}` :
+                                `${firstSignificantTokenLineIndex}`;
 
-    let string = `${ruleName} {${tokenIndexes}}`;
+    let string = `${ruleName} [${tokenLineIndexes}]`;
 
     let precedence = nonTerminalNode.getPrecedence();
 

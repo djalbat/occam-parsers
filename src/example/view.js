@@ -16,7 +16,7 @@ import LexicalEntriesTextarea from "./view/textarea/lexicalEntries";
 
 class View extends Element {
   keyUpHandler = (event, element) => {
-    // try {
+    try {
       const content = this.getContent(),
             tokens = this.getTokens(content),
             node = this.getNode(tokens);
@@ -30,13 +30,13 @@ class View extends Element {
       } else {
         this.clearParseTree();
       }
-    // } catch (error) {
-    //   console.log(error);
-    //
-    //   this.clearTokens();
-    //
-    //   this.clearParseTree();
-    // }
+    } catch (error) {
+      console.log(error);
+
+      this.clearTokens();
+
+      this.clearParseTree();
+    }
   }
 
   getTokens(content) {
