@@ -140,13 +140,15 @@ export default class NonTerminalNode {
       const nodeNonTerminalNode = node.isNonTerminalNode();
 
       if (nodeNonTerminalNode) {
-        const nonTerminalNode = node, ///
+        const ruleName = this.ruleName,
+              nonTerminalNode = node, ///
               nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
 
-        if (nonTerminalNodeRuleName === this.ruleName) {
-          const nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
+        if (ruleName === nonTerminalNodeRuleName) {
+          const precedence = this.getPrecedence(),
+                nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
 
-          if (nonTerminalNodePrecedence === this.precedence) {
+          if (precedence === nonTerminalNodePrecedence) {
             const childNodesLength = this.childNodes.length,
                   nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes(),
                   nonTerminalNodeChildNodesLength = nonTerminalNodeChildNodes.length;
