@@ -1,7 +1,7 @@
 {
   "name": "occam-parsers",
   "author": "James Smith",
-  "version": "19.0.84",
+  "version": "19.0.85",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/occam-parsers",
   "description": "Occam's parsers.",
@@ -15,12 +15,12 @@
   },
   "devDependencies": {
     "@swc/core": "^1.2.50",
-    "easy": "^16.0.8",
-    "easy-layout": "^6.0.96",
-    "easy-with-style": "^3.0.282",
+    "easy": "^16.0.9",
+    "easy-layout": "^6.0.97",
+    "easy-with-style": "^3.0.283",
     "esbuild": "^0.9.6",
     "express": "^4.17.1",
-    "juxtapose": "^4.0.71",
+    "juxtapose": "^4.0.72",
     "lively-cli": "^2.0.52",
     "watchful-cli": "^1.7.44"
   },
