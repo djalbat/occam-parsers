@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-const { first, filter } = arrayUtilities;
+const { first, prune } = arrayUtilities;
 
 import { EMPTY_STRING } from "../constants";
 
@@ -49,7 +49,7 @@ export function rulesFromStartRuleAndRuleMap(startRule, ruleMap) {
   const rules = Object.values(ruleMap),
         startRuleName = startRule.getName();
 
-  filter(rules, (rule) => {
+  startRule = prune(rules, (rule) => {  ///
     const ruleName = rule.getName();
 
     if (ruleName !== startRuleName) {
