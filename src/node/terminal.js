@@ -29,6 +29,12 @@ export default class TerminalNode {
     return noWhitespaceNode;
   }
 
+  isEndOfLineNode() {
+    const endOfLineNode = false;
+
+    return endOfLineNode;
+  }
+
   isEpsilonNode() {
     const epsilonNode = false;
 

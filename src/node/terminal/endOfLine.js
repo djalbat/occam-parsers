@@ -6,8 +6,16 @@ import EndOfLineNodeParseTree from "../../parseTree/endOfLineNode";
 import { EMPTY_STRING } from "../../constants";
 
 export default class EndOfLineNode extends TerminalNode {
-  getContent() {
-    const content = EMPTY_STRING; ///
+  isEndOfLineNode() {
+    const endOfLineNode = true;
+
+    return endOfLineNode;
+  }
+
+  getContent(faithful = false) {
+    const content = faithful ?
+                      super.getContent() :
+                        EMPTY_STRING; ///
 
     return content;
   }
