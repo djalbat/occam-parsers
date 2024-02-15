@@ -213,7 +213,7 @@ export default class NonTerminalNode {
     return nonTerminalNode;
   }
 
-  static fromRuleNameAndChildNodes(Class, ruleName, childNodes) {
+  static fromRuleNameAndChildNodes(Class, ruleName, childNodes, ...remainingArguments) {
     if (childNodes === undefined) {
       childNodes = ruleName;  ///
 
@@ -223,12 +223,12 @@ export default class NonTerminalNode {
     }
 
     const precedence = null,
-          nonTerminalNode = new Class(ruleName, childNodes, precedence);
+          nonTerminalNode = new Class(ruleName, childNodes, precedence, ...remainingArguments);
 
     return nonTerminalNode;
   }
 
-  static fromRuleNameChildNodesAndPrecedence(Class, ruleName, childNodes, precedence) {
+  static fromRuleNameChildNodesAndPrecedence(Class, ruleName, childNodes, precedence, ...remainingArguments) {
     if (precedence === undefined) {
       precedence = childNodes;  ///
 
@@ -239,7 +239,7 @@ export default class NonTerminalNode {
       Class = NonTerminalNode;  ///
     }
 
-    const nonTerminalNode = new Class(ruleName, childNodes, precedence);
+    const nonTerminalNode = new Class(ruleName, childNodes, precedence, ...remainingArguments);
 
     return nonTerminalNode;
   }
