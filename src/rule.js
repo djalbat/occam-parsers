@@ -31,6 +31,22 @@ export default class Rule {
     return this.NonTerminalNode;
   }
 
+  setName(name) {
+    this.name = name;
+  }
+
+  seAmbiguous(ambiguous) {
+    this.ambiguous = ambiguous;
+  }
+
+  setDefinitions(definitions) {
+    this.definitions = definitions;
+  }
+
+  setNonTerminalNode(NonTerminalNode) {
+    this.NonTerminalNode = NonTerminalNode;
+  }
+
   parse(nodes, state, callback, callAhead) {
     let parsed;
 
