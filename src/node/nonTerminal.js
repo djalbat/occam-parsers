@@ -166,25 +166,30 @@ export default class NonTerminalNode {
               nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
 
         if (ruleName === nonTerminalNodeRuleName) {
-          const precedence = this.getPrecedence(),
-                nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
+          const ambiguous = this.ambiguous,
+                nonTerminalNodeAmbiguous = nonTerminalNode.isAmbiguous();
 
-          if (precedence === nonTerminalNodePrecedence) {
-            const childNodesLength = this.childNodes.length,
-                  nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes(),
-                  nonTerminalNodeChildNodesLength = nonTerminalNodeChildNodes.length;
+          if (ambiguous === nonTerminalNodeAmbiguous) {
+            const precedence = this.getPrecedence(),
+                  nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
 
-            if (childNodesLength === nonTerminalNodeChildNodesLength) {
-              depth--;
+            if (precedence === nonTerminalNodePrecedence) {
+              const childNodesLength = this.childNodes.length,
+                    nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes(),
+                    nonTerminalNodeChildNodesLength = nonTerminalNodeChildNodes.length;
 
-              matches = this.childNodes.every((childNode, index) => {
-                const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
-                      childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth, exactly);
+              if (childNodesLength === nonTerminalNodeChildNodesLength) {
+                depth--;
 
-                if (childNodeMatchesNonTerminalNodeChildNode) {
-                  return true;
-                }
-              });
+                matches = this.childNodes.every((childNode, index) => {
+                  const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
+                        childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth, exactly);
+
+                  if (childNodeMatchesNonTerminalNodeChildNode) {
+                    return true;
+                  }
+                });
+              }
             }
           }
         }
@@ -216,8 +221,9 @@ export default class NonTerminalNode {
 
             return childNode;
           }),
+          ambiguous = this.ambiguous,
           precedence = this.precedence,
-          nonTerminalNode = new Class(ruleName, childNodes, precedence);
+          nonTerminalNode = new Class(ruleName, childNodes, ambiguous, precedence);
 
     return nonTerminalNode;
   }

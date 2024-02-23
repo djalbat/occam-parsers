@@ -11,6 +11,7 @@ const { SPACE_CHARACTER } = characters;
 export default class RuleNameParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
     const ruleName = nonTerminalNode.getRuleName(),
+          ambiguous = nonTerminalNode.isAmbiguous(),
           firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
           lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
           firstSignificantTokenLineIndex = tokenLineIndexFromTokenAndTokens(firstSignificantToken, tokens),
@@ -19,7 +20,13 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
                               `${firstSignificantTokenLineIndex}-${lastSignificantTokenLineIndex}` :
                                 `${firstSignificantTokenLineIndex}`;
 
-    let string = `${ruleName} [${tokenLineIndexes}]`;
+    let string = `${ruleName}`;
+
+    if (ambiguous) {
+      string = `${string}!`;
+    }
+
+    string = `${string} [${tokenLineIndexes}]`;
 
     let precedence = nonTerminalNode.getPrecedence();
 

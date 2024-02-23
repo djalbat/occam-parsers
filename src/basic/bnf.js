@@ -8,7 +8,7 @@ const bnf = `
 
                      ;
 
-      operator     ::= "+"
+      operator!    ::= "+"
 
                      | "-"
 
