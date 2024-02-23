@@ -7,9 +7,10 @@ import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 const { first, forwardsSome, backwardsSome } = arrayUtilities;
 
 export default class NonTerminalNode {
-  constructor(ruleName, childNodes, precedence) {
+  constructor(ruleName, childNodes, ambiguous, precedence) {
     this.ruleName = ruleName;
     this.childNodes = childNodes;
+    this.ambiguous = ambiguous;
     this.precedence = precedence;
   }
 
@@ -21,8 +22,28 @@ export default class NonTerminalNode {
     return this.childNodes;
   }
 
+  isAmbiguous() {
+    return this.ambiguous;
+  }
+
   getPrecedence() {
     return this.precedence;
+  }
+
+  setRuleName(ruleName) {
+    this.ruleName = ruleName;
+  }
+
+  setChildNodes(childNodes) {
+    this.childNodes = childNodes;
+  }
+
+  setAmbiguous(ambiguous) {
+    this.ambiguous = ambiguous;
+  }
+
+  setPrecedence(precedence) {
+    this.precedence = precedence;
   }
 
   isTerminalNode() {
@@ -179,18 +200,6 @@ export default class NonTerminalNode {
     return rewrittenNonTerminalNode;
   }
 
-  setRuleName(ruleName) {
-    this.ruleName = ruleName;
-  }
-
-  setChildNodes(childNodes) {
-    this.childNodes = childNodes;
-  }
-
-  setPrecedence(precedence) {
-    this.precedence = precedence;
-  }
-  
   asParseTree(tokens) {
     const nonTerminalNode = this,  ///
           nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
@@ -213,8 +222,10 @@ export default class NonTerminalNode {
     return nonTerminalNode;
   }
 
-  static fromRuleNameAndChildNodes(Class, ruleName, childNodes, ...remainingArguments) {
-    if (childNodes === undefined) {
+  static fromRuleNameChildNodesAndAmbiguous(Class, ruleName, childNodes, ambiguous, ...remainingArguments) {
+    if (ambiguous === undefined) {
+      ambiguous = childNodes; ///
+
       childNodes = ruleName;  ///
 
       ruleName = Class; ///
@@ -223,23 +234,7 @@ export default class NonTerminalNode {
     }
 
     const precedence = null,
-          nonTerminalNode = new Class(ruleName, childNodes, precedence, ...remainingArguments);
-
-    return nonTerminalNode;
-  }
-
-  static fromRuleNameChildNodesAndPrecedence(Class, ruleName, childNodes, precedence, ...remainingArguments) {
-    if (precedence === undefined) {
-      precedence = childNodes;  ///
-
-      childNodes = ruleName;  ///
-
-      ruleName = Class; ///
-
-      Class = NonTerminalNode;  ///
-    }
-
-    const nonTerminalNode = new Class(ruleName, childNodes, precedence, ...remainingArguments);
+          nonTerminalNode = new Class(ruleName, childNodes, ambiguous, precedence, ...remainingArguments);
 
     return nonTerminalNode;
   }

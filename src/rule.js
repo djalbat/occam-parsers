@@ -58,9 +58,11 @@ export default class Rule {
 
       const ruleName = this.name, ///
             childNodes = [],
-            precedence = definition.getPrecedence()
+            ambiguous = this.ambiguous;
 
-      nonTerminalNode = this.NonTerminalNode.fromRuleNameAndChildNodes(ruleName, childNodes);
+      nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous);
+
+      const precedence = definition.getPrecedence();
 
       node = nonTerminalNode; ///
 
