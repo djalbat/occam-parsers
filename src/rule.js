@@ -56,9 +56,9 @@ export default class Rule {
       let node,
           nonTerminalNode;
 
-      const ruleName = this.name, ///
-            childNodes = [],
-            ambiguous = this.ambiguous;
+      const ruleName = this.name,
+            ambiguous = this.ambiguous,
+            childNodes = [];
 
       nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous);
 

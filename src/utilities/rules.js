@@ -9,7 +9,13 @@ import { EMPTY_STRING } from "../constants";
 export function rulesAsString(rules, multiLine) {
   const maximumRuleNameLength = rules.reduce((maximumRuleNameLength, rule) => {
         const ruleName = rule.getName(),
-              ruleNameLength = ruleName.length;
+              ambiguous = rule.isAmbiguous();
+
+        let ruleNameLength = ruleName.length;
+
+        if (ambiguous) {
+          ruleNameLength++;
+        }
 
         maximumRuleNameLength = Math.max(maximumRuleNameLength, ruleNameLength);
 
