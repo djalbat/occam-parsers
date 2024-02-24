@@ -155,32 +155,32 @@ export default class NonTerminalNode {
   match(node, depth = Infinity, exactly = false) {
     let matches = false;
 
-    if (depth === 0) {
-      matches = true;
-    } else {
-      const nodeNonTerminalNode = node.isNonTerminalNode();
+    const nodeNonTerminalNode = node.isNonTerminalNode();
 
-      if (nodeNonTerminalNode) {
-        const ruleName = this.ruleName,
-              nonTerminalNode = node, ///
-              nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
+    if (nodeNonTerminalNode) {
+      const nonTerminalNode = node, ///
+            ruleName = this.ruleName,
+            nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
 
-        if (ruleName === nonTerminalNodeRuleName) {
-          const ambiguous = this.ambiguous,
-                nonTerminalNodeAmbiguous = nonTerminalNode.isAmbiguous();
+      if (ruleName === nonTerminalNodeRuleName) {
+        const ambiguous = this.ambiguous,
+              nonTerminalNodeAmbiguous = nonTerminalNode.isAmbiguous();
 
-          if (ambiguous === nonTerminalNodeAmbiguous) {
-            const precedence = this.getPrecedence(),
-                  nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
+        if (ambiguous === nonTerminalNodeAmbiguous) {
+          const precedence = this.getPrecedence(),
+                nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
 
-            if (precedence === nonTerminalNodePrecedence) {
+          if (precedence === nonTerminalNodePrecedence) {
+            matches = true;
+
+            depth--;
+
+            if (depth > 0) {
               const childNodesLength = this.childNodes.length,
                     nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes(),
                     nonTerminalNodeChildNodesLength = nonTerminalNodeChildNodes.length;
 
               if (childNodesLength === nonTerminalNodeChildNodesLength) {
-                depth--;
-
                 matches = this.childNodes.every((childNode, index) => {
                   const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
                         childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth, exactly);
