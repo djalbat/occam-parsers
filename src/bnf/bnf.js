@@ -84,7 +84,7 @@ const bnf = `
 
       zeroOrMoreQuantifier     ::=  <NO_WHITESPACE>"*" ;
 
-      error                    ::=  . ;
+      error!                   ::=  . ;
 
 `;
 

@@ -102,7 +102,7 @@ All parsers share common functionality. The last two parse content according to 
 
       zeroOrMoreQuantifier     ::=  <NO_WHITESPACE>"*" ;
 
-      error                    ::=  . ;
+      error!                   ::=  . ;
 
 ## Installation
 

@@ -10,7 +10,7 @@ export default class ErrorRule extends Rule {
   static fromNothing() {
     const errorDefinition = ErrorDefinition.fromNothing(),
           name = errorRuleName, ///
-          ambiguous = false,
+          ambiguous = true,
           definitions = [
             errorDefinition
           ],
