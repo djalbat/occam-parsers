@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
-const { first, forwardsSome, backwardsSome } = arrayUtilities;
+const { first, match, forwardsSome, backwardsSome } = arrayUtilities;
 
 export default class NonTerminalNode {
   constructor(ruleName, childNodes, ambiguous, precedence) {
@@ -159,37 +159,30 @@ export default class NonTerminalNode {
 
     if (nodeNonTerminalNode) {
       const nonTerminalNode = node, ///
-            ruleName = this.ruleName,
             nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
 
-      if (ruleName === nonTerminalNodeRuleName) {
-        const ambiguous = this.ambiguous,
-              nonTerminalNodeAmbiguous = nonTerminalNode.isAmbiguous();
+      if (this.ruleName === nonTerminalNodeRuleName) {
+        const nonTerminalNodeAmbiguous = nonTerminalNode.isAmbiguous();
 
-        if (ambiguous === nonTerminalNodeAmbiguous) {
+        if (this.ambiguous === nonTerminalNodeAmbiguous) {
           const precedence = this.getPrecedence(),
                 nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
 
           if (precedence === nonTerminalNodePrecedence) {
-            matches = true;
-
             depth--;
 
-            if (depth > 0) {
-              const childNodesLength = this.childNodes.length,
-                    nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes(),
-                    nonTerminalNodeChildNodesLength = nonTerminalNodeChildNodes.length;
+            if (depth === 0) {
+              matches = true;
+            } else {
+              const nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes();
 
-              if (childNodesLength === nonTerminalNodeChildNodesLength) {
-                matches = this.childNodes.every((childNode, index) => {
-                  const nonTerminalNodeChildNode = nonTerminalNodeChildNodes[index],
-                        childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth, exactly);
+              matches = match(this.childNodes, nonTerminalNodeChildNodes, (childNode, nonTerminalNodeChildNode) => {
+                const childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth, exactly);
 
-                  if (childNodeMatchesNonTerminalNodeChildNode) {
-                    return true;
-                  }
-                });
-              }
+                if (childNodeMatchesNonTerminalNodeChildNode) {
+                  return true;
+                }
+              });
             }
           }
         }
