@@ -1,9 +1,9 @@
 "use strict";
 
 import { BNFLexer } from "occam-lexers";
+import { BNFParser } from "../../index";  ///
 
 import View from "../view";
-import BNFParser from "../../bnf/parser";
 
 const { bnf } = BNFParser;
 

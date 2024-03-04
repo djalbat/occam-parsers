@@ -1,9 +1,9 @@
 "use strict";
 
 import { BasicLexer } from "occam-lexers";
+import { BasicParser } from "../../index";  ///
 
 import View from "../view";
-import BasicParser from "../../basic/parser";
 
 const { bnf } = BasicParser,
       { entries } = BasicLexer;
