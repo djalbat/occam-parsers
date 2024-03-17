@@ -1,32 +1,30 @@
 "use strict";
 
-const bnf = `
+const bnf = `expression ::= term... "." ;
 
-      expression   ::= expression_ operator expression expression~*
+term       ::= term_ term~* ;
 
-                     | expression_
+operator   ::= "+"
 
-                     ;
+             | "-"
 
-      operator!    ::= "+"
+             | "/"
 
-                     | "-"
+             | "*"
 
-                     | "/"
+             ;
 
-                     | "*"
+number     ::= /\\d+/ ;
 
-                     ;
+term_      ::= "(" term ")"
 
-      term         ::= /\\d+/ ;
+             | number
 
-      expression_  ::= "(" expression ")"
+             ;
 
-                     | term
+term~term  ::= operator term ;
 
-                     ;
-
-      expression~  ::= operator expression ;
+term~      ::= term~term ;
 
 `;
 
