@@ -1,17 +1,19 @@
 "use strict";
 
 import { arrayUtilities } from "necessary";
+import { specialSymbols } from "occam-lexers";
 
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
-const { first, match, forwardsSome, backwardsSome } = arrayUtilities;
+const { first, match, forwardsSome, backwardsSome } = arrayUtilities,
+      { opaque : opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class NonTerminalNode {
-  constructor(ruleName, childNodes, ambiguous, precedence) {
+  constructor(ruleName, childNodes, precedence, opacity) {
     this.ruleName = ruleName;
     this.childNodes = childNodes;
-    this.ambiguous = ambiguous;
     this.precedence = precedence;
+    this.opacity = opacity;
   }
 
   getRuleName() {
@@ -22,12 +24,12 @@ export default class NonTerminalNode {
     return this.childNodes;
   }
 
-  isAmbiguous() {
-    return this.ambiguous;
-  }
-
   getPrecedence() {
     return this.precedence;
+  }
+
+  getOpacity() {
+    return this.opacity;
   }
 
   setRuleName(ruleName) {
@@ -38,12 +40,24 @@ export default class NonTerminalNode {
     this.childNodes = childNodes;
   }
 
-  setAmbiguous(ambiguous) {
-    this.ambiguous = ambiguous;
-  }
-
   setPrecedence(precedence) {
     this.precedence = precedence;
+  }
+
+  setOpacity(opacity) {
+    this.opacity = opacity;
+  }
+
+  isOpaque() {
+    const opaque = (this.opacity === opaqueSpecialSymbol);
+
+    return opaque;
+  }
+
+  isSemiOpaque() {
+    const opaque = (this.opacity === semiOpaqueSpecialSymbol);
+
+    return opaque;
   }
 
   isTerminalNode() {
@@ -162,9 +176,9 @@ export default class NonTerminalNode {
             nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
 
       if (this.ruleName === nonTerminalNodeRuleName) {
-        const nonTerminalNodeAmbiguous = nonTerminalNode.isAmbiguous();
+        const nonTerminalNodeOpacity = nonTerminalNode.getOpacity();
 
-        if (this.ambiguous === nonTerminalNodeAmbiguous) {
+        if (this.opacity === nonTerminalNodeOpacity) {
           const precedence = this.getPrecedence(),
                 nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
 
@@ -214,16 +228,16 @@ export default class NonTerminalNode {
 
             return childNode;
           }),
-          ambiguous = this.ambiguous,
           precedence = this.precedence,
-          nonTerminalNode = new Class(ruleName, childNodes, ambiguous, precedence);
+          opacity = this.opacity,
+          nonTerminalNode = new Class(ruleName, childNodes, precedence, opacity);
 
     return nonTerminalNode;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(Class, ruleName, childNodes, ambiguous, ...remainingArguments) {
-    if (ambiguous === undefined) {
-      ambiguous = childNodes; ///
+  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) {
+    if (opacity === undefined) {
+      opacity = childNodes; ///
 
       childNodes = ruleName;  ///
 
@@ -233,7 +247,7 @@ export default class NonTerminalNode {
     }
 
     const precedence = null,
-          nonTerminalNode = new Class(ruleName, childNodes, ambiguous, precedence, ...remainingArguments);
+          nonTerminalNode = new Class(ruleName, childNodes, opacity, precedence, ...remainingArguments);
 
     return nonTerminalNode;
   }

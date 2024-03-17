@@ -10,12 +10,12 @@ export default class PrecedenceRule extends Rule {
   static fromNothing() {
     const name = precedenceRuleName,  ///
           precedenceDefinition = PrecedenceDefinition.fromNothing(),
-          ambiguous = false,
+          opacity = null,
           definitions = [
             precedenceDefinition
           ],
           NonTerminalNode = PrecedenceBNFNode,  ///
-          precedenceRule = new PrecedenceRule(name, ambiguous, definitions, NonTerminalNode);
+          precedenceRule = new PrecedenceRule(name, opacity, definitions, NonTerminalNode);
 
     return precedenceRule;
   }

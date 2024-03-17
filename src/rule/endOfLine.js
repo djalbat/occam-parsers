@@ -8,19 +8,19 @@ import TerminalSymbolDefinition from "../definition/terminalSymbol";
 
 import { endOfLineRuleName } from "../ruleNames";
 
-const { END_OF_LINE } = specialSymbols;
+const { endOfLine } = specialSymbols;
 
 export default class EndOfLineRule extends Rule {
   static fromNothing() {
-    const content = END_OF_LINE,
+    const content = endOfLine,
           endOfLineTerminalSymbolDefinition = TerminalSymbolDefinition.fromContent(content),
           name = endOfLineRuleName, ///
-          ambiguous = false,
+          opacity = null,
           definitions = [
             endOfLineTerminalSymbolDefinition
           ],
           NonTerminalNode = EndOfLineBNFNode, ///
-          endOfLineRule = new EndOfLineRule(name, ambiguous, definitions, NonTerminalNode);
+          endOfLineRule = new EndOfLineRule(name, opacity, definitions, NonTerminalNode);
 
     return endOfLineRule;
   }

@@ -10,12 +10,12 @@ export default class DocumentRule extends Rule {
   static fromNothing() {
     const documentDefinition = DocumentDefinition.fromNothing(),
           name = documentRuleName,  ///
-          ambiguous = false,
+          opacity = null,
           definitions = [
             documentDefinition
           ],
           NonTerminalNode = DocumentBNFNode,  ///
-          documentRule = new DocumentRule(name, ambiguous, definitions, NonTerminalNode);
+          documentRule = new DocumentRule(name, opacity, definitions, NonTerminalNode);
 
     return documentRule;
   }

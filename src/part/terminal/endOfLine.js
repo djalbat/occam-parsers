@@ -5,7 +5,7 @@ import { specialSymbols } from "occam-lexers";
 import TerminalPart from "../../part/terminal";
 import EndOfLineNode from "../../node/terminal/endOfLine";
 
-const { END_OF_LINE } = specialSymbols;
+const { endOfLine } = specialSymbols;
 
 export default class EndOfLinePart extends TerminalPart {
   parse(nodes, state, callback, callAhead) {
@@ -45,7 +45,7 @@ export default class EndOfLinePart extends TerminalPart {
   }
 
   asString() {
-    const string = END_OF_LINE; ///
+    const string = endOfLine; ///
 
     return string;
   }

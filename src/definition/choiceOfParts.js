@@ -11,7 +11,9 @@ import SequenceOfPartsPart from "../part/nonTerminal/sequenceOfParts";
 
 import { partChoiceRuleName } from "../ruleNames";
 
-const { verticalBar, openBracket, closeBracket } = specialSymbols;
+const { verticalBar,
+        openBracket,
+        closeBracket } = specialSymbols;
 
 export default class ChoiceOfPartsDefinition extends Definition {
   static fromNothing() {

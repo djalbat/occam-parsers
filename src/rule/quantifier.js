@@ -12,14 +12,14 @@ export default class QuantifierRule extends Rule {
           optionalQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(optionalQuantifierRuleName),
           oneOrMoreQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(oneOrMoreQuantifierRuleName),
           zeroOrMoreQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(zeroOrMoreQuantifierRuleName),
-          ambiguous = false,
+          opacity = null,
           definitions = [
             optionalQuantifierRuleNameDefinition,
             oneOrMoreQuantifierRuleNameDefinition,
             zeroOrMoreQuantifierRuleNameDefinition
           ],
           NonTerminalNode = PartBNFNode,  ///
-          quantifierRule = new QuantifierRule(name, ambiguous, definitions, NonTerminalNode);
+          quantifierRule = new QuantifierRule(name, opacity, definitions, NonTerminalNode);
 
     return quantifierRule;
   }

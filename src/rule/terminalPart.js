@@ -21,7 +21,7 @@ export default class TerminalPartRule extends Rule {
           terminalSymbolRuleNameDefinition = RuleNameDefinition.fromRuleName(terminalSymbolRuleName),
           regularExpressionRuleNameDefinition = RuleNameDefinition.fromRuleName(regularExpressionRuleName),
           significantTokenTypeRuleNameDefinition = RuleNameDefinition.fromRuleName(significantTokenTypeRuleName),
-          ambiguous = false,
+          opacity = null,
           definitions = [
             significantTokenTypeRuleNameDefinition,
             regularExpressionRuleNameDefinition,
@@ -31,7 +31,7 @@ export default class TerminalPartRule extends Rule {
             epsilonRuleNameDefinition
           ],
           NonTerminalNode = TerminalPartBNFNode,
-          terminalPartRule = new TerminalPartRule(name, ambiguous, definitions, NonTerminalNode);
+          terminalPartRule = new TerminalPartRule(name, opacity, definitions, NonTerminalNode);
 
     return terminalPartRule;
   }

@@ -22,9 +22,9 @@ import ChoiceOfPartsRule from "../rule/choiceOfParts";
 import TerminalSymbolRule from "../rule/terminalSymbol";
 import NonTerminalPartRule from "../rule/nonTerminalPart";
 import SequenceOfPartsRule from "../rule/sequenceOfParts";
+import OpacityModifierRule from "../rule/opacityModifier";
 import NoWhitespacePartRule from "../rule/noWhitespacePart";
 import LookAheadModifierRule from "../rule/lookAheadModifier";
-import AmbiguousModifierRule from "../rule/ambiguousModifier";
 import RegularExpressionRule from "../rule/regularExpression";
 import OptionalQuantifierRule from "../rule/optionalQuantifier";
 import OneOrMoreQuantifierRule from "../rule/oneOrMoreQuantifier";
@@ -89,10 +89,10 @@ export default class BNFParser {
           terminalSymbolRule = TerminalSymbolRule.fromNothing(),
           nonTerminalPartRule = NonTerminalPartRule.fromNothing(),
           sequenceOfPartsRule = SequenceOfPartsRule.fromNothing(),
+          opacityModifierRule = OpacityModifierRule.fromNothing(),
           noWhitespacePartRule = NoWhitespacePartRule.fromNothing(),
           regularExpressionRule = RegularExpressionRule.fromNothing(),
           lookAheadModifierRule = LookAheadModifierRule.fromNothing(),
-          ambiguousModifierRule = AmbiguousModifierRule.fromNothing(),
           optionalQuantifierRule = OptionalQuantifierRule.fromNothing(),
           oneOrMoreQuantifierRule = OneOrMoreQuantifierRule.fromNothing(),
           zeroOrMoreQuantifierRule = ZeroOrMoreQuantifierRule.fromNothing(),
@@ -120,7 +120,7 @@ export default class BNFParser {
       wildcardRule,
       epsilonRule,
       quantifierRule,
-      ambiguousModifierRule,
+      opacityModifierRule,
       lookAheadModifierRule,
       optionalQuantifierRule,
       oneOrMoreQuantifierRule,

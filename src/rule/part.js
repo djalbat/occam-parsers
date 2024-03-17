@@ -14,14 +14,14 @@ export default class PartRule extends Rule {
           terminalPartRuleDefinition = TerminalPartRuleDefinition.fromNothing(),
           nonTerminalPartRuleDefinition = NonTerminalPartRuleDefinition.fromNothing(),
           noWhitespacePartRuleNameDefinition = RuleNameDefinition.fromRuleName(noWhitespacePartRuleName),
-          ambiguous = false,
+          opacity = null,
           definitions = [
             nonTerminalPartRuleDefinition,
             terminalPartRuleDefinition,
             noWhitespacePartRuleNameDefinition
           ],
           NonTerminalNode = PartBNFNode,  ///
-          partRule = new PartRule(name, ambiguous, definitions, NonTerminalNode);
+          partRule = new PartRule(name, opacity, definitions, NonTerminalNode);
 
     return partRule;
   }

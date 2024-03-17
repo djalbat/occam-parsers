@@ -24,5 +24,5 @@ export default class PrecedenceBNFNode extends NonTerminalNode {
     return precedence;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return NonTerminalNode.fromRuleNameChildNodesAndAmbiguous(PrecedenceBNFNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return NonTerminalNode.fromRuleNameChildNodesAndOpacity(PrecedenceBNFNode, ruleName, childNodes, opacity); }
 }

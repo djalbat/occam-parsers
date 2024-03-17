@@ -15,12 +15,12 @@ export default class ZeroOrMoreQuantifierRule extends Rule {
     const name = zeroOrMoreQuantifierRuleName,  ///
           specialSymbol = asterisk, ///
           zeroOrMoreQuantifierRuleDefinition = QuantifierRuleDefinition.fromSpecialSymbol(specialSymbol),
-          ambiguous = false,
+          opacity = null,
           definitions = [
             zeroOrMoreQuantifierRuleDefinition
           ],
           NonTerminalNode = QuantifierBNFNode, ///
-          zeroOrMoreQuantifierRule = new ZeroOrMoreQuantifierRule(name, ambiguous, definitions, NonTerminalNode);
+          zeroOrMoreQuantifierRule = new ZeroOrMoreQuantifierRule(name, opacity, definitions, NonTerminalNode);
 
     return zeroOrMoreQuantifierRule;
   }

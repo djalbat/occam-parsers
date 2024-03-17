@@ -13,14 +13,14 @@ export default class NonTerminalPartRule extends Rule {
           choiceOfPartsRuleNameDefinition = RuleNameDefinition.fromRuleName(choiceOfPartsRuleName),
           sequenceOfPartsRuleNameDefinition = RuleNameDefinition.fromRuleName(sequenceOfPartsRuleName),
           ruleNameNonTerminalPartRuleDefinition = RuleNameNonTerminalPartRuleDefinition.fromNothing(),
-          ambiguous = false,
+          opacity = null,
           definitions = [
             choiceOfPartsRuleNameDefinition,
             sequenceOfPartsRuleNameDefinition,
             ruleNameNonTerminalPartRuleDefinition
           ],
           NonTerminalNode = NonTerminalPartBNFNode, ///
-          nonTerminalPartRule = new NonTerminalPartRule(name, ambiguous, definitions, NonTerminalNode);
+          nonTerminalPartRule = new NonTerminalPartRule(name, opacity, definitions, NonTerminalNode);
 
     return nonTerminalPartRule;
   }

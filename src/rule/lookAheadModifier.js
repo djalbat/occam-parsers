@@ -1,7 +1,7 @@
 "use strict";
 
 import Rule from "../rule";
-import ModifierBNFNode from "../node/bnf/modifier";
+import LookAheadModifierBNFNode from "../node/bnf/lookAheadModifier";
 import LookAheadModifierRuleDefinition from "../definition/lookAheadModifierRule";
 
 import { lookAheadModifierRuleName } from "../ruleNames";
@@ -10,12 +10,12 @@ export default class LookAheadModifierRule extends Rule {
   static fromNothing() {
     const name = lookAheadModifierRuleName, ///
           lookAheadModifierRuleDefinition = LookAheadModifierRuleDefinition.fromNothing(),
-          ambiguous = false,
+          opacity = null,
           definitions = [
             lookAheadModifierRuleDefinition
           ],
-          NonTerminalNode = ModifierBNFNode,  ///
-          lookAheadModifierRule = new LookAheadModifierRule(name, ambiguous, definitions, NonTerminalNode);
+          NonTerminalNode = LookAheadModifierBNFNode,  ///
+          lookAheadModifierRule = new LookAheadModifierRule(name, opacity, definitions, NonTerminalNode);
 
     return lookAheadModifierRule;
   }

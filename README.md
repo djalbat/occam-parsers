@@ -24,7 +24,7 @@ All parsers share common functionality. The last two parse content according to 
 
       document                 ::=  ( rule | error )+ ;
 
-      rule                     ::=  name ambiguousModifier? "::=" definitions ";" ;
+      rule                     ::=  name opacityModifier? "::=" definitions ";" ;
 
       name                     ::=  [name] ;
 
@@ -92,7 +92,7 @@ All parsers share common functionality. The last two parse content according to 
   
                                  ;
 
-      ambiguousModifier        ::=  <NO_WHITESPACE>"!" ;
+      opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
 
       lookAheadModifier        ::=  <NO_WHITESPACE>"..." ;
 
@@ -102,7 +102,7 @@ All parsers share common functionality. The last two parse content according to 
 
       zeroOrMoreQuantifier     ::=  <NO_WHITESPACE>"*" ;
 
-      error!                   ::=  . ;
+      error.                   ::=  . ;
 
 ## Installation
 

@@ -15,12 +15,12 @@ export default class OptionalQuantifierRule extends Rule {
     const name = optionalQuantifierRuleName,  ///
           specialSymbol = questionMark, ///
           optionalQuantifierRuleDefinition = QuantifierRuleDefinition.fromSpecialSymbol(specialSymbol),
-          ambiguous = false,
+          opacity = null,
           definitions = [
             optionalQuantifierRuleDefinition
           ],
           NonTerminalNode = QuantifierBNFNode,  ///
-          optionalQuantifierRule = new OptionalQuantifierRule(name, ambiguous, definitions, NonTerminalNode);
+          optionalQuantifierRule = new OptionalQuantifierRule(name, opacity, definitions, NonTerminalNode);
 
     return optionalQuantifierRule;
   }

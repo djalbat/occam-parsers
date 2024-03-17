@@ -10,12 +10,12 @@ export default class ChoiceOfPartsRule extends Rule {
   static fromNothing() {
     const name = choiceOfPartsRuleName, ///
           choiceOfPartsDefinition = ChoiceOfPartsDefinition.fromNothing(),
-          ambiguous = false,
+          opacity = null,
           definitions = [
             choiceOfPartsDefinition
           ],
           NonTerminalNode = ChoiceOfPartsBNFNode, ///
-          choiceOfPartsRule = new ChoiceOfPartsRule(name, ambiguous, definitions, NonTerminalNode);
+          choiceOfPartsRule = new ChoiceOfPartsRule(name, opacity, definitions, NonTerminalNode);
 
     return choiceOfPartsRule;
   }

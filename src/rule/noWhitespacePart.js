@@ -10,12 +10,12 @@ export default class NoWhitespacePartRule extends Rule {
   static fromNothing() {
     const noWhitespacePartDefinition = NoWhitespacePartDefinition.fromNothing(),
           name = noWhitespacePartRuleName,  ///
-          ambiguous = false,
+          opacity = null,
           definitions = [
             noWhitespacePartDefinition
           ],
           NonTerminalNode = NoWhitespacePartBNFNode,  ///
-          noWhitespacePartRule = new NoWhitespacePartRule(name, ambiguous, definitions, NonTerminalNode);
+          noWhitespacePartRule = new NoWhitespacePartRule(name, opacity, definitions, NonTerminalNode);
 
     return noWhitespacePartRule;
   }

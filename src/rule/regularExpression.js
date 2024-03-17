@@ -15,12 +15,12 @@ export default class RegularExpressionRule extends Rule {
     const significantTokenType = regularExpressionType,  ///
           regularExpressionSignificantTokenTypeDefinition = SignificantTokenTypeDefinition.fromSignificantTokenType(significantTokenType),
           name = regularExpressionRuleName, ///
-          ambiguous = false,
+          opacity = null,
           definitions = [
             regularExpressionSignificantTokenTypeDefinition
           ],
           NonTerminalNode = RegularExpressionBNFNode, ///
-          regularExpressionRule = new RegularExpressionRule(name, ambiguous, definitions, NonTerminalNode);
+          regularExpressionRule = new RegularExpressionRule(name, opacity, definitions, NonTerminalNode);
 
     return regularExpressionRule;
   }

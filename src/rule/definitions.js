@@ -10,12 +10,12 @@ export default class DefinitionsRule extends Rule {
   static fromNothing() {
     const definitionsDefinition = DefinitionsDefinition.fromNothing(),
           name = definitionsRuleName, ///
-          ambiguous = false,
+          opacity = null,
           definitions = [
             definitionsDefinition
           ],
           NonTerminalNode = DefinitionsBNFNode, ///
-          definitionsRule = new DefinitionsRule(name, ambiguous, definitions, NonTerminalNode);
+          definitionsRule = new DefinitionsRule(name, opacity, definitions, NonTerminalNode);
 
     return definitionsRule;
   }

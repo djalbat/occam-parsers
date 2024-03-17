@@ -16,5 +16,5 @@ export default class TerminalPartBNFNode extends NonTerminalNode {
     return part;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return NonTerminalNode.fromRuleNameChildNodesAndAmbiguous(TerminalPartBNFNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return NonTerminalNode.fromRuleNameChildNodesAndOpacity(TerminalPartBNFNode, ruleName, childNodes, opacity); }
 }

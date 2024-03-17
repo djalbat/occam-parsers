@@ -10,5 +10,5 @@ export default class WildcardBNFNode extends NonTerminalNode {
     return wildcardPart;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return NonTerminalNode.fromRuleNameChildNodesAndAmbiguous(WildcardBNFNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return NonTerminalNode.fromRuleNameChildNodesAndOpacity(WildcardBNFNode, ruleName, childNodes, opacity); }
 }

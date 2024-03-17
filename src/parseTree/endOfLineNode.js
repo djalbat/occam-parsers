@@ -4,11 +4,11 @@ import { specialSymbols } from "occam-lexers";
 
 import VerticalBranchParseTree from "./verticalBranch";
 
-const { END_OF_LINE } = specialSymbols;
+const { endOfLine } = specialSymbols;
 
 export default class EndOfLineNodeParseTree extends VerticalBranchParseTree {
   static fromNothing() {
-    const string = END_OF_LINE, ///
+    const string = endOfLine, ///
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),

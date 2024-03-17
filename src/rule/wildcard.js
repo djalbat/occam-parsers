@@ -15,12 +15,12 @@ export default class WildcardRule extends Rule {
     const content = wildcard, ///
           wildcardTerminalSymbolDefinition = TerminalSymbolDefinition.fromContent(content),
           name = wildcardRuleName,  ///
-          ambiguous = false,
+          opacity = null,
           definitions = [
             wildcardTerminalSymbolDefinition
           ],
           NonTerminalNode = WildcardBNFNode,  ///
-          wildcardRule = new WildcardRule(name, ambiguous, definitions, NonTerminalNode);
+          wildcardRule = new WildcardRule(name, opacity, definitions, NonTerminalNode);
 
     return wildcardRule;
   }

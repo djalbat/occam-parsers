@@ -15,12 +15,12 @@ export default class EpsilonRule extends Rule {
     const content = epsilon, ///
           epsilonTerminalSymbolDefinition = TerminalSymbolDefinition.fromContent(content),
           name = epsilonRuleName, ///
-          ambiguous = false,
+          opacity = null,
           definitions = [
             epsilonTerminalSymbolDefinition
           ],
           NonTerminalNode = EpsilonBNFNode, ///
-          epsilonRule = new EpsilonRule(name, ambiguous, definitions, NonTerminalNode);
+          epsilonRule = new EpsilonRule(name, opacity, definitions, NonTerminalNode);
 
     return epsilonRule;
   }

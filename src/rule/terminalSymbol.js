@@ -15,12 +15,12 @@ export default class TerminalSymbolRule extends Rule {
     const significantTokenType = stringLiteralType,  ///
           stringLiteralSignificantTokenTypeDefinition = SignificantTokenTypeDefinition.fromSignificantTokenType(significantTokenType),
           name = terminalSymbolRuleName,  ///
-          ambiguous = false,
+          opacity = null,
           definitions = [
             stringLiteralSignificantTokenTypeDefinition
           ],
           NonTerminalNode = TerminalSymbolBNFNode,
-          terminalSymbolRule = new TerminalSymbolRule(name, ambiguous, definitions, NonTerminalNode);
+          terminalSymbolRule = new TerminalSymbolRule(name, opacity, definitions, NonTerminalNode);
 
     return terminalSymbolRule;
   }

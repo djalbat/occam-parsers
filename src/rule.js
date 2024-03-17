@@ -5,12 +5,10 @@ import { specialSymbols } from "occam-lexers";
 import { EMPTY_STRING } from "./constants";
 import { paddingFromPaddingLength } from "./utilities/string";
 
-const { exclamationMark } = specialSymbols;
-
 export default class Rule {
-  constructor(name, ambiguous, definitions, NonTerminalNode) {
+  constructor(name, opacity, definitions, NonTerminalNode) {
     this.name = name;
-    this.ambiguous = ambiguous;
+    this.opacity = opacity;
     this.definitions = definitions;
     this.NonTerminalNode = NonTerminalNode;
   }
@@ -19,8 +17,8 @@ export default class Rule {
     return this.name;
   }
 
-  isAmbiguous() {
-    return this.ambiguous;
+  getOpacity() {
+    return this.opacity;
   }
 
   getDefinitions() {
@@ -35,8 +33,8 @@ export default class Rule {
     this.name = name;
   }
 
-  seAmbiguous(ambiguous) {
-    this.ambiguous = ambiguous;
+  setOpacity(opacity) {
+    this.opacity = opacity;
   }
 
   setDefinitions(definitions) {
@@ -57,10 +55,10 @@ export default class Rule {
           nonTerminalNode;
 
       const ruleName = this.name,
-            ambiguous = this.ambiguous,
+            opacity = this.opacity,
             childNodes = [];
 
-      nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous);
+      nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity);
 
       const precedence = definition.getPrecedence();
 
@@ -167,11 +165,11 @@ ${maximumPadding}   | ${definitionString}` :
           }, EMPTY_STRING),
           ruleName = this.name, ///
           ruleNameLength = ruleName.length,
-          ambiguousString = this.ambiguous ?
-                              exclamationMark :
-                                EMPTY_STRING,
-          ambiguousStringLength = ambiguousString.length,
-          paddingLength = maximumRuleNameLength - ruleNameLength - ambiguousStringLength,
+          opacityString = (this.opacity === null)?
+                            EMPTY_STRING :
+                              this.opacity, ///
+          opacityStringLength = opacityString.length,
+          paddingLength = maximumRuleNameLength - ruleNameLength - opacityStringLength,
           padding = paddingFromPaddingLength(paddingLength);
 
     const semicolonString = multiLine ?
@@ -181,25 +179,25 @@ ${maximumPadding}   ;` :
                                " ;",
           string = `
 
-${this.name}${ambiguousString}${padding} ::= ${definitionsString}${semicolonString}`;
+${this.name}${opacityString}${padding} ::= ${definitionsString}${semicolonString}`;
 
     return string;
   }
 
-  static fromNameAmbiguousDefinitionsAndNonTerminalNode(Class, name, ambiguous, definitions, NonTerminalNode) {
+  static fromNameOpacityDefinitionsAndNonTerminalNode(Class, name, opacity, definitions, NonTerminalNode) {
     if (NonTerminalNode === undefined) {
       NonTerminalNode = definitions;  ///
 
-      definitions = ambiguous;  ///
+      definitions = opacity;  ///
 
-      ambiguous = name; ///
+      opacity = name; ///
 
       name = Class; ///
 
       Class = Rule; ///
     }
 
-    const rule = new Class(name, ambiguous, definitions, NonTerminalNode);
+    const rule = new Class(name, opacity, definitions, NonTerminalNode);
 
     return rule;
   }

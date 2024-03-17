@@ -10,12 +10,12 @@ export default class SequenceOfPartsRule extends Rule {
   static fromNothing() {
     const name = sequenceOfPartsRuleName, ///
           sequenceOfPartsDefinition = SequenceOfPartsDefinition.fromNothing(),
-          ambiguous = false,
+          opacity = null,
           definitions = [
             sequenceOfPartsDefinition
           ],
           NonTerminalNode = SequenceOfPartsBNFNode, ///
-          sequenceOfPartsRule = new SequenceOfPartsRule(name, ambiguous, definitions, NonTerminalNode);
+          sequenceOfPartsRule = new SequenceOfPartsRule(name, opacity, definitions, NonTerminalNode);
 
     return sequenceOfPartsRule;
   }

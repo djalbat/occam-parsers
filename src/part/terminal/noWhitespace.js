@@ -5,7 +5,7 @@ import { specialSymbols } from "occam-lexers";
 import TerminalPart from "../../part/terminal";
 import NoWhitespaceNode from "../../node/terminal/noWhitespace";
 
-const { NO_WHITESPACE } = specialSymbols;
+const { noWhitespace } = specialSymbols;
 
 export default class NoWhitespacePart extends TerminalPart {
   isNoWhitespacePart() {
@@ -46,7 +46,7 @@ export default class NoWhitespacePart extends TerminalPart {
   }
 
   asString() {
-    const string = NO_WHITESPACE; ///
+    const string = noWhitespace; ///
 
     return string;
   }

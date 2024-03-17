@@ -4,7 +4,7 @@ const bnf = `
 
       document                 ::=  ( rule | error )+ ;
 
-      rule                     ::=  name ambiguousModifier? "::=" definitions ";" ;
+      rule                     ::=  name opacityModifier? ":=" definitions ";" ;
 
       name                     ::=  [name] ;
 
@@ -74,8 +74,8 @@ const bnf = `
   
                                  ;
 
-      ambiguousModifier        ::=  <NO_WHITESPACE>"!" ;
-
+      opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
+      
       lookAheadModifier        ::=  <NO_WHITESPACE>"..." ;
 
       optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
@@ -84,7 +84,7 @@ const bnf = `
 
       zeroOrMoreQuantifier     ::=  <NO_WHITESPACE>"*" ;
 
-      error!                   ::=  . ;
+      error.                   ::=  . ;
 
 `;
 

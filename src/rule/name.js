@@ -10,12 +10,12 @@ export default class NameRule extends Rule {
   static fromNothing() {
     const nameDefinition = NameDefinition.fromNothing(),
           name = nameRuleName,  ///
-          ambiguous = false,
+          opacity = null,
           definitions = [
             nameDefinition
           ],
           NonTerminalNode = NameBNFNode,  ///
-          nameRule = new NameRule(name, ambiguous, definitions, NonTerminalNode);
+          nameRule = new NameRule(name, opacity, definitions, NonTerminalNode);
 
     return nameRule;
   }

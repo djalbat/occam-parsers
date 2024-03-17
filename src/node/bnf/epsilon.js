@@ -10,5 +10,5 @@ export default class EpsilonBNFNode extends NonTerminalNode {
     return epsilonPart;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return NonTerminalNode.fromRuleNameChildNodesAndAmbiguous(EpsilonBNFNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return NonTerminalNode.fromRuleNameChildNodesAndOpacity(EpsilonBNFNode, ruleName, childNodes, opacity); }
 }

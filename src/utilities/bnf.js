@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-import { lookAheadModifierRuleName, quantifierRuleName, ruleNameRuleName } from "../ruleNames";
+import { ruleNameRuleName, quantifierRuleName, lookAheadModifierRuleName } from "../ruleNames";
 
 const { first } = arrayUtilities;
 

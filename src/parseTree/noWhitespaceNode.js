@@ -4,11 +4,11 @@ import { specialSymbols } from "occam-lexers";
 
 import VerticalBranchParseTree from "./verticalBranch";
 
-const { NO_WHITESPACE } = specialSymbols;
+const { noWhitespace } = specialSymbols;
 
 export default class NoWhitespaceNodeParseTree extends VerticalBranchParseTree {
   static fromNothing() {
-    const string = NO_WHITESPACE, ///
+    const string = noWhitespace, ///
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),

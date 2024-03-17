@@ -5,11 +5,11 @@ import { specialSymbols } from "occam-lexers";
 import Definition from "../definition";
 import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
-const { NO_WHITESPACE } = specialSymbols;
+const { noWhitespace } = specialSymbols;
 
 export default class NoWhitespacePartDefinition extends Definition {
   static fromNothing() {
-    const content = NO_WHITESPACE,  ///
+    const content = noWhitespace,  ///
           terminalSymbolPart = TerminalSymbolPart.fromContent(content),
           parts = [
             terminalSymbolPart

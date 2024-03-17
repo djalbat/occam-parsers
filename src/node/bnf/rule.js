@@ -4,25 +4,32 @@ import { arrayUtilities } from "necessary";
 
 import NonTerminalNode from "../../node/nonTerminal";
 
-const { first, second, third, fourth } = arrayUtilities;
+import { opacityModifierRuleName } from "../../ruleNames";
+import { nodeFromChildNodesAndRuleName } from "../../utilities/node";
+
+const { first, secondLast } = arrayUtilities;
 
 export default class RuleBNFNode extends NonTerminalNode {
   generateRule(Rule) {
     const name = this.getName(),
-          ambiguous = this.isAmbiguous(),
+          opacity = this.getOpacity(),
           definitions = this.generateDefinitions(),
-          rule = Rule.fromNameAmbiguousDefinitionsAndNonTerminalNode(name, ambiguous, definitions, NonTerminalNode);
+          rule = Rule.fromNameOpacityDefinitionsAndNonTerminalNode(name, opacity, definitions, NonTerminalNode);
 
     return rule;
   }
 
-  isAmbiguous() {
-    const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          secondChildNodeTerminalNode = secondChildNode.isTerminalNode(),
-          ambiguous = !secondChildNodeTerminalNode;
+  getOpacity() {
+    let opacity = null;
 
-    return ambiguous;
+    const childNodes = this.getChildNodes(),
+          opacityModifierBNFNode = nodeFromChildNodesAndRuleName(childNodes, opacityModifierRuleName);
+
+    if (opacityModifierBNFNode !== null) {
+      opacity = opacityModifierBNFNode.getOpacity();
+    }
+
+    return opacity;
   }
 
   getName() {
@@ -36,16 +43,12 @@ export default class RuleBNFNode extends NonTerminalNode {
   
   generateDefinitions() {
     const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length,
-          thirdChildNode = third(childNodes),
-          fourthChildNode = fourth(childNodes),
-          definitionsBNFNode = (childNodesLength === 4) ?
-                                 thirdChildNode :  ///
-                                   fourthChildNode, ///
+          secondLastChildNode = secondLast(childNodes),
+          definitionsBNFNode = secondLastChildNode, ///
           definitions = definitionsBNFNode.generateDefinitions();
     
     return definitions;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return NonTerminalNode.fromRuleNameChildNodesAndAmbiguous(RuleBNFNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return NonTerminalNode.fromRuleNameChildNodesAndOpacity(RuleBNFNode, ruleName, childNodes, opacity); }
 }
