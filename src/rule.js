@@ -1,9 +1,10 @@
 "use strict";
 
-import { specialSymbols } from "occam-lexers";
-
 import { EMPTY_STRING } from "./constants";
+import { specialSymbols } from "occam-lexers";
 import { paddingFromPaddingLength } from "./utilities/string";
+
+const { opaque : opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class Rule {
   constructor(name, opacity, definitions, NonTerminalNode) {
@@ -43,6 +44,18 @@ export default class Rule {
 
   setNonTerminalNode(NonTerminalNode) {
     this.NonTerminalNode = NonTerminalNode;
+  }
+
+  isOpaque() {
+    const opaque = (this.opacity === opaqueSpecialSymbol);
+
+    return opaque;
+  }
+
+  isSemiOpaque() {
+    const opaque = (this.opacity === semiOpaqueSpecialSymbol);
+
+    return opaque;
   }
 
   parse(nodes, state, callback, callAhead) {

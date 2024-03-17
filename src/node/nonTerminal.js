@@ -9,11 +9,11 @@ const { first, match, forwardsSome, backwardsSome } = arrayUtilities,
       { opaque : opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class NonTerminalNode {
-  constructor(ruleName, childNodes, precedence, opacity) {
+  constructor(ruleName, childNodes, opacity, precedence) {
     this.ruleName = ruleName;
     this.childNodes = childNodes;
-    this.precedence = precedence;
     this.opacity = opacity;
+    this.precedence = precedence;
   }
 
   getRuleName() {
@@ -24,12 +24,12 @@ export default class NonTerminalNode {
     return this.childNodes;
   }
 
-  getPrecedence() {
-    return this.precedence;
-  }
-
   getOpacity() {
     return this.opacity;
+  }
+
+  getPrecedence() {
+    return this.precedence;
   }
 
   setRuleName(ruleName) {
@@ -228,9 +228,9 @@ export default class NonTerminalNode {
 
             return childNode;
           }),
-          precedence = this.precedence,
           opacity = this.opacity,
-          nonTerminalNode = new Class(ruleName, childNodes, precedence, opacity);
+          precedence = this.precedence,
+          nonTerminalNode = new Class(ruleName, childNodes, opacity, precedence);
 
     return nonTerminalNode;
   }
