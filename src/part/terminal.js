@@ -24,4 +24,10 @@ export default class TerminalPart {
 
     return noWhitespacePart;
   }
+
+  isStartOfContentPart() {
+    const startOfContentPart = false;
+
+    return startOfContentPart;
+  }
 }

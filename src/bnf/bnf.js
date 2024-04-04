@@ -16,6 +16,8 @@ const bnf = `
 
                                  |  terminalPart quantifier*
                               
+                                 |  startOfContentPart
+
                                  |  noWhitespacePart
 
                                  ;
@@ -42,6 +44,8 @@ const bnf = `
   
                                  ;
                               
+      startOfContentPart       ::+  "<START_OF_CONTENT>"; 
+      
       noWhitespacePart         ::=  "<NO_WHITESPACE>" ;                              
 
       sequenceOfParts          ::=  "(" part part+ ")" ;

@@ -24,7 +24,7 @@ export const noWhitespacePartRuleName = "noWhitespacePart";
 export const lookAheadModifierRuleName = "lookAheadModifier";
 export const regularExpressionRuleName = "regularExpression";
 export const optionalQuantifierRuleName = "optionalQuantifier";
+export const startOfContentPartRuleName = "startOfContentPart";
 export const oneOrMoreQuantifierRuleName = "oneOrMoreQuantifier";
 export const zeroOrMoreQuantifierRuleName = "zeroOrMoreQuantifier";
 export const significantTokenTypeRuleName = "significantTokenType";
-

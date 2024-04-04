@@ -36,6 +36,8 @@ All parsers share common functionality. The last two parse content according to 
 
                                  |  terminalPart quantifier*
                               
+                                 |  startOfContentPart
+
                                  |  noWhitespacePart
 
                                  ;
@@ -62,6 +64,8 @@ All parsers share common functionality. The last two parse content according to 
   
                                  ;
                               
+      startOfContentPart       ::+  "<START_OF_CONTENT>"; 
+      
       noWhitespacePart         ::=  "<NO_WHITESPACE>" ;                              
 
       sequenceOfParts          ::=  "(" part part+ ")" ;

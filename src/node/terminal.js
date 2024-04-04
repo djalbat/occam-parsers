@@ -23,16 +23,16 @@ export default class TerminalNode {
     return lastSignificantToken;
   }
 
+  isStartOfContentNode() {
+    const startOfContentNode = false;
+
+    return startOfContentNode;
+  }
+
   isNoWhitespaceNode() {
     const noWhitespaceNode = false;
 
     return noWhitespaceNode;
-  }
-
-  isEndOfLineNode() {
-    const endOfLineNode = false;
-
-    return endOfLineNode;
   }
 
   isEpsilonNode() {

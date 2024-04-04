@@ -27,6 +27,7 @@ import NoWhitespacePartRule from "../rule/noWhitespacePart";
 import LookAheadModifierRule from "../rule/lookAheadModifier";
 import RegularExpressionRule from "../rule/regularExpression";
 import OptionalQuantifierRule from "../rule/optionalQuantifier";
+import StartOfContentPartRule from "../rule/startOfContentPart";
 import OneOrMoreQuantifierRule from "../rule/oneOrMoreQuantifier";
 import ZeroOrMoreQuantifierRule from "../rule/zeroOrMoreQuantifier";
 import SignificantTokenTypeRule from "../rule/significantTokenType";
@@ -94,6 +95,7 @@ export default class BNFParser {
           regularExpressionRule = RegularExpressionRule.fromNothing(),
           lookAheadModifierRule = LookAheadModifierRule.fromNothing(),
           optionalQuantifierRule = OptionalQuantifierRule.fromNothing(),
+          startOfContentPartRule = StartOfContentPartRule.fromNothing(),
           oneOrMoreQuantifierRule = OneOrMoreQuantifierRule.fromNothing(),
           zeroOrMoreQuantifierRule = ZeroOrMoreQuantifierRule.fromNothing(),
           significantTokenTypeRule = SignificantTokenTypeRule.fromNothing();
@@ -107,6 +109,7 @@ export default class BNFParser {
       partRule,
       nonTerminalPartRule,
       terminalPartRule,
+      startOfContentPartRule,
       noWhitespacePartRule,
       sequenceOfPartsRule,
       choiceOfPartsRule,

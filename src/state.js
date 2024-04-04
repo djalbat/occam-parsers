@@ -64,6 +64,12 @@ export default class State {
     return nextToken;
   }
 
+  isAtStartOfContent() {
+    const atStartOfContent = (this.index === 0);
+
+    return atStartOfContent;
+  }
+
   getNextSignificantToken() {
 		let nextSignificantToken = null;
 
