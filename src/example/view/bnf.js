@@ -12,8 +12,7 @@ export default class BNFView extends View {
 
   static Parser = BNFParser;
 
-  static initialContent = `    debug          ::=  <NO_WHITESPACE> [name] ;
-`;
+  static initialContent = bnf;  ///
 
   getNode(tokens) {
     const { Parser } = this.constructor,
