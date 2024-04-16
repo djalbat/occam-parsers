@@ -123,33 +123,33 @@ export default class TerminalNode {
     return parseTree;
   }
 
-  clone() {
+  clone(...remainingArguments) {
     const Class = this.constructor,
           significantToken = this.significantToken,
-          terminalNode = new Class(significantToken);
+          terminalNode = new Class(significantToken, ...remainingArguments);
 
     return terminalNode;
   }
 
-  static fromNothing(Class) {
+  static fromNothing(Class, ...remainingArguments) {
     if (Class === undefined) {
       Class = TerminalNode; ///
     }
 
     const significantToken = null,
-          terminalNode = new Class(significantToken);
+          terminalNode = new Class(significantToken, ...remainingArguments);
 
     return terminalNode;
   }
 
-  static fromSignificantToken(Class, significantToken) {
+  static fromSignificantToken(Class, significantToken, ...remainingArguments) {
     if (significantToken === undefined) {
       significantToken = Class; ///
 
       Class = TerminalNode; ///
     }
 
-    const terminalNode = new Class(significantToken);
+    const terminalNode = new Class(significantToken, ...remainingArguments);
     
     return terminalNode;
   }

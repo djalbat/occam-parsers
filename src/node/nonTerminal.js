@@ -220,7 +220,7 @@ export default class NonTerminalNode {
     return parseTree;
   }
 
-  clone() {
+  clone(...remainingArguments) {
     const Class = this.constructor,
           ruleName = this.ruleName,
           childNodes = this.childNodes.map((childNode) => {
@@ -230,7 +230,7 @@ export default class NonTerminalNode {
           }),
           opacity = this.opacity,
           precedence = this.precedence,
-          nonTerminalNode = new Class(ruleName, childNodes, opacity, precedence);
+          nonTerminalNode = new Class(ruleName, childNodes, opacity, precedence, ...remainingArguments);
 
     return nonTerminalNode;
   }
