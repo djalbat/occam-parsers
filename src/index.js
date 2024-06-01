@@ -9,6 +9,7 @@ export { default as parserUtilities } from "./utilities/parser";
 
 export { default as Rule } from "./rule";
 export { default as Parts } from "./parts";
+export { default as State } from "./state";
 export { default as partTypes } from "./partTypes";
 export { default as PartChoice } from "./partChoice";
 export { default as Definition } from "./definition";
