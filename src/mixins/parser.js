@@ -8,12 +8,12 @@ const { first } = arrayUtilities;
 
 const DefaultState = State; ///
 
-function parse(tokens, rule = this.startRule, context = null) {
+function parse(tokens, rule = this.startRule, ...remainingArguments) {
   let node = null;
 
   const { State = DefaultState } = this.constructor,
         nodes = [],
-        state = State.fromTokensAndRuleMap(tokens, this.ruleMap, context),
+        state = State.fromTokensAndRuleMap(tokens, this.ruleMap, ...remainingArguments),
         callback = null,
         callAhead = null,
         parsed = rule.parse(nodes, state, callback, callAhead);
