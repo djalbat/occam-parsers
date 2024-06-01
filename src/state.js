@@ -113,10 +113,18 @@ export default class State {
     this.precedence = savedPrecedence;  ///
   }
 
-  static fromTokensAndRuleMap(tokens, ruleMap) {
+  static fromTokensAndRuleMap(Class, tokens, ruleMap, ...remainingArguments) {
+    if (ruleMap === undefined) {
+      ruleMap = tokens; ///
+
+      tokens = Class; ///
+
+      Class = State;
+    }
+
     const index = 0,
           precedence = null,
-					state = new State(index, tokens, ruleMap, precedence);
+					state = new Class(index, tokens, ruleMap, precedence, ...remainingArguments);
 
     return state;
   }
