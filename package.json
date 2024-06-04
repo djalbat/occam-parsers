@@ -1,7 +1,7 @@
 {
   "name": "occam-parsers",
   "author": "James Smith",
-  "version": "22.0.51",
+  "version": "22.0.52",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/occam-parsers",
   "description": "Occam's parsers.",
@@ -10,13 +10,13 @@
     "url": "https://github.com/djalbat/occam-parsers"
   },
   "dependencies": {
-    "necessary": "^13.6.6",
-    "occam-lexers": "^22.0.27"
+    "necessary": "^14.0.1",
+    "occam-lexers": "^22.0.44"
   },
   "devDependencies": {
     "@swc/core": "^1.5.6",
     "easy": "^18.1.6",
-    "easy-layout": "^6.0.163",
+    "easy-layout": "^6.0.164",
     "easy-with-style": "^3.0.374",
     "esbuild": "^0.9.6",
     "express": "^4.17.1",
