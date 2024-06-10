@@ -4,7 +4,7 @@ const bnf = `
 
       document                 ::=  ( rule | error )+ ;
 
-      rule                     ::=  name opacityModifier? ":=" definitions ";" ;
+      rule                     ::=  name opacityModifier? "::=" definitions ";" ;
 
       name                     ::=  [name] ;
 
