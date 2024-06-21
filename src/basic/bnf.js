@@ -4,10 +4,8 @@ const bnf = `
 
     expressions  ::=  expression+ ;
 
-    expression   ::=  start term... "." ;
+    expression   ::=  <START_OF_CONTENT> term... "." ;
     
-    start        ::=  <START_OF_CONTENT> ;
-
     term         ::=  term_ term~* ;
     
     operator     ::=  "+"
