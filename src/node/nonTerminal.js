@@ -122,11 +122,11 @@ export default class NonTerminalNode {
     let firstSignificantTokenIndex;
 
     forwardsSome(this.childNodes, (childNode) => {
-      const node = childNode;
+      const node = childNode; ///
 
       firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens);
 
-      if (firstSignificantTokenIndex !== -1) {
+      if (firstSignificantTokenIndex !== null) {
         return true;
       }
     });
@@ -138,11 +138,11 @@ export default class NonTerminalNode {
     let lastSignificantTokenIndex;
 
     backwardsSome(this.childNodes, (childNode) => {
-      const node = childNode;
+      const node = childNode; ///
 
       lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens);
 
-      if (lastSignificantTokenIndex !== -1) {
+      if (lastSignificantTokenIndex !== null) {
         return true;
       }
     });
