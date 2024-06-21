@@ -5,7 +5,7 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
-const { first, match, forwardsSome, backwardsSome } = arrayUtilities,
+const { first, match, backwardsSome, forwardsSome } = arrayUtilities,
       { opaque : opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class NonTerminalNode {
@@ -116,6 +116,38 @@ export default class NonTerminalNode {
     }
 
     return lowerPrecedence;
+  }
+
+  getFirstSignificantTokenIndex(tokens) {
+    let firstSignificantTokenIndex;
+
+    forwardsSome(this.childNodes, (childNode) => {
+      const node = childNode;
+
+      firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens);
+
+      if (firstSignificantTokenIndex !== -1) {
+        return true;
+      }
+    });
+
+    return firstSignificantTokenIndex;
+  }
+
+  getLastSignificantTokenIndex(tokens) {
+    let lastSignificantTokenIndex;
+
+    backwardsSome(this.childNodes, (childNode) => {
+      const node = childNode;
+
+      lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens);
+
+      if (lastSignificantTokenIndex !== -1) {
+        return true;
+      }
+    });
+
+    return lastSignificantTokenIndex;
   }
 
   isUnprecedented() {

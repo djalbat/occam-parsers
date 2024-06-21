@@ -8,12 +8,6 @@ import EpsilonNodeParseTree from "../../parseTree/epsilonNode";
 const { epsilon } = specialSymbols;
 
 export default class EpsilonNode extends TerminalNode {
-  isEpsilonNode() {
-    const epsilonNode = true;
-
-    return epsilonNode;
-  }
-
   getType() {
     const type = null;  ///
 
@@ -24,6 +18,12 @@ export default class EpsilonNode extends TerminalNode {
     const content = epsilon;  ///
 
     return content;
+  }
+
+  isEpsilonNode() {
+    const epsilonNode = true;
+
+    return epsilonNode;
   }
 
   asParseTree(tokens) {

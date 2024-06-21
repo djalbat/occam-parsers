@@ -119,7 +119,7 @@ export default class State {
 
       tokens = Class; ///
 
-      Class = State;
+      Class = State;  ///
     }
 
     const index = 0,

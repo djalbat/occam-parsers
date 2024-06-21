@@ -1,21 +1,24 @@
 "use strict";
 
-export function tokenLineIndexFromTokenAndTokens(token, tokens) {
-  let tokenLineIndex = 0;
+export function lineIndexFromTokenIndexAndTokens(tokenIndex, tokens) {
+  let lineIndex = null;
 
-  const tokenIndex = tokens.indexOf(token),
-        start = 0,
-        end = tokenIndex;
+  if (tokenIndex !== null) {
+    lineIndex = 0;
 
-  tokens = tokens.slice(start, end);  ///
+    const start = 0,
+          end = tokenIndex;
 
-  tokens.forEach((token) => {
-    const tokenEndOfLineToken = token.isEndOfLineToken();
+    tokens = tokens.slice(start, end);  ///
 
-    if (tokenEndOfLineToken) {
-      tokenLineIndex++;
-    }
-  });
+    tokens.forEach((token) => {
+      const tokenEndOfLineToken = token.isEndOfLineToken();
 
-  return tokenLineIndex;
+      if (tokenEndOfLineToken) {
+        lineIndex++;
+      }
+    });
+  }
+
+  return lineIndex;
 }

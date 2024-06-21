@@ -2,15 +2,25 @@
 
 import VerticalBranchParseTree from "./verticalBranch";
 
-import { tokenLineIndexFromTokenAndTokens } from "../utilities/tokens";
+import { EMPTY_STRING } from "../constants";
+import { lineIndexFromTokenIndexAndTokens } from "../utilities/tokens";
 
 export default class TerminalNodeParseTree extends VerticalBranchParseTree {
   static fromTerminalNodeAndTokens(terminalNode, tokens) {
-    const significantToken = terminalNode.getSignificantToken(),
+    const type = terminalNode.getType(),
           content = terminalNode.getContent(),
-          type = significantToken.getType(),
-          significantTokenLineIndex = tokenLineIndexFromTokenAndTokens(significantToken, tokens),
-          string = `"${content}"[${type}] [${significantTokenLineIndex}]`,
+          significantTokenIndex = terminalNode.getSignificantTokenIndex(tokens),
+          lineIndex = lineIndexFromTokenIndexAndTokens(significantTokenIndex, tokens);
+
+    let lineIndexes;
+
+    if (lineIndex === null) {
+      lineIndexes = EMPTY_STRING;
+    } else {
+      lineIndexes = ` [${lineIndex}]`;
+    }
+
+    const string = `"${content}"[${type}]${lineIndexes}`,
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),

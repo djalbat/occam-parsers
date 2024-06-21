@@ -4,7 +4,8 @@ import { characters} from "necessary";
 
 import VerticalBranchParseTree from "./verticalBranch";
 
-import { tokenLineIndexFromTokenAndTokens } from "../utilities/tokens";
+import { EMPTY_STRING } from "../constants";
+import { lineIndexFromTokenIndexAndTokens } from "../utilities/tokens";
 
 const { SPACE_CHARACTER } = characters;
 
@@ -12,13 +13,32 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
     const ruleName = nonTerminalNode.getRuleName(),
           opacity = nonTerminalNode.getOpacity(),
-          firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
-          lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
-          firstSignificantTokenLineIndex = tokenLineIndexFromTokenAndTokens(firstSignificantToken, tokens),
-          lastSignificantTokenLineIndex = tokenLineIndexFromTokenAndTokens(lastSignificantToken, tokens),
-          tokenLineIndexes = (firstSignificantTokenLineIndex !== lastSignificantTokenLineIndex) ?
-                              `${firstSignificantTokenLineIndex}-${lastSignificantTokenLineIndex}` :
-                                `${firstSignificantTokenLineIndex}`;
+          firstSignificantTokenIndex = nonTerminalNode.getFirstSignificantTokenIndex(tokens),
+          lastSignificantTokenIndex = nonTerminalNode.getLastSignificantTokenIndex(tokens),
+          firstLineIndex = lineIndexFromTokenIndexAndTokens(firstSignificantTokenIndex, tokens),
+          lastLineIndex = lineIndexFromTokenIndexAndTokens(lastSignificantTokenIndex, tokens);
+
+    let lineIndexes;
+
+    if (firstLineIndex === lastLineIndex) {
+      const lineIndex = firstLineIndex; ///
+
+      if (lineIndex === null) {
+        lineIndexes = EMPTY_STRING;
+      } else {
+        lineIndexes = ` [${lineIndex}]`;
+      }
+    } else {
+      if (false) {
+        ///
+      } else if (firstLineIndex === null) {
+        lineIndexes = ` [${lastLineIndex}]`;
+      } else if (lastLineIndex === null) {
+        lineIndexes = ` [${firstLineIndex}]`;
+      } else {
+        lineIndexes = ` [${firstLineIndex}-${lastLineIndex}]`
+      }
+    }
 
     let string = `${ruleName}`;
 
@@ -26,7 +46,7 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
       string = `${string}${opacity}`;
     }
 
-    string = `${string} [${tokenLineIndexes}]`;
+    string = `${string}${lineIndexes}`;
 
     let precedence = nonTerminalNode.getPrecedence();
 

@@ -69,6 +69,30 @@ export default class TerminalNode {
     return lowerPrecedence;
   }
 
+  getFirstSignificantTokenIndex(tokens) {
+    const significantTokenIndex = this.getSignificantTokenIndex(tokens),
+          firstSignificantTokenIndex = significantTokenIndex; ///
+
+    return firstSignificantTokenIndex;
+  }
+
+  getLastSignificantTokenIndex(tokens) {
+    const significantTokenIndex = this.getSignificantTokenIndex(tokens),
+          lastSignificantTokenIndex = significantTokenIndex; ///
+
+    return lastSignificantTokenIndex;
+  }
+
+  getSignificantTokenIndex(tokens) {
+    let significantTokenIndex = null;
+
+    if (this.significantToken !== null) {
+      significantTokenIndex = tokens.indexOf(this.significantToken);
+    }
+
+    return significantTokenIndex;
+  }
+
   isIncludedIn(node) {
     let includedIn = false;
 
