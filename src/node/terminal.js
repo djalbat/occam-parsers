@@ -11,18 +11,6 @@ export default class TerminalNode {
     return this.significantToken;
   }
 
-  getFirstSignificantToken() {
-    const firstSignificantToken = this.significantToken;  ///
-
-    return firstSignificantToken;
-  }
-
-  getLastSignificantToken() {
-    const lastSignificantToken = this.significantToken;  ///
-
-    return lastSignificantToken;
-  }
-
   isStartOfContentNode() {
     const startOfContentNode = false;
 
