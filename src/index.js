@@ -16,3 +16,4 @@ export { default as Definition } from "./definition";
 export { default as EpsilonNode } from "./node/terminal/epsilon";
 export { default as TerminalNode } from "./node/terminal";
 export { default as NonTerminalNode } from "./node/nonTerminal";
+export { default as StartOfContentNode } from "./node/terminal/startOfContent";
