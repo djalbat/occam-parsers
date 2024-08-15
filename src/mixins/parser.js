@@ -6,14 +6,11 @@ import State from "../state";
 
 const { first } = arrayUtilities;
 
-const DefaultState = State; ///
-
-function parse(tokens, rule = this.startRule, ...remainingArguments) {
+function parse(tokens, rule = this.startRule, startOfContent = true) {
   let node = null;
 
-  const { State = DefaultState } = this.constructor,
-        nodes = [],
-        state = State.fromTokensAndRuleMap(tokens, this.ruleMap, ...remainingArguments),
+  const nodes = [],
+        state = State.fromTokensRuleMapAndStartOfContent(tokens, this.ruleMap, startOfContent),
         callback = null,
         callAhead = null,
         parsed = rule.parse(nodes, state, callback, callAhead);

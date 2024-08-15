@@ -1,11 +1,12 @@
 "use strict";
 
 export default class State {
-  constructor(index, tokens, ruleMap, precedence) {
+  constructor(index, tokens, ruleMap, precedence, startOfContent) {
 		this.index = index;
     this.tokens = tokens;
     this.ruleMap = ruleMap;
     this.precedence = precedence;
+    this.startOfContent = startOfContent;
   }
 
   getIndex() {
@@ -24,6 +25,10 @@ export default class State {
     return this.precedence;
   }
 
+  getStartOfContent() {
+    return this.startOfContent;
+  }
+
   setIndex(index) {
     this.index = index;
   }
@@ -38,6 +43,10 @@ export default class State {
 
   setPrecedence(precedence) {
     this.precedence = precedence;
+  }
+
+  setStartOfContent(startOfContent) {
+    this.startOfContent = startOfContent;
   }
 
   getSavedPrecedence() {
@@ -65,7 +74,9 @@ export default class State {
   }
 
   isAtStartOfContent() {
-    const atStartOfContent = (this.index === 0);
+    const atStartOfContent = this.startOfContent ?
+                              (this.index === 0):
+                                false;
 
     return atStartOfContent;
   }
@@ -113,18 +124,10 @@ export default class State {
     this.precedence = savedPrecedence;  ///
   }
 
-  static fromTokensAndRuleMap(Class, tokens, ruleMap, ...remainingArguments) {
-    if (ruleMap === undefined) {
-      ruleMap = tokens; ///
-
-      tokens = Class; ///
-
-      Class = State;  ///
-    }
-
+  static fromTokensRuleMapAndStartOfContent(tokens, ruleMap, startOfContent) {
     const index = 0,
           precedence = null,
-					state = new Class(index, tokens, ruleMap, precedence, ...remainingArguments);
+					state = new State(index, tokens, ruleMap, precedence, startOfContent);
 
     return state;
   }
