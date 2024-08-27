@@ -122,6 +122,14 @@ export default class NonTerminalNode {
     return lastSignificantTokenIndex;
   }
 
+  getSignificantTokens(significantTokens = []) {
+    this.childNodes.forEach((childNode) => {
+      childNode.getSignificantTokens(significantTokens);
+    });
+
+    return significantTokens;
+  }
+
   isUnprecedented() {
     let unprecedented = false;
 

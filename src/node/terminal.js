@@ -81,6 +81,14 @@ export default class TerminalNode {
     return significantTokenIndex;
   }
 
+  getSignificantTokens(significantTokens = []) {
+    if (this.significantToken !== null) {
+      significantTokens.push(this.significantToken);
+    }
+
+    return significantTokens;
+  }
+
   isIncludedIn(node) {
     let includedIn = false;
 
