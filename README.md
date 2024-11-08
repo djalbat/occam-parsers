@@ -36,10 +36,6 @@ All parsers share common functionality. The last two parse content according to 
 
                                  |  terminalPart quantifier*
                               
-                                 |  startOfContentPart
-
-                                 |  noWhitespacePart
-
                                  ;
 
       nonTerminalPart          ::=  choiceOfParts
@@ -61,7 +57,11 @@ All parsers share common functionality. The last two parse content according to 
                                  |  wildcard
   
                                  |  epsilon
+
+                                 |  noWhitespace
   
+                                 |  startOfContent
+
                                  ;
                               
       startOfContentPart       ::+  "<START_OF_CONTENT>"; 

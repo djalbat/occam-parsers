@@ -15,10 +15,6 @@ const bnf = `
       part                     ::=  nonTerminalPart quantifier*
 
                                  |  terminalPart quantifier*
-                              
-                                 |  startOfContentPart
-
-                                 |  noWhitespacePart
 
                                  ;
 
@@ -41,7 +37,11 @@ const bnf = `
                                  |  wildcard
   
                                  |  epsilon
-  
+
+                                 |  noWhitespace
+                              
+                                 |  startOfContent
+
                                  ;
                               
       startOfContentPart       ::+  "<START_OF_CONTENT>"; 

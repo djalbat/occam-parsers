@@ -9,7 +9,9 @@ import { epsilonRuleName,
          endOfLineRuleName,
          terminalPartRuleName,
          terminalSymbolRuleName,
+         noWhitespacePartRuleName,
          regularExpressionRuleName,
+         startOfContentPartRuleName,
          significantTokenTypeRuleName } from "../ruleNames";
 
 export default class TerminalPartRule extends Rule {
@@ -19,7 +21,9 @@ export default class TerminalPartRule extends Rule {
           wildcardRuleNameDefinition = RuleNameDefinition.fromRuleName(wildcardRuleName),
           endOfLineRuleNameDefinition = RuleNameDefinition.fromRuleName(endOfLineRuleName),
           terminalSymbolRuleNameDefinition = RuleNameDefinition.fromRuleName(terminalSymbolRuleName),
+          noWhitespacePartRuleNameDefinition = RuleNameDefinition.fromRuleName(noWhitespacePartRuleName),
           regularExpressionRuleNameDefinition = RuleNameDefinition.fromRuleName(regularExpressionRuleName),
+          startOfContentPartRuleNameDefinition = RuleNameDefinition.fromRuleName(startOfContentPartRuleName),
           significantTokenTypeRuleNameDefinition = RuleNameDefinition.fromRuleName(significantTokenTypeRuleName),
           opacity = null,
           definitions = [
@@ -28,7 +32,9 @@ export default class TerminalPartRule extends Rule {
             terminalSymbolRuleNameDefinition,
             endOfLineRuleNameDefinition,
             wildcardRuleNameDefinition,
-            epsilonRuleNameDefinition
+            epsilonRuleNameDefinition,
+            noWhitespacePartRuleNameDefinition,
+            startOfContentPartRuleNameDefinition
           ],
           NonTerminalNode = TerminalPartBNFNode,
           terminalPartRule = new TerminalPartRule(name, opacity, definitions, NonTerminalNode);
