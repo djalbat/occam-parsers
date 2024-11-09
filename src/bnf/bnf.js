@@ -44,10 +44,6 @@ const bnf = `
 
                                  ;
                               
-      startOfContentPart       ::+  "<START_OF_CONTENT>"; 
-      
-      noWhitespacePart         ::=  "<NO_WHITESPACE>" ;                              
-
       sequenceOfParts          ::=  "(" part part+ ")" ;
 
       choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
@@ -70,6 +66,10 @@ const bnf = `
 
       epsilon                  ::=  "ε" ;
 
+      noWhitespace             ::=  "<NO_WHITESPACE>" ;                              
+
+      startOfContent           ::+  "<START_OF_CONTENT>"; 
+      
       quantifier               ::=  optionalQuantifier
  
                                  |  oneOrMoreQuantifier
