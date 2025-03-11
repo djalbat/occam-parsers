@@ -1,25 +1,24 @@
 "use strict";
 
-import { BasicLexer } from "occam-lexers";
 import { BasicParser } from "../../index";  ///
 
 import View from "../view";
-
-const { bnf } = BasicParser,
-      { entries } = BasicLexer;
-
-const basicLexer = BasicLexer.fromEntries(entries),
-      basicParser = BasicParser.fromBNF(bnf);
+import BasicLexer from "../basic/lexer";
 
 export default class BasicView extends View {
   getTokens(content) {
-    const tokens = basicLexer.tokenise(content);
+    const lexicalEntries = this.getLexicalEntries(),
+          entries = lexicalEntries, ///
+          basicLexer = BasicLexer.fromEntries(entries),
+          tokens = basicLexer.tokenise(content);
 
     return tokens;
   }
 
   getNode(tokens) {
-    const node = basicParser.parse(tokens);
+    const bnf = this.getBNF(),
+          basicParser = BasicParser.fromBNF(bnf),
+          node = basicParser.parse(tokens);
 
     return node;
   }
@@ -27,9 +26,10 @@ export default class BasicView extends View {
   initialise() {
     this.assignContext();
 
-    const { initialContent } = this.constructor,
+    const { initialLexicalEntries, initialContent, initialBNF } = this.constructor,
+          lexicalEntries = initialLexicalEntries, ///
           content = initialContent, ///
-          lexicalEntries = entries; ///
+          bnf = initialBNF; ///
 
     this.setBNF(bnf);
 
@@ -40,7 +40,38 @@ export default class BasicView extends View {
     this.keyUpHandler();
   }
 
-  static initialContent = "1+2*3 . 1+2*3 .";
+  static initialBNF = `
+  
+  S   ::= A... <END_OF_LINE> ;
+  
+  A   ::= T ":" . ;
+  
+  T   ::= T_ T~* ;
+  
+  B   ::= T_ T~* B~T ;
+  
+  V   ::= . ;
+  
+  T_  ::= V ;
+  
+  T~B ::= ":" B ;
+  
+  B~T ::= ε ;
+  
+  T~  ::= B~T B~* T~B ;
+  
+  B~  ::= T~B T~* B~T ;
+
+`;
+
+  static initialContent = `f:A:M
+`;
+
+  static initialLexicalEntries = [
+    {
+      "unassigned": "."
+    }
+  ];
 
   static defaultProperties = {
     className: "basic"
