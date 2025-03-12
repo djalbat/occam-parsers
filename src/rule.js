@@ -4,7 +4,7 @@ import { EMPTY_STRING } from "./constants";
 import { specialSymbols } from "occam-lexers";
 import { paddingFromPaddingLength } from "./utilities/string";
 
-const { opaque : opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
+const { opaque: opaqueSpecialSymbol, semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class Rule {
   constructor(name, opacity, definitions, NonTerminalNode) {
@@ -46,6 +46,15 @@ export default class Rule {
     this.NonTerminalNode = NonTerminalNode;
   }
 
+  createNonTerminalNode() {
+    const opacity = this.opacity,
+          ruleName = this.name, ///
+          childNodes = [],
+          nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity);
+
+    return nonTerminalNode;
+  }
+
   isOpaque() {
     const opaque = (this.opacity === opaqueSpecialSymbol);
 
@@ -64,24 +73,19 @@ export default class Rule {
     const savedPrecedence = state.getSavedPrecedence();
 
     parsed = this.definitions.some((definition) => {
-      let node,
-          nonTerminalNode;
+      let parsed;
 
-      const ruleName = this.name,
-            opacity = this.opacity,
-            childNodes = [];
+      let nonTerminalNode = this.createNonTerminalNode(),
+          node = nonTerminalNode; ///
 
-      nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity);
-
-      const precedence = definition.getPrecedence();
-
-      node = nonTerminalNode; ///
+      const precedence = definition.getPrecedence(),
+            childNodes = nonTerminalNode.getChildNodes();
 
       nodes.push(node);
 
       state.setPrecedence(precedence);
 
-      const parsed = definition.parse(childNodes, state, () => {
+      callback = () => {
         let parsed;
 
         parsed = true;
@@ -137,12 +141,14 @@ export default class Rule {
         }
 
         return parsed;
-      }, callAhead);
+      }
+
+      parsed = definition.parse(childNodes, state, callback, callAhead);
 
       if (!parsed) {
-        nodes.pop();
-
         state.resetPrecedence(savedPrecedence);
+
+        nodes.pop();
       }
 
       return parsed;
