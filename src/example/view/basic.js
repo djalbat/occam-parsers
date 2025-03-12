@@ -1,9 +1,11 @@
 "use strict";
 
-import { BasicParser } from "../../index";  ///
-
 import View from "../view";
 import BasicLexer from "../basic/lexer";
+import BasicParser from "../basic/parser";
+
+const { bnf } = BasicParser,
+      { entries } = BasicLexer;
 
 export default class BasicView extends View {
   getTokens(content) {
@@ -26,10 +28,9 @@ export default class BasicView extends View {
   initialise() {
     this.assignContext();
 
-    const { initialLexicalEntries, initialContent, initialBNF } = this.constructor,
-          lexicalEntries = initialLexicalEntries, ///
-          content = initialContent, ///
-          bnf = initialBNF; ///
+    const { initialContent } = this.constructor,
+          lexicalEntries = entries, ///
+          content = initialContent; ///
 
     this.setBNF(bnf);
 
@@ -40,38 +41,8 @@ export default class BasicView extends View {
     this.keyUpHandler();
   }
 
-  static initialBNF = `
-  
-  S   ::= A... <END_OF_LINE> ;
-  
-  A   ::= T ":" . ;
-  
-  T   ::= T_ T~* ;
-  
-  B   ::= T_ T~* B~T ;
-  
-  V   ::= . ;
-  
-  T_  ::= V ;
-  
-  T~B ::= ":" B ;
-  
-  B~T ::= ε ;
-  
-  T~  ::= B~T B~* T~B ;
-  
-  B~  ::= T~B T~* B~T ;
-
-`;
-
   static initialContent = `f:A:M
 `;
-
-  static initialLexicalEntries = [
-    {
-      "unassigned": "."
-    }
-  ];
 
   static defaultProperties = {
     className: "basic"
