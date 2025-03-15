@@ -6,11 +6,12 @@ import { specialSymbols } from "occam-lexers";
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
 const { first, match, forwardsSome, backwardsSome } = arrayUtilities,
-      { opaque : opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
+      { opaque: opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class NonTerminalNode {
-  constructor(ruleName, childNodes, opacity, precedence) {
+  constructor(ruleName, parentNode, childNodes, opacity, precedence) {
     this.ruleName = ruleName;
+    this.parentNode = parentNode;
     this.childNodes = childNodes;
     this.opacity = opacity;
     this.precedence = precedence;
@@ -18,6 +19,10 @@ export default class NonTerminalNode {
 
   getRuleName() {
     return this.ruleName;
+  }
+
+  getParentNode() {
+    return this.parentNode;
   }
 
   getChildNodes() {
@@ -38,6 +43,10 @@ export default class NonTerminalNode {
 
   setChildNodes(childNodes) {
     this.childNodes = childNodes;
+  }
+
+  setParentNode(parentNode) {
+    this.parentNode = parentNode;
   }
 
   setPrecedence(precedence) {
@@ -128,6 +137,22 @@ export default class NonTerminalNode {
     });
 
     return significantTokens;
+  }
+
+  getAncestorNodes() {
+    const ancestorNodes = [];
+
+    let parentNode = this.parentNode;
+
+    while (parentNode !== null) {
+      const ancestorNode = parentNode;  ///
+
+      ancestorNodes.push(ancestorNode);
+
+      parentNode = parentNode.getParentNode();
+    }
+
+    return ancestorNodes;
   }
 
   isUnprecedented() {
@@ -235,14 +260,11 @@ export default class NonTerminalNode {
   clone(...remainingArguments) {
     const Class = this.constructor,
           ruleName = this.ruleName,
-          childNodes = this.childNodes.map((childNode) => {
-            childNode = childNode.clone();  ///
-
-            return childNode;
-          }),
+          parentNode = null,
+          childNodes = cloneChildNodes(this.childNodes),
           opacity = this.opacity,
           precedence = this.precedence,
-          nonTerminalNode = new Class(ruleName, childNodes, opacity, precedence, ...remainingArguments);
+          nonTerminalNode = new Class(ruleName, parentNode, childNodes, opacity, precedence, ...remainingArguments);
 
     return nonTerminalNode;
   }
@@ -258,9 +280,20 @@ export default class NonTerminalNode {
       Class = NonTerminalNode;  ///
     }
 
-    const precedence = null,
-          nonTerminalNode = new Class(ruleName, childNodes, opacity, precedence, ...remainingArguments);
+    const parentNode = null,
+          precedence = null,
+          nonTerminalNode = new Class(ruleName, parentNode, childNodes, opacity, precedence, ...remainingArguments);
 
     return nonTerminalNode;
   }
+}
+
+function cloneChildNodes(childNodes) {
+  childNodes = childNodes.map((childNode) => {  ///
+    childNode = childNode.clone();  ///
+
+    return childNode;
+  });
+
+  return childNodes;
 }

@@ -3,12 +3,25 @@
 import TerminalNodeParseTree from "../parseTree/terminalNode";
 
 export default class TerminalNode {
-  constructor(significantToken) {
+  constructor(parentNode, significantToken) {
+    this.parentNode = parentNode;
     this.significantToken = significantToken;
+  }
+
+  getParentNode() {
+    return this.parentNode;
   }
 
   getSignificantToken() {
     return this.significantToken;
+  }
+
+  setParentNode(parentNode) {
+    this.parentNode = parentNode;
+  }
+
+  setSignificantToken(significantToken) {
+    this.significantToken = significantToken;
   }
 
   isStartOfContentNode() {
@@ -89,6 +102,22 @@ export default class TerminalNode {
     return significantTokens;
   }
 
+  getAncestorNodes() {
+    const ancestorNodes = [];
+
+    let parentNode = this.parentNode;
+
+    while (parentNode !== null) {
+      const ancestorNode = parentNode;  ///
+
+      ancestorNodes.push(ancestorNode);
+
+      parentNode = parentNode.getParentNode();
+    }
+
+    return ancestorNodes;
+  }
+
   isIncludedIn(node) {
     let includedIn = false;
 
@@ -131,10 +160,6 @@ export default class TerminalNode {
     return matches;
   }
 
-  setSignificantToken(significantToken) {
-    this.significantToken = significantToken;
-  }
-
   asParseTree(tokens) {
     const terminalNode = this,  ///
           terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeAndTokens(terminalNode, tokens),
@@ -145,8 +170,9 @@ export default class TerminalNode {
 
   clone(...remainingArguments) {
     const Class = this.constructor,
+          parentNode = null,
           significantToken = this.significantToken,
-          terminalNode = new Class(significantToken, ...remainingArguments);
+          terminalNode = new Class(parentNode, significantToken, ...remainingArguments);
 
     return terminalNode;
   }
@@ -156,8 +182,9 @@ export default class TerminalNode {
       Class = TerminalNode; ///
     }
 
-    const significantToken = null,
-          terminalNode = new Class(significantToken, ...remainingArguments);
+    const parentNode = null,
+          significantToken = null,
+          terminalNode = new Class(parentNode, significantToken, ...remainingArguments);
 
     return terminalNode;
   }
@@ -169,7 +196,8 @@ export default class TerminalNode {
       Class = TerminalNode; ///
     }
 
-    const terminalNode = new Class(significantToken, ...remainingArguments);
+    const parentNode = null,
+          terminalNode = new Class(parentNode, significantToken, ...remainingArguments);
     
     return terminalNode;
   }

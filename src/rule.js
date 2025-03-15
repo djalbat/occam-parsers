@@ -1,10 +1,13 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import { EMPTY_STRING } from "./constants";
 import { specialSymbols } from "occam-lexers";
 import { paddingFromPaddingLength } from "./utilities/string";
 
-const { opaque: opaqueSpecialSymbol, semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
+const { clear } = arrayUtilities,
+      { opaque: opaqueSpecialSymbol, semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class Rule {
   constructor(name, opacity, definitions, NonTerminalNode) {
@@ -46,15 +49,6 @@ export default class Rule {
     this.NonTerminalNode = NonTerminalNode;
   }
 
-  createNonTerminalNode() {
-    const opacity = this.opacity,
-          ruleName = this.name, ///
-          childNodes = [],
-          nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity);
-
-    return nonTerminalNode;
-  }
-
   isOpaque() {
     const opaque = (this.opacity === opaqueSpecialSymbol);
 
@@ -70,18 +64,22 @@ export default class Rule {
   parse(nodes, state, callback, callAhead) {
     let parsed;
 
-    const savedPrecedence = state.getSavedPrecedence();
+    const opacity = this.opacity,
+          ruleName = this.name, ///
+          childNodes = [],
+          nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity),
+          savedPrecedence = state.getSavedPrecedence();
+
+    let node = nonTerminalNode; ///
+
+    nodes.push(node);
 
     parsed = this.definitions.some((definition) => {
       let parsed;
 
-      let nonTerminalNode = this.createNonTerminalNode(),
-          node = nonTerminalNode; ///
+      clear(childNodes);
 
-      const precedence = definition.getPrecedence(),
-            childNodes = nonTerminalNode.getChildNodes();
-
-      nodes.push(node);
+      const precedence = definition.getPrecedence();
 
       state.setPrecedence(precedence);
 
@@ -134,7 +132,7 @@ export default class Rule {
           if (!parsed) {
             nodes.pop();
 
-            const node = nonTerminalNode; ///
+            node = nonTerminalNode; ///
 
             nodes.push(node);
           }
@@ -147,12 +145,20 @@ export default class Rule {
 
       if (!parsed) {
         state.resetPrecedence(savedPrecedence);
-
-        nodes.pop();
       }
 
       return parsed;
     });
+
+    if (parsed) {
+      const parentNode = node;  ///
+
+      childNodes.forEach((childNode) => {
+        childNode.setParentNode(parentNode);
+      });
+    } else {
+      nodes.pop();
+    }
 
     if (callAhead === null) {
       state.resetPrecedence(savedPrecedence);
