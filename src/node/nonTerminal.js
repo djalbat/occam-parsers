@@ -257,14 +257,24 @@ export default class NonTerminalNode {
     return parseTree;
   }
 
-  clone(...remainingArguments) {
+  cloneChildNodes() {
+    const parentNode = this,  ///
+          childNodes = this.childNodes.map((childNode) => {
+            childNode = childNode.clone(parentNode);  ///
+
+            return childNode;
+          });
+
+    return childNodes;
+  }
+
+  clone(parentNode = null) {
     const Class = this.constructor,
           ruleName = this.ruleName,
-          parentNode = null,
-          childNodes = cloneChildNodes(this.childNodes),
+          childNodes = this.cloneChildNodes(),
           opacity = this.opacity,
           precedence = this.precedence,
-          nonTerminalNode = new Class(ruleName, parentNode, childNodes, opacity, precedence, ...remainingArguments);
+          nonTerminalNode = new Class(ruleName, parentNode, childNodes, opacity, precedence);
 
     return nonTerminalNode;
   }
@@ -288,12 +298,3 @@ export default class NonTerminalNode {
   }
 }
 
-function cloneChildNodes(childNodes) {
-  childNodes = childNodes.map((childNode) => {  ///
-    childNode = childNode.clone();  ///
-
-    return childNode;
-  });
-
-  return childNodes;
-}
