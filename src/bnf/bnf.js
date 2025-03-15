@@ -22,7 +22,7 @@ const bnf = `
 
                                  |  sequenceOfParts
 
-                                 |  ruleName lookAheadModifier?
+                                 |  ruleName callAheadModifier?
 
                                  ;
 
@@ -80,7 +80,7 @@ const bnf = `
 
       opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
       
-      lookAheadModifier        ::=  <NO_WHITESPACE>"..." ;
+      callAheadModifier        ::=  <NO_WHITESPACE>"..." ;
 
       optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
 

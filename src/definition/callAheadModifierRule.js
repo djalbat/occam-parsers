@@ -8,7 +8,7 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 
 const { ellipsis } = specialSymbols;
 
-export default class LookAheadModifierRuleDefinition extends Definition {
+export default class CallAheadModifierRuleDefinition extends Definition {
   static fromNothing() {
     const content = ellipsis,  ///
           noWhitespacePart = NoWhitespacePart.fromNothing(),
@@ -18,8 +18,8 @@ export default class LookAheadModifierRuleDefinition extends Definition {
             terminalSymbolPart
           ],
           precedence = null,
-          lookAheadModifierRuleDefinition = new LookAheadModifierRuleDefinition(parts, precedence);
+          callAheadModifierRuleDefinition = new CallAheadModifierRuleDefinition(parts, precedence);
 
-    return lookAheadModifierRuleDefinition;
+    return callAheadModifierRuleDefinition;
   }
 }

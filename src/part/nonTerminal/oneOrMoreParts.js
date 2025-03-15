@@ -10,8 +10,8 @@ import { parseZeroOrMorePartsPart } from "./zeroOrMoreParts";
 const { plus } = specialSymbols;
 
 export default class OneOrMorePartsPart extends NonTerminalPart {
-  constructor(type, lookAhead, part) {
-    super(type, lookAhead);
+  constructor(type, callAhead, part) {
+    super(type, callAhead);
 
     this.part = part;
   }
@@ -48,8 +48,8 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
 
   static fromPart(part) {
     const type = OneOrMorePartsPartType,
-          lookAhead = false,
-          oneOrMorePartsPart = new OneOrMorePartsPart(type, lookAhead, part);
+          callAhead = false,
+          oneOrMorePartsPart = new OneOrMorePartsPart(type, callAhead, part);
 
     return oneOrMorePartsPart;
   }

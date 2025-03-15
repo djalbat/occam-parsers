@@ -6,8 +6,8 @@ import { parsePart } from "../../utilities/parse";
 import { ChoiceOfPartsPartType } from "../../partTypes";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
-  constructor(type, lookAhead, partChoices) {
-    super(type, lookAhead);
+  constructor(type, callAhead, partChoices) {
+    super(type, callAhead);
     
     this.partChoices = partChoices;
   }
@@ -92,8 +92,8 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
 
   static fromPartChoices(partChoices) {
     const type = ChoiceOfPartsPartType,
-          lookAhead = false,
-          choiceOfPartsPart = new ChoiceOfPartsPart(type, lookAhead, partChoices);
+          callAhead = false,
+          choiceOfPartsPart = new ChoiceOfPartsPart(type, callAhead, partChoices);
 
     return choiceOfPartsPart;
   }

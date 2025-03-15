@@ -6,8 +6,8 @@ import { parseParts } from "../../utilities/parse";
 import { SequenceOfPartsPartType } from "../../partTypes";
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
-  constructor(type, lookAhead, parts) {
-    super(type, lookAhead);
+  constructor(type, callAhead, parts) {
+    super(type, callAhead);
 
     this.parts = parts;
   }
@@ -64,8 +64,8 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
 
   static fromParts(parts) {
     const type = SequenceOfPartsPartType,
-          lookAhead = false,
-          sequenceOfPartsPart = new SequenceOfPartsPart(type, lookAhead, parts);
+          callAhead = false,
+          sequenceOfPartsPart = new SequenceOfPartsPart(type, callAhead, parts);
 
     return sequenceOfPartsPart;
   }

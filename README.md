@@ -42,7 +42,7 @@ All parsers share common functionality. The last two parse content according to 
 
                                  |  sequenceOfParts
 
-                                 |  ruleName lookAheadModifier?
+                                 |  ruleName callAheadModifier?
 
                                  ;
 
@@ -98,7 +98,7 @@ All parsers share common functionality. The last two parse content according to 
 
       opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
 
-      lookAheadModifier        ::=  <NO_WHITESPACE>"..." ;
+      callAheadModifier        ::=  <NO_WHITESPACE>"..." ;
 
       optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
 
@@ -224,7 +224,7 @@ Consider the following rules:
 
        BC  ::=  "b" "c" ;
 
-These will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse the `a` and `b` tokens, leaving only the `c` token for the `BC` rule to parse. This situation can be addressed by making the `AAB` rule look ahead, that is, try each of its definitions in turn until one is found that allows the remainder of the parent rule to parse. The look-ahead modifier is an ellipsis, thus the rules above become:
+These will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse the `a` and `b` tokens, leaving only the `c` token for the `BC` rule to parse. This situation can be addressed by making the `AAB` rule call ahead, that is, try each of its definitions in turn until one is found that allows the remainder of the parent rule to parse. The call-ahead modifier is an ellipsis, thus the rules above become:
 
       ABC  ::=  AAB... BC ;
 
@@ -234,19 +234,19 @@ These will not parse the tokens `a`, `b`, `c` because the first definition of th
 
 Now the `ABC` rule will indeed parse the tokens `a`, `b`, `c`, because the second definition of the `AAB` rule will be tried after the first definition fails to allow the `BC` rule name part to parse.
 
-Also bear in mind that look-ahead is carried out to arbitrary depth and this it affects the behaviour of the `?`, `*` and `+` quantifiers, which become lazy. For example:
+Also bear in mind that call-ahead is carried out to arbitrary depth and this it affects the behaviour of the `?`, `*` and `+` quantifiers, which become lazy. For example:
 
     ABC  ::=  AAB... ;
 
     AAB  ::=  "a" "b"+ "b" "c" ;
 
-Here the look-ahead modifier on the `AAB` rule name part forces the `+` quantifier on the `"b"` terminal part to be lazy, allowing the following to parse:
+Here the call-ahead modifier on the `AAB` rule name part forces the `+` quantifier on the `"b"` terminal part to be lazy, allowing the following to parse:
 
     a b b b c
 
-Without look-ahead, the `"b"+` part would consume all of the `b` tokens, leaving none for the subsequent `"b"` terminal part.
+Without call-ahead, the `"b"+` part would consume all of the `b` tokens, leaving none for the subsequent `"b"` terminal part.
 
-It seems that the parser parses in time that is roughly directly proportional to the length of the input. However, on the ohter hand it is most likely that look-ahead takes exponential time given its nested nature. For this reason, look-ahead should be used sparingly.
+It seems that the parser parses in time that is roughly directly proportional to the length of the input. However, on the ohter hand it is most likely that call-ahead takes exponential time given its nested nature. For this reason, call-ahead should be used sparingly.
 
 ## Building
 

@@ -10,8 +10,8 @@ import { OptionalPartPartType } from "../../partTypes";
 const { questionMark } = specialSymbols;
 
 export default class OptionalPartPart extends NonTerminalPart {
-  constructor(type, lookAhead, part) {
-    super(type, lookAhead);
+  constructor(type, callAhead, part) {
+    super(type, callAhead);
 
     this.part = part;
   }
@@ -48,8 +48,8 @@ export default class OptionalPartPart extends NonTerminalPart {
 
   static fromPart(part) {
     const type = OptionalPartPartType,
-          lookAhead = false,
-          optionalPartPart = new OptionalPartPart(type, lookAhead, part);
+          callAhead = false,
+          optionalPartPart = new OptionalPartPart(type, callAhead, part);
 
     return optionalPartPart;
   }

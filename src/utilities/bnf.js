@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-import { ruleNameRuleName, quantifierRuleName, lookAheadModifierRuleName } from "../ruleNames";
+import { ruleNameRuleName, quantifierRuleName, callAheadModifierRuleName } from "../ruleNames";
 
 const { first } = arrayUtilities;
 
@@ -53,20 +53,20 @@ export function isNodeQuantifierNode(node) {
   return nodeQuantifierNode;
 }
 
-export function isNodeLookAheadModifierNode(node) {
-  let nodeLookAheadModifierNode = false;
+export function isNodeCallAheadModifierNode(node) {
+  let nodeCallAheadModifierNode = false;
 
   const nodeNonTerminalNode = node.isNonTerminalNode();
 
   if (nodeNonTerminalNode) {
     const nonTerminalNode = node, ///
           ruleName = nonTerminalNode.getRuleName(),
-          ruleNameLookAheadModifierRuleName = (ruleName === lookAheadModifierRuleName);
+          ruleNameCallAheadModifierRuleName = (ruleName === callAheadModifierRuleName);
 
-    nodeLookAheadModifierNode = ruleNameLookAheadModifierRuleName;  ///
+    nodeCallAheadModifierNode = ruleNameCallAheadModifierRuleName;  ///
   }
 
-  return nodeLookAheadModifierNode;
+  return nodeCallAheadModifierNode;
 
 }
 

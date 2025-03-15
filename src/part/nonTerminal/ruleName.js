@@ -10,8 +10,8 @@ import { RuleNamePartType } from "../../partTypes";
 const { ellipsis } = specialSymbols;
 
 export default class RuleNamePart extends NonTerminalPart {
-  constructor(type, lookAhead, ruleName) {
-    super(type, lookAhead);
+  constructor(type, callAAhead, ruleName) {
+    super(type, callAAhead);
 
     this.ruleName = ruleName;
   }
@@ -46,26 +46,26 @@ export default class RuleNamePart extends NonTerminalPart {
   }
 
   asString() {
-    const lookAhead = this.isLookAhead(),
-          lookAheadString = lookAhead ?
+    const callAAhead = this.isCallAhead(),
+          callAAheadString = callAAhead ?
                               ellipsis :
                                 EMPTY_STRING,
-          string = `${this.ruleName}${lookAheadString}`;
+          string = `${this.ruleName}${callAAheadString}`;
 
     return string;
   }
 
   static fromRuleName(ruleName) {
     const type = RuleNamePartType,
-          lookAhead = false,
-          ruleNamePart = new RuleNamePart(type, lookAhead, ruleName);
+          callAAhead = false,
+          ruleNamePart = new RuleNamePart(type, callAAhead, ruleName);
 
     return ruleNamePart;
   }
 
-  static fromLookAheadAndRuleName(lookAhead, ruleName) {
+  static fromCallAheadAndRuleName(callAAhead, ruleName) {
     const type = RuleNamePartType,
-          ruleNamePart = new RuleNamePart(type, lookAhead, ruleName);
+          ruleNamePart = new RuleNamePart(type, callAAhead, ruleName);
 
     return ruleNamePart;
   }

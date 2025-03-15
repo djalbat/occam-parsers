@@ -19,8 +19,9 @@ export default class BasicView extends View {
 
   getNode(tokens) {
     const bnf = this.getBNF(),
-          basicParser = BasicParser.fromBNF(bnf),
-          node = basicParser.parse(tokens);
+          basicParser = BasicParser.fromBNF(bnf);
+
+    const node = basicParser.parse(tokens);
 
     return node;
   }
@@ -41,7 +42,7 @@ export default class BasicView extends View {
     this.keyUpHandler();
   }
 
-  static initialContent = `f:A:M
+  static initialContent = `f:x:y
 `;
 
   static defaultProperties = {

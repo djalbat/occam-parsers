@@ -4,24 +4,24 @@ import { arrayUtilities } from "necessary";
 
 import NonTerminalNode from "../../../node/nonTerminal";
 
-import { lookAheadModifierRuleName } from "../../../ruleNames";
+import { callAheadModifierRuleName } from "../../../ruleNames";
 import { nodeFromChildNodesAndRuleName } from "../../../utilities/node";
 
 const { first } = arrayUtilities;
 
 export default class NonTerminalPartBNFNode extends NonTerminalNode {
-  generatePart(lookAhead) {
+  generatePart(callAhead) {
     const childNodes = this.getChildNodes();
 
-    if (!lookAhead) {
-      const lookAheadModifierBNFNode = nodeFromChildNodesAndRuleName(childNodes, lookAheadModifierRuleName);
+    if (!callAhead) {
+      const callAheadModifierBNFNode = nodeFromChildNodesAndRuleName(childNodes, callAheadModifierRuleName);
 
-      lookAhead = (lookAheadModifierBNFNode !== null);
+      callAhead = (callAheadModifierBNFNode !== null);
     }
 
     const firstChildNode = first(childNodes),
           node = firstChildNode,  ///
-          part = node.generatePart(lookAhead);
+          part = node.generatePart(callAhead);
 
     return part;
   }

@@ -4,7 +4,7 @@ import NonTerminalNode from "../../node/nonTerminal";
 import StartOfContentPart from "../../part/terminal/startOfContent";
 
 export default class StartOfContentPartBNFNode extends NonTerminalNode {
-  generatePart(lookAhead) {
+  generatePart(callAhead) {
     const startOfContentPart = StartOfContentPart.fromNothing();
 
     return startOfContentPart;

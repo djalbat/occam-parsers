@@ -24,7 +24,7 @@ import NonTerminalPartRule from "../rule/nonTerminalPart";
 import SequenceOfPartsRule from "../rule/sequenceOfParts";
 import OpacityModifierRule from "../rule/opacityModifier";
 import NoWhitespacePartRule from "../rule/noWhitespacePart";
-import LookAheadModifierRule from "../rule/lookAheadModifier";
+import CallAheadModifierRule from "../rule/callAheadModifier";
 import RegularExpressionRule from "../rule/regularExpression";
 import OptionalQuantifierRule from "../rule/optionalQuantifier";
 import StartOfContentPartRule from "../rule/startOfContentPart";
@@ -93,7 +93,7 @@ export default class BNFParser {
           opacityModifierRule = OpacityModifierRule.fromNothing(),
           noWhitespacePartRule = NoWhitespacePartRule.fromNothing(),
           regularExpressionRule = RegularExpressionRule.fromNothing(),
-          lookAheadModifierRule = LookAheadModifierRule.fromNothing(),
+          callAheadModifierRule = CallAheadModifierRule.fromNothing(),
           optionalQuantifierRule = OptionalQuantifierRule.fromNothing(),
           startOfContentPartRule = StartOfContentPartRule.fromNothing(),
           oneOrMoreQuantifierRule = OneOrMoreQuantifierRule.fromNothing(),
@@ -124,7 +124,7 @@ export default class BNFParser {
       epsilonRule,
       quantifierRule,
       opacityModifierRule,
-      lookAheadModifierRule,
+      callAheadModifierRule,
       optionalQuantifierRule,
       oneOrMoreQuantifierRule,
       zeroOrMoreQuantifierRule,

@@ -12,7 +12,7 @@ const { first, second } = arrayUtilities;
 export default class TerminalSymbolBNFNode extends NonTerminalNode {
   regularExpression = /^"((?:\\.|[^"\\])*)"$/;
 
-  generatePart(lookAhead) {
+  generatePart(callAhead) {
     const content = this.getContent(),
           terminalSymbolPart = TerminalSymbolPart.fromContent(content);
 
