@@ -1,9 +1,5 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
-const { push, clear } = arrayUtilities;
-
 export function parsePart(part, nodes, state, callback, callAhead) {
   let parsed;
 
@@ -55,14 +51,10 @@ function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
 function parsePartWithCallAhead(part, index, parts, nodes, state, callback, callAhead) {
   let parsed;
 
-  const partNodes = [];
+  const nodesLength = nodes.length;
 
   callAhead = () => { ///
     let parsed;
-
-    clear(partNodes);
-
-    const nodes = partNodes;  ///
 
     parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
 
@@ -71,8 +63,10 @@ function parsePartWithCallAhead(part, index, parts, nodes, state, callback, call
 
   parsed = part.parse(nodes, state, callback, callAhead);
 
-  if (parsed) {
-    push(nodes, partNodes);
+  if (!parsed) {
+    const start = nodesLength;  ///
+
+    nodes.splice(start);
   }
 
   return parsed;
