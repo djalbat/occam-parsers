@@ -264,6 +264,14 @@ export default class NonTerminalNode {
     return childNodes;
   }
 
+  replaceChildNode(replacedChildNode, replacementChildNodes) {
+    const replacedChildNodes = [
+      replacedChildNode
+    ];
+
+    this.replaceChildNodes(replacedChildNodes, replacementChildNodes);
+  }
+
   replaceChildNodes(replacedChildNodes, replacementChildNodes) {
     const replacedChildNodesLength = replacedChildNodes.length,
           firstReplacedChildNode = first(replacedChildNodes),
