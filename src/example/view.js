@@ -60,6 +60,10 @@ class View extends Element {
         <SizeableDiv>
           <RowsDiv>
             <SubHeading>
+              Rule name
+            </SubHeading>
+            <RuleNameInput onKeyUp={this.keyUpHandler} />
+            <SubHeading>
               Lexical entries
             </SubHeading>
             <LexicalEntriesTextarea onKeyUp={this.keyUpHandler} />
@@ -67,10 +71,6 @@ class View extends Element {
               BNF
             </SubHeading>
             <BNFTextarea onKeyUp={this.keyUpHandler} />
-            <SubHeading>
-              Rule name
-            </SubHeading>
-            <RuleNameInput onKeyUp={this.keyUpHandler} />
           </RowsDiv>
         </SizeableDiv>
         <VerticalSplitterDiv />

@@ -42,7 +42,7 @@ export default class BasicView extends View {
     this.keyUpHandler();
   }
 
-  static initialContent = `f:x:y
+  static initialContent = `ehfg
 `;
 
   static defaultProperties = {
