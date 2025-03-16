@@ -264,6 +264,21 @@ export default class NonTerminalNode {
     return childNodes;
   }
 
+  removeChildNode(removedChildNode) {
+    const removedChildNodes = [
+      removedChildNode
+    ];
+
+    this.removeChildNodes(removedChildNodes);
+  }
+
+  removeChildNodes(removedChildNodes) {
+    const replacedChildNodes = removedChildNodes, ///
+          replacementChildNodes = [];
+
+    this.replaceChildNodes(replacedChildNodes, replacementChildNodes);
+  }
+
   replaceChildNode(replacedChildNode, replacementChildNodes) {
     const replacedChildNodes = [
       replacedChildNode
@@ -343,6 +358,8 @@ export default class NonTerminalNode {
     const parentNode = null,
           precedence = null,
           nonTerminalNode = new Class(ruleName, parentNode, childNodes, opacity, precedence, ...remainingArguments);
+
+    nonTerminalNode.setChildNodesParentNode();
 
     return nonTerminalNode;
   }
