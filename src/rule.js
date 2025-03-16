@@ -86,11 +86,15 @@ export default class Rule {
       callback = () => {  ///
         let parsed;
 
-        parsed = true;
-
         const precedence = state.getPrecedence();
 
         nonTerminalNode.setPrecedence(precedence);
+
+        parsed = true;
+
+        if (parsed) {
+          node.setChildNodesParentNode();
+        }
 
         const rewrittenNonTerminalNode = nonTerminalNode.rewrite();
 
@@ -138,6 +142,10 @@ export default class Rule {
           }
         }
 
+        if (!parsed) {
+          node.resetChildNodesParentNode();
+        }
+
         return parsed;
       };
 
@@ -150,13 +158,7 @@ export default class Rule {
       return parsed;
     });
 
-    if (parsed) {
-      const parentNode = node;  ///
-
-      childNodes.forEach((childNode) => {
-        childNode.setParentNode(parentNode);
-      });
-    } else {
+    if (!parsed) {
       nodes.pop();
     }
 

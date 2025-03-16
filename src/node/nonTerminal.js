@@ -42,21 +42,11 @@ export default class NonTerminalNode {
   }
 
   setChildNodes(childNodes) {
-    let parentNode;
-
-    parentNode = null;
-
-    this.childNodes.forEach((childNode) => {
-      childNode.setParentNode(parentNode);
-    });
+    this.resetChildNodesParentNode();
 
     this.childNodes = childNodes;
 
-    parentNode = this;
-
-    this.childNodes.forEach((childNode) => {
-      childNode.setParentNode(parentNode);
-    });
+    this.setChildNodesParentNode();
   }
 
   setParentNode(parentNode) {
@@ -283,18 +273,32 @@ export default class NonTerminalNode {
 
     this.childNodes.splice(start, deleteCount, ...replacementChildNodes);
 
-    let parentNode;
+    this.resetChildNodesParentNode(replacedChildNodes);
 
-    parentNode = null;
+    this.setChildNodesParentNode(replacementChildNodes);
+  }
 
-    replacedChildNodes.forEach((replacedChildNode) => {
-      replacedChildNode.setParentNode(parentNode);
+  setChildNodesParentNode(childNodes) {
+    if (childNodes === undefined) {
+      childNodes = this.childNodes;
+    }
+
+    const parentNode = this;
+
+    childNodes.forEach((childNode) => {
+      childNode.setParentNode(parentNode);
     });
+  }
 
-    parentNode = this;
+  resetChildNodesParentNode(childNodes) {
+    if (childNodes === undefined) {
+      childNodes = this.childNodes;
+    }
 
-    replacementChildNodes.forEach((replacementChildNode) => {
-      replacementChildNode.setParentNode(parentNode);
+    const parentNode = null;
+
+    childNodes.forEach((childNode) => {
+      childNode.setParentNode(parentNode);
     });
   }
 

@@ -2,37 +2,43 @@
 
 const bnf = `
   
-    S   ::= A... <END_OF_LINE> ;
-    
-    A   ::= A_ A~*
-    
-          | B_ B~* A~B
-    
-          ;
-    
-    B   ::= B_ B~*
-    
-          | A_ A~* B~A
-    
-          ;
-    
-    B_  ::= "d" ;
-    
-    A_  ::= "e" ;
-    
-    B~B ::= "f" ;
-    
-    A~B ::= "g" ;
-    
-    B~A ::= "h" ;
-    
-    B~  ::= B~B
-    
-          | A~B A~* B~A
-    
-          ;
-    
-    A~  ::= B~A B~* A~B ;
+  S   ::= F... <END_OF_LINE> ;
+  
+  A   ::= A_ A~*
+  
+        | F_ F~* E~F E~* A~E
+  
+        ;
+  
+  E   ::= F_ F~* E~F
+  
+        | A_ A~* F~A F~* E~F
+  
+        ;
+  
+  T   ::= "n" ;
+  
+  F   ::= F_ F~*
+  
+        | A_ A~* F~A
+  
+        ;
+  
+  F_  ::= "(" A ")" ;
+  
+  A_  ::= T ;
+  
+  F~A ::= "+" A ;
+  
+  A~E ::= ε ;
+  
+  E~F ::= ε ;
+  
+  F~  ::= E~F E~* A~E A~* F~A ;
+  
+  A~  ::= F~A F~* E~F E~* A~E ;
+  
+  E~  ::= A~E A~* F~A F~* E~F ;
 
 `;
 
