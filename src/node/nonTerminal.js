@@ -278,7 +278,9 @@ export default class NonTerminalNode {
 
   removeChildNodes(removedChildNodes) {
     if (removedChildNodes === undefined) {
-      removedChildNodes = this.childNodes;
+      removedChildNodes = [
+        ...this.childNodes
+      ];
     }
 
     const removedChildNodesLength = removedChildNodes.length,
@@ -318,7 +320,9 @@ export default class NonTerminalNode {
 
   setChildNodesParentNode(childNodes) {
     if (childNodes === undefined) {
-      childNodes = this.childNodes;
+      childNodes = [
+        ...this.childNodes
+      ];
     }
 
     const parentNode = this;
@@ -330,7 +334,9 @@ export default class NonTerminalNode {
 
   resetChildNodesParentNode(childNodes) {
     if (childNodes === undefined) {
-      childNodes = this.childNodes;
+      childNodes = [
+        ...this.childNodes
+      ];
     }
 
     const parentNode = null;
