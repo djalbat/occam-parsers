@@ -42,7 +42,21 @@ export default class NonTerminalNode {
   }
 
   setChildNodes(childNodes) {
+    let parentNode;
+
+    parentNode = null;
+
+    this.childNodes.forEach((childNode) => {
+      childNode.setParentNode(parentNode);
+    });
+
     this.childNodes = childNodes;
+
+    parentNode = this;
+
+    this.childNodes.forEach((childNode) => {
+      childNode.setParentNode(parentNode);
+    });
   }
 
   setParentNode(parentNode) {
@@ -247,6 +261,30 @@ export default class NonTerminalNode {
     const rewrittenNonTerminalNode = null;
 
     return rewrittenNonTerminalNode;
+  }
+
+  replaceChildNodes(replacedChildNodes, replacementChildNodes) {
+    const replacedChildNodesLength = replacedChildNodes.length,
+          firstReplacedChildNode = first(replacedChildNodes),
+          firstIndex = this.childNodes.indexOf(firstReplacedChildNode),
+          start = firstIndex, ///
+          deleteCount = replacedChildNodesLength; ///
+
+    this.childNodes.splice(start, deleteCount, ...replacementChildNodes);
+
+    let parentNode;
+
+    parentNode = null;
+
+    replacedChildNodes.forEach((replacedChildNode) => {
+      replacedChildNode.setParentNode(parentNode);
+    });
+
+    parentNode = this;
+
+    replacementChildNodes.forEach((replacementChildNode) => {
+      replacementChildNode.setParentNode(parentNode);
+    });
   }
 
   asParseTree(tokens) {
