@@ -265,18 +265,33 @@ export default class NonTerminalNode {
   }
 
   removeChildNode(removedChildNode) {
-    const removedChildNodes = [
+    let removedChildNodes;
+
+    removedChildNodes = [
       removedChildNode
     ];
 
-    this.removeChildNodes(removedChildNodes);
+    removedChildNodes = this.removeChildNodes(removedChildNodes);
+
+    return removedChildNodes;
   }
 
   removeChildNodes(removedChildNodes) {
-    const replacedChildNodes = removedChildNodes, ///
-          replacementChildNodes = [];
+    if (removedChildNodes === undefined) {
+      removedChildNodes = this.childNodes;
+    }
 
-    this.replaceChildNodes(replacedChildNodes, replacementChildNodes);
+    const removedChildNodesLength = removedChildNodes.length,
+          firstReplacedChildNode = first(removedChildNodes),
+          firstIndex = this.childNodes.indexOf(firstReplacedChildNode),
+          start = firstIndex, ///
+          deleteCount = removedChildNodesLength; ///
+
+    this.childNodes.splice(start, deleteCount);
+
+    this.resetChildNodesParentNode(removedChildNodes);
+
+    return removedChildNodes;
   }
 
   replaceChildNode(replacedChildNode, replacementChildNodes) {
