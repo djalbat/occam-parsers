@@ -254,9 +254,8 @@ export default class NonTerminalNode {
   }
 
   cloneChildNodes() {
-    const parentNode = this,  ///
-          childNodes = this.childNodes.map((childNode) => {
-            childNode = childNode.clone(parentNode);  ///
+    const childNodes = this.childNodes.map((childNode) => {
+            childNode = childNode.clone();  ///
 
             return childNode;
           });
@@ -354,13 +353,16 @@ export default class NonTerminalNode {
     return parseTree;
   }
 
-  clone(parentNode = null) {
+  clone() {
     const Class = this.constructor,
+          parentNode = null,
           ruleName = this.ruleName,
           childNodes = this.cloneChildNodes(),
           opacity = this.opacity,
           precedence = this.precedence,
           nonTerminalNode = new Class(ruleName, parentNode, childNodes, opacity, precedence);
+
+    nonTerminalNode.setChildNodesParentNode();
 
     return nonTerminalNode;
   }
