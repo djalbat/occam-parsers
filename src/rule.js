@@ -56,9 +56,15 @@ export default class Rule {
   }
 
   isSemiOpaque() {
-    const opaque = (this.opacity === semiOpaqueSpecialSymbol);
+    const semiOpaque = (this.opacity === semiOpaqueSpecialSymbol);
 
-    return opaque;
+    return semiOpaque;
+  }
+
+  isTransparent() {
+    const semiOpaque = (this.opacity === null);
+
+    return semiOpaque;
   }
 
   parse(nodes, state, callback, callAhead) {
