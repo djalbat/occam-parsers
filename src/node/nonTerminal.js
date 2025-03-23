@@ -295,8 +295,13 @@ export default class NonTerminalNode {
       ];
     }
 
-    const removedChildNodesLength = removedChildNodes.length,
-          firstReplacedChildNode = first(removedChildNodes),
+    const removedChildNodesLength = removedChildNodes.length;
+
+    if (removedChildNodesLength === 0) {
+      return;
+    }
+
+    const firstReplacedChildNode = first(removedChildNodes),
           firstIndex = this.childNodes.indexOf(firstReplacedChildNode),
           start = firstIndex, ///
           deleteCount = removedChildNodesLength; ///
