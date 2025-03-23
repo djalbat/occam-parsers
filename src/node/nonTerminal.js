@@ -259,6 +259,23 @@ export default class NonTerminalNode {
     return rewrittenNonTerminalNode;
   }
 
+  addChildNode(addedChildNode, offset) {
+    const addedChildNodes = [
+        addedChildNode
+    ];
+
+    this.addChildNodes(addedChildNodes, offset);
+  }
+
+  addChildNodes(addedChildNodes, offset) {
+    const start = offset, ///
+          deleteCount = 0;
+
+    this.childNodes.splice(start, deleteCount, ...addedChildNodes);
+
+    this.setChildNodesParentNode(addedChildNodes);
+  }
+
   removeChildNode(removedChildNode) {
     let removedChildNodes;
 
