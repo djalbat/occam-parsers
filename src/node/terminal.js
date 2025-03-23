@@ -168,10 +168,11 @@ export default class TerminalNode {
     return parseTree;
   }
 
-  clone(parentNode = null) {
+  clone(...remainingArguments) {
     const Class = this.constructor,
+          parentNode = null,
           significantToken = this.significantToken,
-          terminalNode = new Class(parentNode, significantToken);
+          terminalNode = new Class(parentNode, significantToken, ...remainingArguments);
 
     return terminalNode;
   }

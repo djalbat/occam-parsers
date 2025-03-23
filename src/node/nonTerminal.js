@@ -259,16 +259,6 @@ export default class NonTerminalNode {
     return rewrittenNonTerminalNode;
   }
 
-  cloneChildNodes() {
-    const childNodes = this.childNodes.map((childNode) => {
-            childNode = childNode.clone();  ///
-
-            return childNode;
-          });
-
-    return childNodes;
-  }
-
   removeChildNode(removedChildNode) {
     let removedChildNodes;
 
@@ -359,14 +349,14 @@ export default class NonTerminalNode {
     return parseTree;
   }
 
-  clone() {
+  clone(...remainingArguments) {
     const Class = this.constructor,
           parentNode = null,
           ruleName = this.ruleName,
-          childNodes = this.cloneChildNodes(),
+          childNodes = cloneChildNodes(this.childNodes),
           opacity = this.opacity,
           precedence = this.precedence,
-          nonTerminalNode = new Class(ruleName, parentNode, childNodes, opacity, precedence);
+          nonTerminalNode = new Class(ruleName, parentNode, childNodes, opacity, precedence, ...remainingArguments);
 
     nonTerminalNode.setChildNodesParentNode();
 
@@ -394,3 +384,12 @@ export default class NonTerminalNode {
   }
 }
 
+function cloneChildNodes(childNodes) {
+  childNodes = childNodes.map((childNode) => {  ///
+    childNode = childNode.clone();  ///
+
+    return childNode;
+  });
+
+  return childNodes;
+}
