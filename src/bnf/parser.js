@@ -2,35 +2,35 @@
 
 import bnf from "./bnf";
 import Rule from "../rule";
-import NameRule from "../rule/name";
-import PartRule from "../rule/part";
-import RuleRule from "../rule/rule";
-import ErrorRule from "../rule/error";
-import EpsilonRule from "../rule/epsilon";
-import DocumentRule from "../rule/document";
-import RuleNameRule from "../rule/ruleName";
-import WildcardRule from "../rule/wildcard";
 import parserMixins from "../mixins/parser";
-import EndOfLineRule from "../rule/endOfLine";
-import PartChoiceRule from "../rule/partChoice";
-import QuantifierRule from "../rule/quantifier";
-import DefinitionRule from "../rule/definition";
-import PrecedentsRule from "../rule/precedence";
-import DefinitionsRule from "../rule/definitions";
-import TerminalPartRule from "../rule/terminalPart";
-import ChoiceOfPartsRule from "../rule/choiceOfParts";
-import TerminalSymbolRule from "../rule/terminalSymbol";
-import NonTerminalPartRule from "../rule/nonTerminalPart";
-import SequenceOfPartsRule from "../rule/sequenceOfParts";
-import OpacityModifierRule from "../rule/opacityModifier";
-import NoWhitespacePartRule from "../rule/noWhitespacePart";
-import CallAheadModifierRule from "../rule/callAheadModifier";
-import RegularExpressionRule from "../rule/regularExpression";
-import OptionalQuantifierRule from "../rule/optionalQuantifier";
-import StartOfContentPartRule from "../rule/startOfContentPart";
-import OneOrMoreQuantifierRule from "../rule/oneOrMoreQuantifier";
-import ZeroOrMoreQuantifierRule from "../rule/zeroOrMoreQuantifier";
-import SignificantTokenTypeRule from "../rule/significantTokenType";
+import NameBNFRule from "../rule/bnf/name";
+import PartBNFRule from "../rule/bnf/part";
+import RuleBNFRule from "../rule/bnf/rule";
+import ErrorBNFRule from "../rule/bnf/error";
+import EpsilonBNFRule from "../rule/bnf/epsilon";
+import DocumentBNFRule from "../rule/bnf/document";
+import RuleNameBNFRule from "../rule/bnf/ruleName";
+import WildcardBNFRule from "../rule/bnf/wildcard";
+import EndOfLineBNFRule from "../rule/bnf/endOfLine";
+import PartChoiceBNFRule from "../rule/bnf/partChoice";
+import QuantifierBNFRule from "../rule/bnf/quantifier";
+import DefinitionBNFRule from "../rule/bnf/definition";
+import PrecedentsBNFRule from "../rule/bnf/precedence";
+import DefinitionsBNFRule from "../rule/bnf/definitions";
+import TerminalPartBNFRule from "../rule/bnf/terminalPart";
+import ChoiceOfPartsBNFRule from "../rule/bnf/choiceOfParts";
+import TerminalSymbolBNFRule from "../rule/bnf/terminalSymbol";
+import NonTerminalPartBNFRule from "../rule/bnf/nonTerminalPart";
+import SequenceOfPartsBNFRule from "../rule/bnf/sequenceOfParts";
+import OpacityModifierBNFRule from "../rule/bnf/opacityModifier";
+import NoWhitespacePartBNFRule from "../rule/bnf/noWhitespacePart";
+import CallAheadModifierBNFRule from "../rule/bnf/callAheadModifier";
+import RegularExpressionBNFRule from "../rule/bnf/regularExpression";
+import OptionalQuantifierBNFRule from "../rule/bnf/optionalQuantifier";
+import StartOfContentPartBNFRule from "../rule/bnf/startOfContentPart";
+import OneOrMoreQuantifierBNFRule from "../rule/bnf/oneOrMoreQuantifier";
+import ZeroOrMoreQuantifierBNFRule from "../rule/bnf/zeroOrMoreQuantifier";
+import SignificantTokenTypeBNFRule from "../rule/bnf/significantTokenType";
 
 import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
 
@@ -71,67 +71,65 @@ export default class BNFParser {
   static bnf = bnf;
 
   static fromNothing() {
-    const nameRule = NameRule.fromNothing(),
-          partRule = PartRule.fromNothing(),
-          ruleRule = RuleRule.fromNothing(),
-          errorRule = ErrorRule.fromNothing(),
-          epsilonRule = EpsilonRule.fromNothing(),
-          documentRule = DocumentRule.fromNothing(),
-          ruleNameRule = RuleNameRule.fromNothing(),
-          wildcardRule = WildcardRule.fromNothing(),
-          endOfLineRule = EndOfLineRule.fromNothing(),
-          partChoiceRule = PartChoiceRule.fromNothing(),
-          quantifierRule = QuantifierRule.fromNothing(),
-          definitionRule = DefinitionRule.fromNothing(),
-          precedentsRule = PrecedentsRule.fromNothing(),
-          definitionsRule = DefinitionsRule.fromNothing(),
-          terminalPartRule = TerminalPartRule.fromNothing(),
-          choiceOfPartsRule = ChoiceOfPartsRule.fromNothing(),
-          terminalSymbolRule = TerminalSymbolRule.fromNothing(),
-          nonTerminalPartRule = NonTerminalPartRule.fromNothing(),
-          sequenceOfPartsRule = SequenceOfPartsRule.fromNothing(),
-          opacityModifierRule = OpacityModifierRule.fromNothing(),
-          noWhitespacePartRule = NoWhitespacePartRule.fromNothing(),
-          regularExpressionRule = RegularExpressionRule.fromNothing(),
-          callAheadModifierRule = CallAheadModifierRule.fromNothing(),
-          optionalQuantifierRule = OptionalQuantifierRule.fromNothing(),
-          startOfContentPartRule = StartOfContentPartRule.fromNothing(),
-          oneOrMoreQuantifierRule = OneOrMoreQuantifierRule.fromNothing(),
-          zeroOrMoreQuantifierRule = ZeroOrMoreQuantifierRule.fromNothing(),
-          significantTokenTypeRule = SignificantTokenTypeRule.fromNothing();
-
-    let rules = [
-      documentRule,
-      ruleRule,
-      nameRule,
-      definitionsRule,
-      definitionRule,
-      partRule,
-      nonTerminalPartRule,
-      terminalPartRule,
-      startOfContentPartRule,
-      noWhitespacePartRule,
-      sequenceOfPartsRule,
-      choiceOfPartsRule,
-      partChoiceRule,
-      ruleNameRule,
-      significantTokenTypeRule,
-      regularExpressionRule,
-      terminalSymbolRule,
-      precedentsRule,
-      endOfLineRule,
-      wildcardRule,
-      epsilonRule,
-      quantifierRule,
-      opacityModifierRule,
-      callAheadModifierRule,
-      optionalQuantifierRule,
-      oneOrMoreQuantifierRule,
-      zeroOrMoreQuantifierRule,
-      errorRule
-    ];
-
-    const startRule = startRuleFromRules(rules),
+    const nameBNFRule = NameBNFRule.fromNothing(),
+          partBNFRule = PartBNFRule.fromNothing(),
+          ruleBNFRule = RuleBNFRule.fromNothing(),
+          errorBNFRule = ErrorBNFRule.fromNothing(),
+          epsilonBNFRule = EpsilonBNFRule.fromNothing(),
+          documentBNFRule = DocumentBNFRule.fromNothing(),
+          ruleNameBNFRule = RuleNameBNFRule.fromNothing(),
+          wildcardBNFRule = WildcardBNFRule.fromNothing(),
+          endOfLineBNFRule = EndOfLineBNFRule.fromNothing(),
+          partChoiceBNFRule = PartChoiceBNFRule.fromNothing(),
+          quantifierBNFRule = QuantifierBNFRule.fromNothing(),
+          definitionBNFRule = DefinitionBNFRule.fromNothing(),
+          precedentsBNFRule = PrecedentsBNFRule.fromNothing(),
+          definitionsBNFRule = DefinitionsBNFRule.fromNothing(),
+          terminalPartBNFRule = TerminalPartBNFRule.fromNothing(),
+          choiceOfPartsBNFRule = ChoiceOfPartsBNFRule.fromNothing(),
+          terminalSymbolBNFRule = TerminalSymbolBNFRule.fromNothing(),
+          nonTerminalPartBNFRule = NonTerminalPartBNFRule.fromNothing(),
+          sequenceOfPartsBNFRule = SequenceOfPartsBNFRule.fromNothing(),
+          opacityModifierBNFRule = OpacityModifierBNFRule.fromNothing(),
+          noWhitespacePartBNFRule = NoWhitespacePartBNFRule.fromNothing(),
+          regularExpressionBNFRule = RegularExpressionBNFRule.fromNothing(),
+          callAheadModifierBNFRule = CallAheadModifierBNFRule.fromNothing(),
+          optionalQuantifierBNFRule = OptionalQuantifierBNFRule.fromNothing(),
+          startOfContentPartBNFRule = StartOfContentPartBNFRule.fromNothing(),
+          oneOrMoreQuantifierBNFRule = OneOrMoreQuantifierBNFRule.fromNothing(),
+          zeroOrMoreQuantifierBNFRule = ZeroOrMoreQuantifierBNFRule.fromNothing(),
+          significantTokenTypeBNFRule = SignificantTokenTypeBNFRule.fromNothing(),
+          rules = [
+            documentBNFRule,
+            ruleBNFRule,
+            nameBNFRule,
+            definitionsBNFRule,
+            definitionBNFRule,
+            partBNFRule,
+            nonTerminalPartBNFRule,
+            terminalPartBNFRule,
+            startOfContentPartBNFRule,
+            noWhitespacePartBNFRule,
+            sequenceOfPartsBNFRule,
+            choiceOfPartsBNFRule,
+            partChoiceBNFRule,
+            ruleNameBNFRule,
+            significantTokenTypeBNFRule,
+            regularExpressionBNFRule,
+            terminalSymbolBNFRule,
+            precedentsBNFRule,
+            endOfLineBNFRule,
+            wildcardBNFRule,
+            epsilonBNFRule,
+            quantifierBNFRule,
+            opacityModifierBNFRule,
+            callAheadModifierBNFRule,
+            optionalQuantifierBNFRule,
+            oneOrMoreQuantifierBNFRule,
+            zeroOrMoreQuantifierBNFRule,
+            errorBNFRule
+          ],
+          startRule = startRuleFromRules(rules),
           ruleMap = ruleMapFromRules(rules),
           bnfParser = new BNFParser(startRule, ruleMap);
     

@@ -213,6 +213,16 @@ export default class NonTerminalNode {
     return empty;
   }
 
+  mapChildNode(callback) { return this.childNodes.map(callback); }
+
+  someChildNode(callback) { return this.childNodes.some(callback); }
+
+  everyChildNode(callback) { return this.childNodes.every(callback); }
+
+  reduceChildNode(callback, initialValue) { return this.childNodes.reduce(callback, initialValue); }
+
+  forEachChildNode(callback) { this.childNodes.forEach(callback); }
+
   match(node, depth = Infinity, exactly = false) {
     let matches = false;
 
