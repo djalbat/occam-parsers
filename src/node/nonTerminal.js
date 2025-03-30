@@ -306,7 +306,7 @@ export default class NonTerminalNode {
     this.spliceChildNodes(start, deleteCount, replacementChildNodes);
   }
 
-  spliceChildNodes(start, deleteCount, addedChildNodes) {
+  spliceChildNodes(start, deleteCount, addedChildNodes = []) {
     const removedChildNodes = this.childNodes.splice(start, deleteCount, ...addedChildNodes);
 
     this.resetChildNodesParentNode(removedChildNodes);
