@@ -42,11 +42,11 @@ export default class NonTerminalNode {
   }
 
   setChildNodes(childNodes) {
-    const start = 0,
+    const startIndex = 0,
           deleteCount = Infinity,
           addedChildNodes = childNodes;  ///
 
-    this.spliceChildNodes(start, deleteCount, addedChildNodes);
+    this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
   }
 
   setParentNode(parentNode) {
@@ -278,10 +278,10 @@ export default class NonTerminalNode {
   }
 
   addChildNodes(addedChildNodes, offset) {
-    const start = offset, ///
+    const startIndex = offset, ///
           deleteCount = 0;
 
-    this.spliceChildNodes(start, deleteCount, ...addedChildNodes);
+    this.spliceChildNodes(startIndex, deleteCount, ...addedChildNodes);
   }
 
   removeChildNode(removedChildNode) {
@@ -311,11 +311,11 @@ export default class NonTerminalNode {
 
     const firstReplacedChildNode = first(removedChildNodes),
           firstIndex = this.childNodes.indexOf(firstReplacedChildNode),
-          start = firstIndex, ///
+          startIndex = firstIndex, ///
           deleteCount = removedChildNodesLength, ///
           addedChildNodes = [];
 
-    removedChildNodes = this.spliceChildNodes(start, deleteCount, addedChildNodes);
+    removedChildNodes = this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
 
     return removedChildNodes;
   }
@@ -332,20 +332,26 @@ export default class NonTerminalNode {
     const replacedChildNodesLength = replacedChildNodes.length,
           firstReplacedChildNode = first(replacedChildNodes),
           firstIndex = this.childNodes.indexOf(firstReplacedChildNode),
-          start = firstIndex, ///
+          startIndex = firstIndex, ///
           deleteCount = replacedChildNodesLength; ///
 
-    this.spliceChildNodes(start, deleteCount, replacementChildNodes);
+    this.spliceChildNodes(startIndex, deleteCount, replacementChildNodes);
   }
 
-  spliceChildNodes(start, deleteCount, addedChildNodes = []) {
-    const removedChildNodes = this.childNodes.splice(start, deleteCount, ...addedChildNodes);
+  spliceChildNodes(startIndex, deleteCount, addedChildNodes = []) {
+    const removedChildNodes = this.childNodes.splice(startIndex, deleteCount, ...addedChildNodes);
 
     this.resetChildNodesParentNode(removedChildNodes);
 
     this.setChildNodesParentNode(addedChildNodes);
 
     return removedChildNodes;
+  }
+
+  sliceChildNodes(startIndex, endIndex) {
+    const childNodes = this.childNodes.slice(startIndex, endIndex);
+
+    return childNodes;
   }
 
   match(node, depth = Infinity, exactly = false) {
