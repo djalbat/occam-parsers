@@ -42,11 +42,11 @@ export default class NonTerminalNode {
   }
 
   setChildNodes(childNodes) {
-    this.resetChildNodesParentNode();
+    const start = 0,
+          deleteCount = Infinity,
+          addedChildNodes = childNodes;  ///
 
-    this.childNodes = childNodes;
-
-    this.setChildNodesParentNode();
+    this.spliceChildNodes(start, deleteCount, addedChildNodes);
   }
 
   setParentNode(parentNode) {
@@ -288,9 +288,7 @@ export default class NonTerminalNode {
     const start = offset, ///
           deleteCount = 0;
 
-    this.childNodes.splice(start, deleteCount, ...addedChildNodes);
-
-    this.setChildNodesParentNode(addedChildNodes);
+    this.spliceChildNodes(start, deleteCount, ...addedChildNodes);
   }
 
   removeChildNode(removedChildNode) {
@@ -321,11 +319,10 @@ export default class NonTerminalNode {
     const firstReplacedChildNode = first(removedChildNodes),
           firstIndex = this.childNodes.indexOf(firstReplacedChildNode),
           start = firstIndex, ///
-          deleteCount = removedChildNodesLength; ///
+          deleteCount = removedChildNodesLength, ///
+          addedChildNodes = [];
 
-    this.childNodes.splice(start, deleteCount);
-
-    this.resetChildNodesParentNode(removedChildNodes);
+    removedChildNodes = this.spliceChildNodes(start, deleteCount, addedChildNodes);
 
     return removedChildNodes;
   }
@@ -345,11 +342,17 @@ export default class NonTerminalNode {
           start = firstIndex, ///
           deleteCount = replacedChildNodesLength; ///
 
-    this.childNodes.splice(start, deleteCount, ...replacementChildNodes);
+    this.spliceChildNodes(start, deleteCount, replacementChildNodes);
+  }
 
-    this.resetChildNodesParentNode(replacedChildNodes);
+  spliceChildNodes(start, deleteCount, addedChildNodes) {
+    const removedChildNodes = this.childNodes.splice(start, deleteCount, ...addedChildNodes);
 
-    this.setChildNodesParentNode(replacementChildNodes);
+    this.resetChildNodesParentNode(removedChildNodes);
+
+    this.setChildNodesParentNode(addedChildNodes);
+
+    return removedChildNodes;
   }
 
   setChildNodesParentNode(childNodes) {
