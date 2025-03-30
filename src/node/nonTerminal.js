@@ -91,31 +91,6 @@ export default class NonTerminalNode {
     return nonTerminalNode;
   }
 
-  isSingular() {
-    const childNodesLength = this.childNodes.length,
-          singular = (childNodesLength === 1);
-
-    return singular;
-  }
-
-  isLowerPrecedence(ruleName, precedence) {
-    let lowerPrecedence;
-
-    if (false) {
-      ///
-    } else if (this.precedence === null) {
-      lowerPrecedence = false;
-    } else if (this.precedence === Infinity) {
-      const firstChildNode = first(this.childNodes);
-
-      lowerPrecedence = firstChildNode.isLowerPrecedence(ruleName, precedence);
-    } else {
-      lowerPrecedence = ((this.ruleName === ruleName) && (this.precedence < precedence));
-    }
-
-    return lowerPrecedence;
-  }
-
   getFirstSignificantTokenIndex(tokens) {
     let firstSignificantTokenIndex;
 
@@ -172,6 +147,45 @@ export default class NonTerminalNode {
     return ancestorNodes;
   }
 
+  getMultiplicity() {
+    const childNodesLength = this.childNodes.length,
+          multiplicity = childNodesLength;  ///
+
+    return multiplicity;
+  }
+
+  isEmpty() {
+    const multiplicity = this.getMultiplicity(),
+          empty = (multiplicity === 0);
+
+    return empty;
+  }
+
+  isSingular() {
+    const multiplicity = this.getMultiplicity(),
+          singular = (multiplicity === 1);
+
+    return singular;
+  }
+
+  isLowerPrecedence(ruleName, precedence) {
+    let lowerPrecedence;
+
+    if (false) {
+      ///
+    } else if (this.precedence === null) {
+      lowerPrecedence = false;
+    } else if (this.precedence === Infinity) {
+      const firstChildNode = first(this.childNodes);
+
+      lowerPrecedence = firstChildNode.isLowerPrecedence(ruleName, precedence);
+    } else {
+      lowerPrecedence = ((this.ruleName === ruleName) && (this.precedence < precedence));
+    }
+
+    return lowerPrecedence;
+  }
+
   isUnprecedented() {
     let unprecedented = false;
 
@@ -213,13 +227,6 @@ export default class NonTerminalNode {
     return includedIn;
   }
 
-  isEmpty() {
-    const childNodesLength = this.childNodes.length,
-          empty = (childNodesLength === 0);
-
-    return empty;
-  }
-
   mapChildNode(callback) { return this.childNodes.map(callback); }
 
   someChildNode(callback) { return this.childNodes.some(callback); }
@@ -229,52 +236,6 @@ export default class NonTerminalNode {
   reduceChildNode(callback, initialValue) { return this.childNodes.reduce(callback, initialValue); }
 
   forEachChildNode(callback) { this.childNodes.forEach(callback); }
-
-  match(node, depth = Infinity, exactly = false) {
-    let matches = false;
-
-    const nodeNonTerminalNode = node.isNonTerminalNode();
-
-    if (nodeNonTerminalNode) {
-      const nonTerminalNode = node, ///
-            nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
-
-      if (this.ruleName === nonTerminalNodeRuleName) {
-        const nonTerminalNodeOpacity = nonTerminalNode.getOpacity();
-
-        if (this.opacity === nonTerminalNodeOpacity) {
-          const precedence = this.getPrecedence(),
-                nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
-
-          if (precedence === nonTerminalNodePrecedence) {
-            depth--;
-
-            if (depth === 0) {
-              matches = true;
-            } else {
-              const nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes();
-
-              matches = match(this.childNodes, nonTerminalNodeChildNodes, (childNode, nonTerminalNodeChildNode) => {
-                const childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth, exactly);
-
-                if (childNodeMatchesNonTerminalNodeChildNode) {
-                  return true;
-                }
-              });
-            }
-          }
-        }
-      }
-    }
-
-    return matches;
-  }
-
-  rewrite() {
-    const rewrittenNonTerminalNode = null;
-
-    return rewrittenNonTerminalNode;
-  }
 
   addChildNode(addedChildNode, offset) {
     const addedChildNodes = [
@@ -381,6 +342,52 @@ export default class NonTerminalNode {
     childNodes.forEach((childNode) => {
       childNode.setParentNode(parentNode);
     });
+  }
+
+  match(node, depth = Infinity, exactly = false) {
+    let matches = false;
+
+    const nodeNonTerminalNode = node.isNonTerminalNode();
+
+    if (nodeNonTerminalNode) {
+      const nonTerminalNode = node, ///
+            nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
+
+      if (this.ruleName === nonTerminalNodeRuleName) {
+        const nonTerminalNodeOpacity = nonTerminalNode.getOpacity();
+
+        if (this.opacity === nonTerminalNodeOpacity) {
+          const precedence = this.getPrecedence(),
+                nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
+
+          if (precedence === nonTerminalNodePrecedence) {
+            depth--;
+
+            if (depth === 0) {
+              matches = true;
+            } else {
+              const nonTerminalNodeChildNodes = nonTerminalNode.getChildNodes();
+
+              matches = match(this.childNodes, nonTerminalNodeChildNodes, (childNode, nonTerminalNodeChildNode) => {
+                const childNodeMatchesNonTerminalNodeChildNode = childNode.match(nonTerminalNodeChildNode, depth, exactly);
+
+                if (childNodeMatchesNonTerminalNodeChildNode) {
+                  return true;
+                }
+              });
+            }
+          }
+        }
+      }
+    }
+
+    return matches;
+  }
+
+  rewrite() {
+    const rewrittenNonTerminalNode = null;
+
+    return rewrittenNonTerminalNode;
   }
 
   asParseTree(tokens) {
