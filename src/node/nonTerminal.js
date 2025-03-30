@@ -91,6 +91,13 @@ export default class NonTerminalNode {
     return nonTerminalNode;
   }
 
+  isSingular() {
+    const childNodesLength = this.childNodes.length,
+          singular = (childNodesLength === 1);
+
+    return singular;
+  }
+
   isLowerPrecedence(ruleName, precedence) {
     let lowerPrecedence;
 
