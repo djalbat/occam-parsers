@@ -94,7 +94,7 @@ export default class NonTerminalNode {
   getFirstSignificantTokenIndex(tokens) {
     let firstSignificantTokenIndex;
 
-    forwardsSome(this.childNodes, (childNode) => {
+    this.forwardsSomeChildNode((childNode) => {
       const node = childNode; ///
 
       firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens);
@@ -110,7 +110,7 @@ export default class NonTerminalNode {
   getLastSignificantTokenIndex(tokens) {
     let lastSignificantTokenIndex;
 
-    backwardsSome(this.childNodes, (childNode) => {
+    this.backwardsSomeChildNode((childNode) => {
       const node = childNode; ///
 
       lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens);
@@ -237,6 +237,38 @@ export default class NonTerminalNode {
 
   forEachChildNode(callback) { this.childNodes.forEach(callback); }
 
+  forwardsSomeChildNode(callback) { return forwardsSome(this.childNodes, callback); }
+
+  backwardsSomeChildNode(callback) { return backwardsSome(this.childNodes, callback); }
+
+  setChildNodesParentNode(childNodes) {
+    if (childNodes === undefined) {
+      childNodes = [
+        ...this.childNodes
+      ];
+    }
+
+    const parentNode = this;
+
+    childNodes.forEach((childNode) => {
+      childNode.setParentNode(parentNode);
+    });
+  }
+
+  resetChildNodesParentNode(childNodes) {
+    if (childNodes === undefined) {
+      childNodes = [
+        ...this.childNodes
+      ];
+    }
+
+    const parentNode = null;
+
+    childNodes.forEach((childNode) => {
+      childNode.setParentNode(parentNode);
+    });
+  }
+
   addChildNode(addedChildNode, offset) {
     const addedChildNodes = [
         addedChildNode
@@ -314,34 +346,6 @@ export default class NonTerminalNode {
     this.setChildNodesParentNode(addedChildNodes);
 
     return removedChildNodes;
-  }
-
-  setChildNodesParentNode(childNodes) {
-    if (childNodes === undefined) {
-      childNodes = [
-        ...this.childNodes
-      ];
-    }
-
-    const parentNode = this;
-
-    childNodes.forEach((childNode) => {
-      childNode.setParentNode(parentNode);
-    });
-  }
-
-  resetChildNodesParentNode(childNodes) {
-    if (childNodes === undefined) {
-      childNodes = [
-        ...this.childNodes
-      ];
-    }
-
-    const parentNode = null;
-
-    childNodes.forEach((childNode) => {
-      childNode.setParentNode(parentNode);
-    });
   }
 
   match(node, depth = Infinity, exactly = false) {
