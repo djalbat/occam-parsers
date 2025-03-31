@@ -231,7 +231,11 @@ export default class NonTerminalNode {
 
   someChildNode(callback) { return this.childNodes.some(callback); }
 
+  findChildNode(callback) { return this.childNodes.find(callback); }
+
   everyChildNode(callback) { return this.childNodes.every(callback); }
+
+  filterChildNode(callback) { return this.childNodes.filter(callback); }
 
   reduceChildNode(callback, initialValue) { return this.childNodes.reduce(callback, initialValue); }
 
