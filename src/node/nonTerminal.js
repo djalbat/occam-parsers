@@ -245,6 +245,8 @@ export default class NonTerminalNode {
 
   backwardsSomeChildNode(callback) { return backwardsSome(this.childNodes, callback); }
 
+  indexOfChildNode(childNode) { return this.childNodes.indexOf(childNode); }
+
   setChildNodesParentNode(childNodes) {
     if (childNodes === undefined) {
       childNodes = [
