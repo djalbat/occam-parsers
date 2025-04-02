@@ -293,19 +293,18 @@ export default class NonTerminalNode {
     });
   }
 
-  addChildNode(addedChildNode, offset) {
+  addChildNode(addedChildNode, startIndex) {
     const addedChildNodes = [
         addedChildNode
     ];
 
-    this.addChildNodes(addedChildNodes, offset);
+    this.addChildNodes(addedChildNodes, startIndex);
   }
 
-  addChildNodes(addedChildNodes, offset) {
-    const startIndex = offset, ///
-          deleteCount = 0;
+  addChildNodes(addedChildNodes, startIndex) {
+    const deleteCount = 0;
 
-    this.spliceChildNodes(startIndex, deleteCount, ...addedChildNodes);
+    this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
   }
 
   removeChildNode(removedChildNode) {
