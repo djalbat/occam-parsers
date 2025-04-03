@@ -220,31 +220,6 @@ export default class NonTerminalNode {
     return unprecedented;
   }
 
-  isIncludedIn(node) {
-    let includedIn = false;
-
-    if (this === node) {
-      includedIn = true;
-    } else {
-      const nodeNonTerminalNode = node.isNonTerminalNode();
-
-      if (nodeNonTerminalNode) {
-        const nonTerminalNode = node, ///
-              childNodes = nonTerminalNode.getChildNodes();
-
-        includedIn = childNodes.some((childNode) => {
-          const includedInChildNode = this.isIncludedIn(childNode);
-
-          if (includedInChildNode) {
-            return true;
-          }
-        });
-      }
-    }
-
-    return includedIn;
-  }
-
   mapChildNode(callback) { return this.childNodes.map(callback); }
 
   someChildNode(callback) { return this.childNodes.some(callback); }
@@ -371,7 +346,7 @@ export default class NonTerminalNode {
     return removedChildNodes;
   }
 
-  sliceChildNodes(startIndex, endIndex) {
+  sliceChildNodes(startIndex, endIndex = Infinity) {
     const childNodes = this.childNodes.slice(startIndex, endIndex);
 
     return childNodes;
