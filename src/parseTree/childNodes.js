@@ -59,6 +59,7 @@ export default class ChildNodesParseTree extends VerticalBranchParseTree {
           }
 
           childNodeParseTreesWidth += childNodeParseTreeWidth;
+
           childNodeParseTreesDepth = Math.max(childNodeParseTreesDepth, childNodeParseTreeDepth);
         });
 
@@ -73,9 +74,10 @@ export default class ChildNodesParseTree extends VerticalBranchParseTree {
         horizontalBranchParseTree.addLeftMargin(leftMarginWidth);
         horizontalBranchParseTree.addRightMargin(rightMarginWidth);
 
-        const verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition();
+        const verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(),
+              depth = childNodeParseTreesDepth; ///
 
-        childNodesParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(ChildNodesParseTree, childNodeParseTreesDepth, verticalBranchPosition);
+        childNodesParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(ChildNodesParseTree, depth, verticalBranchPosition);
 
         childNodeParseTrees.forEach((childNodeParseTree, index) => {
           const childNodeParseTreeDepth = childNodeParseTree.getDepth(),
@@ -97,6 +99,7 @@ export default class ChildNodesParseTree extends VerticalBranchParseTree {
         });
 
         childNodesParseTree.appendToTop(horizontalBranchParseTree);
+
         childNodesParseTree.appendToTop(verticalBranchParseTree);
       }
     }
