@@ -4,6 +4,8 @@ export { default as BNFParser } from "./bnf/parser";
 export { default as BasicParser } from "./basic/parser";
 export { default as CommonParser } from "./common/parser";
 
+export { default as nodeMixins } from "./mixins/node";
+
 export { default as rulesUtilities } from "./utilities/rules";
 export { default as parserUtilities } from "./utilities/parser";
 

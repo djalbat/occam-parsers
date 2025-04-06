@@ -118,29 +118,12 @@ export default class TerminalNode {
     return ancestorNodes;
   }
 
-  isIncludedIn(node) {
-    let includedIn = false;
+  asParseTree(tokens) {
+    const terminalNode = this,  ///
+          terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeAndTokens(terminalNode, tokens),
+          parseTree = terminalNodeParseTree;  ///
 
-    if (this === node) {
-      includedIn = true;
-    } else {
-      const nodeNonTerminalNode = node.isNonTerminalNode();
-
-      if (nodeNonTerminalNode) {
-        const nonTerminalNode = node, ///
-              childNodes = nonTerminalNode.getChildNodes();
-
-        includedIn = childNodes.some((childNode) => {
-          const includedInChildNode = this.isIncludedIn(childNode);
-
-          if (includedInChildNode) {
-            return true;
-          }
-        });
-      }
-    }
-
-    return includedIn;
+    return parseTree;
   }
 
   match(node, depth = Infinity, exactly = false) {
@@ -160,14 +143,6 @@ export default class TerminalNode {
     return matches;
   }
 
-  asParseTree(tokens) {
-    const terminalNode = this,  ///
-          terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeAndTokens(terminalNode, tokens),
-          parseTree = terminalNodeParseTree;  ///
-
-    return parseTree;
-  }
-
   clone(...remainingArguments) {
     const Class = this.constructor,
           parentNode = null,
@@ -175,6 +150,11 @@ export default class TerminalNode {
           terminalNode = new Class(parentNode, significantToken, ...remainingArguments);
 
     return terminalNode;
+  }
+
+  destroy() {
+    this.parentNode = null;
+    this.significantToken = null;
   }
 
   static fromNothing(Class, ...remainingArguments) {
