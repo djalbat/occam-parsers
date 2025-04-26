@@ -99,8 +99,7 @@ function removeChildNodes(removedChildNodes) {
   }
 
   const firstReplacedChildNode = first(removedChildNodes),
-        firstIndex = this.childNodes.indexOf(firstReplacedChildNode),
-        startIndex = firstIndex, ///
+        startIndex = this.childNodes.indexOf(firstReplacedChildNode), ///
         deleteCount = removedChildNodesLength, ///
         addedChildNodes = [];
 
@@ -120,8 +119,7 @@ function replaceChildNode(replacedChildNode, replacementChildNodes) {
 function replaceChildNodes(replacedChildNodes, replacementChildNodes) {
   const replacedChildNodesLength = replacedChildNodes.length,
         firstReplacedChildNode = first(replacedChildNodes),
-        firstIndex = this.childNodes.indexOf(firstReplacedChildNode),
-        startIndex = firstIndex, ///
+        startIndex = this.childNodes.indexOf(firstReplacedChildNode), ///
         deleteCount = replacedChildNodesLength; ///
 
   this.spliceChildNodes(startIndex, deleteCount, replacementChildNodes);
