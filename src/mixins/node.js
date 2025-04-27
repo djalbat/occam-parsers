@@ -207,7 +207,7 @@ function someAncestorNode(callback) {
       break;
     }
 
-    const parentNode = node.getParentNode();
+    const parentNode = ancestorNode.getParentNode();
 
     ancestorNode = parentNode;  ///
 
@@ -228,7 +228,7 @@ function findAncestorNode(callback) {
       return ancestorNode;
     }
 
-    const parentNode = node.getParentNode();
+    const parentNode = ancestorNode.getParentNode();
 
     ancestorNode = parentNode;  ///
 
