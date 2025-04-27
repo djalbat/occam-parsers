@@ -105,14 +105,14 @@ export default class TerminalNode {
   getAncestorNodes() {
     const ancestorNodes = [];
 
-    let parentNode = this.parentNode;
+    let ancestorNode = this.parentNode; ///
 
-    while (parentNode !== null) {
-      const ancestorNode = parentNode;  ///
-
+    while (ancestorNode !== null) {
       ancestorNodes.push(ancestorNode);
 
-      parentNode = parentNode.getParentNode();
+      const parentNode = ancestorNode.getParentNode();
+
+      ancestorNode = parentNode;  ///
     }
 
     return ancestorNodes;
