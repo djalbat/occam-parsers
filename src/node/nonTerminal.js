@@ -150,22 +150,6 @@ export default class NonTerminalNode {
     return descendantNodes;
   }
 
-  getAncestorNodes() {
-    const ancestorNodes = [];
-
-    let parentNode = this.parentNode;
-
-    while (parentNode !== null) {
-      const ancestorNode = parentNode;  ///
-
-      ancestorNodes.push(ancestorNode);
-
-      parentNode = parentNode.getParentNode();
-    }
-
-    return ancestorNodes;
-  }
-
   getMultiplicity() {
     const childNodesLength = this.childNodes.length,
           multiplicity = childNodesLength;  ///

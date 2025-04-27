@@ -172,6 +172,94 @@ function sliceChildNodes(startIndex, endIndex = Infinity) {
   return childNodes;
 }
 
+function getAncestorNodes() {
+  const ancestorNodes = [];
+
+  let ancestorNode = this.parentNode; ///
+
+  while (ancestorNode !== null) {
+    ancestorNodes.push(ancestorNode);
+
+    const parentNode = ancestorNode.getParentNode();
+
+    ancestorNode = parentNode;  ///
+  }
+
+  return ancestorNodes;
+}
+
+function mapAncestorNode(callback) {
+  const ancestorNodes = this.getAncestorNodes();
+
+  return ancestorNodes.map(callback);
+}
+
+function someAncestorNode(callback) {
+  let result = false;
+
+  let index = 0,
+      ancestorNode = this.parentNode; ///
+
+  while (ancestorNode !== null) {
+    result = callback(ancestorNode, index);
+
+    if (result) {
+      break;
+    }
+
+    const parentNode = node.getParentNode();
+
+    ancestorNode = parentNode;  ///
+
+    index++;
+  }
+
+  return result;
+}
+
+function findAncestorNode(callback) {
+  let index = 0,
+      ancestorNode = this.parentNode; ///
+
+  while (ancestorNode !== null) {
+    const result = callback(ancestorNode, index);
+
+    if (result) {
+      return ancestorNode;
+    }
+
+    const parentNode = node.getParentNode();
+
+    ancestorNode = parentNode;  ///
+
+    index++;
+  }
+}
+
+function everyAncestorNode(callback) {
+  const ancestorNodes = this.getAncestorNodes();
+
+  return ancestorNodes.every(callback);
+}
+
+function filterAncestorNode(callback) {
+  const ancestorNodes = this.getAncestorNodes();
+
+  return ancestorNodes.filter(callback);
+}
+
+function reduceAncestorNode(callback, initialValue) {
+  const ancestorNodes = this.getAncestorNodes();
+
+  return ancestorNodes.reduce(callback, initialValue);
+}
+
+function forEachAncestorNode(callback) {
+  const ancestorNodes = this.getAncestorNodes();
+
+  ancestorNodes.forEach(callback);
+}
+
 const nodeMixins = {
   getMultiplicity,
   mapChildNode,
@@ -197,7 +285,15 @@ const nodeMixins = {
   prependChildNode,
   prependChildNodes,
   spliceChildNodes,
-  sliceChildNodes
+  sliceChildNodes,
+  getAncestorNodes,
+  mapAncestorNode,
+  someAncestorNode,
+  findAncestorNode,
+  everyAncestorNode,
+  filterAncestorNode,
+  reduceAncestorNode,
+  forEachAncestorNode
 };
 
 export default nodeMixins;
