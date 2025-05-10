@@ -118,6 +118,78 @@ export default class TerminalNode {
     return ancestorNodes;
   }
 
+  mapAncestorNode(callback) {
+    const ancestorNodes = this.getAncestorNodes();
+
+    return ancestorNodes.map(callback);
+  }
+
+  someAncestorNode(callback) {
+    let result = false;
+
+    let index = 0,
+        ancestorNode = this.parentNode; ///
+
+    while (ancestorNode !== null) {
+      result = callback(ancestorNode, index);
+
+      if (result) {
+        break;
+      }
+
+      const parentNode = ancestorNode.getParentNode();
+
+      ancestorNode = parentNode;  ///
+
+      index++;
+    }
+
+    return result;
+  }
+
+  findAncestorNode(callback) {
+    let index = 0,
+        ancestorNode = this.parentNode; ///
+
+    while (ancestorNode !== null) {
+      const result = callback(ancestorNode, index);
+
+      if (result) {
+        return ancestorNode;
+      }
+
+      const parentNode = ancestorNode.getParentNode();
+
+      ancestorNode = parentNode;  ///
+
+      index++;
+    }
+  }
+
+  everyAncestorNode(callback) {
+    const ancestorNodes = this.getAncestorNodes();
+
+    return ancestorNodes.every(callback);
+  }
+
+  filterAncestorNode(callback) {
+    const ancestorNodes = this.getAncestorNodes();
+
+    return ancestorNodes.filter(callback);
+  }
+
+  reduceAncestorNode(callback, initialValue) {
+    const ancestorNodes = this.getAncestorNodes();
+
+    return ancestorNodes.reduce(callback, initialValue);
+  }
+
+  forEachAncestorNode(callback) {
+    const ancestorNodes = this.getAncestorNodes();
+
+    ancestorNodes.forEach(callback);
+  }
+
   asParseTree(tokens) {
     const terminalNode = this,  ///
           terminalNodeParseTree = TerminalNodeParseTree.fromTerminalNodeAndTokens(terminalNode, tokens),
