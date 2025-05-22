@@ -303,6 +303,8 @@ export default class NonTerminalNode {
   }
 }
 
+Object.assign(NonTerminalNode.prototype, nodeMixins);
+
 function cloneChildNodes(childNodes) {
   childNodes = childNodes.map((childNode) => {  ///
     childNode = childNode.clone();  ///
@@ -312,5 +314,3 @@ function cloneChildNodes(childNodes) {
 
   return childNodes;
 }
-
-Object.assign(NonTerminalNode.prototype, nodeMixins);

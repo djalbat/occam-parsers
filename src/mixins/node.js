@@ -94,16 +94,14 @@ function removeChildNodes(removedChildNodes) {
 
   const removedChildNodesLength = removedChildNodes.length;
 
-  if (removedChildNodesLength === 0) {
-    return;
+  if (removedChildNodesLength > 0) {
+    const firstReplacedChildNode = first(removedChildNodes),
+          startIndex = this.childNodes.indexOf(firstReplacedChildNode), ///
+          deleteCount = removedChildNodesLength, ///
+          addedChildNodes = [];
+
+    removedChildNodes = this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
   }
-
-  const firstReplacedChildNode = first(removedChildNodes),
-        startIndex = this.childNodes.indexOf(firstReplacedChildNode), ///
-        deleteCount = removedChildNodesLength, ///
-        addedChildNodes = [];
-
-  removedChildNodes = this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
 
   return removedChildNodes;
 }
