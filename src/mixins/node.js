@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-const { first, forwardsSome, backwardsSome } = arrayUtilities;
+const { push, first, forwardsSome, backwardsSome } = arrayUtilities;
 
 function getMultiplicity() {
   const childNodesLength = this.childNodes.length,
@@ -232,12 +232,33 @@ function findAncestorNode(callback) {
 
     index++;
   }
+
+  ancestorNode = undefined;
+
+  return ancestorNode;
 }
 
 function everyAncestorNode(callback) {
-  const ancestorNodes = this.getAncestorNodes();
+  let result = true;
 
-  return ancestorNodes.every(callback);
+  let index = 0,
+      ancestorNode = this.parentNode; ///
+
+  while (ancestorNode !== null) {
+    result = callback(ancestorNode, index);
+
+    if (!result) {
+      break;
+    }
+
+    const parentNode = ancestorNode.getParentNode();
+
+    ancestorNode = parentNode;  ///
+
+    index++;
+  }
+
+  return result;
 }
 
 function filterAncestorNode(callback) {
@@ -256,6 +277,118 @@ function forEachAncestorNode(callback) {
   const ancestorNodes = this.getAncestorNodes();
 
   ancestorNodes.forEach(callback);
+}
+
+function getDescendantNodes(descendantNodes = []) {
+  push(descendantNodes, this.childNodes);
+
+  this.forEachChildNode((childNode) => {
+    childNode.getDescendantNodes(descendantNodes);
+  });
+
+  return descendantNodes;
+}
+
+function mapDescendantNode(callback) {
+  const descendantNodes = this.getDescendantNodes();
+
+  return descendantNodes.map(callback);
+}
+
+function someDescendantNode(callback) {
+  let result = false;
+
+  const childNodesLength = this.childNodes.length;
+
+  for (let index = 0; index < childNodesLength; index++) {
+    const childNode = this.childNodes[index],
+          descendantNode = childNode; ///
+
+    result = callback(descendantNode);
+
+    if (result) {
+      break;
+    }
+
+    result = childNode.someDescendantNode(callback);
+
+    if (result) {
+      break;
+    }
+  }
+
+  return result;
+}
+
+function findDescendantNode(callback) {
+  let descendantNode = undefined;
+
+  const childNodesLength = this.childNodes.length;
+
+  for (let index = 0; index < childNodesLength; index++) {
+    let result;
+
+    const childNode = this.childNodes[index];
+
+    descendantNode = childNode; ///
+
+    result = callback(descendantNode);
+
+    if (result) {
+      break;
+    }
+
+    descendantNode = childNode.findDescendantNode(callback);
+
+    if (descendantNode !== undefined) {
+      break;
+    }
+  }
+
+  return descendantNode;
+}
+
+function everyDescendantNode(callback) {
+  let result = true;
+
+  const childNodesLength = this.childNodes.length;
+
+  for (let index = 0; index < childNodesLength; index++) {
+    const childNode = this.childNodes[index],
+          descendantNode = childNode; ///
+
+    result = callback(descendantNode);
+
+    if (!result) {
+      break;
+    }
+
+    result = childNode.everyDescendantNode(callback);
+
+    if (!result) {
+      break;
+    }
+  }
+
+  return result;
+}
+
+function filterDescendantNode(callback) {
+  const descendantNodes = this.getDescendantNodes();
+
+  return descendantNodes.filter(callback);
+}
+
+function reduceDescendantNode(callback, initialValue) {
+  const descendantNodes = this.getDescendantNodes();
+
+  return descendantNodes.reduce(callback, initialValue);
+}
+
+function forEachDescendantNode(callback) {
+  const descendantNodes = this.getDescendantNodes();
+
+  descendantNodes.forEach(callback);
 }
 
 const nodeMixins = {
@@ -291,7 +424,15 @@ const nodeMixins = {
   everyAncestorNode,
   filterAncestorNode,
   reduceAncestorNode,
-  forEachAncestorNode
+  forEachAncestorNode,
+  getDescendantNodes,
+  mapDescendantNode,
+  someDescendantNode,
+  findDescendantNode,
+  everyDescendantNode,
+  filterDescendantNode,
+  reduceDescendantNode,
+  forEachDescendantNode
 };
 
 export default nodeMixins;

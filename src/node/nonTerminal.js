@@ -92,6 +92,10 @@ export default class NonTerminalNode {
     return nonTerminalNode;
   }
 
+  getDescendantNodes(descendantNodes) {
+    return descendantNodes;
+  }
+
   getFirstSignificantTokenIndex(tokens) {
     let firstSignificantTokenIndex;
 
@@ -130,24 +134,6 @@ export default class NonTerminalNode {
     });
 
     return significantTokens;
-  }
-
-  getDescendantNodes(descendantNodes = []) {
-    const descendantNode = this; ///
-
-    descendantNodes.push(descendantNode);
-
-    this.childNodes.forEach((childNode) => {
-      const childNodeNonTerminalNode = childNode.isNonTerminalNode();
-
-      if (childNodeNonTerminalNode) {
-        const nonTerminalNode = childNode;  ///
-
-        nonTerminalNode.getDescendantNodes(descendantNodes);
-      }
-    });
-
-    return descendantNodes;
   }
 
   getMultiplicity() {

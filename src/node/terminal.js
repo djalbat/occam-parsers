@@ -164,12 +164,33 @@ export default class TerminalNode {
 
       index++;
     }
+
+    ancestorNode = undefined;
+
+    return ancestorNode;
   }
 
   everyAncestorNode(callback) {
-    const ancestorNodes = this.getAncestorNodes();
+    let result = true;
 
-    return ancestorNodes.every(callback);
+    let index = 0,
+        ancestorNode = this.parentNode; ///
+
+    while (ancestorNode !== null) {
+      result = callback(ancestorNode, index);
+
+      if (!result) {
+        break;
+      }
+
+      const parentNode = ancestorNode.getParentNode();
+
+      ancestorNode = parentNode;  ///
+
+      index++;
+    }
+
+    return result;
   }
 
   filterAncestorNode(callback) {
@@ -188,6 +209,28 @@ export default class TerminalNode {
     const ancestorNodes = this.getAncestorNodes();
 
     ancestorNodes.forEach(callback);
+  }
+
+  getDescendantNodes(descendantNodes = []) {
+    return descendantNodes;
+  }
+
+  someDescendantNode(callback) {
+    const result = false;
+
+    return result;
+  }
+
+  findDescendantNode(callback) {
+    let descendantNode = undefined;
+
+    return descendantNode;
+  }
+
+  everyDescendantNode(callback) {
+    let result = true;
+
+    return result;
   }
 
   asParseTree(tokens) {
