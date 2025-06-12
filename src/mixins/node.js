@@ -199,7 +199,7 @@ function someAncestorNode(callback) {
       ancestorNode = this.parentNode; ///
 
   while (ancestorNode !== null) {
-    result = callback(ancestorNode, index);
+    result = !!callback(ancestorNode, index); ///
 
     if (result) {
       break;
@@ -245,7 +245,7 @@ function everyAncestorNode(callback) {
       ancestorNode = this.parentNode; ///
 
   while (ancestorNode !== null) {
-    result = callback(ancestorNode, index);
+    result = !!callback(ancestorNode, index);
 
     if (!result) {
       break;
@@ -304,7 +304,7 @@ function someDescendantNode(callback) {
     const childNode = this.childNodes[index],
           descendantNode = childNode; ///
 
-    result = callback(descendantNode);
+    result = !!callback(descendantNode);
 
     if (result) {
       break;
@@ -357,7 +357,7 @@ function everyDescendantNode(callback) {
     const childNode = this.childNodes[index],
           descendantNode = childNode; ///
 
-    result = callback(descendantNode);
+    result = !!callback(descendantNode);
 
     if (!result) {
       break;

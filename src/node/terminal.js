@@ -131,7 +131,7 @@ export default class TerminalNode {
         ancestorNode = this.parentNode; ///
 
     while (ancestorNode !== null) {
-      result = callback(ancestorNode, index);
+      result = !!callback(ancestorNode, index); ///
 
       if (result) {
         break;
@@ -177,7 +177,7 @@ export default class TerminalNode {
         ancestorNode = this.parentNode; ///
 
     while (ancestorNode !== null) {
-      result = callback(ancestorNode, index);
+      result = !!callback(ancestorNode, index); ///
 
       if (!result) {
         break;
