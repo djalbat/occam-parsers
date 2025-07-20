@@ -1,21 +1,19 @@
 "use strict";
 
 import Rule from "../../rule";
-import SequenceOfPartsBNFNode from "../../node/bnf/sequenceOfParts";
 import SequenceOfPartsDefinition from "../../definition/sequenceOfParts";
 
-import { sequenceOfPartsRuleName } from "../../ruleNames";
+import { SEQUENCE_OF_PARTS_RULE_NAME } from "../../ruleNames";
 
 export default class SequenceOfPartsBNFRule extends Rule {
   static fromNothing() {
-    const name = sequenceOfPartsRuleName, ///
+    const name = SEQUENCE_OF_PARTS_RULE_NAME, ///
           sequenceOfPartsDefinition = SequenceOfPartsDefinition.fromNothing(),
           opacity = null,
           definitions = [
             sequenceOfPartsDefinition
           ],
-          NonTerminalNode = SequenceOfPartsBNFNode, ///
-          sequenceOfPartsRule = new SequenceOfPartsBNFRule(name, opacity, definitions, NonTerminalNode);
+          sequenceOfPartsRule = new SequenceOfPartsBNFRule(name, opacity, definitions);
 
     return sequenceOfPartsRule;
   }

@@ -10,7 +10,8 @@ function parse(tokens, rule = this.startRule, startOfContent = true) {
   let node = null;
 
   const nodes = [],
-        state = State.fromTokensRuleMapAndStartOfContent(tokens, this.ruleMap, startOfContent),
+        { NonTerminalNodeMap, defaultNonTerminalNode } = this.constructor,
+        state = State.fromTokensRuleMapStartOfContentNonTerminalNodeMapAndDefaultNonTerminalNode(tokens, this.ruleMap, startOfContent, NonTerminalNodeMap, defaultNonTerminalNode),
         callback = null,
         callAhead = null,
         parsed = rule.parse(nodes, state, callback, callAhead);

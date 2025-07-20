@@ -5,12 +5,19 @@ import RuleNamePart from "../part/nonTerminal/ruleName";
 import OptionalPartPart from "../part/nonTerminal/optionalPart";
 import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 
-import { partRuleName, precedenceRuleName } from "../ruleNames";
+import { PART_RULE_NAME, PRECEDENCE_RULE_NAME } from "../ruleNames";
 
 export default class DefinitionDefinition extends Definition {
   static fromNothing() {
-    const partRuleNamePart = RuleNamePart.fromRuleName(partRuleName),
-          precedenceRuleNamePart = RuleNamePart.fromRuleName(precedenceRuleName),
+    let ruleName;
+
+    ruleName = PART_RULE_NAME;
+
+    const partRuleNamePart = RuleNamePart.fromRuleName(ruleName);
+
+    ruleName = PRECEDENCE_RULE_NAME;
+
+    const precedenceRuleNamePart = RuleNamePart.fromRuleName(ruleName),
           oneOrMoreRuleNamePartsPart = OneOrMorePartsPart.fromPart(partRuleNamePart),
           optionalPrecedenceRuleNamePartPart = OptionalPartPart.fromPart(precedenceRuleNamePart),
           parts = [

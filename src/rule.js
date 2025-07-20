@@ -10,11 +10,10 @@ const { clear } = arrayUtilities,
       { opaque: opaqueSpecialSymbol, semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class Rule {
-  constructor(name, opacity, definitions, NonTerminalNode) {
+  constructor(name, opacity, definitions) {
     this.name = name;
     this.opacity = opacity;
     this.definitions = definitions;
-    this.NonTerminalNode = NonTerminalNode;
   }
 
   getName() {
@@ -29,10 +28,6 @@ export default class Rule {
     return this.definitions;
   }
 
-  getNonTerminalNode() {
-    return this.NonTerminalNode;
-  }
-
   setName(name) {
     this.name = name;
   }
@@ -43,10 +38,6 @@ export default class Rule {
 
   setDefinitions(definitions) {
     this.definitions = definitions;
-  }
-
-  setNonTerminalNode(NonTerminalNode) {
-    this.NonTerminalNode = NonTerminalNode;
   }
 
   isOpaque() {
@@ -73,7 +64,8 @@ export default class Rule {
     const opacity = this.opacity,
           ruleName = this.name, ///
           childNodes = [],
-          nonTerminalNode = this.NonTerminalNode.fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity),
+          NonTerminalNode = state.NonTerminalNodeFromRuleName(ruleName),
+          nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity),
           savedPrecedence = state.getSavedPrecedence();
 
     let node = nonTerminalNode; ///
@@ -102,7 +94,7 @@ export default class Rule {
           node.setChildNodesParentNode();
         }
 
-        const rewrittenNonTerminalNode = nonTerminalNode.rewrite();
+        const rewrittenNonTerminalNode = nonTerminalNode.rewrite(state);
 
         if (rewrittenNonTerminalNode !== null) {
           if (parsed) {
@@ -217,10 +209,8 @@ ${this.name}${opacityString}${padding} ::= ${definitionsString}${semicolonString
     return string;
   }
 
-  static fromNameOpacityDefinitionsAndNonTerminalNode(Class, name, opacity, definitions, NonTerminalNode) {
-    if (NonTerminalNode === undefined) {
-      NonTerminalNode = definitions;  ///
-
+  static fromNameOpacityAndDefinitions(Class, name, opacity, definitions) {
+    if (definitions === undefined) {
       definitions = opacity;  ///
 
       opacity = name; ///
@@ -230,7 +220,7 @@ ${this.name}${opacityString}${padding} ::= ${definitionsString}${semicolonString
       Class = Rule; ///
     }
 
-    const rule = new Class(name, opacity, definitions, NonTerminalNode);
+    const rule = new Class(name, opacity, definitions);
 
     return rule;
   }

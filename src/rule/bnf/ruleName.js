@@ -2,20 +2,18 @@
 
 import Rule from "../../rule";
 import NameDefinition from "../../definition/name";
-import RuleNameBNFNode from "../../node/bnf/ruleName";
 
-import { ruleNameRuleName } from "../../ruleNames";
+import { RULE_NAME_RULE_NAME } from "../../ruleNames";
 
 export default class RuleNameBNFRule extends Rule {
   static fromNothing() {
     const nameDefinition = NameDefinition.fromNothing(),
-          name = ruleNameRuleName,  ///
+          name = RULE_NAME_RULE_NAME,  ///
           opacity = null,
           definitions = [
             nameDefinition  ///
           ],
-          NonTerminalNode = RuleNameBNFNode,  ///
-          ruleNameRule = new RuleNameBNFRule(name, opacity, definitions, NonTerminalNode);
+          ruleNameRule = new RuleNameBNFRule(name, opacity, definitions);
 
     return ruleNameRule;
   }

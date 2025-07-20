@@ -8,7 +8,7 @@ import OneOrMorePartsPart from "../../part/nonTerminal/oneOrMoreParts";
 import ZeroOrMorePartsPart from "../../part/nonTerminal/zeroOrMoreParts";
 
 import { isNodeQuantifierNode, ruleNameFromQuantifierNode } from "../../utilities/bnf";
-import { optionalQuantifierRuleName, oneOrMoreQuantifierRuleName, zeroOrMoreQuantifierRuleName } from "../../ruleNames";
+import { OPTIONAL_QUANTIFIER_RULE_NAME, ONE_OR_MORE_QUANTIFIER_RULE_NAME, ZERO_OR_MORE_QUANTIFIER_RULE_NAME } from "../../ruleNames";
 
 const { last } = arrayUtilities;
 
@@ -68,19 +68,19 @@ function collectionOfPartsPartFromPartAndRuleName(part, ruleName) {
   let collectionOfPartsPart;
 
   switch (ruleName) {
-    case optionalQuantifierRuleName :
+    case OPTIONAL_QUANTIFIER_RULE_NAME :
       const optionalPartPart = OptionalPartPart.fromPart(part);
 
       collectionOfPartsPart = optionalPartPart; ///
       break;
 
-    case oneOrMoreQuantifierRuleName :
+    case ONE_OR_MORE_QUANTIFIER_RULE_NAME :
       const oneOrMorePartsPart = OneOrMorePartsPart.fromPart(part);
 
       collectionOfPartsPart = oneOrMorePartsPart; ///
       break;
 
-    case zeroOrMoreQuantifierRuleName :
+    case ZERO_OR_MORE_QUANTIFIER_RULE_NAME :
       const zeroOrMorePartsPart = ZeroOrMorePartsPart.fromPart(part);
 
       collectionOfPartsPart = zeroOrMorePartsPart;  ///

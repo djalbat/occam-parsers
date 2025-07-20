@@ -3,13 +3,14 @@
 import NonTerminalNode from "../../node/nonTerminal";
 import SequenceOfPartsPart from "../../part/nonTerminal/sequenceOfParts";
 
-import { partRuleName } from "../../ruleNames";
+import { PART_RULE_NAME } from "../../ruleNames";
 import { nodesFromChildNodesAndRuleName } from "../../utilities/node";
 
 export default class SequenceOfPartsBNFNode extends NonTerminalNode {
   generatePart(callAhead) {
-    const childNodes = this.getChildNodes(),
-          partBNFNodes = nodesFromChildNodesAndRuleName(childNodes, partRuleName);
+    const ruleName = PART_RULE_NAME,
+          childNodes = this.getChildNodes(),
+          partBNFNodes = nodesFromChildNodesAndRuleName(childNodes, ruleName);
 
     callAhead = false;  ///
 

@@ -7,15 +7,16 @@ import RuleNamePart from "../part/nonTerminal/ruleName";
 import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 
-import { partRuleName } from "../ruleNames";
+import { PART_RULE_NAME } from "../ruleNames";
 
 const { openBracket, closeBracket } = specialSymbols;
 
 export default class SequenceOfPartsDefinition extends Definition {
   static fromNothing() {
-    const openBracketTerminalSymbolContent = openBracket, ///
+    const ruleName = PART_RULE_NAME,  ///
+          openBracketTerminalSymbolContent = openBracket, ///
           closeBracketTerminalSymbolContent = closeBracket, ///
-          partRuleNamePart = RuleNamePart.fromRuleName(partRuleName),
+          partRuleNamePart = RuleNamePart.fromRuleName(ruleName),
           openBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(openBracketTerminalSymbolContent),
           closeBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(closeBracketTerminalSymbolContent),
           oneOrMorePartRuleNamePartsPart = OneOrMorePartsPart.fromPart(partRuleNamePart),

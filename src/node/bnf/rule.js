@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import NonTerminalNode from "../../node/nonTerminal";
 
-import { opacityModifierRuleName } from "../../ruleNames";
+import { OPACITY_MODIFIER_RULE_NAME } from "../../ruleNames";
 import { nodeFromChildNodesAndRuleName } from "../../utilities/node";
 
 const { first, secondLast } = arrayUtilities;
@@ -14,7 +14,7 @@ export default class RuleBNFNode extends NonTerminalNode {
     const name = this.getName(),
           opacity = this.getOpacity(),
           definitions = this.generateDefinitions(),
-          rule = Rule.fromNameOpacityDefinitionsAndNonTerminalNode(name, opacity, definitions, NonTerminalNode);
+          rule = Rule.fromNameOpacityAndDefinitions(name, opacity, definitions);
 
     return rule;
   }
@@ -22,8 +22,9 @@ export default class RuleBNFNode extends NonTerminalNode {
   getOpacity() {
     let opacity = null;
 
-    const childNodes = this.getChildNodes(),
-          opacityModifierBNFNode = nodeFromChildNodesAndRuleName(childNodes, opacityModifierRuleName);
+    const ruleName = OPACITY_MODIFIER_RULE_NAME,
+          childNodes = this.getChildNodes(),
+          opacityModifierBNFNode = nodeFromChildNodesAndRuleName(childNodes, ruleName);
 
     if (opacityModifierBNFNode !== null) {
       opacity = opacityModifierBNFNode.getOpacity();

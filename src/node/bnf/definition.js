@@ -3,14 +3,22 @@
 import Definition from "../../definition";
 import NonTerminalNode from "../../node/nonTerminal";
 
-import { partRuleName, precedenceRuleName } from "../../ruleNames";
+import { PART_RULE_NAME, PRECEDENCE_RULE_NAME } from "../../ruleNames";
 import { nodeFromChildNodesAndRuleName, nodesFromChildNodesAndRuleName } from "../../utilities/node";
 
 export default class DefinitionBNFNode extends NonTerminalNode {
   generateDefinition() {
-    const childNodes = this.getChildNodes(),
-          partBNFNodes = nodesFromChildNodesAndRuleName(childNodes, partRuleName),
-          precedenceBNFNode = nodeFromChildNodesAndRuleName(childNodes, precedenceRuleName),
+    let ruleName;
+
+    const childNodes = this.getChildNodes();
+
+    ruleName = PART_RULE_NAME;
+
+    const partBNFNodes = nodesFromChildNodesAndRuleName(childNodes, ruleName);
+
+    ruleName = PRECEDENCE_RULE_NAME;
+
+    const precedenceBNFNode = nodeFromChildNodesAndRuleName(childNodes, ruleName),
           callAhead = false,  ///
           parts = partBNFNodes.map((partBNFNode) => {
             const part = partBNFNode.generatePart(callAhead);

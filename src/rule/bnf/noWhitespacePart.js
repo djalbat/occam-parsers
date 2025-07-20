@@ -1,21 +1,19 @@
 "use strict";
 
 import Rule from "../../rule";
-import NoWhitespacePartBNFNode from "../../node/bnf/noWhitespacePart";
 import NoWhitespacePartDefinition from "../../definition/noWhitespacePart";
 
-import { noWhitespacePartRuleName } from "../../ruleNames";
+import { NO_WHITESPACE_PART_RULE_NAME } from "../../ruleNames";
 
 export default class NoWhitespacePartBNFRule extends Rule {
   static fromNothing() {
     const noWhitespacePartDefinition = NoWhitespacePartDefinition.fromNothing(),
-          name = noWhitespacePartRuleName,  ///
+          name = NO_WHITESPACE_PART_RULE_NAME,  ///
           opacity = null,
           definitions = [
             noWhitespacePartDefinition
           ],
-          NonTerminalNode = NoWhitespacePartBNFNode,  ///
-          noWhitespacePartRule = new NoWhitespacePartBNFRule(name, opacity, definitions, NonTerminalNode);
+          noWhitespacePartRule = new NoWhitespacePartBNFRule(name, opacity, definitions);
 
     return noWhitespacePartRule;
   }

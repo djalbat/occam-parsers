@@ -3,10 +3,9 @@
 import { types } from "occam-lexers";
 
 import Rule from "../../rule";
-import TerminalSymbolBNFNode from "../../node/bnf/terminalSymbol";
 import SignificantTokenTypeDefinition from "../../definition/significantTokenType";
 
-import { terminalSymbolRuleName } from "../../ruleNames";
+import { TERMINAL_SYMBOL_RULE_NAME } from "../../ruleNames";
 
 const { stringLiteralType } = types;
 
@@ -14,13 +13,12 @@ export default class TerminalSymbolBNFRule extends Rule {
   static fromNothing() {
     const significantTokenType = stringLiteralType,  ///
           stringLiteralSignificantTokenTypeDefinition = SignificantTokenTypeDefinition.fromSignificantTokenType(significantTokenType),
-          name = terminalSymbolRuleName,  ///
+          name = TERMINAL_SYMBOL_RULE_NAME,  ///
           opacity = null,
           definitions = [
             stringLiteralSignificantTokenTypeDefinition
           ],
-          NonTerminalNode = TerminalSymbolBNFNode,  ///
-          terminalSymbolRule = new TerminalSymbolBNFRule(name, opacity, definitions, NonTerminalNode);
+          terminalSymbolRule = new TerminalSymbolBNFRule(name, opacity, definitions);
 
     return terminalSymbolRule;
   }

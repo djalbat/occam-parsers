@@ -1,21 +1,19 @@
 "use strict";
 
 import Rule from "../../rule";
-import DocumentBNFNode from "../../node/bnf/document";
 import DocumentDefinition from "../../definition/document";
 
-import { documentRuleName } from "../../ruleNames";
+import { DOCUMENT_RULE_NAME } from "../../ruleNames";
 
 export default class DocumentBNFRule extends Rule {
   static fromNothing() {
     const documentDefinition = DocumentDefinition.fromNothing(),
-          name = documentRuleName,  ///
+          name = DOCUMENT_RULE_NAME,  ///
           opacity = null,
           definitions = [
             documentDefinition
           ],
-          NonTerminalNode = DocumentBNFNode,  ///
-          documentRule = new DocumentBNFRule(name, opacity, definitions, NonTerminalNode);
+          documentRule = new DocumentBNFRule(name, opacity, definitions);
 
     return documentRule;
   }

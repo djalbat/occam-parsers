@@ -2,6 +2,7 @@
 
 import bnf from "./bnf";
 import Rule from "../rule";
+import NonTerminalNodeMap from "../nonTerminalNodeMap";
 import parserMixins from "../mixins/parser";
 import NameBNFRule from "../rule/bnf/name";
 import PartBNFRule from "../rule/bnf/part";
@@ -67,6 +68,10 @@ export default class BNFParser {
 
     return rules;
   }
+
+  static NonTerminalNodeMap = NonTerminalNodeMap;
+
+  static defaultNonTerminalNode = null;
 
   static bnf = bnf;
 

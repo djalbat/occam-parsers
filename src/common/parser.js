@@ -1,6 +1,7 @@
 "use strict";
 
 import parserMixins from "../mixins/parser";
+import NonTerminalNode from "./../node/nonTerminal";
 
 import { rulesFromBNF, parserFromRules } from "../utilities/parser";
 
@@ -17,6 +18,10 @@ export default class CommonParser {
   getRuleMap() {
     return this.ruleMap;
   }
+
+  static NonTerminalNodeMap = {};
+
+  static defaultNonTerminalNode = NonTerminalNode;
 
   static fromNothing(Class) {
     const { bnf } = Class,

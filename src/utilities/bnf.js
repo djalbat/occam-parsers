@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-import { ruleNameRuleName, quantifierRuleName, callAheadModifierRuleName } from "../ruleNames";
+import { RULE_NAME_RULE_NAME, QUANTIFIER_RULE_NAME, CALL_AHEAD_MODIFIER_RULE_NAME } from "../ruleNames";
 
 const { first } = arrayUtilities;
 
@@ -31,7 +31,7 @@ export function isNodeRuleNameNode(node) {
     const nonTerminalNode = node, ///
           nonTerminalNodeRuleName = nonTerminalNode.getRuleName();
 
-    nodeRuleNameNode = (nonTerminalNodeRuleName === ruleNameRuleName);
+    nodeRuleNameNode = (nonTerminalNodeRuleName === RULE_NAME_RULE_NAME);
   }
 
   return nodeRuleNameNode;
@@ -45,7 +45,7 @@ export function isNodeQuantifierNode(node) {
   if (nodeNonTerminalNode) {
     const nonTerminalNode = node, ///
           ruleName = nonTerminalNode.getRuleName(),
-          ruleNameQuantifierRuleName = (ruleName === quantifierRuleName);
+          ruleNameQuantifierRuleName = (ruleName === QUANTIFIER_RULE_NAME);
 
     nodeQuantifierNode = ruleNameQuantifierRuleName;  ///
   }
@@ -61,7 +61,7 @@ export function isNodeCallAheadModifierNode(node) {
   if (nodeNonTerminalNode) {
     const nonTerminalNode = node, ///
           ruleName = nonTerminalNode.getRuleName(),
-          ruleNameCallAheadModifierRuleName = (ruleName === callAheadModifierRuleName);
+          ruleNameCallAheadModifierRuleName = (ruleName === CALL_AHEAD_MODIFIER_RULE_NAME);
 
     nodeCallAheadModifierNode = ruleNameCallAheadModifierRuleName;  ///
   }

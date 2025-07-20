@@ -1,21 +1,19 @@
 "use strict";
 
 import Rule from "../../rule";
-import ChoiceOfPartsBNFNode from "../../node/bnf/choiceOfParts";
 import ChoiceOfPartsDefinition from "../../definition/choiceOfParts";
 
-import { choiceOfPartsRuleName } from "../../ruleNames";
+import { CHOICE_OF_PARTS_RULE_NAME } from "../../ruleNames";
 
 export default class ChoiceOfPartsBNFRule extends Rule {
   static fromNothing() {
-    const name = choiceOfPartsRuleName, ///
+    const name = CHOICE_OF_PARTS_RULE_NAME, ///
           choiceOfPartsDefinition = ChoiceOfPartsDefinition.fromNothing(),
           opacity = null,
           definitions = [
             choiceOfPartsDefinition
           ],
-          NonTerminalNode = ChoiceOfPartsBNFNode, ///
-          choiceOfPartsRule = new ChoiceOfPartsBNFRule(name, opacity, definitions, NonTerminalNode);
+          choiceOfPartsRule = new ChoiceOfPartsBNFRule(name, opacity, definitions);
 
     return choiceOfPartsRule;
   }

@@ -8,7 +8,7 @@ import TerminalSymbolPart from "../part/terminal/terminalSymbol";
 import ZeroOrMorePartsPart from "../part/nonTerminal/zeroOrMoreParts";
 import SequenceOfPartsPart from "../part/nonTerminal/sequenceOfParts";
 
-import { definitionRuleName } from "../ruleNames";
+import { DEFINITION_RULE_NAME } from "../ruleNames";
 
 const { verticalBar } = specialSymbols;
 
@@ -17,7 +17,8 @@ export default class DefinitionsDefinition extends Definition {
     let parts;
 
     const content = verticalBar,  ///
-          definitionRuleNamePart = RuleNamePart.fromRuleName(definitionRuleName),
+          ruleName = DEFINITION_RULE_NAME,
+          definitionRuleNamePart = RuleNamePart.fromRuleName(ruleName),
           verticalBarTerminalSymbolPart = TerminalSymbolPart.fromContent(content);
 
     parts = [

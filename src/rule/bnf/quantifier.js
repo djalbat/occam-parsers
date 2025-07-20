@@ -1,25 +1,33 @@
 "use strict";
 
 import Rule from "../../rule";
-import PartBNFNode from "../../node/bnf/part";
 import RuleNameDefinition from "../../definition/ruleName";
 
-import { quantifierRuleName, optionalQuantifierRuleName, oneOrMoreQuantifierRuleName, zeroOrMoreQuantifierRuleName } from "../../ruleNames";
+import { QUANTIFIER_RULE_NAME, OPTIONAL_QUANTIFIER_RULE_NAME, ONE_OR_MORE_QUANTIFIER_RULE_NAME, ZERO_OR_MORE_QUANTIFIER_RULE_NAME } from "../../ruleNames";
 
 export default class QuantifierBNFRule extends Rule {
   static fromNothing() {
-    const name = quantifierRuleName,  ///
-          optionalQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(optionalQuantifierRuleName),
-          oneOrMoreQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(oneOrMoreQuantifierRuleName),
-          zeroOrMoreQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(zeroOrMoreQuantifierRuleName),
+    let ruleName;
+    const name = QUANTIFIER_RULE_NAME;  ///
+
+    ruleName = OPTIONAL_QUANTIFIER_RULE_NAME
+
+    const optionalQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
+
+    ruleName = ONE_OR_MORE_QUANTIFIER_RULE_NAME;
+
+    const oneOrMoreQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
+
+    ruleName = ZERO_OR_MORE_QUANTIFIER_RULE_NAME;
+
+    const zeroOrMoreQuantifierRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName),
           opacity = null,
           definitions = [
             optionalQuantifierRuleNameDefinition,
             oneOrMoreQuantifierRuleNameDefinition,
             zeroOrMoreQuantifierRuleNameDefinition
           ],
-          NonTerminalNode = PartBNFNode,  ///
-          quantifierRule = new QuantifierBNFRule(name, opacity, definitions, NonTerminalNode);
+          quantifierRule = new QuantifierBNFRule(name, opacity, definitions);
 
     return quantifierRule;
   }

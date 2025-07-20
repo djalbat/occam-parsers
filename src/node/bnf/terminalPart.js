@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-import NonTerminalNode from "../../../node/nonTerminal";
+import NonTerminalNode from "../../node/nonTerminal";
 
 const { first } = arrayUtilities;
 

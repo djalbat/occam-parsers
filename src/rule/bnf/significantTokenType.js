@@ -3,10 +3,9 @@
 import { types } from "occam-lexers";
 
 import Rule from "../../rule";
-import SignificantTokenTypeBNFNode from "../../node/bnf/significantTokenType";
 import SignificantTokenTypeDefinition from "../../definition/significantTokenType";
 
-import { significantTokenTypeRuleName } from "../../ruleNames";
+import { SIGNIFICANT_TOKEN_TYPE_RULE_NAME } from "../../ruleNames";
 
 const { typeType } = types;
 
@@ -14,13 +13,12 @@ export default class SignificantTokenTypeBNFRule extends Rule {
   static fromNothing() {
     const significantTokenType = typeType,  ///
           typeSignificantTokenTypeDefinition = SignificantTokenTypeDefinition.fromSignificantTokenType(significantTokenType),
-          name = significantTokenTypeRuleName,  ///
+          name = SIGNIFICANT_TOKEN_TYPE_RULE_NAME,  ///
           opacity = null,
           definitions = [
             typeSignificantTokenTypeDefinition
           ],
-          NonTerminalNode = SignificantTokenTypeBNFNode,  ///
-          significantTokenTypeRule = new SignificantTokenTypeBNFRule(name, opacity, definitions, NonTerminalNode);
+          significantTokenTypeRule = new SignificantTokenTypeBNFRule(name, opacity, definitions);
 
     return significantTokenTypeRule;
   }

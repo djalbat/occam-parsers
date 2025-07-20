@@ -1,12 +1,14 @@
 "use strict";
 
 export default class State {
-  constructor(index, tokens, ruleMap, precedence, startOfContent) {
+  constructor(index, tokens, ruleMap, precedence, startOfContent, NonTerminalNodeMap, defaultNonTerminalNode) {
 		this.index = index;
     this.tokens = tokens;
     this.ruleMap = ruleMap;
     this.precedence = precedence;
     this.startOfContent = startOfContent;
+    this.NonTerminalNodeMap = NonTerminalNodeMap;
+    this.defaultNonTerminalNode = defaultNonTerminalNode;
   }
 
   getIndex() {
@@ -27,6 +29,14 @@ export default class State {
 
   getStartOfContent() {
     return this.startOfContent;
+  }
+
+  getNonTerminalNode() {
+    return this.NonTerminalNodeMap;
+  }
+
+  getDefaultNonTerminalNode() {
+    return this.defaultNonTerminalNode;
   }
 
   setIndex(index) {
@@ -124,10 +134,16 @@ export default class State {
     this.precedence = savedPrecedence;  ///
   }
 
-  static fromTokensRuleMapAndStartOfContent(tokens, ruleMap, startOfContent) {
+  NonTerminalNodeFromRuleName(ruleName) {
+    const NonTerminalNode = this.NonTerminalNodeMap[ruleName] || this.defaultNonTerminalNode;
+
+    return NonTerminalNode;
+  }
+
+  static fromTokensRuleMapStartOfContentNonTerminalNodeMapAndDefaultNonTerminalNode(tokens, ruleMap, startOfContent, NonTerminalNodeMap, defaultNonTerminalNode) {
     const index = 0,
           precedence = null,
-					state = new State(index, tokens, ruleMap, precedence, startOfContent);
+					state = new State(index, tokens, ruleMap, precedence, startOfContent, NonTerminalNodeMap, defaultNonTerminalNode);
 
     return state;
   }

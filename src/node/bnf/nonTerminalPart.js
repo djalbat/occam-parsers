@@ -2,10 +2,10 @@
 
 import { arrayUtilities } from "necessary";
 
-import NonTerminalNode from "../../../node/nonTerminal";
+import NonTerminalNode from "../../node/nonTerminal";
 
-import { callAheadModifierRuleName } from "../../../ruleNames";
-import { nodeFromChildNodesAndRuleName } from "../../../utilities/node";
+import { CALL_AHEAD_MODIFIER_RULE_NAME } from "../../ruleNames";
+import { nodeFromChildNodesAndRuleName } from "../../utilities/node";
 
 const { first } = arrayUtilities;
 
@@ -14,7 +14,8 @@ export default class NonTerminalPartBNFNode extends NonTerminalNode {
     const childNodes = this.getChildNodes();
 
     if (!callAhead) {
-      const callAheadModifierBNFNode = nodeFromChildNodesAndRuleName(childNodes, callAheadModifierRuleName);
+      const ruleName = CALL_AHEAD_MODIFIER_RULE_NAME,
+            callAheadModifierBNFNode = nodeFromChildNodesAndRuleName(childNodes, ruleName);
 
       callAhead = (callAheadModifierBNFNode !== null);
     }

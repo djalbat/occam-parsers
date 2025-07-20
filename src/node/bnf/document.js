@@ -2,13 +2,14 @@
 
 import NonTerminalNode from"../../node/nonTerminal";
 
-import { ruleRuleName } from "../../ruleNames";
+import { RULE_RULE_NAME } from "../../ruleNames";
 import { nodesFromChildNodesAndRuleName } from "../../utilities/node";
 
 export default class DocumentBNFNode extends NonTerminalNode {
   generateRules(Rule) {
-    const childNodes = this.getChildNodes(),
-          ruleBNFNodes = nodesFromChildNodesAndRuleName(childNodes, ruleRuleName),
+    const ruleName = RULE_RULE_NAME,
+          childNodes = this.getChildNodes(),
+          ruleBNFNodes = nodesFromChildNodesAndRuleName(childNodes, ruleName),
           rules = ruleBNFNodes.map((ruleBNFNode) => {
             const rule = ruleBNFNode.generateRule(Rule);
             

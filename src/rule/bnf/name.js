@@ -1,21 +1,19 @@
 "use strict";
 
 import Rule from "../../rule";
-import NameBNFNode from "../../node/bnf/name";
 import NameDefinition from "../../definition/name";
 
-import { nameRuleName } from "../../ruleNames";
+import { NAME_RULE_NAME } from "../../ruleNames";
 
 export default class NameBNFRule extends Rule {
   static fromNothing() {
     const nameDefinition = NameDefinition.fromNothing(),
-          name = nameRuleName,  ///
+          name = NAME_RULE_NAME,  ///
           opacity = null,
           definitions = [
             nameDefinition
           ],
-          NonTerminalNode = NameBNFNode,  ///
-          nameRule = new NameBNFRule(name, opacity, definitions, NonTerminalNode);
+          nameRule = new NameBNFRule(name, opacity, definitions);
 
     return nameRule;
   }

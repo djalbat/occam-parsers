@@ -3,23 +3,21 @@
 import { specialSymbols } from "occam-lexers";
 
 import Rule from "../../rule";
-import ErrorBNFNode from "../../node/bnf/error";
 import ErrorDefinition from "../../definition/error";
 
-import { errorRuleName } from "../../ruleNames";
+import { ERROR_RULE_NAME } from "../../ruleNames";
 
 const { opaque } = specialSymbols;
 
 export default class ErrorBNFRule extends Rule {
   static fromNothing() {
     const errorDefinition = ErrorDefinition.fromNothing(),
-          name = errorRuleName, ///
+          name = ERROR_RULE_NAME, ///
           opacity = opaque, ///
           definitions = [
             errorDefinition
           ],
-          NonTerminalNode = ErrorBNFNode, ///
-          errorRule = new ErrorBNFRule(name, opacity, definitions, NonTerminalNode);
+          errorRule = new ErrorBNFRule(name, opacity, definitions);
 
     return errorRule;
   }

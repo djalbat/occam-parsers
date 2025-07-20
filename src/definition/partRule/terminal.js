@@ -4,12 +4,19 @@ import Definition from "../../definition";
 import RuleNamePart from "../../part/nonTerminal/ruleName";
 import ZeroOrMorePartsPart from "../../part/nonTerminal/zeroOrMoreParts";
 
-import { quantifierRuleName, terminalPartRuleName } from "../../ruleNames";
+import { QUANTIFIER_RULE_NAME, TERMINAL_PART_RULE_NAME } from "../../ruleNames";
 
 export default class TerminalPartRuleDefinition extends Definition {
   static fromNothing() {
-    const quantifierRuleNamePart = RuleNamePart.fromRuleName(quantifierRuleName),
-          terminalPartRuleNamePart = RuleNamePart.fromRuleName(terminalPartRuleName),
+    let ruleName;
+
+    ruleName = QUANTIFIER_RULE_NAME;
+
+    const quantifierRuleNamePart = RuleNamePart.fromRuleName(ruleName);
+
+    ruleName = TERMINAL_PART_RULE_NAME;
+
+    const terminalPartRuleNamePart = RuleNamePart.fromRuleName(ruleName),
           zeroOrMoreQuantifierRuleNamePartsPart = ZeroOrMorePartsPart.fromPart(quantifierRuleNamePart),
           parts = [
             terminalPartRuleNamePart,
