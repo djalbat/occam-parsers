@@ -64,7 +64,7 @@ export default class Rule {
     const opacity = this.opacity,
           ruleName = this.name, ///
           childNodes = [],
-          NonTerminalNode = state.NonTerminalNodeFromRuleName(ruleName),
+          NonTerminalNode = this.NonTerminalNodeFromRuleName(ruleName),
           nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity),
           savedPrecedence = state.getSavedPrecedence();
 
@@ -166,6 +166,8 @@ export default class Rule {
 
     return parsed;
   }
+
+  NonTerminalNodeFromRuleName(ruleName, state) { return state.NonTerminalNodeFromRuleName(ruleName); }
 
   asString(maximumRuleNameLength, multiLine = true) {
     const definitionsLength = this.definitions.length;
