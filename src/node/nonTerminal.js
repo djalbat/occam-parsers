@@ -269,7 +269,9 @@ export default class NonTerminalNode {
   }
 
   static fromRuleNameChildNodesOpacityAndPrecedence(Class, ruleName, childNodes, opacity, precedence, ...remainingArguments) {
-    if (opacity === undefined) {
+    if (precedence === undefined) {
+      precedence = opacity; ///
+
       opacity = childNodes; ///
 
       childNodes = ruleName;  ///
