@@ -63,9 +63,10 @@ export default class Rule {
 
     const opacity = this.opacity,
           ruleName = this.name, ///
+          precedence = null,
           childNodes = [],
           NonTerminalNode = this.NonTerminalNodeFromRuleName(ruleName, state),
-          nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity),
+          nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence),
           savedPrecedence = state.getSavedPrecedence();
 
     let node = nonTerminalNode; ///

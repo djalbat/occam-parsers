@@ -35,7 +35,7 @@ export default class TerminalSymbolBNFNode extends NonTerminalNode {
     return content;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return NonTerminalNode.fromRuleNameChildNodesAndOpacity(TerminalSymbolBNFNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(TerminalSymbolBNFNode, ruleName, childNodes, opacity, precedence); }
 }
 
 function sanitiseContent(content) {

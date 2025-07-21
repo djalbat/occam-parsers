@@ -268,7 +268,7 @@ export default class NonTerminalNode {
     return nonTerminalNode;
   }
 
-  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) {
+  static fromRuleNameChildNodesOpacityAndPrecedence(Class, ruleName, childNodes, opacity, precedence, ...remainingArguments) {
     if (opacity === undefined) {
       opacity = childNodes; ///
 
@@ -280,7 +280,6 @@ export default class NonTerminalNode {
     }
 
     const parentNode = null,
-          precedence = null,
           nonTerminalNode = new Class(ruleName, parentNode, childNodes, opacity, precedence, ...remainingArguments);
 
     nonTerminalNode.setChildNodesParentNode();
