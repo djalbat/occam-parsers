@@ -42,8 +42,7 @@ export default class BasicView extends View {
     this.keyUpHandler();
   }
 
-  static initialContent = `(n+n)
-`;
+  static initialContent = `(1+2).`;
 
   static defaultProperties = {
     className: "basic"

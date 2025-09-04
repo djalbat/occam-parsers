@@ -4,7 +4,7 @@ const bnf = `
 
     expressions  ::=  expression+ ;
 
-    expression   ::=  <START_OF_CONTENT> term... "." ;
+    expression   ::=  term... "." ;
     
     term         ::=  term_ term~* ;
     
