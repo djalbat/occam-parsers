@@ -3,7 +3,7 @@
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../node/terminal";
 
-export default class TerminalSymbolPart extends TerminalPart {
+export default class StringLiteralPart extends TerminalPart {
   constructor(content) {
     super();
     
@@ -54,8 +54,8 @@ export default class TerminalSymbolPart extends TerminalPart {
   }
 
   static fromContent(content) {
-    const terminalSymbolPart = new TerminalSymbolPart(content);
+    const stringLiteralPart = new StringLiteralPart(content);
 
-    return terminalSymbolPart;
+    return stringLiteralPart;
   }
 }

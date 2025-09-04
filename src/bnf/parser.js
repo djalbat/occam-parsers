@@ -20,7 +20,7 @@ import PrecedentsBNFRule from "../rule/bnf/precedence";
 import DefinitionsBNFRule from "../rule/bnf/definitions";
 import TerminalPartBNFRule from "../rule/bnf/terminalPart";
 import ChoiceOfPartsBNFRule from "../rule/bnf/choiceOfParts";
-import TerminalSymbolBNFRule from "../rule/bnf/terminalSymbol";
+import StringLiteralBNFRule from "../rule/bnf/stringLiteral";
 import NonTerminalPartBNFRule from "../rule/bnf/nonTerminalPart";
 import SequenceOfPartsBNFRule from "../rule/bnf/sequenceOfParts";
 import OpacityModifierBNFRule from "../rule/bnf/opacityModifier";
@@ -92,7 +92,7 @@ export default class BNFParser {
           definitionsBNFRule = DefinitionsBNFRule.fromNothing(),
           terminalPartBNFRule = TerminalPartBNFRule.fromNothing(),
           choiceOfPartsBNFRule = ChoiceOfPartsBNFRule.fromNothing(),
-          terminalSymbolBNFRule = TerminalSymbolBNFRule.fromNothing(),
+          stringLiteralBNFRule = StringLiteralBNFRule.fromNothing(),
           nonTerminalPartBNFRule = NonTerminalPartBNFRule.fromNothing(),
           sequenceOfPartsBNFRule = SequenceOfPartsBNFRule.fromNothing(),
           opacityModifierBNFRule = OpacityModifierBNFRule.fromNothing(),
@@ -121,7 +121,7 @@ export default class BNFParser {
             ruleNameBNFRule,
             significantTokenTypeBNFRule,
             regularExpressionBNFRule,
-            terminalSymbolBNFRule,
+            stringLiteralBNFRule,
             precedentsBNFRule,
             endOfLineBNFRule,
             wildcardBNFRule,

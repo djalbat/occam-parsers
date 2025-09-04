@@ -7,7 +7,7 @@ import { EPSILON_RULE_NAME,
          WILDCARD_RULE_NAME,
          END_OF_LINE_RULE_NAME,
          TERMINAL_PART_RULE_NAME,
-         TERMINAL_SYMBOL_RULE_NAME,
+         STRING_LITERAL_RULE_NAME,
          NO_WHITESPACE_PART_RULE_NAME,
          REGULAR_EXPRESSION_RULE_NAME,
          START_OF_CONTENT_PART_RULE_NAME,
@@ -31,9 +31,9 @@ export default class TerminalPartBNFRule extends Rule {
 
     const endOfLineRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
 
-    ruleName = TERMINAL_SYMBOL_RULE_NAME;
+    ruleName = STRING_LITERAL_RULE_NAME;
 
-    const terminalSymbolRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
+    const stringLiteralRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
 
     ruleName = NO_WHITESPACE_PART_RULE_NAME;
 
@@ -54,7 +54,7 @@ export default class TerminalPartBNFRule extends Rule {
           definitions = [
             significantTokenTypeRuleNameDefinition,
             regularExpressionRuleNameDefinition,
-            terminalSymbolRuleNameDefinition,
+            stringLiteralRuleNameDefinition,
             endOfLineRuleNameDefinition,
             wildcardRuleNameDefinition,
             epsilonRuleNameDefinition,

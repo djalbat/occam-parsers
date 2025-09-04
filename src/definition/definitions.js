@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import Definition from "../definition";
 import RuleNamePart from "../part/nonTerminal/ruleName";
-import TerminalSymbolPart from "../part/terminal/terminalSymbol";
+import StringLiteralPart from "../part/terminal/stringLiteral";
 import ZeroOrMorePartsPart from "../part/nonTerminal/zeroOrMoreParts";
 import SequenceOfPartsPart from "../part/nonTerminal/sequenceOfParts";
 
@@ -19,10 +19,10 @@ export default class DefinitionsDefinition extends Definition {
     const content = verticalBar,  ///
           ruleName = DEFINITION_RULE_NAME,
           definitionRuleNamePart = RuleNamePart.fromRuleName(ruleName),
-          verticalBarTerminalSymbolPart = TerminalSymbolPart.fromContent(content);
+          verticalBarStringLiteralPart = StringLiteralPart.fromContent(content);
 
     parts = [
-      verticalBarTerminalSymbolPart,
+      verticalBarStringLiteralPart,
       definitionRuleNamePart
     ];
 

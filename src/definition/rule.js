@@ -5,7 +5,7 @@ import { specialSymbols } from "occam-lexers";
 import Definition from "../definition";
 import RuleNamePart from "../part/nonTerminal/ruleName";
 import OptionalPartPart from "../part/nonTerminal/optionalPart";
-import TerminalSymbolPart from "../part/terminal/terminalSymbol";
+import StringLiteralPart from "../part/terminal/stringLiteral";
 
 import { NAME_RULE_NAME, DEFINITIONS_RULE_NAME, OPACITY_MODIFIER_RULE_NAME } from "../ruleNames";
 
@@ -15,8 +15,8 @@ export default class RuleDefinition extends Definition {
   static fromNothing() {
     let ruleName;
 
-    const separatorTerminalSymbolContent = separator, ///
-          terminatorTerminalSymbolContent = terminator; ///
+    const separatorStringLiteralContent = separator, ///
+          terminatorStringLiteralContent = terminator; ///
 
     ruleName = OPACITY_MODIFIER_RULE_NAME;
 
@@ -26,18 +26,18 @@ export default class RuleDefinition extends Definition {
 
     const nameRuleNamePart = RuleNamePart.fromRuleName(ruleName),
           optionalOpacityRuleNamePartPart = OptionalPartPart.fromPart(opacityModifierRuleNamePart),
-          separatorTerminalSymbolPart = TerminalSymbolPart.fromContent(separatorTerminalSymbolContent);
+          separatorStringLiteralPart = StringLiteralPart.fromContent(separatorStringLiteralContent);
 
     ruleName = DEFINITIONS_RULE_NAME;
 
     const definitionsRuleNamePart = RuleNamePart.fromRuleName(ruleName),
-          terminatorTerminalSymbolPart = TerminalSymbolPart.fromContent(terminatorTerminalSymbolContent),
+          terminatorStringLiteralPart = StringLiteralPart.fromContent(terminatorStringLiteralContent),
           parts = [
             nameRuleNamePart,
             optionalOpacityRuleNamePartPart,
-            separatorTerminalSymbolPart,
+            separatorStringLiteralPart,
             definitionsRuleNamePart,
-            terminatorTerminalSymbolPart
+            terminatorStringLiteralPart
           ],
           precedence = null,
           ruleDefinition = new RuleDefinition(parts, precedence);

@@ -3,20 +3,20 @@
 import { arrayUtilities } from "necessary";
 
 import NonTerminalNode from "../../node/nonTerminal";
-import TerminalSymbolPart from "../../part/terminal/terminalSymbol";
+import StringLiteralPart from "../../part/terminal/stringLiteral";
 
 import { ESCAPED_BACKSLASH, ESCAPED_DOUBLE_QUOTE } from "../../constants";
 
 const { first, second } = arrayUtilities;
 
-export default class TerminalSymbolBNFNode extends NonTerminalNode {
+export default class StringLiteralBNFNode extends NonTerminalNode {
   regularExpression = /^"((?:\\.|[^"\\])*)"$/;
 
   generatePart(callAhead) {
     const content = this.getContent(),
-          terminalSymbolPart = TerminalSymbolPart.fromContent(content);
+          stringLiteralPart = StringLiteralPart.fromContent(content);
 
-    return terminalSymbolPart;
+    return stringLiteralPart;
   }
 
   getContent() {
@@ -35,7 +35,7 @@ export default class TerminalSymbolBNFNode extends NonTerminalNode {
     return content;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(TerminalSymbolBNFNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(StringLiteralBNFNode, ruleName, childNodes, opacity, precedence); }
 }
 
 function sanitiseContent(content) {

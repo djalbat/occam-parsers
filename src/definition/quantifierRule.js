@@ -2,16 +2,16 @@
 
 import Definition from "../definition";
 import NoWhitespacePart from "../part/terminal/noWhitespace";
-import TerminalSymbolPart from "../part/terminal/terminalSymbol";
+import StringLiteralPart from "../part/terminal/stringLiteral";
 
 export default class QuantifierRuleDefinition extends Definition {
   static fromSpecialSymbol(specialSymbol) {
     const content = specialSymbol,  ///
           noWhitespacePart = NoWhitespacePart.fromNothing(),
-          terminalSymbolPart = TerminalSymbolPart.fromContent(content),
+          stringLiteralPart = StringLiteralPart.fromContent(content),
           parts = [
             noWhitespacePart,
-            terminalSymbolPart
+            stringLiteralPart
           ],
           precedence = null,
           quantifierRuleDefinition = new QuantifierRuleDefinition(parts, precedence);

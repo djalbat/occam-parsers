@@ -3,16 +3,16 @@
 import { specialSymbols } from "occam-lexers";
 
 import Definition from "../definition";
-import TerminalSymbolPart from "../part/terminal/terminalSymbol";
+import StringLiteralPart from "../part/terminal/stringLiteral";
 
 const { noWhitespace } = specialSymbols;
 
 export default class NoWhitespacePartDefinition extends Definition {
   static fromNothing() {
     const content = noWhitespace,  ///
-          terminalSymbolPart = TerminalSymbolPart.fromContent(content),
+          stringLiteralPart = StringLiteralPart.fromContent(content),
           parts = [
-            terminalSymbolPart
+            stringLiteralPart
           ],
           precedence = null,
           noWhitespacePartDefinition = new NoWhitespacePartDefinition(parts, precedence);

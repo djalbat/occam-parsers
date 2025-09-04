@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import Definition from "../definition";
 import RuleNamePart from "../part/nonTerminal/ruleName";
-import TerminalSymbolPart from "../part/terminal/terminalSymbol";
+import StringLiteralPart from "../part/terminal/stringLiteral";
 import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 import SequenceOfPartsPart from "../part/nonTerminal/sequenceOfParts";
 
@@ -17,16 +17,16 @@ export default class ChoiceOfPartsDefinition extends Definition {
     let parts;
 
     const ruleName = PART_CHOICE_RULE_NAME,
-          verticalBarTerminalSymbolContent = verticalBar, ///
-          openBracketTerminalSymbolContent = openBracket, ///
-          closeBracketTerminalSymbolContent = closeBracket, ///
+          verticalBarStringLiteralContent = verticalBar, ///
+          openBracketStringLiteralContent = openBracket, ///
+          closeBracketStringLiteralContent = closeBracket, ///
           partChoiceRuleNamePart = RuleNamePart.fromRuleName(ruleName),
-          verticalBarTerminalSymbolPart = TerminalSymbolPart.fromContent(verticalBarTerminalSymbolContent),
-          openBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(openBracketTerminalSymbolContent),
-          closeBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(closeBracketTerminalSymbolContent);
+          verticalBarStringLiteralPart = StringLiteralPart.fromContent(verticalBarStringLiteralContent),
+          openBracketStringLiteralPart = StringLiteralPart.fromContent(openBracketStringLiteralContent),
+          closeBracketStringLiteralPart = StringLiteralPart.fromContent(closeBracketStringLiteralContent);
 
     parts = [
-      verticalBarTerminalSymbolPart,
+      verticalBarStringLiteralPart,
       partChoiceRuleNamePart
     ];
 
@@ -34,10 +34,10 @@ export default class ChoiceOfPartsDefinition extends Definition {
           oneOrMoreSequenceOfPartsPart = OneOrMorePartsPart.fromPart(sequenceOfPartsPart);
 
     parts = [
-      openBracketTerminalSymbolPart,
+      openBracketStringLiteralPart,
       partChoiceRuleNamePart,
       oneOrMoreSequenceOfPartsPart,
-      closeBracketTerminalSymbolPart
+      closeBracketStringLiteralPart
     ];
 
     const precedence = null,

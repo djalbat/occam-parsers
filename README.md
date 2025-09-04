@@ -50,7 +50,7 @@ All parsers share common functionality. The last two parse content according to 
   
                                  |  regularExpression
  
-                                 |  terminalSymbol
+                                 |  stringLiteral
   
                                  |  endOfLine
   
@@ -78,7 +78,7 @@ All parsers share common functionality. The last two parse content according to 
 
       regularExpression        ::=  [regular-expression] ;
 
-      terminalSymbol           ::=  [string-literal] ;
+      stringLiteral            ::=  [string-literal] ;
 
       precedence               ::=  "(" [number]? ")" ;
       

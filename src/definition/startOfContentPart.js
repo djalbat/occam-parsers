@@ -3,16 +3,16 @@
 import { specialSymbols } from "occam-lexers";
 
 import Definition from "../definition";
-import TerminalSymbolPart from "../part/terminal/terminalSymbol";
+import StringLiteralPart from "../part/terminal/stringLiteral";
 
 const { startOfContent } = specialSymbols;
 
 export default class StartOfContentPartDefinition extends Definition {
   static fromNothing() {
     const content = startOfContent,  ///
-          terminalSymbolPart = TerminalSymbolPart.fromContent(content),
+          stringLiteralPart = StringLiteralPart.fromContent(content),
           parts = [
-            terminalSymbolPart
+            stringLiteralPart
           ],
           precedence = null,
           startOfContentPartDefinition = new StartOfContentPartDefinition(parts, precedence);

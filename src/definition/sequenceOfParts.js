@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import Definition from "../definition";
 import RuleNamePart from "../part/nonTerminal/ruleName";
-import TerminalSymbolPart from "../part/terminal/terminalSymbol";
+import StringLiteralPart from "../part/terminal/stringLiteral";
 import OneOrMorePartsPart from "../part/nonTerminal/oneOrMoreParts";
 
 import { PART_RULE_NAME } from "../ruleNames";
@@ -14,17 +14,17 @@ const { openBracket, closeBracket } = specialSymbols;
 export default class SequenceOfPartsDefinition extends Definition {
   static fromNothing() {
     const ruleName = PART_RULE_NAME,  ///
-          openBracketTerminalSymbolContent = openBracket, ///
-          closeBracketTerminalSymbolContent = closeBracket, ///
+          openBracketStringLiteralContent = openBracket, ///
+          closeBracketStringLiteralContent = closeBracket, ///
           partRuleNamePart = RuleNamePart.fromRuleName(ruleName),
-          openBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(openBracketTerminalSymbolContent),
-          closeBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(closeBracketTerminalSymbolContent),
+          openBracketStringLiteralPart = StringLiteralPart.fromContent(openBracketStringLiteralContent),
+          closeBracketStringLiteralPart = StringLiteralPart.fromContent(closeBracketStringLiteralContent),
           oneOrMorePartRuleNamePartsPart = OneOrMorePartsPart.fromPart(partRuleNamePart),
           parts = [
-            openBracketTerminalSymbolPart,
+            openBracketStringLiteralPart,
             partRuleNamePart,
             oneOrMorePartRuleNamePartsPart,
-            closeBracketTerminalSymbolPart
+            closeBracketStringLiteralPart
           ],
           precedence = null,
           sequenceOfPartsDefinition = new SequenceOfPartsDefinition(parts, precedence);

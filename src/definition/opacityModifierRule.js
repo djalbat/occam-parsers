@@ -6,7 +6,7 @@ import Definition from "../definition";
 import PartChoice from "../partChoice";
 import NoWhitespacePart from "../part/terminal/noWhitespace";
 import ChoiceOfPartsPart from "../part/nonTerminal/choiceOfParts";
-import TerminalSymbolPart from "../part/terminal/terminalSymbol";
+import StringLiteralPart from "../part/terminal/stringLiteral";
 
 const { opaque, semiOpaque } = specialSymbols;
 
@@ -16,23 +16,23 @@ export default class OpacityModifierRuleDefinition extends Definition {
 
     content = opaque; ///
 
-    const opaqueTerminalSymbolPart = TerminalSymbolPart.fromContent(content);
+    const opaqueStringLiteralPart = StringLiteralPart.fromContent(content);
 
     content = semiOpaque; ///
 
-    const semiOpaqueTerminalSymbolPart = TerminalSymbolPart.fromContent(content);
+    const semiOpaqueStringLiteralPart = StringLiteralPart.fromContent(content);
 
-    const opaqueTerminalSymbolPartChoice = PartChoice.fromPart(opaqueTerminalSymbolPart),
-          semiOpaqueTerminalSymbolPartChoice = PartChoice.fromPart(semiOpaqueTerminalSymbolPart),
+    const opaqueStringLiteralPartChoice = PartChoice.fromPart(opaqueStringLiteralPart),
+          semiOpaqueStringLiteralPartChoice = PartChoice.fromPart(semiOpaqueStringLiteralPart),
           partChoices = [
-            opaqueTerminalSymbolPartChoice,
-            semiOpaqueTerminalSymbolPartChoice
+            opaqueStringLiteralPartChoice,
+            semiOpaqueStringLiteralPartChoice
           ],
-          choiceOfOpaqueTerminalSymbolAndSemiOpaqueTerminalSymbolPartsPart = ChoiceOfPartsPart.fromPartChoices(partChoices),
+          choiceOfOpaqueStringLiteralAndSemiOpaqueStringLiteralPartsPart = ChoiceOfPartsPart.fromPartChoices(partChoices),
           noWhitespacePart = NoWhitespacePart.fromNothing(),
           parts = [
             noWhitespacePart,
-            choiceOfOpaqueTerminalSymbolAndSemiOpaqueTerminalSymbolPartsPart
+            choiceOfOpaqueStringLiteralAndSemiOpaqueStringLiteralPartsPart
           ],
           precedence = null,
           opacityModifierRuleDefinition = new OpacityModifierRuleDefinition(parts, precedence);

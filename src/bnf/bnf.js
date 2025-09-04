@@ -30,7 +30,7 @@ const bnf = `
   
                                  |  regularExpression
  
-                                 |  terminalSymbol
+                                 |  stringLiteral
   
                                  |  endOfLine
   
@@ -56,7 +56,7 @@ const bnf = `
 
       regularExpression        ::=  [regular-expression] ;
 
-      terminalSymbol           ::=  [string-literal] ;
+      stringLiteral            ::=  [string-literal] ;
 
       precedence               ::=  "(" [number]? ")" ;
       

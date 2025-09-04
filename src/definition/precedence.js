@@ -4,7 +4,7 @@ import { types, specialSymbols } from "occam-lexers";
 
 import Definition from "../definition";
 import OptionalPartPart from "../part/nonTerminal/optionalPart";
-import TerminalSymbolPart from "../part/terminal/terminalSymbol";
+import StringLiteralPart from "../part/terminal/stringLiteral";
 import SignificantTokenTypePart from "../part/terminal/significantTokenType";
 
 const { numberType } = types,
@@ -13,16 +13,16 @@ const { numberType } = types,
 export default class PrecedenceDefinition extends Definition {
   static fromNothing() {
     const significantTokenType = numberType,  ///
-          openBracketTerminalSymbolContent = openBracket, ///
-          closeBracketTerminalSymbolContent = closeBracket, ///
-          openBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(openBracketTerminalSymbolContent),
-          closeBracketTerminalSymbolPart = TerminalSymbolPart.fromContent(closeBracketTerminalSymbolContent),
+          openBracketStringLiteralContent = openBracket, ///
+          closeBracketStringLiteralContent = closeBracket, ///
+          openBracketStringLiteralPart = StringLiteralPart.fromContent(openBracketStringLiteralContent),
+          closeBracketStringLiteralPart = StringLiteralPart.fromContent(closeBracketStringLiteralContent),
           numberSignificantTokenTypePart = SignificantTokenTypePart.fromSignificantTokenType(significantTokenType),
           optionalNumberSignificantTokenTypePartPart = OptionalPartPart.fromPart(numberSignificantTokenTypePart),
           parts = [
-            openBracketTerminalSymbolPart,
+            openBracketStringLiteralPart,
             optionalNumberSignificantTokenTypePartPart,
-            closeBracketTerminalSymbolPart
+            closeBracketStringLiteralPart
           ],
           precedence = null,
           precedenceDefinition = new PrecedenceDefinition(parts, precedence);

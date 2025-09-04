@@ -5,21 +5,21 @@ import { types } from "occam-lexers";
 import Rule from "../../rule";
 import SignificantTokenTypeDefinition from "../../definition/significantTokenType";
 
-import { TERMINAL_SYMBOL_RULE_NAME } from "../../ruleNames";
+import { STRING_LITERAL_RULE_NAME } from "../../ruleNames";
 
 const { stringLiteralType } = types;
 
-export default class TerminalSymbolBNFRule extends Rule {
+export default class StringLiteralBNFRule extends Rule {
   static fromNothing() {
     const significantTokenType = stringLiteralType,  ///
           stringLiteralSignificantTokenTypeDefinition = SignificantTokenTypeDefinition.fromSignificantTokenType(significantTokenType),
-          name = TERMINAL_SYMBOL_RULE_NAME,  ///
+          name = STRING_LITERAL_RULE_NAME,  ///
           opacity = null,
           definitions = [
             stringLiteralSignificantTokenTypeDefinition
           ],
-          terminalSymbolRule = new TerminalSymbolBNFRule(name, opacity, definitions);
+          stringLiteralRule = new StringLiteralBNFRule(name, opacity, definitions);
 
-    return terminalSymbolRule;
+    return stringLiteralRule;
   }
 }
