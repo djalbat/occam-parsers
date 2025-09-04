@@ -1,8 +1,9 @@
 "use strict";
 
+import { BasicLexer } from "occam-lexers";
+import { BasicParser } from "../../index";  ///
+
 import View from "../view";
-import BasicLexer from "../basic/lexer";
-import BasicParser from "../basic/parser";
 
 const { bnf } = BasicParser,
       { entries } = BasicLexer;
@@ -19,9 +20,8 @@ export default class BasicView extends View {
 
   getNode(tokens) {
     const bnf = this.getBNF(),
-          basicParser = BasicParser.fromBNF(bnf);
-
-    const node = basicParser.parse(tokens);
+          basicParser = BasicParser.fromBNF(bnf),
+          node = basicParser.parse(tokens);
 
     return node;
   }
