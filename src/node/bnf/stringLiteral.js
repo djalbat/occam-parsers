@@ -21,6 +21,7 @@ export default class StringLiteralBNFNode extends NonTerminalNode {
 
   getContent() {
     let content;
+
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           terminalNode = firstChildNode,  ///
