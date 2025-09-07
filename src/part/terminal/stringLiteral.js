@@ -10,6 +10,10 @@ export default class StringLiteralPart extends TerminalPart {
     this.content = content;
   }
 
+  getContent() {
+    return this.content;
+  }
+
   parse(nodes, state, callback, callAhead) {
     let parsed;
 

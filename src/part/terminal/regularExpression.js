@@ -14,6 +14,10 @@ export default class RegularExpressionPart extends TerminalPart {
     this.regularExpression = regularExpression;
   }
 
+  getRegularExpression() {
+    return this.regularExpression;
+  }
+
   parse(nodes, state, callback, callAhead) {
     let parsed;
 

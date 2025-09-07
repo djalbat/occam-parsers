@@ -10,6 +10,10 @@ export default class SignificantTokenTypePart extends TerminalPart {
     this.significantTokenType = significantTokenType;
   }
 
+  getSignificantTokenType() {
+    return this.significantTokenType;
+  }
+
   parse(nodes, state, callback, callAhead) {
     let parsed;
 
