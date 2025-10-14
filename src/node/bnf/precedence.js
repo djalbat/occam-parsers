@@ -10,11 +10,11 @@ export default class PrecedenceBNFNode extends NonTerminalNode {
   getPrecedence() {
     let precedence = Infinity;
 
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
+    const multiplicity = this.getMultiplicity();
 
-    if (childNodesLength === 3) {
-      const secondChildNode = second(childNodes),
+    if (multiplicity === 3) {
+      const childNodes = this.getChildNodes(),
+            secondChildNode = second(childNodes),
             terminalNode = secondChildNode,  ///
             content = terminalNode.getContent();
 
