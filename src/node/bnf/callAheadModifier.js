@@ -3,5 +3,5 @@
 import NonTerminalNode from "../../node/nonTerminal";
 
 export default class CallAheadModifierBNFNode extends NonTerminalNode {
-  static fromRuleNameChildNodesAndCallAhead(ruleName, childNode, opacity) { return NonTerminalNode.fromRuleNameChildNodesAndCallAhead(CallAheadModifierBNFNode, ruleName, childNode, opacity); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(CallAheadModifierBNFNode, ruleName, childNodes, opacity, precedence); }
 }
