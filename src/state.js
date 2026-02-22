@@ -135,7 +135,9 @@ export default class State {
   }
 
   NonTerminalNodeFromRuleName(ruleName) {
-    const NonTerminalNode = this.NonTerminalNodeMap[ruleName] || this.defaultNonTerminalNode;
+    const NonTerminalNode = Object.hasOwn(this.NonTerminalNodeMap, ruleName) ?
+                              this.NonTerminalNodeMap[ruleName] :
+                                this.defaultNonTerminalNode;
 
     return NonTerminalNode;
   }
