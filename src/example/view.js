@@ -8,7 +8,6 @@ import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout
 import SubHeading from "./view/subHeading";
 import SizeableDiv from "./view/div/sizeable";
 import BNFTextarea from "./view/textarea/bnf";
-import RuleNameInput from "./view/input/ruleName";
 import TokensTextarea from "./view/textarea/tokens";
 import ContentTextarea from "./view/textarea/content";
 import ParseTreeTextarea from "./view/textarea/parseTree";
@@ -41,28 +40,12 @@ class View extends Element {
     return tokens;
   }
 
-  getNode(tokens) {
-    const { Parser } = this.constructor,
-          bnf = this.getBNF(),
-          parser = Parser.fromBNF(bnf),
-          ruleName = this.getRuleName(),
-          ruleMap = parser.getRuleMap(),
-          rule = ruleMap[ruleName],
-          node = parser.parse(tokens, rule);
-
-    return node;
-  }
-
   childElements() {
     return ([
 
       <ColumnsDiv>
         <SizeableDiv>
           <RowsDiv>
-            <SubHeading>
-              Rule name
-            </SubHeading>
-            <RuleNameInput onKeyUp={this.keyUpHandler} />
             <SubHeading>
               Lexical entries
             </SubHeading>

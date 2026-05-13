@@ -5,19 +5,7 @@ import { BasicParser } from "../../index";  ///
 
 import View from "../view";
 
-const { bnf } = BasicParser,
-      { entries } = BasicLexer;
-
 export default class BasicView extends View {
-  getTokens(content) {
-    const lexicalEntries = this.getLexicalEntries(),
-          entries = lexicalEntries, ///
-          basicLexer = BasicLexer.fromEntries(entries),
-          tokens = basicLexer.tokenise(content);
-
-    return tokens;
-  }
-
   getNode(tokens) {
     const bnf = this.getBNF(),
           basicParser = BasicParser.fromBNF(bnf),
@@ -26,21 +14,9 @@ export default class BasicView extends View {
     return node;
   }
 
-  initialise() {
-    this.assignContext();
+  static Lexer = BasicLexer;  ///
 
-    const { initialContent } = this.constructor,
-          lexicalEntries = entries, ///
-          content = initialContent; ///
-
-    this.setBNF(bnf);
-
-    this.setContent(content);
-
-    this.setLexicalEntries(lexicalEntries);
-
-    this.keyUpHandler();
-  }
+  static Parser = BasicParser;  ///
 
   static initialContent = `(1+2).`;
 

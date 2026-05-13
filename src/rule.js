@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import { EMPTY_STRING } from "./constants";
 import { specialSymbols } from "occam-lexers";
-import { paddingFromPaddingLength } from "./utilities/string";
+import { marginStringFromMarginWidth } from "./utilities/string";
 
 const { clear } = arrayUtilities,
       { opaque: opaqueSpecialSymbol, semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
@@ -175,39 +175,17 @@ export default class Rule {
 
     multiLine = multiLine && (definitionsLength > 1);  ///
 
-    const maximumPadding = paddingFromPaddingLength(maximumRuleNameLength),
-          definitionsString = this.definitions.reduce((definitionsString, definition) => {
-            const definitionString = definition.asString();
-
-            if (definitionsString === EMPTY_STRING) {
-              definitionsString = definitionString; ///
-            } else {
-              definitionsString = multiLine ?
-                                   `${definitionsString}
-
-${maximumPadding}   | ${definitionString}` :
-                                     `${definitionsString} | ${definitionString}`;
-            }
-
-            return definitionsString;
-          }, EMPTY_STRING),
+    const opacityString = opacityStringFromOpacity(this.opacity),
+          semicolonString = semicolonStringFromMultilineAndMaximumRuleNameLength(multiLine, maximumRuleNameLength),
+          definitionsString = definitionsStringFromMultilineDefinitionsAndMaximumRuleNameLength(multiLine, this.definitions, maximumRuleNameLength),
           ruleName = this.name, ///
           ruleNameLength = ruleName.length,
-          opacityString = (this.opacity === null)?
-                            EMPTY_STRING :
-                              this.opacity, ///
           opacityStringLength = opacityString.length,
-          paddingLength = maximumRuleNameLength - ruleNameLength - opacityStringLength,
-          padding = paddingFromPaddingLength(paddingLength);
-
-    const semicolonString = multiLine ?
-                             `
-
-${maximumPadding}   ;` :
-                               " ;",
+          marginWidth = maximumRuleNameLength - ruleNameLength - opacityStringLength,
+          marginString = marginStringFromMarginWidth(marginWidth),
           string = `
 
-${this.name}${opacityString}${padding} ::= ${definitionsString}${semicolonString}`;
+${this.name}${opacityString}${marginString} ::= ${definitionsString}${semicolonString}`;
 
     return string;
   }
@@ -227,4 +205,46 @@ ${this.name}${opacityString}${padding} ::= ${definitionsString}${semicolonString
 
     return rule;
   }
+}
+
+function opacityStringFromOpacity(opacity) {
+  const opacityString = (opacity !== null)?
+          opacity: ///
+            EMPTY_STRING;
+
+  return opacityString;
+}
+
+function semicolonStringFromMultilineAndMaximumRuleNameLength(multiLine, maximumRuleNameLength) {
+  const marginWidth = maximumRuleNameLength,  ///
+        marginString = marginStringFromMarginWidth(marginWidth),
+        semicolonString = multiLine ?
+      `
+
+${marginString}   ;` :
+      " ;";
+
+  return semicolonString;
+}
+
+function definitionsStringFromMultilineDefinitionsAndMaximumRuleNameLength(multiLine, definitions, maximumRuleNameLength) {
+  const marginWidth = maximumRuleNameLength,  ///
+        marginString = marginStringFromMarginWidth(marginWidth),
+        definitionsString = definitions.reduce((definitionsString, definition) => {
+          const definitionString = definition.asString();
+
+          if (definitionsString === EMPTY_STRING) {
+            definitionsString = definitionString; ///
+          } else {
+            definitionsString = multiLine ?
+                                 `${definitionsString}
+    
+    ${marginString}   | ${definitionString}` :
+                                   `${definitionsString} | ${definitionString}`;
+          }
+
+          return definitionsString;
+        }, EMPTY_STRING);
+
+  return definitionsString;
 }

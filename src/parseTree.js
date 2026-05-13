@@ -3,9 +3,10 @@
 import { characters, arrayUtilities } from "necessary";
 
 import { EMPTY_STRING } from "./constants";
+import { marginStringFromMarginWidth } from "./utilities/string";
 
 const { last } = arrayUtilities,
-      { NEW_LINE_CHARACTER, SPACE_CHARACTER } = characters;
+      { NEW_LINE_CHARACTER } = characters;
 
 export default class ParseTree {
   constructor(lines) {
@@ -126,16 +127,4 @@ export default class ParseTree {
 
     return string;
   }
-}
-
-function marginStringFromMarginWidth(marginWidth, spaceCharacter) {
-  spaceCharacter = spaceCharacter || SPACE_CHARACTER;
-
-  let marginString = EMPTY_STRING;
-
-  for (let index = 0; index < marginWidth; index++) {
-    marginString += spaceCharacter;
-  }
-
-  return marginString;
 }

@@ -2,16 +2,10 @@
 
 import { characters } from "necessary";
 
-import { EMPTY_STRING } from "../constants";
-
 const { SPACE_CHARACTER } = characters;
 
-export function paddingFromPaddingLength(paddingLength) {
-  let padding = EMPTY_STRING;
+export function marginStringFromMarginWidth(marginWidth) {
+  const marginString = SPACE_CHARACTER.repeat(marginWidth);
 
-  for (let position = 0; position < paddingLength; position++) {
-    padding += SPACE_CHARACTER;
-  }
-
-  return padding;
+  return marginString;
 }

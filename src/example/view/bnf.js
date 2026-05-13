@@ -8,19 +8,19 @@ import View from "../view";
 const { bnf } = BNFParser;
 
 export default class BNFView extends View {
-  static Lexer = BNFLexer;
-
-  static Parser = BNFParser;
-
-  static initialContent = bnf;  ///
-
   getNode(tokens) {
-    const { Parser } = this.constructor,
+    const Parser = BNFParser, ///
           parser = Parser.fromNothing(),
           node = parser.parse(tokens);
 
     return node;
   }
+
+  static Lexer = BNFLexer;  ///
+
+  static Parser = BNFParser;  ///
+
+  static initialContent = bnf;  ///
 
   static defaultProperties = {
     className: "bnf"
