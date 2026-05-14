@@ -40,8 +40,6 @@ const bnf = `
 
                                  |  noWhitespace
                               
-                                 |  startOfContent
-
                                  ;
                               
       sequenceOfParts          ::=  "(" part part+ ")" ;
@@ -68,8 +66,6 @@ const bnf = `
 
       noWhitespace             ::=  "<NO_WHITESPACE>" ;                              
 
-      startOfContent           ::+  "<START_OF_CONTENT>"; 
-      
       quantifier               ::=  optionalQuantifier
  
                                  |  oneOrMoreQuantifier

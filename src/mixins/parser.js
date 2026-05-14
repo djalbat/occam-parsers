@@ -6,12 +6,12 @@ import State from "../state";
 
 const { first } = arrayUtilities;
 
-function parse(tokens, rule = this.startRule, startOfContent = true) {
+function parse(tokens, rule = this.startRule) {
   let node = null;
 
   const nodes = [],
         { NonTerminalNodeMap, defaultNonTerminalNode } = this.constructor,
-        state = State.fromTokensRuleMapStartOfContentNonTerminalNodeMapAndDefaultNonTerminalNode(tokens, this.ruleMap, startOfContent, NonTerminalNodeMap, defaultNonTerminalNode),
+        state = State.fromTokensRuleMapNonTerminalNodeMapAndDefaultNonTerminalNode(tokens, this.ruleMap, NonTerminalNodeMap, defaultNonTerminalNode),
         callback = null,
         callAhead = null,
         parsed = rule.parse(nodes, state, callback, callAhead);

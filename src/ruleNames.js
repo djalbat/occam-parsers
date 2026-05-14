@@ -24,7 +24,6 @@ export const NO_WHITESPACE_PART_RULE_NAME = "noWhitespace";
 export const REGULAR_EXPRESSION_RULE_NAME = "regularExpression";
 export const CALL_AHEAD_MODIFIER_RULE_NAME = "callAheadModifier";
 export const OPTIONAL_QUANTIFIER_RULE_NAME = "optionalQuantifier";
-export const START_OF_CONTENT_PART_RULE_NAME = "startOfContent";
 export const SIGNIFICANT_TOKEN_TYPE_RULE_NAME = "significantTokenType";
 export const ONE_OR_MORE_QUANTIFIER_RULE_NAME = "oneOrMoreQuantifier";
 export const ZERO_OR_MORE_QUANTIFIER_RULE_NAME = "zeroOrMoreQuantifier";

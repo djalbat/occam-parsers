@@ -24,12 +24,6 @@ export default class TerminalNode {
     this.significantToken = significantToken;
   }
 
-  isStartOfContentNode() {
-    const startOfContentNode = false;
-
-    return startOfContentNode;
-  }
-
   isNoWhitespaceNode() {
     const noWhitespaceNode = false;
 

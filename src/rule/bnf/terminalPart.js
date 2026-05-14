@@ -10,7 +10,6 @@ import { EPSILON_RULE_NAME,
          STRING_LITERAL_RULE_NAME,
          NO_WHITESPACE_PART_RULE_NAME,
          REGULAR_EXPRESSION_RULE_NAME,
-         START_OF_CONTENT_PART_RULE_NAME,
          SIGNIFICANT_TOKEN_TYPE_RULE_NAME } from "../../ruleNames";
 
 export default class TerminalPartBNFRule extends Rule {
@@ -43,10 +42,6 @@ export default class TerminalPartBNFRule extends Rule {
 
     const regularExpressionRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
 
-    ruleName = START_OF_CONTENT_PART_RULE_NAME;
-
-    const startOfContentPartRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
-
     ruleName = SIGNIFICANT_TOKEN_TYPE_RULE_NAME;
 
     const significantTokenTypeRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName),
@@ -58,8 +53,7 @@ export default class TerminalPartBNFRule extends Rule {
             endOfLineRuleNameDefinition,
             wildcardRuleNameDefinition,
             epsilonRuleNameDefinition,
-            noWhitespacePartRuleNameDefinition,
-            startOfContentPartRuleNameDefinition
+            noWhitespacePartRuleNameDefinition
           ],
           terminalPartRule = new TerminalPartBNFRule(name, opacity, definitions);
 

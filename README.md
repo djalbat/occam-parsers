@@ -59,15 +59,9 @@ All parsers share common functionality. The last two parse content according to 
                                  |  epsilon
 
                                  |  noWhitespace
-  
-                                 |  startOfContent
 
                                  ;
                               
-      startOfContentPart       ::+  "<START_OF_CONTENT>"; 
-      
-      noWhitespacePart         ::=  "<NO_WHITESPACE>" ;                              
-
       sequenceOfParts          ::=  "(" part part+ ")" ;
 
       choiceOfParts            ::=  "(" part precedence? ( "|" part precedence? )+ ")" ;
@@ -87,6 +81,8 @@ All parsers share common functionality. The last two parse content according to 
       wildcard                 ::=  "." ;
 
       epsilon                  ::=  "ε" ;
+
+      noWhitespace             ::=  "<NO_WHITESPACE>" ;                              
 
       quantifier               ::=  optionalQuantifier
  
