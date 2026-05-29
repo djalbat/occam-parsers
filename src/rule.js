@@ -239,7 +239,7 @@ function definitionsStringFromMultilineDefinitionsAndMaximumRuleNameLength(multi
             definitionsString = multiLine ?
                                  `${definitionsString}
     
-    ${marginString}   | ${definitionString}` :
+${marginString}   | ${definitionString}` :
                                    `${definitionsString} | ${definitionString}`;
           }
 
