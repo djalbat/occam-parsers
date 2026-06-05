@@ -78,7 +78,7 @@ export default class Rule {
 
       clear(childNodes);
 
-      callback = () => {  ///
+      callback = () => {
         let parsed;
 
         const precedence = state.getPrecedence();
@@ -86,27 +86,27 @@ export default class Rule {
         nonTerminalNode.setPrecedence(precedence);
 
         const rewrittenNonTerminalNode = nonTerminalNode.rewrite(state),
-              node = rewrittenNonTerminalNode; ///
+              unprecedented = rewrittenNonTerminalNode.isUnprecedented(),
+              empty = rewrittenNonTerminalNode.isEmpty();
 
-        nodes.push(node);
+        if (!empty && !unprecedented) {
+          const node = rewrittenNonTerminalNode; ///
 
-        node.setChildNodesParentNode();
+          nodes.push(node);
 
-        const empty = node.isEmpty(),
-              unprecedented = node.isUnprecedented();
+          node.setChildNodesParentNode();
 
-        parsed = (!empty && !unprecedented);
-
-        if (parsed) {
           if (callAhead !== null) {
             state.resetPrecedence(savedPrecedence);
 
             parsed = callAhead();
-          }
-        }
 
-        if (!parsed) {
-          nodes.pop();
+            if (!parsed) {
+              nodes.pop();
+            }
+          } else {
+            parsed = true;
+          }
         }
 
         return parsed;
