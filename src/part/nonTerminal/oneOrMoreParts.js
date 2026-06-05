@@ -4,8 +4,8 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { guard } from "../../utilities/state";
 import { OneOrMorePartsPartType } from "../../partTypes";
-import { parseZeroOrMorePartsPart } from "./zeroOrMoreParts";
 
 const { plus } = specialSymbols;
 
@@ -23,18 +23,9 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
   parse(nodes, state, callback, callAhead) {
     let parsed;
 
-    const savedIndex = state.getSavedIndex(),
-          nodesLength = nodes.length;
+    const count = 0;
 
-    parsed = parseOneOrMorePartsPart(this.part, nodes, state, callback, callAhead);
-
-    if (!parsed) {
-      const start = nodesLength;  ///
-
-      nodes.splice(start);
-
-      state.backtrack(savedIndex);
-    }
+    parsed = parseOneOrMorePartsPart(this.part, count, nodes, state, callback, callAhead);
 
     return parsed;
   }
@@ -55,29 +46,49 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
   }
 }
 
-export function parseOneOrMorePartsPart(part, nodes, state, callback, callAhead) {
+function parseOneOrMorePartsPart(part, count, nodes, state, callback, callAhead) {
   let parsed;
 
   if (callAhead === null) {
-    parsed = part.parse(nodes, state, callback, callAhead);
+    parsed = guard((nodes, state, callback, callAhead) => {
+      let parsed;
+
+      parsed = part.parse(nodes, state, callback, callAhead);
+
+      return parsed;
+    }, nodes, state, callback, callAhead);
 
     if (parsed) {
-      parseZeroOrMorePartsPart(part, nodes, state, callback, callAhead);
+      count++;
+
+      parseOneOrMorePartsPart(part, count, nodes, state, callback, callAhead);
     }
 
-
+    if (!parsed) {
+      if (count > 0) {
+        parsed = true;
+      }
+    }
   } else {
-
-
+    parsed = guard((nodes, state, callback, callAhead) => {
+      let parsed;
 
       parsed = part.parse(nodes, state, callback, () => {
         let parsed;
 
-        parsed = parseZeroOrMorePartsPart(part, nodes, state, callback, callAhead);
+        parsed = callAhead();
+
+        if (!parsed) {
+          count++;
+
+          parsed = parseOneOrMorePartsPart(part, count, nodes, state, callback, callAhead);
+        }
 
         return parsed;
       });
 
+      return parsed;
+    }, nodes, state, callback, callAhead);
   }
 
   return parsed;

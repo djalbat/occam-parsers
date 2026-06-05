@@ -1,5 +1,7 @@
 "use strict";
 
+import { guard } from "../utilities/state";
+
 export function parsePart(part, nodes, state, callback, callAhead) {
   let parsed;
 
@@ -51,23 +53,19 @@ function parsePartOfParts(index, parts, nodes, state, callback, callAhead) {
 function parsePartWithCallAhead(part, index, parts, nodes, state, callback, callAhead) {
   let parsed;
 
-  const nodesLength = nodes.length;
-
-  callAhead = () => { ///
+  parsed = guard((nodes, state, callback, callAhead) => {
     let parsed;
 
-    parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
+    parsed = part.parse(nodes, state, callback, () => {
+      let parsed;
+
+      parsed = parsePartOfParts(index, parts, nodes, state, callback, callAhead);
+
+      return parsed;
+    });
 
     return parsed;
-  };
-
-  parsed = part.parse(nodes, state, callback, callAhead);
-
-  if (!parsed) {
-    const start = nodesLength;  ///
-
-    nodes.splice(start);
-  }
+  }, nodes, state, callback, callAhead);
 
   return parsed;
 }
