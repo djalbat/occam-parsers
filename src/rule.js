@@ -87,12 +87,16 @@ export default class Rule {
               unprecedented = rewrittenNonTerminalNode.isUnprecedented(),
               empty = rewrittenNonTerminalNode.isEmpty();
 
+        parsed = false;
+
         if (!empty && !unprecedented) {
           const node = rewrittenNonTerminalNode; ///
 
           nodes.push(node);
 
           node.setChildNodesParentNode();
+
+          parsed = true;
 
           if (callAhead !== null) {
             state.resetPrecedence(savedPrecedence);
@@ -102,8 +106,6 @@ export default class Rule {
             if (!parsed) {
               nodes.pop();
             }
-          } else {
-            parsed = true;
           }
         }
 
