@@ -76,8 +76,6 @@ export default class Rule {
 
       state.setPrecedence(precedence);
 
-      clear(childNodes);
-
       callback = () => {
         let parsed;
 
@@ -111,6 +109,8 @@ export default class Rule {
 
         return parsed;
       };
+
+      clear(childNodes);
 
       parsed = definition.parse(childNodes, state, callback, callAhead);
 
