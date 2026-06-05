@@ -2,19 +2,19 @@
 
 const bnf = `
   
-expression ::= term... "." ;
+S   ::= T... "." ;
 
-term       ::= term_ term~* ;
+T   ::= T_ T~* ;
 
-term_      ::= ( "1" | "2" | "3" ) ;
-
-term~term  ::= <NO_WHITESPACE> term (100)
+T_  ::= ( "1" | "2" | "3" | "4" )
     
-             | "+" term (12)
+      | "1" "+" T (12)
 
-             ;
+      ;
 
-term~      ::= term~term ;
+T~T ::= <NO_WHITESPACE> T (100) ;
+
+T~  ::= T~T ;
 
 `;
 

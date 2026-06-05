@@ -65,22 +65,18 @@ export default class Rule {
           ruleName = this.name, ///
           precedence = null,
           childNodes = [],
+          savedPrecedence = state.getSavedPrecedence(),
           NonTerminalNode = this.NonTerminalNodeFromRuleName(ruleName, state),
-          nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence),
-          savedPrecedence = state.getSavedPrecedence();
-
-    let node = nonTerminalNode; ///
-
-    nodes.push(node);
+          nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
 
     parsed = this.definitions.some((definition) => {
       let parsed;
 
-      clear(childNodes);
-
       const precedence = definition.getPrecedence();
 
       state.setPrecedence(precedence);
+
+      clear(childNodes);
 
       callback = () => {  ///
         let parsed;
@@ -89,37 +85,17 @@ export default class Rule {
 
         nonTerminalNode.setPrecedence(precedence);
 
-        parsed = true;
+        const rewrittenNonTerminalNode = nonTerminalNode.rewrite(state),
+              node = rewrittenNonTerminalNode; ///
 
-        if (parsed) {
-          node.setChildNodesParentNode();
-        }
+        nodes.push(node);
 
-        const rewrittenNonTerminalNode = nonTerminalNode.rewrite(state);
+        node.setChildNodesParentNode();
 
-        if (parsed) {
-          nodes.pop();
+        const empty = node.isEmpty(),
+              unprecedented = node.isUnprecedented();
 
-          node = rewrittenNonTerminalNode; ///
-
-          nodes.push(node);
-        }
-
-        if (parsed) {
-          const empty = node.isEmpty();
-
-          if (empty) {
-            parsed = false;
-          }
-        }
-
-        if (parsed) {
-          const unprecedented = node.isUnprecedented();
-
-          if (unprecedented) {
-            parsed = false;
-          }
-        }
+        parsed = (!empty && !unprecedented);
 
         if (parsed) {
           if (callAhead !== null) {
@@ -131,14 +107,6 @@ export default class Rule {
 
         if (!parsed) {
           nodes.pop();
-
-          node = nonTerminalNode; ///
-
-          nodes.push(node);
-        }
-
-        if (!parsed) {
-          node.resetChildNodesParentNode();
         }
 
         return parsed;
@@ -152,10 +120,6 @@ export default class Rule {
 
       return parsed;
     });
-
-    if (!parsed) {
-      nodes.pop();
-    }
 
     if (callAhead === null) {
       state.resetPrecedence(savedPrecedence);
