@@ -83,31 +83,28 @@ export default class Rule {
 
         nonTerminalNode.setPrecedence(precedence);
 
-        const rewrittenNonTerminalNode = nonTerminalNode.rewrite(state);
+        const rewrittenNonTerminalNode = nonTerminalNode.rewrite(state),
+              unprecedented = rewrittenNonTerminalNode.isUnprecedented(),
+              empty = rewrittenNonTerminalNode.isEmpty();
 
         parsed = false;
 
-        if (rewrittenNonTerminalNode !== null) {
-          const empty = rewrittenNonTerminalNode.isEmpty(),
-                unprecedented = rewrittenNonTerminalNode.isUnprecedented();
+        if (!empty && !unprecedented) {
+          const node = rewrittenNonTerminalNode;  ///
 
-          if (!empty && !unprecedented) {
-            const node = rewrittenNonTerminalNode;  ///
+          nodes.push(node);
 
-            nodes.push(node);
+          node.setChildNodesParentNode();
 
-            node.setChildNodesParentNode();
+          parsed = true;
 
-            parsed = true;
+          if (callAhead !== null) {
+            state.resetPrecedence(savedPrecedence);
 
-            if (callAhead !== null) {
-              state.resetPrecedence(savedPrecedence);
+            parsed = callAhead();
 
-              parsed = callAhead();
-
-              if (!parsed) {
-                nodes.pop();
-              }
+            if (!parsed) {
+              nodes.pop();
             }
           }
         }
