@@ -2,7 +2,7 @@
 
 const entries = [
   {
-    "unassigned": "."
+    "unassigned": "^[^\\s]"
   }
 ];
 

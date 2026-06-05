@@ -1,13 +1,11 @@
 "use strict";
 
-import { CommonLexer, BasicLexer as BasicLexerBase, EndOfLineSignificantToken } from "occam-lexers";
+import { CommonLexer, BasicLexer as BasicLexerBase } from "occam-lexers";
 
 import entries from "./entries";
 
 export default class BasicLexer extends BasicLexerBase {
   static entries = entries;
-
-  static EndOfLineToken = EndOfLineSignificantToken; ///
 
   static fromNothing() { return CommonLexer.fromNothing(BasicLexer); }
 

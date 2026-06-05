@@ -97,14 +97,12 @@ export default class Rule {
 
         const rewrittenNonTerminalNode = nonTerminalNode.rewrite(state);
 
-        if (rewrittenNonTerminalNode !== null) {
-          if (parsed) {
-            nodes.pop();
+        if (parsed) {
+          nodes.pop();
 
-            node = rewrittenNonTerminalNode; ///
+          node = rewrittenNonTerminalNode; ///
 
-            nodes.push(node);
-          }
+          nodes.push(node);
         }
 
         if (parsed) {
@@ -131,14 +129,12 @@ export default class Rule {
           }
         }
 
-        if (rewrittenNonTerminalNode !== null) {
-          if (!parsed) {
-            nodes.pop();
+        if (!parsed) {
+          nodes.pop();
 
-            node = nonTerminalNode; ///
+          node = nonTerminalNode; ///
 
-            nodes.push(node);
-          }
+          nodes.push(node);
         }
 
         if (!parsed) {

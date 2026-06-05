@@ -1,7 +1,7 @@
 "use strict";
 
-import { BasicLexer } from "occam-lexers";
-import { BasicParser } from "../../index";  ///
+import BasicLexer from "../basic/lexer";
+import BasicParser from "../basic/parser";
 
 import View from "../view";
 
@@ -18,7 +18,7 @@ export default class BasicView extends View {
 
   static Parser = BasicParser;  ///
 
-  static initialContent = `(1+2).`;
+  static initialContent = `1+123.`;
 
   static defaultProperties = {
     className: "basic"
