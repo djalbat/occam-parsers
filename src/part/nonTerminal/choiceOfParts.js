@@ -2,7 +2,7 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { parsePart } from "../../utilities/parse";
+import { partContext } from "../../utilities/context";
 import { ChoiceOfPartsPartType } from "../../partTypes";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
@@ -16,59 +16,24 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     return this.partChoices;
   }
 
-  getParts() {
-    const parts = this.partChoices.map((partChoice) => {
-      const part = partChoice.getPart();
-
-      return part;
-    });
-
-    return parts;
-  }
-
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    const savedPrecedence = state.getSavedPrecedence();
+    const part = this;  ///
 
-    parsed = this.partChoices.some((partChoice) => {
-      let parsed;
+    partContext((context) => {
+      parsed = this.partChoices.some((partChoice) => {
+        parsed = partChoice.parse(context);
 
-      const part = partChoice.getPart(),
-            savedIndex = state.getSavedIndex(),
-            precedence = partChoice.getPrecedence(),
-            nodesLength = nodes.length;
+        if (parsed) {
+          return true;
+        }
+      });
 
-      if (precedence !== null) {
-        state.setPrecedence(precedence);
+      if (parsed) {
+        context.commit();
       }
-
-      callback = (callAhead === null) ?
-                    null :
-                      () => {  ///
-                        let parsed;
-
-                        parsed = callAhead();
-
-                        return parsed;
-                      };
-
-      parsed = parsePart(part, nodes, state, callback, callAhead);
-
-      if (!parsed) {
-        const start = nodesLength;  ///
-
-        nodes.splice(start);
-
-        state.backtrack(savedIndex);
-      }
-
-      return parsed;
-    });
-
-    if (!parsed) {
-      state.resetPrecedence(savedPrecedence);
-    }
+    }, part, context)
 
     return parsed;
   }

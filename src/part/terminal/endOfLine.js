@@ -5,41 +5,39 @@ import { specialSymbols } from "occam-lexers";
 import TerminalPart from "../../part/terminal";
 import EndOfLineNode from "../../node/terminal/endOfLine";
 
+import { partContext } from "../../utilities/context";
+
 const { endOfLine } = specialSymbols;
 
 export default class EndOfLinePart extends TerminalPart {
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    let endOfLineNode = null;
-    
-    const savedIndex = state.getSavedIndex(),
-          nextSignificantToken = state.getNextSignificantToken(),
-          significantToken = nextSignificantToken; ///
+    const part = this;
 
-    if (significantToken !== null) {
-      const significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
+    partContext((context) => {
+      parsed = false;
 
-      if (significantTokenEndOfLineToken) {
-        endOfLineNode = EndOfLineNode.fromSignificantToken(significantToken);
-      }
-    }
+      const nextSignificantToken = context.getNextSignificantToken();
 
-    parsed = (endOfLineNode !== null);
+      if (nextSignificantToken !== null) {
+        const significantToken = nextSignificantToken, ///
+              significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
 
-    if (parsed) {
-      nodes.push(endOfLineNode);
+        if (significantTokenEndOfLineToken) {
+          const endOfLineNode = EndOfLineNode.fromSignificantToken(significantToken),
+                childNode = endOfLineNode;  ///
 
-      if (parsed) {
-        if (callAhead !== null) {
-          parsed = callAhead();
+          context.addChildNode(childNode);
+
+          parsed = true;
         }
       }
-    }
 
-    if (!parsed) {
-      state.backtrack(savedIndex);
-    }
+      if (parsed) {
+        context.commit();
+      }
+    }, part, context)
 
     return parsed;
   }

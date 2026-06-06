@@ -2,33 +2,33 @@
 
 import { specialSymbols } from "occam-lexers";
 
+import EpsilonNode from "../../node/terminal/epsilon";
 import TerminalPart from "../../part/terminal";
-import EpsilonBNFNode from "../../node/terminal/epsilon";
+
+import { partContext } from "../../utilities/context";
 
 const { epsilon } = specialSymbols;
 
 export default class EpsilonPart extends TerminalPart {
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    const savedIndex = state.getSavedIndex(),
-          epsilonBNFNode = EpsilonBNFNode.fromNothing();
+    const part = this;
 
-    parsed = (epsilonBNFNode !== null);
+    partContext((context) => {
+      parsed = false;
 
-    if (parsed) {
-      nodes.push(epsilonBNFNode);
+      const epsilonNode = EpsilonNode.fromNothing(),
+            childNode = epsilonNode;  ///
+
+      context.addChildNode(childNode);
+
+      parsed = true;
 
       if (parsed) {
-        if (callAhead !== null) {
-          parsed = callAhead();
-        }
+        context.commit();
       }
-    }
-
-    if (!parsed) {
-      state.backtrack(savedIndex);
-    }
+    }, part, context)
 
     return parsed;
   }

@@ -5,37 +5,35 @@ import { specialSymbols } from "occam-lexers";
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../node/terminal";
 
+import { partContext } from "../../utilities/context";
+
 const { wildcard } = specialSymbols;
 
 export default class WildcardPart extends TerminalPart {
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    let terminalNode = null;
-    
-    const savedIndex = state.getSavedIndex(),
-          nextSignificantToken = state.getNextSignificantToken(),
-					significantToken = nextSignificantToken; ///
+    const part = this;
 
-    if (significantToken !== null) {
-      terminalNode = TerminalNode.fromSignificantToken(significantToken);
-    }
+    partContext((context) => {
+      parsed = false;
 
-    parsed = (terminalNode !== null);
+      const nextSignificantToken = context.getNextSignificantToken();
 
-    if (parsed) {
-      nodes.push(terminalNode);
+      if (nextSignificantToken !== null) {
+        const significantToken = nextSignificantToken,
+              terminalNode = TerminalNode.fromSignificantToken(significantToken),
+              childNode = terminalNode;  ///
+
+        context.addChildNode(childNode);
+
+        parsed = true;
+      }
 
       if (parsed) {
-        if (callAhead !== null) {
-          parsed = callAhead();
-        }
+        context.commit();
       }
-    }
-
-    if (!parsed) {
-      state.backtrack(savedIndex);
-    }
+    }, part, context)
 
     return parsed;
   }

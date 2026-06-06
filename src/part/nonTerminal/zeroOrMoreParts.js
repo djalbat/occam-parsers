@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { guard } from "../../utilities/state";
+import { partContext } from "../../utilities/context";
 import { ZeroOrMorePartsPartType } from "../../partTypes";
 
 const { asterisk } = specialSymbols;
@@ -20,12 +20,24 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
     return this.part;
   }
 
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    const count = 0;
+    const part = this;  ///
 
-    parsed = parseZeroOrMorePartsPart(this.part, count, nodes, state, callback, callAhead);
+    partContext((context) => {
+      parsed = true
+
+      while (parsed) {
+        parsed = this.part.parse(context);
+      }
+
+      parsed = true;
+
+      if (parsed) {
+        context.commit();
+      }
+    }, part, context)
 
     return parsed;
   }
@@ -44,54 +56,4 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
 
     return zeroOrMorePartsPart;
   }
-}
-
-function parseZeroOrMorePartsPart(part, count, nodes, state, callback, callAhead) {
-  let parsed;
-
-  if (callAhead === null) {
-    parsed = guard((nodes, state, callback, callAhead) => {
-      let parsed;
-
-      parsed = part.parse(nodes, state, callback, callAhead);
-
-      return parsed;
-    }, nodes, state, callback, callAhead);
-
-    if (parsed) {
-      count++;
-
-      parseZeroOrMorePartsPart(part, count, nodes, state, callback, callAhead);
-    }
-
-    parsed = true;
-  } else {
-    parsed = (count === 0) ?
-                callAhead() :
-                 false;
-
-    if (!parsed) {
-      parsed = guard((nodes, state, callback, callAhead) => {
-        let parsed;
-
-        parsed = part.parse(nodes, state, callback, () => {
-          let parsed;
-
-          parsed = callAhead();
-
-          if (!parsed) {
-            count++;
-
-            parsed = parseZeroOrMorePartsPart(part, count, nodes, state, callback, callAhead);
-          }
-
-          return parsed;
-        });
-
-        return parsed;
-      }, nodes, state, callback, callAhead);
-    }
-  }
-
-  return parsed;
 }

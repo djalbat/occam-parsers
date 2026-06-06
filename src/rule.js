@@ -2,6 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
+import { ruleContext } from "./utilities/context";
 import { EMPTY_STRING } from "./constants";
 import { specialSymbols } from "occam-lexers";
 import { marginStringFromMarginWidth } from "./utilities/string";
@@ -58,74 +59,22 @@ export default class Rule {
     return semiOpaque;
   }
 
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    const opacity = this.opacity,
-          ruleName = this.name, ///
-          precedence = null,
-          childNodes = [],
-          savedPrecedence = state.getSavedPrecedence(),
-          NonTerminalNode = this.NonTerminalNodeFromRuleName(ruleName, state),
-          nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
+    const rule = this;  ///
 
-    parsed = this.definitions.some((definition) => {
-      let parsed;
+    ruleContext((context) => {
+      parsed = this.definitions.some((definition) => {
+        parsed = definition.parse(context);
 
-      const precedence = definition.getPrecedence();
+        if (parsed) {
+          context.commit();
 
-      state.setPrecedence(precedence);
-
-      callback = () => {
-        let parsed;
-
-        const precedence = state.getPrecedence();
-
-        nonTerminalNode.setPrecedence(precedence);
-
-        const rewrittenNonTerminalNode = nonTerminalNode.rewrite(state),
-              unprecedented = rewrittenNonTerminalNode.isUnprecedented(),
-              empty = rewrittenNonTerminalNode.isEmpty();
-
-        parsed = false;
-
-        if (!empty && !unprecedented) {
-          const node = rewrittenNonTerminalNode;  ///
-
-          nodes.push(node);
-
-          node.setChildNodesParentNode();
-
-          parsed = true;
-
-          if (callAhead !== null) {
-            state.resetPrecedence(savedPrecedence);
-
-            parsed = callAhead();
-
-            if (!parsed) {
-              nodes.pop();
-            }
-          }
+          return true;
         }
-
-        return parsed;
-      };
-
-      clear(childNodes);
-
-      parsed = definition.parse(childNodes, state, callback, callAhead);
-
-      if (!parsed) {
-        state.resetPrecedence(savedPrecedence);
-      }
-
-      return parsed;
-    });
-
-    if (callAhead === null) {
-      state.resetPrecedence(savedPrecedence);
-    }
+      });
+    }, rule, context);
 
     return parsed;
   }

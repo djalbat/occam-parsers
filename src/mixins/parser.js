@@ -1,39 +1,23 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
-import State from "../state";
-
-const { first } = arrayUtilities;
+import { topmostContext } from "../utilities/context"
 
 function parse(tokens, rule = this.startRule) {
-  let node = null;
+  let node;
 
-  const nodes = [],
-        state = this.createState(tokens),
-        callback = null,
-        callAhead = null,
-        parsed = rule.parse(nodes, state, callback, callAhead);
+  const parser = this;  ///
 
-  if (parsed) {
-    const firstNode = first(nodes);
+  topmostContext((context) => {
+    rule.parse(context);
 
-    node = firstNode; ///
-  }
+    node = context.getNode();
+  }, parser, tokens);
 
   return node;
 }
 
-function createState(tokens) {
-  const { NonTerminalNodeMap, defaultNonTerminalNode } = this.constructor,
-        state = State.fromTokensRuleMapNonTerminalNodeMapAndDefaultNonTerminalNode(tokens, this.ruleMap, NonTerminalNodeMap, defaultNonTerminalNode);
-
-  return state;
-}
-
 const parserMixins = {
-  parse,
-  createState
+  parse
 };
 
 export default parserMixins;

@@ -1,9 +1,9 @@
 "use strict";
 
 const entries = [
-  {
-    "unassigned": "^[^\\s]"
-  }
-];
+    {
+      "unassigned": "^[^\\s]"
+    }
+  ];
 
 export default entries;

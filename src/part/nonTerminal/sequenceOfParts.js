@@ -2,7 +2,7 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { parseParts } from "../../utilities/parse";
+import { partContext } from "../../utilities/context";
 import { SequenceOfPartsPartType } from "../../partTypes";
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
@@ -16,31 +16,24 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     return this.parts;
   }
 
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    const savedIndex = state.getSavedIndex(),
-          nodesLength = nodes.length;
+    const part = this;  ///
 
-    callback = (callAhead === null) ?
-                  null :
-                    () => {  ///
-                      let parsed;
+    partContext((context) => {
+      parsed = this.parts.every((part) => {
+        parsed = part.parse(context);
 
-                      parsed = callAhead();
+        if (parsed) {
+          return true;
+        }
+      })
 
-                      return parsed;
-                    };
-
-    parsed = parseParts(this.parts, nodes, state, callback, callAhead);
-
-    if (!parsed) {
-      const start = nodesLength;  ///
-
-      nodes.splice(start);
-
-      state.backtrack(savedIndex);
-    }
+      if (parsed) {
+        context.commit();
+      }
+    }, part, context)
 
     return parsed;
   }

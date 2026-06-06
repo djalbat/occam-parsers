@@ -2,6 +2,7 @@
 
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../node/terminal";
+import {partContext} from "../../utilities/context";
 
 export default class SignificantTokenTypePart extends TerminalPart {
   constructor(significantTokenType) {
@@ -14,38 +15,34 @@ export default class SignificantTokenTypePart extends TerminalPart {
     return this.significantTokenType;
   }
 
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    let terminalNode = null;
-    
-    const savedIndex = state.getSavedIndex(),
-          nextSignificantToken = state.getNextSignificantToken(),
-					significantToken = nextSignificantToken; ///
+    const part = this;
 
-    if (significantToken !== null) {
-      const significantTokenType = significantToken.getType();
+    partContext((context) => {
+      parsed = false;
 
-      if (significantTokenType === this.significantTokenType) {
-        terminalNode = TerminalNode.fromSignificantToken(significantToken);
-      }
-    }
+      const nextSignificantToken = context.getNextSignificantToken();
 
-    parsed = (terminalNode !== null);
+      if (nextSignificantToken !== null) {
+        const significantToken = nextSignificantToken, ///
+              significantTokenType = significantToken.getType();
 
-    if (parsed) {
-      nodes.push(terminalNode);
+        if (significantTokenType === this.significantTokenType) {
+          const terminalNode = TerminalNode.fromSignificantToken(significantToken),
+                childNode = terminalNode;  ///
 
-      if (parsed) {
-        if (callAhead !== null) {
-          parsed = callAhead();
+          context.addChildNode(childNode);
+
+          parsed = true;
         }
       }
-    }
 
-    if (!parsed) {
-      state.backtrack(savedIndex);
-    }
+      if (parsed) {
+        context.commit();
+      }
+    }, part, context)
 
     return parsed;
   }

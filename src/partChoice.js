@@ -1,6 +1,7 @@
 "use strict";
 
 import { characters } from "necessary";
+import { partChoiceContext } from "./utilities/context";
 
 const { SPACE_CHARACTER } = characters;
 
@@ -16,6 +17,22 @@ export default class PartChoice {
 
   getPrecedence() {
     return this.precedence;
+  }
+
+  parse(context) {
+    let parsed;
+
+    const partChoice = this;  ///
+
+    partChoiceContext((context) => {
+      parsed = this.part.parse(context);
+
+      if (parsed) {
+        context.commit();
+      }
+    }, partChoice, context)
+
+    return parsed;
   }
 
   asString() {

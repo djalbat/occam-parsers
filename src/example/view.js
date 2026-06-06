@@ -30,6 +30,15 @@ class View extends Element {
     }
   }
 
+  getNode(tokens) {
+    const { Parser } = this.constructor,
+          bnf = this.getBNF(),
+          parser = Parser.fromBNF(bnf),
+          node = parser.parse(tokens);
+
+    return node;
+  }
+
   getTokens(content) {
     const { Lexer } = this.constructor,
           lexicalEntries = this.getLexicalEntries(),

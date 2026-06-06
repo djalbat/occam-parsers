@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { guard } from "../../utilities/state";
+import { partContext } from "../../utilities/context";
 import { OneOrMorePartsPartType } from "../../partTypes";
 
 const { plus } = specialSymbols;
@@ -20,12 +20,26 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
     return this.part;
   }
 
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    const count = 0;
+    const part = this;  ///
 
-    parsed = parseOneOrMorePartsPart(this.part, count, nodes, state, callback, callAhead);
+    partContext((context) => {
+      parsed = this.part.parse(context);
+
+      if (parsed) {
+        while (parsed) {
+          parsed = this.part.parse(context);
+        }
+
+        parsed = true;
+      }
+
+      if (parsed) {
+        context.commit();
+      }
+    }, part, context)
 
     return parsed;
   }
@@ -44,52 +58,4 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
 
     return oneOrMorePartsPart;
   }
-}
-
-function parseOneOrMorePartsPart(part, count, nodes, state, callback, callAhead) {
-  let parsed;
-
-  if (callAhead === null) {
-    parsed = guard((nodes, state, callback, callAhead) => {
-      let parsed;
-
-      parsed = part.parse(nodes, state, callback, callAhead);
-
-      return parsed;
-    }, nodes, state, callback, callAhead);
-
-    if (parsed) {
-      count++;
-
-      parseOneOrMorePartsPart(part, count, nodes, state, callback, callAhead);
-    }
-
-    if (!parsed) {
-      if (count > 0) {
-        parsed = true;
-      }
-    }
-  } else {
-    parsed = guard((nodes, state, callback, callAhead) => {
-      let parsed;
-
-      parsed = part.parse(nodes, state, callback, () => {
-        let parsed;
-
-        parsed = callAhead();
-
-        if (!parsed) {
-          count++;
-
-          parsed = parseOneOrMorePartsPart(part, count, nodes, state, callback, callAhead);
-        }
-
-        return parsed;
-      });
-
-      return parsed;
-    }, nodes, state, callback, callAhead);
-  }
-
-  return parsed;
 }

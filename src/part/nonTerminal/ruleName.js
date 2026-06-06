@@ -4,14 +4,15 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { partContext } from "../../utilities/context";
 import { EMPTY_STRING } from "../../constants";
 import { RuleNamePartType } from "../../partTypes";
 
 const { ellipsis } = specialSymbols;
 
 export default class RuleNamePart extends NonTerminalPart {
-  constructor(type, callAAhead, ruleName) {
-    super(type, callAAhead);
+  constructor(type, callAhead, ruleName) {
+    super(type, callAhead);
 
     this.ruleName = ruleName;
   }
@@ -26,46 +27,47 @@ export default class RuleNamePart extends NonTerminalPart {
     return ruleNamePart;
   }
 
-  findRule(state) {
-    const ruleMap = state.getRuleMap(),
-          rule = ruleMap[this.ruleName] || null;  ///
-
-    return rule;
-  }
-
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    const rule = this.findRule(state);
+    const part = this;
 
-    parsed = (rule !== null) ?
-               rule.parse(nodes, state, callback, callAhead) :
-                 false;
+    partContext((context) => {
+      const rule = context.findRule(this.ruleName);
+
+      parsed = (rule !== null) ?
+                  rule.parse(context) :
+                    false;
+
+      if (parsed) {
+        context.commit();
+      }
+    }, part, context);
 
     return parsed;
   }
 
   asString() {
-    const callAAhead = this.isCallAhead(),
-          callAAheadString = callAAhead ?
+    const callAhead = this.isCallAhead(),
+          callAheadString = callAhead ?
                               ellipsis :
                                 EMPTY_STRING,
-          string = `${this.ruleName}${callAAheadString}`;
+          string = `${this.ruleName}${callAheadString}`;
 
     return string;
   }
 
   static fromRuleName(ruleName) {
     const type = RuleNamePartType,
-          callAAhead = false,
-          ruleNamePart = new RuleNamePart(type, callAAhead, ruleName);
+          callAhead = false,
+          ruleNamePart = new RuleNamePart(type, callAhead, ruleName);
 
     return ruleNamePart;
   }
 
-  static fromCallAheadAndRuleName(callAAhead, ruleName) {
+  static fromCallAheadAndRuleName(callAhead, ruleName) {
     const type = RuleNamePartType,
-          ruleNamePart = new RuleNamePart(type, callAAhead, ruleName);
+          ruleNamePart = new RuleNamePart(type, callAhead, ruleName);
 
     return ruleNamePart;
   }

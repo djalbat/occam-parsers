@@ -5,6 +5,8 @@ import { arrayUtilities } from "necessary";
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../node/terminal";
 
+import { partContext } from "../../utilities/context";
+
 const { first } = arrayUtilities;
 
 export default class RegularExpressionPart extends TerminalPart {
@@ -18,43 +20,39 @@ export default class RegularExpressionPart extends TerminalPart {
     return this.regularExpression;
   }
 
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    let terminalNode = null;
-    
-    const savedIndex = state.getSavedIndex(),
-          nextSignificantToken = state.getNextSignificantToken(),
-					significantToken = nextSignificantToken; ///
+    const part = this;
 
-    if (significantToken !== null) {
-      const content = significantToken.getContent(),
-            matches = content.match(this.regularExpression);
+    partContext((context) => {
+      parsed = false;
 
-      if (matches !== null) {
-        const firstMatch = first(matches);
+      const nextSignificantToken = context.getNextSignificantToken();
 
-        if (firstMatch === content) {
-          terminalNode = TerminalNode.fromSignificantToken(significantToken);
+      if (nextSignificantToken !== null) {
+        const significantToken = nextSignificantToken, ///
+              content = significantToken.getContent(),
+              matches = content.match(this.regularExpression);
+
+        if (matches !== null) {
+          const firstMatch = first(matches);
+
+          if (firstMatch === content) {
+            const terminalNode = TerminalNode.fromSignificantToken(significantToken),
+                  childNode = terminalNode;  ///
+
+            context.addChildNode(childNode);
+
+            parsed = true;
+          }
         }
       }
-    }
-
-    parsed = (terminalNode !== null);
-
-    if (parsed) {
-      nodes.push(terminalNode);
 
       if (parsed) {
-        if (callAhead !== null) {
-          parsed = callAhead();
-        }
+        context.commit();
       }
-    }
-
-    if (!parsed) {
-      state.backtrack(savedIndex);
-    }
+    }, part, context)
 
     return parsed;
   }

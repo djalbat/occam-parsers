@@ -4,6 +4,7 @@ import { characters } from "necessary";
 
 import { parseParts } from "./utilities/parse";
 import { EMPTY_STRING } from "./constants";
+import { definitionContext } from "./utilities/context";
 
 const { SPACE_CHARACTER } = characters;
 
@@ -21,17 +22,24 @@ export default class Definition {
     return this.precedence;
   }
 
-  parse(childNodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    const nodes = childNodes, ///
-          savedIndex = state.getSavedIndex();
+    const definition = this;
 
-    parsed = parseParts(this.parts, nodes, state, callback, callAhead);
+    definitionContext((context) => {
+      parsed = this.parts.every((part) => {
+        parsed = part.parse(context);
 
-    if (!parsed) {
-      state.backtrack(savedIndex);
-    }
+        if (parsed) {
+          return true;
+        }
+      });
+
+      if (parsed) {
+        context.commit();
+      }
+    }, definition, context);
 
     return parsed;
   }

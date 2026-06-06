@@ -3,6 +3,8 @@
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../node/terminal";
 
+import { partContext } from "../../utilities/context";
+
 export default class StringLiteralPart extends TerminalPart {
   constructor(content) {
     super();
@@ -14,44 +16,40 @@ export default class StringLiteralPart extends TerminalPart {
     return this.content;
   }
 
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    let terminalNode = null;
-    
-    const savedIndex = state.getSavedIndex(),
-          nextSignificantToken = state.getNextSignificantToken(),
-					significantToken = nextSignificantToken; ///
+    const part = this;
 
-    if (significantToken !== null) {
-      const content = significantToken.getContent();
+    partContext((context) => {
+      parsed = false;
 
-      if (content === this.content) {
-        terminalNode = TerminalNode.fromSignificantToken(significantToken);
-      }
-    }
+      const nextSignificantToken = context.getNextSignificantToken();
 
-    parsed = (terminalNode !== null);
+      if (nextSignificantToken !== null) {
+        const significantToken = nextSignificantToken, ///
+              content = significantToken.getContent();
 
-    if (parsed) {
-      nodes.push(terminalNode);
+        if (content === this.content) {
+          const terminalNode = TerminalNode.fromSignificantToken(significantToken),
+                childNode = terminalNode;  ///
 
-      if (parsed) {
-        if (callAhead !== null) {
-          parsed = callAhead();
+          context.addChildNode(childNode);
+
+          parsed = true;
         }
       }
-    }
 
-    if (!parsed) {
-      state.backtrack(savedIndex);
-    }
+      if (parsed) {
+        context.commit();
+      }
+    }, part, context)
 
     return parsed;
   }
-  
+
   asString() {
-    const content = this.content.replace(/\\/, "\\\\"),
+    const content = this.content.replace(/\\/g, "\\\\"),
           string = `"${content}"`;
     
     return string;

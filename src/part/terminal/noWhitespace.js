@@ -5,6 +5,8 @@ import { specialSymbols } from "occam-lexers";
 import TerminalPart from "../../part/terminal";
 import NoWhitespaceNode from "../../node/terminal/noWhitespace";
 
+import { partContext } from "../../utilities/context";
+
 const { noWhitespace } = specialSymbols;
 
 export default class NoWhitespacePart extends TerminalPart {
@@ -14,33 +16,29 @@ export default class NoWhitespacePart extends TerminalPart {
     return noWhitespacePart;
   }
 
-  parse(nodes, state, callback, callAhead) {
+  parse(context) {
     let parsed;
 
-    let noWhitespaceNode = null;
+    const part = this;
 
-    const savedIndex = state.getSavedIndex(),
-          nextTokenWhitespaceToken = state.isNextTokenWhitespaceToken();
+    partContext((context) => {
+      parsed = false;
 
-    if (!nextTokenWhitespaceToken) {
-      noWhitespaceNode = NoWhitespaceNode.fromNothing();
-    }
+      const nextTokenWhitespaceToken = context.isNextTokenWhitespaceToken();
 
-    parsed = (noWhitespaceNode !== null)
+      if (!nextTokenWhitespaceToken) {
+        const noWhitespaceNode = NoWhitespaceNode.fromNothing(),
+              childNode = noWhitespaceNode; ///
 
-    if (parsed) {
-      nodes.push(noWhitespaceNode);
+        context.addChildNode(childNode);
+
+        parsed = true;
+      }
 
       if (parsed) {
-        if (callAhead !== null) {
-          parsed = callAhead();
-        }
+        context.commit();
       }
-    }
-
-    if (!parsed) {
-      state.backtrack(savedIndex);
-    }
+    }, part, context)
 
     return parsed;
   }
