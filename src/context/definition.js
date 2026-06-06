@@ -40,11 +40,10 @@ export default class DefinitionContext extends Context {
     return parts;
   }
 
-  callAhead(part) {
+  callAhead(part, context) {
     let parsed;
 
-    const parts = this.getParts(part),
-          context = this.getContext();
+    const parts = this.getParts(part);
 
     parsed = this.definition.parse(parts, context);
 
@@ -66,9 +65,9 @@ export default class DefinitionContext extends Context {
   commit() {
     const context = this.getContext();
 
-    context.setPrecedence(this.precedence);
+    // context.setPrecedence(this.precedence);
 
-    context.setChildNodes(this.childNodes);
+    context.addChildNodes(this.childNodes);
 
     super.commit();
   }

@@ -1,6 +1,10 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import Context from "../context";
+
+const { push } = arrayUtilities;
 
 export default class RuleContext extends Context {
   constructor(context, offset, index, opacity, ruleName, childNodes, precedence) {
@@ -28,12 +32,16 @@ export default class RuleContext extends Context {
     return this.precedence;
   }
 
-  setChildNodes(childNodes) {
-    this.childNodes = childNodes;
-  }
-
   setPrecedence(precedence) {
     this.precedence = precedence;
+  }
+
+  addChildNode(childNode) {
+    this.childNodes.push(childNode)
+  }
+
+  addChildNodes(childNodes) {
+    push(this.childNodes, childNodes);
   }
 
   commit() {
@@ -50,7 +58,7 @@ export default class RuleContext extends Context {
   static fromRule(rule, context) {
     const opacity = rule.getOpacity(),
           ruleName = rule.getName(),
-          childNodes = null,
+          childNodes = [],
           precedence = null,
           ruleContext = Context.fromNothing(RuleContext, opacity, ruleName, childNodes, precedence, context);
 

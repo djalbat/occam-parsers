@@ -29,9 +29,9 @@ export default class PartChoiceContext extends Context {
   commit() {
     const context = this.getContext();
 
-    context.addChildNodes(this.childNodes);
-
     // context.setPrecedence(this.precedence);
+
+    context.addChildNodes(this.childNodes);
 
     super.commit();
   }

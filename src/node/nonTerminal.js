@@ -251,6 +251,7 @@ export default class NonTerminalNode {
     });
 
     this.parentNode = null;
+
     this.childNodes = null;
   }
 
