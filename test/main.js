@@ -41,6 +41,42 @@ describe("src/main", () => {
       `));
     });
   });
+
+  describe("a single definition with a terminal part", () => {
+    const entries = [
+            {
+              "unassigned": "^[^\\s]"
+            }
+          ],
+          bnf = `
+          
+            S ::= A... "a" ;
+            
+            A ::= "a"? ;
+          
+          `;
+
+    it("results in the requisite parse tree" , () => {
+      const content = `
+
+              a
+            
+            `,
+            tokens = tokensFromEntriesAndContent(entries, content),
+            node = nodeFromBNFAndTokens(bnf, tokens),
+            parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
+
+      assert.isTrue(compareParseTreeStrings(parseTreeString, `
+          
+                S [4-2]            
+                   |               
+            --------------         
+            |            |         
+          A [4] "a"[unassigned] [2]
+    
+      `));
+    });
+  });
 });
 
 function compareParseTreeStrings(stringA, stringB) {

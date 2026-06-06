@@ -4,9 +4,9 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { partContext } from "../../utilities/context";
 import { EMPTY_STRING } from "../../constants";
 import { RuleNamePartType } from "../../partTypes";
+import { ruleNamePartContext } from "../../utilities/context";
 
 const { ellipsis } = specialSymbols;
 
@@ -30,19 +30,19 @@ export default class RuleNamePart extends NonTerminalPart {
   parse(context) {
     let parsed;
 
-    const part = this;
+    const ruleNamePart = this;
 
-    partContext((context) => {
+    ruleNamePartContext((context) => {
       const rule = context.findRule(this.ruleName);
 
       parsed = (rule !== null) ?
-                  rule.parse(context) :
-                    false;
+                 rule.parse(context) :
+                   false;
 
       if (parsed) {
         context.commit();
       }
-    }, part, context);
+    }, ruleNamePart, context);
 
     return parsed;
   }

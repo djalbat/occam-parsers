@@ -41,6 +41,16 @@ export default class TopmostContext extends Context {
     return NonTerminalNode;
   }
 
+  callAhead() {
+    ///
+  }
+
+  isCallAhead() {
+    const callAhead = false;
+
+    return callAhead;
+  }
+
   findRule(ruleName) {
     const rule = this.ruleMap[ruleName] || null;  ///
 

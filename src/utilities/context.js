@@ -5,18 +5,7 @@ import PartContext from "../context/part";
 import TopmostContext from "../context/topmost";
 import PartChoiceContext from "../context/partChoice";
 import DefinitionContext from "../context/definition";
-
-export function ruleContext(innerFunction, rule, context) {
-  let parsed;
-
-  const ruleContext = RuleContext.fromRule(rule, context);
-
-  context = ruleContext;  ///
-
-  parsed = innerFunction(context);
-
-  return parsed;
-}
+import RuleNamePartContext from "../context/ruleNamePart";
 
 export function partContext(innerFunction, part, context) {
   let parsed;
@@ -24,6 +13,18 @@ export function partContext(innerFunction, part, context) {
   const partContext = PartContext.fromPart(part, context);
 
   context = partContext;  ///
+
+  parsed = innerFunction(context);
+
+  return parsed;
+}
+
+export function ruleContext(innerFunction, rule, context) {
+  let parsed;
+
+  const ruleContext = RuleContext.fromRule(rule, context);
+
+  context = ruleContext;  ///
 
   parsed = innerFunction(context);
 
@@ -60,6 +61,18 @@ export function definitionContext(innerFunction, definition, context) {
   const definitionContext = DefinitionContext.fromDefinition(definition, context);
 
   context = definitionContext;  ///
+
+  parsed = innerFunction(context);
+
+  return parsed;
+}
+
+export function ruleNamePartContext(innerFunction, ruleNamePart, context) {
+  let parsed;
+
+  const ruleNamePartContext = RuleNamePartContext.fromRuleNamePart(ruleNamePart, context);
+
+  context = ruleNamePartContext;  ///
 
   parsed = innerFunction(context);
 

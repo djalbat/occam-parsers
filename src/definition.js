@@ -22,13 +22,19 @@ export default class Definition {
     return this.precedence;
   }
 
-  parse(context) {
+  parse(parts, context) {
+    if (context === undefined) {
+      context = parts; ///
+
+      parts = this.parts;
+    }
+
     let parsed;
 
     const definition = this;
 
     definitionContext((context) => {
-      parsed = this.parts.every((part) => {
+      parsed = parts.every((part) => {
         parsed = part.parse(context);
 
         if (parsed) {

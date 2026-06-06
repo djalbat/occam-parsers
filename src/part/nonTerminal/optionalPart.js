@@ -26,9 +26,23 @@ export default class OptionalPartPart extends NonTerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      this.part.parse(context);
+      const callAhead = context.isCallAhead();
 
-      parsed = true;
+      if (callAhead) {
+        parsed = context.callAhead(part);
+
+        if (!parsed) {
+          parsed = this.part.parse(context);
+
+          if (parsed) {
+            parsed = context.callAhead(part);
+          }
+        }
+      } else {
+        this.part.parse(context);
+
+        parsed = true;
+      }
 
       if (parsed) {
         context.commit();

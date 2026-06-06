@@ -7,11 +7,16 @@ import Context from "../context";
 const { push } = arrayUtilities;
 
 export default class DefinitionContext extends Context {
-  constructor(context, offset, index, precedence, childNodes) {
+  constructor(context, offset, index, definition, precedence, childNodes) {
     super(context, offset, index);
 
+    this.definition = definition;
     this.precedence = precedence;
     this.childNodes = childNodes;
+  }
+
+  getDefinition() {
+    return this.definition;
   }
 
   getPrecedence() {
@@ -20,6 +25,25 @@ export default class DefinitionContext extends Context {
 
   getChildNodes() {
     return this.childNodes;
+  }
+
+  callAhead(part) {
+    let parsed;
+
+    const context = this.getContext();
+
+    let parts;
+
+    parts = this.definition.getParts();
+
+    const index = parts.indexOf(part),
+          start = index + 1;
+
+    parts = parts.slice(start);
+
+    parsed = this.definition.parse(parts, context);
+
+    return parsed;
   }
 
   setPrecedence(precedence) {
@@ -47,7 +71,7 @@ export default class DefinitionContext extends Context {
   static fromDefinition(definition, context) {
     const precedence = definition.getPrecedence(),
           childNodes = [],
-          definitionContext = Context.fromNothing(DefinitionContext, precedence, childNodes, context);
+          definitionContext = Context.fromNothing(DefinitionContext, definition, precedence, childNodes, context);
 
     return definitionContext;
   }

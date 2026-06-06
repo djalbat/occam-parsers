@@ -29,6 +29,10 @@ export default class Context {
 
   NonTerminalNodeFromRuleName(ruleName) { return this.context.NonTerminalNodeFromRuleName(ruleName); }
 
+  isCallAhead() { return this.context.isCallAhead(); }
+
+  callAhead(...remainingArguments) { return this.context.callAhead(...remainingArguments); }
+
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
   getNextToken() {
