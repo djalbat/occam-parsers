@@ -1,33 +1,42 @@
 "use strict";
 
-const { BNFLexer, BasicLexer } = require("occam-lexers"),
+const { BasicLexer } = require("occam-lexers"),
       { arrayUtilities } = require("necessary"),
-      { BNFParser, BasicParser, rulesUtilities, parserUtilities } = require("../lib/index.js");
+      { BasicParser, rulesUtilities, parserUtilities } = require("../lib/index.js");
 
 const { first } = arrayUtilities,
       { rulesFromBNF } = parserUtilities,
       { ruleMapFromRules } = rulesUtilities;
 
-const bnfLexer = BNFLexer.fromNothing(),
-      bnfParser = BNFParser.fromNothing();
-
 describe("src/main", () => {
   describe("a single definition with a terminal part", () => {
+    const entries = [
+            {
+              "unassigned": "^[^\\s]"
+            }
+          ],
+          bnf = `
+          
+            S    ::= "a" ;
+          
+          `;
+
+
     it("results in the requisite parse tree" , () => {
       const content = `
       
-              a ::= b ;
+              a
             
             `,
-            tokens = bnfLexer.tokenise(content),
-            node = bnfParser.parse(tokens),
+            tokens = tokensFromEntriesAndContent(entries, content),
+            node = nodeFromBNFAndTokens(bnf, tokens),
             parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
 
       assert.isTrue(compareParseTreeStrings(parseTreeString, `
           
-               S [0]       
-                 |         
-        "a"[unassigned] [0]
+                 S [2]       
+                   |         
+          "a"[unassigned] [2]
     
       `));
     });

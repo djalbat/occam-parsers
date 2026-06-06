@@ -2,7 +2,8 @@
 
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../node/terminal";
-import {partContext} from "../../utilities/context";
+
+import { partContext } from "../../utilities/context";
 
 export default class SignificantTokenTypePart extends TerminalPart {
   constructor(significantTokenType) {
