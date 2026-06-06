@@ -27,11 +27,7 @@ export default class DefinitionContext extends Context {
     return this.childNodes;
   }
 
-  callAhead(part) {
-    let parsed;
-
-    const context = this.getContext();
-
+  getParts(part) {
     let parts;
 
     parts = this.definition.getParts();
@@ -40,6 +36,15 @@ export default class DefinitionContext extends Context {
           start = index + 1;
 
     parts = parts.slice(start);
+
+    return parts;
+  }
+
+  callAhead(part) {
+    let parsed;
+
+    const parts = this.getParts(part),
+          context = this.getContext();
 
     parsed = this.definition.parse(parts, context);
 
