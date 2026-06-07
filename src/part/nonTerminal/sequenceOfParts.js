@@ -22,13 +22,19 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      parsed = this.parts.every((part) => {
-        parsed = part.parse(context);
+      const callAhead = context.isCallAhead();
 
-        if (parsed) {
-          return true;
-        }
-      })
+      if (callAhead) {
+        debugger
+      } else {
+        parsed = this.parts.every((part) => {
+          parsed = part.parse(context);
+
+          if (parsed) {
+            return true;
+          }
+        });
+      }
 
       if (parsed) {
         context.commit();

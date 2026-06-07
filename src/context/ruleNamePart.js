@@ -1,17 +1,12 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import Context from "../context";
 
-const { push } = arrayUtilities;
-
 export default class RuleNamePartContext extends Context {
-  constructor(context, offset, index, ruleNamePart, childNodes) {
-    super(context, offset, index);
+  constructor(context, offset, index, childNodes, ruleNamePart) {
+    super(context, offset, index, childNodes);
 
     this.ruleNamePart = ruleNamePart;
-    this.childNodes = childNodes;
   }
 
   isCallAhead() {
@@ -28,43 +23,15 @@ export default class RuleNamePartContext extends Context {
     return callAhead;
   }
 
-  getContinuation() {
-    let continuation;
+  calledAhead(...remainingArguments) {
+    const context = this.getContext(),
+          parsed = context.calledAhead(...remainingArguments);
 
-    continuation = this.continuation;
-
-    if (continuation === null) {
-      const context = this.getContext();
-
-      continuation = context.getContinuation();
-    }
-
-    return continuation;
-  }
-
-  getChildNodes() {
-    return this.childNodes;
-  }
-
-  addChildNode(childNode) {
-    this.childNodes.push(childNode)
-  }
-
-  addChildNodes(childNodes) {
-    push(this.childNodes, childNodes);
-  }
-
-  commit() {
-    const context = this.getContext();
-
-    context.addChildNodes(this.childNodes);
-
-    super.commit();
+    return parsed;
   }
 
   static fromRuleNamePart(ruleNamePart, context) {
-    const childNodes = [],
-          ruleNamePartContext = Context.fromNothing(RuleNamePartContext, ruleNamePart, childNodes, context);
+    const ruleNamePartContext = Context.fromNothing(RuleNamePartContext, ruleNamePart, context);
 
     return ruleNamePartContext;
   }

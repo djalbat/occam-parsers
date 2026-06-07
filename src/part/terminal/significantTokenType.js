@@ -41,6 +41,14 @@ export default class SignificantTokenTypePart extends TerminalPart {
       }
 
       if (parsed) {
+        const callAhead = context.isCallAhead();
+
+        if (callAhead) {
+          parsed = context.callAhead();
+        }
+      }
+
+      if (parsed) {
         context.commit();
       }
     }, part, context)

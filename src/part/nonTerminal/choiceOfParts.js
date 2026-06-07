@@ -22,13 +22,19 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      parsed = this.partChoices.some((partChoice) => {
-        parsed = partChoice.parse(context);
+      const callAhead = context.isCallAhead();
 
-        if (parsed) {
-          return true;
-        }
-      });
+      if (callAhead) {
+        debugger
+      } else {
+        parsed = this.partChoices.some((partChoice) => {
+          parsed = partChoice.parse(context);
+
+          if (parsed) {
+            return true;
+          }
+        });
+      }
 
       if (parsed) {
         context.commit();

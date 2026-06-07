@@ -41,6 +41,14 @@ export default class StringLiteralPart extends TerminalPart {
       }
 
       if (parsed) {
+        const callAhead = context.isCallAhead();
+
+        if (callAhead) {
+          parsed = context.callAhead();
+        }
+      }
+
+      if (parsed) {
         context.commit();
       }
     }, part, context)

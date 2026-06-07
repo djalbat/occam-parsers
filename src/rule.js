@@ -69,11 +69,13 @@ export default class Rule {
         parsed = definition.parse(context);
 
         if (parsed) {
-          context.commit();
-
           return true;
         }
       });
+
+      if (parsed) {
+        context.commit();
+      }
     }, rule, context);
 
     return parsed;

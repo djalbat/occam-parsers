@@ -34,13 +34,19 @@ export default class Definition {
     const definition = this;
 
     definitionContext((context) => {
-      parsed = parts.every((part) => {
-        parsed = part.parse(context);
+      const callAhead = context.isCallAhead();
 
-        if (parsed) {
-          return true;
-        }
-      });
+      if (callAhead) {
+        debugger
+      } else {
+        parsed = parts.every((part) => {
+          parsed = part.parse(context);
+
+          if (parsed) {
+            return true;
+          }
+        });
+      }
 
       if (parsed) {
         context.commit();

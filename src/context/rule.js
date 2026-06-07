@@ -1,31 +1,17 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import Context from "../context";
 
-const { push } = arrayUtilities;
-
 export default class RuleContext extends Context {
-  constructor(context, offset, index, opacity, ruleName, childNodes, precedence) {
-    super(context, offset, index);
+  constructor(context, offset, index, childNodes, rule, precedence) {
+    super(context, offset, index, childNodes);
 
-    this.opacity = opacity;
-    this.ruleName = ruleName;
-    this.childNodes = childNodes;
+    this.rule = rule;
     this.precedence = precedence;
   }
 
-  getOpacity() {
-    return this.opacity;
-  }
-
-  getRuleName() {
-    return this.ruleName;
-  }
-
-  getChildNodes() {
-    return this.childNodes;
+  getRule() {
+    return this.rule;
   }
 
   getPrecedence() {
@@ -36,31 +22,34 @@ export default class RuleContext extends Context {
     this.precedence = precedence;
   }
 
-  addChildNode(childNode) {
-    this.childNodes.push(childNode)
-  }
-
-  addChildNodes(childNodes) {
-    push(this.childNodes, childNodes);
+  calledAhead() {
+    debugger
   }
 
   commit() {
-    const NonTerminalNode = this.NonTerminalNodeFromRuleName(this.ruleName),
-          nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(this.ruleName, this.childNodes, this.opacity, this.precedence),
-          childNode = nonTerminalNode, ///
-          context = this.getContext();
+    let childNodes;
 
-    context.addChildNode(childNode);
+    const opacity = this.rule.getOpacity(),
+          ruleName = this.rule.getName();
+
+    childNodes = this.getChildNodes();
+
+    const NonTerminalNode = this.NonTerminalNodeFromRuleName(ruleName),
+          nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, this.precedence),
+          childNode = nonTerminalNode;  ///
+
+    childNodes = [
+      childNode
+    ];
+
+    this.overwriteChildNodes(childNodes);
 
     super.commit();
   }
 
   static fromRule(rule, context) {
-    const opacity = rule.getOpacity(),
-          ruleName = rule.getName(),
-          childNodes = [],
-          precedence = null,
-          ruleContext = Context.fromNothing(RuleContext, opacity, ruleName, childNodes, precedence, context);
+    const precedence = null,
+          ruleContext = Context.fromNothing(RuleContext, rule, precedence, context);
 
     return ruleContext;
   }

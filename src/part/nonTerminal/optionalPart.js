@@ -29,14 +29,10 @@ export default class OptionalPartPart extends NonTerminalPart {
       const callAhead = context.isCallAhead();
 
       if (callAhead) {
-        parsed = context.callAhead(part, context);
+        parsed = context.callAhead();
 
         if (!parsed) {
           parsed = this.part.parse(context);
-
-          if (parsed) {
-            parsed = context.callAhead(part, context);
-          }
         }
       } else {
         this.part.parse(context);

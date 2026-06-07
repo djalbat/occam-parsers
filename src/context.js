@@ -1,10 +1,15 @@
 "use strict";
 
+import { arrayUtilities} from "necessary";
+
+const { clear } = arrayUtilities;
+
 export default class Context {
-  constructor(context, offset, index) {
+  constructor(context, offset, index, childNodes) {
     this.context = context;
     this.offset = offset;
     this.index = index;
+    this.childNodes = childNodes;
   }
 
   getContext() {
@@ -19,6 +24,10 @@ export default class Context {
     return this.index;
   }
 
+  getChildNodes() {
+    return this.childNodes;
+  }
+
   getTokens() { return this.context.getTokens(); }
 
   getRuleMap() { return this.context.getRuleMap(); }
@@ -30,8 +39,6 @@ export default class Context {
   NonTerminalNodeFromRuleName(ruleName) { return this.context.NonTerminalNodeFromRuleName(ruleName); }
 
   isCallAhead() { return this.context.isCallAhead(); }
-
-  callAhead(...remainingArguments) { return this.context.callAhead(...remainingArguments); }
 
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
@@ -96,14 +103,37 @@ export default class Context {
     return nextTokenWhitespaceToken;
   }
 
+  callAhead(...remainingArguments) {
+    const context = this, ///
+          parsed = this.context.calledAhead(...remainingArguments, context);
+
+    return parsed;
+  }
+
   adjustIndex(offset) {
     this.index += offset;
+  }
+
+  addChildNode(childNode) {
+    this.childNodes.push(childNode);
+  }
+
+  addChildNodes(childNodes) {
+    this.childNodes.push(...childNodes);
+  }
+
+  overwriteChildNodes(childNodes) {
+    this.childNodes = childNodes;
   }
 
   commit() {
     const offset = this.index;  ///
 
     this.context.adjustIndex(offset);
+
+    this.context.addChildNodes(this.childNodes);
+
+    clear(this.childNodes);
   }
 
   static fromNothing(Class, ...remainingArguments) {
@@ -116,7 +146,9 @@ export default class Context {
 
     index = 0;
 
-    context = new Class(context, offset, index, ...remainingArguments);
+    const childNodes = [];
+
+    context = new Class(context, offset, index, childNodes, ...remainingArguments);
 
     return context;
   }

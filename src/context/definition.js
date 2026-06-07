@@ -1,18 +1,13 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import Context from "../context";
 
-const { push } = arrayUtilities;
-
 export default class DefinitionContext extends Context {
-  constructor(context, offset, index, definition, precedence, childNodes) {
-    super(context, offset, index);
+  constructor(context, offset, index, childNodes, definition, precedence) {
+    super(context, offset, index, childNodes);
 
     this.definition = definition;
     this.precedence = precedence;
-    this.childNodes = childNodes;
   }
 
   getDefinition() {
@@ -21,10 +16,6 @@ export default class DefinitionContext extends Context {
 
   getPrecedence() {
     return this.precedence;
-  }
-
-  getChildNodes() {
-    return this.childNodes;
   }
 
   getParts(part) {
@@ -40,7 +31,7 @@ export default class DefinitionContext extends Context {
     return parts;
   }
 
-  callAhead(part, context) {
+  calledAhead(part, context) {
     let parsed;
 
     const parts = this.getParts(part);
@@ -54,28 +45,17 @@ export default class DefinitionContext extends Context {
     this.precedence = precedence;
   }
 
-  addChildNode(childNode) {
-    this.childNodes.push(childNode)
-  }
-
-  addChildNodes(childNodes) {
-    push(this.childNodes, childNodes);
-  }
-
   commit() {
     const context = this.getContext();
 
     // context.setPrecedence(this.precedence);
-
-    context.addChildNodes(this.childNodes);
 
     super.commit();
   }
 
   static fromDefinition(definition, context) {
     const precedence = definition.getPrecedence(),
-          childNodes = [],
-          definitionContext = Context.fromNothing(DefinitionContext, definition, precedence, childNodes, context);
+          definitionContext = Context.fromNothing(DefinitionContext, definition, precedence, context);
 
     return definitionContext;
   }
