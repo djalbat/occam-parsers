@@ -32,10 +32,10 @@ export function partContext(innerFunction, part, context) {
   return parsed;
 }
 
-export function partsContext(innerFunction, parts, definition, context) {
+export function partsContext(innerFunction, parts, parse, context) {
   let parsed;
 
-  const partsContext = PartsContext.fromPartsAndDefinition(parts, definition, context);
+  const partsContext = PartsContext.fromPartsAndParse(parts, parse, context);
 
   context = partsContext;  ///
 

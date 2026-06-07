@@ -61,7 +61,7 @@ export default class TopmostContext extends Context {
     return callAhead;
   }
 
-  calledAhead() {
+  calledAhead(context) {
     const parsed = true;
 
     return parsed;

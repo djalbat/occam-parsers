@@ -23,9 +23,9 @@ export default class RuleNamePartContext extends Context {
     return callAhead;
   }
 
-  calledAhead(...remainingArguments) {
-    const context = this.getContext(),
-          parsed = context.calledAhead(...remainingArguments);
+  calledAhead(context) {
+    const part = this.ruleNamePart, ////
+          parsed = super.calledAhead(part, context);
 
     return parsed;
   }

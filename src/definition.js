@@ -2,7 +2,7 @@
 
 import { characters } from "necessary";
 
-import { parseParts } from "./utilities/parse";
+import { parseParts } from "./utilities/parts";
 import { EMPTY_STRING } from "./constants";
 import { definitionContext } from "./utilities/context";
 
@@ -22,13 +22,7 @@ export default class Definition {
     return this.precedence;
   }
 
-  parse(parts, context) {
-    if (context === undefined) {
-      context = parts; ///
-
-      parts = this.parts;
-    }
-
+  parse(context) {
     let parsed;
 
     const definition = this;
@@ -37,9 +31,9 @@ export default class Definition {
       const callAhead = context.isCallAhead();
 
       if (callAhead) {
-        debugger
+        parsed = parseParts(this.parts, context);
       } else {
-        parsed = parts.every((part) => {
+        parsed = this.parts.every((part) => {
           parsed = part.parse(context);
 
           if (parsed) {

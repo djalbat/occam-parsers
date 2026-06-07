@@ -18,31 +18,12 @@ export default class DefinitionContext extends Context {
     return this.precedence;
   }
 
-  getParts(part) {
-    let parts;
-
-    parts = this.definition.getParts();
-
-    const index = parts.indexOf(part),
-          start = index + 1;
-
-    parts = parts.slice(start);
-
-    return parts;
+  setPrecedence(precedence) {
+    this.precedence = precedence;
   }
 
   calledAhead(part, context) {
-    let parsed;
-
-    const parts = this.getParts(part);
-
-    parsed = this.definition.parse(parts, context);
-
-    return parsed;
-  }
-
-  setPrecedence(precedence) {
-    this.precedence = precedence;
+    debugger
   }
 
   commit() {

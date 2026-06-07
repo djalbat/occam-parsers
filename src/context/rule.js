@@ -22,27 +22,15 @@ export default class RuleContext extends Context {
     this.precedence = precedence;
   }
 
-  calledAhead() {
-    debugger
-  }
-
   commit() {
-    let childNodes;
-
     const opacity = this.rule.getOpacity(),
-          ruleName = this.rule.getName();
-
-    childNodes = this.getChildNodes();
-
-    const NonTerminalNode = this.NonTerminalNodeFromRuleName(ruleName),
+          ruleName = this.rule.getName(),
+          childNodes = this.getChildNodes(),
+          NonTerminalNode = this.NonTerminalNodeFromRuleName(ruleName),
           nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, this.precedence),
           childNode = nonTerminalNode;  ///
 
-    childNodes = [
-      childNode
-    ];
-
-    this.overwriteChildNodes(childNodes);
+    this.overwriteChildNodes(childNode);
 
     super.commit();
   }

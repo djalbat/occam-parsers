@@ -3,32 +3,36 @@
 import Context from "../context";
 
 export default class PartsContext extends Context {
-  constructor(context, offset, index, childNodes, parts, definition) {
+  constructor(context, offset, index, childNodes, parts, parse) {
     super(context, offset, index, childNodes);
 
     this.parts = parts;
-    this.definition = definition;
+    this.parse = parse;
   }
 
   getParts() {
     return this.parts;
   }
 
-  getDefinition() {
-    return this.definition;
+  getParse() {
+    return this.parse;
   }
 
   calledAhead(context) {
     let parsed;
 
-    parsed = this.definition.parse(this.parts, context);
+    const partsLength = this.parts.length;
+
+    parsed = (partsLength > 0) ?
+               this.parse(this.parts, context) :
+                 this.callAhead(context);
 
     return parsed;
   }
 
-  static fromPartsAndDefinition(parts,definition,  context) {
-    const partContext = Context.fromNothing(PartsContext, parts, definition, context);
+  static fromPartsAndParse(parts, parse, context) {
+    const partsContext = Context.fromNothing(PartsContext, parts, parse, context);
 
-    return partContext;
+    return partsContext;
   }
 }

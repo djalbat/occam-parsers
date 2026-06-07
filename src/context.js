@@ -103,12 +103,9 @@ export default class Context {
     return nextTokenWhitespaceToken;
   }
 
-  callAhead(...remainingArguments) {
-    const context = this, ///
-          parsed = this.context.calledAhead(...remainingArguments, context);
+  callAhead(context = this) { return this.context.calledAhead(context); }
 
-    return parsed;
-  }
+  calledAhead(...remainingArguments) { return this.context.calledAhead(...remainingArguments); }
 
   adjustIndex(offset) {
     this.index += offset;
@@ -122,7 +119,7 @@ export default class Context {
     this.childNodes.push(...childNodes);
   }
 
-  overwriteChildNodes(childNodes) {
+  overwriteChildNodes(...childNodes) {
     this.childNodes = childNodes;
   }
 
