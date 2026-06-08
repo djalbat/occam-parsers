@@ -3,8 +3,8 @@
 import Context from "../context";
 
 export default class DefinitionContext extends Context {
-  constructor(context, offset, index, childNodes, definition, precedence) {
-    super(context, offset, index, childNodes);
+  constructor(context, state, childNodes, definition, precedence) {
+    super(context, state, childNodes);
 
     this.definition = definition;
     this.precedence = precedence;

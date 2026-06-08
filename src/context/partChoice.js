@@ -3,8 +3,8 @@
 import Context from "../context";
 
 export default class PartChoiceContext extends Context {
-  constructor(context, offset, index, childNodes, precedence) {
-    super(context, offset, index, childNodes);
+  constructor(context, state, childNodes, precedence) {
+    super(context, state, childNodes);
 
     this.precedence = precedence;
   }
@@ -13,7 +13,7 @@ export default class PartChoiceContext extends Context {
     return this.precedence;
   }
 
-  calledAhead(context) {
+  calledAhead() {
     debugger
   }
 

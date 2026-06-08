@@ -3,8 +3,8 @@
 import Context from "../context";
 
 export default class RuleNamePartContext extends Context {
-  constructor(context, offset, index, childNodes, ruleNamePart) {
-    super(context, offset, index, childNodes);
+  constructor(context, state, childNodes, ruleNamePart) {
+    super(context, state, childNodes);
 
     this.ruleNamePart = ruleNamePart;
   }

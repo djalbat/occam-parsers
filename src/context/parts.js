@@ -3,8 +3,8 @@
 import Context from "../context";
 
 export default class PartsContext extends Context {
-  constructor(context, offset, index, childNodes, parts, parse) {
-    super(context, offset, index, childNodes);
+  constructor(context, state, childNodes, parts, parse) {
+    super(context, state, childNodes);
 
     this.parts = parts;
     this.parse = parse;
@@ -18,14 +18,15 @@ export default class PartsContext extends Context {
     return this.parse;
   }
 
-  calledAhead(context) {
+  calledAhead(index) {
     let parsed;
 
-    const partsLength = this.parts.length;
+    const context = this, ///
+          partsLength = this.parts.length;
 
     parsed = (partsLength > 0) ?
                this.parse(this.parts, context) :
-                 super.calledAhead(context);
+                 super.calledAhead(index);
 
     return parsed;
   }

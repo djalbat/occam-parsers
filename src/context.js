@@ -2,13 +2,14 @@
 
 import { arrayUtilities} from "necessary";
 
+import State from "./state";
+
 const { clear } = arrayUtilities;
 
 export default class Context {
-  constructor(context, offset, index, childNodes) {
+  constructor(context, state, childNodes) {
     this.context = context;
-    this.offset = offset;
-    this.index = index;
+    this.state = state;
     this.childNodes = childNodes;
   }
 
@@ -16,19 +17,13 @@ export default class Context {
     return this.context;
   }
 
-  getOffset() {
-    return this.offset;
-  }
-
-  getIndex() {
-    return this.index;
+  getState() {
+    return this.state;
   }
 
   getChildNodes() {
     return this.childNodes;
   }
-
-  getTokens() { return this.context.getTokens(); }
 
   getRuleMap() { return this.context.getRuleMap(); }
 
@@ -42,73 +37,30 @@ export default class Context {
 
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
-  getNextToken() {
-    let nextToken = null;
+  getTokens() { return this.state.getTokens(); }
 
-    const tokens = this.getTokens(),
-          length = tokens.length,
-          index = this.index + this.offset;
+  getIndex() { return this.state.getIndex(); }
 
-    if (index < length) {
-      nextToken = tokens[index];
+  getOffset() { return this.state.getOffset(); }
 
-      this.index++;
-    }
+  getNextToken() { return this.state.getNextToken(); }
 
-    return nextToken;
-  }
+  getNextSignificantToken() { return this.state.getNextSignificantToken(); }
 
-  getNextSignificantToken() {
-    let nextSignificantToken = null;
+  isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
-    const tokens = this.getTokens(),
-          length = tokens.length
+  adjustIndex(offset) { this.state.adjustIndex(offset); }
 
-    let index = this.index + this.offset;
+  callAhead() { return this.context.calledAhead(this.state); }
 
-    while (index < length) {
-      const token = tokens[index];
+  calledAhead(state) {
+    const offset = this.getOffset();
 
-      this.index++;
+    state = this.state.adjusted(offset)
 
-      index = this.index + this.offset;
+    const parsed = this.context.calledAhead(state);
 
-      const tokenSignificant = token.isSignificant();
-
-      if (tokenSignificant) {
-        const significantToken = token; ///
-
-        nextSignificantToken = significantToken;	///
-
-        break;
-      }
-    }
-
-    return nextSignificantToken;
-  }
-
-  isNextTokenWhitespaceToken() {
-    let nextTokenWhitespaceToken = false;
-
-    const tokens = this.getTokens(),
-          length = tokens.length,
-          index = this.index + this.offset;
-
-    if (index < length) {
-      const nextToken = tokens[index];
-
-      nextTokenWhitespaceToken = nextToken.isWhitespaceToken();
-    }
-
-    return nextTokenWhitespaceToken;
-  }
-
-  callAhead(context = this) { return this.context.calledAhead(context); }
-
-  calledAhead(...remainingArguments) { return this.context.calledAhead(...remainingArguments); }
-
-  adjustIndex(offset) {
-    this.index += offset;
+    return parsed;
   }
 
   addChildNode(childNode) {
@@ -124,7 +76,8 @@ export default class Context {
   }
 
   commit() {
-    const offset = this.index;  ///
+    const index = this.getIndex(),
+          offset = index;  ///
 
     this.context.adjustIndex(offset);
 
@@ -141,11 +94,11 @@ export default class Context {
 
     offset = offset + index; ///
 
-    index = 0;
+    const tokens = context.getTokens(),
+          state = State.fromTokensAndOffset(tokens, offset),
+          childNodes = [];
 
-    const childNodes = [];
-
-    context = new Class(context, offset, index, childNodes, ...remainingArguments);
+    context = new Class(context, state, childNodes, ...remainingArguments);
 
     return context;
   }
