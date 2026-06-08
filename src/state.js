@@ -1,18 +1,13 @@
 "use strict";
 
 export default class State {
-  constructor(tokens, offset, index) {
+  constructor(tokens, index) {
     this.tokens = tokens;
-    this.offset = offset;
     this.index = index;
   }
 
   getTokens() {
     return this.tokens;
-  }
-
-  getOffset() {
-    return this.offset;
   }
 
   getIndex() {
@@ -22,13 +17,10 @@ export default class State {
   getNextToken() {
     let nextToken = null;
 
-    const index = this.index + this.offset,
-          length = this.tokens.length;
+    const length = this.tokens.length;
 
-    if (index < length) {
-      nextToken = this.tokens[index];
-
-      this.index++;
+    if (this.index < length) {
+      nextToken = this.tokens[this.index++];
     }
 
     return nextToken;
@@ -39,16 +31,9 @@ export default class State {
 
     const length = this.tokens.length
 
-    let index = this.index + this.offset;
-
-    while (index < length) {
-      const token = this.tokens[index];
-
-      this.index++;
-
-      index = this.index + this.offset;
-
-      const tokenSignificant = token.isSignificant();
+    while (this.index < length) {
+      const token = this.tokens[this.index++],
+            tokenSignificant = token.isSignificant();
 
       if (tokenSignificant) {
         const significantToken = token; ///
@@ -65,11 +50,10 @@ export default class State {
   isNextTokenWhitespaceToken() {
     let nextTokenWhitespaceToken = false;
 
-    const index = this.index + this.offset,
-          length = this.tokens.length;
+    const length = this.tokens.length;
 
-    if (index < length) {
-      const nextToken = this.tokens[index];
+    if (this.index < length) {
+      const nextToken = this.tokens[this.index];
 
       nextTokenWhitespaceToken = nextToken.isWhitespaceToken();
     }
@@ -77,31 +61,19 @@ export default class State {
     return nextTokenWhitespaceToken;
   }
 
-  adjustIndex(offset) {
-    this.index += offset;
+  adjustIndex(index) {
+    this.index = index;
   }
 
-  adjusted(offset) {
-    const index = this.index + offset;
-
-    offset = 0;
-
-    const state = new State(this.tokens, offset, index);
+  clone() {
+    const state = new State(this.tokens, this.index);
 
     return state;
   }
 
   static fromTokens(tokens) {
-    const offset = 0,
-          index = 0,
-          state = new State(tokens, offset, index);
-
-    return state;
-  }
-
-  static fromTokensAndOffset(tokens, offset) {
     const index = 0,
-          state = new State(tokens, offset, index);
+          state = new State(tokens, index);
 
     return state;
   }

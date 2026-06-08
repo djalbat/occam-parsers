@@ -25,7 +25,7 @@ export default class Definition {
   parse(context) {
     let parsed;
 
-    const definition = this;
+    const definition = this;  ///
 
     definitionContext((context) => {
       parsed = parseParts(this.parts, context);

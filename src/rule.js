@@ -65,7 +65,7 @@ export default class Rule {
     const rule = this;  ///
 
     ruleContext((context) => {
-      parsed = this.definitions.some((definition) => {
+      this.definitions.some((definition) => {
         parsed = definition.parse(context);
 
         if (parsed) {

@@ -1,11 +1,5 @@
 "use strict";
 
-import { arrayUtilities} from "necessary";
-
-import State from "./state";
-
-const { clear } = arrayUtilities;
-
 export default class Context {
   constructor(context, state, childNodes) {
     this.context = context;
@@ -37,11 +31,9 @@ export default class Context {
 
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
-  getTokens() { return this.state.getTokens(); }
-
   getIndex() { return this.state.getIndex(); }
 
-  getOffset() { return this.state.getOffset(); }
+  getTokens() { return this.state.getTokens(); }
 
   getNextToken() { return this.state.getNextToken(); }
 
@@ -49,19 +41,11 @@ export default class Context {
 
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
-  adjustIndex(offset) { this.state.adjustIndex(offset); }
+  adjustIndex(index) { this.state.adjustIndex(index); }
 
   callAhead() { return this.context.calledAhead(this.state); }
 
-  calledAhead(state) {
-    const offset = this.getOffset();
-
-    state = this.state.adjusted(offset)
-
-    const parsed = this.context.calledAhead(state);
-
-    return parsed;
-  }
+  calledAhead(state) { return this.context.calledAhead(state); }
 
   addChildNode(childNode) {
     this.childNodes.push(childNode);
@@ -76,27 +60,35 @@ export default class Context {
   }
 
   commit() {
-    const index = this.getIndex(),
-          offset = index;  ///
+    const index = this.getIndex();
 
-    this.context.adjustIndex(offset);
+    this.context.adjustIndex(index);
 
     this.context.addChildNodes(this.childNodes);
+  }
 
-    clear(this.childNodes);
+  applyState(Class, state, ...remainingArguments) {
+    let context;
+
+    context = this; ///
+
+    const childNodes = [];
+
+    context = new Class(context, state, childNodes, ...remainingArguments);
+
+    return context;
   }
 
   static fromNothing(Class, ...remainingArguments) {
     let context = remainingArguments.pop();
 
-    let index = context.getIndex(),
-        offset = context.getOffset();
+    let state;
 
-    offset = offset + index; ///
+    state = context.getState();
 
-    const tokens = context.getTokens(),
-          state = State.fromTokensAndOffset(tokens, offset),
-          childNodes = [];
+    state = state.clone();
+
+    const childNodes = [];
 
     context = new Class(context, state, childNodes, ...remainingArguments);
 

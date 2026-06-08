@@ -18,18 +18,23 @@ export default class PartsContext extends Context {
     return this.parse;
   }
 
-  calledAhead(index) {
+  calledAhead(state) {
     let parsed;
 
-    const context = this, ///
-          partsLength = this.parts.length;
+    const partsLength = this.parts.length;
 
-    parsed = (partsLength > 0) ?
-               this.parse(this.parts, context) :
-                 super.calledAhead(index);
+    if (partsLength > 0) {
+      const context = this.applyState(state);
+
+      parsed = this.parse(this.parts, context);
+    } else {
+      parsed = super.calledAhead(state);
+    }
 
     return parsed;
   }
+
+  applyState(state) { return super.applyState(PartsContext, state, this.parts, this.parse); }
 
   static fromPartsAndParse(parts, parse, context) {
     const partsContext = Context.fromNothing(PartsContext, parts, parse, context);

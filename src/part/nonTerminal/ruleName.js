@@ -30,7 +30,7 @@ export default class RuleNamePart extends NonTerminalPart {
   parse(context) {
     let parsed;
 
-    const ruleNamePart = this;
+    const ruleNamePart = this;  ///
 
     ruleNamePartContext((context) => {
       const rule = context.findRule(this.ruleName);

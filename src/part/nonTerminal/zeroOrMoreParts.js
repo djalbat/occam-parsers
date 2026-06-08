@@ -43,7 +43,7 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
       if (parsed) {
         context.commit();
       }
-    }, part, context)
+    }, part, context);
 
     return parsed;
   }

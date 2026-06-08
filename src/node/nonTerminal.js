@@ -253,7 +253,7 @@ export default class NonTerminalNode {
   }
 
   rewrite(state) {
-    const rewrittenNonTerminalNode = this;
+    const rewrittenNonTerminalNode = this;  ///
 
     return rewrittenNonTerminalNode;
   }

@@ -13,7 +13,7 @@ export default class WildcardPart extends TerminalPart {
   parse(context) {
     let parsed;
 
-    const part = this;
+    const part = this;  ///
 
     partContext((context) => {
       parsed = false;
@@ -41,7 +41,7 @@ export default class WildcardPart extends TerminalPart {
       if (parsed) {
         context.commit();
       }
-    }, part, context)
+    }, part, context);
 
     return parsed;
   }

@@ -38,7 +38,7 @@ function setChildNodesParentNode(childNodes) {
     ];
   }
 
-  const parentNode = this;
+  const parentNode = this;  ///
 
   childNodes.forEach((childNode) => {
     childNode.setParentNode(parentNode);

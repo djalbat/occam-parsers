@@ -39,7 +39,7 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
       if (parsed) {
         context.commit();
       }
-    }, part, context)
+    }, part, context);
 
     return parsed;
   }

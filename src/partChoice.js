@@ -30,7 +30,7 @@ export default class PartChoice {
       if (parsed) {
         context.commit();
       }
-    }, partChoice, context)
+    }, partChoice, context);
 
     return parsed;
   }
