@@ -191,6 +191,19 @@ export default class NonTerminalNode {
     return unprecedented;
   }
 
+  isPalatable() {
+    let palatable = true;
+
+    const empty = this.isEmpty(),
+          unprecedented = this.isUnprecedented();
+
+    if (empty || unprecedented) {
+      palatable = false;
+    }
+
+    return palatable;
+  }
+
   asParseTree(tokens) {
     const nonTerminalNode = this,  ///
           nonTerminalNodeParseTree = NonTerminalNodeParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens),

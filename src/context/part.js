@@ -13,12 +13,6 @@ export default class PartContext extends Context {
     return this.part;
   }
 
-  calledAhead(context) {
-    const parsed = super.calledAhead(this.part, context);
-
-    return parsed;
-  }
-
   static fromPart(part, context) {
     const partContext = Context.fromNothing(PartContext, part, context);
 

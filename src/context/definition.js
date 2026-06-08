@@ -18,18 +18,10 @@ export default class DefinitionContext extends Context {
     return this.precedence;
   }
 
-  setPrecedence(precedence) {
-    this.precedence = precedence;
-  }
-
-  calledAhead(part, context) {
-    debugger
-  }
-
   commit() {
     const context = this.getContext();
 
-    // context.setPrecedence(this.precedence);
+    // context.updatePrecedence(this.precedence);
 
     super.commit();
   }

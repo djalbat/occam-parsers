@@ -21,6 +21,18 @@ export function parseParts(parts, context) {
     parsed = part.parse(context);
 
     if (parsed) {
+      const callAhead = context.isCallAhead();
+
+      if (!callAhead) {
+        const partsLength = parts.length;
+
+        parsed = (partsLength > 0) ?
+                   parseParts(parts, context) :
+                     true;
+      }
+    }
+
+    if (parsed) {
       context.commit();
     }
   }, parts, parse, context);

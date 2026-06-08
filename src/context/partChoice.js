@@ -20,7 +20,7 @@ export default class PartChoiceContext extends Context {
   commit() {
     const context = this.getContext();
 
-    // context.setPrecedence(this.precedence);
+    // context.updatePrecedence(this.precedence);
 
     super.commit();
   }

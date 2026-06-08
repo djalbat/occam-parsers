@@ -23,13 +23,6 @@ export default class RuleNamePartContext extends Context {
     return callAhead;
   }
 
-  calledAhead(context) {
-    const part = this.ruleNamePart, ////
-          parsed = super.calledAhead(part, context);
-
-    return parsed;
-  }
-
   static fromRuleNamePart(ruleNamePart, context) {
     const ruleNamePartContext = Context.fromNothing(RuleNamePartContext, ruleNamePart, context);
 

@@ -14,7 +14,7 @@ const bnfLexer = BNFLexer.fromNothing(),
 describe("src/main", () => {
   describe("a simple BNF rule", () => {
     describe("content with a single rule", () => {
-      it("results in the requisite parse tree" , () => {
+      it.only("results in the requisite parse tree" , () => {
         const content = `
           
                   a ::= b ;
@@ -98,7 +98,7 @@ describe("src/main", () => {
           `;
 
     describe("content with a single token", () => {
-      it.only("results in the requisite parse tree" , () => {
+      it("results in the requisite parse tree" , () => {
         const content = `
 
                 a

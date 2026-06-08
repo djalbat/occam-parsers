@@ -25,7 +25,7 @@ export default class PartsContext extends Context {
 
     parsed = (partsLength > 0) ?
                this.parse(this.parts, context) :
-                 this.callAhead(context);
+                 super.calledAhead(context);
 
     return parsed;
   }
