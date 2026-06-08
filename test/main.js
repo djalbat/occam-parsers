@@ -61,7 +61,7 @@ describe("src/main", () => {
           
           `;
 
-    describe("content with a single token", () => {
+    describe("content with a single significant token", () => {
       it("results in the requisite parse tree" , () => {
         const content = `
       
@@ -91,17 +91,17 @@ describe("src/main", () => {
           ],
           bnf = `
           
-            S ::= A... "a" ;
+            S ::= A... "b" ;
             
-            A ::= "a"? ;
+            A ::= "a" "b"? ;
           
           `;
 
-    describe("content with a single token", () => {
+    describe("content with two significant tokens", () => {
       it.only("results in the requisite parse tree" , () => {
         const content = `
 
-                a
+                a b
               
               `,
               tokens = tokensFromEntriesAndContent(entries, content),

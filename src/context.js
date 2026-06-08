@@ -70,11 +70,11 @@ export default class Context {
   applyState(Class, state, ...remainingArguments) {
     let context;
 
-    context = this; ///
+    state = state.clone();
 
     const childNodes = [];
 
-    context = new Class(context, state, childNodes, ...remainingArguments);
+    context = new Class(this.context, state, childNodes, ...remainingArguments);
 
     return context;
   }

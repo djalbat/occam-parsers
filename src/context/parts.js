@@ -27,6 +27,10 @@ export default class PartsContext extends Context {
       const context = this.applyState(state);
 
       parsed = this.parse(this.parts, context);
+
+      if (parsed) {
+        context.commit();
+      }
     } else {
       parsed = super.calledAhead(state);
     }
