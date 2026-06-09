@@ -7,13 +7,5 @@ export default class CallAheadContext extends Context {
     super.adjustState(state);
   }
 
-  static fromState(state, context) {
-    let callAheadContext;
-
-    state = state.clone();
-
-    callAheadContext = Context.fromState(CallAheadContext, state, context);
-
-    return callAheadContext;
-  }
+  static fromState(state, context) { return Context.fromState(CallAheadContext, state, context); }
 }

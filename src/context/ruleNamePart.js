@@ -3,10 +3,14 @@
 import Context from "../context";
 
 export default class RuleNamePartContext extends Context {
-  constructor(context, state, childNodes, siblingParts, ruleNamePart) {
-    super(context, state, childNodes, siblingParts);
+  constructor(context, state, childNodes, ruleNamePart) {
+    super(context, state, childNodes);
 
     this.ruleNamePart = ruleNamePart;
+  }
+
+  getRuleNamePart() {
+    return this.ruleNamePart;
   }
 
   isCallAhead() {

@@ -1,12 +1,16 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import Context from "../context";
 
 import { callAheadContext } from "../utilities/context";
 
+const { first } = arrayUtilities;
+
 export default class PartsContext extends Context {
-  constructor(context, state, childNodes, siblingParts, parts, parse) {
-    super(context, state, childNodes, siblingParts);
+  constructor(context, state, childNodes, parts, parse) {
+    super(context, state, childNodes);
 
     this.parts = parts;
     this.parse = parse;

@@ -1,11 +1,10 @@
 "use strict";
 
 export default class Context {
-  constructor(context, state, childNodes, siblingParts) {
+  constructor(context, state, childNodes) {
     this.context = context;
     this.state = state;
     this.childNodes = childNodes;
-    this.siblingParts = siblingParts;
   }
 
   getContext() {
@@ -18,10 +17,6 @@ export default class Context {
 
   getChildNodes() {
     return this.childNodes;
-  }
-
-  getSiblingParts() {
-    return this.siblingParts;
   }
 
   setContext(context) {
@@ -44,9 +39,9 @@ export default class Context {
 
   NonTerminalNodeFromRuleName(ruleName) { return this.context.NonTerminalNodeFromRuleName(ruleName); }
 
-  isCallAhead() { return this.context.isCallAhead(); }
-
   findRule(ruleName) { return this.context.findRule(ruleName); }
+
+  isCallAhead() { return this.context.isCallAhead(); }
 
   getNextToken() { return this.state.getNextToken(); }
 
@@ -85,15 +80,9 @@ export default class Context {
 
     const childNodes = [];
 
-    let siblingParts;
+    state = state.clone();  ///
 
-    siblingParts = context.getSiblingParts();
-
-    siblingParts = [ ///
-      ...siblingParts
-    ]
-
-    context = new Class(context, state, childNodes, siblingParts, ...remainingArguments);
+    context = new Class(context, state, childNodes, ...remainingArguments);
 
     return context;
   }
@@ -101,23 +90,15 @@ export default class Context {
   static fromNothing(Class, ...remainingArguments) {
     let context = remainingArguments.pop();
 
+    const childNodes = [];
+
     let state;
 
     state = context.getState();
 
     state = state.clone();  ///
 
-    let siblingParts;
-
-    siblingParts = context.getSiblingParts();
-
-    siblingParts = [ ///
-      ...siblingParts
-    ]
-
-    const childNodes = [];
-
-    context = new Class(context, state, childNodes, siblingParts, ...remainingArguments);
+    context = new Class(context, state, childNodes, ...remainingArguments);
 
     return context;
   }
