@@ -90,7 +90,7 @@ describe("src/main", () => {
           `;
 
     describe("content with two significant tokens", () => {
-      it.only("results in the requisite parse tree" , () => {
+      it("results in the requisite parse tree" , () => {
         const content = "a b .",
               tokens = tokensFromEntriesAndContent(entries, content),
               node = nodeFromBNFAndTokens(bnf, tokens),

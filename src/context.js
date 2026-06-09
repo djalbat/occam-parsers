@@ -1,10 +1,11 @@
 "use strict";
 
 export default class Context {
-  constructor(context, state, childNodes) {
+  constructor(context, state, childNodes, siblingParts) {
     this.context = context;
     this.state = state;
     this.childNodes = childNodes;
+    this.siblingParts = siblingParts;
   }
 
   getContext() {
@@ -17,6 +18,10 @@ export default class Context {
 
   getChildNodes() {
     return this.childNodes;
+  }
+
+  getSiblingParts() {
+    return this.siblingParts;
   }
 
   setContext(context) {
@@ -80,7 +85,15 @@ export default class Context {
 
     const childNodes = [];
 
-    context = new Class(context, state, childNodes, ...remainingArguments);
+    let siblingParts;
+
+    siblingParts = context.getSiblingParts();
+
+    siblingParts = [ ///
+      ...siblingParts
+    ]
+
+    context = new Class(context, state, childNodes, siblingParts, ...remainingArguments);
 
     return context;
   }
@@ -94,9 +107,17 @@ export default class Context {
 
     state = state.clone();  ///
 
+    let siblingParts;
+
+    siblingParts = context.getSiblingParts();
+
+    siblingParts = [ ///
+      ...siblingParts
+    ]
+
     const childNodes = [];
 
-    context = new Class(context, state, childNodes, ...remainingArguments);
+    context = new Class(context, state, childNodes, siblingParts, ...remainingArguments);
 
     return context;
   }

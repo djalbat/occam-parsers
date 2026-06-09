@@ -8,8 +8,8 @@ import Context from "../context";
 const { first } = arrayUtilities;
 
 export default class TopmostContext extends Context {
-  constructor(context, state, childNodes, ruleMap, NonTerminalNodeMap, defaultNonTerminalNode) {
-    super(context, state, childNodes);
+  constructor(context, state, childNodes, siblingParts, ruleMap, NonTerminalNodeMap, defaultNonTerminalNode) {
+    super(context, state, childNodes, siblingParts);
 
     this.ruleMap = ruleMap;
     this.NonTerminalNodeMap = NonTerminalNodeMap;
@@ -78,7 +78,8 @@ export default class TopmostContext extends Context {
           ruleMap = parser.getRuleMap(),
           state = State.fromTokens(tokens),
           childNodes = [],
-          topmostContext = new TopmostContext(context, state, childNodes, ruleMap, NonTerminalNodeMap, defaultNonTerminalNode);
+          siblingParts = [],
+          topmostContext = new TopmostContext(context, state, childNodes, siblingParts, ruleMap, NonTerminalNodeMap, defaultNonTerminalNode);
 
     return topmostContext;
   }

@@ -5,8 +5,8 @@ import Context from "../context";
 import { callAheadContext } from "../utilities/context";
 
 export default class PartsContext extends Context {
-  constructor(context, state, childNodes, parts, parse) {
-    super(context, state, childNodes);
+  constructor(context, state, childNodes, siblingParts, parts, parse) {
+    super(context, state, childNodes, siblingParts);
 
     this.parts = parts;
     this.parse = parse;
