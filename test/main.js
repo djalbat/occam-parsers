@@ -15,34 +15,30 @@ describe("src/main", () => {
   describe("a simple BNF rule", () => {
     describe("content with a single rule", () => {
       it("results in the requisite parse tree" , () => {
-        const content = `
-          
-                  a ::= b ;
-                
-                `,
+        const content = "a ::= b ;",
               tokens = bnfLexer.tokenise(content),
               node = bnfParser.parse(tokens),
               parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
           
-                                  document [2]                             
-                                        |                                  
-                                    rule [2]                               
-                                        |                                  
-            --------------------------------------------------------       
-            |                |                  |                  |       
-        name [2]    "::="[special] [2]   definitions [2]   ";"[special] [2]
-            |                                   |                          
-      "a"[name] [2]                      definition [2]                    
-                                                |                          
-                                            part [2]                       
-                                                |                          
-                                       nonTerminalPart [2]                 
-                                                |                          
-                                          ruleName [2]                     
-                                                |                          
-                                          "b"[name] [2]                    
+                                    document [0]                             
+                                          |                                  
+                                      rule [0]                               
+                                          |                                  
+              --------------------------------------------------------       
+              |                |                  |                  |       
+          name [0]    "::="[special] [0]   definitions [0]   ";"[special] [0]
+              |                                   |                          
+        "a"[name] [0]                      definition [0]                    
+                                                  |                          
+                                              part [0]                       
+                                                  |                          
+                                         nonTerminalPart [0]                 
+                                                  |                          
+                                            ruleName [0]                     
+                                                  |                          
+                                            "b"[name] [0]                    
     
         `));
       });
@@ -63,20 +59,16 @@ describe("src/main", () => {
 
     describe("content with a single significant token", () => {
       it("results in the requisite parse tree" , () => {
-        const content = `
-      
-                  a
-                
-                `,
+        const content = "a",
               tokens = tokensFromEntriesAndContent(entries, content),
               node = nodeFromBNFAndTokens(bnf, tokens),
               parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
           
-                 S [2]       
+                 S [0]       
                    |         
-          "a"[unassigned] [2]
+          "a"[unassigned] [0]
     
         `));
       });
@@ -91,7 +83,7 @@ describe("src/main", () => {
           ],
           bnf = `
           
-            S ::= A... "b" ;
+            S ::= A... "." ;
             
             A ::= "a" "b"? ;
           
@@ -99,11 +91,47 @@ describe("src/main", () => {
 
     describe("content with two significant tokens", () => {
       it.only("results in the requisite parse tree" , () => {
-        const content = `
+        const content = "a b .",
+              tokens = tokensFromEntriesAndContent(entries, content),
+              node = nodeFromBNFAndTokens(bnf, tokens),
+              parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
 
-                a b
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+          
+                           S [2]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [2]        "."[unassigned] [2]
+                   |                             
+          "a"[unassigned] [2]                    
+      
+        `));
+      });
+    });
+  });
+
+  describe("two rules the first with a single definition with a call ahead part and the second with a single definition with a zero or more parts part", () => {
+    const entries = [
+            {
+              "unassigned": "^[^\\s]"
+            }
+          ],
+          bnf = `
               
-              `,
+                S ::= A... "b" ;
+                
+                A ::= "a" "b"* ;
+              
+              `;
+
+    describe("content with two significant tokens", () => {
+      it("results in the requisite parse tree" , () => {
+        const content = `
+    
+                    a b b
+                  
+                  `,
               tokens = tokensFromEntriesAndContent(entries, content),
               node = nodeFromBNFAndTokens(bnf, tokens),
               parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);

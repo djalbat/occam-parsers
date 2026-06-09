@@ -19,6 +19,18 @@ export default class Context {
     return this.childNodes;
   }
 
+  setContext(context) {
+    this.context = context;
+  }
+
+  setState(state) {
+    this.state = state;
+  }
+
+  setChildNodes(childNodes) {
+    this.childNodes = childNodes;
+  }
+
   getRuleMap() { return this.context.getRuleMap(); }
 
   getNonTerminalNodeMap() { return this.context.getNonTerminalNodeMap(); }
@@ -37,16 +49,7 @@ export default class Context {
 
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
-  callAhead() {
-    const state = this.state.clone(),
-          parsed = this.context.calledAhead(state);
-
-    if (parsed) {
-      this.state = state;
-    }
-
-    return parsed;
-  }
+  callAhead() { return this.context.calledAhead(this.state); }
 
   calledAhead(state) { return this.context.calledAhead(state); }
 
@@ -62,12 +65,12 @@ export default class Context {
     this.childNodes = childNodes;
   }
 
-  adjustState(state) {
-    this.state = state;
-  }
+  adjustState(state) { this.state.adjustState(state); }
 
   commit() {
-    this.context.adjustState(this.state);
+    const state = this.state.clone();
+
+    this.context.setState(state);
 
     this.context.addChildNodes(this.childNodes);
   }

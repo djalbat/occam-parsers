@@ -30,6 +30,10 @@ export default class PartsContext extends Context {
 
       callAheadContext((context) => {
         parsed = this.parse(this.parts, context);
+
+        if (parsed) {
+          context.commit(state);
+        }
       }, state, context);
     } else {
       parsed = super.calledAhead(state);

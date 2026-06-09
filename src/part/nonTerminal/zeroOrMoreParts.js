@@ -29,7 +29,11 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
       const callAhead = context.isCallAhead();
 
       if (callAhead) {
-        debugger
+        parsed = context.callAhead();
+
+        if (!parsed) {
+          debugger
+        }
       } else {
         parsed = true
 
