@@ -31,19 +31,22 @@ export default class Context {
 
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
-  getIndex() { return this.state.getIndex(); }
-
-  getTokens() { return this.state.getTokens(); }
-
   getNextToken() { return this.state.getNextToken(); }
 
   getNextSignificantToken() { return this.state.getNextSignificantToken(); }
 
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
-  adjustIndex(index) { this.state.adjustIndex(index); }
+  callAhead() {
+    const state = this.state.clone(),
+          parsed = this.context.calledAhead(state);
 
-  callAhead() { return this.context.calledAhead(this.state); }
+    if (parsed) {
+      this.state = state;
+    }
+
+    return parsed;
+  }
 
   calledAhead(state) { return this.context.calledAhead(state); }
 
@@ -59,22 +62,22 @@ export default class Context {
     this.childNodes = childNodes;
   }
 
-  commit() {
-    const index = this.getIndex();
+  adjustState(state) {
+    this.state = state;
+  }
 
-    this.context.adjustIndex(index);
+  commit() {
+    this.context.adjustState(this.state);
 
     this.context.addChildNodes(this.childNodes);
   }
 
-  applyState(Class, state, ...remainingArguments) {
-    let context;
-
-    state = state.clone();
+  static fromState(Class, state, ...remainingArguments) {
+    let context = remainingArguments.pop();
 
     const childNodes = [];
 
-    context = new Class(this.context, state, childNodes, ...remainingArguments);
+    context = new Class(context, state, childNodes, ...remainingArguments);
 
     return context;
   }
@@ -86,7 +89,7 @@ export default class Context {
 
     state = context.getState();
 
-    state = state.clone();
+    state = state.clone();  ///
 
     const childNodes = [];
 

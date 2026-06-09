@@ -61,10 +61,6 @@ export default class State {
     return nextTokenWhitespaceToken;
   }
 
-  adjustIndex(index) {
-    this.index = index;
-  }
-
   clone() {
     const state = new State(this.tokens, this.index);
 

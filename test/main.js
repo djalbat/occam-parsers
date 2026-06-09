@@ -110,11 +110,13 @@ describe("src/main", () => {
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
           
-                  S [4-2]            
-                     |               
-              --------------         
-              |            |         
-            A [4] "a"[unassigned] [2]
+                           S [2]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [2]        "b"[unassigned] [2]
+                   |                             
+          "a"[unassigned] [2]                    
       
         `));
       });
