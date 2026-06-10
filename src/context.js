@@ -36,6 +36,12 @@ export default class Context {
     this.childNodes = childNodes;
   }
 
+  isCallAhead() {
+    const callAhead = (this.callAheadPart !== null);
+
+    return callAhead;
+  }
+
   getRuleMap() { return this.context.getRuleMap(); }
 
   getNonTerminalNodeMap() { return this.context.getNonTerminalNodeMap(); }
@@ -43,6 +49,8 @@ export default class Context {
   getDefaultNonTerminalNode() { return this.context.getDefaultNonTerminalNode(); }
 
   NonTerminalNodeFromRuleName(ruleName) { return this.context.NonTerminalNodeFromRuleName(ruleName); }
+
+  getNextPart() { return this.context.getNextPart(); }
 
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
@@ -52,13 +60,7 @@ export default class Context {
 
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
-  isCallAhead() {
-    const callAhead = (this.callAheadPart !== null);
-
-    return callAhead;
-  }
-
-  getNextPart() { return this.context.getNextPart(); }
+  calledAhead(state, callAheadPart) { return this.context.calledAhead(state, callAheadPart); }
 
   callAhead() {
     const parsed = this.context.calledAhead(this.state, this.callAheadPart);
@@ -66,10 +68,12 @@ export default class Context {
     return parsed;
   }
 
-  calledAhead(state, callAheadPart) { return this.context.calledAhead(state, callAheadPart); }
-
   addChildNode(childNode) {
-    this.childNodes.push(childNode);
+    const callAhead = this.isCallAhead();
+
+    callAhead ?
+      this.childNodes.push(childNode) :
+        this.childNodes.unshift(childNode)
   }
 
   addChildNodes(childNodes) {

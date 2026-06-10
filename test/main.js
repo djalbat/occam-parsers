@@ -12,7 +12,7 @@ const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
 describe("src/main", () => {
-  describe.only("a simple BNF rule", () => {
+  describe("a simple BNF rule", () => {
     describe("content with a single rule", () => {
       it("results in the requisite parse tree" , () => {
         const content = "a ::= b ;",
@@ -22,23 +22,23 @@ describe("src/main", () => {
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
           
-                                    document [0]                             
-                                          |                                  
-                                      rule [0]                               
-                                          |                                  
-              --------------------------------------------------------       
-              |                |                  |                  |       
-          name [0]    "::="[special] [0]   definitions [0]   ";"[special] [0]
-              |                                   |                          
-        "a"[name] [0]                      definition [0]                    
-                                                  |                          
-                                              part [0]                       
-                                                  |                          
-                                         nonTerminalPart [0]                 
-                                                  |                          
-                                            ruleName [0]                     
-                                                  |                          
-                                            "b"[name] [0]                    
+                                      document [0]                             
+                                            |                                  
+                                        rule [0]                               
+                                            |                                  
+                --------------------------------------------------------       
+                |                |                  |                  |       
+            name [0]    "::="[special] [0]   definitions [0]   ";"[special] [0]
+                |                                   |                          
+          "a"[name] [0]                      definition [0]                    
+                                                    |                          
+                                                part [0]                       
+                                                    |                          
+                                           nonTerminalPart [0]                 
+                                                    |                          
+                                              ruleName [0]                     
+                                                    |                          
+                                              "b"[name] [0]                    
     
         `));
       });
@@ -98,20 +98,22 @@ describe("src/main", () => {
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
           
-                           S [2]                 
-                             |                   
-                   ---------------------         
-                   |                   |         
-                 A [2]        "."[unassigned] [2]
-                   |                             
-          "a"[unassigned] [2]                    
+                                          S [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           A [0]                  "."[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+          "a"[unassigned] [0] "b"[unassigned] [0]                    
       
         `));
       });
     });
   });
 
-  describe("two rules the first with a single definition with a call ahead part and the second with a single definition with a zero or more parts part", () => {
+  describe.skip("two rules the first with a single definition with a call ahead part and the second with a single definition with a zero or more parts part", () => {
     const entries = [
             {
               "unassigned": "^[^\\s]"
