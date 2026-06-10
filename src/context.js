@@ -72,12 +72,16 @@ export default class Context {
     const callAhead = this.isCallAhead();
 
     callAhead ?
-      this.childNodes.push(childNode) :
-        this.childNodes.unshift(childNode)
+      this.childNodes.unshift(childNode) :
+        this.childNodes.push(childNode);
   }
 
   addChildNodes(childNodes) {
-    this.childNodes.push(...childNodes);
+    const callAhead = this.isCallAhead();
+
+    callAhead ?
+      this.childNodes.unshift(...childNodes) :
+        this.childNodes.push(...childNodes);
   }
 
   overwriteChildNodes(...childNodes) {

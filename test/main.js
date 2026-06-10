@@ -14,9 +14,10 @@ const bnfLexer = BNFLexer.fromNothing(),
 describe("src/main", () => {
   describe("a simple BNF rule", () => {
     describe("content with a single rule", () => {
+      const content = "a ::= b ;";
+
       it("results in the requisite parse tree" , () => {
-        const content = "a ::= b ;",
-              tokens = bnfLexer.tokenise(content),
+        const tokens = bnfLexer.tokenise(content),
               node = bnfParser.parse(tokens),
               parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
 
@@ -58,11 +59,10 @@ describe("src/main", () => {
           `;
 
     describe("content with a single significant token", () => {
+      const content = "a";
+
       it("results in the requisite parse tree" , () => {
-        const content = "a",
-              tokens = tokensFromEntriesAndContent(entries, content),
-              node = nodeFromBNFAndTokens(bnf, tokens),
-              parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
           
@@ -90,11 +90,30 @@ describe("src/main", () => {
           `;
 
     describe("content with two significant tokens", () => {
+      const content = "a .";
+
       it("results in the requisite parse tree" , () => {
-        const content = "a b .",
-              tokens = tokensFromEntriesAndContent(entries, content),
-              node = nodeFromBNFAndTokens(bnf, tokens),
-              parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                           S [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "."[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with three significant tokens", () => {
+      const content = "a b .";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
           
@@ -191,6 +210,14 @@ function parseTreeStringFromNodeAndTokens(node, tokens) {
   parseTree.shiftLine();  //
 
   const parseTreeString = parseTree.asString();
+
+  return parseTreeString;
+}
+
+function parseTreeStringFromEntriesBnfAndContent(entries, bnf, content) {
+  const tokens = tokensFromEntriesAndContent(entries, content),
+        node = nodeFromBNFAndTokens(bnf, tokens),
+        parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
 
   return parseTreeString;
 }
