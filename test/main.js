@@ -12,7 +12,7 @@ const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
 describe("src/main", () => {
-  describe("a simple BNF rule", () => {
+  describe.only("a simple BNF rule", () => {
     describe("content with a single rule", () => {
       it("results in the requisite parse tree" , () => {
         const content = "a ::= b ;",
@@ -75,7 +75,7 @@ describe("src/main", () => {
     });
   });
 
-  describe.only("two rules the first with a single definition with a call ahead part and the second with a single definition with an optional part", () => {
+  describe("two rules the first with a single definition with a call ahead part and the second with a single definition with an optional part", () => {
     const entries = [
             {
               "unassigned": "^[^\\s]"

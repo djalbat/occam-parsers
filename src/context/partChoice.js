@@ -3,8 +3,8 @@
 import Context from "../context";
 
 export default class PartChoiceContext extends Context {
-  constructor(context, state, childNodes, partChoide) {
-    super(context, state, childNodes);
+  constructor(context, state, childNodes, callAheadPart, partChoide) {
+    super(context, state, childNodes, callAheadPart);
 
     this.partChoice = partChoide;
   }

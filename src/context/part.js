@@ -3,8 +3,8 @@
 import Context from "../context";
 
 export default class PartContext extends Context {
-  constructor(context, state, childNodes, part) {
-    super(context, state, childNodes);
+  constructor(context, state, childNodes, callAheadPart, part) {
+    super(context, state, childNodes, callAheadPart);
 
     this.part = part;
   }
@@ -16,7 +16,7 @@ export default class PartContext extends Context {
   isCallAhead() {
     let callAhead = false;
 
-    const callAheadPart = this.retrieveCallAheadPart();
+    const callAheadPart = this.getCallAheadPart();
 
     if (this.part !== callAheadPart) {
       callAhead = super.isCallAhead();
@@ -26,7 +26,7 @@ export default class PartContext extends Context {
   }
 
   commit(part) {
-    const lookAheadPart = this.retrieveCallAheadPart();
+    const lookAheadPart = this.getCallAheadPart();
 
     if (this.part === lookAheadPart) {
       return;

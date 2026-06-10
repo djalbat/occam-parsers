@@ -1,10 +1,11 @@
 "use strict";
 
 export default class Context {
-  constructor(context, state, childNodes) {
+  constructor(context, state, childNodes, callAheadPart) {
     this.context = context;
     this.state = state;
     this.childNodes = childNodes;
+    this.callAheadPart = callAheadPart;
   }
 
   getContext() {
@@ -17,6 +18,10 @@ export default class Context {
 
   getChildNodes() {
     return this.childNodes;
+  }
+
+  getCallAheadPart() {
+    return this.callAheadPart;
   }
 
   setContext(context) {
@@ -48,19 +53,15 @@ export default class Context {
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
   isCallAhead() {
-    const callAheadPart = this.retrieveCallAheadPart(),
-          callAhead = (callAheadPart !== null);
+    const callAhead = (this.callAheadPart !== null);
 
     return callAhead;
   }
 
-  retrieveCallAheadPart() { return this.context.retrieveCallAheadPart(); }
-
   getNextPart() { return this.context.getNextPart(); }
 
   callAhead() {
-    const callAheadPart = this.retrieveCallAheadPart(),
-          parsed = this.context.calledAhead(this.state, callAheadPart);
+    const parsed = this.context.calledAhead(this.state, this.callAheadPart);
 
     return parsed;
   }
@@ -89,19 +90,24 @@ export default class Context {
     this.context.addChildNodes(this.childNodes);
   }
 
-  static fromState(Class, state, ...remainingArguments) {
+  static fromNothing(Class, ...remainingArguments) {
     let context = remainingArguments.pop();
+
+    let state;
+
+    state = context.getState();
 
     state = state.clone();  ///
 
-    const childNodes = [];
+    const childNodes = [],
+          callAheadPart = null;
 
-    context = new Class(context, state, childNodes, ...remainingArguments);
+    context = new Class(context, state, childNodes, callAheadPart, ...remainingArguments);
 
     return context;
   }
 
-  static fromNothing(Class, ...remainingArguments) {
+  static fromCallAheadPart(Class, callAheadPart, ...remainingArguments) {
     let context = remainingArguments.pop();
 
     let state;
@@ -112,7 +118,19 @@ export default class Context {
 
     const childNodes = [];
 
-    context = new Class(context, state, childNodes, ...remainingArguments);
+    context = new Class(context, state, childNodes, callAheadPart, ...remainingArguments);
+
+    return context;
+  }
+
+  static fromStateAndCallAheadPart(Class, state, callAheadPart, ...remainingArguments) {
+    let context = remainingArguments.pop();
+
+    state = state.clone();  ///
+
+    const childNodes = [];
+
+    context = new Class(context, state, childNodes, callAheadPart, ...remainingArguments);
 
     return context;
   }

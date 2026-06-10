@@ -3,32 +3,19 @@
 import Context from "../context";
 
 export default class RuleNamePartContext extends Context {
-  constructor(context, state, childNodes, ruleNamePart, callAheadPart) {
-    super(context, state, childNodes);
+  constructor(context, state, childNodes, callAheadPart, ruleNamePart) {
+    super(context, state, childNodes, callAheadPart);
 
     this.ruleNamePart = ruleNamePart;
-    this.callAheadPart = callAheadPart;
   }
 
   getRuleNamePart() {
     return this.ruleNamePart;
   }
 
-  getCallAheadPart() {
-    return this.callAheadPart;
-  }
-
-  retrieveCallAheadPart() {
-    const callAheadPart = (this.callAheadPart !== null) ?
-                             this.callAheadPart :
-                               super.retrieveCallAheadPart();
-
-    return callAheadPart;
-  }
-
   static fromRuleNamePart(ruleNamePart, context) {
     const callAheadPart = callAheadPartFromRuleNamePart(ruleNamePart, context),
-          ruleNamePartContext = Context.fromNothing(RuleNamePartContext, ruleNamePart, callAheadPart, context);
+          ruleNamePartContext = Context.fromCallAheadPart(RuleNamePartContext, callAheadPart, ruleNamePart, context);
 
     return ruleNamePartContext;
   }
