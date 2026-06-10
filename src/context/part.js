@@ -13,6 +13,28 @@ export default class PartContext extends Context {
     return this.part;
   }
 
+  isCallAhead() {
+    let callAhead = false;
+
+    const callAheadPart = this.retrieveCallAheadPart();
+
+    if (this.part !== callAheadPart) {
+      callAhead = super.isCallAhead();
+    }
+
+    return callAhead;
+  }
+
+  commit(part) {
+    const lookAheadPart = this.retrieveCallAheadPart();
+
+    if (this.part === lookAheadPart) {
+      return;
+    }
+
+    super.commit();
+  }
+
   static fromPart(part, context) {
     const partContext = Context.fromNothing(PartContext, part, context);
 

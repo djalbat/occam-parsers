@@ -41,17 +41,31 @@ export default class Context {
 
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
-  isCallAhead() { return this.context.isCallAhead(); }
-
   getNextToken() { return this.state.getNextToken(); }
 
   getNextSignificantToken() { return this.state.getNextSignificantToken(); }
 
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
-  callAhead() { return this.context.calledAhead(this.state); }
+  isCallAhead() {
+    const callAheadPart = this.retrieveCallAheadPart(),
+          callAhead = (callAheadPart !== null);
 
-  calledAhead(state) { return this.context.calledAhead(state); }
+    return callAhead;
+  }
+
+  retrieveCallAheadPart() { return this.context.retrieveCallAheadPart(); }
+
+  getNextPart() { return this.context.getNextPart(); }
+
+  callAhead() {
+    const callAheadPart = this.retrieveCallAheadPart(),
+          parsed = this.context.calledAhead(this.state, callAheadPart);
+
+    return parsed;
+  }
+
+  calledAhead(state, callAheadPart) { return this.context.calledAhead(state, callAheadPart); }
 
   addChildNode(childNode) {
     this.childNodes.push(childNode);
@@ -78,9 +92,9 @@ export default class Context {
   static fromState(Class, state, ...remainingArguments) {
     let context = remainingArguments.pop();
 
-    const childNodes = [];
-
     state = state.clone();  ///
+
+    const childNodes = [];
 
     context = new Class(context, state, childNodes, ...remainingArguments);
 
@@ -90,13 +104,13 @@ export default class Context {
   static fromNothing(Class, ...remainingArguments) {
     let context = remainingArguments.pop();
 
-    const childNodes = [];
-
     let state;
 
     state = context.getState();
 
     state = state.clone();  ///
+
+    const childNodes = [];
 
     context = new Class(context, state, childNodes, ...remainingArguments);
 

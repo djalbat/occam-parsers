@@ -25,8 +25,8 @@ export function partContext(innerFunction, part, context) {
   innerFunction(context);
 }
 
-export function partsContext(innerFunction, parts, parse, context) {
-  const partsContext = PartsContext.fromPartsAndParse(parts, parse, context);
+export function partsContext(innerFunction, parts, parseParts, context) {
+  const partsContext = PartsContext.fromPartsAndParseParts(parts, parseParts, context);
 
   context = partsContext;  ///
 
@@ -41,8 +41,8 @@ export function topmostContext(innerFunction, parser, tokens, context = null) {
   innerFunction(context);
 }
 
-export function callAheadContext(innerFunction, state, context) {
-  const callAheadContext = CallAheadContext.fromState(state, context);
+export function callAheadContext(innerFunction, state, callAheadPart, context) {
+  const callAheadContext = CallAheadContext.fromStateANdCallAheadPart(state, callAheadPart, context);
 
   context = callAheadContext;  ///
 

@@ -15,8 +15,6 @@ export function parseParts(parts, context) {
 
   parts = tailParts;  ///
 
-  const parse = parseParts; ///
-
   partsContext((context) => {
     parsed = part.parse(context);
 
@@ -35,7 +33,7 @@ export function parseParts(parts, context) {
     if (parsed) {
       context.commit();
     }
-  }, parts, parse, context);
+  }, parts, parseParts, context);
 
   return parsed;
 }

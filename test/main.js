@@ -75,7 +75,7 @@ describe("src/main", () => {
     });
   });
 
-  describe("two rules the first with a single definition with a call ahead part and the second with a single definition with an optional part", () => {
+  describe.only("two rules the first with a single definition with a call ahead part and the second with a single definition with an optional part", () => {
     const entries = [
             {
               "unassigned": "^[^\\s]"

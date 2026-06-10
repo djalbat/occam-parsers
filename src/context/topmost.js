@@ -42,10 +42,10 @@ export default class TopmostContext extends Context {
     return rule;
   }
 
-  isCallAhead() {
-    const callAhead = false;
+  retrieveCallAheadPart() {
+    const callAheadPart = null;
 
-    return callAhead;
+    return callAheadPart;
   }
 
   calledAhead() {

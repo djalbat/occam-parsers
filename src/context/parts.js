@@ -9,45 +9,66 @@ import { callAheadContext } from "../utilities/context";
 const { first } = arrayUtilities;
 
 export default class PartsContext extends Context {
-  constructor(context, state, childNodes, parts, parse) {
+  constructor(context, state, childNodes, parts, parseParts) {
     super(context, state, childNodes);
 
     this.parts = parts;
-    this.parse = parse;
+    this.parseParts = parseParts;
   }
 
   getParts() {
     return this.parts;
   }
 
-  getParse() {
-    return this.parse;
+  getParseParts() {
+    return this.parseParts;
   }
 
-  calledAhead(state) {
+  isEmpty() {
+    const partsLength = this.parts.length,
+          empty = (partsLength === 0);
+
+    return empty;
+  }
+
+  getNextPart() {
+    let nextPart = null;
+
+    const empty = this.isEmpty();
+
+    if (!empty) {
+      const firstPart = first(this.parts);
+
+      nextPart = firstPart; ///
+    }
+
+    return nextPart;
+  }
+
+  calledAhead(state, callAheadPart) {
     let parsed;
 
-    const partsLength = this.parts.length;
+    const empty = this.isEmpty();
 
-    if (partsLength > 0) {
+    if (!empty) {
       const context = this.getContext();
 
       callAheadContext((context) => {
-        parsed = this.parse(this.parts, context);
+        parsed = this.parseParts(this.parts, context);
 
         if (parsed) {
           context.commit(state);
         }
-      }, state, context);
+      }, state, callAheadPart, context);
     } else {
-      parsed = super.calledAhead(state);
+      parsed = super.calledAhead(state, callAheadPart);
     }
 
     return parsed;
   }
 
-  static fromPartsAndParse(parts, parse, context) {
-    const partsContext = Context.fromNothing(PartsContext, parts, parse, context);
+  static fromPartsAndParseParts(parts, parseParts, context) {
+    const partsContext = Context.fromNothing(PartsContext, parts, parseParts, context);
 
     return partsContext;
   }
