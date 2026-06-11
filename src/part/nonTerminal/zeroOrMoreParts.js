@@ -4,6 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { parsePart } from "../../utilities/part";
 import { partContext } from "../../utilities/context";
 import { ZeroOrMorePartsPartType } from "../../partTypes";
 
@@ -29,11 +30,7 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
       const callAhead = context.isCallAhead();
 
       if (callAhead) {
-        parsed = context.callAhead();
-
-        if (!parsed) {
-          debugger
-        }
+        parsed = parsePart(this.part, context);
       } else {
         parsed = true
 

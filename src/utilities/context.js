@@ -2,12 +2,13 @@
 
 import RuleContext from "../context/rule";
 import PartContext from "../context/part";
-import PartsContext from "../context/parts";
 import TopmostContext from "../context/topmost";
 import CallAheadContext from "../context/callAhead";
 import PartChoiceContext from "../context/partChoice";
 import DefinitionContext from "../context/definition";
 import RuleNamePartContext from "../context/ruleNamePart";
+import RepeatedPartContext from "../context/repeatedPart";
+import DecreasingPartsContext from "../context/decreasingParts";
 
 export function ruleContext(innerFunction, rule, context) {
   const ruleContext = RuleContext.fromRule(rule, context);
@@ -25,14 +26,6 @@ export function partContext(innerFunction, part, context) {
   innerFunction(context);
 }
 
-export function partsContext(innerFunction, parts, parseParts, context) {
-  const partsContext = PartsContext.fromPartsAndParseParts(parts, parseParts, context);
-
-  context = partsContext;  ///
-
-  innerFunction(context);
-}
-
 export function topmostContext(innerFunction, parser, tokens, context = null) {
   const topmostContext = TopmostContext.fromParserAndTokens(parser, tokens, context);
 
@@ -42,7 +35,7 @@ export function topmostContext(innerFunction, parser, tokens, context = null) {
 }
 
 export function callAheadContext(innerFunction, state, callAheadPart, context) {
-  const callAheadContext = CallAheadContext.fromStateANdCallAheadPart(state, callAheadPart, context);
+  const callAheadContext = CallAheadContext.fromStateAndCallAheadPart(state, callAheadPart, context);
 
   context = callAheadContext;  ///
 
@@ -69,6 +62,22 @@ export function ruleNamePartContext(innerFunction, ruleNamePart, context) {
   const ruleNamePartContext = RuleNamePartContext.fromRuleNamePart(ruleNamePart, context);
 
   context = ruleNamePartContext;  ///
+
+  innerFunction(context);
+}
+
+export function repeatedPartContext(innerFunction, part, parsePart, context) {
+  const repeatedPartContext = RepeatedPartContext.fromPartAndParsePart(part, parsePart, context);
+
+  context = repeatedPartContext;  ///
+
+  innerFunction(context);
+}
+
+export function decreasingPartsContext(innerFunction, parts, parseParts, context) {
+  const decreasingPartsContext = DecreasingPartsContext.fromPartsAndParseParts(parts, parseParts, context);
+
+  context = decreasingPartsContext;  ///
 
   innerFunction(context);
 }

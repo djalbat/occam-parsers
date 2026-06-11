@@ -1,9 +1,10 @@
 "use strict";
 
 export default class State {
-  constructor(tokens, index) {
+  constructor(tokens, index, cache) {
     this.tokens = tokens;
     this.index = index;
+    this.cache = cache;
   }
 
   getTokens() {
@@ -12,6 +13,10 @@ export default class State {
 
   getIndex() {
     return this.index;
+  }
+
+  getCache() {
+    return this.cache;
   }
 
   getNextToken() {
@@ -61,6 +66,27 @@ export default class State {
     return nextTokenWhitespaceToken;
   }
 
+  store(part, childNodes) {
+    const state = this, ///
+          result = {
+            state,
+            childNodes
+          };
+
+    this.cache.set(part, result);
+  }
+
+  recover(part) {
+    const key = part, ///
+          result = this.cache.get(key) || null;
+
+    if (result !== null) {
+      this.cache.delete(key);
+    }
+
+    return result;
+  }
+
   adjustIndex(index) {
     this.index = index;
   }
@@ -70,14 +96,15 @@ export default class State {
   }
 
   clone() {
-    const state = new State(this.tokens, this.index);
+    const state = new State(this.tokens, this.index, this.cache);
 
     return state;
   }
 
   static fromTokens(tokens) {
     const index = 0,
-          state = new State(tokens, index);
+          cache = new WeakMap(),
+          state = new State(tokens, index, cache);
 
     return state;
   }

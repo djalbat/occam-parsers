@@ -12,5 +12,5 @@ export default class CallAheadContext extends Context {
     context.addChildNodes(childNodes);
   }
 
-  static fromStateANdCallAheadPart(state, callAheadPart, context) { return Context.fromStateANdCallAheadPart(CallAheadContext, state, callAheadPart, context); }
+  static fromStateAndCallAheadPart(state, callAheadPart, context) { return Context.fromStateAndCallAheadPart(CallAheadContext, state, callAheadPart, context); }
 }

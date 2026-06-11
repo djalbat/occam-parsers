@@ -27,8 +27,8 @@ function callAheadPartFromRuleNamePart(ruleNamePart, context) {
   const callAhead = ruleNamePart.isCallAhead();
 
   if (callAhead) {
-    const partsContext = context, ///
-          nextPart = partsContext.getNextPart();
+    const decreasingPartsContext = context, ///
+          nextPart = decreasingPartsContext.getNextPart();
 
     if (nextPart !== null) {
       callAheadPart = nextPart;  ///

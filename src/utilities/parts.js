@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-import { partsContext } from "../utilities/context";
+import { decreasingPartsContext } from "../utilities/context";
 
 const { first, tail } = arrayUtilities;
 
@@ -10,30 +10,40 @@ export function parseParts(parts, context) {
   let parsed;
 
   const firstPart = first(parts),
-        tailParts = tail(parts),
-        part = firstPart; ///
+        part = firstPart, ///
+        result = context.recover(part);
 
-  parts = tailParts;  ///
+  if (result !== null) {
+    const { state, childNodes } = result;
 
-  partsContext((context) => {
-    parsed = part.parse(context);
+    context.commit(state, childNodes);
 
-    if (parsed) {
-      const callAhead = context.isCallAhead();
+    parsed = true;
+  } else {
+    const tailParts = tail(parts);
 
-      if (!callAhead) {
-        const partsLength = parts.length;
+    parts = tailParts;  ///
 
-        parsed = (partsLength > 0) ?
-                   parseParts(parts, context) :
-                     true;
+    decreasingPartsContext((context) => {
+      parsed = part.parse(context);
+
+      if (parsed) {
+        const callAhead = context.isCallAhead();
+
+        if (!callAhead) {
+          const partsLength = parts.length;
+
+          parsed = (partsLength > 0) ?
+                     parseParts(parts, context) :
+                       true;
+        }
       }
-    }
 
-    if (parsed) {
-      context.commit();
-    }
-  }, parts, parseParts, context);
+      if (parsed) {
+        context.commit();
+      }
+    }, parts, parseParts, context);
+  }
 
   return parsed;
 }

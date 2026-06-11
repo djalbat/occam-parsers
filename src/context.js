@@ -84,18 +84,22 @@ export default class Context {
         this.childNodes.push(...childNodes);
   }
 
+  store(part) { this.state.store(part, this.childNodes); }
+
+  recover(part) { return this.state.recover(part); }
+
   overwriteChildNodes(...childNodes) {
     this.childNodes = childNodes;
   }
 
   adjustState(state) { this.state.adjustState(state); }
 
-  commit() {
-    const state = this.state.clone();
+  commit(state = this.state, childNodes = this.childNodes) {
+    state = state.clone(); ///
 
     this.context.setState(state);
 
-    this.context.addChildNodes(this.childNodes);
+    this.context.addChildNodes(childNodes);
   }
 
   static fromNothing(Class, ...remainingArguments) {
@@ -108,7 +112,7 @@ export default class Context {
     state = state.clone();  ///
 
     const childNodes = [],
-          callAheadPart = null;
+          callAheadPart = context.getCallAheadPart();
 
     context = new Class(context, state, childNodes, callAheadPart, ...remainingArguments);
 

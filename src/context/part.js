@@ -26,9 +26,11 @@ export default class PartContext extends Context {
   }
 
   commit(part) {
-    const lookAheadPart = this.getCallAheadPart();
+    const callAheadPart = this.getCallAheadPart();
 
-    if (this.part === lookAheadPart) {
+    if (this.part === callAheadPart) {
+      this.store(this.part);
+
       return;
     }
 
@@ -36,7 +38,8 @@ export default class PartContext extends Context {
   }
 
   static fromPart(part, context) {
-    const partContext = Context.fromNothing(PartContext, part, context);
+    const parsePart = null,
+          partContext = Context.fromNothing(PartContext, part, parsePart, context);
 
     return partContext;
   }

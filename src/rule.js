@@ -1,14 +1,11 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import { ruleContext } from "./utilities/context";
 import { EMPTY_STRING } from "./constants";
 import { specialSymbols } from "occam-lexers";
 import { marginStringFromMarginWidth } from "./utilities/string";
 
-const { clear } = arrayUtilities,
-      { opaque: opaqueSpecialSymbol, semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
+const { opaque: opaqueSpecialSymbol, semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class Rule {
   constructor(name, opacity, definitions) {
