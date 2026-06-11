@@ -62,11 +62,7 @@ export default class Context {
 
   calledAhead(state, callAheadPart) { return this.context.calledAhead(state, callAheadPart); }
 
-  callAhead() {
-    const parsed = this.context.calledAhead(this.state, this.callAheadPart);
-
-    return parsed;
-  }
+  callAhead() { return this.context.calledAhead(this.state, this.callAheadPart); }
 
   addChildNode(childNode) {
     const callAhead = this.isCallAhead();
@@ -94,12 +90,20 @@ export default class Context {
 
   adjustState(state) { this.state.adjustState(state); }
 
-  commit(state = this.state, childNodes = this.childNodes) {
-    state = state.clone(); ///
+  apply(result) {
+    const { state, childNodes } = result;
+
+    this.state = state;
+
+    this.childNodes = childNodes;
+  }
+
+  commit() {
+    const state = this.state.clone(); ///
 
     this.context.setState(state);
 
-    this.context.addChildNodes(childNodes);
+    this.context.addChildNodes(this.childNodes);
   }
 
   static fromNothing(Class, ...remainingArguments) {

@@ -83,14 +83,14 @@ describe("src/main", () => {
           ],
           bnf = `
           
-            S ::= A... "b" ;
+            S ::= A... "c" ;
             
             A ::= "a" .? ;
           
           `;
 
     describe("content with two significant tokens", () => {
-      const content = "a b";
+      const content = "a c";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -101,7 +101,7 @@ describe("src/main", () => {
                            |                   
                  ---------------------         
                  |                   |         
-               A [0]        "b"[unassigned] [0]
+               A [0]        "c"[unassigned] [0]
                  |                             
         "a"[unassigned] [0]                    
       
@@ -110,22 +110,22 @@ describe("src/main", () => {
     });
 
     describe("content with three significant tokens", () => {
-      const content = "a b b";
+      const content = "a b c";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-          
-                                            S [0]                      
-                                              |                        
-                               -------------------------------         
-                               |                             |         
-                             A [0]                  "b"[unassigned] [0]
-                               |                                       
-                     ---------------------                             
-                     |                   |                             
-            "a"[unassigned] [0] "b"[unassigned] [0]                    
+                    
+                                          S [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           A [0]                  "c"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+          "a"[unassigned] [0] "b"[unassigned] [0]                    
       
         `));
       });
@@ -140,16 +140,16 @@ describe("src/main", () => {
           ],
           bnf = `
               
-            S ::= A... "b" ;
+            S ::= A... "c" ;
             
             A ::= "a" .* ;
               
           `;
 
     describe("content with two significant tokens", () => {
-      const content = "a b";
+      const content = "a c";
 
-      it.only("results in the requisite parse tree" , () => {
+      it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
@@ -158,7 +158,7 @@ describe("src/main", () => {
                              |                   
                    ---------------------         
                    |                   |         
-                 A [0]        "b"[unassigned] [0]
+                 A [0]        "c"[unassigned] [0]
                    |                             
           "a"[unassigned] [0]                    
       
@@ -167,7 +167,7 @@ describe("src/main", () => {
     });
 
     describe("content with three significant tokens", () => {
-      const content = "a . .";
+      const content = "a b c";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -178,11 +178,11 @@ describe("src/main", () => {
                                             |                        
                              -------------------------------         
                              |                             |         
-                           A [0]                  "."[unassigned] [0]
+                           A [0]                  "c"[unassigned] [0]
                              |                                       
                    ---------------------                             
                    |                   |                             
-          "a"[unassigned] [0] "."[unassigned] [0]                    
+          "a"[unassigned] [0] "b"[unassigned] [0]                    
       
         `));
       });

@@ -33,12 +33,6 @@ export default class RepeatedPartContext extends Context {
       }
     }, state, callAheadPart, context);
 
-    if (!parsed) {
-      const state = this.getState();
-
-      parsed = super.calledAhead(state, callAheadPart);
-    }
-
     return parsed;
   }
 

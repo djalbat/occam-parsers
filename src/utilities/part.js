@@ -8,6 +8,10 @@ export function parsePart(part, context) {
   repeatedPartContext((context) => {
     parsed = part.parse(context);
 
+    if (!parsed) {
+      parsed = context.callAhead();
+    }
+
     if (parsed) {
       context.commit();
     }

@@ -10,40 +10,38 @@ export function parseParts(parts, context) {
   let parsed;
 
   const firstPart = first(parts),
-        part = firstPart, ///
-        result = context.recover(part);
+        tailParts = tail(parts),
+        part = firstPart; ///
 
-  if (result !== null) {
-    const { state, childNodes } = result;
+  parts = tailParts;  ///
 
-    context.commit(state, childNodes);
+  decreasingPartsContext((context) => {
+    const result = context.recover(part);
 
-    parsed = true;
-  } else {
-    const tailParts = tail(parts);
+    if (result !== null) {
+      context.apply(result);
 
-    parts = tailParts;  ///
-
-    decreasingPartsContext((context) => {
+      parsed = true;
+    } else {
       parsed = part.parse(context);
+    }
 
-      if (parsed) {
-        const callAhead = context.isCallAhead();
+    if (parsed) {
+      const callAhead = context.isCallAhead();
 
-        if (!callAhead) {
-          const partsLength = parts.length;
+      if (!callAhead) {
+        const partsLength = parts.length;
 
-          parsed = (partsLength > 0) ?
-                     parseParts(parts, context) :
-                       true;
-        }
+        parsed = (partsLength > 0) ?
+                    parseParts(parts, context) :
+                      true;
       }
+    }
 
-      if (parsed) {
-        context.commit();
-      }
-    }, parts, parseParts, context);
-  }
+    if (parsed) {
+      context.commit();
+    }
+  }, parts, parseParts, context);
 
   return parsed;
 }
