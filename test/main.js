@@ -46,7 +46,7 @@ describe("src/main", () => {
     });
   });
 
-  describe("a single rule with a single definition with a terminal part", () => {
+  describe("a single terminal part", () => {
     const entries = [
             {
               "unassigned": "^[^\\s]"
@@ -75,7 +75,7 @@ describe("src/main", () => {
     });
   });
 
-  describe("two rules the first with a single definition with a call ahead part and the second with a single definition with an optional part", () => {
+  describe("an optional part calling ahead", () => {
     const entries = [
             {
               "unassigned": "^[^\\s]"
@@ -132,7 +132,44 @@ describe("src/main", () => {
     });
   });
 
-  describe("two rules the first with a single definition with a call ahead part and the second with a single definition with a zero or more parts part", () => {
+  describe("a nested optional part calling ahead", () => {
+    const entries = [
+        {
+          "unassigned": "^[^\\s]"
+        }
+      ],
+          bnf = `
+          
+            S ::= B... "c" ;
+            
+            B ::= A . ;
+          
+            A ::= "a" .? ;
+          
+          `;
+
+    describe("content with three significant tokens", () => {
+      const content = "a b c";
+
+      it.only("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                         S [0]                 
+                           |                   
+                 ---------------------         
+                 |                   |         
+               A [0]        "c"[unassigned] [0]
+                 |                             
+        "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+  });
+
+  describe("a zero or more parts part looking ahead", () => {
     const entries = [
             {
               "unassigned": "^[^\\s]"
