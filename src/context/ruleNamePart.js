@@ -22,7 +22,9 @@ export default class RuleNamePartContext extends Context {
 }
 
 function callAheadPartFromRuleNamePart(ruleNamePart, context) {
-  let callAheadPart = null
+  let callAheadPart;
+
+  callAheadPart = context.getCallAheadPart();
 
   const callAhead = ruleNamePart.isCallAhead();
 
