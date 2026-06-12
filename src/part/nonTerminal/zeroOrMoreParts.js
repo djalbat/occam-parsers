@@ -27,9 +27,9 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      const callAhead = context.isCallAhead();
+      const callingAhead = context.isCallingAhead();
 
-      if (callAhead) {
+      if (callingAhead) {
         const count = 0,
               strict = false;
 

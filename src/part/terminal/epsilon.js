@@ -26,9 +26,9 @@ export default class EpsilonPart extends TerminalPart {
       parsed = true;
 
       if (parsed) {
-        const callAhead = context.isCallAhead();
+        const callingAhead = context.isCallingAhead();
 
-        if (callAhead) {
+        if (callingAhead) {
           parsed = context.callAhead();
         }
       }

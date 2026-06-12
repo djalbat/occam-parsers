@@ -12,5 +12,22 @@ export default class CallAheadContext extends Context {
     context.addChildNodes(childNodes);
   }
 
-  static fromStateAndCallAheadPart(state, callAheadPart, context) { return Context.fromStateAndCallAheadPart(CallAheadContext, state, callAheadPart, context); }
+  static fromState(state, context) {
+    const callAheadParts = callAheadPartsFromNothing(context),
+          callAheadContext = Context.fromStateAndCallAheadParts(CallAheadContext, state, callAheadParts, context);
+
+    return callAheadContext;
+  }
+}
+
+function callAheadPartsFromNothing(context) {
+  let callAheadParts;
+
+  callAheadParts = context.getCallAheadParts();
+
+  callAheadParts = [
+    ...callAheadParts
+  ];
+
+  return callAheadParts;
 }

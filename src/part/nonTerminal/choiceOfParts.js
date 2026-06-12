@@ -22,9 +22,9 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      const callAhead = context.isCallAhead();
+      const callingAhead = context.isCallingAhead();
 
-      if (callAhead) {
+      if (callingAhead) {
         debugger
       } else {
         parsed = this.partChoices.some((partChoice) => {

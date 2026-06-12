@@ -9,8 +9,8 @@ import { callAheadContext } from "../utilities/context";
 const { first } = arrayUtilities;
 
 export default class DecreasingPartsContext extends Context {
-  constructor(context, state, childNodes, callAheadPart, parts, parseParts) {
-    super(context, state, childNodes, callAheadPart);
+  constructor(context, state, childNodes, callAheadParts, parts, parseParts) {
+    super(context, state, childNodes, callAheadParts);
 
     this.parts = parts;
     this.parseParts = parseParts;
@@ -45,7 +45,7 @@ export default class DecreasingPartsContext extends Context {
     return nextPart;
   }
 
-  calledAhead(state, callAheadPart) {
+  calledAhead(state) {
     let parsed;
 
     const empty = this.isEmpty();
@@ -59,9 +59,9 @@ export default class DecreasingPartsContext extends Context {
         if (parsed) {
           context.commit(state);
         }
-      }, state, callAheadPart, context);
+      }, state, context);
     } else {
-      parsed = super.calledAhead(state, callAheadPart);
+      parsed = super.calledAhead(state);
     }
 
     return parsed;

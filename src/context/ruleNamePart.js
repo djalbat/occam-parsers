@@ -3,8 +3,8 @@
 import Context from "../context";
 
 export default class RuleNamePartContext extends Context {
-  constructor(context, state, childNodes, callAheadPart, ruleNamePart) {
-    super(context, state, childNodes, callAheadPart);
+  constructor(context, state, childNodes, callAheadParts, ruleNamePart) {
+    super(context, state, childNodes, callAheadParts);
 
     this.ruleNamePart = ruleNamePart;
   }
@@ -13,29 +13,69 @@ export default class RuleNamePartContext extends Context {
     return this.ruleNamePart;
   }
 
+  isCallingAhead() {
+    let callingAhead;
+
+    const callAheadPartsLength = this.getCallAheadPartsLength();
+
+    if (false) {
+      ///
+    } else if (callAheadPartsLength > 1) {
+      callingAhead = true;
+    } else if (callAheadPartsLength === 0) {
+      callingAhead = false;
+    } else {
+      const callAhead = this.ruleNamePart.isCallAhead();
+
+      callingAhead = !callAhead;
+    }
+
+    return callingAhead;
+  }
+
+  callAhead() {
+    debugger
+  }
+
+  commit(ruleNamePart) {
+    const callAheadPart = this.getCallAheadPart();
+
+    if (this.ruleNamePart === callAheadPart) {
+      this.store(this.ruleNamePart);
+
+      return;
+    }
+
+    super.commit();
+  }
+
   static fromRuleNamePart(ruleNamePart, context) {
-    const callAheadPart = callAheadPartFromRuleNamePart(ruleNamePart, context),
-          ruleNamePartContext = Context.fromCallAheadPart(RuleNamePartContext, callAheadPart, ruleNamePart, context);
+    const callAheadParts = callAheadPartsFromRuleNamePart(ruleNamePart, context),
+          ruleNamePartContext = Context.fromCallAheadParts(RuleNamePartContext, callAheadParts, ruleNamePart, context);
 
     return ruleNamePartContext;
   }
 }
 
-function callAheadPartFromRuleNamePart(ruleNamePart, context) {
-  let callAheadPart;
+function callAheadPartsFromRuleNamePart(ruleNamePart, context) {
+  let callAheadParts;
 
-  callAheadPart = context.getCallAheadPart();
+  callAheadParts = context.getCallAheadParts();
 
   const callAhead = ruleNamePart.isCallAhead();
 
   if (callAhead) {
-    const decreasingPartsContext = context, ///
-          nextPart = decreasingPartsContext.getNextPart();
+    const nextPart = context.getNextPart();
 
     if (nextPart !== null) {
-      callAheadPart = nextPart;  ///
+      const callAheadPart = nextPart;  ///
+
+      callAheadParts = [  ///
+        ...callAheadParts,
+        callAheadPart
+      ]
     }
   }
 
-  return callAheadPart;
+  return callAheadParts;
 }

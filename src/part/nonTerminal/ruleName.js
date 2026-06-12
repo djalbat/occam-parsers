@@ -40,6 +40,14 @@ export default class RuleNamePart extends NonTerminalPart {
                    false;
 
       if (parsed) {
+        const callingAhead = context.isCallingAhead();
+
+        if (callingAhead) {
+          parsed = context.callAhead();
+        }
+      }
+
+      if (parsed) {
         context.commit();
       }
     }, ruleNamePart, context);

@@ -27,9 +27,9 @@ export function parseParts(parts, context) {
     }
 
     if (parsed) {
-      const callAhead = context.isCallAhead();
+      const callingAhead = context.isCallingAhead();
 
-      if (!callAhead) {
+      if (!callingAhead) {
         const partsLength = parts.length;
 
         parsed = (partsLength > 0) ?

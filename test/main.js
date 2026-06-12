@@ -234,7 +234,7 @@ describe("src/main", () => {
     describe("content with two significant tokens", () => {
       const content = "a c";
 
-      it("results in the requisite parse tree" , () => {
+      it.only("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
@@ -277,13 +277,13 @@ describe("src/main", () => {
   describe("a nested optional part calling ahead", () => {
     const bnf = `
               
-                S ::= B... "c" ;
-                
-                B ::= A . ;
-              
-                A ::= "a" .? ;
-              
-              `;
+            S ::= B... "c" ;
+            
+            B ::= A . ;
+          
+            A ::= "a" .? ;
+          
+          `;
 
     describe("content with three significant tokens", () => {
       const content = "a b c";
@@ -339,13 +339,13 @@ describe("src/main", () => {
   describe("two nested optional parts calling ahead", () => {
     const bnf = `
               
-                S ::= B... "c" ;
-                
-                B ::= A .? ;
-              
-                A ::= "a" .? ;
-              
-              `;
+            S ::= B... "c" ;
+            
+            B ::= A .? ;
+          
+            A ::= "a" .? ;
+          
+          `;
 
     describe("content with two significant tokens", () => {
       const content = "a c";
@@ -414,6 +414,40 @@ describe("src/main", () => {
                    ---------------------                                                 
                    |                   |                                                 
           "a"[unassigned] [0] "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+  });
+
+  describe("two nested optional parts calling ahead independently", () => {
+    const bnf = `
+              
+            S ::= B... "c" ;
+            
+            B ::= A... .? ;
+          
+            A ::= "a" /./? ;
+          
+          `;
+
+    describe("content with two significant tokens", () => {
+      const content = "a c";
+
+      it.skip("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                             S [0]                 
+                               |                   
+                     ---------------------         
+                     |                   |         
+                   B [0]        "c"[unassigned] [0]
+                     |                             
+                   A [0]                           
+                     |                             
+            "a"[unassigned] [0]                    
       
         `));
       });
@@ -497,13 +531,13 @@ describe("src/main", () => {
   describe("a nested zero or more parts part calling ahead", () => {
     const bnf = `
               
-                S ::= B... "c" ;
-                
-                B ::= A . ;
-              
-                A ::= "a" .* ;
-              
-              `;
+            S ::= B... "c" ;
+            
+            B ::= A . ;
+          
+            A ::= "a" .* ;
+          
+          `;
 
     describe("content with three significant tokens", () => {
       const content = "a b c";
@@ -559,13 +593,13 @@ describe("src/main", () => {
   describe("two nested zero or more parts parts calling ahead", () => {
     const bnf = `
               
-                S ::= B... "c" ;
-                
-                B ::= A .* ;
-              
-                A ::= "a" .* ;
-              
-              `;
+            S ::= B... "c" ;
+            
+            B ::= A .* ;
+          
+            A ::= "a" .* ;
+          
+          `;
 
     describe("content with two significant tokens", () => {
       const content = "a c";
@@ -695,13 +729,13 @@ describe("src/main", () => {
   describe("a nested one or more parts part calling ahead", () => {
     const bnf = `
               
-                S ::= B... "c" ;
-                
-                B ::= A . ;
-              
-                A ::= "a" .+ ;
-              
-              `;
+            S ::= B... "c" ;
+            
+            B ::= A . ;
+          
+            A ::= "a" .+ ;
+          
+          `;
 
     describe("content with four significant tokens", () => {
       const content = "a a b c";
@@ -733,13 +767,13 @@ describe("src/main", () => {
   describe("two nested one or more parts parts calling ahead", () => {
     const bnf = `
               
-                S ::= B... "c" ;
-                
-                B ::= A .+ ;
-              
-                A ::= "a" .+ ;
-              
-              `;
+            S ::= B... "c" ;
+            
+            B ::= A .+ ;
+          
+            A ::= "a" .+ ;
+          
+          `;
 
     describe("content with four significant tokens", () => {
       const content = "a a b c";

@@ -36,9 +36,9 @@ export default class NoWhitespacePart extends TerminalPart {
       }
 
       if (parsed) {
-        const callAhead = context.isCallAhead();
+        const callingAhead = context.isCallingAhead();
 
-        if (callAhead) {
+        if (callingAhead) {
           parsed = context.callAhead();
         }
       }

@@ -1,11 +1,15 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
+const { last } = arrayUtilities;
+
 export default class Context {
-  constructor(context, state, childNodes, callAheadPart) {
+  constructor(context, state, childNodes, callAheadParts) {
     this.context = context;
     this.state = state;
     this.childNodes = childNodes;
-    this.callAheadPart = callAheadPart;
+    this.callAheadParts = callAheadParts;
   }
 
   getContext() {
@@ -20,8 +24,8 @@ export default class Context {
     return this.childNodes;
   }
 
-  getCallAheadPart() {
-    return this.callAheadPart;
+  getCallAheadParts() {
+    return this.callAheadParts;
   }
 
   setContext(context) {
@@ -34,12 +38,6 @@ export default class Context {
 
   setChildNodes(childNodes) {
     this.childNodes = childNodes;
-  }
-
-  isCallAhead() {
-    const callAhead = (this.callAheadPart !== null);
-
-    return callAhead;
   }
 
   getRuleMap() { return this.context.getRuleMap(); }
@@ -60,22 +58,57 @@ export default class Context {
 
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
-  calledAhead(state, callAheadPart) { return this.context.calledAhead(state, callAheadPart); }
+  getCallAheadPartsLength() {
+    const callAheadPartsLength = this.callAheadParts.length;
 
-  callAhead() { return this.context.calledAhead(this.state, this.callAheadPart); }
+    return callAheadPartsLength;
+  }
+
+  getCallAheadPart() {
+    let callAheadPart = null;
+
+    const callAheadPartsLength = this.getCallAheadPartsLength();
+
+    if (callAheadPartsLength > 0) {
+      const lastCallAheadPart = last(this.callAheadParts);
+
+      callAheadPart = lastCallAheadPart;  ///
+    }
+
+    return callAheadPart;
+  }
+
+  isCallingAhead() {
+    const callAheadPart = this.getCallAheadPart(),
+          callingAhead = (callAheadPart !== null);
+
+    return callingAhead;
+  }
+
+  callAhead() { return this.context.calledAhead(this.state); }
+
+  calledAhead(state) { return this.context.calledAhead(state); }
+
+  resolveCallAhead() {
+    this.callAheadParts = [
+      ...this.callAheadParts
+    ];
+
+    this.callAheadParts.pop();
+  }
 
   addChildNode(childNode) {
-    const callAhead = this.isCallAhead();
+    const callingAhead = this.isCallingAhead();
 
-    callAhead ?
+    callingAhead ?
       this.childNodes.unshift(childNode) :
         this.childNodes.push(childNode);
   }
 
   addChildNodes(childNodes) {
-    const callAhead = this.isCallAhead();
+    const callingAhead = this.isCallingAhead();
 
-    callAhead ?
+    callingAhead ?
       this.childNodes.unshift(...childNodes) :
         this.childNodes.push(...childNodes);
   }
@@ -116,14 +149,14 @@ export default class Context {
     state = state.clone();  ///
 
     const childNodes = [],
-          callAheadPart = context.getCallAheadPart();
+          callAheadParts = context.getCallAheadParts();
 
-    context = new Class(context, state, childNodes, callAheadPart, ...remainingArguments);
+    context = new Class(context, state, childNodes, callAheadParts, ...remainingArguments);
 
     return context;
   }
 
-  static fromCallAheadPart(Class, callAheadPart, ...remainingArguments) {
+  static fromCallAheadParts(Class, callAheadParts, ...remainingArguments) {
     let context = remainingArguments.pop();
 
     let state;
@@ -134,19 +167,19 @@ export default class Context {
 
     const childNodes = [];
 
-    context = new Class(context, state, childNodes, callAheadPart, ...remainingArguments);
+    context = new Class(context, state, childNodes, callAheadParts, ...remainingArguments);
 
     return context;
   }
 
-  static fromStateAndCallAheadPart(Class, state, callAheadPart, ...remainingArguments) {
+  static fromStateAndCallAheadParts(Class, state, callAheadParts, ...remainingArguments) {
     let context = remainingArguments.pop();
 
     state = state.clone();  ///
 
     const childNodes = [];
 
-    context = new Class(context, state, childNodes, callAheadPart, ...remainingArguments);
+    context = new Class(context, state, childNodes, callAheadParts, ...remainingArguments);
 
     return context;
   }
