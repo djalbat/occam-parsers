@@ -66,8 +66,8 @@ export function ruleNamePartContext(innerFunction, ruleNamePart, context) {
   innerFunction(context);
 }
 
-export function repeatedPartContext(innerFunction, part, parsePart, context) {
-  const repeatedPartContext = RepeatedPartContext.fromPartAndParsePart(part, parsePart, context);
+export function repeatedPartContext(innerFunction, part, count, parsePart, context) {
+  const repeatedPartContext = RepeatedPartContext.fromPartCountAndParsePart(part, count, parsePart, context);
 
   context = repeatedPartContext;  ///
 

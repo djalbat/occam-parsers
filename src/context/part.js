@@ -38,8 +38,7 @@ export default class PartContext extends Context {
   }
 
   static fromPart(part, context) {
-    const parsePart = null,
-          partContext = Context.fromNothing(PartContext, part, parsePart, context);
+    const partContext = Context.fromNothing(PartContext, part, context);
 
     return partContext;
   }

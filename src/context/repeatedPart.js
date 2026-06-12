@@ -5,15 +5,20 @@ import Context from "../context";
 import { callAheadContext } from "../utilities/context";
 
 export default class RepeatedPartContext extends Context {
-  constructor(context, state, childNodes, callAheadPart, part, parsePart) {
+  constructor(context, state, childNodes, callAheadPart, part, count, parsePart) {
     super(context, state, childNodes, callAheadPart);
 
     this.part = part;
+    this.count = count;
     this.parsePart = parsePart;
   }
 
   getPart() {
     return this.part;
+  }
+
+  getCount() {
+    return this.count;
   }
 
   getParsePart() {
@@ -23,10 +28,11 @@ export default class RepeatedPartContext extends Context {
   calledAhead(state, callAheadPart) {
     let parsed;
 
-    const context = this.getContext();
+    const count = this.count + 1,
+          context = this.getContext();
 
     callAheadContext((context) => {
-      parsed = this.parsePart(this.part, context);
+      parsed = this.parsePart(this.part, count, context);
 
       if (parsed) {
         context.commit(state);
@@ -36,8 +42,8 @@ export default class RepeatedPartContext extends Context {
     return parsed;
   }
 
-  static fromPartAndParsePart(part, parsePart, context) {
-    const repeatedPartContext = Context.fromNothing(RepeatedPartContext, part, parsePart, context);
+  static fromPartCountAndParsePart(part, count, parsePart, context) {
+    const repeatedPartContext = Context.fromNothing(RepeatedPartContext, part, count, parsePart, context);
 
     return repeatedPartContext;
   }

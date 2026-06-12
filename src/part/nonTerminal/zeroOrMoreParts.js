@@ -30,15 +30,20 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
       const callAhead = context.isCallAhead();
 
       if (callAhead) {
-        parsed = parsePart(this.part, context);
+        const count = 0,
+              strict = false;
+
+        parsed = parsePart(this.part, count, strict, context);
       } else {
         parsed = true
 
-        while (parsed) {
-          parsed = this.part.parse(context);
-        }
+        if (parsed) {
+          while (parsed) {
+            parsed = this.part.parse(context);
+          }
 
-        parsed = true;
+          parsed = true;
+        }
       }
 
       if (parsed) {
