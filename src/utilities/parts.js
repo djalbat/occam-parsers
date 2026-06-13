@@ -16,10 +16,10 @@ export function parseParts(parts, context) {
   parts = tailParts;  ///
 
   partsContext((context) => {
-    const result = context.recover(part);
+    const callAheadRecord = context.recover(part);
 
-    if (result !== null) {
-      context.apply(result);
+    if (callAheadRecord !== null) {
+      callAheadRecord.apply(context);
 
       parsed = true;
     } else {
@@ -54,10 +54,10 @@ export function parsePartsContinually(parts, context) {
   const parseParts = parsePartsContinually; ///
 
   partsContext((context) => {
-    const result = context.recover(part);
+    const callAheadRecord = context.recover(part);
 
-    if (result !== null) {
-      context.apply(result);
+    if (callAheadRecord !== null) {
+      callAheadRecord.apply(context);
 
       parsed = true;
     } else {

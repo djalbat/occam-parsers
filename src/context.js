@@ -115,14 +115,6 @@ export default class Context {
 
   adjustState(state) { this.state.adjustState(state); }
 
-  apply(result) {
-    const { state, childNodes } = result;
-
-    this.state = state;
-
-    this.childNodes = childNodes;
-  }
-
   commit() {
     const state = this.state.clone(); ///
 

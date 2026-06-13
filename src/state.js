@@ -1,31 +1,27 @@
 "use strict";
 
+import CallAheadRecord from "./callAheadRecord";
+
 export default class State {
-  constructor(tokens, index, cache) {
-    this.tokens = tokens;
+  constructor(index) {
     this.index = index;
-    this.cache = cache;
   }
 
-  getTokens() {
-    return this.tokens;
-  }
+  static cache;
+
+  static tokens;
 
   getIndex() {
     return this.index;
   }
 
-  getCache() {
-    return this.cache;
-  }
-
   getNextToken() {
     let nextToken = null;
 
-    const length = this.tokens.length;
+    const length = State.tokens.length;
 
     if (this.index < length) {
-      nextToken = this.tokens[this.index++];
+      nextToken = State.tokens[this.index++];
     }
 
     return nextToken;
@@ -34,10 +30,10 @@ export default class State {
   getNextSignificantToken() {
     let nextSignificantToken = null;
 
-    const length = this.tokens.length
+    const length = State.tokens.length
 
     while (this.index < length) {
-      const token = this.tokens[this.index++],
+      const token = State.tokens[this.index++],
             tokenSignificant = token.isSignificant();
 
       if (tokenSignificant) {
@@ -55,10 +51,10 @@ export default class State {
   isNextTokenWhitespaceToken() {
     let nextTokenWhitespaceToken = false;
 
-    const length = this.tokens.length;
+    const length = State.tokens.length;
 
     if (this.index < length) {
-      const nextToken = this.tokens[this.index];
+      const nextToken = State.tokens[this.index];
 
       nextTokenWhitespaceToken = nextToken.isWhitespaceToken();
     }
@@ -67,38 +63,29 @@ export default class State {
   }
 
   store(part, childNodes) {
-    const state = this.serialise(), ///
-          result = {
-            state,
-            childNodes
-          };
+    const state = this, ///
+          callAheadRecord = CallAheadRecord.fromStateAndChildNodes(state, childNodes),
+          key = part, ///
+          value = callAheadRecord.serialise();
 
-    this.cache.set(part, result);
+    State.cache.set(key, value);
   }
 
   recover(part) {
-    let result;
+    let callAheadRecord = null;
 
-    result = this.cache.get(part) || null;
+    const key = part, ///
+          value = State.cache.get(key) || null;
 
-    if (result !== null) {
-      this.cache.delete(part);
+    if (value !== null) {
+      const state = this; ///
 
-      const { childNodes } = result;
+      callAheadRecord = CallAheadRecord.unserialize(value, state);
 
-      let state;
-
-      ({ state } = result);
-
-      state = this.unserialise(state);  ///
-
-      result = {
-        state,
-        childNodes
-      };
+      State.cache.delete(key);
     }
 
-    return result;
+    return callAheadRecord;
   }
 
   adjustIndex(index) {
@@ -109,33 +96,35 @@ export default class State {
     state.adjustIndex(this.index);
   }
 
+  clone() {
+    const state = new State(this.index);
+
+    return state;
+  }
+
   serialise() {
     const index = this.index,
-          state = {
+          value = {
             index
           };
 
-    return state;
+    return value;
   }
 
-  unserialise(state) {
-    const { index } = state;
-
-    state = new State(this.tokens, index, this.cache);  ///
-
-    return state;
-  }
-
-  clone() {
-    const state = new State(this.tokens, this.index, this.cache);
+  static unserialise(value) {
+    const { index } = value,
+          state = new State(index);
 
     return state;
   }
 
   static fromTokens(tokens) {
     const index = 0,
-          cache = new WeakMap(),
-          state = new State(tokens, index, cache);
+          state = new State(index);
+
+    State.cache = new WeakMap();
+
+    State.tokens = tokens;
 
     return state;
   }
