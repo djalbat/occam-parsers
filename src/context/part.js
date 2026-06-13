@@ -34,13 +34,19 @@ export default class PartContext extends Context {
   }
 
   callAhead() {
-    let callAheadPart = this.getCallAheadPart();
+    let callAheadParts = this.getCallAheadParts();
+
+    const callAheadPart = this.getCallAheadPart();
 
     if (this.part === callAheadPart) {
-      this.resolveCallAhead();
+      callAheadParts = [  ///
+        ...callAheadParts
+      ];
+
+      callAheadParts.pop();
     }
 
-    const parsed = this.context.calledAhead(this.state);
+    const parsed = this.context.calledAhead(this.state, callAheadParts);
 
     return parsed;
   }

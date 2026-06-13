@@ -25,7 +25,7 @@ export default class RepeatedPartContext extends Context {
     return this.parsePart;
   }
 
-  calledAhead(state) {
+  calledAhead(state, callAheadParts) {
     let parsed;
 
     const count = this.count + 1,
@@ -37,7 +37,7 @@ export default class RepeatedPartContext extends Context {
       if (parsed) {
         context.commit(state);
       }
-    }, state, context);
+    }, state, callAheadParts, context);
 
     return parsed;
   }

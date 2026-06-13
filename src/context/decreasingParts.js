@@ -45,7 +45,7 @@ export default class DecreasingPartsContext extends Context {
     return nextPart;
   }
 
-  calledAhead(state) {
+  calledAhead(state, callAheadParts) {
     let parsed;
 
     const empty = this.isEmpty();
@@ -59,9 +59,9 @@ export default class DecreasingPartsContext extends Context {
         if (parsed) {
           context.commit(state);
         }
-      }, state, context);
+      }, state, callAheadParts, context);
     } else {
-      parsed = super.calledAhead(state);
+      parsed = super.calledAhead(state, callAheadParts);
     }
 
     return parsed;

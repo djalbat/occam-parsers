@@ -15,7 +15,7 @@ export default class PartChoiceContext extends Context {
 
   getPrecedence() { return this.partChoice.getPrecedence(); }
 
-  calledAhead() {
+  calledAhead(callAheadParts) {
     debugger
   }
 

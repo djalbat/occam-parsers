@@ -14,27 +14,11 @@ export default class RuleNamePartContext extends Context {
   }
 
   isCallingAhead() {
-    let callingAhead;
-
-    const callAheadPartsLength = this.getCallAheadPartsLength();
-
-    if (false) {
-      ///
-    } else if (callAheadPartsLength > 1) {
-      callingAhead = true;
-    } else if (callAheadPartsLength === 0) {
-      callingAhead = false;
-    } else {
-      const callAhead = this.ruleNamePart.isCallAhead();
-
-      callingAhead = !callAhead;
-    }
-
-    return callingAhead;
+    ///
   }
 
   callAhead() {
-    debugger
+    ///
   }
 
   commit(ruleNamePart) {
@@ -50,17 +34,16 @@ export default class RuleNamePartContext extends Context {
   }
 
   static fromRuleNamePart(ruleNamePart, context) {
-    const callAheadParts = callAheadPartsFromRuleNamePart(ruleNamePart, context),
+    const callAheadPart = callAheadPartFromRuleNamePart(ruleNamePart, context),
+          callAheadParts = callAheadPartsFromCallAheadPart(callAheadPart, context),
           ruleNamePartContext = Context.fromCallAheadParts(RuleNamePartContext, callAheadParts, ruleNamePart, context);
 
     return ruleNamePartContext;
   }
 }
 
-function callAheadPartsFromRuleNamePart(ruleNamePart, context) {
-  let callAheadParts;
-
-  callAheadParts = context.getCallAheadParts();
+function callAheadPartFromRuleNamePart(ruleNamePart, context) {
+  let callAheadPart = null;
 
   const callAhead = ruleNamePart.isCallAhead();
 
@@ -68,13 +51,23 @@ function callAheadPartsFromRuleNamePart(ruleNamePart, context) {
     const nextPart = context.getNextPart();
 
     if (nextPart !== null) {
-      const callAheadPart = nextPart;  ///
-
-      callAheadParts = [  ///
-        ...callAheadParts,
-        callAheadPart
-      ]
+      callAheadPart = nextPart;  ///
     }
+  }
+
+  return callAheadPart;
+}
+
+function callAheadPartsFromCallAheadPart(callAheadPart, context) {
+  let callAheadParts;
+
+  callAheadParts = context.getCallAheadParts();
+
+  if (callAheadPart !== null) {
+    callAheadParts = [  ///
+      ...callAheadParts,
+      callAheadPart
+    ];
   }
 
   return callAheadParts;

@@ -85,17 +85,9 @@ export default class Context {
     return callingAhead;
   }
 
-  callAhead() { return this.context.calledAhead(this.state); }
+  callAhead() { return this.context.calledAhead(this.state, this.callAheadParts); }
 
-  calledAhead(state) { return this.context.calledAhead(state); }
-
-  resolveCallAhead() {
-    this.callAheadParts = [
-      ...this.callAheadParts
-    ];
-
-    this.callAheadParts.pop();
-  }
+  calledAhead(state, callAheadParts) { return this.context.calledAhead(state, callAheadParts); }
 
   addChildNode(childNode) {
     const callingAhead = this.isCallingAhead();

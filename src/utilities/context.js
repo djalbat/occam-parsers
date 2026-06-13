@@ -34,8 +34,8 @@ export function topmostContext(innerFunction, parser, tokens, context = null) {
   innerFunction(context);
 }
 
-export function callAheadContext(innerFunction, state, context) {
-  const callAheadContext = CallAheadContext.fromState(state, context);
+export function callAheadContext(innerFunction, state, callAheadParts, context) {
+  const callAheadContext = CallAheadContext.fromStateAndCallAheadParts(state, callAheadParts, context);
 
   context = callAheadContext;  ///
 
