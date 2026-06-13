@@ -1,6 +1,10 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import Context from "../context";
+
+const { last } = arrayUtilities;
 
 export default class PartContext extends Context {
   constructor(context, state, childNodes, callAheadParts, part) {
@@ -33,12 +37,14 @@ export default class PartContext extends Context {
     return callingAhead;
   }
 
-  callAhead() {
-    let callAheadParts = this.getCallAheadParts();
+  calledAhead(state, callAheadParts) {
+    let parsed;
 
-    const callAheadPart = this.getCallAheadPart();
+    const part = this.getPart(),
+          context = this.getContext(),
+          callAheadPart = callAheadPartFromCallAheadParts(callAheadParts);
 
-    if (this.part === callAheadPart) {
+    if (part === callAheadPart) {
       callAheadParts = [  ///
         ...callAheadParts
       ];
@@ -46,7 +52,15 @@ export default class PartContext extends Context {
       callAheadParts.pop();
     }
 
-    const parsed = this.context.calledAhead(this.state, callAheadParts);
+    parsed = context.calledAhead(state, callAheadParts);
+
+    return parsed;
+  }
+
+  callAhead() {
+    const state = this.getState(),
+          callAheadParts = this.getCallAheadParts(),
+          parsed = this.calledAhead(state, callAheadParts);
 
     return parsed;
   }
@@ -63,9 +77,47 @@ export default class PartContext extends Context {
     super.commit();
   }
 
-  static fromPart(part, context) {
-    const partContext = Context.fromNothing(PartContext, part, context);
+  static fromPart(Class, part, context) {
+    if (context === undefined) {
+      context = part; ///
+
+      part = Class; ///
+
+      Class = PartContext;  ///
+    }
+
+    const partContext = Context.fromNothing(Class, part, context);
 
     return partContext;
   }
+
+  static fromCallAheadPartsAndPart(Class, callAheadParts, part, context) {
+    if (context === undefined) {
+      context = part; ///
+
+      part = callAheadParts;  ///
+
+      callAheadParts = Class;  ///
+
+      Class = PartContext;  ///
+    }
+
+    const partContxt = Context.fromCallAheadParts(Class, callAheadParts, part, context);
+
+    return partContxt;
+  }
+}
+
+function callAheadPartFromCallAheadParts(callAheadParts) {
+  let callAheadPart = null;
+
+  const callAheadPartsLength = callAheadParts.length;
+
+  if (callAheadPartsLength > 0) {
+    const lastCallAheadPart = last(callAheadParts);
+
+    callAheadPart = lastCallAheadPart;  ///
+  }
+
+  return callAheadPart;
 }

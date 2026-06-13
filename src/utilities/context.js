@@ -6,8 +6,8 @@ import TopmostContext from "../context/topmost";
 import CallAheadContext from "../context/callAhead";
 import PartChoiceContext from "../context/partChoice";
 import DefinitionContext from "../context/definition";
-import RuleNamePartContext from "../context/ruleNamePart";
 import RepeatedPartContext from "../context/repeatedPart";
+import RuleNamePartContext from "../context/part/ruleName";
 import DecreasingPartsContext from "../context/decreasingParts";
 
 export function ruleContext(innerFunction, rule, context) {
