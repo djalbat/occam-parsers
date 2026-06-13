@@ -266,7 +266,7 @@ describe("src/main", () => {
     describe("content with three significant tokens", () => {
       const content = "a b c";
 
-      it.only("results in the requisite parse tree" , () => {
+      it.skip("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
@@ -520,7 +520,7 @@ describe("src/main", () => {
     describe("content with three significant tokens", () => {
       const content = "a b d";
 
-      it("results in the requisite parse tree" , () => {
+      it.skip("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `

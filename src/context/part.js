@@ -40,8 +40,7 @@ export default class PartContext extends Context {
   calledAhead(state, callAheadParts) {
     let parsed;
 
-    const context = this.getContext(),
-          callAheadPart = callAheadPartFromCallAheadParts(callAheadParts);
+    const callAheadPart = callAheadPartFromCallAheadParts(callAheadParts);
 
     if (this.part === callAheadPart) {
       callAheadParts = [  ///
@@ -51,7 +50,7 @@ export default class PartContext extends Context {
       callAheadParts.pop();
     }
 
-    parsed = context.calledAhead(state, callAheadParts);
+    parsed = super.calledAhead(state, callAheadParts);
 
     return parsed;
   }

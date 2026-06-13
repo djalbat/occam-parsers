@@ -17,9 +17,13 @@ export default class CallAheadRecord {
   }
 
   apply(context) {
+    const parsed = true;
+
     context.setState(this.state);
 
     context.setChildNodes(this.childNodes);
+
+    return parsed;
   }
 
   serialise() {

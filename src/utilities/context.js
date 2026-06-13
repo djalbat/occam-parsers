@@ -8,7 +8,7 @@ import CallAheadContext from "../context/callAhead";
 import PartChoiceContext from "../context/partChoice";
 import DefinitionContext from "../context/definition";
 import RuleNamePartContext from "../context/part/ruleName";
-import ContinualPartContext from "../context/contiunalPart";
+import ContinualPartContext from "../context/continualPart";
 
 export function ruleContext(innerFunction, rule, context) {
   const ruleContext = RuleContext.fromRule(rule, context);
