@@ -51,7 +51,7 @@ export default class PartsContext extends Context {
     const empty = this.isEmpty();
 
     if (!empty) {
-      const context = this.getContext();
+      const context = this; ///
 
       callAheadContext((context) => {
         parsed = this.parseParts(this.parts, context);

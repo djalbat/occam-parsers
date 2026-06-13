@@ -7,10 +7,15 @@ import Context from "../context";
 const { last } = arrayUtilities;
 
 export default class PartContext extends Context {
-  constructor(context, state, childNodes, callAheadParts, part) {
+  constructor(context, state, childNodes, callAheadParts, calledAheadPart, part) {
     super(context, state, childNodes, callAheadParts);
 
+    this.calledAheadPart = calledAheadPart;
     this.part = part;
+  }
+
+  getCalledAheadPart() {
+    return this.calledAheadPart;
   }
 
   getPart() {
@@ -18,55 +23,14 @@ export default class PartContext extends Context {
   }
 
   isCallingAhead() {
-    let callingAhead;
-
-    const callAheadPartsLength = this.getCallAheadPartsLength();
-
-    if (false) {
-      ///
-    } else if (callAheadPartsLength > 1) {
-      callingAhead = true;
-    } else if (callAheadPartsLength === 0) {
-      callingAhead = false;
-    } else {
-      const callAheadPart = this.getCallAheadPart();
-
-      callingAhead = (this.part !== callAheadPart);
-    }
+    const callAheadPartsLength = this.getCallAheadPartsLength(),
+          callingAhead = (callAheadPartsLength > 0);
 
     return callingAhead;
   }
 
-  calledAhead(state, callAheadParts) {
-    let parsed;
-
-    const callAheadPart = callAheadPartFromCallAheadParts(callAheadParts);
-
-    if (this.part === callAheadPart) {
-      callAheadParts = [  ///
-        ...callAheadParts
-      ];
-
-      callAheadParts.pop();
-    }
-
-    parsed = super.calledAhead(state, callAheadParts);
-
-    return parsed;
-  }
-
-  callAhead() {
-    const state = this.getState(),
-          callAheadParts = this.getCallAheadParts(),
-          parsed = this.calledAhead(state, callAheadParts);
-
-    return parsed;
-  }
-
   commit() {
-    const callAheadPart = this.getCallAheadPart();
-
-    if (this.part === callAheadPart) {
+    if (this.part === this.calledAheadPart) {
       this.store(this.part);
 
       return;
@@ -75,47 +39,63 @@ export default class PartContext extends Context {
     super.commit();
   }
 
-  static fromPart(Class, part, context) {
-    if (context === undefined) {
-      context = part; ///
+  static fromPart(Class, part, ...remainingArguments) {
+    const context = remainingArguments.pop(); ///
 
-      part = Class; ///
+    let callAheadParts = context.getCallAheadParts();
 
-      Class = PartContext;  ///
-    }
+    const calledAheadPart = calledAheadPartFromPartAndCallAheadParts(part, callAheadParts);
 
-    const partContext = Context.fromNothing(Class, part, context);
+    callAheadParts = callAheadPartsFromCalledAheadPartAndCallAheadParts(calledAheadPart, callAheadParts);
+
+    const partContext = Context.fromCallAheadParts(Class, callAheadParts, calledAheadPart, part, ...remainingArguments, context);
 
     return partContext;
   }
 
-  static fromCallAheadPartsAndPart(Class, callAheadParts, part, context) {
-    if (context === undefined) {
-      context = part; ///
+  static fromCallAheadPartsAndPart(Class, callAheadParts, part, ...remainingArguments) {
+    const context = remainingArguments.pop(); ///
 
-      part = callAheadParts;  ///
+    const calledAheadPart = calledAheadPartFromPartAndCallAheadParts(part, callAheadParts);
 
-      callAheadParts = Class;  ///
+    callAheadParts = callAheadPartsFromCalledAheadPartAndCallAheadParts(calledAheadPart, callAheadParts);
 
-      Class = PartContext;  ///
-    }
+    const partContext = Context.fromCallAheadParts(Class, callAheadParts, calledAheadPart, part, ...remainingArguments, context);
 
-    const partContxt = Context.fromCallAheadParts(Class, callAheadParts, part, context);
-
-    return partContxt;
+    return partContext;
   }
 }
 
-function callAheadPartFromCallAheadParts(callAheadParts) {
-  let callAheadPart = null;
+function calledAheadPartFromPartAndCallAheadParts(part, callAheadParts) {
+  let calledAheadPart = null;
 
   const callAheadPartsLength = callAheadParts.length;
 
   if (callAheadPartsLength > 0) {
     const lastCallAheadPart = last(callAheadParts);
 
-    callAheadPart = lastCallAheadPart;  ///
+    if (lastCallAheadPart === part) {
+      calledAheadPart = lastCallAheadPart;  ///
+    }
   }
 
-  return callAheadPart;
+  return calledAheadPart;
+}
+
+function callAheadPartsFromCalledAheadPartAndCallAheadParts(calledAheadPart, callAheadParts) {
+  const callAheadPartsLength = callAheadParts.length;
+
+  if (callAheadPartsLength > 0) {
+    const lastCallAheadPart = last(callAheadParts);
+
+    if (lastCallAheadPart === calledAheadPart) {
+      callAheadParts = [
+        ...callAheadParts
+      ];
+
+      callAheadParts.pop();
+    }
+  }
+
+  return callAheadParts;
 }

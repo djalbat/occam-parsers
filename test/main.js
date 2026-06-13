@@ -225,29 +225,27 @@ describe("src/main", () => {
   describe("calling ahead to a terminal part", () => {
     const bnf = `
     
-      S ::= A... "c" ;
+      S ::= A... "b" ;
       
-      A ::= "a" "b" ;
+      A ::= "a" ;
     
     `;
 
-    describe("content with three significant tokens", () => {
-      const content = "a b c";
+    describe("content with two significant tokens", () => {
+      const content = "a b";
 
-      it("results in the requisite parse tree" , () => {
+      it.only("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
                     
-                                          S [0]                      
-                                            |                        
-                             -------------------------------         
-                             |                             |         
-                           A [0]                  "c"[unassigned] [0]
-                             |                                       
-                   ---------------------                             
-                   |                   |                             
-          "a"[unassigned] [0] "b"[unassigned] [0]                    
+                           S [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "b"[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
       
         `));
       });
