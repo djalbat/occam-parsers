@@ -4,8 +4,8 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { parsePart } from "../../utilities/part";
 import { partContext } from "../../utilities/context";
+import { parsePartContinually } from "../../utilities/part";
 import { ZeroOrMorePartsPartType } from "../../partTypes";
 
 const { asterisk } = specialSymbols;
@@ -33,7 +33,7 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
         const count = 0,
               strict = false;
 
-        parsed = parsePart(this.part, count, strict, context);
+        parsed = parsePartContinually(this.part, count, strict, context);
       } else {
         parsed = true
 

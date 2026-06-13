@@ -4,7 +4,7 @@ import Context from "../context";
 
 import { callAheadContext } from "../utilities/context";
 
-export default class RepeatedPartContext extends Context {
+export default class ContinualPartContext extends Context {
   constructor(context, state, childNodes, callAheadParts, part, count, parsePart) {
     super(context, state, childNodes, callAheadParts);
 
@@ -43,8 +43,8 @@ export default class RepeatedPartContext extends Context {
   }
 
   static fromPartCountAndParsePart(part, count, parsePart, context) {
-    const repeatedPartContext = Context.fromNothing(RepeatedPartContext, part, count, parsePart, context);
+    const continualPartContext = Context.fromNothing(ContinualPartContext, part, count, parsePart, context);
 
-    return repeatedPartContext;
+    return continualPartContext;
   }
 }

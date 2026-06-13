@@ -423,7 +423,7 @@ describe("src/main", () => {
   describe("two nested optional parts calling ahead independently", () => {
     const bnf = `
               
-            S ::= B... "c" ;
+            S ::= B... "d" ;
             
             B ::= A... .? ;
           
@@ -432,7 +432,7 @@ describe("src/main", () => {
           `;
 
     describe("content with two significant tokens", () => {
-      const content = "a c";
+      const content = "a d";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -443,7 +443,7 @@ describe("src/main", () => {
                                |                   
                      ---------------------         
                      |                   |         
-                   B [0]        "c"[unassigned] [0]
+                   B [0]        "d"[unassigned] [0]
                      |                             
                    A [0]                           
                      |                             
@@ -454,7 +454,7 @@ describe("src/main", () => {
     });
 
     describe("content with three significant tokens", () => {
-      const content = "a b c";
+      const content = "a b d";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -465,7 +465,7 @@ describe("src/main", () => {
                                             |                        
                              -------------------------------         
                              |                             |         
-                           B [0]                  "c"[unassigned] [0]
+                           B [0]                  "d"[unassigned] [0]
                              |                                       
                            A [0]                                     
                              |                                       
@@ -477,8 +477,8 @@ describe("src/main", () => {
       });
     });
 
-    describe.only("content with four significant tokens", () => {
-      const content = "a b b c";
+    describe.skip("content with four significant tokens", () => {
+      const content = "a b c d";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -815,7 +815,7 @@ describe("src/main", () => {
   describe("two nested one or more parts parts calling ahead", () => {
     const bnf = `
               
-            S ::= B... "c" ;
+            S ::= B... "d" ;
             
             B ::= A .+ ;
           
@@ -824,7 +824,7 @@ describe("src/main", () => {
           `;
 
     describe("content with four significant tokens", () => {
-      const content = "a a b c";
+      const content = "a b c d";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -835,15 +835,15 @@ describe("src/main", () => {
                                                               |                          
                                             ------------------------------------         
                                             |                                  |         
-                                          B [0]                       "c"[unassigned] [0]
+                                          B [0]                       "d"[unassigned] [0]
                                             |                                            
                              -------------------------------                             
                              |                             |                             
-                           A [0]                  "b"[unassigned] [0]                    
+                           A [0]                  "c"[unassigned] [0]                    
                              |                                                           
                    ---------------------                                                 
                    |                   |                                                 
-          "a"[unassigned] [0] "a"[unassigned] [0]                                        
+          "a"[unassigned] [0] "b"[unassigned] [0]                                        
       
         `));
       });

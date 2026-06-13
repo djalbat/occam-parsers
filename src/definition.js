@@ -2,9 +2,9 @@
 
 import { characters } from "necessary";
 
-import { parseParts } from "./utilities/parts";
 import { EMPTY_STRING } from "./constants";
 import { definitionContext } from "./utilities/context";
+import { parseParts, parsePartsContinually } from "./utilities/parts";
 
 const { SPACE_CHARACTER } = characters;
 
@@ -28,7 +28,11 @@ export default class Definition {
     const definition = this;  ///
 
     definitionContext((context) => {
-      parsed = parseParts(this.parts, context);
+      const callingAhead = context.isCallingAhead();
+
+      parsed = callingAhead ?
+                 parsePartsContinually(this.parts, context) :
+                   parseParts(this.parts, context);
 
       if (parsed) {
         context.commit();

@@ -1,8 +1,8 @@
 "use strict";
 
-import { repeatedPartContext } from "../utilities/context";
+import { continualPartContext } from "../utilities/context";
 
-export function parsePart(part, count, strict, context) {
+export function parsePartContinually(part, count, strict, context) {
   if (context === undefined) {
     context = strict;
 
@@ -11,7 +11,9 @@ export function parsePart(part, count, strict, context) {
 
   let parsed;
 
-  repeatedPartContext((context) => {
+  const parsePart = parsePartContinually; ///
+
+  continualPartContext((context) => {
     parsed = part.parse(context);
 
     if (!parsed) {

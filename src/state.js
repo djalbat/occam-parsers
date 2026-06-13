@@ -67,7 +67,7 @@ export default class State {
   }
 
   store(part, childNodes) {
-    const state = this, ///
+    const state = this.serialise(), ///
           result = {
             state,
             childNodes
@@ -77,11 +77,25 @@ export default class State {
   }
 
   recover(part) {
-    const key = part, ///
-          result = this.cache.get(key) || null;
+    let result;
+
+    result = this.cache.get(part) || null;
 
     if (result !== null) {
-      this.cache.delete(key);
+      this.cache.delete(part);
+
+      const { childNodes } = result;
+
+      let state;
+
+      ({ state } = result);
+
+      state = this.unserialise(state);  ///
+
+      result = {
+        state,
+        childNodes
+      };
     }
 
     return result;
@@ -93,6 +107,23 @@ export default class State {
 
   adjustState(state) {
     state.adjustIndex(this.index);
+  }
+
+  serialise() {
+    const index = this.index,
+          state = {
+            index
+          };
+
+    return state;
+  }
+
+  unserialise(state) {
+    const { index } = state;
+
+    state = new State(this.tokens, index, this.cache);  ///
+
+    return state;
   }
 
   clone() {

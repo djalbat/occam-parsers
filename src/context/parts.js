@@ -8,7 +8,7 @@ import { callAheadContext } from "../utilities/context";
 
 const { first } = arrayUtilities;
 
-export default class DecreasingPartsContext extends Context {
+export default class PartsContext extends Context {
   constructor(context, state, childNodes, callAheadParts, parts, parseParts) {
     super(context, state, childNodes, callAheadParts);
 
@@ -68,8 +68,8 @@ export default class DecreasingPartsContext extends Context {
   }
 
   static fromPartsAndParseParts(parts, parseParts, context) {
-    const decreasingPartsContext = Context.fromNothing(DecreasingPartsContext, parts, parseParts, context);
+    const partsContext = Context.fromNothing(PartsContext, parts, parseParts, context);
 
-    return decreasingPartsContext;
+    return partsContext;
   }
 }

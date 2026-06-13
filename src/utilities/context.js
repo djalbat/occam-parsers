@@ -2,13 +2,13 @@
 
 import RuleContext from "../context/rule";
 import PartContext from "../context/part";
+import PartsContext from "../context/parts";
 import TopmostContext from "../context/topmost";
 import CallAheadContext from "../context/callAhead";
 import PartChoiceContext from "../context/partChoice";
 import DefinitionContext from "../context/definition";
-import RepeatedPartContext from "../context/repeatedPart";
 import RuleNamePartContext from "../context/part/ruleName";
-import DecreasingPartsContext from "../context/decreasingParts";
+import ContinualPartContext from "../context/contiunalPart";
 
 export function ruleContext(innerFunction, rule, context) {
   const ruleContext = RuleContext.fromRule(rule, context);
@@ -22,6 +22,14 @@ export function partContext(innerFunction, part, context) {
   const partContext = PartContext.fromPart(part, context);
 
   context = partContext;  ///
+
+  innerFunction(context);
+}
+
+export function partsContext(innerFunction, parts, parseParts, context) {
+  const partsContext = PartsContext.fromPartsAndParseParts(parts, parseParts, context);
+
+  context = partsContext;  ///
 
   innerFunction(context);
 }
@@ -66,19 +74,10 @@ export function ruleNamePartContext(innerFunction, ruleNamePart, context) {
   innerFunction(context);
 }
 
-export function repeatedPartContext(innerFunction, part, count, parsePart, context) {
-  const repeatedPartContext = RepeatedPartContext.fromPartCountAndParsePart(part, count, parsePart, context);
+export function continualPartContext(innerFunction, part, count, parsePart, context) {
+  const continualPartContext = ContinualPartContext.fromPartCountAndParsePart(part, count, parsePart, context);
 
-  context = repeatedPartContext;  ///
-
-  innerFunction(context);
-}
-
-export function decreasingPartsContext(innerFunction, parts, parseParts, context) {
-  const decreasingPartsContext = DecreasingPartsContext.fromPartsAndParseParts(parts, parseParts, context);
-
-  context = decreasingPartsContext;  ///
+  context = continualPartContext;  ///
 
   innerFunction(context);
 }
-

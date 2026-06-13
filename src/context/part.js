@@ -40,11 +40,10 @@ export default class PartContext extends Context {
   calledAhead(state, callAheadParts) {
     let parsed;
 
-    const part = this.getPart(),
-          context = this.getContext(),
+    const context = this.getContext(),
           callAheadPart = callAheadPartFromCallAheadParts(callAheadParts);
 
-    if (part === callAheadPart) {
+    if (this.part === callAheadPart) {
       callAheadParts = [  ///
         ...callAheadParts
       ];
