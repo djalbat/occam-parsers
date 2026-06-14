@@ -25,7 +25,7 @@ export default class ContinualPartContext extends PartContext {
 
     const part = this.getPart(),
           count = this.count + 1,
-          context = this; ///
+          context = this.getContext();
 
     callAheadContext((context) => {
       parsed = this.parsePart(part, count, context);

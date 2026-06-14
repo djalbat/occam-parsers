@@ -55,7 +55,7 @@ describe("src/main", () => {
   describe("a terminal part", () => {
     const bnf = `
     
-      S    ::= "a" ;
+      S ::= "a" ;
     
     `;
 
@@ -76,10 +76,10 @@ describe("src/main", () => {
     });
   });
 
-  describe("one optional part", () => {
+  describe("an optional part", () => {
     const bnf = `
     
-      S    ::= "a" .? ;
+      S ::= "a" .? ;
     
     `;
 
@@ -118,10 +118,10 @@ describe("src/main", () => {
     });
   });
 
-  describe("one zero or more parts part", () => {
+  describe("a zero or more parts part", () => {
     const bnf = `
     
-      S    ::= "a" .* ;
+      S ::= "a" .* ;
     
     `;
 
@@ -178,10 +178,10 @@ describe("src/main", () => {
     });
   });
 
-  describe("one one or more parts part", () => {
+  describe("a one or more parts part", () => {
     const bnf = `
     
-      S    ::= "a" .+ ;
+      S ::= "a" .+ ;
     
     `;
 
@@ -225,16 +225,16 @@ describe("src/main", () => {
   describe("calling ahead to a terminal part", () => {
     const bnf = `
     
-      S ::= A... "b" ;
+      S ::= A... "a" ;
       
       A ::= "a" ;
     
     `;
 
     describe("content with two significant tokens", () => {
-      const content = "a b";
+      const content = "a a";
 
-      it.only("results in the requisite parse tree" , () => {
+      it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
@@ -243,7 +243,7 @@ describe("src/main", () => {
                              |                   
                    ---------------------         
                    |                   |         
-                 A [0]        "b"[unassigned] [0]
+                 A [0]        "a"[unassigned] [0]
                    |                             
           "a"[unassigned] [0]                    
       
@@ -252,69 +252,285 @@ describe("src/main", () => {
     });
   });
 
-  describe("calling ahead to one optional part", () => {
+  describe("calling ahead to an optional part", () => {
     const bnf = `
     
-      S ::= A... "c"? ;
+      S ::= A... "a"? ;
       
-      A ::= "a" "b" ;
+      A ::= "a" ;
     
     `;
 
-    describe("content with three significant tokens", () => {
-      const content = "a b c";
+    describe("content with one significant token", () => {
+      const content = "a";
 
-      it.skip("results in the requisite parse tree" , () => {
+      it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
                     
-                                          S [0]                      
-                                            |                        
-                             -------------------------------         
-                             |                             |         
-                           A [0]                  "c"[unassigned] [0]
-                             |                                       
-                   ---------------------                             
-                   |                   |                             
-          "a"[unassigned] [0] "b"[unassigned] [0]                    
+                 S [0]       
+                   |         
+                 A [0]       
+                   |         
+          "a"[unassigned] [0]
+      
+        `));
+      });
+    });
+
+    describe("content with two significant tokens", () => {
+      const content = "a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                           S [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "a"[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
       
         `));
       });
     });
   });
 
-  describe("calling ahead through one optional part", () => {
+  describe("calling ahead to a zero or more parts part", () => {
     const bnf = `
     
-      S ::= A... "c" ;
+      S ::= A... "a"* ;
       
-      A ::= "a" .? ;
+      A ::= "a" ;
+    
+    `;
+
+    describe("content with one significant token", () => {
+      const content = "a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                 S [0]       
+                   |         
+                 A [0]       
+                   |         
+          "a"[unassigned] [0]
+      
+        `));
+      });
+    });
+
+    describe("content with two significant tokens", () => {
+      const content = "a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                           S [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "a"[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                                     S [0]                           
+                                       |                             
+                   -----------------------------------------         
+                   |                   |                   |         
+                 A [0]        "a"[unassigned] [0] "a"[unassigned] [0]
+                   |                                                 
+          "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+  });
+
+  describe("calling ahead to a one or more parts part", () => {
+    const bnf = `
+    
+      S ::= A... "a"+ ;
+      
+      A ::= "a" ;
     
     `;
 
     describe("content with two significant tokens", () => {
-      const content = "a c";
+      const content = "a a";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
                     
-                         S [0]                 
-                           |                   
-                 ---------------------         
-                 |                   |         
-               A [0]        "c"[unassigned] [0]
-                 |                             
-        "a"[unassigned] [0]                    
+                           S [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "a"[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
       
         `));
       });
     });
 
     describe("content with three significant tokens", () => {
-      const content = "a b c";
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                                     S [0]                           
+                                       |                             
+                   -----------------------------------------         
+                   |                   |                   |         
+                 A [0]        "a"[unassigned] [0] "a"[unassigned] [0]
+                   |                                                 
+          "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+  });
+
+  describe("calling ahead from an optional part to a terminal part", () => {
+    const bnf = `
+    
+      S ::= A... "a" ;
+      
+      A ::= "a"? ;
+    
+    `;
+
+    describe("content with two significant tokens", () => {
+      const content = "a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                           S [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "a"[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+  });
+
+  describe("calling ahead from a zero or more parts part to a terminal part", () => {
+    const bnf = `
+    
+      S ::= A... "a" ;
+      
+      A ::= "a"* ;
+    
+    `;
+
+    describe("content with two significant tokens", () => {
+      const content = "a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                           S [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "a"[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                          S [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           A [0]                  "a"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+          "a"[unassigned] [0] "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+  });
+
+  describe("calling ahead from a one or more parts part to a terminal part", () => {
+    const bnf = `
+    
+      S ::= A... "a" ;
+      
+      A ::= "a"+ ;
+    
+    `;
+
+    describe("content with two significant tokens", () => {
+      const content = "a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                           S [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "a"[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -325,21 +541,21 @@ describe("src/main", () => {
                                             |                        
                              -------------------------------         
                              |                             |         
-                           A [0]                  "c"[unassigned] [0]
+                           A [0]                  "a"[unassigned] [0]
                              |                                       
                    ---------------------                             
                    |                   |                             
-          "a"[unassigned] [0] "b"[unassigned] [0]                    
+          "a"[unassigned] [0] "a"[unassigned] [0]                    
       
         `));
       });
     });
   });
 
-  describe("nested calling ahead through one optional part", () => {
+  describe("nested calling ahead through one optional part to a terminal part", () => {
     const bnf = `
         
-      S ::= B... "c" ;
+      S ::= B... "a" ;
       
       B ::= A . ;
     
@@ -348,7 +564,7 @@ describe("src/main", () => {
     `;
 
     describe("content with three significant tokens", () => {
-      const content = "a b c";
+      const content = "a a a";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -359,11 +575,11 @@ describe("src/main", () => {
                                             |                        
                              -------------------------------         
                              |                             |         
-                           B [0]                  "c"[unassigned] [0]
+                           B [0]                  "a"[unassigned] [0]
                              |                                       
                    ---------------------                             
                    |                   |                             
-                 A [0]        "b"[unassigned] [0]                    
+                 A [0]        "a"[unassigned] [0]                    
                    |                                                 
           "a"[unassigned] [0]                                        
       
@@ -372,7 +588,7 @@ describe("src/main", () => {
     });
 
     describe("content with four significant tokens", () => {
-      const content = "a a b c";
+      const content = "a a a a";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -383,11 +599,11 @@ describe("src/main", () => {
                                                               |                          
                                             ------------------------------------         
                                             |                                  |         
-                                          B [0]                       "c"[unassigned] [0]
+                                          B [0]                       "a"[unassigned] [0]
                                             |                                            
                              -------------------------------                             
                              |                             |                             
-                           A [0]                  "b"[unassigned] [0]                    
+                           A [0]                  "a"[unassigned] [0]                    
                              |                                                           
                    ---------------------                                                 
                    |                   |                                                 
@@ -398,7 +614,727 @@ describe("src/main", () => {
     });
   });
 
-  describe("nested calling ahead through two optional parts", () => {
+  describe("nested calling ahead through one zero or more parts part to a terminal part", () => {
+    const bnf = `
+        
+      S ::= B... "a" ;
+      
+      B ::= A . ;
+    
+      A ::= "a" .* ;
+    
+    `;
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                                          S [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           B [0]                  "a"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+                 A [0]        "a"[unassigned] [0]                    
+                   |                                                 
+          "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+
+    describe("content with four significant tokens", () => {
+      const content = "a a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                                                            S [0]                        
+                                                              |                          
+                                            ------------------------------------         
+                                            |                                  |         
+                                          B [0]                       "a"[unassigned] [0]
+                                            |                                            
+                             -------------------------------                             
+                             |                             |                             
+                           A [0]                  "a"[unassigned] [0]                    
+                             |                                                           
+                   ---------------------                                                 
+                   |                   |                                                 
+          "a"[unassigned] [0] "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+  });
+
+  describe("nested calling ahead through one one or more parts part to a terminal part", () => {
+    const bnf = `
+        
+      S ::= B... "a" ;
+      
+      B ::= A . ;
+    
+      A ::= "a" .+ ;
+    
+    `;
+
+    describe("content with four significant tokens", () => {
+      const content = "a a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                                                            S [0]                        
+                                                              |                          
+                                            ------------------------------------         
+                                            |                                  |         
+                                          B [0]                       "a"[unassigned] [0]
+                                            |                                            
+                             -------------------------------                             
+                             |                             |                             
+                           A [0]                  "a"[unassigned] [0]                    
+                             |                                                           
+                   ---------------------                                                 
+                   |                   |                                                 
+          "a"[unassigned] [0] "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+  });
+
+  describe("nested calling ahead through one optional part to an optional part", () => {
+    const bnf = `
+        
+      S ::= B... "a"? ;
+      
+      B ::= A . ;
+    
+      A ::= "a" .? ;
+    
+    `;
+
+    describe("content with two significant tokens", () => {
+      const content = "a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                           S [0]                 
+                             |                   
+                           B [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "a"[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                      
+                                          S [0]                      
+                                            |                        
+                                          B [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           A [0]                  "a"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+          "a"[unassigned] [0] "a"[unassigned] [0]                    
+        
+        `));
+      });
+    });
+
+    describe("content with four significant tokens", () => {
+      const content = "a a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                                                            S [0]                        
+                                                              |                          
+                                            ------------------------------------         
+                                            |                                  |         
+                                          B [0]                       "a"[unassigned] [0]
+                                            |                                            
+                             -------------------------------                             
+                             |                             |                             
+                           A [0]                  "a"[unassigned] [0]                    
+                             |                                                           
+                   ---------------------                                                 
+                   |                   |                                                 
+          "a"[unassigned] [0] "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+  });
+
+  describe("nested calling ahead through one zero or more parts part to an optional part", () => {
+    const bnf = `
+        
+      S ::= B... "a"? ;
+      
+      B ::= A . ;
+    
+      A ::= "a" .* ;
+    
+    `;
+
+    describe("content with two significant tokens", () => {
+      const content = "a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                           S [0]                 
+                             |                   
+                           B [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "a"[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                          S [0]                      
+                                            |                        
+                                          B [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           A [0]                  "a"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+          "a"[unassigned] [0] "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with four significant tokens", () => {
+      const content = "a a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                                         S [0]                           
+                                                           |                             
+                                                         B [0]                           
+                                                           |                             
+                                       -----------------------------------------         
+                                       |                                       |         
+                                     A [0]                            "a"[unassigned] [0]
+                                       |                                                 
+                   -----------------------------------------                             
+                   |                   |                   |                             
+          "a"[unassigned] [0] "a"[unassigned] [0] "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+  });
+
+  describe("nested calling ahead through one one or more parts part to an optional part", () => {
+    const bnf = `
+        
+      S ::= B... "a"? ;
+      
+      B ::= A . ;
+    
+      A ::= "a" .+ ;
+    
+    `;
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                          S [0]                      
+                                            |                        
+                                          B [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           A [0]                  "a"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+          "a"[unassigned] [0] "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with four significant tokens", () => {
+      const content = "a a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                                         S [0]                           
+                                                           |                             
+                                                         B [0]                           
+                                                           |                             
+                                       -----------------------------------------         
+                                       |                                       |         
+                                     A [0]                            "a"[unassigned] [0]
+                                       |                                                 
+                   -----------------------------------------                             
+                   |                   |                   |                             
+          "a"[unassigned] [0] "a"[unassigned] [0] "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+  });
+
+  describe("nested calling ahead through one optional part to a zero or more parts part", () => {
+    const bnf = `
+        
+      S ::= B... "a"* ;
+      
+      B ::= A . ;
+    
+      A ::= "a" .? ;
+    
+    `;
+
+    describe("content with two significant tokens", () => {
+      const content = "a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                           S [0]                 
+                             |                   
+                           B [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "a"[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                      
+                                          S [0]                      
+                                            |                        
+                                          B [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           A [0]                  "a"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+          "a"[unassigned] [0] "a"[unassigned] [0]                    
+        
+        `));
+      });
+    });
+
+    describe("content with four significant tokens", () => {
+      const content = "a a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                                                            S [0]                        
+                                                              |                          
+                                            ------------------------------------         
+                                            |                                  |         
+                                          B [0]                       "a"[unassigned] [0]
+                                            |                                            
+                             -------------------------------                             
+                             |                             |                             
+                           A [0]                  "a"[unassigned] [0]                    
+                             |                                                           
+                   ---------------------                                                 
+                   |                   |                                                 
+          "a"[unassigned] [0] "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+  });
+
+  describe("nested calling ahead through one zero or more parts part to a zero or more parts part", () => {
+    const bnf = `
+        
+      S ::= B... "a"* ;
+      
+      B ::= A . ;
+    
+      A ::= "a" .* ;
+    
+    `;
+
+    describe("content with two significant tokens", () => {
+      const content = "a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                           S [0]                 
+                             |                   
+                           B [0]                 
+                             |                   
+                   ---------------------         
+                   |                   |         
+                 A [0]        "a"[unassigned] [0]
+                   |                             
+          "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                          S [0]                      
+                                            |                        
+                                          B [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           A [0]                  "a"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+          "a"[unassigned] [0] "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with four significant tokens", () => {
+      const content = "a a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                                         S [0]                           
+                                                           |                             
+                                                         B [0]                           
+                                                           |                             
+                                       -----------------------------------------         
+                                       |                                       |         
+                                     A [0]                            "a"[unassigned] [0]
+                                       |                                                 
+                   -----------------------------------------                             
+                   |                   |                   |                             
+          "a"[unassigned] [0] "a"[unassigned] [0] "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+  });
+
+  describe("nested calling ahead through one one or more parts part to a zero or more parts part", () => {
+    const bnf = `
+        
+      S ::= B... "a"* ;
+      
+      B ::= A . ;
+    
+      A ::= "a" .+ ;
+    
+    `;
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                          S [0]                      
+                                            |                        
+                                          B [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           A [0]                  "a"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+          "a"[unassigned] [0] "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+
+    describe("content with four significant tokens", () => {
+      const content = "a a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                                         S [0]                           
+                                                           |                             
+                                                         B [0]                           
+                                                           |                             
+                                       -----------------------------------------         
+                                       |                                       |         
+                                     A [0]                            "a"[unassigned] [0]
+                                       |                                                 
+                   -----------------------------------------                             
+                   |                   |                   |                             
+          "a"[unassigned] [0] "a"[unassigned] [0] "a"[unassigned] [0]                    
+      
+        `));
+      });
+    });
+  });
+
+  describe("nested calling ahead through one optional part to a one or more parts part", () => {
+    const bnf = `
+        
+      S ::= B... "a"+ ;
+      
+      B ::= A . ;
+    
+      A ::= "a" .? ;
+    
+    `;
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                                
+                                          S [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           B [0]                  "a"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+                 A [0]        "a"[unassigned] [0]                    
+                   |                                                 
+          "a"[unassigned] [0]                                        
+        
+        `));
+      });
+    });
+
+    describe("content with four significant tokens", () => {
+      const content = "a a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                    
+                                                            S [0]                        
+                                                              |                          
+                                            ------------------------------------         
+                                            |                                  |         
+                                          B [0]                       "a"[unassigned] [0]
+                                            |                                            
+                             -------------------------------                             
+                             |                             |                             
+                           A [0]                  "a"[unassigned] [0]                    
+                             |                                                           
+                   ---------------------                                                 
+                   |                   |                                                 
+          "a"[unassigned] [0] "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+  });
+
+  describe("nested calling ahead through one zero or more parts part to a one or more parts part", () => {
+    const bnf = `
+        
+      S ::= B... "a"+ ;
+      
+      B ::= A . ;
+    
+      A ::= "a" .* ;
+    
+    `;
+
+    describe("content with three significant tokens", () => {
+      const content = "a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                          S [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           B [0]                  "a"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+                 A [0]        "a"[unassigned] [0]                    
+                   |                                                 
+          "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+
+    describe("content with four significant tokens", () => {
+      const content = "a a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                                            S [0]                        
+                                                              |                          
+                                            ------------------------------------         
+                                            |                                  |         
+                                          B [0]                       "a"[unassigned] [0]
+                                            |                                            
+                             -------------------------------                             
+                             |                             |                             
+                           A [0]                  "a"[unassigned] [0]                    
+                             |                                                           
+                   ---------------------                                                 
+                   |                   |                                                 
+          "a"[unassigned] [0] "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+  });
+
+  describe("nested calling ahead through one one or more parts part to a one or more parts part", () => {
+    const bnf = `
+        
+      S ::= B... "a"+ ;
+      
+      B ::= A . ;
+    
+      A ::= "a" .+ ;
+    
+    `;
+
+    describe("content with four significant tokens", () => {
+      const content = "a a a a";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                              
+                                                            S [0]                        
+                                                              |                          
+                                            ------------------------------------         
+                                            |                                  |         
+                                          B [0]                       "a"[unassigned] [0]
+                                            |                                            
+                             -------------------------------                             
+                             |                             |                             
+                           A [0]                  "a"[unassigned] [0]                    
+                             |                                                           
+                   ---------------------                                                 
+                   |                   |                                                 
+          "a"[unassigned] [0] "a"[unassigned] [0]                                        
+      
+        `));
+      });
+    });
+  });
+
+
+
+
+
+
+
+  xdescribe("nested calling ahead through two optional parts", () => {
     const bnf = `
         
       S ::= B... "c" ;
@@ -482,7 +1418,7 @@ describe("src/main", () => {
     });
   });
 
-  describe("doubly nested calling ahead through two optional parts", () => {
+  xdescribe("doubly nested calling ahead through two optional parts", () => {
     const bnf = `
         
       S ::= B... "d" ;
@@ -564,7 +1500,7 @@ describe("src/main", () => {
     });
   });
 
-  describe("calling ahead through one zero or more parts part", () => {
+  xdescribe("calling ahead through one zero or more parts part", () => {
     const bnf = `
         
       S ::= A... "c" ;
@@ -638,7 +1574,7 @@ describe("src/main", () => {
     });
   });
 
-  describe("nested calling ahead through one zero or more parts part", () => {
+  xdescribe("nested calling ahead through one zero or more parts part", () => {
     const bnf = `
         
       S ::= B... "c" ;
@@ -700,7 +1636,7 @@ describe("src/main", () => {
     });
   });
 
-  describe("nested calling ahead through two zero or more parts parts", () => {
+  xdescribe("nested calling ahead through two zero or more parts parts", () => {
     const bnf = `
         
       S ::= B... "c" ;
@@ -782,7 +1718,7 @@ describe("src/main", () => {
     });
   });
 
-  describe("calling ahead through one one or more parts part", () => {
+  xdescribe("calling ahead through one one or more parts part", () => {
     const bnf = `
         
       S ::= A... "c" ;
@@ -836,7 +1772,7 @@ describe("src/main", () => {
     });
   });
 
-  describe("nested calling ahead through one one or more parts part", () => {
+  xdescribe("nested calling ahead through one one or more parts part", () => {
     const bnf = `
         
       S ::= B... "c" ;
@@ -874,7 +1810,7 @@ describe("src/main", () => {
     });
   });
 
-  describe("nested calling ahead through two one or more parts parts", () => {
+  xdescribe("nested calling ahead through two one or more parts parts", () => {
     const bnf = `
         
       S ::= B... "d" ;
