@@ -4,7 +4,7 @@ import Context from "../context";
 
 export default class CallAheadContext extends Context {
   commit(state) {
-    super.adjustState(state);
+    this.adjustState(state);
 
     const context = this.getContext(),
           childNodes = this.getChildNodes();
