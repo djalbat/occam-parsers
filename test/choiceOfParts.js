@@ -2,7 +2,7 @@
 
 const { compareParseTreeStrings, parseTreeStringFromEntriesBnfAndContent} = require("./utilities/parse");
 
-describe.only("Choice of parts", () => {
+describe("Choice of parts", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"

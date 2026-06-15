@@ -372,7 +372,7 @@ describe("Sequence of parts", () => {
       
       B ::= ( . A ) ;
     
-      A ::= . ;
+      A ::= .+ ;
     
     `;
 
@@ -383,18 +383,18 @@ describe("Sequence of parts", () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                                                                          
-                                          S [0]                      
-                                            |                        
-                             -------------------------------         
-                             |                             |         
-                           B [0]                  "b"[unassigned] [0]
-                             |                                       
-                   ---------------------                             
-                   |                   |                             
-          "a"[unassigned] [0]        A [0]                           
-                                       |                             
-                              "a"[unassigned] [0]                    
+                                                                                                    
+                                S [0]                                
+                                  |                                  
+                                B [0]                                
+                                  |                                  
+                   -------------------------------                   
+                   |                             |                   
+          "a"[unassigned] [0]                  A [0]                 
+                                                 |                   
+                                       ---------------------         
+                                       |                   |         
+                              "a"[unassigned] [0] "b"[unassigned] [0]
       
         `));
       });
@@ -407,16 +407,18 @@ describe("Sequence of parts", () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                                                                          
-                           S [0]                 
-                             |                   
-                           B [0]                 
-                             |                   
-                   ---------------------         
-                   |                   |         
-          "a"[unassigned] [0]        A [0]       
-                                       |         
-                              "a"[unassigned] [0]
+                                                                                                    
+                                     S [0]                                               
+                                       |                                                 
+                                     B [0]                                               
+                                       |                                                 
+                   -----------------------------------------                             
+                   |                                       |                             
+          "a"[unassigned] [0]                            A [0]                           
+                                                           |                             
+                                       -----------------------------------------         
+                                       |                   |                   |         
+                              "a"[unassigned] [0] "a"[unassigned] [0] "b"[unassigned] [0]
 
         `));
       });
