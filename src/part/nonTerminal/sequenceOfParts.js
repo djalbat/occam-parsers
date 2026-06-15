@@ -2,8 +2,9 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { partContext } from "../../utilities/context";
 import { SequenceOfPartsPartType } from "../../partTypes";
+import { sequenceOfPartsPartContext } from "../../utilities/context";
+import { parseParts, parsePartsContinually } from "../../utilities/parts";
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
   constructor(type, callAhead, parts) {
@@ -19,27 +20,19 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
   parse(context) {
     let parsed;
 
-    const part = this;  ///
+    const sequenceOfPartsPart = this;  ///
 
-    partContext((context) => {
+    sequenceOfPartsPartContext((context) => {
       const callingAhead = context.isCallingAhead();
 
-      if (callingAhead) {
-        debugger
-      } else {
-        parsed = this.parts.every((part) => {
-          parsed = part.parse(context);
-
-          if (parsed) {
-            return true;
-          }
-        });
-      }
+      parsed = callingAhead ?
+                  parsePartsContinually(this.parts, context) :
+                    parseParts(this.parts, context);
 
       if (parsed) {
         context.commit();
       }
-    }, part, context);
+    }, sequenceOfPartsPart, context);
 
     return parsed;
   }

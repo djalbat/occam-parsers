@@ -8,7 +8,7 @@ const { compareParseTreeStrings, parseTreeStringFromNodeAndTokens } = require(".
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
-describe("bnf", () => {
+describe("BNF", () => {
   describe("a BNF rule", () => {
     describe("content with a single rule", () => {
       const content = "A ::= P ;";

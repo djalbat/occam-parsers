@@ -2,7 +2,7 @@
 
 const { compareParseTreeStrings, parseTreeStringFromEntriesBnfAndContent} = require("./utilities/parse");
 
-describe("repeatedParts", () => {
+describe("Repeated parts", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"
@@ -16,7 +16,7 @@ describe("repeatedParts", () => {
     
     `;
 
-    describe("content with a single significant token", () => {
+    describe("content with one significant token", () => {
       const content = "a";
 
       it("results in the requisite parse tree" , () => {

@@ -3,15 +3,10 @@
 import Context from "../context";
 
 export default class DefinitionContext extends Context {
-  constructor(context, state, childNodes, callAheadParts, definition, precedence) {
+  constructor(context, state, childNodes, callAheadParts, precedence) {
     super(context, state, childNodes, callAheadParts);
 
-    this.definition = definition;
     this.precedence = precedence;
-  }
-
-  getDefinition() {
-    return this.definition;
   }
 
   getPrecedence() {
@@ -28,7 +23,7 @@ export default class DefinitionContext extends Context {
 
   static fromDefinition(definition, context) {
     const precedence = definition.getPrecedence(),
-          definitionContext = Context.fromNothing(DefinitionContext, definition, precedence, context);
+          definitionContext = Context.fromNothing(DefinitionContext, precedence, context);
 
     return definitionContext;
   }
