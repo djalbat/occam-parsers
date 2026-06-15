@@ -2,8 +2,8 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { partContext } from "../../utilities/context";
 import { ChoiceOfPartsPartType } from "../../partTypes";
+import { choiceOfPartsPartContext } from "../../utilities/context";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(type, callAhead, partChoices) {
@@ -19,27 +19,21 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
   parse(context) {
     let parsed;
 
-    const part = this;  ///
+    const choiceOfPartsPart = this;  ///
 
-    partContext((context) => {
-      const callingAhead = context.isCallingAhead();
+    choiceOfPartsPartContext((context) => {
+      parsed = this.partChoices.some((partChoice) => {
+        parsed = partChoice.parse(context);
 
-      if (callingAhead) {
-        debugger
-      } else {
-        parsed = this.partChoices.some((partChoice) => {
-          parsed = partChoice.parse(context);
-
-          if (parsed) {
-            return true;
-          }
-        });
-      }
+        if (parsed) {
+          return true;
+        }
+      });
 
       if (parsed) {
         context.commit();
       }
-    }, part, context);
+    }, choiceOfPartsPart, context);
 
     return parsed;
   }

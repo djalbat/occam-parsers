@@ -15,10 +15,6 @@ export default class PartChoiceContext extends Context {
 
   getPrecedence() { return this.partChoice.getPrecedence(); }
 
-  calledAhead(callAheadParts) {
-    debugger
-  }
-
   static fromPartChoice(partChoice, context) {
     const partChoiceContext = Context.fromNothing(PartChoiceContext, partChoice, context);
 

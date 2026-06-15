@@ -2,11 +2,11 @@
 
 import PartContext from "../../context/part";
 
-export default class SequenceOfPartsContext extends PartContext {
+export default class SequenceOfPartsPartContext extends PartContext {
   static fromSequenceOfPartsPart(sequenceOfPartsPart, context) {
     const part = sequenceOfPartsPart,  ///
-          sequenceOfPartsContext = PartContext.fromPart(SequenceOfPartsContext, part, context);
+          sequenceOfPartsPartContext = PartContext.fromPart(SequenceOfPartsPartContext, part, context);
 
-    return sequenceOfPartsContext;
+    return sequenceOfPartsPartContext;
   }
 }
