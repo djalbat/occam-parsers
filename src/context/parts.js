@@ -9,8 +9,8 @@ import { callAheadContext } from "../utilities/context";
 const { first } = arrayUtilities;
 
 export default class PartsContext extends Context {
-  constructor(context, state, childNodes, callAheadParts, parts, parseParts) {
-    super(context, state, childNodes, callAheadParts);
+  constructor(context, state, childNodes, precedence, callAheadParts, parts, parseParts) {
+    super(context, state, childNodes, precedence, callAheadParts);
 
     this.parts = parts;
     this.parseParts = parseParts;

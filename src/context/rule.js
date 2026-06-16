@@ -3,19 +3,14 @@
 import Context from "../context";
 
 export default class RuleContext extends Context {
-  constructor(context, state, childNodes, callAheadParts, rule, precedence) {
-    super(context, state, childNodes, callAheadParts);
+  constructor(context, state, childNodes, precedence, callAheadParts, rule) {
+    super(context, state, childNodes, precedence, callAheadParts);
 
     this.rule = rule;
-    this.precedence = precedence;
   }
 
   getRule() {
     return this.rule;
-  }
-
-  getPrecedence() {
-    return this.precedence;
   }
 
   commit() {
@@ -24,11 +19,12 @@ export default class RuleContext extends Context {
     const opacity = this.rule.getOpacity(),
           ruleName = this.rule.getName(),
           childNodes = this.getChildNodes(),
+          precedence = this.getPrecedence(),
           NonTerminalNode = this.NonTerminalNodeFromRuleName(ruleName);
 
     let nonTerminalNode;
 
-    nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, this.precedence);
+    nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
 
     nonTerminalNode = nonTerminalNode.rewrite();  ///
 
@@ -48,8 +44,7 @@ export default class RuleContext extends Context {
   }
 
   static fromRule(rule, context) {
-    const precedence = null,
-          ruleContext = Context.fromNothing(RuleContext, rule, precedence, context);
+    const ruleContext = Context.fromNothing(RuleContext, rule, context);
 
     return ruleContext;
   }

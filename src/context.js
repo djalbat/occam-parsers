@@ -5,10 +5,11 @@ import { arrayUtilities } from "necessary";
 const { last } = arrayUtilities;
 
 export default class Context {
-  constructor(context, state, childNodes, callAheadParts) {
+  constructor(context, state, childNodes, precedence, callAheadParts) {
     this.context = context;
     this.state = state;
     this.childNodes = childNodes;
+    this.precedence = precedence;
     this.callAheadParts = callAheadParts;
   }
 
@@ -22,6 +23,10 @@ export default class Context {
 
   getChildNodes() {
     return this.childNodes;
+  }
+
+  getPrecedence() {
+    return this.precedence;
   }
 
   getCallAheadParts() {
@@ -38,6 +43,10 @@ export default class Context {
 
   setChildNodes(childNodes) {
     this.childNodes = childNodes;
+  }
+
+  setPrecedence(precedence) {
+    this.precedence = precedence;
   }
 
   getRuleMap() { return this.context.getRuleMap(); }
@@ -121,6 +130,8 @@ export default class Context {
     this.context.setState(state);
 
     this.context.addChildNodes(this.childNodes);
+
+    this.context.setPrecedence(this.precedence);
   }
 
   static fromNothing(Class, ...remainingArguments) {
@@ -133,9 +144,10 @@ export default class Context {
     state = state.clone();  ///
 
     const childNodes = [],
+          precednece = null,
           callAheadParts = context.getCallAheadParts();
 
-    context = new Class(context, state, childNodes, callAheadParts, ...remainingArguments);
+    context = new Class(context, state, childNodes, precednece, callAheadParts, ...remainingArguments);
 
     return context;
   }
@@ -149,9 +161,10 @@ export default class Context {
 
     state = state.clone();  ///
 
-    const childNodes = [];
+    const childNodes = [],
+          precedence = null;
 
-    context = new Class(context, state, childNodes, callAheadParts, ...remainingArguments);
+    context = new Class(context, state, childNodes, precedence, callAheadParts, ...remainingArguments);
 
     return context;
   }
@@ -161,9 +174,10 @@ export default class Context {
 
     state = state.clone();  ///
 
-    const childNodes = [];
+    const childNodes = [],
+          precedence = null;
 
-    context = new Class(context, state, childNodes, callAheadParts, ...remainingArguments);
+    context = new Class(context, state, childNodes, precedence, callAheadParts, ...remainingArguments);
 
     return context;
   }

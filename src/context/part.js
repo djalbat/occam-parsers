@@ -7,8 +7,8 @@ import Context from "../context";
 const { last } = arrayUtilities;
 
 export default class PartContext extends Context {
-  constructor(context, state, childNodes, callAheadParts, calledAheadPart, part) {
-    super(context, state, childNodes, callAheadParts);
+  constructor(context, state, childNodes, precedence, callAheadParts, calledAheadPart, part) {
+    super(context, state, childNodes, precedence, callAheadParts);
 
     this.calledAheadPart = calledAheadPart;
     this.part = part;
