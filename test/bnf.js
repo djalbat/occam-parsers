@@ -1,7 +1,7 @@
 "use strict";
 
 const { BNFLexer } = require("occam-lexers"),
-      { BNFParser, testUtilities } = require("../lib/index.js"); ///
+      { BNFParser, testUtilities } = require("../lib/index"); ///
 
 const { compareParseTreeStrings, parseTreeStringFromNodeAndTokens } = testUtilities;
 
