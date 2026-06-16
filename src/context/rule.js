@@ -21,13 +21,10 @@ export default class RuleContext extends Context {
           ruleName = this.rule.getName(),
           childNodes = this.getChildNodes(),
           precedence = this.getPrecedence(),
-          NonTerminalNode = this.rule.NonTerminalNodeFromRuleName(ruleName, context);
+          NonTerminalNode = this.rule.NonTerminalNodeFromRuleName(ruleName, context),
+          nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
 
-    let nonTerminalNode;
-
-    nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
-
-    nonTerminalNode = nonTerminalNode.rewrite(context);  ///
+    nonTerminalNode.rewrite(context);  ///
 
     const palatable = nonTerminalNode.isPalatable();
 
