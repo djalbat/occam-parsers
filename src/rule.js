@@ -78,7 +78,7 @@ export default class Rule {
     return parsed;
   }
 
-  NonTerminalNodeFromRuleName(ruleName, state) { return state.NonTerminalNodeFromRuleName(ruleName); }
+  NonTerminalNodeFromRuleName(ruleName, context) { return context.NonTerminalNodeFromRuleName(ruleName); }
 
   asString(maximumRuleNameLength, multiLine = true) {
     const definitionsLength = this.definitions.length;
