@@ -1,6 +1,8 @@
 "use strict";
 
-const { compareParseTreeStrings, nodeFromEntriesBnfAndContent, parseTreeStringFromEntriesBnfAndContent } = require("./utilities/parse");
+const { testUtilities } = require("../lib/index.js"); ///
+
+const { compareParseTreeStrings, nodeFromEntriesBnfAndContent, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
 describe("Precedence", () => {
   const entries = [

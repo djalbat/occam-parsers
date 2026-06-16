@@ -6,6 +6,7 @@ export { default as CommonParser } from "./common/parser";
 
 export { default as nodeMixins } from "./mixins/node";
 
+export { default as testUtilities } from "./utilities/test";
 export { default as rulesUtilities } from "./utilities/rules";
 export { default as parserUtilities } from "./utilities/parser";
 

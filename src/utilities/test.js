@@ -1,28 +1,30 @@
 "use strict";
 
-const { BasicLexer } = require("occam-lexers"),
-      { arrayUtilities } = require("necessary"),
-      { BasicParser, rulesUtilities, parserUtilities } = require("../../lib/index.js"); ///
+import { BasicLexer } from "occam-lexers";
+import { arrayUtilities } from "necessary";
 
-const { first } = arrayUtilities,
-      { rulesFromBNF } = parserUtilities,
-      { ruleMapFromRules } = rulesUtilities;
+import BasicParser from "../basic/parser";
 
-function compareParseTreeStrings(stringA, stringB) {
+import { rulesFromBNF } from "../utilities/parser";
+import { ruleMapFromRules } from "../utilities/rules";
+
+const { first } = arrayUtilities;
+
+export function compareParseTreeStrings(stringA, stringB) {
   stringA = stripWhitespace(stringA);
   stringB = stripWhitespace(stringB);
 
   return (stringA === stringB);
 }
 
-function nodeFromEntriesBnfAndContent(entries, bnf, content) {
+export function nodeFromEntriesBnfAndContent(entries, bnf, content) {
   const tokens = tokensFromEntriesAndContent(entries, content),
         node = nodeFromBNFAndTokens(bnf, tokens);
 
   return node;
 }
 
-function parseTreeStringFromNodeAndTokens(node, tokens) {
+export function parseTreeStringFromNodeAndTokens(node, tokens) {
   const parseTree = node.asParseTree(tokens);
 
   parseTree.shiftLine();  //
@@ -32,7 +34,7 @@ function parseTreeStringFromNodeAndTokens(node, tokens) {
   return parseTreeString;
 }
 
-function parseTreeStringFromEntriesBnfAndContent(entries, bnf, content) {
+export function parseTreeStringFromEntriesBnfAndContent(entries, bnf, content) {
   const tokens = tokensFromEntriesAndContent(entries, content),
         node = nodeFromBNFAndTokens(bnf, tokens),
         parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
@@ -40,7 +42,7 @@ function parseTreeStringFromEntriesBnfAndContent(entries, bnf, content) {
   return parseTreeString;
 }
 
-module.exports = {
+export default {
   compareParseTreeStrings,
   nodeFromEntriesBnfAndContent,
   parseTreeStringFromNodeAndTokens,
