@@ -3,18 +3,17 @@
 import Context from "../context";
 
 export default class PartChoiceContext extends Context {
-  constructor(context, state, childNodes, precedence, callAheadParts, partChoide) {
-    super(context, state, childNodes, precedence, callAheadParts);
+  setPrecedence(precedence) {
+    if (precedence === null) {
+      return;
+    }
 
-    this.partChoice = partChoide;
-  }
-
-  getPartChoice() {
-    return this.partChoice;
+    super.setPrecedence(precedence);
   }
 
   static fromPartChoice(partChoice, context) {
-    const partChoiceContext = Context.fromNothing(PartChoiceContext, partChoice, context);
+    const precedence = partChoice.getPrecedence(),
+          partChoiceContext = Context.fromPrecedence(PartChoiceContext, precedence, context);
 
     return partChoiceContext;
   }

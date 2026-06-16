@@ -7,9 +7,12 @@ export default class CallAheadContext extends Context {
     this.adjustState(state);
 
     const context = this.getContext(),
-          childNodes = this.getChildNodes();
+          childNodes = this.getChildNodes(),
+          precedence = this.getPrecedence();
 
     context.addChildNodes(childNodes);
+
+    context.setPrecedence(precedence);
   }
 
   static fromStateAndCallAheadParts(state, callAheadParts, context) { return Context.fromStateAndCallAheadParts(CallAheadContext, state, callAheadParts, context); }
