@@ -253,7 +253,9 @@ export default class NonTerminalNode {
   }
 
   rewrite(context) {
-    ///
+    const rewrittenNonTerminalNode = this;  ///
+
+    return rewrittenNonTerminalNode;
   }
 
   destroy() {
