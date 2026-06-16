@@ -15,6 +15,10 @@ export default class State {
     return this.index;
   }
 
+  getTokens() {
+    return State.tokens;
+  }
+
   getNextToken() {
     let nextToken = null;
 

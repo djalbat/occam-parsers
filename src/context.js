@@ -61,6 +61,8 @@ export default class Context {
 
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
+  getTokens() { return this.state.getTokens(); }
+
   getNextToken() { return this.state.getNextToken(); }
 
   getNextSignificantToken() { return this.state.getNextSignificantToken(); }
