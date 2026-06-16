@@ -20,7 +20,25 @@ export function nodeFromBNFAndTokens(Parser, bnf, tokens) {
   }
 
   const rules = rulesFromBNF(bnf),
-        ruleMap = ruleMapFromRules(rules),
+    ruleMap = ruleMapFromRules(rules),
+    firstRule = first(rules),
+    startRule = firstRule,
+    parser = new Parser(startRule, ruleMap),
+    node = parser.parse(tokens);
+
+  return node;
+}
+
+export function nodeFromRulesAndTokens(Parser, rules, tokens) {
+  if (tokens === undefined) {
+    tokens = rules; ///
+
+    bnf = Parser; //
+
+    Parser = BasicParser; ///
+  }
+
+  const ruleMap = ruleMapFromRules(rules),
         firstRule = first(rules),
         startRule = firstRule,
         parser = new Parser(startRule, ruleMap),
@@ -46,7 +64,7 @@ export function tokensFromEntriesAndContent(Lexer, entries, content) {
   }
 
   const lexer = Lexer.fromEntries(entries),
-    tokens = lexer.tokenise(content);
+        tokens = lexer.tokenise(content);
 
   return tokens;
 }
@@ -78,6 +96,7 @@ export function parseTreeStringFromEntriesBnfAndContent(entries, bnf, content) {
 
 export default {
   nodeFromBNFAndTokens,
+  nodeFromRulesAndTokens,
   compareParseTreeStrings,
   tokensFromEntriesAndContent,
   nodeFromEntriesBnfAndContent,

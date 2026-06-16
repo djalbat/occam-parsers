@@ -252,7 +252,7 @@ export default class NonTerminalNode {
     return matches;
   }
 
-  rewrite() {
+  rewrite(context) {
     const rewrittenNonTerminalNode = this;  ///
 
     return rewrittenNonTerminalNode;
