@@ -10,11 +10,45 @@ import { ruleMapFromRules } from "../utilities/rules";
 
 const { first } = arrayUtilities;
 
+export function nodeFromBNFAndTokens(Parser, bnf, tokens) {
+  if (tokens === undefined) {
+    tokens = bnf; ///
+
+    bnf = Parser; //
+
+    Parser = BasicParser; ///
+  }
+
+  const rules = rulesFromBNF(bnf),
+        ruleMap = ruleMapFromRules(rules),
+        firstRule = first(rules),
+        startRule = firstRule,
+        parser = new Parser(startRule, ruleMap),
+        node = parser.parse(tokens);
+
+  return node;
+}
+
 export function compareParseTreeStrings(stringA, stringB) {
   stringA = stripWhitespace(stringA);
   stringB = stripWhitespace(stringB);
 
   return (stringA === stringB);
+}
+
+export function tokensFromEntriesAndContent(Lexer, entries, content) {
+  if (content === undefined) {
+    content = entries;  /'/
+
+    entries = Lexer;  ///
+
+    Lexer = BasicLexer; ///
+  }
+
+  const lexer = Lexer.fromEntries(entries),
+    tokens = lexer.tokenise(content);
+
+  return tokens;
 }
 
 export function nodeFromEntriesBnfAndContent(entries, bnf, content) {
@@ -43,7 +77,9 @@ export function parseTreeStringFromEntriesBnfAndContent(entries, bnf, content) {
 }
 
 export default {
+  nodeFromBNFAndTokens,
   compareParseTreeStrings,
+  tokensFromEntriesAndContent,
   nodeFromEntriesBnfAndContent,
   parseTreeStringFromNodeAndTokens,
   parseTreeStringFromEntriesBnfAndContent
@@ -53,22 +89,4 @@ function stripWhitespace(string) {
   string = string.replace(/[\s\t\n\r]/g, "");
 
   return string;
-}
-
-function nodeFromBNFAndTokens(bnf, tokens) {
-  const rules = rulesFromBNF(bnf),
-        ruleMap = ruleMapFromRules(rules),
-        firstRule = first(rules),
-        startRule = firstRule,
-        exampleParser = new BasicParser(startRule, ruleMap),
-        node = exampleParser.parse(tokens);
-
-  return node;
-}
-
-function tokensFromEntriesAndContent(entries, content) {
-  const basicLexer = BasicLexer.fromEntries(entries),
-        tokens = basicLexer.tokenise(content);
-
-  return tokens;
 }
