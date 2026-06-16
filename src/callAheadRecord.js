@@ -3,9 +3,10 @@
 import State from "./state";
 
 export default class CallAheadRecord {
-  constructor(state, childNodes) {
+  constructor(state, childNodes, precedence) {
     this.state = state;
     this.childNodes = childNodes;
+    this.precedence = precedence;
   }
 
   getState() {
@@ -16,12 +17,18 @@ export default class CallAheadRecord {
     return this.childNodes;
   }
 
+  getPrecedence() {
+    return this.precedence;
+  }
+
   apply(context) {
     const parsed = true;
 
     context.setState(this.state);
 
     context.setChildNodes(this.childNodes);
+
+    context.setPrecedence(this.precedence);
 
     return parsed;
   }
@@ -32,18 +39,20 @@ export default class CallAheadRecord {
     value = this.state.serialise();
 
     const state = value, ///
-          childNodes = this.childNodes;
+          childNodes = this.childNodes,
+          precedence = this.precedence;
 
     value = {
       state,
-      childNodes
+      childNodes,
+      precedence
     };
 
     return value;
   }
 
-  static unserialize(value) {
-    const { childNodes } = value;
+  static unserialise(value) {
+    const { childNodes, precedence } = value;
 
     let state;
 
@@ -53,13 +62,13 @@ export default class CallAheadRecord {
 
     state = State.unserialise(value);
 
-    const callAheadRecord = new CallAheadRecord(state, childNodes);
+    const callAheadRecord = new CallAheadRecord(state, childNodes, precedence);
 
     return callAheadRecord;
   }
 
-  static fromStateAndChildNodes(state, childNodes) {
-    const callAheadRecord = new CallAheadRecord(state, childNodes);
+  static fromStateChildNodesAndPrecedence(state, childNodes, precedence) {
+    const callAheadRecord = new CallAheadRecord(state, childNodes, precedence);
 
     return callAheadRecord;
   }

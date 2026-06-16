@@ -62,9 +62,9 @@ export default class State {
     return nextTokenWhitespaceToken;
   }
 
-  store(part, childNodes) {
+  store(part, childNodes, precedence) {
     const state = this, ///
-          callAheadRecord = CallAheadRecord.fromStateAndChildNodes(state, childNodes),
+          callAheadRecord = CallAheadRecord.fromStateChildNodesAndPrecedence(state, childNodes, precedence),
           key = part, ///
           value = callAheadRecord.serialise();
 
@@ -80,7 +80,7 @@ export default class State {
     if (value !== null) {
       const state = this; ///
 
-      callAheadRecord = CallAheadRecord.unserialize(value, state);
+      callAheadRecord = CallAheadRecord.unserialise(value, state);
 
       State.cache.delete(key);
     }

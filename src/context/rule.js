@@ -31,11 +31,12 @@ export default class RuleContext extends Context {
     const palatable = nonTerminalNode.isPalatable();
 
     if (palatable) {
-      const childNode = nonTerminalNode;  ///
+      const childNode = nonTerminalNode,  ///
+            noPrecedence = true;
 
       this.overwriteChildNodes(childNode);
 
-      super.commit();
+      super.commit(noPrecedence);
 
       parsed = true;
     }
@@ -44,7 +45,8 @@ export default class RuleContext extends Context {
   }
 
   static fromRule(rule, context) {
-    const ruleContext = Context.fromNothing(RuleContext, rule, context);
+    const precedence = null,
+          ruleContext = Context.fromNothing(RuleContext, rule, precedence, context);
 
     return ruleContext;
   }

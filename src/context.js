@@ -114,7 +114,7 @@ export default class Context {
         this.childNodes.push(...childNodes);
   }
 
-  store(part) { this.state.store(part, this.childNodes); }
+  store(part) { this.state.store(part, this.childNodes, this.precedence); }
 
   recover(part) { return this.state.recover(part); }
 
@@ -124,12 +124,16 @@ export default class Context {
 
   adjustState(state) { this.state.adjustState(state); }
 
-  commit() {
+  commit(noPrecedence = false) {
     const state = this.state.clone(); ///
 
     this.context.setState(state);
 
     this.context.addChildNodes(this.childNodes);
+
+    if (noPrecedence) {
+      return;
+    }
 
     this.context.setPrecedence(this.precedence);
   }
@@ -144,10 +148,27 @@ export default class Context {
     state = state.clone();  ///
 
     const childNodes = [],
-          precednece = null,
+          precedence = null,
           callAheadParts = context.getCallAheadParts();
 
-    context = new Class(context, state, childNodes, precednece, callAheadParts, ...remainingArguments);
+    context = new Class(context, state, childNodes, precedence, callAheadParts, ...remainingArguments);
+
+    return context;
+  }
+
+  static fromPrecedence(Class, precedence, ...remainingArguments) {
+    let context = remainingArguments.pop();
+
+    let state;
+
+    state = context.getState();
+
+    state = state.clone();  ///
+
+    const childNodes = [],
+          callAheadParts = context.getCallAheadParts();
+
+    context = new Class(context, state, childNodes, precedence, callAheadParts, ...remainingArguments);
 
     return context;
   }
