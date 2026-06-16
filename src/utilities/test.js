@@ -33,7 +33,7 @@ export function nodeFromRulesAndTokens(Parser, rules, tokens) {
   if (tokens === undefined) {
     tokens = rules; ///
 
-    bnf = Parser; //
+    rules = Parser; //
 
     Parser = BasicParser; ///
   }
