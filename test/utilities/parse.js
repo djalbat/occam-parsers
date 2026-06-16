@@ -15,6 +15,13 @@ function compareParseTreeStrings(stringA, stringB) {
   return (stringA === stringB);
 }
 
+function nodeFromEntriesBnfAndContent(entries, bnf, content) {
+  const tokens = tokensFromEntriesAndContent(entries, content),
+        node = nodeFromBNFAndTokens(bnf, tokens);
+
+  return node;
+}
+
 function parseTreeStringFromNodeAndTokens(node, tokens) {
   const parseTree = node.asParseTree(tokens);
 
@@ -35,6 +42,7 @@ function parseTreeStringFromEntriesBnfAndContent(entries, bnf, content) {
 
 module.exports = {
   compareParseTreeStrings,
+  nodeFromEntriesBnfAndContent,
   parseTreeStringFromNodeAndTokens,
   parseTreeStringFromEntriesBnfAndContent
 };
