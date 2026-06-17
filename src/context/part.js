@@ -28,13 +28,6 @@ export default class PartContext extends Context {
     return calledAhead;
   }
 
-  isCallingAhead() {
-    const callAheadPartsLength = this.getCallAheadPartsLength(),
-          callingAhead = (callAheadPartsLength > 0);
-
-    return callingAhead;
-  }
-
   commit() {
     const calledAhead = this.isCalledAhead();
 

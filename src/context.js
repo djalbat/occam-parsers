@@ -69,16 +69,17 @@ export default class Context {
 
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
-  getCallAheadPartsLength() {
-    const callAheadPartsLength = this.callAheadParts.length;
+  isCallingAhead() {
+    const callAheadPartsLength = this.callAheadParts.length,
+          callingAhead = (callAheadPartsLength > 0);
 
-    return callAheadPartsLength;
+    return callingAhead;
   }
 
   getCallAheadPart() {
     let callAheadPart = null;
 
-    const callAheadPartsLength = this.getCallAheadPartsLength();
+    const callAheadPartsLength = this.callAheadParts.length;
 
     if (callAheadPartsLength > 0) {
       const lastCallAheadPart = last(this.callAheadParts);
@@ -87,13 +88,6 @@ export default class Context {
     }
 
     return callAheadPart;
-  }
-
-  isCallingAhead() {
-    const callAheadPart = this.getCallAheadPart(),
-          callingAhead = (callAheadPart !== null);
-
-    return callingAhead;
   }
 
   callAhead() { return this.context.calledAhead(this.state, this.callAheadParts); }
