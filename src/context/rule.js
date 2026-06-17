@@ -13,38 +13,6 @@ export default class RuleContext extends Context {
     return this.rule;
   }
 
-  commit() {
-    let parsed = false;
-
-    const context = this, ///
-          opacity = this.rule.getOpacity(),
-          ruleName = this.rule.getName(),
-          childNodes = this.getChildNodes(),
-          precedence = this.getPrecedence(),
-          NonTerminalNode = this.rule.NonTerminalNodeFromRuleName(ruleName, context);
-
-    let nonTerminalNode;
-
-    nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
-
-    nonTerminalNode = nonTerminalNode.rewrite(context);  ///
-
-    const palatable = nonTerminalNode.isPalatable();
-
-    if (palatable) {
-      const childNode = nonTerminalNode,  ///
-            noPrecedence = true;
-
-      this.overwriteChildNodes(childNode);
-
-      super.commit(noPrecedence);
-
-      parsed = true;
-    }
-
-    return parsed;
-  }
-
   static fromRule(rule, context) {
     const precedence = null,
           ruleContext = Context.fromNothing(RuleContext, rule, precedence, context);

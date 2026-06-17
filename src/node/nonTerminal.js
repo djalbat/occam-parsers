@@ -192,16 +192,23 @@ export default class NonTerminalNode {
   }
 
   isPalatable() {
-    let palatable = true;
+    const unpalatable = this.isUnpalatable(),
+          palatable = !unpalatable;
+
+    return palatable;
+  }
+
+  isUnpalatable() {
+    let unpalatable = false;
 
     const empty = this.isEmpty(),
           unprecedented = this.isUnprecedented();
 
     if (empty || unprecedented) {
-      palatable = false;
+      unpalatable = true;
     }
 
-    return palatable;
+    return unpalatable;
   }
 
   asParseTree(tokens) {

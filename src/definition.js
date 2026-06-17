@@ -35,7 +35,7 @@ export default class Definition {
                    parseParts(this.parts, context);
 
       if (parsed) {
-        context.commit();
+        parsed = context.commit();  ///
       }
     }, definition, context);
 

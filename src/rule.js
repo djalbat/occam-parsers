@@ -71,7 +71,7 @@ export default class Rule {
       });
 
       if (parsed) {
-        parsed = context.commit();  ///
+        context.commit();
       }
     }, rule, context);
 

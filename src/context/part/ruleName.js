@@ -3,14 +3,6 @@
 import PartContext from "../../context/part";
 
 export default class RuleNamePartContext extends PartContext {
-  isCallingAhead() {
-    ///
-  }
-
-  callAhead() {
-    ///
-  }
-
   static fromRuleNamePart(ruleNamePart, context) {
     const part = ruleNamePart,  ///
           callAheadParts = callAheadPartsFromRuleNamePart(ruleNamePart, context),
