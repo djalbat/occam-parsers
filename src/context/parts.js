@@ -9,19 +9,19 @@ import { callAheadContext } from "../utilities/context";
 const { first } = arrayUtilities;
 
 export default class PartsContext extends Context {
-  constructor(context, state, childNodes, precedence, callAheadParts, parts, parseParts) {
+  constructor(context, state, childNodes, precedence, callAheadParts, parts, parsePartsContiunally) {
     super(context, state, childNodes, precedence, callAheadParts);
 
     this.parts = parts;
-    this.parseParts = parseParts;
+    this.parsePartsContiunally = parsePartsContiunally;
   }
 
   getParts() {
     return this.parts;
   }
 
-  getParseParts() {
-    return this.parseParts;
+  getParsePartsContiunally() {
+    return this.parsePartsContiunally;
   }
 
   isEmpty() {
@@ -54,7 +54,7 @@ export default class PartsContext extends Context {
       const context = this.getContext();
 
       callAheadContext((context) => {
-        parsed = this.parseParts(this.parts, context);
+        parsed = this.parsePartsContiunally(this.parts, context);
 
         if (parsed) {
           context.commit(state);
@@ -67,8 +67,8 @@ export default class PartsContext extends Context {
     return parsed;
   }
 
-  static fromPartsAndParseParts(parts, parseParts, context) {
-    const partsContext = Context.fromNothing(PartsContext, parts, parseParts, context);
+  static fromPartsAndParsePartsContinually(parts, parsePartsContiunally, context) {
+    const partsContext = Context.fromNothing(PartsContext, parts, parsePartsContiunally, context);
 
     return partsContext;
   }

@@ -4,7 +4,7 @@ const { testUtilities } = require("../lib/index"); ///
 
 const { compareParseTreeStrings, nodeFromEntriesBnfAndContent, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe.skip("Precedence", () => {
+describe("Precedence", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"

@@ -4,7 +4,7 @@ const { testUtilities } = require("../lib/index"); ///
 
 const { compareParseTreeStrings, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe.skip("Left recursion", () => {
+describe("Left recursion", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"
@@ -41,7 +41,7 @@ describe.skip("Left recursion", () => {
     describe("content with the requisite significant tokens", () => {
       const content = "a = R .";
 
-      it("results in the requisite parse tree" , () => {
+      it.only("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `

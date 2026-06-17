@@ -31,11 +31,11 @@ export default class Definition {
       const callingAhead = context.isCallingAhead();
 
       parsed = callingAhead ?
-                 parsePartsContinually(this.parts, context) :
-                   parseParts(this.parts, context);
+                  parsePartsContinually(this.parts, context) :
+                    parseParts(this.parts, context);
 
       if (parsed) {
-        parsed = context.commit();  ///
+        parsed = context.commit();
       }
     }, definition, context);
 

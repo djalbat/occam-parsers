@@ -33,7 +33,7 @@ export function parseParts(parts, context) {
     if (parsed) {
       context.commit();
     }
-  }, parts, parseParts, context);
+  }, parts, parsePartsContinually, context);
 
   return parsed;
 }
@@ -47,15 +47,13 @@ export function parsePartsContinually(parts, context) {
 
   parts = tailParts;  ///
 
-  const parseParts = parsePartsContinually; ///
-
   partsContext((context) => {
     parsed = part.parse(context);
 
     if (parsed) {
       context.commit();
     }
-  }, parts, parseParts, context);
+  }, parts, parsePartsContinually, context);
 
   return parsed;
 }
