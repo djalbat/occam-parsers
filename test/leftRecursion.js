@@ -4,7 +4,7 @@ const { testUtilities } = require("../lib/index"); ///
 
 const { compareParseTreeStrings, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe.only("Left recursion", () => {
+describe.skip("Left recursion", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"

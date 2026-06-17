@@ -22,6 +22,12 @@ export default class PartContext extends Context {
     return this.part;
   }
 
+  isCalledAhead() {
+    const calledAhead = (this.part === this.calledAheadPart);
+
+    return calledAhead;
+  }
+
   isCallingAhead() {
     const callAheadPartsLength = this.getCallAheadPartsLength(),
           callingAhead = (callAheadPartsLength > 0);
@@ -30,10 +36,16 @@ export default class PartContext extends Context {
   }
 
   commit() {
-    if (this.part === this.calledAheadPart) {
-      this.store(this.part);
+    const calledAhead = this.isCalledAhead();
 
-      return;
+    if (calledAhead) {
+      const callingAhead = this.isCallingAhead();
+
+      if (!callingAhead) {
+        this.store(this.part);
+
+        return;
+      }
     }
 
     super.commit();

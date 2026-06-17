@@ -53,14 +53,6 @@ export function parsePartsContinually(parts, context) {
     parsed = part.parse(context);
 
     if (parsed) {
-      const callAheadRecord = context.recover(part);
-
-      if (callAheadRecord !== null) {
-        callAheadRecord.apply(context);
-      }
-    }
-
-    if (parsed) {
       context.commit();
     }
   }, parts, parseParts, context);
