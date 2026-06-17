@@ -118,7 +118,12 @@ export default class Context {
 
   store(part) { this.state.store(part, this.childNodes, this.precedence); }
 
-  recover(part) { return this.state.recover(part); }
+  recover(part) {
+    const callingAhead = this.isCallingAhead(),
+          callAheadRecord = this.state.recover(part, callingAhead);
+
+    return callAheadRecord;
+  }
 
   overwriteChildNodes(...childNodes) {
     this.childNodes = childNodes;

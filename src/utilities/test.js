@@ -20,11 +20,11 @@ export function nodeFromBNFAndTokens(Parser, bnf, tokens) {
   }
 
   const rules = rulesFromBNF(bnf),
-    ruleMap = ruleMapFromRules(rules),
-    firstRule = first(rules),
-    startRule = firstRule,
-    parser = new Parser(startRule, ruleMap),
-    node = parser.parse(tokens);
+        ruleMap = ruleMapFromRules(rules),
+        firstRule = first(rules),
+        startRule = firstRule,
+        parser = new Parser(startRule, ruleMap),
+        node = parser.parse(tokens);
 
   return node;
 }

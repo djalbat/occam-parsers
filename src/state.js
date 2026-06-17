@@ -15,6 +15,10 @@ export default class State {
     return this.index;
   }
 
+  getCache() {
+    return State.cache;
+  }
+
   getTokens() {
     return State.tokens;
   }
@@ -75,18 +79,20 @@ export default class State {
     State.cache.set(key, value);
   }
 
-  recover(part) {
+  recover(part, callingAhead) {
     let callAheadRecord = null;
 
-    const key = part, ///
-          value = State.cache.get(key) || null;
+    if (!callingAhead) {
+      const key = part, ///
+            value = State.cache.get(key) || null;
 
-    if (value !== null) {
-      const state = this; ///
+      if (value !== null) {
+        const state = this; ///
 
-      callAheadRecord = CallAheadRecord.unserialise(value, state);
+        callAheadRecord = CallAheadRecord.unserialise(value, state);
 
-      State.cache.delete(key);
+        State.cache.delete(key);
+      }
     }
 
     return callAheadRecord;
