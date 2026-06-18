@@ -1,7 +1,7 @@
 "use strict";
 
 export default class TerminalPart {
-  isContiunation() {
+  isContinuation() {
     const continuation = false;
 
     return continuation;

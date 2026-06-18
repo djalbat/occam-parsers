@@ -11,8 +11,8 @@ import { ZeroOrMorePartsPartType } from "../../partTypes";
 const { asterisk } = specialSymbols;
 
 export default class ZeroOrMorePartsPart extends NonTerminalPart {
-  constructor(type, contiunation, part) {
-    super(type, contiunation);
+  constructor(type, continuation, part) {
+    super(type, continuation);
 
     this.part = part;
   }
@@ -63,8 +63,8 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
 
   static fromPart(part) {
     const type = ZeroOrMorePartsPartType,
-          contiunation = false,
-          zeroOrMorePartsPart = new ZeroOrMorePartsPart(type, contiunation, part);
+          continuation = false,
+          zeroOrMorePartsPart = new ZeroOrMorePartsPart(type, continuation, part);
 
     return zeroOrMorePartsPart;
   }

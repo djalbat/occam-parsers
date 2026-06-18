@@ -9,19 +9,19 @@ import { continuationContext } from "../utilities/context";
 const { first } = arrayUtilities;
 
 export default class PartsContext extends Context {
-  constructor(context, state, childNodes, precedence, contiunationParts, parts, parsePartsContiunally) {
-    super(context, state, childNodes, precedence, contiunationParts);
+  constructor(context, state, childNodes, precedence, continuationParts, parts, parsePartsContinually) {
+    super(context, state, childNodes, precedence, continuationParts);
 
     this.parts = parts;
-    this.parsePartsContiunally = parsePartsContiunally;
+    this.parsePartsContinually = parsePartsContinually;
   }
 
   getParts() {
     return this.parts;
   }
 
-  getParsePartsContiunally() {
-    return this.parsePartsContiunally;
+  getParsePartsContinually() {
+    return this.parsePartsContinually;
   }
 
   isEmpty() {
@@ -45,7 +45,7 @@ export default class PartsContext extends Context {
     return nextPart;
   }
 
-  continued(state, contiunationParts) {
+  continued(state, continuationParts) {
     let parsed;
 
     const empty = this.isEmpty();
@@ -54,21 +54,17 @@ export default class PartsContext extends Context {
       const context = this.getContext();
 
       continuationContext((context) => {
-        parsed = this.parsePartsContiunally(this.parts, context);
-
-        if (parsed) {
-          context.commit(state);
-        }
-      }, state, contiunationParts, context);
+        parsed = this.parsePartsContinually(this.parts, context);
+      }, state, continuationParts, context);
     } else {
-      parsed = super.continued(state, contiunationParts);
+      parsed = super.continued(state, continuationParts);
     }
 
     return parsed;
   }
 
-  static fromPartsAndParsePartsContinually(parts, parsePartsContiunally, context) {
-    const partsContext = Context.fromNothing(PartsContext, parts, parsePartsContiunally, context);
+  static fromPartsAndParsePartsContinually(parts, parsePartsContinually, context) {
+    const partsContext = Context.fromNothing(PartsContext, parts, parsePartsContinually, context);
 
     return partsContext;
   }

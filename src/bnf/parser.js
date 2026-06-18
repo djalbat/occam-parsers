@@ -30,7 +30,7 @@ import OptionalQuantifierBNFRule from "../rule/bnf/optionalQuantifier";
 import OneOrMoreQuantifierBNFRule from "../rule/bnf/oneOrMoreQuantifier";
 import ZeroOrMoreQuantifierBNFRule from "../rule/bnf/zeroOrMoreQuantifier";
 import SignificantTokenTypeBNFRule from "../rule/bnf/significantTokenType";
-import ContiunationModifierBNFRule from "../rule/bnf/contiunationModifier";
+import ContinuationModifierBNFRule from "../rule/bnf/continuationModifier";
 
 import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
 
@@ -100,7 +100,7 @@ export default class BNFParser {
           optionalQuantifierBNFRule = OptionalQuantifierBNFRule.fromNothing(),
           oneOrMoreQuantifierBNFRule = OneOrMoreQuantifierBNFRule.fromNothing(),
           zeroOrMoreQuantifierBNFRule = ZeroOrMoreQuantifierBNFRule.fromNothing(),
-          contiunationModifierBNFRule = ContiunationModifierBNFRule.fromNothing(),
+          continuationModifierBNFRule = ContinuationModifierBNFRule.fromNothing(),
           significantTokenTypeBNFRule = SignificantTokenTypeBNFRule.fromNothing(),
           rules = [
             documentBNFRule,
@@ -128,7 +128,7 @@ export default class BNFParser {
             optionalQuantifierBNFRule,
             oneOrMoreQuantifierBNFRule,
             zeroOrMoreQuantifierBNFRule,
-            contiunationModifierBNFRule,
+            continuationModifierBNFRule,
             errorBNFRule
           ],
           startRule = startRuleFromRules(rules),

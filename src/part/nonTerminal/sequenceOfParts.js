@@ -7,8 +7,8 @@ import { sequenceOfPartsPartContext } from "../../utilities/context";
 import { parseParts, parsePartsContinually } from "../../utilities/parts";
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
-  constructor(type, contiunation, parts) {
-    super(type, contiunation);
+  constructor(type, continuation, parts) {
+    super(type, continuation);
 
     this.parts = parts;
   }
@@ -56,8 +56,8 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
 
   static fromParts(parts) {
     const type = SequenceOfPartsPartType,
-          contiunation = false,
-          sequenceOfPartsPart = new SequenceOfPartsPart(type, contiunation, parts);
+          continuation = false,
+          sequenceOfPartsPart = new SequenceOfPartsPart(type, continuation, parts);
 
     return sequenceOfPartsPart;
   }

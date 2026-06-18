@@ -13,7 +13,7 @@ import { OPTIONAL_QUANTIFIER_RULE_NAME, ONE_OR_MORE_QUANTIFIER_RULE_NAME, ZERO_O
 const { last } = arrayUtilities;
 
 export default class PartBNFNode extends NonTerminalNode {
-  generatePart(contiunation) {
+  generatePart(continuation) {
     const childNodes = this.getChildNodes(),
           nodes = childNodes.slice(),
           part = partFromNodes(nodes);

@@ -4,7 +4,7 @@ import NonTerminalNode from "../../node/nonTerminal";
 import NoWhitespacePart from "../../part/terminal/noWhitespace";
 
 export default class NoWhitespacePartBNFNode extends NonTerminalNode {
-  generatePart(contiunation) {
+  generatePart(continuation) {
     const noWhitespacePart = NoWhitespacePart.fromNothing();
 
     return noWhitespacePart;

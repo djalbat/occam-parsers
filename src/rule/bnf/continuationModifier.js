@@ -1,13 +1,13 @@
 "use strict";
 
 import Rule from "../../rule";
-import ContinuationModifierRuleDefinition from "../../definition/contiunationModifierRule";
+import ContinuationModifierRuleDefinition from "../../definition/continuationModifierRule";
 
-import { CONTIUNATION_MODIFIER_RULE_NAME } from "../../ruleNames";
+import { CONTINUATION_MODIFIER_RULE_NAME } from "../../ruleNames";
 
 export default class ContinuationModifierBNFRule extends Rule {
   static fromNothing() {
-    const name = CONTIUNATION_MODIFIER_RULE_NAME, ///
+    const name = CONTINUATION_MODIFIER_RULE_NAME, ///
           continuationModifierRuleDefinition = ContinuationModifierRuleDefinition.fromNothing(),
           opacity = null,
           definitions = [

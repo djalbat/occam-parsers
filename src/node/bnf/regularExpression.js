@@ -10,7 +10,7 @@ const { first, second } = arrayUtilities;
 export default class RegularExpressionBNFNode extends NonTerminalNode {
   regularExpression = /^\/((?:\\.|[^\/])*)\/$/;
 
-  generatePart(contiunation) {
+  generatePart(continuation) {
     const regularExpression = this.getRegularExpression(),
           regularExpressionPart = RegularExpressionPart.fromRegularExpression(regularExpression);
 

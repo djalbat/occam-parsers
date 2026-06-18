@@ -6,8 +6,8 @@ import { ChoiceOfPartsPartType } from "../../partTypes";
 import { choiceOfPartsPartContext } from "../../utilities/context";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
-  constructor(type, contiunation, partChoices) {
-    super(type, contiunation);
+  constructor(type, continuation, partChoices) {
+    super(type, continuation);
     
     this.partChoices = partChoices;
   }
@@ -67,8 +67,8 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
 
   static fromPartChoices(partChoices) {
     const type = ChoiceOfPartsPartType,
-          contiunation = false,
-          choiceOfPartsPart = new ChoiceOfPartsPart(type, contiunation, partChoices);
+          continuation = false,
+          choiceOfPartsPart = new ChoiceOfPartsPart(type, continuation, partChoices);
 
     return choiceOfPartsPart;
   }

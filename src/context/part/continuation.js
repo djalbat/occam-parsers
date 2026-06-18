@@ -4,7 +4,7 @@ import PartContext from "../../context/part";
 
 import { continuationContext } from "../../utilities/context";
 
-export default class ContiunationPartContext extends PartContext {
+export default class ContinuationPartContext extends PartContext {
   constructor(context, state, childNodes, precedence, continuationParts, continuedPart, part, count, parsePart) {
     super(context, state, childNodes, precedence, continuationParts, continuedPart, part);
 
@@ -29,18 +29,14 @@ export default class ContiunationPartContext extends PartContext {
 
     continuationContext((context) => {
       parsed = this.parsePart(part, count, context);
-
-      if (parsed) {
-        context.commit(state);
-      }
     }, state, continuationParts, context);
 
     return parsed;
   }
 
   static fromPartCountAndParsePart(part, count, parsePart, context) {
-    const contiunationPartContext = PartContext.fromPart(ContiunationPartContext, part, count, parsePart, context);
+    const continuationPartContext = PartContext.fromPart(ContinuationPartContext, part, count, parsePart, context);
 
-    return contiunationPartContext;
+    return continuationPartContext;
   }
 }

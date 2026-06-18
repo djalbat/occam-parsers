@@ -48,11 +48,11 @@ export default class RuleNamePart extends NonTerminalPart {
   }
 
   asString() {
-    const continuation = this.isContiunation(),
-          contiunationString = continuation ?
-                              ellipsis :
-                                EMPTY_STRING,
-          string = `${this.ruleName}${contiunationString}`;
+    const continuation = this.isContinuation(),
+          continuationString = continuation ?
+                                  ellipsis :
+                                    EMPTY_STRING,
+          string = `${this.ruleName}${continuationString}`;
 
     return string;
   }
@@ -65,7 +65,7 @@ export default class RuleNamePart extends NonTerminalPart {
     return ruleNamePart;
   }
 
-  static fromContiunationAndRuleName(continuation, ruleName) {
+  static fromContinuationAndRuleName(continuation, ruleName) {
     const type = RuleNamePartType,
           ruleNamePart = new RuleNamePart(type, continuation, ruleName);
 

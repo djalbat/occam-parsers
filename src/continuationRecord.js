@@ -2,7 +2,7 @@
 
 import State from "./state";
 
-export default class ContiunationRecord {
+export default class ContinuationRecord {
   constructor(state, childNodes, precedence) {
     this.state = state;
     this.childNodes = childNodes;
@@ -62,14 +62,14 @@ export default class ContiunationRecord {
 
     state = State.unserialise(value);
 
-    const contiunationRecord = new ContiunationRecord(state, childNodes, precedence);
+    const continuationRecord = new ContinuationRecord(state, childNodes, precedence);
 
-    return contiunationRecord;
+    return continuationRecord;
   }
 
   static fromStateChildNodesAndPrecedence(state, childNodes, precedence) {
-    const contiunationRecord = new ContiunationRecord(state, childNodes, precedence);
+    const continuationRecord = new ContinuationRecord(state, childNodes, precedence);
 
-    return contiunationRecord;
+    return continuationRecord;
   }
 }

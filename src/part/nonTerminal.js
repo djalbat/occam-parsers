@@ -10,7 +10,7 @@ export default class NonTerminalPart {
     return this.type;
   }
 
-  isContiunation() {
+  isContinuation() {
     return this.continunation;
   }
 

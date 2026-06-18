@@ -25,8 +25,8 @@ import RegularExpressionBNFNode from "./node/bnf/regularExpression";
 import OptionalQuantifierBNFNode from "./node/bnf/optionalQuantifier";
 import OneOrMoreQuantifierBNFNode from "./node/bnf/oneOneOrMoreQuantifier";
 import SignificantTokenTypeBNFNode from "./node/bnf/significantTokenType";
+import ContinuationModifierBNFNode from "./node/bnf/continuationModifier";
 import ZeroOrMoreQuantifierBNFNode from "./node/bnf/zeroOneOrMoreQuantifier";
-import ContiunationModifierBNFNode from "./node/bnf/contiunationModifier";
 
 import { NAME_RULE_NAME,
          PART_RULE_NAME,
@@ -51,7 +51,7 @@ import { NAME_RULE_NAME,
          NO_WHITESPACE_PART_RULE_NAME,
          REGULAR_EXPRESSION_RULE_NAME,
          OPTIONAL_QUANTIFIER_RULE_NAME,
-         CONTIUNATION_MODIFIER_RULE_NAME,
+         CONTINUATION_MODIFIER_RULE_NAME,
          SIGNIFICANT_TOKEN_TYPE_RULE_NAME,
          ONE_OR_MORE_QUANTIFIER_RULE_NAME,
          ZERO_OR_MORE_QUANTIFIER_RULE_NAME } from "./ruleNames";
@@ -80,7 +80,7 @@ const NonTerminalNodeMap = {
   [NO_WHITESPACE_PART_RULE_NAME]: NoWhitespacePartBNFNode,
   [REGULAR_EXPRESSION_RULE_NAME]: RegularExpressionBNFNode,
   [OPTIONAL_QUANTIFIER_RULE_NAME]: OptionalQuantifierBNFNode,
-  [CONTIUNATION_MODIFIER_RULE_NAME]: ContiunationModifierBNFNode,
+  [CONTINUATION_MODIFIER_RULE_NAME]: ContinuationModifierBNFNode,
   [ONE_OR_MORE_QUANTIFIER_RULE_NAME]: OneOrMoreQuantifierBNFNode,
   [SIGNIFICANT_TOKEN_TYPE_RULE_NAME]: SignificantTokenTypeBNFNode,
   [ZERO_OR_MORE_QUANTIFIER_RULE_NAME]: ZeroOrMoreQuantifierBNFNode

@@ -5,24 +5,24 @@ import { arrayUtilities } from "necessary";
 import NonTerminalNode from "../../node/nonTerminal";
 
 import { nodeFromChildNodesAndRuleName } from "../../utilities/node";
-import { CONTIUNATION_MODIFIER_RULE_NAME } from "../../ruleNames";
+import { CONTINUATION_MODIFIER_RULE_NAME } from "../../ruleNames";
 
 const { first } = arrayUtilities;
 
 export default class NonTerminalPartBNFNode extends NonTerminalNode {
-  generatePart(contiunation) {
+  generatePart(continuation) {
     const childNodes = this.getChildNodes();
 
-    if (!contiunation) {
-      const ruleName = CONTIUNATION_MODIFIER_RULE_NAME,
+    if (!continuation) {
+      const ruleName = CONTINUATION_MODIFIER_RULE_NAME,
             continuationModifierBNFNode = nodeFromChildNodesAndRuleName(childNodes, ruleName);
 
-      contiunation = (continuationModifierBNFNode !== null);
+      continuation = (continuationModifierBNFNode !== null);
     }
 
     const firstChildNode = first(childNodes),
           node = firstChildNode,  ///
-          part = node.generatePart(contiunation);
+          part = node.generatePart(continuation);
 
     return part;
   }

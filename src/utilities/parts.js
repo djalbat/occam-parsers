@@ -16,10 +16,10 @@ export function parseParts(parts, context) {
   parts = tailParts;  ///
 
   partsContext((context) => {
-    const contiunationRecord = context.recover(part);
+    const continuationRecord = context.recover(part);
 
-    parsed = (contiunationRecord !== null) ?
-               contiunationRecord.apply(context) :
+    parsed = (continuationRecord !== null) ?
+               continuationRecord.apply(context) :
                  part.parse(context);
 
     if (parsed) {

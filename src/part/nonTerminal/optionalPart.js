@@ -10,8 +10,8 @@ import { OptionalPartPartType } from "../../partTypes";
 const { questionMark } = specialSymbols;
 
 export default class OptionalPartPart extends NonTerminalPart {
-  constructor(type, contiunation, part) {
-    super(type, contiunation);
+  constructor(type, continuation, part) {
+    super(type, continuation);
 
     this.part = part;
   }
@@ -57,8 +57,8 @@ export default class OptionalPartPart extends NonTerminalPart {
 
   static fromPart(part) {
     const type = OptionalPartPartType,
-          contiunation = false,
-          optionalPartPart = new OptionalPartPart(type, contiunation, part);
+          continuation = false,
+          optionalPartPart = new OptionalPartPart(type, continuation, part);
 
     return optionalPartPart;
   }

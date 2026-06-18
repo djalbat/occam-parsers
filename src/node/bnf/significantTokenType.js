@@ -10,7 +10,7 @@ const { first, second } = arrayUtilities;
 export default class SignificantTokenTypeBNFNode extends NonTerminalNode {
   regularExpression = /^\[([^\]]+)]$/;
 
-  generatePart(contiunation) {
+  generatePart(continuation) {
     const significantTokenType = this.getSignificantTokenType(),
           significantTokenTypePart = SignificantTokenTypePart.fromSignificantTokenType(significantTokenType);
 
