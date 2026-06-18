@@ -11,8 +11,8 @@ import { ruleNamePartContext } from "../../utilities/context";
 const { ellipsis } = specialSymbols;
 
 export default class RuleNamePart extends NonTerminalPart {
-  constructor(type, callAhead, ruleName) {
-    super(type, callAhead);
+  constructor(type, continuation, ruleName) {
+    super(type, continuation);
 
     this.ruleName = ruleName;
   }
@@ -40,7 +40,7 @@ export default class RuleNamePart extends NonTerminalPart {
                    false;
 
       if (parsed) {
-        context.commit();
+        parsed = context.commit();
       }
     }, ruleNamePart, context);
 
@@ -48,26 +48,26 @@ export default class RuleNamePart extends NonTerminalPart {
   }
 
   asString() {
-    const callAhead = this.isCallAhead(),
-          callAheadString = callAhead ?
+    const continuation = this.isContiunation(),
+          contiunationString = continuation ?
                               ellipsis :
                                 EMPTY_STRING,
-          string = `${this.ruleName}${callAheadString}`;
+          string = `${this.ruleName}${contiunationString}`;
 
     return string;
   }
 
   static fromRuleName(ruleName) {
     const type = RuleNamePartType,
-          callAhead = false,
-          ruleNamePart = new RuleNamePart(type, callAhead, ruleName);
+          continuation = false,
+          ruleNamePart = new RuleNamePart(type, continuation, ruleName);
 
     return ruleNamePart;
   }
 
-  static fromCallAheadAndRuleName(callAhead, ruleName) {
+  static fromContiunationAndRuleName(continuation, ruleName) {
     const type = RuleNamePartType,
-          ruleNamePart = new RuleNamePart(type, callAhead, ruleName);
+          ruleNamePart = new RuleNamePart(type, continuation, ruleName);
 
     return ruleNamePart;
   }

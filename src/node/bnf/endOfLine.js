@@ -4,7 +4,7 @@ import EndOfLinePart from "../../part/terminal/endOfLine";
 import NonTerminalNode from "../../node/nonTerminal";
 
 export default class EndOfLineBNFNode extends NonTerminalNode {
-  generatePart(callAhead) {
+  generatePart(contiunation) {
     const endOfLinePart = EndOfLinePart.fromNothing();
 
     return endOfLinePart;

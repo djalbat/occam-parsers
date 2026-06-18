@@ -10,8 +10,8 @@ import { OptionalPartPartType } from "../../partTypes";
 const { questionMark } = specialSymbols;
 
 export default class OptionalPartPart extends NonTerminalPart {
-  constructor(type, callAhead, part) {
-    super(type, callAhead);
+  constructor(type, contiunation, part) {
+    super(type, contiunation);
 
     this.part = part;
   }
@@ -26,13 +26,13 @@ export default class OptionalPartPart extends NonTerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      const callingAhead = context.isCallingAhead();
+      const contiuning = context.isContinuing();
 
-      if (callingAhead) {
+      if (contiuning) {
         parsed = this.part.parse(context);
 
         if (!parsed) {
-          parsed = context.callAhead();
+          parsed = context.continue();
         }
       } else {
         this.part.parse(context);
@@ -41,7 +41,7 @@ export default class OptionalPartPart extends NonTerminalPart {
       }
 
       if (parsed) {
-        context.commit();
+        parsed = context.commit();
       }
     }, part, context);
 
@@ -57,8 +57,8 @@ export default class OptionalPartPart extends NonTerminalPart {
 
   static fromPart(part) {
     const type = OptionalPartPartType,
-          callAhead = false,
-          optionalPartPart = new OptionalPartPart(type, callAhead, part);
+          contiunation = false,
+          optionalPartPart = new OptionalPartPart(type, contiunation, part);
 
     return optionalPartPart;
   }

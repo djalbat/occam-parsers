@@ -1,10 +1,10 @@
 "use strict";
 
 export default class TerminalPart {
-  isCallAhead() {
-    const callAhead = false;
+  isContiunation() {
+    const continuation = false;
 
-    return callAhead;
+    return continuation;
   }
 
   isNonTerminalPart() {

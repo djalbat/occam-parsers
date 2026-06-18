@@ -11,7 +11,6 @@ import RuleNamePartContext from "../context/part/ruleName";
 import ContinualPartContext from "../context/part/continual";
 import ChoiceOfPartsContext from "../context/part/choiceOfParrts";
 import SequenceOfPartsPartContext from "../context/part/sequenceOfParts";
-import {parsePartsContinually} from "./parts";
 
 export function ruleContext(innerFunction, rule, context) {
   const ruleContext = RuleContext.fromRule(rule, context);

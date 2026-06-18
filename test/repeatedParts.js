@@ -181,17 +181,17 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("calling ahead to a terminal part", () => {
+  describe.only("calling ahead to a terminal part", () => {
     const bnf = `
     
-      S ::= A... "a" ;
+      S ::= A... "b" ;
       
       A ::= "a" ;
     
     `;
 
     describe("content with two significant tokens", () => {
-      const content = "a a";
+      const content = "a b";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -202,7 +202,7 @@ describe("Repeated parts", () => {
                              |                   
                    ---------------------         
                    |                   |         
-                 A [0]        "a"[unassigned] [0]
+                 A [0]        "b"[unassigned] [0]
                    |                             
           "a"[unassigned] [0]                    
       

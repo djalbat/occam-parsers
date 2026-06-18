@@ -11,8 +11,8 @@ import { OneOrMorePartsPartType } from "../../partTypes";
 const { plus } = specialSymbols;
 
 export default class OneOrMorePartsPart extends NonTerminalPart {
-  constructor(type, callAhead, part) {
-    super(type, callAhead);
+  constructor(type, contiunation, part) {
+    super(type, contiunation);
 
     this.part = part;
   }
@@ -27,9 +27,9 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      const callingAhead = context.isCallingAhead();
+      const contiuning = context.isContinuing();
 
-      if (callingAhead) {
+      if (contiuning) {
         const count = 0,
               strict = true;
 
@@ -47,7 +47,7 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
       }
 
       if (parsed) {
-        context.commit();
+        parsed = context.commit();
       }
     }, part, context);
 
@@ -63,8 +63,8 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
 
   static fromPart(part) {
     const type = OneOrMorePartsPartType,
-          callAhead = false,
-          oneOrMorePartsPart = new OneOrMorePartsPart(type, callAhead, part);
+          contiunation = false,
+          oneOrMorePartsPart = new OneOrMorePartsPart(type, contiunation, part);
 
     return oneOrMorePartsPart;
   }

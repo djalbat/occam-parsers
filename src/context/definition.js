@@ -22,8 +22,8 @@ export default class DefinitionContext extends Context {
   commit() {
     let parsed = false;
 
-    const rule = this.getRule(),
-          context = this, ///
+    const context = this, ///
+          rule = this.getRule(),
           opacity = rule.getOpacity(),
           ruleName = rule.getName(),
           childNodes = this.getChildNodes(),
@@ -39,14 +39,27 @@ export default class DefinitionContext extends Context {
     const palatable = nonTerminalNode.isPalatable();
 
     if (palatable) {
-      const childNode = nonTerminalNode,  ///
-            noPrecedence = true;
+      const context = this.getContext(),
+            childNode = nonTerminalNode,  ///
+            childNodes = [
+              childNode
+            ];
 
-      this.overwriteChildNodes(childNode);
+      let state;
 
-      super.commit(noPrecedence);
+      state = this.getState();
 
-      parsed = true;
+      state = state.clone();  ///
+
+      context.setState(state);
+
+      context.addChildNodes(childNodes);
+
+      const continuing = this.isContinuing();
+
+      parsed = continuing ?
+                  context.commit() :
+                    true;
     }
 
     return parsed;

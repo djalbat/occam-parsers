@@ -4,6 +4,8 @@ import Context from "../context";
 
 export default class CallAheadContext extends Context {
   commit(state) {
+    debugger
+
     this.adjustState(state);
 
     const context = this.getContext(),

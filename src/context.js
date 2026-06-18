@@ -1,9 +1,5 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
-const { last } = arrayUtilities;
-
 export default class Context {
   constructor(context, state, childNodes, precedence, callAheadParts) {
     this.context = context;
@@ -69,69 +65,67 @@ export default class Context {
 
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
-  isCallingAhead() {
+  store(part) { this.state.store(part, this.childNodes, this.precedence); }
+
+  recover(part) { return this.state.recover(part); }
+
+  adjustState(state) { this.state.adjustState(state); }
+
+  isContinuing() {
     const callAheadPartsLength = this.callAheadParts.length,
-          callingAhead = (callAheadPartsLength > 0);
+          contiuning = (callAheadPartsLength > 0);
 
-    return callingAhead;
+    return contiuning;
   }
-
-  getCallAheadPart() {
-    let callAheadPart = null;
-
-    const callAheadPartsLength = this.callAheadParts.length;
-
-    if (callAheadPartsLength > 0) {
-      const lastCallAheadPart = last(this.callAheadParts);
-
-      callAheadPart = lastCallAheadPart;  ///
-    }
-
-    return callAheadPart;
-  }
-
-  callAhead() { return this.context.calledAhead(this.state, this.callAheadParts); }
-
-  calledAhead(state, callAheadParts) { return this.context.calledAhead(state, callAheadParts); }
 
   addChildNode(childNode) {
-    const callingAhead = this.isCallingAhead();
+    const contiuning = this.isContinuing();
 
-    callingAhead ?
+    contiuning ?
       this.childNodes.unshift(childNode) :
         this.childNodes.push(childNode);
   }
 
   addChildNodes(childNodes) {
-    const callingAhead = this.isCallingAhead();
+    const contiuning = this.isContinuing();
 
-    callingAhead ?
+    contiuning ?
       this.childNodes.unshift(...childNodes) :
         this.childNodes.push(...childNodes);
   }
 
-  store(part) { this.state.store(part, this.childNodes, this.precedence); }
+  calledAhead(state, callAheadParts) { return this.context.calledAhead(state, callAheadParts); }
 
-  recover(part) { return this.state.recover(part); }
+  continue() {
+    let parsed;
 
-  overwriteChildNodes(...childNodes) {
-    this.childNodes = childNodes;
+    const contiuning = this.isContinuing();
+
+    parsed = contiuning ?
+                this.context.calledAhead(this.state, this.callAheadParts) :
+                    true;
+
+    return parsed;
   }
 
-  adjustState(state) { this.state.adjustState(state); }
+  commit() {
+    let parsed;
 
-  commit(noPrecedence = false) {
     const state = this.state.clone(); ///
 
     this.context.setState(state);
 
     this.context.addChildNodes(this.childNodes);
 
-    if (noPrecedence) {
-      return;
-    }
-
     this.context.setPrecedence(this.precedence);
+
+    const contiuning = this.isContinuing();
+
+    parsed = contiuning ?
+                this.context.commit() :
+                  true;
+
+    return parsed;
   }
 
   static fromNothing(Class, ...remainingArguments) {

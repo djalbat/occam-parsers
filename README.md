@@ -42,7 +42,7 @@ All parsers share common functionality. The last two parse content according to 
 
                                  |  sequenceOfParts
 
-                                 |  ruleName callAheadModifier?
+                                 |  ruleName continuationModifier?
 
                                  ;
 
@@ -94,7 +94,7 @@ All parsers share common functionality. The last two parse content according to 
 
       opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
 
-      callAheadModifier        ::=  <NO_WHITESPACE>"..." ;
+      continuationModifier        ::=  <NO_WHITESPACE>"..." ;
 
       optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
 

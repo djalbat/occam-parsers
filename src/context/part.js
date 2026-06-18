@@ -29,19 +29,24 @@ export default class PartContext extends Context {
   }
 
   commit() {
-    const calledAhead = this.isCalledAhead();
+    let parsed;
 
-    if (calledAhead) {
-      const callingAhead = this.isCallingAhead();
+    const calledAhead = this.isCalledAhead(),
+          contiuning = this.isContinuing();
 
-      if (!callingAhead) {
+    if (calledAhead && !contiuning) {
+      const context = this.getContext();
+
+      parsed = context.commit();
+
+      if (parsed) {
         this.store(this.part);
-
-        return;
       }
+    } else {
+      parsed = super.commit();
     }
 
-    super.commit();
+    return parsed;
   }
 
   static fromPart(Class, part, ...remainingArguments) {

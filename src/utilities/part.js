@@ -20,12 +20,8 @@ export function parsePartContinually(part, count, strict, context) {
       const initial = (count === 0);
 
       if (!strict || !initial) {
-        parsed = context.callAhead();
+        parsed = context.continue();
       }
-    }
-
-    if (parsed) {
-      context.commit();
     }
   }, part, count, parsePart, context);
 

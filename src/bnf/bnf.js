@@ -22,7 +22,7 @@ const bnf = `
 
                                  |  sequenceOfParts
 
-                                 |  ruleName callAheadModifier?
+                                 |  ruleName continuationModifier?
 
                                  ;
 
@@ -76,7 +76,7 @@ const bnf = `
 
       opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
       
-      callAheadModifier        ::=  <NO_WHITESPACE>"..." ;
+      continuationModifier     ::=  <NO_WHITESPACE>"..." ;
 
       optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
 

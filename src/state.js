@@ -1,6 +1,6 @@
 "use strict";
 
-import CallAheadRecord from "./callAheadRecord";
+import ContinuationRecord from "./continuationRecord";
 
 export default class State {
   constructor(index) {
@@ -72,15 +72,15 @@ export default class State {
 
   store(part, childNodes, precedence) {
     const state = this, ///
-          callAheadRecord = CallAheadRecord.fromStateChildNodesAndPrecedence(state, childNodes, precedence),
+          continuationRecord = ContinuationRecord.fromStateChildNodesAndPrecedence(state, childNodes, precedence),
           key = part, ///
-          value = callAheadRecord.serialise();
+          value = continuationRecord.serialise();
 
     State.cache.set(key, value);
   }
 
   recover(part) {
-    let callAheadRecord = null;
+    let continuationRecord = null;
 
     const key = part, ///
           value = State.cache.get(key) || null;
@@ -88,12 +88,12 @@ export default class State {
     if (value !== null) {
       const state = this; ///
 
-      callAheadRecord = CallAheadRecord.unserialise(value, state);
+      continuationRecord = ContinuationRecord.unserialise(value, state);
 
       State.cache.delete(key);
     }
 
-    return callAheadRecord;
+    return continuationRecord;
   }
 
   adjustIndex(index) {

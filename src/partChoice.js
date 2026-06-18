@@ -28,7 +28,7 @@ export default class PartChoice {
       parsed = this.part.parse(context);
 
       if (parsed) {
-        context.commit();
+        parsed = context.commit();
       }
     }, partChoice, context);
 

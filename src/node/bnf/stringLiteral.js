@@ -12,7 +12,7 @@ const { first, second } = arrayUtilities;
 export default class StringLiteralBNFNode extends NonTerminalNode {
   regularExpression = /^"((?:\\.|[^"\\])*)"$/;
 
-  generatePart(callAhead) {
+  generatePart(contiunation) {
     const content = this.getContent(),
           stringLiteralPart = StringLiteralPart.fromContent(content);
 

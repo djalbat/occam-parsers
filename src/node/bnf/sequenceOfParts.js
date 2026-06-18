@@ -7,15 +7,15 @@ import { PART_RULE_NAME } from "../../ruleNames";
 import { nodesFromChildNodesAndRuleName } from "../../utilities/node";
 
 export default class SequenceOfPartsBNFNode extends NonTerminalNode {
-  generatePart(callAhead) {
+  generatePart(continuation) {
     const ruleName = PART_RULE_NAME,
           childNodes = this.getChildNodes(),
           partBNFNodes = nodesFromChildNodesAndRuleName(childNodes, ruleName);
 
-    callAhead = false;  ///
+    continuation = false;  ///
 
     const parts = partBNFNodes.map((partBNFNode) => {
-            const part = partBNFNode.generatePart(callAhead);
+            const part = partBNFNode.generatePart(continuation);
 
             return part;
           }),

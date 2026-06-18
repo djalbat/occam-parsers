@@ -6,8 +6,8 @@ import { ChoiceOfPartsPartType } from "../../partTypes";
 import { choiceOfPartsPartContext } from "../../utilities/context";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
-  constructor(type, callAhead, partChoices) {
-    super(type, callAhead);
+  constructor(type, contiunation, partChoices) {
+    super(type, contiunation);
     
     this.partChoices = partChoices;
   }
@@ -41,7 +41,7 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
       });
 
       if (parsed) {
-        context.commit();
+        parsed = context.commit();
       }
     }, choiceOfPartsPart, context);
 
@@ -67,8 +67,8 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
 
   static fromPartChoices(partChoices) {
     const type = ChoiceOfPartsPartType,
-          callAhead = false,
-          choiceOfPartsPart = new ChoiceOfPartsPart(type, callAhead, partChoices);
+          contiunation = false,
+          choiceOfPartsPart = new ChoiceOfPartsPart(type, contiunation, partChoices);
 
     return choiceOfPartsPart;
   }

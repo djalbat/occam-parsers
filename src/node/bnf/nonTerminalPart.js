@@ -4,25 +4,25 @@ import { arrayUtilities } from "necessary";
 
 import NonTerminalNode from "../../node/nonTerminal";
 
-import { CALL_AHEAD_MODIFIER_RULE_NAME } from "../../ruleNames";
 import { nodeFromChildNodesAndRuleName } from "../../utilities/node";
+import { CONTIUNATION_MODIFIER_RULE_NAME } from "../../ruleNames";
 
 const { first } = arrayUtilities;
 
 export default class NonTerminalPartBNFNode extends NonTerminalNode {
-  generatePart(callAhead) {
+  generatePart(contiunation) {
     const childNodes = this.getChildNodes();
 
-    if (!callAhead) {
-      const ruleName = CALL_AHEAD_MODIFIER_RULE_NAME,
-            callAheadModifierBNFNode = nodeFromChildNodesAndRuleName(childNodes, ruleName);
+    if (!contiunation) {
+      const ruleName = CONTIUNATION_MODIFIER_RULE_NAME,
+            continuationModifierBNFNode = nodeFromChildNodesAndRuleName(childNodes, ruleName);
 
-      callAhead = (callAheadModifierBNFNode !== null);
+      contiunation = (continuationModifierBNFNode !== null);
     }
 
     const firstChildNode = first(childNodes),
           node = firstChildNode,  ///
-          part = node.generatePart(callAhead);
+          part = node.generatePart(contiunation);
 
     return part;
   }

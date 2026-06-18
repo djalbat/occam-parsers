@@ -25,12 +25,12 @@ import NonTerminalPartBNFRule from "../rule/bnf/nonTerminalPart";
 import SequenceOfPartsBNFRule from "../rule/bnf/sequenceOfParts";
 import OpacityModifierBNFRule from "../rule/bnf/opacityModifier";
 import NoWhitespacePartBNFRule from "../rule/bnf/noWhitespacePart";
-import CallAheadModifierBNFRule from "../rule/bnf/callAheadModifier";
 import RegularExpressionBNFRule from "../rule/bnf/regularExpression";
 import OptionalQuantifierBNFRule from "../rule/bnf/optionalQuantifier";
 import OneOrMoreQuantifierBNFRule from "../rule/bnf/oneOrMoreQuantifier";
 import ZeroOrMoreQuantifierBNFRule from "../rule/bnf/zeroOrMoreQuantifier";
 import SignificantTokenTypeBNFRule from "../rule/bnf/significantTokenType";
+import ContiunationModifierBNFRule from "../rule/bnf/contiunationModifier";
 
 import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
 
@@ -97,10 +97,10 @@ export default class BNFParser {
           opacityModifierBNFRule = OpacityModifierBNFRule.fromNothing(),
           noWhitespacePartBNFRule = NoWhitespacePartBNFRule.fromNothing(),
           regularExpressionBNFRule = RegularExpressionBNFRule.fromNothing(),
-          callAheadModifierBNFRule = CallAheadModifierBNFRule.fromNothing(),
           optionalQuantifierBNFRule = OptionalQuantifierBNFRule.fromNothing(),
           oneOrMoreQuantifierBNFRule = OneOrMoreQuantifierBNFRule.fromNothing(),
           zeroOrMoreQuantifierBNFRule = ZeroOrMoreQuantifierBNFRule.fromNothing(),
+          contiunationModifierBNFRule = ContiunationModifierBNFRule.fromNothing(),
           significantTokenTypeBNFRule = SignificantTokenTypeBNFRule.fromNothing(),
           rules = [
             documentBNFRule,
@@ -125,10 +125,10 @@ export default class BNFParser {
             epsilonBNFRule,
             quantifierBNFRule,
             opacityModifierBNFRule,
-            callAheadModifierBNFRule,
             optionalQuantifierBNFRule,
             oneOrMoreQuantifierBNFRule,
             zeroOrMoreQuantifierBNFRule,
+            contiunationModifierBNFRule,
             errorBNFRule
           ],
           startRule = startRuleFromRules(rules),

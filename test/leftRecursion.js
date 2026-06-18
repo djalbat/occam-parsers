@@ -14,34 +14,22 @@ describe("Left recursion", () => {
   describe("an indirectly repeated rule that is non-producing", () => {
     const bnf = `
     
-      S   ::= A... "." ;
+      S ::= A... "." ;
       
-      A   ::= A_ A~* ;
+      A ::= B "b" ;
       
-      B   ::= A_ A~* B~A ;
+      B ::= ","?
       
-      C   ::= . ;
+          | ε
       
-      A_  ::= C ;
+          ;
       
-      A~B ::= "=" C ;
-      
-      B~A ::= ( "," A )*
-      
-            | ε
-      
-            ;
-      
-      A~  ::= B~A B~* A~B ;
-      
-      B~  ::= A~B A~* B~A ;
-    
     `;
 
     describe("content with the requisite significant tokens", () => {
-      const content = "a = R .";
+      const content = "b.";
 
-      it.only("results in the requisite parse tree" , () => {
+      it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `

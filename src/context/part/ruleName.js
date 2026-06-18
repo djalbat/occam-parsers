@@ -17,9 +17,9 @@ function callAheadPartsFromRuleNamePart(ruleNamePart, context) {
 
   callAheadParts = context.getCallAheadParts();
 
-  const callAhead = ruleNamePart.isCallAhead();
+  const contiunation = ruleNamePart.isContiunation();
 
-  if (callAhead) {
+  if (contiunation) {
     const nextPart = context.getNextPart();
 
     if (nextPart !== null) {

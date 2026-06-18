@@ -4,7 +4,7 @@ import Definition from "../../../definition";
 import RuleNamePart from "../../../part/nonTerminal/ruleName";
 import OptionalPartPart from "../../../part/nonTerminal/optionalPart";
 
-import { RULE_NAME_RULE_NAME, CALL_AHEAD_MODIFIER_RULE_NAME } from "../../../ruleNames";
+import { RULE_NAME_RULE_NAME, CONTIUNATION_MODIFIER_RULE_NAME } from "../../../ruleNames";
 
 export default class RuleNameNonTerminalPartRuleDefinition extends Definition {
   static fromNothing() {
@@ -14,13 +14,13 @@ export default class RuleNameNonTerminalPartRuleDefinition extends Definition {
 
     const ruleNameRuleNamePart = RuleNamePart.fromRuleName(ruleName);
 
-    ruleName = CALL_AHEAD_MODIFIER_RULE_NAME;
+    ruleName = CONTIUNATION_MODIFIER_RULE_NAME;
 
-    const callAheadModifierRuleNamePart = RuleNamePart.fromRuleName(ruleName),
-          optionalCallAheadRuleNamePartPart = OptionalPartPart.fromPart(callAheadModifierRuleNamePart),
+    const continuationModifierRuleNamePart = RuleNamePart.fromRuleName(ruleName),
+          optionalContinuationRuleNamePartPart = OptionalPartPart.fromPart(continuationModifierRuleNamePart),
           parts = [
             ruleNameRuleNamePart,
-            optionalCallAheadRuleNamePartPart
+            optionalContinuationRuleNamePartPart
           ],
           precedence = null,
           ruleNameNonTerminalPartRuleDefinition = new RuleNameNonTerminalPartRuleDefinition(parts, precedence);
