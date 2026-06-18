@@ -1,12 +1,12 @@
 "use strict";
 
 export default class Context {
-  constructor(context, state, childNodes, precedence, callAheadParts) {
+  constructor(context, state, childNodes, precedence, continuationParts) {
     this.context = context;
     this.state = state;
     this.childNodes = childNodes;
     this.precedence = precedence;
-    this.callAheadParts = callAheadParts;
+    this.continuationParts = continuationParts;
   }
 
   getContext() {
@@ -25,8 +25,8 @@ export default class Context {
     return this.precedence;
   }
 
-  getCallAheadParts() {
-    return this.callAheadParts;
+  getContinuationParts() {
+    return this.continuationParts;
   }
 
   setContext(context) {
@@ -72,37 +72,37 @@ export default class Context {
   adjustState(state) { this.state.adjustState(state); }
 
   isContinuing() {
-    const callAheadPartsLength = this.callAheadParts.length,
-          contiuning = (callAheadPartsLength > 0);
+    const continuationPartsLength = this.continuationParts.length,
+          continuing = (continuationPartsLength > 0);
 
-    return contiuning;
+    return continuing;
   }
 
   addChildNode(childNode) {
-    const contiuning = this.isContinuing();
+    const continuing = this.isContinuing();
 
-    contiuning ?
+    continuing ?
       this.childNodes.unshift(childNode) :
         this.childNodes.push(childNode);
   }
 
   addChildNodes(childNodes) {
-    const contiuning = this.isContinuing();
+    const continuing = this.isContinuing();
 
-    contiuning ?
+    continuing ?
       this.childNodes.unshift(...childNodes) :
         this.childNodes.push(...childNodes);
   }
 
-  calledAhead(state, callAheadParts) { return this.context.calledAhead(state, callAheadParts); }
+  continued(state, continuationParts) { return this.context.continued(state, continuationParts); }
 
   continue() {
     let parsed;
 
-    const contiuning = this.isContinuing();
+    const continuing = this.isContinuing();
 
-    parsed = contiuning ?
-                this.context.calledAhead(this.state, this.callAheadParts) :
+    parsed = continuing ?
+                this.context.continued(this.state, this.continuationParts) :
                     true;
 
     return parsed;
@@ -119,9 +119,9 @@ export default class Context {
 
     this.context.setPrecedence(this.precedence);
 
-    const contiuning = this.isContinuing();
+    const continuing = this.isContinuing();
 
-    parsed = contiuning ?
+    parsed = continuing ?
                 this.context.commit() :
                   true;
 
@@ -139,9 +139,9 @@ export default class Context {
 
     const childNodes = [],
           precedence = null,
-          callAheadParts = context.getCallAheadParts();
+          continuationParts = context.getContinuationParts();
 
-    context = new Class(context, state, childNodes, precedence, callAheadParts, ...remainingArguments);
+    context = new Class(context, state, childNodes, precedence, continuationParts, ...remainingArguments);
 
     return context;
   }
@@ -156,14 +156,14 @@ export default class Context {
     state = state.clone();  ///
 
     const childNodes = [],
-          callAheadParts = context.getCallAheadParts();
+          continuationParts = context.getContinuationParts();
 
-    context = new Class(context, state, childNodes, precedence, callAheadParts, ...remainingArguments);
+    context = new Class(context, state, childNodes, precedence, continuationParts, ...remainingArguments);
 
     return context;
   }
 
-  static fromCallAheadParts(Class, callAheadParts, ...remainingArguments) {
+  static fromContinuationParts(Class, continuationParts, ...remainingArguments) {
     let context = remainingArguments.pop();
 
     let state;
@@ -175,12 +175,12 @@ export default class Context {
     const childNodes = [],
           precedence = null;
 
-    context = new Class(context, state, childNodes, precedence, callAheadParts, ...remainingArguments);
+    context = new Class(context, state, childNodes, precedence, continuationParts, ...remainingArguments);
 
     return context;
   }
 
-  static fromStateAndCallAheadParts(Class, state, callAheadParts, ...remainingArguments) {
+  static fromStateAndContinuationParts(Class, state, continuationParts, ...remainingArguments) {
     let context = remainingArguments.pop();
 
     state = state.clone();  ///
@@ -188,7 +188,7 @@ export default class Context {
     const childNodes = [],
           precedence = null;
 
-    context = new Class(context, state, childNodes, precedence, callAheadParts, ...remainingArguments);
+    context = new Class(context, state, childNodes, precedence, continuationParts, ...remainingArguments);
 
     return context;
   }

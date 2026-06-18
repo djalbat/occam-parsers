@@ -28,9 +28,9 @@ export default class Definition {
     const definition = this;  ///
 
     definitionContext((context) => {
-      const contiuning = context.isContinuing();
+      const continuing = context.isContinuing();
 
-      parsed = contiuning ?
+      parsed = continuing ?
                   parsePartsContinually(this.parts, context) :
                     parseParts(this.parts, context);
 

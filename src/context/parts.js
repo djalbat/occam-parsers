@@ -4,13 +4,13 @@ import { arrayUtilities } from "necessary";
 
 import Context from "../context";
 
-import { callAheadContext } from "../utilities/context";
+import { continuationContext } from "../utilities/context";
 
 const { first } = arrayUtilities;
 
 export default class PartsContext extends Context {
-  constructor(context, state, childNodes, precedence, callAheadParts, parts, parsePartsContiunally) {
-    super(context, state, childNodes, precedence, callAheadParts);
+  constructor(context, state, childNodes, precedence, contiunationParts, parts, parsePartsContiunally) {
+    super(context, state, childNodes, precedence, contiunationParts);
 
     this.parts = parts;
     this.parsePartsContiunally = parsePartsContiunally;
@@ -45,7 +45,7 @@ export default class PartsContext extends Context {
     return nextPart;
   }
 
-  calledAhead(state, callAheadParts) {
+  continued(state, contiunationParts) {
     let parsed;
 
     const empty = this.isEmpty();
@@ -53,15 +53,15 @@ export default class PartsContext extends Context {
     if (!empty) {
       const context = this.getContext();
 
-      callAheadContext((context) => {
+      continuationContext((context) => {
         parsed = this.parsePartsContiunally(this.parts, context);
 
         if (parsed) {
           context.commit(state);
         }
-      }, state, callAheadParts, context);
+      }, state, contiunationParts, context);
     } else {
-      parsed = super.calledAhead(state, callAheadParts);
+      parsed = super.continued(state, contiunationParts);
     }
 
     return parsed;

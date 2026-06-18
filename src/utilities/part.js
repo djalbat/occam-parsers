@@ -1,8 +1,8 @@
 "use strict";
 
-import { continualPartContext } from "../utilities/context";
+import { contiunationPartContext } from "../utilities/context";
 
-export function parsePartContinually(part, count, strict, context) {
+export function parsePartContiunationly(part, count, strict, context) {
   if (context === undefined) {
     context = strict;
 
@@ -11,9 +11,9 @@ export function parsePartContinually(part, count, strict, context) {
 
   let parsed;
 
-  const parsePart = parsePartContinually; ///
+  const parsePart = parsePartContiunationly; ///
 
-  continualPartContext((context) => {
+  contiunationPartContext((context) => {
     parsed = part.parse(context);
 
     if (!parsed) {

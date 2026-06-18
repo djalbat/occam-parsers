@@ -27,9 +27,9 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      const contiuning = context.isContinuing();
+      const continuing = context.isContinuing();
 
-      if (contiuning) {
+      if (continuing) {
         const count = 0,
               strict = false;
 

@@ -5,17 +5,17 @@ import PartContext from "../../context/part";
 export default class RuleNamePartContext extends PartContext {
   static fromRuleNamePart(ruleNamePart, context) {
     const part = ruleNamePart,  ///
-          callAheadParts = callAheadPartsFromRuleNamePart(ruleNamePart, context),
-          ruleNamePartContext = PartContext.fromCallAheadPartsAndPart(RuleNamePartContext, callAheadParts, part, context);
+          contiunationParts = contiunationPartsFromRuleNamePart(ruleNamePart, context),
+          ruleNamePartContext = PartContext.fromContinuationPartsAndPart(RuleNamePartContext, contiunationParts, part, context);
 
     return ruleNamePartContext;
   }
 }
 
-function callAheadPartsFromRuleNamePart(ruleNamePart, context) {
-  let callAheadParts;
+function contiunationPartsFromRuleNamePart(ruleNamePart, context) {
+  let contiunationParts;
 
-  callAheadParts = context.getCallAheadParts();
+  contiunationParts = context.getContinuationParts();
 
   const contiunation = ruleNamePart.isContiunation();
 
@@ -23,14 +23,14 @@ function callAheadPartsFromRuleNamePart(ruleNamePart, context) {
     const nextPart = context.getNextPart();
 
     if (nextPart !== null) {
-      const callAheadPart = nextPart;  ///
+      const contiunationPart = nextPart;  ///
 
-      callAheadParts = [  ///
-        ...callAheadParts,
-        callAheadPart
+      contiunationParts = [  ///
+        ...contiunationParts,
+        contiunationPart
       ];
     }
   }
 
-  return callAheadParts;
+  return contiunationParts;
 }

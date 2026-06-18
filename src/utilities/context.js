@@ -4,12 +4,12 @@ import RuleContext from "../context/rule";
 import PartContext from "../context/part";
 import PartsContext from "../context/parts";
 import TopmostContext from "../context/topmost";
-import CallAheadContext from "../context/callAhead";
 import PartChoiceContext from "../context/partChoice";
 import DefinitionContext from "../context/definition";
 import RuleNamePartContext from "../context/part/ruleName";
-import ContinualPartContext from "../context/part/continual";
+import ContiunationContext from "../context/continuation";
 import ChoiceOfPartsContext from "../context/part/choiceOfParrts";
+import ContiunationPartContext from "../context/part/contiunation";
 import SequenceOfPartsPartContext from "../context/part/sequenceOfParts";
 
 export function ruleContext(innerFunction, rule, context) {
@@ -28,8 +28,8 @@ export function partContext(innerFunction, part, context) {
   innerFunction(context);
 }
 
-export function partsContext(innerFunction, parts, parsePartsContinually, context) {
-  const partsContext = PartsContext.fromPartsAndParsePartsContinually(parts, parsePartsContinually, context);
+export function partsContext(innerFunction, parts, parsePartsContiunally, context) {
+  const partsContext = PartsContext.fromPartsAndParsePartsContinually(parts, parsePartsContiunally, context);
 
   context = partsContext;  ///
 
@@ -40,14 +40,6 @@ export function topmostContext(innerFunction, parser, tokens, context = null) {
   const topmostContext = TopmostContext.fromParserAndTokens(parser, tokens, context);
 
   context = topmostContext;  ///
-
-  innerFunction(context);
-}
-
-export function callAheadContext(innerFunction, state, callAheadParts, context) {
-  const callAheadContext = CallAheadContext.fromStateAndCallAheadParts(state, callAheadParts, context);
-
-  context = callAheadContext;  ///
 
   innerFunction(context);
 }
@@ -76,10 +68,18 @@ export function ruleNamePartContext(innerFunction, ruleNamePart, context) {
   innerFunction(context);
 }
 
-export function continualPartContext(innerFunction, part, count, parsePart, context) {
-  const continualPartContext = ContinualPartContext.fromPartCountAndParsePart(part, count, parsePart, context);
+export function continuationContext(innerFunction, state, contiunationParts, context) {
+  const contiunationContext = ContiunationContext.fromStateAndContiunationParts(state, contiunationParts, context);
 
-  context = continualPartContext;  ///
+  context = contiunationContext;  ///
+
+  innerFunction(context);
+}
+
+export function contiunationPartContext(innerFunction, part, count, parsePart, context) {
+  const contiunationPartContext = ContiunationPartContext.fromPartCountAndParsePart(part, count, parsePart, context);
+
+  context = contiunationPartContext;  ///
 
   innerFunction(context);
 }

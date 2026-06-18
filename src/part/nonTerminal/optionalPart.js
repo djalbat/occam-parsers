@@ -26,9 +26,9 @@ export default class OptionalPartPart extends NonTerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      const contiuning = context.isContinuing();
+      const continuing = context.isContinuing();
 
-      if (contiuning) {
+      if (continuing) {
         parsed = this.part.parse(context);
 
         if (!parsed) {

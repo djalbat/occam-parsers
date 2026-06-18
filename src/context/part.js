@@ -7,34 +7,34 @@ import Context from "../context";
 const { last } = arrayUtilities;
 
 export default class PartContext extends Context {
-  constructor(context, state, childNodes, precedence, callAheadParts, calledAheadPart, part) {
-    super(context, state, childNodes, precedence, callAheadParts);
+  constructor(context, state, childNodes, precedence, continuationParts, continuedPart, part) {
+    super(context, state, childNodes, precedence, continuationParts);
 
-    this.calledAheadPart = calledAheadPart;
+    this.continuedPart = continuedPart;
     this.part = part;
   }
 
-  getCalledAheadPart() {
-    return this.calledAheadPart;
+  getCcntinuedPart() {
+    return this.continuedPart;
   }
 
   getPart() {
     return this.part;
   }
 
-  isCalledAhead() {
-    const calledAhead = (this.part === this.calledAheadPart);
+  hasContinued() {
+    const continued = (this.part === this.continuedPart);
 
-    return calledAhead;
+    return continued;
   }
 
   commit() {
     let parsed;
 
-    const calledAhead = this.isCalledAhead(),
-          contiuning = this.isContinuing();
+    const continued = this.hasContinued(),
+          continuing = this.isContinuing();
 
-    if (calledAhead && !contiuning) {
+    if (continued && !continuing) {
       const context = this.getContext();
 
       parsed = context.commit();
@@ -52,60 +52,60 @@ export default class PartContext extends Context {
   static fromPart(Class, part, ...remainingArguments) {
     const context = remainingArguments.pop(); ///
 
-    let callAheadParts = context.getCallAheadParts();
+    let continuationParts = context.getContinuationParts();
 
-    const calledAheadPart = calledAheadPartFromPartAndCallAheadParts(part, callAheadParts);
+    const continuedPart = continuedPartFromPartAndContinuationParts(part, continuationParts);
 
-    callAheadParts = callAheadPartsFromCalledAheadPartAndCallAheadParts(calledAheadPart, callAheadParts);
+    continuationParts = continuationPartsFromContinuedPartAndContinuationParts(continuedPart, continuationParts);
 
-    const partContext = Context.fromCallAheadParts(Class, callAheadParts, calledAheadPart, part, ...remainingArguments, context);
+    const partContext = Context.fromContinuationParts(Class, continuationParts, continuedPart, part, ...remainingArguments, context);
 
     return partContext;
   }
 
-  static fromCallAheadPartsAndPart(Class, callAheadParts, part, ...remainingArguments) {
+  static fromContinuationPartsAndPart(Class, continuationParts, part, ...remainingArguments) {
     const context = remainingArguments.pop(); ///
 
-    const calledAheadPart = calledAheadPartFromPartAndCallAheadParts(part, callAheadParts);
+    const continuedPart = continuedPartFromPartAndContinuationParts(part, continuationParts);
 
-    callAheadParts = callAheadPartsFromCalledAheadPartAndCallAheadParts(calledAheadPart, callAheadParts);
+    continuationParts = continuationPartsFromContinuedPartAndContinuationParts(continuedPart, continuationParts);
 
-    const partContext = Context.fromCallAheadParts(Class, callAheadParts, calledAheadPart, part, ...remainingArguments, context);
+    const partContext = Context.fromContinuationParts(Class, continuationParts, continuedPart, part, ...remainingArguments, context);
 
     return partContext;
   }
 }
 
-function calledAheadPartFromPartAndCallAheadParts(part, callAheadParts) {
-  let calledAheadPart = null;
+function continuedPartFromPartAndContinuationParts(part, continuationParts) {
+  let continuedPart = null;
 
-  const callAheadPartsLength = callAheadParts.length;
+  const continuationPartsLength = continuationParts.length;
 
-  if (callAheadPartsLength > 0) {
-    const lastCallAheadPart = last(callAheadParts);
+  if (continuationPartsLength > 0) {
+    const lastContinuationPart = last(continuationParts);
 
-    if (lastCallAheadPart === part) {
-      calledAheadPart = lastCallAheadPart;  ///
+    if (lastContinuationPart === part) {
+      continuedPart = lastContinuationPart;  ///
     }
   }
 
-  return calledAheadPart;
+  return continuedPart;
 }
 
-function callAheadPartsFromCalledAheadPartAndCallAheadParts(calledAheadPart, callAheadParts) {
-  const callAheadPartsLength = callAheadParts.length;
+function continuationPartsFromContinuedPartAndContinuationParts(continuedPart, continuationParts) {
+  const continuationPartsLength = continuationParts.length;
 
-  if (callAheadPartsLength > 0) {
-    const lastCallAheadPart = last(callAheadParts);
+  if (continuationPartsLength > 0) {
+    const lastContinuationPart = last(continuationParts);
 
-    if (lastCallAheadPart === calledAheadPart) {
-      callAheadParts = [
-        ...callAheadParts
+    if (lastContinuationPart === continuedPart) {
+      continuationParts = [
+        ...continuationParts
       ];
 
-      callAheadParts.pop();
+      continuationParts.pop();
     }
   }
 
-  return callAheadParts;
+  return continuationParts;
 }

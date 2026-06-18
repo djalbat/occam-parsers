@@ -2,7 +2,7 @@
 
 import Context from "../context";
 
-export default class CallAheadContext extends Context {
+export default class ContinuationContext extends Context {
   commit(state) {
     debugger
 
@@ -17,5 +17,5 @@ export default class CallAheadContext extends Context {
     context.setPrecedence(precedence);
   }
 
-  static fromStateAndCallAheadParts(state, callAheadParts, context) { return Context.fromStateAndCallAheadParts(CallAheadContext, state, callAheadParts, context); }
+  static fromStateAndContinuationParts(state, continuationParts, context) { return Context.fromStateAndContinuationParts(ContinuationContext, state, continuationParts, context); }
 }
