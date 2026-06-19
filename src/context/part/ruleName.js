@@ -3,8 +3,8 @@
 import PartContext from "../../context/part";
 
 export default class RuleNamePartContext extends PartContext {
-  constructor(context, state, childNodes, precedence, continuationParts, continuedPart, part, continuationPart) {
-    super(context, state, childNodes, precedence, continuationParts, continuedPart);
+  constructor(context, state, committted, childNodes, precedence, continuationParts, continuedPart, part, continuationPart) {
+    super(context, state, committted, childNodes, precedence, continuationParts, continuedPart);
 
     this.continuationPart = continuationPart;
   }

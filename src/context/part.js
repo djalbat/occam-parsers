@@ -7,8 +7,8 @@ import Context from "../context";
 const { last } = arrayUtilities;
 
 export default class PartContext extends Context {
-  constructor(context, state, childNodes, precedence, continuationParts, continuedPart, part) {
-    super(context, state, childNodes, precedence, continuationParts);
+  constructor(context, state, committed, childNodes, precedence, continuationParts, continuedPart, part) {
+    super(context, state, committed, childNodes, precedence, continuationParts);
 
     this.continuedPart = continuedPart;
     this.part = part;
@@ -31,25 +31,35 @@ export default class PartContext extends Context {
   commit() {
     let parsed;
 
-    const continued = this.hasContinued(),
-          continuing = this.isContinuing();
+    const committed = this.isCommitted();
 
-    if (continued && !continuing) {
-      const state = this.getState(),
-            context = this.getContext(),
-            precedence = this.getPrecedence();
-
-      context.setState(state);
-
-      context.setPrecedence(precedence);
-
-      parsed = context.commit();
-
-      if (parsed) {
-        this.store(this.part);
-      }
+    if (committed) {
+      parsed = true;
     } else {
-      parsed = super.commit();
+      const continued = this.hasContinued(),
+            continuing = this.isContinuing();
+
+      if (continued && !continuing) {
+        const state = this.getState(),
+              context = this.getContext(),
+              precedence = this.getPrecedence();
+
+        context.setState(state);
+
+        context.setPrecedence(precedence);
+
+        parsed = context.commit();
+
+        if (parsed) {
+          this.store(this.part);
+        }
+      } else {
+        parsed = super.commit();
+      }
+
+      const committed = true;
+
+      this.setCommitted(committed);
     }
 
     return parsed;

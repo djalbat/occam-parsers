@@ -1,9 +1,10 @@
 "use strict";
 
 export default class Context {
-  constructor(context, state, childNodes, precedence, continuationParts) {
+  constructor(context, state, committed, childNodes, precedence, continuationParts) {
     this.context = context;
     this.state = state;
+    this.committed = committed;
     this.childNodes = childNodes;
     this.precedence = precedence;
     this.continuationParts = continuationParts;
@@ -15,6 +16,10 @@ export default class Context {
 
   getState() {
     return this.state;
+  }
+
+  isCommitted() {
+    return this.committed;
   }
 
   getChildNodes() {
@@ -35,6 +40,10 @@ export default class Context {
 
   setState(state) {
     this.state = state;
+  }
+
+  setCommitted(committed) {
+    this.committed = committed;
   }
 
   setChildNodes(childNodes) {
@@ -113,19 +122,25 @@ export default class Context {
   commit() {
     let parsed;
 
-    const state = this.state.clone(); ///
+    if (this.committed) {
+      parsed = true;
+    } else {
+      const state = this.state.clone(); ///
 
-    this.context.setState(state);
+      this.context.setState(state);
 
-    this.context.addChildNodes(this.childNodes);
+      this.context.addChildNodes(this.childNodes);
 
-    this.context.setPrecedence(this.precedence);
+      this.context.setPrecedence(this.precedence);
 
-    const continuing = this.isContinuing();
+      const continuing = this.isContinuing();
 
-    parsed = continuing ?
-                this.context.commit() :
-                  true;
+      parsed = continuing ?
+                  this.context.commit() :
+                    true;
+
+      this.committed = true;
+    }
 
     return parsed;
   }
@@ -139,11 +154,12 @@ export default class Context {
 
     state = state.clone();  ///
 
-    const childNodes = [],
+    const committed = false,
+          childNodes = [],
           precedence = null,
           continuationParts = context.getContinuationParts();
 
-    context = new Class(context, state, childNodes, precedence, continuationParts, ...remainingArguments);
+    context = new Class(context, state, committed, childNodes, precedence, continuationParts, ...remainingArguments);
 
     return context;
   }
@@ -157,10 +173,11 @@ export default class Context {
 
     state = state.clone();  ///
 
-    const childNodes = [],
+    const committed = false,
+          childNodes = [],
           continuationParts = context.getContinuationParts();
 
-    context = new Class(context, state, childNodes, precedence, continuationParts, ...remainingArguments);
+    context = new Class(context, state, committed, childNodes, precedence, continuationParts, ...remainingArguments);
 
     return context;
   }
@@ -174,10 +191,11 @@ export default class Context {
 
     state = state.clone();  ///
 
-    const childNodes = [],
+    const committed = false,
+          childNodes = [],
           precedence = null;
 
-    context = new Class(context, state, childNodes, precedence, continuationParts, ...remainingArguments);
+    context = new Class(context, state, committed, childNodes, precedence, continuationParts, ...remainingArguments);
 
     return context;
   }

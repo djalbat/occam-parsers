@@ -5,8 +5,8 @@ import PartContext from "../../context/part";
 import { continuationContext } from "../../utilities/context";
 
 export default class ContinuationPartContext extends PartContext {
-  constructor(context, state, childNodes, precedence, continuationParts, continuedPart, part, count, parsePart) {
-    super(context, state, childNodes, precedence, continuationParts, continuedPart, part);
+  constructor(context, state, committed, childNodes, precedence, continuationParts, continuedPart, part, count, parsePart) {
+    super(context, state, committed, childNodes, precedence, continuationParts, continuedPart, part);
 
     this.count = count;
     this.parsePart = parsePart;

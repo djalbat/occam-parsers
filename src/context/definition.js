@@ -20,46 +20,58 @@ export default class DefinitionContext extends Context {
   }
 
   commit() {
-    let parsed = false;
+    let parsed;
 
-    const context = this, ///
-          rule = this.getRule(),
-          opacity = rule.getOpacity(),
-          ruleName = rule.getName(),
-          childNodes = this.getChildNodes(),
-          precedence = this.getPrecedence(),
-          NonTerminalNode = rule.NonTerminalNodeFromRuleName(ruleName, context);
+    const committed = this.isCommitted();
 
-    let nonTerminalNode;
+    if (committed) {
+      parsed  = true;
+    } else {
+      parsed = false;
 
-    nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
+      const context = this, ///
+            rule = this.getRule(),
+            opacity = rule.getOpacity(),
+            ruleName = rule.getName(),
+            childNodes = this.getChildNodes(),
+            precedence = this.getPrecedence(),
+            NonTerminalNode = rule.NonTerminalNodeFromRuleName(ruleName, context);
 
-    nonTerminalNode = nonTerminalNode.rewrite(context);  ///
+      let nonTerminalNode;
 
-    const palatable = nonTerminalNode.isPalatable();
+      nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
 
-    if (palatable) {
-      const context = this.getContext(),
-            childNode = nonTerminalNode,  ///
-            childNodes = [
-              childNode
-            ];
+      nonTerminalNode = nonTerminalNode.rewrite(context);  ///
 
-      let state;
+      const palatable = nonTerminalNode.isPalatable();
 
-      state = this.getState();
+      if (palatable) {
+        const context = this.getContext(),
+              childNode = nonTerminalNode,  ///
+              childNodes = [
+                childNode
+              ];
 
-      state = state.clone();  ///
+        let state;
 
-      context.setState(state);
+        state = this.getState();
 
-      context.addChildNodes(childNodes);
+        state = state.clone();  ///
 
-      const continuing = this.isContinuing();
+        context.setState(state);
 
-      parsed = continuing ?
-                  context.commit() :
-                    true;
+        context.addChildNodes(childNodes);
+
+        const continuing = this.isContinuing();
+
+        parsed = continuing ?
+                   context.commit() :
+                     true;
+      }
+
+      const committed = true;
+
+      this.setCommitted(committed);
     }
 
     return parsed;
