@@ -1,6 +1,6 @@
 "use strict";
 
-import ContinuationRecord from "./continuationRecord";
+import Frame from "./frame";
 
 export default class State {
   constructor(index) {
@@ -70,17 +70,17 @@ export default class State {
     return nextTokenWhitespaceToken;
   }
 
-  store(part, childNodes, precedence) {
+  store(part, precedence, childNodes) {
     const state = this, ///
-          continuationRecord = ContinuationRecord.fromStateChildNodesAndPrecedence(state, childNodes, precedence),
+          frame = Frame.fromStatePrecedenceAndChildNodes(state, precedence, childNodes),
           key = part, ///
-          value = continuationRecord.serialise();
+          value = frame.serialise();
 
     State.cache.set(key, value);
   }
 
   recover(part) {
-    let continuationRecord = null;
+    let frame = null;
 
     const key = part, ///
           value = State.cache.get(key) || null;
@@ -88,12 +88,12 @@ export default class State {
     if (value !== null) {
       const state = this; ///
 
-      continuationRecord = ContinuationRecord.unserialise(value, state);
+      frame = Frame.unserialise(value, state);
 
       State.cache.delete(key);
     }
 
-    return continuationRecord;
+    return frame;
   }
 
   clone() {

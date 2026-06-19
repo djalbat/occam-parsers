@@ -4,8 +4,8 @@ import PartContext from "../../context/part";
 import Continuation from "../../continuation";
 
 export default class RuleNamePartContext extends PartContext {
-  constructor(context, state, committed, childNodes, precedence, continuations, final, part, continuation) {
-    super(context, state, committed, childNodes, precedence, continuations, final);
+  constructor(context, state, committed, precedence, childNodes, continuations, final, part, continuation) {
+    super(context, state, committed, precedence, childNodes, continuations, final);
 
     this.continuation = continuation;
   }

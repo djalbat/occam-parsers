@@ -3,8 +3,8 @@
 import Context from "../context";
 
 export default class ContinuationContext extends Context {
-  constructor(context, state, committed, childNodes, precedence, continuations, continuedContext) {
-    super(context, state, committed, childNodes, precedence, continuations);
+  constructor(context, state, committed, precedence, childNodes, continuations, continuedContext) {
+    super(context, state, committed, precedence, childNodes, continuations);
 
     this.continuedContext = continuedContext;
   }
@@ -21,31 +21,17 @@ export default class ContinuationContext extends Context {
     if (committed) {
       parsed = true;
     } else {
-      const context = this.continuedContext,  ///
-            childNodes = this.getChildNodes(),
-            precedence = this.getPrecedence();
+      const state = this.getState(),
+            precedence = this.getPrecedence(),
+            childNodes = this.getChildNodes();
 
-      let state;
-
-      state = this.getState();
-
-      state = state.clone();  ///
-
-      context.setState(state);
-
-      context.addChildNodes(childNodes);
-
-      context.setPrecedence(precedence);
+      this.continuedContext.update(state, precedence, childNodes);
 
       const continuing = this.isContinuing();
 
-      if (continuing) {
-        const context = this.getContext();
-
-        parsed = context.commit();
-      } else {
-        parsed = true;
-      }
+      parsed = continuing ?
+                 this.continuedContext.commit() :
+                   true;
 
       const committed = true;
 
@@ -57,7 +43,8 @@ export default class ContinuationContext extends Context {
 
   static fromContinuedContext(continuedContext, context){
     const state = continuedContext.getState(),
-          continuationContext = Context.fromState(ContinuationContext, state, continuedContext, context);
+          continuations = continuedContext.getContinuations(),
+          continuationContext = Context.fromStateAndContinuations(ContinuationContext, state, continuations, continuedContext, context);
 
     return continuationContext;
   }

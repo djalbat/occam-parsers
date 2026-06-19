@@ -7,8 +7,8 @@ import Context from "../context";
 const { last } = arrayUtilities;
 
 export default class PartContext extends Context {
-  constructor(context, state, committed, childNodes, precedence, continuations, final, part) {
-    super(context, state, committed, childNodes, precedence, continuations);
+  constructor(context, state, committed, precedence, childNodes, continuations, final, part) {
+    super(context, state, committed, precedence, childNodes, continuations);
 
     this.final = final;
     this.part = part;
@@ -38,9 +38,7 @@ export default class PartContext extends Context {
               context = this.getContext(),
               precedence = this.getPrecedence();
 
-        context.setState(state);
-
-        context.setPrecedence(precedence);
+        context.update(state, precedence);
 
         parsed = context.commit();
 
