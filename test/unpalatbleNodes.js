@@ -14,11 +14,11 @@ describe("Unpalatble nodes", () => {
   describe("a non-producing definition", () => {
     const bnf = `
     
-      S ::= A... "." ;
+      S ::= A... "c" ;
       
       A ::= B "b" ;
       
-      B ::= ","?
+      B ::= "a"?
       
           | ε
       
@@ -27,7 +27,7 @@ describe("Unpalatble nodes", () => {
     `;
 
     describe("content with the requisite significant tokens", () => {
-      const content = "b.";
+      const content = "b c";
 
       it.only("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);

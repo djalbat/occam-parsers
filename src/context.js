@@ -155,6 +155,21 @@ export default class Context {
     state = state.clone();  ///
 
     const committed = false,
+      childNodes = [],
+      precedence = null,
+      continuationParts = context.getContinuationParts();
+
+    context = new Class(context, state, committed, childNodes, precedence, continuationParts, ...remainingArguments);
+
+    return context;
+  }
+
+  static fromState(Class, state, ...remainingArguments) {
+    let context = remainingArguments.pop();
+
+    state = state.clone();  ///
+
+    const committed = false,
           childNodes = [],
           precedence = null,
           continuationParts = context.getContinuationParts();
