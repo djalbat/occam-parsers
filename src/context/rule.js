@@ -15,8 +15,26 @@ export default class RuleContext extends Context {
 
   static fromRule(rule, context) {
     const precedence = null,
-          ruleContext = Context.fromNothing(RuleContext, rule, precedence, context);
+          continuationParts = continuationPartsFromNothing(context),
+          ruleContext = Context.fromContinuationParts(RuleContext, continuationParts, rule, precedence, context);
 
     return ruleContext;
   }
+}
+
+function continuationPartsFromNothing(context) {
+  let continuationParts;
+
+  continuationParts = context.getContinuationParts();
+
+  const continuationPart = context.getContinuationPart();
+
+  if (continuationPart !== null) {
+    continuationParts = [ ///
+      ...continuationParts,
+      continuationPart
+    ];
+  }
+
+  return continuationParts;
 }

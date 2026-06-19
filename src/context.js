@@ -69,8 +69,6 @@ export default class Context {
 
   recover(part) { return this.state.recover(part); }
 
-  adjustState(state) { this.state.adjustState(state); }
-
   isContinuing() {
     const continuationPartsLength = this.continuationParts.length,
           continuing = (continuationPartsLength > 0);
@@ -94,16 +92,20 @@ export default class Context {
         this.childNodes.push(...childNodes);
   }
 
-  continued(state, continuationParts) { return this.context.continued(state, continuationParts); }
+  continued(context) { return this.context.continued(context); }
 
   continue() {
     let parsed;
 
     const continuing = this.isContinuing();
 
-    parsed = continuing ?
-                this.context.continued(this.state, this.continuationParts) :
-                    true;
+    if (continuing) {
+      const context = this; ///
+
+      parsed = this.context.continued(context);
+    } else {
+      parsed = true;
+    }
 
     return parsed;
   }
@@ -169,19 +171,6 @@ export default class Context {
     let state;
 
     state = context.getState();
-
-    state = state.clone();  ///
-
-    const childNodes = [],
-          precedence = null;
-
-    context = new Class(context, state, childNodes, precedence, continuationParts, ...remainingArguments);
-
-    return context;
-  }
-
-  static fromStateAndContinuationParts(Class, state, continuationParts, ...remainingArguments) {
-    let context = remainingArguments.pop();
 
     state = state.clone();  ///
 

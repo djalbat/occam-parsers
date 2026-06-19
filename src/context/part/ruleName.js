@@ -3,19 +3,27 @@
 import PartContext from "../../context/part";
 
 export default class RuleNamePartContext extends PartContext {
+  constructor(context, state, childNodes, precedence, continuationParts, continuedPart, part, continuationPart) {
+    super(context, state, childNodes, precedence, continuationParts, continuedPart);
+
+    this.continuationPart = continuationPart;
+  }
+
+  getContinuationPart() {
+    return this.continuationPart;
+  }
+
   static fromRuleNamePart(ruleNamePart, context) {
     const part = ruleNamePart,  ///
-          continuationParts = continuationPartsFromRuleNamePart(ruleNamePart, context),
-          ruleNamePartContext = PartContext.fromContinuationPartsAndPart(RuleNamePartContext, continuationParts, part, context);
+          continuationPart = continuationPartFromRuleNamePart(ruleNamePart, context),
+          ruleNamePartContext = PartContext.fromPart(RuleNamePartContext, part, continuationPart, context);
 
     return ruleNamePartContext;
   }
 }
 
-function continuationPartsFromRuleNamePart(ruleNamePart, context) {
-  let continuationParts;
-
-  continuationParts = context.getContinuationParts();
+function continuationPartFromRuleNamePart(ruleNamePart, context) {
+  let continuationPart = null;
 
   const continuation = ruleNamePart.isContinuation();
 
@@ -23,14 +31,9 @@ function continuationPartsFromRuleNamePart(ruleNamePart, context) {
     const nextPart = context.getNextPart();
 
     if (nextPart !== null) {
-      const continuationPart = nextPart;  ///
-
-      continuationParts = [  ///
-        ...continuationParts,
-        continuationPart
-      ];
+      continuationPart = nextPart;  ///
     }
   }
 
-  return continuationParts;
+  return continuationPart;
 }

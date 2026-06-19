@@ -96,14 +96,6 @@ export default class State {
     return continuationRecord;
   }
 
-  adjustIndex(index) {
-    this.index = index;
-  }
-
-  adjustState(state) {
-    state.adjustIndex(this.index);
-  }
-
   clone() {
     const state = new State(this.index);
 

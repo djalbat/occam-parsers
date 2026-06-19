@@ -68,8 +68,8 @@ export function ruleNamePartContext(innerFunction, ruleNamePart, context) {
   innerFunction(context);
 }
 
-export function continuationContext(innerFunction, state, continuationParts, context) {
-  const continuationContext = ContinuationContext.fromStateAndContinuationParts(state, continuationParts, context);
+export function continuationContext(innerFunction, context) {
+  const continuationContext = ContinuationContext.fromNothing(context);
 
   context = continuationContext;  ///
 

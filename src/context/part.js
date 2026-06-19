@@ -35,7 +35,13 @@ export default class PartContext extends Context {
           continuing = this.isContinuing();
 
     if (continued && !continuing) {
-      const context = this.getContext();
+      const state = this.getState(),
+            context = this.getContext(),
+            precedence = this.getPrecedence();
+
+      context.setState(state);
+
+      context.setPrecedence(precedence);
 
       parsed = context.commit();
 

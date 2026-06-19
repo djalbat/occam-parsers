@@ -36,6 +36,12 @@ export default class TopmostContext extends Context {
     return NonTerminalNode;
   }
 
+  getContinuationPart() {
+    const continuationPart = null;
+
+    return continuationPart;
+  }
+
   findRule(ruleName) {
     const rule = this.ruleMap[ruleName] || null;  ///
 
