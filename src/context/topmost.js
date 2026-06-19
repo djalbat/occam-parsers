@@ -8,8 +8,8 @@ import Context from "../context";
 const { first } = arrayUtilities;
 
 export default class TopmostContext extends Context {
-  constructor(context, state, committed, childNodes, precedence, continuationParts, ruleMap, NonTerminalNodeMap, defaultNonTerminalNode) {
-    super(context, state, committed, childNodes, precedence, continuationParts);
+  constructor(context, state, committed, childNodes, precedence, continuations, ruleMap, NonTerminalNodeMap, defaultNonTerminalNode) {
+    super(context, state, committed, childNodes, precedence, continuations);
 
     this.ruleMap = ruleMap;
     this.NonTerminalNodeMap = NonTerminalNodeMap;
@@ -36,10 +36,10 @@ export default class TopmostContext extends Context {
     return NonTerminalNode;
   }
 
-  getContinuationPart() {
-    const continuationPart = null;
+  getContinuation() {
+    const continuation = null;
 
-    return continuationPart;
+    return continuation;
   }
 
   findRule(ruleName) {
@@ -82,8 +82,8 @@ export default class TopmostContext extends Context {
           committed = false,
           childNodes = [],
           precedence = null,
-          continuationParts = [],
-          topmostContext = new TopmostContext(context, state, committed, childNodes, precedence, continuationParts, ruleMap, NonTerminalNodeMap, defaultNonTerminalNode);
+          continuations = [],
+          topmostContext = new TopmostContext(context, state, committed, childNodes, precedence, continuations, ruleMap, NonTerminalNodeMap, defaultNonTerminalNode);
 
     return topmostContext;
   }

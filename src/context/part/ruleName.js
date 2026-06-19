@@ -1,39 +1,30 @@
 "use strict";
 
 import PartContext from "../../context/part";
+import Continuation from "../../continuation";
 
 export default class RuleNamePartContext extends PartContext {
-  constructor(context, state, committted, childNodes, precedence, continuationParts, continuedPart, part, continuationPart) {
-    super(context, state, committted, childNodes, precedence, continuationParts, continuedPart);
+  constructor(context, state, committed, childNodes, precedence, continuations, final, part, continuation) {
+    super(context, state, committed, childNodes, precedence, continuations, final);
 
-    this.continuationPart = continuationPart;
+    this.continuation = continuation;
   }
 
-  getContinuationPart() {
-    return this.continuationPart;
+  getContinuation() {
+    return this.continuation;
+  }
+
+  isInitial() {
+    const initial = (this.continuation !== null);
+
+    return initial;
   }
 
   static fromRuleNamePart(ruleNamePart, context) {
     const part = ruleNamePart,  ///
-          continuationPart = continuationPartFromRuleNamePart(ruleNamePart, context),
-          ruleNamePartContext = PartContext.fromPart(RuleNamePartContext, part, continuationPart, context);
+          continuation = Continuation.fromRuleNamePart(ruleNamePart, context),
+          ruleNamePartContext = PartContext.fromPart(RuleNamePartContext, part, continuation, context);
 
     return ruleNamePartContext;
   }
-}
-
-function continuationPartFromRuleNamePart(ruleNamePart, context) {
-  let continuationPart = null;
-
-  const continuation = ruleNamePart.isContinuation();
-
-  if (continuation) {
-    const nextPart = context.getNextPart();
-
-    if (nextPart !== null) {
-      continuationPart = nextPart;  ///
-    }
-  }
-
-  return continuationPart;
 }

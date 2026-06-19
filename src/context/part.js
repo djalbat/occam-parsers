@@ -7,25 +7,19 @@ import Context from "../context";
 const { last } = arrayUtilities;
 
 export default class PartContext extends Context {
-  constructor(context, state, committed, childNodes, precedence, continuationParts, continuedPart, part) {
-    super(context, state, committed, childNodes, precedence, continuationParts);
+  constructor(context, state, committed, childNodes, precedence, continuations, final, part) {
+    super(context, state, committed, childNodes, precedence, continuations);
 
-    this.continuedPart = continuedPart;
+    this.final = final;
     this.part = part;
   }
 
-  getCcntinuedPart() {
-    return this.continuedPart;
+  isFinal() {
+    return this.final;
   }
 
   getPart() {
     return this.part;
-  }
-
-  hasContinued() {
-    const continued = (this.part === this.continuedPart);
-
-    return continued;
   }
 
   commit() {
@@ -36,10 +30,10 @@ export default class PartContext extends Context {
     if (committed) {
       parsed = true;
     } else {
-      const continued = this.hasContinued(),
+      const final = this.isFinal(),
             continuing = this.isContinuing();
 
-      if (continued && !continuing) {
+      if (final && !continuing) {
         const state = this.getState(),
               context = this.getContext(),
               precedence = this.getPrecedence();
@@ -66,62 +60,43 @@ export default class PartContext extends Context {
   }
 
   static fromPart(Class, part, ...remainingArguments) {
-    const context = remainingArguments.pop(); ///
-
-    let continuationParts = context.getContinuationParts();
-
-    const continuedPart = continuedPartFromPartAndContinuationParts(part, continuationParts);
-
-    continuationParts = continuationPartsFromContinuedPartAndContinuationParts(continuedPart, continuationParts);
-
-    const partContext = Context.fromContinuationParts(Class, continuationParts, continuedPart, part, ...remainingArguments, context);
-
-    return partContext;
-  }
-
-  static fromContinuationPartsAndPart(Class, continuationParts, part, ...remainingArguments) {
-    const context = remainingArguments.pop(); ///
-
-    const continuedPart = continuedPartFromPartAndContinuationParts(part, continuationParts);
-
-    continuationParts = continuationPartsFromContinuedPartAndContinuationParts(continuedPart, continuationParts);
-
-    const partContext = Context.fromContinuationParts(Class, continuationParts, continuedPart, part, ...remainingArguments, context);
+    const context = remainingArguments.pop(), ///
+          final = finalFromPart(part, context),
+          continuations = continuationsFromFinal(final, context),
+          partContext = Context.fromContinuations(Class, continuations, final, part, ...remainingArguments, context);
 
     return partContext;
   }
 }
 
-function continuedPartFromPartAndContinuationParts(part, continuationParts) {
-  let continuedPart = null;
+function finalFromPart(part, context) {
+  let final = false;
 
-  const continuationPartsLength = continuationParts.length;
+  const continuations = context.getContinuations(),
+        continuationsLength = continuations.length;
 
-  if (continuationPartsLength > 0) {
-    const lastContinuationPart = last(continuationParts);
+  if (continuationsLength > 0) {
+    const lastContinuation = last(continuations),
+          finalPartMatches = lastContinuation.matchFinalPart(part);
 
-    if (lastContinuationPart === part) {
-      continuedPart = lastContinuationPart;  ///
+    if (finalPartMatches) {
+      final = true;
     }
   }
 
-  return continuedPart;
+  return final;
 }
 
-function continuationPartsFromContinuedPartAndContinuationParts(continuedPart, continuationParts) {
-  const continuationPartsLength = continuationParts.length;
+function continuationsFromFinal(final, context) {
+  let continuations = context.getContinuations();
 
-  if (continuationPartsLength > 0) {
-    const lastContinuationPart = last(continuationParts);
+  if (final) {
+    continuations = [
+      ...continuations
+    ];
 
-    if (lastContinuationPart === continuedPart) {
-      continuationParts = [
-        ...continuationParts
-      ];
-
-      continuationParts.pop();
-    }
+    continuations.pop();
   }
 
-  return continuationParts;
+  return continuations;
 }

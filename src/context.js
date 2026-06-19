@@ -1,13 +1,13 @@
 "use strict";
 
 export default class Context {
-  constructor(context, state, committed, childNodes, precedence, continuationParts) {
+  constructor(context, state, committed, childNodes, precedence, continuations) {
     this.context = context;
     this.state = state;
     this.committed = committed;
     this.childNodes = childNodes;
     this.precedence = precedence;
-    this.continuationParts = continuationParts;
+    this.continuations = continuations;
   }
 
   getContext() {
@@ -30,8 +30,8 @@ export default class Context {
     return this.precedence;
   }
 
-  getContinuationParts() {
-    return this.continuationParts;
+  getContinuations() {
+    return this.continuations;
   }
 
   setContext(context) {
@@ -79,8 +79,8 @@ export default class Context {
   recover(part) { return this.state.recover(part); }
 
   isContinuing() {
-    const continuationPartsLength = this.continuationParts.length,
-          continuing = (continuationPartsLength > 0);
+    const continuationsLength = this.continuations.length,
+          continuing = (continuationsLength > 0);
 
     return continuing;
   }
@@ -157,9 +157,9 @@ export default class Context {
     const committed = false,
       childNodes = [],
       precedence = null,
-      continuationParts = context.getContinuationParts();
+      continuations = context.getContinuations();
 
-    context = new Class(context, state, committed, childNodes, precedence, continuationParts, ...remainingArguments);
+    context = new Class(context, state, committed, childNodes, precedence, continuations, ...remainingArguments);
 
     return context;
   }
@@ -172,9 +172,9 @@ export default class Context {
     const committed = false,
           childNodes = [],
           precedence = null,
-          continuationParts = context.getContinuationParts();
+          continuations = context.getContinuations();
 
-    context = new Class(context, state, committed, childNodes, precedence, continuationParts, ...remainingArguments);
+    context = new Class(context, state, committed, childNodes, precedence, continuations, ...remainingArguments);
 
     return context;
   }
@@ -190,14 +190,14 @@ export default class Context {
 
     const committed = false,
           childNodes = [],
-          continuationParts = context.getContinuationParts();
+          continuations = context.getContinuations();
 
-    context = new Class(context, state, committed, childNodes, precedence, continuationParts, ...remainingArguments);
+    context = new Class(context, state, committed, childNodes, precedence, continuations, ...remainingArguments);
 
     return context;
   }
 
-  static fromContinuationParts(Class, continuationParts, ...remainingArguments) {
+  static fromContinuations(Class, continuations, ...remainingArguments) {
     let context = remainingArguments.pop();
 
     let state;
@@ -210,7 +210,7 @@ export default class Context {
           childNodes = [],
           precedence = null;
 
-    context = new Class(context, state, committed, childNodes, precedence, continuationParts, ...remainingArguments);
+    context = new Class(context, state, committed, childNodes, precedence, continuations, ...remainingArguments);
 
     return context;
   }
