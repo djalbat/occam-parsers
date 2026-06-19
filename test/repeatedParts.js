@@ -181,7 +181,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.only("calling ahead to a terminal part", () => {
+  describe("calling ahead to a terminal part", () => {
     const bnf = `
     
       S ::= A... "b" ;

@@ -4,14 +4,14 @@ const { testUtilities } = require("../lib/index"); ///
 
 const { compareParseTreeStrings, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe("Left recursion", () => {
+describe("Unpalatble nodes", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"
     }
   ];
 
-  describe("an indirectly repeated rule that is non-producing", () => {
+  describe("a non-producing definition", () => {
     const bnf = `
     
       S ::= A... "." ;
@@ -29,7 +29,7 @@ describe("Left recursion", () => {
     describe("content with the requisite significant tokens", () => {
       const content = "b.";
 
-      it("results in the requisite parse tree" , () => {
+      it.only("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
