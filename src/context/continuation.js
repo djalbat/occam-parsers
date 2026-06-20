@@ -22,14 +22,11 @@ export default class ContinuationContext extends Context {
       parsed = true;
     } else {
       const context = this.getContext(),
-            contiuning = context.isContinuing();
+            continuing = context.isContinuing();
 
-      if (contiuning) {
-        const state = this.getState(),
-              precedence = this.getPrecedence(),
+      if (continuing) {
+        const precedence = this.getPrecedence(),
               childNodes = this.getChildNodes();
-
-        context.updateState(state);
 
         parsed = context.update(precedence, childNodes);
       } else {
@@ -37,14 +34,13 @@ export default class ContinuationContext extends Context {
       }
 
       if (parsed) {
-        const continuing = this.isContinuing();
+        const state = this.getState();
 
-        if (continuing) {
-          parsed = this.continuedContext.commit();
-        } else {
-          parsed = true;
-        }
+        this.continuedContext.updateState(state);
+
+        parsed = this.continuedContext.commit();
       }
+
       const committed = true;
 
       this.setCommitted(committed);
