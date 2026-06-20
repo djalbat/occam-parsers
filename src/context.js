@@ -67,7 +67,7 @@ export default class Context {
     return continuing;
   }
 
-  continued(context) { return this.context.continued(context); }
+  continued(frame, context) { return this.context.continued(frame, context); }
 
   continue(frame) {
     const continuing = this.isContinuing();
@@ -124,18 +124,6 @@ export default class Context {
     let state;
 
     state = context.getState();
-
-    state = state.clone();  ///
-
-    const committed = false;
-
-    context = new Class(context, state, committed, continuations, ...remainingArguments);
-
-    return context;
-  }
-
-  static fromStateAndContinuations(Class, state, continuations, ...remainingArguments) {
-    let context = remainingArguments.pop();
 
     state = state.clone();  ///
 

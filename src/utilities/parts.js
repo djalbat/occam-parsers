@@ -46,8 +46,12 @@ export function parseParts(parts, frame, context) {
   return frame;
 }
 
-export function parsePartsContinually(parts, context) {
-  let frame;
+export function parsePartsContinually(parts, frame, context) {
+  if (context === undefined) {
+    context = frame;  ///
+
+    frame = Frame.fromNothing();
+  }
 
   const firstPart = first(parts),
         tailParts = tail(parts),
@@ -56,7 +60,13 @@ export function parsePartsContinually(parts, context) {
   parts = tailParts;  ///
 
   partsContext((context) => {
-    frame = part.parse(context);
+    const partFrame = part.parse(context);
+
+    if (partFrame !== null) {
+      frame = frame.merge(partFrame);
+    } else {
+      frame = null;
+    }
   }, parts, parsePartsContinually, context);
 
   return frame;
