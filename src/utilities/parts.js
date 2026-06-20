@@ -31,9 +31,13 @@ export function parseParts(parts, frame, context) {
 
       const partsLength = parts.length;
 
-      frame = (partsLength > 0) ?
-        parseParts(parts, frame, context) :
-          context.commit(frame);
+      if (partsLength > 0) {
+        frame = parseParts(parts, frame, context);
+      }
+
+      if (frame !== null) {
+        context.commit(frame);
+      }
     } else {
       frame = null;
     }

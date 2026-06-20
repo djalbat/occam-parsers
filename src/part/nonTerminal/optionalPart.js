@@ -2,6 +2,7 @@
 
 import { specialSymbols } from "occam-lexers";
 
+import Frame from "../../frame";
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { partContext } from "../../utilities/context";
@@ -36,6 +37,10 @@ export default class OptionalPartPart extends NonTerminalPart {
         }
       } else {
         frame = this.part.parse(context);
+
+        if (frame === null) {
+          frame = Frame.fromNothing();
+        }
       }
 
       if (frame !== null) {
