@@ -29,7 +29,9 @@ export default class ContinuationContext extends Context {
               precedence = this.getPrecedence(),
               childNodes = this.getChildNodes();
 
-        parsed = context.update(state, precedence, childNodes);
+        context.updateState(state);
+
+        parsed = context.update(precedence, childNodes);
       } else {
         parsed = true;
       }
@@ -37,9 +39,11 @@ export default class ContinuationContext extends Context {
       if (parsed) {
         const continuing = this.isContinuing();
 
-        parsed = continuing ?
-                   this.continuedContext.commit() :
-                     true;
+        if (continuing) {
+          parsed = this.continuedContext.commit();
+        } else {
+          parsed = true;
+        }
       }
       const committed = true;
 

@@ -38,7 +38,9 @@ export default class PartContext extends Context {
               context = this.getContext(),
               precedence = this.getPrecedence();
 
-        parsed = context.update(state, precedence);
+        context.updateState(state);
+
+        parsed = context.update(precedence);
 
         if (parsed) {
           parsed = context.commit();

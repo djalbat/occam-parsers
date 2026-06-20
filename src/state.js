@@ -71,8 +71,7 @@ export default class State {
   }
 
   store(part, precedence, childNodes) {
-    const state = this, ///
-          frame = Frame.fromStatePrecedenceAndChildNodes(state, precedence, childNodes),
+    const frame = Frame.fromPrecedenceAndChildNodes(precedence, childNodes),
           key = part, ///
           value = frame.serialise();
 
@@ -98,22 +97,6 @@ export default class State {
 
   clone() {
     const state = new State(this.index);
-
-    return state;
-  }
-
-  serialise() {
-    const index = this.index,
-          value = {
-            index
-          };
-
-    return value;
-  }
-
-  static unserialise(value) {
-    const { index } = value,
-          state = new State(index);
 
     return state;
   }

@@ -1,16 +1,9 @@
 "use strict";
 
-import State from "./state";
-
 export default class Frame {
-  constructor(state, precedence, childNodes) {
-    this.state = state;
+  constructor(precedence, childNodes) {
     this.precedence = precedence;
     this.childNodes = childNodes;
-  }
-
-  getState() {
-    return this.state;
   }
 
   getPrecedence() {
@@ -22,7 +15,7 @@ export default class Frame {
   }
 
   apply(context) {
-    const parsed = context.update(this.state, this.precedence, this.childNodes);
+    const parsed = context.update(this.precedence, this.childNodes);
 
     return parsed;
   }
@@ -30,14 +23,10 @@ export default class Frame {
   serialise() {
     let value;
 
-    value = this.state.serialise();
-
-    const state = value,  ///
-          precedence = this.precedence,
+    const precedence = this.precedence,
           childNodes = this.childNodes;
 
     value = {
-      state,
       precedence,
       childNodes
     };
@@ -48,21 +37,13 @@ export default class Frame {
   static unserialise(value) {
     const { precedence, childNodes } = value;
 
-    let state;
-
-    ({ state } = value);
-
-    value = state;  ///
-
-    state = State.unserialise(value);
-
-    const frame = new Frame(state, precedence, childNodes);
+    const frame = new Frame(precedence, childNodes);
 
     return frame;
   }
 
-  static fromStatePrecedenceAndChildNodes(state, precedence, childNodes) {
-    const frame = new Frame(state, precedence, childNodes);
+  static fromPrecedenceAndChildNodes(precedence, childNodes) {
+    const frame = new Frame(precedence, childNodes);
 
     return frame;
   }

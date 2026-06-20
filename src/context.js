@@ -94,10 +94,6 @@ export default class Context {
   }
 
   addChildNodes(childNodes = null) {
-    if (childNodes === null) {
-      return;
-    }
-
     const continuing = this.isContinuing();
 
     continuing ?
@@ -129,7 +125,9 @@ export default class Context {
     if (this.committed) {
       parsed = true;
     } else {
-      parsed = this.context.update(this.state, this.precedence, this.childNodes);
+      this.context.updateState(this.state);
+
+      parsed = this.context.update(this.precedence, this.childNodes);
 
       if (parsed) {
         const continuing = this.isContinuing();
@@ -145,12 +143,8 @@ export default class Context {
     return parsed;
   }
 
-  update(state, precedence, childNodes = null) {
+  update(precedence, childNodes = []) {
     let parsed;
-
-    state = state.clone();  //
-
-    this.setState(state);
 
     this.setPrecedence(precedence);
 
@@ -159,6 +153,10 @@ export default class Context {
     parsed = true;
 
     return parsed;
+  }
+
+  updateState(state) {
+    this.state = state.clone();  ///
   }
 
   static fromNothing(Class, ...remainingArguments) {

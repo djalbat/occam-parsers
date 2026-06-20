@@ -1,6 +1,6 @@
 "use strict";
 
-import Frame from "../Frame";
+import Frame from "../frame";
 import Context from "../context";
 
 export default class DefinitionContext extends Context {
@@ -30,10 +30,10 @@ export default class DefinitionContext extends Context {
     return nonTerminalNode;
   }
 
-  update(state, precedence, childNodes) {
+  update(precedence, childNodes = []) {
     let parsed = false;
 
-    const frame = Frame.fromStatePrecedenceAndChildNodes(state, precedence, childNodes),
+    const frame = Frame.fromPrecedenceAndChildNodes(precedence, childNodes),
           nonTerminalNode = this.nonTerminalNodeFromFrame(frame),
           palatable = nonTerminalNode.isPalatable();
 
@@ -44,7 +44,7 @@ export default class DefinitionContext extends Context {
                 childNode
               ];
 
-      super.update(state, precedence, childNodes);
+      super.update(precedence, childNodes);
 
       parsed = true;
     }
