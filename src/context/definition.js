@@ -65,8 +65,7 @@ export default class DefinitionContext extends Context {
   }
 
   static fromDefinition(definition, context) {
-    const precedence = definition.getPrecedence(),
-          definitionContext = Context.fromPrecedence(DefinitionContext, precedence, context);
+    const definitionContext = Context.fromNothing(DefinitionContext, context);
 
     return definitionContext;
   }

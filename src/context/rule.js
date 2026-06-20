@@ -3,8 +3,8 @@
 import Context from "../context";
 
 export default class RuleContext extends Context {
-  constructor(context, state, committed, precedence, childNodes, continuations, rule) {
-    super(context, state, committed, precedence, childNodes, continuations);
+  constructor(context, state, committed, continuations, rule) {
+    super(context, state, committed, continuations);
 
     this.rule = rule;
   }
@@ -14,9 +14,8 @@ export default class RuleContext extends Context {
   }
 
   static fromRule(rule, context) {
-    const precedence = null,
-          continuations = continuationsFromNothing(context),
-          ruleContext = Context.fromContinuations(RuleContext, continuations, rule, precedence, context);
+    const continuations = continuationsFromNothing(context),
+          ruleContext = Context.fromContinuations(RuleContext, continuations, rule, context);
 
     return ruleContext;
   }
