@@ -129,13 +129,15 @@ export default class Context {
     if (this.committed) {
       parsed = true;
     } else {
-      this.context.update(this.state, this.precedence, this.childNodes);
+      parsed = this.context.update(this.state, this.precedence, this.childNodes);
 
-      const continuing = this.isContinuing();
+      if (parsed) {
+        const continuing = this.isContinuing();
 
-      parsed = continuing ?
-                  this.context.commit() :
-                    true;
+        parsed = continuing ?
+                   this.context.commit() :
+                     true;
+      }
 
       this.committed = true;
     }
@@ -144,6 +146,8 @@ export default class Context {
   }
 
   update(state, precedence, childNodes = null) {
+    let parsed;
+
     state = state.clone();  //
 
     this.setState(state);
@@ -151,6 +155,10 @@ export default class Context {
     this.setPrecedence(precedence);
 
     this.addChildNodes(childNodes);
+
+    parsed = true;
+
+    return parsed;
   }
 
   static fromNothing(Class, ...remainingArguments) {

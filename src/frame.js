@@ -22,9 +22,7 @@ export default class Frame {
   }
 
   apply(context) {
-    const parsed = true;
-
-    context.update(this.state, this.precedence, this.childNodes);
+    const parsed = context.update(this.state, this.precedence, this.childNodes);
 
     return parsed;
   }

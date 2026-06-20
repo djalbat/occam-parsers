@@ -21,18 +21,26 @@ export default class ContinuationContext extends Context {
     if (committed) {
       parsed = true;
     } else {
-      const state = this.getState(),
-            precedence = this.getPrecedence(),
-            childNodes = this.getChildNodes();
+      const context = this.getContext(),
+            contiuning = context.isContinuing();
 
-      this.continuedContext.update(state, precedence, childNodes);
+      if (contiuning) {
+        const state = this.getState(),
+              precedence = this.getPrecedence(),
+              childNodes = this.getChildNodes();
 
-      const continuing = this.isContinuing();
+        parsed = context.update(state, precedence, childNodes);
+      } else {
+        parsed = true;
+      }
 
-      parsed = continuing ?
-                 this.continuedContext.commit() :
-                   true;
+      if (parsed) {
+        const continuing = this.isContinuing();
 
+        parsed = continuing ?
+                   this.continuedContext.commit() :
+                     true;
+      }
       const committed = true;
 
       this.setCommitted(committed);
