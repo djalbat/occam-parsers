@@ -2,6 +2,7 @@
 
 import { specialSymbols } from "occam-lexers";
 
+import Frame from "../../frame";
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../node/terminal";
 
@@ -11,12 +12,12 @@ const { wildcard } = specialSymbols;
 
 export default class WildcardPart extends TerminalPart {
   parse(context) {
-    let parsed;
+    let frame;
 
     const part = this;  ///
 
     partContext((context) => {
-      parsed = false;
+      frame = null;
 
       const nextSignificantToken = context.getNextSignificantToken();
 
@@ -25,21 +26,19 @@ export default class WildcardPart extends TerminalPart {
               terminalNode = TerminalNode.fromSignificantToken(significantToken),
               childNode = terminalNode;  ///
 
-        context.addChildNode(childNode);
-
-        parsed = true;
+        frame = Frame.fromChildNode(childNode);
       }
 
-      if (parsed) {
-        parsed = context.continue();
+      if (frame !== null) {
+        frame = context.continue(frame);
       }
 
-      if (parsed) {
-        parsed = context.commit();
+      if (frame !== null) {
+        frame = context.commit(frame);
       }
     }, part, context);
 
-    return parsed;
+    return frame;
   }
 
   asString() {

@@ -2,28 +2,28 @@
 
 import { continuationPartContext } from "../utilities/context";
 
-export function parsePartContinually(part, count, strict, context) {
+export function parsePartContinually(part, count, strict, frame, context) {
   if (context === undefined) {
-    context = strict;
+    context = frame;  ///
+
+    frame = strict; ///
 
     strict = false;
   }
 
-  let parsed;
-
   const parsePart = parsePartContinually; ///
 
   continuationPartContext((context) => {
-    parsed = part.parse(context);
+    frame = part.parse(context);
 
-    if (!parsed) {
+    if (frame === null) {
       const initial = (count === 0);
 
       if (!strict || !initial) {
-        parsed = context.continue();
+        frame = context.continue(frame);
       }
     }
   }, part, count, parsePart, context);
 
-  return parsed;
+  return frame;
 }

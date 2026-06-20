@@ -20,19 +20,19 @@ export default class PartChoice {
   }
 
   parse(context) {
-    let parsed;
+    let frame;
 
     const partChoice = this;  ///
 
     partChoiceContext((context) => {
-      parsed = this.part.parse(context);
+      frame = this.part.parse(context);
 
-      if (parsed) {
-        parsed = context.commit();
+      if (frame !== null) {
+        frame = context.commit(frame);
       }
     }, partChoice, context);
 
-    return parsed;
+    return frame;
   }
 
   asString() {

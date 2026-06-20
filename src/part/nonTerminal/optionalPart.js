@@ -21,7 +21,7 @@ export default class OptionalPartPart extends NonTerminalPart {
   }
 
   parse(context) {
-    let parsed;
+    let frame;
 
     const part = this;  ///
 
@@ -29,23 +29,21 @@ export default class OptionalPartPart extends NonTerminalPart {
       const continuing = context.isContinuing();
 
       if (continuing) {
-        parsed = this.part.parse(context);
+        frame = this.part.parse(context);
 
-        if (!parsed) {
-          parsed = context.continue();
+        if (!frame) {
+          frame = context.continue(frame);
         }
       } else {
-        this.part.parse(context);
-
-        parsed = true;
+        frame = this.part.parse(context);
       }
 
-      if (parsed) {
-        parsed = context.commit();
+      if (frame !== null) {
+        frame = context.commit(frame);
       }
     }, part, context);
 
-    return parsed;
+    return frame;
   }
 
   asString() {

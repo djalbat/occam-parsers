@@ -3,14 +3,16 @@
 import { topmostContext } from "../utilities/context"
 
 function parse(tokens, rule = this.startRule) {
-  let node;
+  let node = null;
 
   const parser = this;  ///
 
   topmostContext((context) => {
-    rule.parse(context);
+    const frame = rule.parse(context);
 
-    node = context.getNode();
+    if (frame !== null) {
+      node = frame.getNode();
+    }
   }, parser, tokens);
 
   return node;

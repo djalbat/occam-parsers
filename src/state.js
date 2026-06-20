@@ -70,9 +70,8 @@ export default class State {
     return nextTokenWhitespaceToken;
   }
 
-  store(part, precedence, childNodes) {
-    const frame = Frame.fromPrecedenceAndChildNodes(precedence, childNodes),
-          key = part, ///
+  store(part, frame) {
+    const key = part, ///
           value = frame.serialise();
 
     State.cache.set(key, value);

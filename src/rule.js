@@ -57,25 +57,25 @@ export default class Rule {
   }
 
   parse(context) {
-    let parsed;
+    let frame;
 
     const rule = this;  ///
 
     ruleContext((context) => {
       this.definitions.some((definition) => {
-        parsed = definition.parse(context);
+        frame = definition.parse(context);
 
-        if (parsed) {
+        if (frame !== null) {
           return true;
         }
       });
 
-      if (parsed) {
-        parsed = context.commit();
+      if (frame !== null) {
+        frame = context.commit(frame);
       }
     }, rule, context);
 
-    return parsed;
+    return frame;
   }
 
   NonTerminalNodeFromRuleName(ruleName, context) { return context.NonTerminalNodeFromRuleName(ruleName); }

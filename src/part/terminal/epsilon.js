@@ -2,6 +2,7 @@
 
 import { specialSymbols } from "occam-lexers";
 
+import Frame from "../../frame";
 import EpsilonNode from "../../node/terminal/epsilon";
 import TerminalPart from "../../part/terminal";
 
@@ -11,30 +12,28 @@ const { epsilon } = specialSymbols;
 
 export default class EpsilonPart extends TerminalPart {
   parse(context) {
-    let parsed;
+    let frame;
 
     const part = this;  ///
 
     partContext((context) => {
-      parsed = false;
+      frame = null;
 
       const epsilonNode = EpsilonNode.fromNothing(),
             childNode = epsilonNode;  ///
 
-      context.addChildNode(childNode);
+      frame = Frame.fromChildNode(childNode);
 
-      parsed = true;
-
-      if (parsed) {
-        parsed = context.continue();
+      if (frame !== null) {
+        frame = context.continue(frame);
       }
 
-      if (parsed) {
-        parsed = context.commit();
+      if (frame !== null) {
+        frame = context.commit(frame);
       }
     }, part, context);
 
-    return parsed;
+    return frame;
   }
 
   asString() {

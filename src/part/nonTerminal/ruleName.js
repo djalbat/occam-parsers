@@ -28,23 +28,23 @@ export default class RuleNamePart extends NonTerminalPart {
   }
 
   parse(context) {
-    let parsed;
+    let frame;
 
     const ruleNamePart = this;  ///
 
     ruleNamePartContext((context) => {
       const rule = context.findRule(this.ruleName);
 
-      parsed = (rule !== null) ?
+      frame = (rule !== null) ?
                  rule.parse(context) :
-                   false;
+                   null;
 
-      if (parsed) {
-        parsed = context.commit();
+      if (frame !== null) {
+        frame = context.commit(frame);
       }
     }, ruleNamePart, context);
 
-    return parsed;
+    return frame;
   }
 
   asString() {

@@ -13,14 +13,10 @@ export default class ContinuationContext extends Context {
     return this.continuedContext;
   }
 
-  commit() {
-    let parsed;
-
+  commit(frame) {
     const committed = this.isCommitted();
 
-    if (committed) {
-      parsed = true;
-    } else {
+    if (!committed) {
       const context = this.getContext(),
             continuing = context.isContinuing();
 
@@ -28,17 +24,15 @@ export default class ContinuationContext extends Context {
         const precedence = this.getPrecedence(),
               childNodes = this.getChildNodes();
 
-        parsed = context.update(precedence, childNodes);
-      } else {
-        parsed = true;
+        frame = context.update(frame, precedence, childNodes);
       }
 
-      if (parsed) {
+      if (frame !== null) {
         const state = this.getState();
 
         this.continuedContext.updateState(state);
 
-        parsed = this.continuedContext.commit();
+        frame = this.continuedContext.commit(frame);
       }
 
       const committed = true;
@@ -46,7 +40,7 @@ export default class ContinuationContext extends Context {
       this.setCommitted(committed);
     }
 
-    return parsed;
+    return frame;
   }
 
   static fromContinuedContext(continuedContext, context){

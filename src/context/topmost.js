@@ -48,10 +48,8 @@ export default class TopmostContext extends Context {
     return rule;
   }
 
-  continued() {
-    const parsed = true;
-
-    return parsed;
+  continued(frame) {
+    return frame;
   }
 
   getNode() {
@@ -69,10 +67,8 @@ export default class TopmostContext extends Context {
     return node;
   }
 
-  commit() {
-    const parsed = true;
-
-    return parsed;
+  commit(frame) {
+    return frame;
   }
 
   static fromParserAndTokens(parser, tokens, context) {

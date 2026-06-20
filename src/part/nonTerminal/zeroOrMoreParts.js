@@ -2,6 +2,7 @@
 
 import { specialSymbols } from "occam-lexers";
 
+import Frame from "../../frame";
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { partContext } from "../../utilities/context";
@@ -22,7 +23,7 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
   }
 
   parse(context) {
-    let parsed;
+    let frame;
 
     const part = this;  ///
 
@@ -33,25 +34,27 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
         const count = 0,
               strict = false;
 
-        parsed = parsePartContinually(this.part, count, strict, context);
+        frame = parsePartContinually(this.part, count, strict, context);
       } else {
-        parsed = true
+        frame = Frame.fromNothing();
 
-        if (parsed) {
-          while (parsed) {
-            parsed = this.part.parse(context);
+        while (true) {
+          const partFrame = this.part.parse(context);
+
+          if (partFrame === null) {
+            break;
           }
 
-          parsed = true;
+          frame = frame.merge(partFrame); ///
         }
       }
 
-      if (parsed) {
-        parsed = context.commit();
+      if (frame !== null) {
+        frame = context.commit(frame);
       }
     }, part, context);
 
-    return parsed;
+    return frame;
   }
 
   asString() {

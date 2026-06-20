@@ -2,12 +2,18 @@
 
 import { arrayUtilities } from "necessary";
 
+import Frame from "../frame";
+
 import { partsContext } from "../utilities/context";
 
 const { first, tail } = arrayUtilities;
 
-export function parseParts(parts, context) {
-  let parsed;
+export function parseParts(parts, frame, context) {
+  if (context === undefined) {
+    context = frame;  ///
+
+    frame = Frame.fromNothing();
+  }
 
   const firstPart = first(parts),
         tailParts = tail(parts),
@@ -15,31 +21,29 @@ export function parseParts(parts, context) {
 
   parts = tailParts;  ///
 
+  const parsePartsContinually = null;
+
   partsContext((context) => {
-    const frame = context.recover(part);
+    const partFrame = context.recover(part) || part.parse(context);
 
-    parsed = (frame !== null) ?
-               frame.apply(context) :
-                 part.parse(context);
+    if (partFrame !== null) {
+      frame = frame.merge(partFrame); ///
 
-    if (parsed) {
       const partsLength = parts.length;
 
-      parsed = (partsLength > 0) ?
-                 parseParts(parts, context) :
-                   true;
-    }
-
-    if (parsed) {
-      parsed = context.commit();
+      frame = (partsLength > 0) ?
+        parseParts(parts, frame, context) :
+          context.commit(frame);
+    } else {
+      frame = null;
     }
   }, parts, parsePartsContinually, context);
 
-  return parsed;
+  return frame;
 }
 
 export function parsePartsContinually(parts, context) {
-  let parsed;
+  let frame;
 
   const firstPart = first(parts),
         tailParts = tail(parts),
@@ -48,8 +52,8 @@ export function parsePartsContinually(parts, context) {
   parts = tailParts;  ///
 
   partsContext((context) => {
-    parsed = part.parse(context);
+    frame = part.parse(context);
   }, parts, parsePartsContinually, context);
 
-  return parsed;
+  return frame;
 }

@@ -22,14 +22,10 @@ export default class PartContext extends Context {
     return this.part;
   }
 
-  commit() {
-    let parsed;
-
+  commit(frame) {
     const committed = this.isCommitted();
 
-    if (committed) {
-      parsed = true;
-    } else {
+    if (!committed) {
       const final = this.isFinal(),
             continuing = this.isContinuing();
 
@@ -40,17 +36,17 @@ export default class PartContext extends Context {
 
         context.updateState(state);
 
-        parsed = context.update(precedence);
+        frame = context.update(frame, precedence);
 
-        if (parsed) {
-          parsed = context.commit();
+        if (frame !== null) {
+          frame = context.commit(frame);
 
-          if (parsed) {
-            this.store(this.part);
+          if (frame !== null) {
+            this.store(this.part, frame);
           }
         }
       } else {
-        parsed = super.commit();
+        frame = super.commit(frame);
       }
 
       const committed = true;
@@ -58,7 +54,7 @@ export default class PartContext extends Context {
       this.setCommitted(committed);
     }
 
-    return parsed;
+    return frame;
   }
 
   static fromPart(Class, part, ...remainingArguments) {

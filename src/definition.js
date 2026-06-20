@@ -23,7 +23,7 @@ export default class Definition {
   }
 
   parse(context) {
-    let parsed;
+    let frame;
 
     const definition = this;  ///
 
@@ -31,17 +31,17 @@ export default class Definition {
       const continuing = context.isContinuing();
 
       if (continuing) {
-        parsed = parsePartsContinually(this.parts, context);
+        frame = parsePartsContinually(this.parts, context);
       } else {
-        parsed = parseParts(this.parts, context);
+        frame = parseParts(this.parts, context);
 
-        if (parsed) {
-          parsed = context.commit();
+        if (frame !== null) {
+          frame = context.commit(frame);
         }
       }
     }, definition, context);
 
-    return parsed;
+    return frame;
   }
 
   asString() {

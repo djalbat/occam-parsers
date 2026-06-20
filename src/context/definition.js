@@ -19,8 +19,8 @@ export default class DefinitionContext extends Context {
           rule = this.getRule(),
           opacity = rule.getOpacity(),
           ruleName = rule.getName(),
-          childNodes = frame.getChildNodes(),
           precedence = frame.getPrecedence(),
+          childNodes = frame.getChildNodes(),
           NonTerminalNode = rule.NonTerminalNodeFromRuleName(ruleName, context);
 
     nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
@@ -30,26 +30,38 @@ export default class DefinitionContext extends Context {
     return nonTerminalNode;
   }
 
-  update(precedence, childNodes = []) {
-    let parsed = false;
+  commit(frame) {
+    const committed = this.isCommitted();
 
-    const frame = Frame.fromPrecedenceAndChildNodes(precedence, childNodes),
-          nonTerminalNode = this.nonTerminalNodeFromFrame(frame),
-          palatable = nonTerminalNode.isPalatable();
+    if (!committed) {
+      const nonTerminalNode = this.nonTerminalNodeFromFrame(frame),
+            palatable = nonTerminalNode.isPalatable();
 
-    if (palatable) {
-        const childNode = nonTerminalNode,  ///
-              precedence = null,
-              childNodes = [
-                childNode
-              ];
+      if (palatable) {
+        const state = this.getState(),
+              context = this.getContext();
 
-      super.update(precedence, childNodes);
+        context.updateState(state);
 
-      parsed = true;
+        const childNode = nonTerminalNode; ///
+
+        frame = Frame.fromChildNode(childNode);
+
+        const continuing = this.isContinuing();
+
+        if (continuing) {
+          frame = context.commit(frame);
+        }
+      } else {
+        frame = null;
+      }
+
+      const committed = true;
+
+      this.setCommitted(committed);
     }
 
-    return parsed;
+    return frame;
   }
 
   static fromDefinition(definition, context) {

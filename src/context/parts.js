@@ -45,9 +45,7 @@ export default class PartsContext extends Context {
     return nextPart;
   }
 
-  continued(context) {
-    let parsed;
-
+  continued(frame, context) {
     const empty = this.isEmpty();
 
     if (!empty) {
@@ -56,13 +54,13 @@ export default class PartsContext extends Context {
       context = this.getContext();
 
       continuationContext((context) => {
-        parsed = this.parsePartsContinually(this.parts, context);
+        frame = this.parsePartsContinually(this.parts, frame, context);
       }, continuedContext, context);
     } else {
-      parsed = super.continued(context);
+      frame = super.continued(frame, context);
     }
 
-    return parsed;
+    return frame;
   }
 
   static fromPartsAndParsePartsContinually(parts, parsePartsContinually, context) {

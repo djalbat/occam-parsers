@@ -22,7 +22,7 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
   }
 
   parse(context) {
-    let parsed;
+    let frame;
 
     const part = this;  ///
 
@@ -33,25 +33,29 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
         const count = 0,
               strict = true;
 
-        parsed = parsePartContinually(this.part, count, strict, context);
+        frame = parsePartContinually(this.part, count, strict, context);
       } else {
-        parsed = this.part.parse(context);
+        frame = this.part.parse(context);
 
-        if (parsed) {
-          while (parsed) {
-            parsed = this.part.parse(context);
+        if (frame !== null) {
+          while (true) {
+            const partFrame = this.part.parse(context);
+
+            if (partFrame === null) {
+              break;
+            }
+
+            frame = frame.merge(partFrame); ///
           }
-
-          parsed = true;
         }
       }
 
-      if (parsed) {
-        parsed = context.commit();
+      if (frame !== null) {
+        frame = context.commit(frame);
       }
     }, part, context);
 
-    return parsed;
+    return frame;
   }
 
   asString() {

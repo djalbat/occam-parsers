@@ -18,7 +18,7 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
   }
 
   parse(context) {
-    let parsed;
+    let frame;
 
     const sequenceOfPartsPart = this;  ///
 
@@ -26,17 +26,17 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
       const continuing = context.isContinuing();
 
       if (continuing) {
-        parsed = parsePartsContinually(this.parts, context);
+        frame = parsePartsContinually(this.parts, context);
       } else {
-        parsed = parseParts(this.parts, context);
+        frame = parseParts(this.parts, context);
 
-        if (parsed) {
-          parsed = context.commit();
+        if (frame !== null) {
+          frame = context.commit(frame);
         }
       }
     }, sequenceOfPartsPart, context);
 
-    return parsed;
+    return frame;
   }
 
   asString() {

@@ -1,5 +1,9 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
+const { first } = arrayUtilities;
+
 export default class Frame {
   constructor(precedence, childNodes) {
     this.precedence = precedence;
@@ -14,10 +18,45 @@ export default class Frame {
     return this.childNodes;
   }
 
-  apply(context) {
-    const parsed = context.update(this.precedence, this.childNodes);
+  setPrecedence(precedence) {
+    this.precedence = precedence;
+  }
 
-    return parsed;
+  getNode() {
+    let node = null;
+
+    const childNodesLength = this.childNodes.length;
+
+    if (childNodesLength === 1) {
+      const firstChildNode = first(this.childNodes);
+
+      node = firstChildNode;  ///
+    }
+
+    return node;
+  }
+
+  setChildNodes(childNodes) {
+    this.childNodes = childNodes;
+  }
+
+  addChildNodes(childNodes, continuing) {
+    continuing ?
+      this.childNodes.unshift(...childNodes) :
+        this.childNodes.push(...childNodes);
+  }
+
+  merge(frame, continuing = false) {
+    const precedence = frame.getPrecedence(),
+          childNodes = frame.getChildNodes();
+
+    frame = this.clone();
+
+    frame.setPrecedence(precedence);
+
+    frame.addChildNodes(childNodes, continuing);
+
+    return frame;
   }
 
   serialise() {
@@ -34,10 +73,38 @@ export default class Frame {
     return value;
   }
 
+  clone() {
+    const precedence = this.precedence,
+          childNodes = [
+            ...this.childNodes,
+          ],
+          frame = new Frame(precedence, childNodes);
+
+    return frame;
+  }
+
   static unserialise(value) {
     const { precedence, childNodes } = value;
 
     const frame = new Frame(precedence, childNodes);
+
+    return frame;
+  }
+
+  static fromNothing() {
+    const precedence = null,
+          childNodes = [],
+          frame = new Frame(precedence, childNodes);
+
+    return frame;
+  }
+
+  static fromChildNode(childNode) {
+    const precedence = null,
+          childNodes = [
+            childNode
+          ],
+          frame = new Frame(precedence, childNodes);
 
     return frame;
   }

@@ -74,7 +74,7 @@ export default class Context {
 
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
-  store(part) { this.state.store(part, this.precedence, this.childNodes); }
+  store(part, frame) { this.state.store(part, frame); }
 
   recover(part) { return this.state.recover(part); }
 
@@ -93,7 +93,7 @@ export default class Context {
         this.childNodes.push(childNode);
   }
 
-  addChildNodes(childNodes = null) {
+  addChildNodes(childNodes) {
     const continuing = this.isContinuing();
 
     continuing ?
@@ -103,56 +103,32 @@ export default class Context {
 
   continued(context) { return this.context.continued(context); }
 
-  continue() {
-    let parsed;
-
+  continue(frame) {
     const continuing = this.isContinuing();
 
     if (continuing) {
       const context = this; ///
 
-      parsed = this.context.continued(context);
-    } else {
-      parsed = true;
+      frame = this.context.continued(frame, context);
     }
 
-    return parsed;
+    return frame;
   }
 
-  commit() {
-    let parsed;
-
-    if (this.committed) {
-      parsed = true;
-    } else {
+  commit(frame) {
+    if (!this.committed) {
       this.context.updateState(this.state);
 
-      parsed = this.context.update(this.precedence, this.childNodes);
+      const continuing = this.isContinuing();
 
-      if (parsed) {
-        const continuing = this.isContinuing();
-
-        parsed = continuing ?
-                   this.context.commit() :
-                     true;
+      if (continuing) {
+        frame = this.context.commit(frame);
       }
 
       this.committed = true;
     }
 
-    return parsed;
-  }
-
-  update(precedence, childNodes = []) {
-    let parsed;
-
-    this.setPrecedence(precedence);
-
-    this.addChildNodes(childNodes);
-
-    parsed = true;
-
-    return parsed;
+    return frame;
   }
 
   updateState(state) {
