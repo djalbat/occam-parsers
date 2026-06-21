@@ -21,8 +21,6 @@ export function parseParts(parts, frame, context) {
 
   parts = tailParts;  ///
 
-  const parsePartsContinually = null;
-
   partsContext((context) => {
     const partFrame = context.recover(part) || part.parse(context);
 
