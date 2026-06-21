@@ -3,8 +3,8 @@
 import Context from "../context";
 
 export default class ContinuationContext extends Context {
-  constructor(context, state, committed, continuations, continuingContext) {
-    super(context, state, committed, continuations);
+  constructor(context, state, continuations, continuingContext) {
+    super(context, state, continuations);
 
     this.continuingContext = continuingContext;
   }
@@ -15,11 +15,14 @@ export default class ContinuationContext extends Context {
 
   continued(context) { return this.continuingContext.continued(context); }
 
-  create(frame) {
-    const continuing = this.continuingContext.isContinuing();
+  commit(frame) {
+    frame = this.create(frame);
 
-    if (continuing) {
-      frame = this.continuingContext.create(frame);
+    if (frame !== null) {
+      const state = this.getState(),
+            context = this.getContext();
+
+      context.updateState(state);
     }
 
     return frame;

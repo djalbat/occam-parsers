@@ -1,10 +1,9 @@
 "use strict";
 
 export default class Context {
-  constructor(context, state, committed, continuations) {
+  constructor(context, state, continuations) {
     this.context = context;
     this.state = state;
-    this.committed = committed;
     this.continuations = continuations;
   }
 
@@ -14,10 +13,6 @@ export default class Context {
 
   getState() {
     return this.state;
-  }
-
-  isCommitted() {
-    return this.committed;
   }
 
   getContinuations() {
@@ -30,10 +25,6 @@ export default class Context {
 
   setState(state) {
     this.state = state;
-  }
-
-  setCommitted(committed) {
-    this.committed = committed;
   }
 
   getRuleMap() { return this.context.getRuleMap(); }
@@ -90,20 +81,16 @@ export default class Context {
   }
 
   commit(frame) {
-    if (!this.committed) {
-      frame = this.create(frame);
+    frame = this.create(frame);
 
-      if (frame !== null) {
-        this.context.updateState(this.state);
+    if (frame !== null) {
+      this.context.updateState(this.state);
 
-        const continuing = this.isContinuing();
+      const continuing = this.isContinuing();
 
-        if (continuing) {
-          frame = this.context.commit(frame);
-        }
+      if (continuing) {
+        frame = this.context.commit(frame);
       }
-
-      this.committed = true;
     }
 
     return frame;
@@ -122,10 +109,9 @@ export default class Context {
 
     state = state.clone();  ///
 
-    const committed = false,
-          continuations = context.getContinuations();
+    const continuations = context.getContinuations();
 
-    context = new Class(context, state, committed, continuations, ...remainingArguments);
+    context = new Class(context, state, continuations, ...remainingArguments);
 
     return context;
   }
@@ -139,9 +125,7 @@ export default class Context {
 
     state = state.clone();  ///
 
-    const committed = false;
-
-    context = new Class(context, state, committed, continuations, ...remainingArguments);
+    context = new Class(context, state, continuations, ...remainingArguments);
 
     return context;
   }

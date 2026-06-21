@@ -30,27 +30,19 @@ export default class DefinitionContext extends Context {
   }
 
   commit(frame) {
-    const committed = this.isCommitted();
+    frame = this.create(frame);
 
-    if (!committed) {
-      frame = this.create(frame);
+    if (frame !== null) {
+      const state = this.getState(),
+            context = this.getContext();
 
-      if (frame !== null) {
-        const state = this.getState(),
-              context = this.getContext();
+      context.updateState(state);
 
-        context.updateState(state);
+      const continuing = this.isContinuing();
 
-        const continuing = this.isContinuing();
-
-        if (continuing) {
-          frame = context.commit(frame);
-        }
+      if (continuing) {
+        frame = context.commit(frame);
       }
-
-      const committed = true;
-
-      this.setCommitted(committed);
     }
 
     return frame;

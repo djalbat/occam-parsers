@@ -8,8 +8,8 @@ import Context from "../context";
 const { last } = arrayUtilities;
 
 export default class PartContext extends Context {
-  constructor(context, state, committed, continuations, final, part) {
-    super(context, state, committed, continuations);
+  constructor(context, state, continuations, final, part) {
+    super(context, state, continuations);
 
     this.final = final;
     this.part = part;
@@ -24,32 +24,24 @@ export default class PartContext extends Context {
   }
 
   commit(frame) {
-    const committed = this.isCommitted();
+    const final = this.isFinal(),
+          continuing = this.isContinuing();
 
-    if (!committed) {
-      const final = this.isFinal(),
-            continuing = this.isContinuing();
+    if (final && !continuing) {
+      const state = this.getState(),
+            context = this.getContext();
 
-      if (final && !continuing) {
-        const state = this.getState(),
-              context = this.getContext();
+      context.updateState(state);
 
-        context.updateState(state);
+      frame = Frame.fromNothing();
 
-        frame = Frame.fromNothing();
+      frame = context.commit(frame);
 
-        frame = context.commit(frame);
-
-        if (frame !== null) {
-          this.store(this.part, frame);
-        }
-      } else {
-        frame = super.commit(frame);
+      if (frame !== null) {
+        this.store(this.part, frame);
       }
-
-      const committed = true;
-
-      this.setCommitted(committed);
+    } else {
+      frame = super.commit(frame);
     }
 
     return frame;
