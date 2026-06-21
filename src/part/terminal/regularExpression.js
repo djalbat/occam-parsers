@@ -49,11 +49,11 @@ export default class RegularExpressionPart extends TerminalPart {
       }
 
       if (frame !== null) {
-        frame = context.continue(frame);
-      }
+        const success = context.continue();
 
-      if (frame !== null) {
-        frame = context.commit(frame);
+        frame = success ?
+                  context.commit(frame) :
+                    null;
       }
     }, part, context);
 

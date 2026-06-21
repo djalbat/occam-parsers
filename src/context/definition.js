@@ -12,48 +12,40 @@ export default class DefinitionContext extends Context {
     return rule;
   }
 
-  nonTerminalNodeFromFrame(frame) {
-    let nonTerminalNode;
+  create(frame) {
+    const rule = this.getRule(),
+          context = this,  ///
+          nonTerminalNode = nonTerminalNodeFromRuleAndFrame(rule, frame, context),
+          palatable = nonTerminalNode.isPalatable();
 
-    const context = this, ///
-          rule = this.getRule(),
-          opacity = rule.getOpacity(),
-          ruleName = rule.getName(),
-          precedence = frame.getPrecedence(),
-          childNodes = frame.getChildNodes(),
-          NonTerminalNode = rule.NonTerminalNodeFromRuleName(ruleName, context);
+    if (palatable) {
+      const childNode = nonTerminalNode; ///
 
-    nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
+      frame = Frame.fromChildNode(childNode);
+    } else {
+      frame = null;
+    }
 
-    nonTerminalNode = nonTerminalNode.rewrite(context);  ///
-
-    return nonTerminalNode;
+    return frame;
   }
 
   commit(frame) {
     const committed = this.isCommitted();
 
     if (!committed) {
-      const nonTerminalNode = this.nonTerminalNodeFromFrame(frame),
-            palatable = nonTerminalNode.isPalatable();
+      frame = this.create(frame);
 
-      if (palatable) {
+      if (frame !== null) {
         const state = this.getState(),
               context = this.getContext();
 
         context.updateState(state);
-
-        const childNode = nonTerminalNode; ///
-
-        frame = Frame.fromChildNode(childNode);
 
         const continuing = this.isContinuing();
 
         if (continuing) {
           frame = context.commit(frame);
         }
-      } else {
-        frame = null;
       }
 
       const committed = true;
@@ -70,3 +62,20 @@ export default class DefinitionContext extends Context {
     return definitionContext;
   }
 }
+
+function nonTerminalNodeFromRuleAndFrame(rule, frame, context) {
+  let nonTerminalNode;
+
+  const opacity = rule.getOpacity(),
+        ruleName = rule.getName(),
+        precedence = frame.getPrecedence(),
+        childNodes = frame.getChildNodes(),
+        NonTerminalNode = rule.NonTerminalNodeFromRuleName(ruleName, context);
+
+  nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
+
+  nonTerminalNode = nonTerminalNode.rewrite(context);  ///
+
+  return nonTerminalNode;
+}
+

@@ -7,7 +7,6 @@ import NonTerminalPart from "../../part/nonTerminal";
 
 import { partContext } from "../../utilities/context";
 import { OptionalPartPartType } from "../../partTypes";
-import {ninthLast} from "necessary/lib/utilities/array";
 
 const { questionMark } = specialSymbols;
 
@@ -34,9 +33,11 @@ export default class OptionalPartPart extends NonTerminalPart {
         frame = this.part.parse(context);
 
         if (frame === null) {
-          frame = Frame.fromNothing();
+          const success = context.continue();
 
-          frame = context.continue(frame);
+          if (success) {
+            frame = Frame.fromNothing();
+          }
         }
       } else {
         frame = this.part.parse(context);

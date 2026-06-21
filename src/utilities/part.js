@@ -1,5 +1,7 @@
 "use strict";
 
+import Frame from "../frame";
+
 import { continuationPartContext } from "../utilities/context";
 
 export function parsePartContinually(part, count, strict, frame, context) {
@@ -20,7 +22,11 @@ export function parsePartContinually(part, count, strict, frame, context) {
       const initial = (count === 0);
 
       if (!strict || !initial) {
-        frame = context.continue(frame);
+        const success = context.continue();
+
+        if (success) {
+          frame = Frame.fromNothing();
+        }
       }
     }
   }, part, count, parsePart, context);

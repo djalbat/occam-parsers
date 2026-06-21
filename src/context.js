@@ -67,28 +67,40 @@ export default class Context {
     return continuing;
   }
 
-  continued(frame, context) { return this.context.continued(frame, context); }
+  continued(context) { return this.context.continued(context); }
 
-  continue(frame) {
+  continue() {
+    let success;
+
     const continuing = this.isContinuing();
 
     if (continuing) {
       const context = this; ///
 
-      frame = this.context.continued(frame, context);
+      success = this.context.continued(context);
+    } else {
+      success = true;
     }
 
-    return frame;
+    return success;
+  }
+
+  create(frame) {
+    return frame; ///
   }
 
   commit(frame) {
     if (!this.committed) {
-      this.context.updateState(this.state);
+      frame = this.create(frame);
 
-      const continuing = this.isContinuing();
+      if (frame !== null) {
+        this.context.updateState(this.state);
 
-      if (continuing) {
-        frame = this.context.commit(frame);
+        const continuing = this.isContinuing();
+
+        if (continuing) {
+          frame = this.context.commit(frame);
+        }
       }
 
       this.committed = true;
