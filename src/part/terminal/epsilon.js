@@ -15,7 +15,7 @@ export default class EpsilonPart extends TerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      let partFrame = null;
+      let partFrame;
 
       const epsilonNode = EpsilonNode.fromNothing(),
             childNode = epsilonNode;  ///

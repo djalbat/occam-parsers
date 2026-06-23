@@ -30,6 +30,12 @@ export default class PartContext extends Context {
       this.store(this.part, partFrame);
     } else {
       frame = frame.merge(partFrame);
+
+      if (continuing) {
+        const context = this.getContext();
+
+        frame = context.compose(frame); ///
+      }
     }
 
     return frame;

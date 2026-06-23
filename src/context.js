@@ -76,7 +76,7 @@ export default class Context {
     const continuing = this.isContinuing();
 
     if (continuing) {
-      frame = this.context.compose(frame);
+      frame = this.context.compose(frame);  ///
     }
 
     return frame;
