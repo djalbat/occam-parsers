@@ -7,6 +7,7 @@ import NonTerminalPart from "../../part/nonTerminal";
 import { partContext } from "../../utilities/context";
 import { parsePartContinually } from "../../utilities/part";
 import { OneOrMorePartsPartType } from "../../partTypes";
+import {emptyFrame} from "../../frame";
 
 const { plus } = specialSymbols;
 
@@ -21,38 +22,40 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
     return this.part;
   }
 
-  parse(context) {
-    let frame;
-
+  parse(frame, context) {
     const part = this;  ///
 
     partContext((context) => {
+      let partFrame;
+
       const continuing = context.isContinuing();
 
       if (continuing) {
         const count = 0,
               strict = true;
 
-        frame = parsePartContinually(this.part, count, strict, context);
+        partFrame = parsePartContinually(this.part, count, strict, frame, context);
       } else {
-        frame = this.part.parse(context);
+        partFrame = emptyFrame; ///
 
-        if (frame !== null) {
+        partFrame = this.part.parse(partFrame, context);
+
+        if (partFrame !== null) {
           while (true) {
-            const partFrame = this.part.parse(context);
+            const savedFrame = partFrame; ///
+
+            partFrame = this.part.parse(partFrame, context);
 
             if (partFrame === null) {
+              partFrame = savedFrame; ///
+
               break;
             }
-
-            frame = frame.merge(partFrame); ///
           }
         }
       }
 
-      if (frame !== null) {
-        frame = context.commit(frame);
-      }
+      frame = context.commit(frame, partFrame);
     }, part, context);
 
     return frame;

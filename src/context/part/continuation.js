@@ -27,20 +27,16 @@ export default class ContinuationPartContext extends PartContext {
     return continuingContext;
   }
 
-  continued(context) {
-    let success;
-
+  continued(frame, context) {
     const part = this.getPart(),
           count = this.count + 1,
           continuingContext = this.getContinuingContext();
 
     continuationContext((context) => {
-      const frame = this.parsePart(part, count, context);
-
-      success = (frame !== null);
+      frame = this.parsePart(part, count, context);
     }, continuingContext, context);
 
-    return success;
+    return frame;
   }
 
   static fromPartCountAndParsePart(part, count, parsePart, context) {

@@ -115,3 +115,5 @@ export default class Frame {
     return frame;
   }
 }
+
+export const emptyFrame = Frame.fromNothing();

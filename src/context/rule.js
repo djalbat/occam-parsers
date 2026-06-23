@@ -13,6 +13,27 @@ export default class RuleContext extends Context {
     return this.rule;
   }
 
+  commit(frame, definitionFrame) {
+    frame = this.create(frame, definitionFrame);
+
+    if (frame !== null) {
+      const state = this.getState(),
+            context = this.getContext();
+
+      context.updateState(state);
+    }
+
+    return frame;
+  }
+
+  create(frame, definitionFrame) {
+    frame = (definitionFrame !== null) ?
+              frame.merge(definitionFrame) :
+                null;
+
+    return frame;
+  }
+
   static fromRule(rule, context) {
     const continuations = continuationsFromNothing(context),
           ruleContext = Context.fromContinuations(RuleContext, continuations, rule, context);

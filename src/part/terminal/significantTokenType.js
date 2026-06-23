@@ -17,13 +17,11 @@ export default class SignificantTokenTypePart extends TerminalPart {
     return this.significantTokenType;
   }
 
-  parse(context) {
-    let frame;
-
+  parse(frame, context) {
     const part = this;  ///
 
     partContext((context) => {
-      frame = null;
+      let partFrame = null;
 
       const nextSignificantToken = context.getNextSignificantToken();
 
@@ -35,16 +33,14 @@ export default class SignificantTokenTypePart extends TerminalPart {
           const terminalNode = TerminalNode.fromSignificantToken(significantToken),
                 childNode = terminalNode;  ///
 
-          frame = Frame.fromChildNode(childNode);
+          partFrame = Frame.fromChildNode(childNode);
         }
       }
 
-      if (frame !== null) {
-        const success = context.continue();
+      frame = context.commit(frame, partFrame);
 
-        frame = success ?
-                  context.commit(frame) :
-                    null;
+      if (frame !== null) {
+        frame = context.continue(frame);
       }
     }, part, context);
 

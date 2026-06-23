@@ -58,22 +58,18 @@ export default class Context {
     return continuing;
   }
 
-  continued(context) { return this.context.continued(context); }
+  continued(frame, context) { return this.context.continued(frame, context); }
 
-  continue() {
-    let success;
-
+  continue(frame) {
     const continuing = this.isContinuing();
 
     if (continuing) {
       const context = this; ///
 
-      success = this.context.continued(context);
-    } else {
-      success = true;
+      frame = this.context.continued(frame, context);
     }
 
-    return success;
+    return frame;
   }
 
   create(frame) {

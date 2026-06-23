@@ -13,7 +13,7 @@ export default class ContinuationContext extends Context {
     return this.continuingContext;
   }
 
-  continued(context) { return this.continuingContext.continued(context); }
+  continued(frame, context) { return this.continuingContext.continued(frame, context); }
 
   commit(frame) {
     frame = this.create(frame);

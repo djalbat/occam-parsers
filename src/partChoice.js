@@ -19,13 +19,11 @@ export default class PartChoice {
     return this.precedence;
   }
 
-  parse(context) {
-    let frame;
-
+  parse(frame, context) {
     const partChoice = this;  ///
 
     partChoiceContext((context) => {
-      frame = this.part.parse(context);
+      frame = this.part.parse(frame, context);
 
       if (frame !== null) {
         frame = context.commit(frame);

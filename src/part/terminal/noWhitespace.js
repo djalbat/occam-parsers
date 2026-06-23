@@ -17,13 +17,11 @@ export default class NoWhitespacePart extends TerminalPart {
     return noWhitespacePart;
   }
 
-  parse(context) {
-    let frame;
-
+  parse(frame, context) {
     const part = this;  ///
 
     partContext((context) => {
-      frame = null;
+      let partFrame = null;
 
       const nextTokenWhitespaceToken = context.isNextTokenWhitespaceToken();
 
@@ -31,15 +29,13 @@ export default class NoWhitespacePart extends TerminalPart {
         const noWhitespaceNode = NoWhitespaceNode.fromNothing(),
               childNode = noWhitespaceNode; ///
 
-        frame = Frame.fromChildNode(childNode);
+        partFrame = Frame.fromChildNode(childNode);
       }
 
-      if (frame !== null) {
-        const success = context.continue();
+      frame = context.commit(frame, partFrame);
 
-        frame = success ?
-                  context.commit(frame) :
-                    null;
+      if (frame !== null) {
+        frame = context.continue(frame);
       }
     }, part, context);
 

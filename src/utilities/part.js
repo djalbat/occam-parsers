@@ -1,31 +1,22 @@
 "use strict";
 
-import Frame from "../frame";
-
+import { emptyFrame } from "../frame";
 import { continuationPartContext } from "../utilities/context";
 
 export function parsePartContinually(part, count, strict, frame, context) {
-  if (context === undefined) {
-    context = frame;  ///
-
-    frame = strict; ///
-
-    strict = false;
-  }
-
   const parsePart = parsePartContinually; ///
 
   continuationPartContext((context) => {
-    frame = part.parse(context);
+    frame = part.parse(frame, context);
 
     if (frame === null) {
       const initial = (count === 0);
 
       if (!strict || !initial) {
-        const success = context.continue();
+        frame = context.continue(frame);
 
-        if (success) {
-          frame = Frame.fromNothing();
+        if (frame === null) {
+          frame = emptyFrame;
         }
       }
     }

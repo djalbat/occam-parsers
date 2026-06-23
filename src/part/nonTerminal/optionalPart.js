@@ -2,9 +2,9 @@
 
 import { specialSymbols } from "occam-lexers";
 
-import Frame from "../../frame";
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { emptyFrame } from "../../frame";
 import { partContext } from "../../utilities/context";
 import { OptionalPartPartType } from "../../partTypes";
 
@@ -21,35 +21,29 @@ export default class OptionalPartPart extends NonTerminalPart {
     return this.part;
   }
 
-  parse(context) {
-    let frame;
-
+  parse(frame, context) {
     const part = this;  ///
 
     partContext((context) => {
+      let partFrame;
+
       const continuing = context.isContinuing();
 
       if (continuing) {
-        frame = this.part.parse(context);
+        partFrame = this.part.parse(frame, context);
 
-        if (frame === null) {
-          const success = context.continue();
-
-          if (success) {
-            frame = Frame.fromNothing();
-          }
+        if (partFrame === null) {
+          partFrame = context.continue(frame);
         }
       } else {
-        frame = this.part.parse(context);
+        partFrame = this.part.parse(emptyFrame, context);
 
-        if (frame === null) {
-          frame = Frame.fromNothing();
+        if (partFrame === null) {
+          partFrame = emptyFrame; ///
         }
       }
 
-      if (frame !== null) {
-        frame = context.commit(frame);
-      }
+      frame = context.commit(frame, partFrame);
     }, part, context);
 
     return frame;

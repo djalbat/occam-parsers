@@ -22,22 +22,18 @@ export default class Definition {
     return this.precedence;
   }
 
-  parse(context) {
-    let frame;
-
+  parse(frame, context) {
     const definition = this;  ///
 
     definitionContext((context) => {
       const continuing = context.isContinuing();
 
-      if (continuing) {
-        frame = parsePartsContinually(this.parts, context);
-      } else {
-        frame = parseParts(this.parts, context);
+      frame = continuing ?
+                parsePartsContinually(this.parts, frame, context) :
+                  parseParts(this.parts, frame, context);
 
-        if (frame !== null) {
-          frame = context.commit(frame);
-        }
+      if (frame !== null) {
+        frame = context.commit(frame);
       }
     }, definition, context);
 

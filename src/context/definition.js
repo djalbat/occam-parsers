@@ -29,25 +29,6 @@ export default class DefinitionContext extends Context {
     return frame;
   }
 
-  commit(frame) {
-    frame = this.create(frame);
-
-    if (frame !== null) {
-      const state = this.getState(),
-            context = this.getContext();
-
-      context.updateState(state);
-
-      const continuing = this.isContinuing();
-
-      if (continuing) {
-        frame = context.commit(frame);
-      }
-    }
-
-    return frame;
-  }
-
   static fromDefinition(definition, context) {
     const definitionContext = Context.fromNothing(DefinitionContext, context);
 

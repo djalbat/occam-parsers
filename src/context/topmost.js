@@ -48,7 +48,7 @@ export default class TopmostContext extends Context {
     return rule;
   }
 
-  continued(frame) {
+  continued(frame, context) {
     return frame;
   }
 
