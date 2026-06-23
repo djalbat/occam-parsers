@@ -29,13 +29,15 @@ export default class Definition {
     definitionContext((context) => {
       const continuing = context.isContinuing();
 
-      frame = continuing ?
-                parsePartsContinually(this.parts, frame, context) :
-                  parseParts(this.parts, emptyFrame, context);
+      if (continuing) {
+        frame = parsePartsContinually(this.parts, frame, context);
+      } else {
+        frame = parseParts(this.parts, emptyFrame, context);
 
-      frame = (frame !== null) ?
-                context.compose(frame) :
-                  null;
+        frame = (frame !== null) ?
+                  context.compose(frame) :
+                    null;
+      }
 
       if (frame !== null) {
         context.commit();

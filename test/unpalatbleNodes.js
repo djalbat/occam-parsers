@@ -29,7 +29,18 @@ describe("Unpalatble nodes", () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                    
+                              
+                           S [0]                   
+                             |                     
+                --------------------------         
+                |                        |         
+              A [0]             "c"[unassigned] [0]
+                |                                  
+          ------------                             
+          |          |                             
+          B "b"[unassigned] [0]                    
+          |                                        
+          ε                                        
     
         `));
       });

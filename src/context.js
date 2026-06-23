@@ -49,7 +49,15 @@ export default class Context {
 
   store(part, frame) { this.state.store(part, frame); }
 
-  recover(part) { return this.state.recover(part); }
+  recover(part, frame) {
+    const partFrame = this.state.recover(part);
+
+    frame = (partFrame !== null) ?
+              frame.merge(partFrame) :
+                null;
+
+    return frame;
+  }
 
   isContinuing() {
     const continuationsLength = this.continuations.length,
