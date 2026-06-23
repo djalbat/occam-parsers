@@ -71,9 +71,7 @@ export default class Rule {
         }
       });
 
-      if (frame !== null) {
-        frame = context.commit(frame, definitionFrame);
-      }
+      frame = context.commit(frame, definitionFrame);
     }, rule, context);
 
     return frame;

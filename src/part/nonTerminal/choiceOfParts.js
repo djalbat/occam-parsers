@@ -2,6 +2,7 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { emptyFrame } from "../../frame";
 import { ChoiceOfPartsPartType } from "../../partTypes";
 import { choiceOfPartsPartContext } from "../../utilities/context";
 
@@ -33,7 +34,7 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
       let partFrame;
 
       this.partChoices.some((partChoice) => {
-        partFrame = partChoice.parse(frame, context);
+        partFrame = partChoice.parse(emptyFrame, context);
 
         if (partFrame !== null) {
           return true;

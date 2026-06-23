@@ -4,10 +4,10 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { emptyFrame } from "../../frame";
 import { partContext } from "../../utilities/context";
 import { parsePartContinually } from "../../utilities/part";
 import { OneOrMorePartsPartType } from "../../partTypes";
-import {emptyFrame} from "../../frame";
 
 const { plus } = specialSymbols;
 

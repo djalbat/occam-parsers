@@ -11,7 +11,11 @@ const bnfLexer = BNFLexer.fromNothing(),
 describe("BNF", () => {
   describe("a BNF rule", () => {
     describe("content with a single rule", () => {
-      const content = "A ::= P ;";
+      const content = `
+
+      A  ::=  B ;
+
+`;
 
       it.only("results in the requisite parse tree" , () => {
         const tokens = bnfLexer.tokenise(content),
@@ -19,24 +23,24 @@ describe("BNF", () => {
               parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-          
-                                      document [0]                             
+                    
+                                      document [2]                             
                                             |                                  
-                                        rule [0]                               
+                                        rule [2]                               
                                             |                                  
                 --------------------------------------------------------       
                 |                |                  |                  |       
-            name [0]    "::="[special] [0]   definitions [0]   ";"[special] [0]
+            name [2]    "::="[special] [2]   definitions [2]   ";"[special] [2]
                 |                                   |                          
-          "A"[name] [0]                      definition [0]                    
+          "A"[name] [2]                      definition [2]                    
                                                     |                          
-                                                part [0]                       
+                                                part [2]                       
                                                     |                          
-                                           nonTerminalPart [0]                 
+                                           nonTerminalPart [2]                 
                                                     |                          
-                                              ruleName [0]                     
+                                              ruleName [2]                     
                                                     |                          
-                                              "P"[name] [0]                    
+                                              "B"[name] [2]                    
     
         `));
       });

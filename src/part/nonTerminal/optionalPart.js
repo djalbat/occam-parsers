@@ -25,9 +25,9 @@ export default class OptionalPartPart extends NonTerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      let partFrame;
-
       const continuing = context.isContinuing();
+
+      let partFrame;
 
       if (continuing) {
         partFrame = this.part.parse(frame, context);
@@ -36,10 +36,10 @@ export default class OptionalPartPart extends NonTerminalPart {
           partFrame = context.continue(frame);
         }
       } else {
-        partFrame = this.part.parse(emptyFrame, context);
+        partFrame = this.part.parse(frame, context);
 
         if (partFrame === null) {
-          partFrame = emptyFrame; ///
+          partFrame = emptyFrame;
         }
       }
 

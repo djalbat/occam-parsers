@@ -1,6 +1,7 @@
 "use strict";
 
 import { emptyFrame } from "../frame";
+
 import { continuationPartContext } from "../utilities/context";
 
 export function parsePartContinually(part, count, strict, frame, context) {

@@ -5,6 +5,7 @@ import { characters } from "necessary";
 import { EMPTY_STRING } from "./constants";
 import { definitionContext } from "./utilities/context";
 import { parseParts, parsePartsContinually } from "./utilities/parts";
+import {emptyFrame} from "./frame";
 
 const { SPACE_CHARACTER } = characters;
 
@@ -30,7 +31,7 @@ export default class Definition {
 
       frame = continuing ?
                 parsePartsContinually(this.parts, frame, context) :
-                  parseParts(this.parts, frame, context);
+                  parseParts(this.parts, emptyFrame, context);
 
       if (frame !== null) {
         frame = context.commit(frame);

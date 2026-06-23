@@ -59,6 +59,16 @@ export default class Frame {
     return frame;
   }
 
+  clone() {
+    const precedence = this.precedence,
+          childNodes = [
+            ...this.childNodes,
+          ],
+          frame = new Frame(precedence, childNodes);
+
+    return frame;
+  }
+
   serialise() {
     let value;
 
@@ -71,16 +81,6 @@ export default class Frame {
     };
 
     return value;
-  }
-
-  clone() {
-    const precedence = this.precedence,
-          childNodes = [
-            ...this.childNodes,
-          ],
-          frame = new Frame(precedence, childNodes);
-
-    return frame;
   }
 
   static unserialise(value) {

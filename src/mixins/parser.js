@@ -1,6 +1,5 @@
 "use strict";
 
-
 import { emptyFrame } from "../frame";
 import { topmostContext } from "../utilities/context"
 

@@ -1,5 +1,6 @@
 "use strict";
 
+import { emptyFrame } from "./frame";
 import { characters } from "necessary";
 import { partChoiceContext } from "./utilities/context";
 
@@ -23,7 +24,7 @@ export default class PartChoice {
     const partChoice = this;  ///
 
     partChoiceContext((context) => {
-      frame = this.part.parse(frame, context);
+      frame = this.part.parse(emptyFrame, context);
 
       if (frame !== null) {
         frame = context.commit(frame);
