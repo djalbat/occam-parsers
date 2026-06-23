@@ -41,7 +41,13 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
         }
       });
 
-      frame = context.commit(frame, partFrame);
+      frame = (partFrame !== null) ?
+                context.compose(frame, partFrame) :
+                  null;
+
+      if (frame !== null) {
+        context.commit();
+      }
     }, choiceOfPartsPart, context);
 
     return frame;

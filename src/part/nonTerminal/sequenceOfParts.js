@@ -27,7 +27,13 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
                 parsePartsContinually(this.parts, frame, context) :
                   parseParts(this.parts, emptyFrame, context);
 
-      frame = context.commit(frame, partFrame);
+      frame = (partFrame !== null) ?
+                context.compose(frame, partFrame) :
+                  null;
+
+      if (frame !== null) {
+        context.commit();
+      }
     }, sequenceOfPartsPart, context);
 
     return frame;

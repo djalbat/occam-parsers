@@ -2,8 +2,6 @@
 
 import { arrayUtilities } from "necessary";
 
-import { emptyFrame } from "../frame";
-
 import Context from "../context";
 
 const { last } = arrayUtilities;
@@ -24,43 +22,15 @@ export default class PartContext extends Context {
     return this.part;
   }
 
-  commit(frame, partFrame) {
-    if (partFrame !== null) {
-      const final = this.isFinal(),
-            state = this.getState(),
-            context = this.getContext(),
-            continuing = this.isContinuing();
+  compose(frame, partFrame) {
+    const final = this.isFinal(),
+          continuing = this.isContinuing();
 
-      if (final && !continuing) {
-        frame = context.commit(emptyFrame);
-
-        if (frame !== null) {
-          context.updateState(state);
-
-          this.store(this.part, partFrame);
-        }
-      } else {
-        frame = this.create(frame, partFrame);
-
-        if (frame !== null) {
-          context.updateState(state);
-
-          if (continuing) {
-            frame = context.commit(frame);
-          }
-        }
-      }
+    if (final && !continuing) {
+      this.store(this.part, partFrame);
     } else {
-      frame = null;
+      frame = frame.merge(partFrame);
     }
-
-    return frame;
-  }
-
-  create(frame, partFrame) {
-    frame = (partFrame !== null) ?
-              frame.merge(partFrame) :
-                frame;
 
     return frame;
   }

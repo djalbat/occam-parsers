@@ -25,7 +25,7 @@ export function parseParts(parts, frame, context) {
     }
 
     if (frame !== null) {
-      frame = context.commit(frame);
+      context.commit();
     }
   }, parts, parsePartsContinually, context);
 
@@ -43,7 +43,7 @@ export function parsePartsContinually(parts, frame, context) {
     frame = part.parse(frame, context);
 
     if (frame !== null) {
-      frame = context.commit(frame);
+      context.commit();
     }
   }, parts, parsePartsContinually, context);
 

@@ -48,10 +48,6 @@ export default class TopmostContext extends Context {
     return rule;
   }
 
-  continued(frame, context) {
-    return frame;
-  }
-
   getNode() {
     let node = null;
 
@@ -67,7 +63,11 @@ export default class TopmostContext extends Context {
     return node;
   }
 
-  commit(frame) {
+  continued(frame, context) {
+    return frame;
+  }
+
+  compose(frame) {
     return frame;
   }
 

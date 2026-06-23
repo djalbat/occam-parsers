@@ -71,7 +71,13 @@ export default class Rule {
         }
       });
 
-      frame = context.commit(frame, definitionFrame);
+      frame = (definitionFrame !== null) ?
+                context.compose(frame, definitionFrame) :
+                  null;
+
+      if (frame !== null) {
+        context.commit();
+      }
     }, rule, context);
 
     return frame;

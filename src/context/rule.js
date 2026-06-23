@@ -13,23 +13,8 @@ export default class RuleContext extends Context {
     return this.rule;
   }
 
-  commit(frame, definitionFrame) {
-    frame = this.create(frame, definitionFrame);
-
-    if (frame !== null) {
-      const state = this.getState(),
-            context = this.getContext();
-
-      context.updateState(state);
-    }
-
-    return frame;
-  }
-
-  create(frame, definitionFrame) {
-    frame = (definitionFrame !== null) ?
-              frame.merge(definitionFrame) :
-                null;
+  compose(frame, definitionFrame) {
+    frame = frame.merge(definitionFrame);
 
     return frame;
   }

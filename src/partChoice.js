@@ -27,7 +27,7 @@ export default class PartChoice {
       frame = this.part.parse(emptyFrame, context);
 
       if (frame !== null) {
-        frame = context.commit(frame);
+        context.commit();
       }
     }, partChoice, context);
 

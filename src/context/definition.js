@@ -12,14 +12,13 @@ export default class DefinitionContext extends Context {
     return rule;
   }
 
-  create(frame) {
-    const rule = this.getRule(),
-          context = this,  ///
-          nonTerminalNode = nonTerminalNodeFromRuleAndFrame(rule, frame, context),
+  compose(frame) {
+    const context = this,  ///
+          nonTerminalNode = nonTerminalNodeFromFrame(frame, context),
           palatable = nonTerminalNode.isPalatable();
 
     if (palatable) {
-      const childNode = nonTerminalNode; ///
+      const childNode = nonTerminalNode;  ///
 
       frame = Frame.fromChildNode(childNode);
     } else {
@@ -36,10 +35,11 @@ export default class DefinitionContext extends Context {
   }
 }
 
-function nonTerminalNodeFromRuleAndFrame(rule, frame, context) {
+function nonTerminalNodeFromFrame(frame, context) {
   let nonTerminalNode;
 
-  const opacity = rule.getOpacity(),
+  const rule = context.getRule(),
+        opacity = rule.getOpacity(),
         ruleName = rule.getName(),
         precedence = frame.getPrecedence(),
         childNodes = frame.getChildNodes(),

@@ -15,14 +15,11 @@ export default class ContinuationContext extends Context {
 
   continued(frame, context) { return this.continuingContext.continued(frame, context); }
 
-  commit(frame) {
-    frame = this.create(frame);
+  compose(frame) {
+    const continuing = this.isContinuing();
 
-    if (frame !== null) {
-      const state = this.getState(),
-            context = this.getContext();
-
-      context.updateState(state);
+    if (continuing) {
+      frame = this.continuingContext.compose(frame);
     }
 
     return frame;

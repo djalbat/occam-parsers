@@ -37,10 +37,16 @@ export default class SignificantTokenTypePart extends TerminalPart {
         }
       }
 
-      frame = context.commit(frame, partFrame);
+      frame = (partFrame !== null) ?
+                context.compose(frame, partFrame) :
+                  null;
 
       if (frame !== null) {
         frame = context.continue(frame);
+      }
+
+      if (frame !== null) {
+        context.commit();
       }
     }, part, context);
 

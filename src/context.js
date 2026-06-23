@@ -72,24 +72,18 @@ export default class Context {
     return frame;
   }
 
-  create(frame) {
-    return frame; ///
-  }
+  compose(frame) {
+    const continuing = this.isContinuing();
 
-  commit(frame) {
-    frame = this.create(frame);
-
-    if (frame !== null) {
-      this.context.updateState(this.state);
-
-      const continuing = this.isContinuing();
-
-      if (continuing) {
-        frame = this.context.commit(frame);
-      }
+    if (continuing) {
+      frame = this.context.compose(frame);
     }
 
     return frame;
+  }
+
+  commit() {
+    this.context.updateState(this.state);
   }
 
   updateState(state) {

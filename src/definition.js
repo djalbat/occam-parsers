@@ -33,8 +33,12 @@ export default class Definition {
                 parsePartsContinually(this.parts, frame, context) :
                   parseParts(this.parts, emptyFrame, context);
 
+      frame = (frame !== null) ?
+                context.compose(frame) :
+                  null;
+
       if (frame !== null) {
-        frame = context.commit(frame);
+        context.commit();
       }
     }, definition, context);
 

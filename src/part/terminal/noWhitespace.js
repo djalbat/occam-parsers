@@ -32,10 +32,16 @@ export default class NoWhitespacePart extends TerminalPart {
         partFrame = Frame.fromChildNode(childNode);
       }
 
-      frame = context.commit(frame, partFrame);
+      frame = (partFrame !== null) ?
+                context.compose(frame, partFrame) :
+                  null;
 
       if (frame !== null) {
         frame = context.continue(frame);
+      }
+
+      if (frame !== null) {
+        context.commit();
       }
     }, part, context);
 

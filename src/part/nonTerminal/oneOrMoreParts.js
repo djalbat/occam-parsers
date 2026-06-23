@@ -55,7 +55,13 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
         }
       }
 
-      frame = context.commit(frame, partFrame);
+      frame = (partFrame !== null) ?
+                context.compose(frame, partFrame) :
+                  null;
+
+      if (frame !== null) {
+        context.commit();
+      }
     }, part, context);
 
     return frame;
