@@ -239,7 +239,7 @@ describe("Choice of parts", () => {
     });
   });
 
-  describe("calling ahead from a choice of parts part with two terminal parts to a terminal part", () => {
+  describe("continuation from a choice of parts part with two terminal parts to a terminal part", () => {
     const bnf = `
     
       S ::= A... . ;
@@ -269,7 +269,7 @@ describe("Choice of parts", () => {
     });
   });
 
-  describe("calling ahead from a choice of parts part with one terminal part and one optional part through a terminal part to an optional part", () => {
+  describe("continuation from a choice of parts part with one terminal part and one optional part through a terminal part to an optional part", () => {
     const bnf = `
     
       S ::= A... . ;
@@ -321,7 +321,7 @@ describe("Choice of parts", () => {
     });
   });
 
-  describe("calling ahead from a choice of parts part with one terminal part and zero or more parts part through a terminal part to a one ore more parts part", () => {
+  describe("continuation from a choice of parts part with one terminal part and zero or more parts part through a terminal part to a one ore more parts part", () => {
     const bnf = `
     
       S ::= A... .+ ;
@@ -395,7 +395,7 @@ describe("Choice of parts", () => {
     });
   });
 
-  describe("calling ahead from a choice of parts part with one terminal part and zero or more parts part through a terminal part to a one ore more parts part", () => {
+  describe("continuation from a choice of parts part with one terminal part and zero or more parts part through a terminal part to a one ore more parts part", () => {
     const bnf = `
     
       S ::= A... .+ ;
@@ -469,7 +469,7 @@ describe("Choice of parts", () => {
     });
   });
 
-  describe("calling ahead from a choice of parts part with one rule name part and one terminal part through a terminal part to a terminal part.", () => {
+  describe("continuation from a choice of parts part with one rule name part and one terminal part through a terminal part to a terminal part.", () => {
     const bnf = `
     
       S ::= ( A... | "b" ) "c" ;
@@ -499,7 +499,7 @@ describe("Choice of parts", () => {
     });
   });
 
-  describe("calling ahead from a choice of parts part with one rule name part and one terminal part through a choice of parts part to a terminal part.", () => {
+  describe("continuation from a choice of parts part with one rule name part and one terminal part through a choice of parts part to a terminal part.", () => {
     const bnf = `
     
       S ::= ( A... | "b" ) "c" ;
@@ -529,7 +529,7 @@ describe("Choice of parts", () => {
     });
   });
 
-  describe("calling ahead from a choice of parts part with one rule name part and one terminal part through a choice of parts part and an optional part to a terminal part.", () => {
+  describe("continuation from a choice of parts part with one rule name part and one terminal part through a choice of parts part and an optional part to a terminal part.", () => {
     const bnf = `
     
       S ::= ( A... | . ) . ;

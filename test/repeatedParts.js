@@ -181,7 +181,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("calling ahead to a terminal part", () => {
+  describe("contiunation to a terminal part", () => {
     const bnf = `
     
       S ::= A... "b" ;
@@ -211,7 +211,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("calling ahead to an optional part", () => {
+  describe("contiunation to an optional part", () => {
     const bnf = `
     
       S ::= A... "a"? ;
@@ -259,7 +259,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("calling ahead to a zero or more parts part", () => {
+  describe("contiunation to a zero or more parts part", () => {
     const bnf = `
     
       S ::= A... "a"* ;
@@ -327,7 +327,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("calling ahead to a one or more parts part", () => {
+  describe("contiunation to a one or more parts part", () => {
     const bnf = `
     
       S ::= A... "a"+ ;
@@ -377,7 +377,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("calling ahead from an optional part to a terminal part", () => {
+  describe("contiunation from an optional part to a terminal part", () => {
     const bnf = `
     
       S ::= A... "a" ;
@@ -407,7 +407,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("calling ahead from a zero or more parts part to a terminal part", () => {
+  describe("contiunation from a zero or more parts part to a terminal part", () => {
     const bnf = `
     
       S ::= A... "a" ;
@@ -459,7 +459,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("calling ahead from a one or more parts part to a terminal part", () => {
+  describe("contiunation from a one or more parts part to a terminal part", () => {
     const bnf = `
     
       S ::= A... "a" ;
@@ -511,7 +511,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through an optional part to a terminal part", () => {
+  describe("nested contiunation through an optional part to a terminal part", () => {
     const bnf = `
         
       S ::= B... "a" ;
@@ -573,7 +573,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through a zero or more parts part to a terminal part", () => {
+  describe("nested contiunation through a zero or more parts part to a terminal part", () => {
     const bnf = `
         
       S ::= B... "a" ;
@@ -635,7 +635,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through a one or more parts part to a terminal part", () => {
+  describe("nested contiunation through a one or more parts part to a terminal part", () => {
     const bnf = `
         
       S ::= B... "a" ;
@@ -673,7 +673,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through an optional part to an optional part", () => {
+  describe("nested contiunation through an optional part to an optional part", () => {
     const bnf = `
         
       S ::= B... "a"? ;
@@ -757,7 +757,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through a zero or more parts part to an optional part", () => {
+  describe("nested contiunation through a zero or more parts part to an optional part", () => {
     const bnf = `
         
       S ::= B... "a"? ;
@@ -839,7 +839,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through a one or more parts part to an optional part", () => {
+  describe("nested contiunation through a one or more parts part to an optional part", () => {
     const bnf = `
         
       S ::= B... "a"? ;
@@ -899,7 +899,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through an optional part to a zero or more parts part", () => {
+  describe("nested contiunation through an optional part to a zero or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"* ;
@@ -983,7 +983,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through a zero or more parts part to a zero or more parts part", () => {
+  describe("nested contiunation through a zero or more parts part to a zero or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"* ;
@@ -1065,7 +1065,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through a one or more parts part to a zero or more parts part", () => {
+  describe("nested contiunation through a one or more parts part to a zero or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"* ;
@@ -1125,7 +1125,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through an optional part to a one or more parts part", () => {
+  describe("nested contiunation through an optional part to a one or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"+ ;
@@ -1187,7 +1187,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through a zero or more parts part to a one or more parts part", () => {
+  describe("nested contiunation through a zero or more parts part to a one or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"+ ;
@@ -1249,7 +1249,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("nested calling ahead through a one or more parts part to a one or more parts part", () => {
+  describe("nested contiunation through a one or more parts part to a one or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"+ ;
@@ -1287,7 +1287,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a terminal part through a terminal part to a terminal part", () => {
+  describe("doubly nested contiunation from a terminal part through a terminal part to a terminal part", () => {
     const bnf = `
         
       S ::= B... "a" ;
@@ -1323,7 +1323,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a terminal part through a terminal part to an optional part", () => {
+  describe("doubly nested contiunation from a terminal part through a terminal part to an optional part", () => {
     const bnf = `
         
       S ::= B... "a"? ;
@@ -1381,7 +1381,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a terminal part through a terminal part to a zero or more parts part", () => {
+  describe("doubly nested contiunation from a terminal part through a terminal part to a zero or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"* ;
@@ -1463,7 +1463,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a terminal part through a terminal part to a one or more parts part", () => {
+  describe("doubly nested contiunation from a terminal part through a terminal part to a one or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"+ ;
@@ -1523,7 +1523,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from an optional part through a terminal part to a terminal part", () => {
+  describe("doubly nested contiunation from an optional part through a terminal part to a terminal part", () => {
     const bnf = `
         
       S ::= B... "a" ;
@@ -1585,7 +1585,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from an optional part through a terminal part to an optional part", () => {
+  describe("doubly nested contiunation from an optional part through a terminal part to an optional part", () => {
     const bnf = `
         
       S ::= B... "a"? ;
@@ -1669,7 +1669,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from an optional part through a terminal part to a zero or more parts part", () => {
+  describe("doubly nested contiunation from an optional part through a terminal part to a zero or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"* ;
@@ -1753,7 +1753,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from an optional part through a terminal part to a one or more parts part", () => {
+  describe("doubly nested contiunation from an optional part through a terminal part to a one or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"+ ;
@@ -1841,7 +1841,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a zero or more parts part through a terminal part to a terminal part", () => {
+  describe("doubly nested contiunation from a zero or more parts part through a terminal part to a terminal part", () => {
     const bnf = `
         
       S ::= B... "a" ;
@@ -1903,7 +1903,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a zero or more parts part through a terminal part to an optional part", () => {
+  describe("doubly nested contiunation from a zero or more parts part through a terminal part to an optional part", () => {
     const bnf = `
         
       S ::= B... "a"? ;
@@ -1985,7 +1985,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a zero or more parts part through a terminal part to a zero or more parts part", () => {
+  describe("doubly nested contiunation from a zero or more parts part through a terminal part to a zero or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"* ;
@@ -2067,7 +2067,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a zero or more parts part through a terminal part to a one or more parts part", () => {
+  describe("doubly nested contiunation from a zero or more parts part through a terminal part to a one or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"+ ;
@@ -2155,7 +2155,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a one or more parts part through a terminal part to a terminal part", () => {
+  describe("doubly nested contiunation from a one or more parts part through a terminal part to a terminal part", () => {
     const bnf = `
         
       S ::= B... "a" ;
@@ -2219,7 +2219,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a one or more parts part through a terminal part to an optional part", () => {
+  describe("doubly nested contiunation from a one or more parts part through a terminal part to an optional part", () => {
     const bnf = `
         
       S ::= B... "a"? ;
@@ -2279,7 +2279,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a one or more parts part through a terminal part to a zero or more parts part", () => {
+  describe("doubly nested contiunation from a one or more parts part through a terminal part to a zero or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"* ;
@@ -2339,7 +2339,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a one or more parts part through a terminal part to a one or more parts part", () => {
+  describe("doubly nested contiunation from a one or more parts part through a terminal part to a one or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"+ ;
@@ -2403,7 +2403,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a terminal part through an optional part to a terminal part", () => {
+  describe("doubly nested contiunation from a terminal part through an optional part to a terminal part", () => {
     const bnf = `
         
       S ::= B... "a" ;
@@ -2461,7 +2461,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from an optional part through a zero or more parts part to a terminal part", () => {
+  describe("doubly nested contiunation from an optional part through a zero or more parts part to a terminal part", () => {
     const bnf = `
         
       S ::= B... "a" ;
@@ -2545,7 +2545,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a zero or more part through a one or more parts part to an optional part", () => {
+  describe("doubly nested contiunation from a zero or more part through a one or more parts part to an optional part", () => {
     const bnf = `
         
       S ::= B... "a"? ;
@@ -2627,7 +2627,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a terminal part through an optional part to a zero or more parts part", () => {
+  describe("doubly nested contiunation from a terminal part through an optional part to a zero or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"* ;
@@ -2709,7 +2709,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe("doubly nested calling ahead from a one or more parts part through a zero or more parts part to a one or more parts part", () => {
+  describe("doubly nested contiunation from a one or more parts part through a zero or more parts part to a one or more parts part", () => {
     const bnf = `
         
       S ::= B... "a"+ ;

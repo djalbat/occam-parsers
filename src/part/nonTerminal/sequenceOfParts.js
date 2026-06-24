@@ -22,14 +22,17 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     const sequenceOfPartsPart = this;  ///
 
     sequenceOfPartsPartContext((context) => {
-      const continuing = context.isContinuing(),
-            partFrame = continuing ?
-                parsePartsContinually(this.parts, frame, context) :
-                  parseParts(this.parts, emptyFrame, context);
+      const continuing = context.isContinuing();
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+      if (continuing) {
+        frame = parsePartsContinually(this.parts, frame, context);
+      } else {
+        frame = parseParts(this.parts, emptyFrame, context);
+
+        frame = (frame !== null) ?
+                  context.compose(frame) :
+                    null;
+      }
 
       if (frame !== null) {
         context.commit();
