@@ -22,14 +22,16 @@ export default class PartContext extends Context {
     return this.part;
   }
 
-  compose(frame, partFrame) {
+  compose(frame, partFrame = null) {
     const final = this.isFinal(),
           continuing = this.isContinuing();
 
     if (final && !continuing) {
       this.store(this.part, partFrame);
     } else {
-      frame = frame.merge(partFrame);
+      if (partFrame !== null) {
+        frame = frame.merge(partFrame);
+      }
 
       if (continuing) {
         const context = this.getContext();

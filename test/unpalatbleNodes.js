@@ -29,7 +29,7 @@ describe("Unpalatble nodes", () => {
     describe("content with the requisite significant tokens", () => {
       const content = "b c";
 
-      it.only("results in the requisite parse tree" , () => {
+      it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `

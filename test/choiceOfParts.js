@@ -281,7 +281,7 @@ describe("Choice of parts", () => {
     describe("content with two significant tokens", () => {
       const content = "a a";
 
-      it("results in the requisite parse tree" , () => {
+      it.only("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `

@@ -31,19 +31,31 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     const choiceOfPartsPart = this;  ///
 
     choiceOfPartsPartContext((context) => {
+      const continuing = context.isContinuing();
+
       let partFrame;
 
+      const savedFrame = frame; ///
+
       this.partChoices.some((partChoice) => {
-        partFrame = partChoice.parse(emptyFrame, context);
+        frame = savedFrame; ///
+
+        if (continuing) {
+          frame = partChoice.parse(frame, context);
+        } else {
+          partFrame = partChoice.parse(emptyFrame, context);
+        }
 
         if (partFrame !== null) {
           return true;
         }
       });
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+      if (!continuing) {
+        frame = (partFrame !== null) ?
+                  context.compose(frame, partFrame) :
+                    null;
+      }
 
       if (frame !== null) {
         context.commit();
