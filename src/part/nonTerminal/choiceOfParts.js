@@ -41,13 +41,19 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
         frame = savedFrame; ///
 
         if (continuing) {
+          frame = savedFrame;//
+
           frame = partChoice.parse(frame, context);
+
+          if (frame !== null) {
+            return true;
+          }
         } else {
           partFrame = partChoice.parse(emptyFrame, context);
-        }
 
-        if (partFrame !== null) {
-          return true;
+          if (partFrame !== null) {
+            return true;
+          }
         }
       });
 

@@ -13,13 +13,11 @@ export default class ContinuationContext extends Context {
     return this.continuingContext;
   }
 
-  continued(frame, context) { return this.continuingContext.continued(frame, context); }
+  continued(frame, context) {
+    frame = this.compose(frame);
 
-  compose(frame) {
-    const continuing = this.isContinuing();
-
-    if (continuing) {
-      frame = this.continuingContext.compose(frame);
+    if (frame !== null) {
+      frame = this.continuingContext.continued(frame, context);
     }
 
     return frame;

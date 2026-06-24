@@ -40,13 +40,11 @@ export default class Frame {
     this.childNodes = childNodes;
   }
 
-  addChildNodes(childNodes, continuing) {
-    continuing ?
-      this.childNodes.unshift(...childNodes) :
-        this.childNodes.push(...childNodes);
+  addChildNodes(childNodes) {
+    this.childNodes.push(...childNodes);
   }
 
-  merge(frame, continuing = false) {
+  merge(frame) {
     const precedence = frame.getPrecedence(),
           childNodes = frame.getChildNodes();
 
@@ -54,7 +52,7 @@ export default class Frame {
 
     frame.setPrecedence(precedence);
 
-    frame.addChildNodes(childNodes, continuing);
+    frame.addChildNodes(childNodes);
 
     return frame;
   }

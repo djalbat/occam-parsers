@@ -13,8 +13,10 @@ export default class RuleContext extends Context {
     return this.rule;
   }
 
-  compose(frame, definitionFrame) {
-    frame = frame.merge(definitionFrame);
+  compose(frame, definitionFrame = null) {
+    if (definitionFrame !== null) {
+      frame = frame.merge(definitionFrame);
+    }
 
     return frame;
   }

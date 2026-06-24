@@ -70,7 +70,15 @@ export default class Context {
     return continuing;
   }
 
-  continued(frame, context) { return this.context.continued(frame, context); }
+  continued(frame, context) {
+    frame = this.compose(frame);
+
+    if (frame !== null) {
+      frame = this.context.continued(frame, context);
+    }
+
+    return frame;
+  }
 
   continue(frame) {
     const continuing = this.isContinuing();
@@ -85,12 +93,6 @@ export default class Context {
   }
 
   compose(frame) {
-    const continuing = this.isContinuing();
-
-    if (continuing) {
-      frame = this.context.compose(frame);  ///
-    }
-
     return frame;
   }
 

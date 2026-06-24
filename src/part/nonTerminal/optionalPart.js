@@ -27,8 +27,6 @@ export default class OptionalPartPart extends NonTerminalPart {
     partContext((context) => {
       const continuing = context.isContinuing();
 
-      let partFrame;
-
       if (continuing) {
         const savedFrame = frame; ///
 
@@ -37,24 +35,18 @@ export default class OptionalPartPart extends NonTerminalPart {
         if (frame === null) {
           frame = savedFrame; ///
 
-          frame = context.compose(frame, emptyFrame);
+          frame = context.continue(frame);
         }
-
-        partFrame = emptyFrame;
       } else {
+        let partFrame;
+
         partFrame = this.part.parse(emptyFrame, context);
 
         if (partFrame === null) {
           partFrame = emptyFrame;
         }
-      }
 
-      if (frame !== null) {
         frame = context.compose(frame, partFrame);
-      }
-
-      if (frame !== null) {
-        frame = context.continue(frame);
       }
 
       if (frame !== null) {
