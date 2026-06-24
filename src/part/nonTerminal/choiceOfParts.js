@@ -38,10 +38,8 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
       const savedFrame = frame; ///
 
       this.partChoices.some((partChoice) => {
-        frame = savedFrame; ///
-
         if (continuing) {
-          frame = savedFrame;//
+          frame = savedFrame; ///
 
           frame = partChoice.parse(frame, context);
 

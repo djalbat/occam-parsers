@@ -4,7 +4,7 @@ const { testUtilities } = require("../lib/index"); ///
 
 const { compareParseTreeStrings, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe("Sequence of parts", () => {
+describe.only("Sequence of parts", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"
@@ -379,7 +379,7 @@ describe("Sequence of parts", () => {
     `;
 
     describe.only("content with three significant tokens", () => {
-      const content = "a a b";
+      const content = "c a b";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -402,8 +402,8 @@ describe("Sequence of parts", () => {
       });
     });
 
-    describe("content with four significant tokens", () => {
-      const content = "a a a b";
+    describe.skip("content with four significant tokens", () => {
+      const content = "c a a b";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);

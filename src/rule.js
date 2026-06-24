@@ -61,19 +61,35 @@ export default class Rule {
     const rule = this;  ///
 
     ruleContext((context) => {
+      const continuing = context.isContinuing();
+
       let definitionFrame;
 
-      this.definitions.some((definition) => {
-        definitionFrame = definition.parse(emptyFrame, context);
+      const savedFrame = frame; ///
 
-        if (definitionFrame !== null) {
-          return true;
+      this.definitions.some((definition) => {
+        if (continuing) {
+          frame = savedFrame; ///
+
+          frame = definition.parse(frame, context);
+
+          if (frame !== null) {
+            return true;
+          }
+        } else {
+          definitionFrame = definition.parse(emptyFrame, context);
+
+          if (definitionFrame !== null) {
+            return true;
+          }
         }
       });
 
-      frame = (definitionFrame !== null) ?
-                context.compose(frame, definitionFrame) :
-                  null;
+      if (!continuing) {
+        frame = (definitionFrame !== null) ?
+                  context.compose(frame, definitionFrame) :
+                    null;
+      }
 
       if (frame !== null) {
         context.commit();
