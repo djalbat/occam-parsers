@@ -18,7 +18,11 @@ describe("Unpalatble nodes", () => {
       
       A ::= B "b" ;
       
-      B ::= ε ;
+      B ::= "a"?
+      
+          | ε 
+          
+          ;
       
     `;
 
@@ -47,21 +51,3 @@ describe("Unpalatble nodes", () => {
     });
   });
 });
-
-
-/*
-    const bnf = `
-
-      S ::= A... "c" ;
-
-      A ::= B "b" ;
-
-      B ::= ε
-
-          | "a"?
-
-          ;
-
-    `;
-
- */
