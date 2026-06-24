@@ -27,6 +27,10 @@ export default class Context {
     this.state = state;
   }
 
+  setContinuations(continuations) {
+    this.continuations = continuations;
+  }
+
   getRuleMap() { return this.context.getRuleMap(); }
 
   getNonTerminalNodeMap() { return this.context.getNonTerminalNodeMap(); }
@@ -91,11 +95,9 @@ export default class Context {
   }
 
   commit() {
-    this.context.updateState(this.state);
-  }
+    const state = this.state.clone();
 
-  updateState(state) {
-    this.state = state.clone();  ///
+    this.context.setState(state);
   }
 
   static fromNothing(Class, ...remainingArguments) {
