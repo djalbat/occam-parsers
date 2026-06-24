@@ -5,8 +5,6 @@ import { emptyFrame } from "../frame";
 import { continuationPartContext } from "../utilities/context";
 
 export function parsePartContinually(part, count, strict, frame, context) {
-  const parsePart = parsePartContinually; ///
-
   continuationPartContext((context) => {
     frame = part.parse(frame, context);
 
@@ -21,7 +19,11 @@ export function parsePartContinually(part, count, strict, frame, context) {
         }
       }
     }
-  }, part, count, parsePart, context);
+
+    if (frame !== null) {
+      context.commit(frame);
+    }
+  }, part, count, parsePartContinually, context);
 
   return frame;
 }

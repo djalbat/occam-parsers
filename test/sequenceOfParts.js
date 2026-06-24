@@ -105,7 +105,7 @@ describe("Sequence of parts", () => {
     });
   });
 
-  describe.only("a terminal part followed by a sequence of parts part with two terminal parts", () => {
+  describe("a terminal part followed by a sequence of parts part with two terminal parts", () => {
     const bnf = `
     
       S ::= . ( . . ) ;
@@ -374,11 +374,11 @@ describe("Sequence of parts", () => {
       
       B ::= ( . A ) ;
     
-      A ::= .+ ;
+      A ::= . ;
     
     `;
 
-    describe("content with three significant tokens", () => {
+    describe.only("content with three significant tokens", () => {
       const content = "a a b";
 
       it("results in the requisite parse tree" , () => {

@@ -5,11 +5,11 @@ import PartContext from "../../context/part";
 import { continuationContext } from "../../utilities/context";
 
 export default class ContinuationPartContext extends PartContext {
-  constructor(context, state, continuations, final, part, count, parsePart) {
+  constructor(context, state, continuations, final, part, count, parsePartContinually) {
     super(context, state, continuations, final, part);
 
     this.count = count;
-    this.parsePart = parsePart;
+    this.parsePartContinually = parsePartContinually;
   }
 
   getCount() {
@@ -17,7 +17,7 @@ export default class ContinuationPartContext extends PartContext {
   }
 
   getParsePart() {
-    return this.parsePart;
+    return this.parsePartContinually;
   }
 
   getContinuingContext() {
@@ -30,17 +30,22 @@ export default class ContinuationPartContext extends PartContext {
   continued(frame, context) {
     const part = this.getPart(),
           count = this.count + 1,
+          strict = true,
           continuingContext = this.getContinuingContext();
 
     continuationContext((context) => {
-      frame = this.parsePart(part, count, context);
+      frame = this.parsePartContinually(part, count, strict, frame, context);
+
+      if (frame !== null) {
+        context.commit(frame);
+      }
     }, continuingContext, context);
 
     return frame;
   }
 
-  static fromPartCountAndParsePart(part, count, parsePart, context) {
-    const continuationPartContext = PartContext.fromPart(ContinuationPartContext, part, count, parsePart, context);
+  static fromPartCountAndParsePartContinually(part, count, parsePartContinually, context) {
+    const continuationPartContext = PartContext.fromPart(ContinuationPartContext, part, count, parsePartContinually, context);
 
     return continuationPartContext;
   }

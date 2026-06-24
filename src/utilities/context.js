@@ -76,8 +76,8 @@ export function continuationContext(innerFunction, continuingContext, context) {
   innerFunction(context);
 }
 
-export function continuationPartContext(innerFunction, part, count, parsePart, context) {
-  const continuationPartContext = ContinuationPartContext.fromPartCountAndParsePart(part, count, parsePart, context);
+export function continuationPartContext(innerFunction, part, count, parsePartContinually, context) {
+  const continuationPartContext = ContinuationPartContext.fromPartCountAndParsePartContinually(part, count, parsePartContinually, context);
 
   context = continuationPartContext;  ///
 

@@ -27,10 +27,10 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
       if (continuing) {
         frame = parsePartsContinually(this.parts, frame, context);
       } else {
-        frame = parseParts(this.parts, emptyFrame, context);
+        const partsFrame = parseParts(this.parts, emptyFrame, context);
 
-        frame = (frame !== null) ?
-                  context.compose(frame) :
+        frame = (partsFrame !== null) ?
+                  context.compose(frame, partsFrame) :
                     null;
       }
 
