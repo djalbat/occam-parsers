@@ -29,7 +29,8 @@ export default class DefinitionContext extends Context {
   }
 
   static fromDefinition(definition, context) {
-    const definitionContext = Context.fromNothing(DefinitionContext, context);
+    const precedence = definition.getPrecedence(),
+          definitionContext = Context.fromPrecedence(DefinitionContext, precedence, context);
 
     return definitionContext;
   }
@@ -41,8 +42,8 @@ function nonTerminalNodeFromFrame(frame, context) {
   const rule = context.getRule(),
         opacity = rule.getOpacity(),
         ruleName = rule.getName(),
-        precedence = frame.getPrecedence(),
         childNodes = frame.getChildNodes(),
+        precedence = context.getPrecedence(),
         NonTerminalNode = rule.NonTerminalNodeFromRuleName(ruleName, context);
 
   nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);

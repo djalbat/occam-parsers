@@ -4,7 +4,8 @@ import Context from "../context";
 
 export default class PartChoiceContext extends Context {
   static fromPartChoice(partChoice, context) {
-    const partChoiceContext = Context.fromNothing(PartChoiceContext, context);
+    const precedence = partChoice.getPrecedence(),
+          partChoiceContext = Context.fromPrecedence(PartChoiceContext, precedence, context);
 
     return partChoiceContext;
   }

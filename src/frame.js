@@ -5,21 +5,12 @@ import { arrayUtilities } from "necessary";
 const { first } = arrayUtilities;
 
 export default class Frame {
-  constructor(precedence, childNodes) {
-    this.precedence = precedence;
+  constructor(childNodes) {
     this.childNodes = childNodes;
-  }
-
-  getPrecedence() {
-    return this.precedence;
   }
 
   getChildNodes() {
     return this.childNodes;
-  }
-
-  setPrecedence(precedence) {
-    this.precedence = precedence;
   }
 
   getNode() {
@@ -36,33 +27,17 @@ export default class Frame {
     return node;
   }
 
-  setChildNodes(childNodes) {
-    this.childNodes = childNodes;
-  }
-
-  addChildNodes(childNodes) {
-    this.childNodes.push(...childNodes);
-  }
-
   merge(frame) {
-    const precedence = frame.getPrecedence(),
-          childNodes = frame.getChildNodes();
+    let childNodes;
 
-    frame = this.clone();
+    childNodes = frame.getChildNodes();
 
-    frame.setPrecedence(precedence);
+    childNodes = [  ///
+      ...this.childNodes,
+      ...childNodes
+    ];
 
-    frame.addChildNodes(childNodes);
-
-    return frame;
-  }
-
-  clone() {
-    const precedence = this.precedence,
-          childNodes = [
-            ...this.childNodes,
-          ],
-          frame = new Frame(precedence, childNodes);
+    frame = new Frame(childNodes);
 
     return frame;
   }
@@ -70,11 +45,9 @@ export default class Frame {
   serialise() {
     let value;
 
-    const precedence = this.precedence,
-          childNodes = this.childNodes;
+    const childNodes = this.childNodes;
 
     value = {
-      precedence,
       childNodes
     };
 
@@ -82,33 +55,25 @@ export default class Frame {
   }
 
   static unserialise(value) {
-    const { precedence, childNodes } = value;
+    const { childNodes } = value;
 
-    const frame = new Frame(precedence, childNodes);
+    const frame = new Frame(childNodes);
 
     return frame;
   }
 
   static fromNothing() {
-    const precedence = null,
-          childNodes = [],
-          frame = new Frame(precedence, childNodes);
+    const childNodes = [],
+          frame = new Frame(childNodes);
 
     return frame;
   }
 
   static fromChildNode(childNode) {
-    const precedence = null,
-          childNodes = [
+    const childNodes = [
             childNode
           ],
-          frame = new Frame(precedence, childNodes);
-
-    return frame;
-  }
-
-  static fromPrecedenceAndChildNodes(precedence, childNodes) {
-    const frame = new Frame(precedence, childNodes);
+          frame = new Frame(childNodes);
 
     return frame;
   }

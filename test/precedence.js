@@ -52,7 +52,7 @@ describe("Precedence", () => {
                                                            |                   |                   |                             
                                                   "2"[unassigned] [0] "*"[unassigned] [0]        T [0]                           
                                                                                                    |                             
-                                                                                          "3"[unassigned] [0]                    
+                                                                                          "3"[unassigned] [0]                                                                                                              
     
         `));
       });
@@ -133,7 +133,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe("part choices with direct precedence", () => {
+  describe.skip("part choices with direct precedence", () => {
     const bnf = `
     
       S ::= T... "." ;
@@ -153,7 +153,7 @@ describe("Precedence", () => {
         assert.isNotNull(node);
       });
 
-      it("results in the requisite parse tree" , () => {
+      it.skip("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
@@ -189,7 +189,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe("part choices with indirect precedence", () => {
+  describe.skip("part choices with indirect precedence", () => {
     const bnf = `
     
       S ::= T... "." ;

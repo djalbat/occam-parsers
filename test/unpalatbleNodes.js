@@ -4,7 +4,7 @@ const { testUtilities } = require("../lib/index"); ///
 
 const { compareParseTreeStrings, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe.only("Unpalatble nodes", () => {
+describe("Unpalatble nodes", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"

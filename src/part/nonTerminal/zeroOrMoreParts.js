@@ -36,7 +36,7 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
 
         partFrame = parsePartContinually(this.part, count, strict, frame, context);
       } else {
-        partFrame = emptyFrame.clone(); ///
+        partFrame = emptyFrame; ///
 
         while (true) {
           const savedFrame = partFrame; ///

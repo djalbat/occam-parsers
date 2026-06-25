@@ -4,8 +4,8 @@ import PartContext from "../../context/part";
 import Continuation from "../../continuation";
 
 export default class RuleNamePartContext extends PartContext {
-  constructor(context, state, continuations, final, part, continuation, continuedFrame) {
-    super(context, state, continuations, final);
+  constructor(context, state, precedence, continuations, final, part, continuation, continuedFrame) {
+    super(context, state, precedence, continuations, final);
 
     this.continuation = continuation;
     this.continuedFrame = continuedFrame;
@@ -29,9 +29,7 @@ export default class RuleNamePartContext extends PartContext {
   continued(frame, context) {
     const partFraome = frame; ///
 
-    frame = this.continuedFrame;  ///
-
-    frame = this.compose(frame, partFraome);
+    frame = this.compose(this.continuedFrame, partFraome);
 
     if (frame !== null) {
       const continuingContext = this.getContinuingContext();

@@ -3,14 +3,18 @@
 import Context from "../context";
 
 export default class RuleContext extends Context {
-  constructor(context, state, continuations, rule) {
-    super(context, state, continuations);
+  constructor(context, state, precedence, continuations, rule) {
+    super(context, state, precedence, continuations);
 
     this.rule = rule;
   }
 
   getRule() {
     return this.rule;
+  }
+
+  updatePrecedence(precedence) {
+    ///
   }
 
   compose(frame, definitionFrame = null) {

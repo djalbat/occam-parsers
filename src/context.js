@@ -1,9 +1,10 @@
 "use strict";
 
 export default class Context {
-  constructor(context, state, continuations) {
+  constructor(context, state, precedence, continuations) {
     this.context = context;
     this.state = state;
+    this.precedence = precedence;
     this.continuations = continuations;
   }
 
@@ -13,6 +14,10 @@ export default class Context {
 
   getState() {
     return this.state;
+  }
+
+  getPrecedence() {
+    return this.precedence;
   }
 
   getContinuations() {
@@ -25,6 +30,10 @@ export default class Context {
 
   setState(state) {
     this.state = state;
+  }
+
+  setPrecedence(precedence) {
+    this.precedence = precedence;
   }
 
   setContinuations(continuations) {
@@ -50,6 +59,20 @@ export default class Context {
   getNextSignificantToken() { return this.state.getNextSignificantToken(); }
 
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
+
+  updateState(state) {
+    state = state.clone();  ///
+
+    this.state = state;
+  }
+
+  updatePrecedence(precedence) {
+    if (precedence === null) {
+      return;
+    }
+
+    this.precedence = precedence;
+  }
 
   store(part, frame) { this.state.store(part, frame); }
 
@@ -97,9 +120,9 @@ export default class Context {
   }
 
   commit() {
-    const state = this.state.clone();
+    this.context.updateState(this.state);
 
-    this.context.setState(state);
+    this.context.updatePrecedence(this.precedence);
   }
 
   static fromNothing(Class, ...remainingArguments) {
@@ -111,9 +134,26 @@ export default class Context {
 
     state = state.clone();  ///
 
+    const precedence = null,
+          continuations = context.getContinuations();
+
+    context = new Class(context, state, precedence, continuations, ...remainingArguments);
+
+    return context;
+  }
+
+  static fromPrecedence(Class, precedence, ...remainingArguments) {
+    let context = remainingArguments.pop();
+
+    let state;
+
+    state = context.getState();
+
+    state = state.clone();  ///
+
     const continuations = context.getContinuations();
 
-    context = new Class(context, state, continuations, ...remainingArguments);
+    context = new Class(context, state, precedence, continuations, ...remainingArguments);
 
     return context;
   }
@@ -127,7 +167,9 @@ export default class Context {
 
     state = state.clone();  ///
 
-    context = new Class(context, state, continuations, ...remainingArguments);
+    const precedence = null;
+
+    context = new Class(context, state, precedence, continuations, ...remainingArguments);
 
     return context;
   }

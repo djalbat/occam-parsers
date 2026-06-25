@@ -9,8 +9,8 @@ import { continuationContext } from "../utilities/context";
 const { first } = arrayUtilities;
 
 export default class PartsContext extends Context {
-  constructor(context, state, continuations, parts, parsePartsContinually) {
-    super(context, state, continuations);
+  constructor(context, state, precedence, continuations, parts, parsePartsContinually) {
+    super(context, state, precedence, continuations);
 
     this.parts = parts;
     this.parsePartsContinually = parsePartsContinually;
