@@ -71,24 +71,14 @@ export default class State {
   }
 
   store(part, frame) {
-    const key = part, ///
-          value = frame.serialise();
-
-    State.cache.set(key, value);
+    State.cache.set(part, frame);
   }
 
   recover(part) {
-    let frame = null;
+    const frame = State.cache.get(part) || null;
 
-    const key = part, ///
-          value = State.cache.get(key) || null;
-
-    if (value !== null) {
-      const state = this; ///
-
-      frame = Frame.unserialise(value, state);
-
-      State.cache.delete(key);
+    if (frame !== null) {
+      State.cache.delete(part);
     }
 
     return frame;

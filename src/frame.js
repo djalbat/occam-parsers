@@ -42,26 +42,6 @@ export default class Frame {
     return frame;
   }
 
-  serialise() {
-    let value;
-
-    const childNodes = this.childNodes;
-
-    value = {
-      childNodes
-    };
-
-    return value;
-  }
-
-  static unserialise(value) {
-    const { childNodes } = value;
-
-    const frame = new Frame(childNodes);
-
-    return frame;
-  }
-
   static fromNothing() {
     const childNodes = [],
           frame = new Frame(childNodes);

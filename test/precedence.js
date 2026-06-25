@@ -133,7 +133,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe.skip("part choices with direct precedence", () => {
+  describe.only("part choices with direct precedence", () => {
     const bnf = `
     
       S ::= T... "." ;
