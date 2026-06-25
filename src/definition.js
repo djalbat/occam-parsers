@@ -23,14 +23,16 @@ export default class Definition {
     return this.precedence;
   }
 
-  parse(frame, context) {
+  parse(context) {
+    let frame;
+
     const definition = this;  ///
 
     definitionContext((context) => {
       const continuing = context.isContinuing();
 
       if (continuing) {
-        frame = parsePartsContinually(this.parts, frame, context);
+        frame = parsePartsContinually(this.parts, emptyFrame, context);
       } else {
         frame = parseParts(this.parts, emptyFrame, context);
 

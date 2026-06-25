@@ -1,6 +1,5 @@
 "use strict";
 
-import { emptyFrame } from "./frame";
 import { ruleContext } from "./utilities/context";
 import { EMPTY_STRING } from "./constants";
 import { specialSymbols } from "occam-lexers";
@@ -57,39 +56,19 @@ export default class Rule {
     return semiOpaque;
   }
 
-  parse(frame, context) {
+  parse(context) {
+    let frame;
+
     const rule = this;  ///
 
     ruleContext((context) => {
-      const continuing = context.isContinuing();
-
-      let definitionFrame;
-
-      const savedFrame = frame; ///
-
       this.definitions.some((definition) => {
-        if (continuing) {
-          frame = savedFrame; ///
+        frame = definition.parse(context);
 
-          frame = definition.parse(frame, context);
-
-          if (frame !== null) {
-            return true;
-          }
-        } else {
-          definitionFrame = definition.parse(emptyFrame, context);
-
-          if (definitionFrame !== null) {
-            return true;
-          }
+        if (frame !== null) {
+          return true;
         }
       });
-
-      if (!continuing) {
-        frame = (definitionFrame !== null) ?
-                  context.compose(frame, definitionFrame) :
-                    null;
-      }
 
       if (frame !== null) {
         context.commit();

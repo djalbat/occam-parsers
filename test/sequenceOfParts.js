@@ -378,50 +378,25 @@ describe.only("Sequence of parts", () => {
     
     `;
 
-    describe.only("content with three significant tokens", () => {
+    describe("content with three significant tokens", () => {
       const content = "c a b";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                                                                                    
-                                S [0]                                
-                                  |                                  
-                                B [0]                                
-                                  |                                  
-                   -------------------------------                   
-                   |                             |                   
-          "a"[unassigned] [0]                  A [0]                 
-                                                 |                   
-                                       ---------------------         
-                                       |                   |         
-                              "a"[unassigned] [0] "b"[unassigned] [0]
-      
-        `));
-      });
-    });
-
-    describe.skip("content with four significant tokens", () => {
-      const content = "c a a b";
-
-      it("results in the requisite parse tree" , () => {
-        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                                                                                    
-                                     S [0]                                               
-                                       |                                                 
-                                     B [0]                                               
-                                       |                                                 
-                   -----------------------------------------                             
-                   |                                       |                             
-          "a"[unassigned] [0]                            A [0]                           
-                                                           |                             
-                                       -----------------------------------------         
-                                       |                   |                   |         
-                              "a"[unassigned] [0] "a"[unassigned] [0] "b"[unassigned] [0]
-
+        
+                                          S [0]                      
+                                            |                        
+                             -------------------------------         
+                             |                             |         
+                           B [0]                  "b"[unassigned] [0]
+                             |                                       
+                   ---------------------                             
+                   |                   |                             
+          "c"[unassigned] [0]        A [0]                           
+                                       |                             
+                              "a"[unassigned] [0]                    
         `));
       });
     });

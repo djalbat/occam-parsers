@@ -1,6 +1,5 @@
 "use strict";
 
-import { emptyFrame } from "../frame";
 import { topmostContext } from "../utilities/context"
 
 function parse(tokens, rule = this.startRule) {
@@ -9,7 +8,7 @@ function parse(tokens, rule = this.startRule) {
   const parser = this;  ///
 
   topmostContext((context) => {
-    const ruleFrame = rule.parse(emptyFrame, context);
+    const ruleFrame = rule.parse(context);
 
     if (ruleFrame !== null) {
       node = ruleFrame.getNode();

@@ -21,6 +21,13 @@ export default class RuleContext extends Context {
     return frame;
   }
 
+  getContinuingContext() {
+    const context = this.getContext(),
+          continuingContext = context;  ///
+
+    return continuingContext;
+  }
+
   static fromRule(rule, context) {
     const continuations = continuationsFromNothing(context),
           ruleContext = Context.fromContinuations(RuleContext, continuations, rule, context);

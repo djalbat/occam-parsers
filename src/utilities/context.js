@@ -60,8 +60,8 @@ export function definitionContext(innerFunction, definition, context) {
   innerFunction(context);
 }
 
-export function ruleNamePartContext(innerFunction, ruleNamePart, context) {
-  const ruleNamePartContext = RuleNamePartContext.fromRuleNamePart(ruleNamePart, context);
+export function ruleNamePartContext(innerFunction, frame, ruleNamePart, context) {
+  const ruleNamePartContext = RuleNamePartContext.fromframeAndRuleNamePart(frame, ruleNamePart, context);
 
   context = ruleNamePartContext;  ///
 
