@@ -459,7 +459,7 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.only("contiunation from a one or more parts part to a terminal part", () => {
+  describe("contiunation from a one or more parts part to a terminal part", () => {
     const bnf = `
     
       S ::= A... "a" ;
