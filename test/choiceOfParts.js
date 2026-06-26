@@ -321,7 +321,7 @@ describe("Choice of parts", () => {
     });
   });
 
-  describe.skip("continuation from a choice of parts part with one terminal part and zero or more parts part through a terminal part to a one ore more parts part", () => {
+  describe("continuation from a choice of parts part with one terminal part and zero or more parts part through a terminal part to a one ore more parts part", () => {
     const bnf = `
     
       S ::= A... .+ ;
@@ -395,7 +395,7 @@ describe("Choice of parts", () => {
     });
   });
 
-  describe.skip("continuation from a choice of parts part with one terminal part and zero or more parts part through a terminal part to a one ore more parts part", () => {
+  describe("continuation from a choice of parts part with one terminal part and zero or more parts part through a terminal part to a one ore more parts part", () => {
     const bnf = `
     
       S ::= A... .+ ;

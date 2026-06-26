@@ -4,7 +4,7 @@ const { testUtilities } = require("../lib/index"); ///
 
 const { compareParseTreeStrings, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe.skip("Repeated parts", () => {
+describe("Repeated parts", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"
@@ -459,7 +459,7 @@ describe.skip("Repeated parts", () => {
     });
   });
 
-  describe("contiunation from a one or more parts part to a terminal part", () => {
+  describe.only("contiunation from a one or more parts part to a terminal part", () => {
     const bnf = `
     
       S ::= A... "a" ;

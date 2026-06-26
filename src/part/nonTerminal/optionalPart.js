@@ -40,13 +40,17 @@ export default class OptionalPartPart extends NonTerminalPart {
       } else {
         let partFrame;
 
-        partFrame = this.part.parse(emptyFrame, context);
+        partFrame = emptyFrame; ///
+
+        partFrame = this.part.parse(partFrame, context);
 
         if (partFrame === null) {
           partFrame = emptyFrame;
         }
 
-        frame = context.compose(frame, partFrame);
+        frame = (partFrame !== null) ?
+                  context.compose(frame, partFrame) :
+                    null;
       }
 
       if (frame !== null) {

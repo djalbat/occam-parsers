@@ -26,16 +26,16 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      let partFrame;
-
       const continuing = context.isContinuing();
 
       if (continuing) {
         const count = 0,
               strict = false;
 
-        partFrame = parsePartContinually(this.part, count, strict, frame, context);
+        frame = parsePartContinually(this.part, count, strict, frame, context);
       } else {
+        let partFrame;
+
         partFrame = emptyFrame; ///
 
         while (true) {
@@ -49,11 +49,11 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
             break;
           }
         }
-      }
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+        frame = (partFrame !== null) ?
+                  context.compose(frame, partFrame) :
+                    null;
+      }
 
       if (frame !== null) {
         context.commit();
