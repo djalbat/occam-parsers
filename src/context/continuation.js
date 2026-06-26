@@ -3,8 +3,8 @@
 import Context from "../context";
 
 export default class ContinuationContext extends Context {
-  constructor(context, state, precedence, continuations, continuingContext) {
-    super(context, state, precedence, continuations);
+  constructor(context, state, continuations, continuingContext) {
+    super(context, state, continuations);
 
     this.continuingContext = continuingContext;
   }

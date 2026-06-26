@@ -14,7 +14,11 @@ export function parseParts(parts, frame, context) {
   parts = tailParts;  ///
 
   partsContext((context) => {
-    frame = context.recover(part, frame) || part.parse(frame, context);
+    const partFrame = context.recover(part);
+
+    frame = (partFrame !== null) ?
+              frame.merge(partFrame) :
+                part.parse(frame, context);
 
     if (frame !== null) {
       const partsLength = parts.length;

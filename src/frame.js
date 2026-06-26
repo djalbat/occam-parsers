@@ -5,12 +5,25 @@ import { arrayUtilities } from "necessary";
 const { first } = arrayUtilities;
 
 export default class Frame {
-  constructor(childNodes) {
+  constructor(childNodes, precedence) {
     this.childNodes = childNodes;
+    this.precedence = precedence;
   }
 
   getChildNodes() {
     return this.childNodes;
+  }
+
+  getPrecedence() {
+    return this.precedence;
+  }
+
+  setChildNodes(childNodes) {
+    this.childNodes = childNodes;
+  }
+
+  setPrecedence(precedence) {
+    this.precedence = precedence;
   }
 
   getNode() {
@@ -28,23 +41,29 @@ export default class Frame {
   }
 
   merge(frame) {
-    let childNodes;
+    let childNodes,
+        precedence;
 
     childNodes = frame.getChildNodes();
+
+    precedence = frame.getPrecedence();
 
     childNodes = [  ///
       ...this.childNodes,
       ...childNodes
     ];
 
-    frame = new Frame(childNodes);
+    precedence = precedence || this.precedence; ///
+
+    frame = new Frame(childNodes, precedence);
 
     return frame;
   }
 
   static fromNothing() {
     const childNodes = [],
-          frame = new Frame(childNodes);
+          precedence = null,
+          frame = new Frame(childNodes, precedence);
 
     return frame;
   }
@@ -53,7 +72,14 @@ export default class Frame {
     const childNodes = [
             childNode
           ],
-          frame = new Frame(childNodes);
+          precedence = null,
+          frame = new Frame(childNodes, precedence);
+
+    return frame;
+  }
+
+  static fromChildNodesAndPrecedence(childNodes, precedence) {
+    const frame = new Frame(childNodes, precedence);
 
     return frame;
   }

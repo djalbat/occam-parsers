@@ -133,7 +133,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe.only("part choices with direct precedence", () => {
+  describe("part choices with direct precedence", () => {
     const bnf = `
     
       S ::= T... "." ;
@@ -153,7 +153,7 @@ describe("Precedence", () => {
         assert.isNotNull(node);
       });
 
-      it.skip("results in the requisite parse tree" , () => {
+      it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
@@ -189,7 +189,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe.skip("part choices with indirect precedence", () => {
+  describe("part choices with indirect precedence", () => {
     const bnf = `
     
       S ::= T... "." ;
