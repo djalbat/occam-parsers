@@ -36,16 +36,16 @@ export default class TopmostContext extends Context {
     return NonTerminalNode;
   }
 
-  getContinuation() {
-    const continuation = null;
-
-    return continuation;
-  }
-
   findRule(ruleName) {
     const rule = this.ruleMap[ruleName] || null;  ///
 
     return rule;
+  }
+
+  getNextPart() {
+    const nextPart = null;
+
+    return nextPart;
   }
 
   getNode() {
@@ -67,14 +67,11 @@ export default class TopmostContext extends Context {
     return frame;
   }
 
-  compose(frame) {
-    return frame;
-  }
-
-  static fromParserAndTokens(parser, tokens, context) {
+  static fromParserAndTokens(parser, tokens) {
     const { NonTerminalNodeMap, defaultNonTerminalNode } = parser.constructor,
           ruleMap = parser.getRuleMap(),
-          state = State.fromTokens(tokens),
+          state= State.fromTokens(tokens),
+          context = null,
           continuations = [],
           topmostContext = new TopmostContext(context, state, continuations, ruleMap, NonTerminalNodeMap, defaultNonTerminalNode);
 

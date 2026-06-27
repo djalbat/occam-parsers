@@ -1,35 +1,31 @@
 "use strict";
 
-import Frame from "./frame";
-
 export default class State {
-  constructor(index) {
+  constructor(tokens, cache, index) {
+    this.tokens = tokens;
+    this.cache = cache;
     this.index = index;
   }
 
-  static cache;
+  getTokens() {
+    return this.tokens;
+  }
 
-  static tokens;
+  getCache() {
+    return this.cache;
+  }
 
   getIndex() {
     return this.index;
   }
 
-  getCache() {
-    return State.cache;
-  }
-
-  getTokens() {
-    return State.tokens;
-  }
-
   getNextToken() {
     let nextToken = null;
 
-    const length = State.tokens.length;
+    const length = this.tokens.length;
 
     if (this.index < length) {
-      nextToken = State.tokens[this.index++];
+      nextToken = this.tokens[this.index++];
     }
 
     return nextToken;
@@ -38,10 +34,10 @@ export default class State {
   getNextSignificantToken() {
     let nextSignificantToken = null;
 
-    const length = State.tokens.length
+    const length = this.tokens.length
 
     while (this.index < length) {
-      const token = State.tokens[this.index++],
+      const token = this.tokens[this.index++],
             tokenSignificant = token.isSignificant();
 
       if (tokenSignificant) {
@@ -59,10 +55,10 @@ export default class State {
   isNextTokenWhitespaceToken() {
     let nextTokenWhitespaceToken = false;
 
-    const length = State.tokens.length;
+    const length = this.tokens.length;
 
     if (this.index < length) {
-      const nextToken = State.tokens[this.index];
+      const nextToken = this.tokens[this.index];
 
       nextTokenWhitespaceToken = nextToken.isWhitespaceToken();
     }
@@ -71,32 +67,29 @@ export default class State {
   }
 
   store(part, frame) {
-    State.cache.set(part, frame);
+    this.cache.set(part, frame);
   }
 
   recover(part) {
-    const frame = State.cache.get(part) || null;
+    const frame = this.cache.get(part) || null;
 
     if (frame !== null) {
-      State.cache.delete(part);
+      this.cache.delete(part);
     }
 
     return frame;
   }
 
   clone() {
-    const state = new State(this.index);
+    const state = new State(this.tokens, this.cache, this.index);
 
     return state;
   }
 
   static fromTokens(tokens) {
-    const index = 0,
-          state = new State(index);
-
-    State.cache = new WeakMap();
-
-    State.tokens = tokens;
+    const cache = new WeakMap(),
+          index = 0,
+          state = new State(tokens, cache, index);
 
     return state;
   }

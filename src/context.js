@@ -19,18 +19,6 @@ export default class Context {
     return this.continuations;
   }
 
-  setContext(context) {
-    this.context = context;
-  }
-
-  setState(state) {
-    this.state = state;
-  }
-
-  setContinuations(continuations) {
-    this.continuations = continuations;
-  }
-
   getRuleMap() { return this.context.getRuleMap(); }
 
   getNonTerminalNodeMap() { return this.context.getNonTerminalNodeMap(); }
@@ -39,11 +27,9 @@ export default class Context {
 
   NonTerminalNodeFromRuleName(ruleName) { return this.context.NonTerminalNodeFromRuleName(ruleName); }
 
-  getNextPart() { return this.context.getNextPart(); }
-
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
-  getTokens() { return this.state.getTokens(); }
+  getNextPart() { return this.context.getNextPart(); }
 
   getNextToken() { return this.state.getNextToken(); }
 
@@ -51,15 +37,19 @@ export default class Context {
 
   isNextTokenWhitespaceToken() { return this.state.isNextTokenWhitespaceToken(); }
 
-  updateState(state) {
-    state = state.clone();  ///
-
-    this.state = state;
-  }
-
   store(part, frame) { this.state.store(part, frame); }
 
   recover(part) { return this.state.recover(part); }
+
+  updateState(state) {
+    this.state = state.clone();  ///
+  }
+
+  getContinuation() {
+    const continuation = null;
+
+    return continuation;
+  }
 
   isContinuing() {
     const continuationsLength = this.continuations.length,
