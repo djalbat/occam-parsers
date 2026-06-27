@@ -31,6 +31,8 @@ export default class Context {
 
   getNextPart() { return this.context.getNextPart(); }
 
+  getTokens() { return this.state.getTokens(); }
+
   getNextToken() { return this.state.getNextToken(); }
 
   getNextSignificantToken() { return this.state.getNextSignificantToken(); }
