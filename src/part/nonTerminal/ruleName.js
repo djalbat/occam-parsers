@@ -45,6 +45,8 @@ export default class RuleNamePart extends NonTerminalPart {
                     context.compose(frame, ruleFrame) :
                       null;
         }
+      } else {
+        frame = null;
       }
 
       if (frame !== null) {

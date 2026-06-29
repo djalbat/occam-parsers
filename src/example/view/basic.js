@@ -10,7 +10,7 @@ export default class BasicView extends View {
 
   static Parser = BasicParser;  ///
 
-  static initialContent = `a`;
+  static initialContent = `w\`p\`.`;
 
   static defaultProperties = {
     className: "basic"

@@ -1,9 +1,19 @@
 "use strict";
 
-const bnf = `
+const bnf = `S   ::= T... "." ;
+
+T   ::= T_ T~* ;
+
+A   ::= "\`" .* "\`" ;
+
+T_  ::= .
+
+      ;
+
+T~T ::= <NO_WHITESPACE> A ;
+
+T~  ::= T~T ;
           
-            S    ::= "a" ;
-          
-          `;
+`;
 
 export default bnf;

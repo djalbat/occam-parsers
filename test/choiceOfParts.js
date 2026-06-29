@@ -18,7 +18,7 @@ describe("Choice of parts", () => {
     
     `;
 
-    describe("content with one significant token", () => {
+    describe("content with a significant token", () => {
       const content = "a";
 
       it("results in the requisite parse tree" , () => {
@@ -34,7 +34,7 @@ describe("Choice of parts", () => {
       });
     });
 
-    describe("content with one significant token", () => {
+    describe("content with another significant token", () => {
       const content = "b";
 
       it("results in the requisite parse tree" , () => {
