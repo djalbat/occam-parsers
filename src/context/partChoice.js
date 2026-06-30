@@ -4,8 +4,8 @@ import Frame from "../frame";
 import Context from "../context";
 
 export default class PartChoiceContext extends Context {
-  constructor(context, index, continuations, precedence) {
-    super(context, index, continuations);
+  constructor(context, state, continuations, precedence) {
+    super(context, state, continuations);
 
     this.precedence = precedence;
   }
