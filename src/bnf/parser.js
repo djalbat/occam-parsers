@@ -143,20 +143,3 @@ export default class BNFParser {
 }
 
 Object.assign(BNFParser.prototype, parserMixins);
-
-/*
-
-
-  color: ;
-  position: absolute;
-  padding-top: 0;
-  padding-left: 0;
-
-
-
-  font-size: 1.2rem;
-  line-height: 1.8rem;
-  font-family: "DejaVu Sans Mono", Menlo, "Lucida Console", Monaco, sans-serif;
-
-
- */
