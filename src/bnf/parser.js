@@ -11,7 +11,7 @@ import ErrorBNFRule from "../rule/bnf/error";
 import EpsilonBNFRule from "../rule/bnf/epsilon";
 import DocumentBNFRule from "../rule/bnf/document";
 import RuleNameBNFRule from "../rule/bnf/ruleName";
-import WildcardBNFRule from "../rule/bnf/backtick";
+import WildcardBNFRule from "../rule/bnf/wildcard";
 import BacktickBNFRule from "../rule/bnf/backtick";
 import EndOfLineBNFRule from "../rule/bnf/endOfLine";
 import PartChoiceBNFRule from "../rule/bnf/partChoice";
@@ -137,9 +137,26 @@ export default class BNFParser {
           startRule = startRuleFromRules(rules),
           ruleMap = ruleMapFromRules(rules),
           bnfParser = new BNFParser(startRule, ruleMap);
-    
+
     return bnfParser;
   }
 }
 
 Object.assign(BNFParser.prototype, parserMixins);
+
+/*
+
+
+  color: ;
+  position: absolute;
+  padding-top: 0;
+  padding-left: 0;
+
+
+
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  font-family: "DejaVu Sans Mono", Menlo, "Lucida Console", Monaco, sans-serif;
+
+
+ */
