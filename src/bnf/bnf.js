@@ -32,11 +32,13 @@ const bnf = `
  
                                  |  stringLiteral
   
-                                 |  endOfLine
+                                 |  backtick
   
                                  |  wildcard
   
                                  |  epsilon
+  
+                                 |  endOfLine
 
                                  |  noWhitespace
                               
@@ -60,6 +62,8 @@ const bnf = `
       
       endOfLine                ::=  "<END_OF_LINE>" ;
       
+      backtick                 ::=  "\`" ;
+
       wildcard                 ::=  "." ;
 
       epsilon                  ::=  "ε" ;

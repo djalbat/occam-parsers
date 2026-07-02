@@ -8,6 +8,7 @@ import EpsilonBNFNode from "./node/bnf/epsilon";
 import DocumentBNFNode from "./node/bnf/document";
 import RuleNameBNFNode from "./node/bnf/ruleName";
 import WildcardBNFNode from "./node/bnf/wildcard";
+import BacktickBNFNode from "./node/bnf/backtick";
 import EndOfLineBNFNode from "./node/bnf/endOfLine";
 import PartChoiceBNFNode from "./node/bnf/partChoice";
 import PrecedenceBNFNode from "./node/bnf/precedence";
@@ -35,6 +36,7 @@ import { NAME_RULE_NAME,
          EPSILON_RULE_NAME,
          DOCUMENT_RULE_NAME,
          WILDCARD_RULE_NAME,
+         BACKTICK_RULE_NAME,
          RULE_NAME_RULE_NAME,
          DEFINITION_RULE_NAME,
          PRECEDENCE_RULE_NAME,
@@ -64,6 +66,7 @@ const NonTerminalNodeMap = {
   [EPSILON_RULE_NAME]: EpsilonBNFNode,
   [DOCUMENT_RULE_NAME]: DocumentBNFNode,
   [WILDCARD_RULE_NAME]: WildcardBNFNode,
+  [BACKTICK_RULE_NAME]: BacktickBNFNode,
   [RULE_NAME_RULE_NAME]: RuleNameBNFNode,
   [DEFINITION_RULE_NAME]: DefinitionBNFNode,
   [PRECEDENCE_RULE_NAME]: PrecedenceBNFNode,

@@ -7,6 +7,7 @@ export const ERROR_RULE_NAME = "error";
 export const EPSILON_RULE_NAME = "epsilon";
 export const DOCUMENT_RULE_NAME = "document";
 export const WILDCARD_RULE_NAME = "wildcard";
+export const BACKTICK_RULE_NAME = "backtick";
 export const RULE_NAME_RULE_NAME = "ruleName";
 export const DEFINITION_RULE_NAME = "definition";
 export const PRECEDENCE_RULE_NAME = "precedence";

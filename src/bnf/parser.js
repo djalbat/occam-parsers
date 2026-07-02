@@ -11,7 +11,8 @@ import ErrorBNFRule from "../rule/bnf/error";
 import EpsilonBNFRule from "../rule/bnf/epsilon";
 import DocumentBNFRule from "../rule/bnf/document";
 import RuleNameBNFRule from "../rule/bnf/ruleName";
-import WildcardBNFRule from "../rule/bnf/wildcard";
+import WildcardBNFRule from "../rule/bnf/backtick";
+import BacktickBNFRule from "../rule/bnf/backtick";
 import EndOfLineBNFRule from "../rule/bnf/endOfLine";
 import PartChoiceBNFRule from "../rule/bnf/partChoice";
 import QuantifierBNFRule from "../rule/bnf/quantifier";
@@ -83,6 +84,7 @@ export default class BNFParser {
           documentBNFRule = DocumentBNFRule.fromNothing(),
           ruleNameBNFRule = RuleNameBNFRule.fromNothing(),
           wildcardBNFRule = WildcardBNFRule.fromNothing(),
+          backtickBNFRule = BacktickBNFRule.fromNothing(),
           endOfLineBNFRule = EndOfLineBNFRule.fromNothing(),
           partChoiceBNFRule = PartChoiceBNFRule.fromNothing(),
           quantifierBNFRule = QuantifierBNFRule.fromNothing(),
@@ -122,6 +124,7 @@ export default class BNFParser {
             precedentsBNFRule,
             endOfLineBNFRule,
             wildcardBNFRule,
+            backtickBNFRule,
             epsilonBNFRule,
             quantifierBNFRule,
             opacityModifierBNFRule,

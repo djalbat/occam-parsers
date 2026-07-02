@@ -20,89 +20,100 @@ Three parsers are documented:
 * A basic parser, for illustrative purposes, and for developing new grammars.
 * The common parser, which can be extended.
 
-All parsers share common functionality. The last two parse content according to rules defined in the aforementioned variant of extended BNF. The BNF parser on the other hand has its rules hard-coded. These rules can be defined in the self same variant that they implement:
+All parsers share common functionality. 
+The last two parse content according to rules defined in the aforementioned variant of extended BNF. 
+The BNF parser on the other hand has its rules hard-coded. 
+These rules can be defined in the self same variant that they implement:
 
-      document                 ::=  ( rule | error )+ ;
+```
+document                 ::=  ( rule | error )+ ;
 
-      rule                     ::=  name opacityModifier? "::=" definitions ";" ;
+rule                     ::=  name opacityModifier? "::=" definitions ";" ;
 
-      name                     ::=  [name] ;
+name                     ::=  [name] ;
 
-      definitions              ::=  definition ( "|" definition )* ;
+definitions              ::=  definition ( "|" definition )* ;
 
-      definition               ::=  part+ precedence? ;
- 
-      part                     ::=  nonTerminalPart quantifier*
+definition               ::=  part+ precedence? ;
 
-                                 |  terminalPart quantifier*
-                              
-                                 ;
+part                     ::=  nonTerminalPart quantifier*
 
-      nonTerminalPart          ::=  choiceOfParts
+                           |  terminalPart quantifier*
 
-                                 |  sequenceOfParts
+                           ;
 
-                                 |  ruleName continuationModifier?
+nonTerminalPart          ::=  choiceOfParts
 
-                                 ;
+                           |  sequenceOfParts
+    
+                           |  ruleName continuationModifier?
+    
+                           ;
 
-      terminalPart             ::=  significantTokenType
-  
-                                 |  regularExpression
- 
-                                 |  stringLiteral
-  
-                                 |  endOfLine
-  
-                                 |  wildcard
-  
-                                 |  epsilon
+terminalPart             ::=  significantTokenType
 
-                                 |  noWhitespace
+                           |  regularExpression
+    
+                           |  stringLiteral
+    
+                           |  backtick
+    
+                           |  wildcard
+    
+                           |  epsilon
+    
+                           |  endOfLine
+    
+                           |  noWhitespace
+                          
+                           ;
+                      
+sequenceOfParts          ::=  "(" part part+ ")" ;
 
-                                 ;
-                              
-      sequenceOfParts          ::=  "(" part part+ ")" ;
+choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
 
-      choiceOfParts            ::=  "(" part precedence? ( "|" part precedence? )+ ")" ;
+partChoice               ::=  part precedence? ;
 
-      ruleName                 ::=  [name] ;
+ruleName                 ::=  [name] ;
 
-      significantTokenType     ::=  [type] ;
+significantTokenType     ::=  [type] ;
 
-      regularExpression        ::=  [regular-expression] ;
+regularExpression        ::=  [regular-expression] ;
 
-      stringLiteral            ::=  [string-literal] ;
+stringLiteral            ::=  [string-literal] ;
 
-      precedence               ::=  "(" [number]? ")" ;
-      
-      endOfLine                ::=  "<END_OF_LINE>" ;
-      
-      wildcard                 ::=  "." ;
+precedence               ::=  "(" [number]? ")" ;
 
-      epsilon                  ::=  "ε" ;
+endOfLine                ::=  "<END_OF_LINE>" ;
 
-      noWhitespace             ::=  "<NO_WHITESPACE>" ;                              
+backtick                 ::=  "\`" ;
 
-      quantifier               ::=  optionalQuantifier
- 
-                                 |  oneOrMoreQuantifier
-  
-                                 |  zeroOrMoreQuantifier
-  
-                                 ;
+wildcard                 ::=  "." ;
 
-      opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
+epsilon                  ::=  "ε" ;
 
-      continuationModifier        ::=  <NO_WHITESPACE>"..." ;
+noWhitespace             ::=  "<NO_WHITESPACE>" ;                              
 
-      optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
+quantifier               ::=  optionalQuantifier
 
-      oneOrMoreQuantifier      ::=  <NO_WHITESPACE>"+" ;
+                           |  oneOrMoreQuantifier
+   
+                           |  zeroOrMoreQuantifier
+    
+                           ;
 
-      zeroOrMoreQuantifier     ::=  <NO_WHITESPACE>"*" ;
+opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
 
-      error.                   ::=  . ;
+continuationModifier     ::=  <NO_WHITESPACE>"..." ;
+
+optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
+
+oneOrMoreQuantifier      ::=  <NO_WHITESPACE>"+" ;
+
+zeroOrMoreQuantifier     ::=  <NO_WHITESPACE>"*" ;
+
+error.                   ::=  . ;
+```
 
 ## Installation
 
@@ -130,17 +141,21 @@ The examples will then be available at the following URL:
 
 http://localhost:8888
 
-The source for the examples can be found in the `src/example.js` file and corresponding `src/example` folder. You are encouraged to try the examples whilst reading what follows. You can rebuild them on the fly with the following command:
+The source for the examples can be found in the `src/example.js` file and corresponding `src/example` folder. 
+You are encouraged to try the examples whilst reading what follows. 
+You can rebuild them on the fly with the following command:
 
     npm run watch-debug
 
 The development server will reload the page whenever you make changes.
 
-One last thing to bear in mind is that this package is included by way of a relative rather than a package import. If you are importing it into your own application, however, you should use the standard package import.
+One last thing to bear in mind is that this package is included by way of a relative rather than a package import. 
+If you are importing it into your own application, however, then you should use the standard package import.
 
 ## Usage
 
-Import the requisite parser and its corresponding lexer from this package and the `occam-lexers` package, respectively. Then call their `fromNothing(...)` factory methods.
+Import the requisite parser and its corresponding lexer from this package and the `occam-lexers` package, respectively. 
+Then call their `fromNothing(...)` factory methods.
 
 ```
 import { BasicLexer } from "occam-lexers";
@@ -159,6 +174,7 @@ const content = `
 
 ...
 ```
+
 The tokens returned from the lexers's `tokenise(...)` method can be passed directly to the parser's `parse(...)` method, which itself returns a node or `null`.
 
 ## Features
@@ -169,31 +185,43 @@ The tokens returned from the lexers's `tokenise(...)` method can be passed direc
 - `+` one or more
 - `?` optional
 
-These bind tightly to the symbols to their left and can be chained. Take note that both the `*+` and `?+` chains will cause an infinite loop and must be avoided.
+These bind tightly to the symbols to their left and can be chained. 
+Take note that both the `*+` and `?+` chains will cause an infinite loop and must be avoided.
 
 ### Regular expressions
 
 A regular expression is distinguished by the usual leading and trailing forward slashes:
 
-    /\d+/
+```
+/\d+/
+```
 
 ### Matching significant token types
 
-This can be done with a symbol that is identical to the significant token type in question, contained within square brackets. For example:
+This can be done with a symbol that is identical to the significant token type in question, contained within square brackets. 
+For example:
 
-     name                       ::=   [unassigned] ;
+```
+name                       ::=   [unassigned] ;
+```
 
 ### Matching end of line tokens
 
-This can be done with a special `<END_OF_LINE>` special symbol. For example:
+This can be done with a special `<END_OF_LINE>` special symbol. 
+For example:
 
-     verticalSpace              ::=   <END_OF_LINE>+ ;
+```
+verticalSpace              ::=   <END_OF_LINE>+ ;
+```
 
 ### Matching no whitespace
 
-This can be done with the `<NO_WHITESPACE>` special symbol. For example:
+This can be done with the `<NO_WHITESPACE>` special symbol. 
+For example:
 
-     parenthesisedTerms         ::=   <NO_WHITESPACE>"(" terms <NO_WHITESPACE>")" ;
+```
+parenthesisedTerms         ::=   <NO_WHITESPACE>"(" terms <NO_WHITESPACE>")" ;
+```
 
 It is conventional to leave no whitespace between the symbol and its subsequent part.
 
@@ -201,52 +229,69 @@ It is conventional to leave no whitespace between the symbol and its subsequent 
 
 This can be done with the brackets. For example:
 
-     terms                      ::=   term ( "," term )* ;
+```
+terms                      ::=   term ( "," term )* ;
+```
 
 ### Choosing between parts
 
-The vertical bar symbol `|` is overloaded and can be used in conjunction with brackets to choose between parts as opposed to definitions. For example:
+The vertical bar symbol `|` is overloaded and can be used in conjunction with brackets to choose between parts as opposed to definitions. 
+For example:
 
-     justifiedStatement         ::=   statement ( "by" | "from" ) reference <END_OF_LINE> ;
+```
+justifiedStatement         ::=   statement ( "by" | "from" ) reference <END_OF_LINE> ;
+```
 
-
-### Look-ahead
+### Continuations
 
 Consider the following rules:
 
-      ABC  ::=  AAB BC ;
+```
+ABC  ::=  AAB BC ;
 
-      AAB  ::=  "a" "b" | "a" ;
+AAB  ::=  "a" "b" | "a" ;
 
-       BC  ::=  "b" "c" ;
+BC  ::=  "b" "c" ;
+```
 
-These will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse the `a` and `b` tokens, leaving only the `c` token for the `BC` rule to parse. This situation can be addressed by making the `AAB` rule call ahead, that is, try each of its definitions in turn until one is found that allows the remainder of the parent rule to parse. The call-ahead modifier is an ellipsis, thus the rules above become:
+These will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse the `a` and `b` tokens, leaving only the `c` token for the `BC` rule to parse. 
+This situation can be addressed by making the `AAB` rule contiunue, that is, try each of its definitions in turn until one is found that allows the remainder of the parent rule to parse. 
+The continuation modifier is an ellipsis, thus the rules above become:
 
-      ABC  ::=  AAB... BC ;
+```
+ABC  ::=  AAB... BC ;
 
-      AAB  ::=  "a" "b" | "a" ;
+AAB  ::=  "a" "b" | "a" ;
 
-       BC  ::=  "b" "c" ;
+BC  ::=  "b" "c" ;
+```
 
 Now the `ABC` rule will indeed parse the tokens `a`, `b`, `c`, because the second definition of the `AAB` rule will be tried after the first definition fails to allow the `BC` rule name part to parse.
 
-Also bear in mind that call-ahead is carried out to arbitrary depth and this it affects the behaviour of the `?`, `*` and `+` quantifiers, which become lazy. For example:
+Also bear in mind that call-ahead is carried out to arbitrary depth and this it affects the behaviour of the `?`, `*` and `+` quantifiers, which become lazy. 
+For example:
 
-    ABC  ::=  AAB... ;
+```
+ABC  ::=  AAB... ;
 
-    AAB  ::=  "a" "b"+ "b" "c" ;
+AAB  ::=  "a" "b"+ "b" "c" ;
+```
 
 Here the call-ahead modifier on the `AAB` rule name part forces the `+` quantifier on the `"b"` terminal part to be lazy, allowing the following to parse:
 
-    a b b b c
+```
+a b b b c
+```
 
 Without call-ahead, the `"b"+` part would consume all of the `b` tokens, leaving none for the subsequent `"b"` terminal part.
 
-It seems that the parser parses in time that is roughly directly proportional to the length of the input. However, on the ohter hand it is most likely that call-ahead takes exponential time given its nested nature. For this reason, call-ahead should be used sparingly.
+It seems that the parser parses in time that is roughly directly proportional to the length of the input. However, on the ohter hand it is most likely that call-ahead takes exponential time given its nested nature. 
+For this reason, call-ahead should be used sparingly.
 
 ## Building
 
-Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. The pertinent commands are:
+Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. 
+The pertinent commands are:
 
     npm run build-debug
     npm run watch-debug
@@ -256,4 +301,3 @@ The example will then be available at http://localhost:8888 and will reload auto
 ## Contact
 
 * james.smith@djalbat.com
-
