@@ -4,7 +4,7 @@ const { testUtilities } = require("../lib/index"); ///
 
 const { compareParseTreeStrings, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe("Missingi rule", () => {
+describe("Missing rule", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"

@@ -2,10 +2,10 @@
 
 import { characters } from "necessary";
 
+import { emptyFrame } from "./frame";
 import { EMPTY_STRING } from "./constants";
 import { definitionContext } from "./utilities/context";
 import { parseParts, parsePartsContinually } from "./utilities/parts";
-import {emptyFrame} from "./frame";
 
 const { SPACE_CHARACTER } = characters;
 

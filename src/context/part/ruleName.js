@@ -26,6 +26,14 @@ export default class RuleNamePartContext extends PartContext {
     return continuingContext;
   }
 
+  isContinuing() {
+    const continuing = (this.continuation === null) ?
+                          super.isContinuing() :
+                            true;
+
+    return continuing;
+  }
+
   continued(frame, context) {
     const partFrame = frame; ///
 
@@ -43,8 +51,8 @@ export default class RuleNamePartContext extends PartContext {
   static fromframeAndRuleNamePart(frame, ruleNamePart, context) {
     const part = ruleNamePart,  ///
           continuation = Continuation.fromRuleNamePart(ruleNamePart, context),
-          coutinuedFrame = frame, ///
-          ruleNamePartContext = PartContext.fromPart(RuleNamePartContext, part, continuation, coutinuedFrame, context);
+          continuedFrame = frame, ///
+          ruleNamePartContext = PartContext.fromPart(RuleNamePartContext, part, continuation, continuedFrame, context);
 
     return ruleNamePartContext;
   }

@@ -40,6 +40,6 @@ class LexicalEntriesTextarea extends Textarea {
 
 export default withStyle(LexicalEntriesTextarea)`
 
-  height: 12rem;
+  height: 24rem;
   
 `;
