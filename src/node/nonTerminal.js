@@ -6,7 +6,7 @@ import { specialSymbols } from "occam-lexers";
 import nodeMixins from "../mixins/node";
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
-const { first, match } = arrayUtilities,
+const { match } = arrayUtilities,
       { opaque: opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class NonTerminalNode {
@@ -169,9 +169,13 @@ export default class NonTerminalNode {
     } else if (this.precedence === null) {
       lowerPrecedence = false;
     } else if (this.precedence === Infinity) {
-      const firstChildNode = first(this.childNodes);
+      lowerPrecedence = this.childNodes.some((childNode) => {
+        const childNodeLowerPrecedence = childNode.isLowerPrecedence(ruleName, precedence);
 
-      lowerPrecedence = firstChildNode.isLowerPrecedence(ruleName, precedence);
+        if (childNodeLowerPrecedence) {
+          return true;
+        }
+      });
     } else {
       lowerPrecedence = ((this.ruleName === ruleName) && (this.precedence < precedence));
     }

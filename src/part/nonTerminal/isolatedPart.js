@@ -2,6 +2,7 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { emptyFrame } from "../../frame";
 import { IsolatedPartPartType } from "../../partTypes";
 import { isolatedPartPartContext } from "../../utilities/context";
 
@@ -18,7 +19,21 @@ export default class IsolatedPartPart extends NonTerminalPart {
 
   parse(frame, context) {
     isolatedPartPartContext((context) => {
-      frame = this.part.parse(frame, context);
+      const continuing = context.isContinuing();
+
+      if (continuing) {
+        frame = this.part.parse(frame, context);
+      } else {
+        const partFrame = this.part.parse(emptyFrame, context);
+
+        frame = (partFrame !== null) ?
+                  context.compose(frame, partFrame) :
+                    null;
+      }
+
+      if (frame !== null) {
+        context.commit();
+      }
     }, context);
 
     return frame;
