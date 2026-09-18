@@ -62,6 +62,10 @@ export default class NonTerminalNode {
     this.precedence = precedence;
   }
 
+  nullifyPrecedence() {
+    this.precedence = null;
+  }
+
   isOpaque() {
     const opaque = (this.opacity === opaqueSpecialSymbol);
 
