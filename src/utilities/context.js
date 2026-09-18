@@ -10,6 +10,7 @@ import RuleNamePartContext from "../context/part/ruleName";
 import ContinuationContext from "../context/continuation";
 import ChoiceOfPartsContext from "../context/part/choiceOfParrts";
 import ContinuationPartContext from "../context/part/continuation";
+import IsolatedPartPartContext from "../context/part/isolatedPart";
 import SequenceOfPartsPartContext from "../context/part/sequenceOfParts";
 
 export function ruleContext(innerFunction, rule, context) {
@@ -88,6 +89,14 @@ export function choiceOfPartsPartContext(innerFunction, choiceOfPartsPart, conte
   const choiceOfPartsPartContext = ChoiceOfPartsContext.fromChoiceOfPartsPart(choiceOfPartsPart, context);
 
   context = choiceOfPartsPartContext;  ///
+
+  innerFunction(context);
+}
+
+export function isolatedPartPartContext(innerFunction, context) {
+  const isolatedPartPartContext = IsolatedPartPartContext.fromNothing(context);
+
+  context = isolatedPartPartContext;  ///
 
   innerFunction(context);
 }

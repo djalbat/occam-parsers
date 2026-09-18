@@ -36,6 +36,12 @@ export default class TopmostContext extends Context {
     return NonTerminalNode;
   }
 
+  isIsolated() {
+    const isolated = true;
+
+    return isolated;
+  }
+
   findRule(ruleName) {
     const rule = this.ruleMap[ruleName] || null;  ///
 

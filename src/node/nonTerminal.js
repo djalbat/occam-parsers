@@ -191,13 +191,6 @@ export default class NonTerminalNode {
     return unprecedented;
   }
 
-  isPalatable() {
-    const unpalatable = this.isUnpalatable(),
-          palatable = !unpalatable;
-
-    return palatable;
-  }
-
   isUnpalatable() {
     let unpalatable = false;
 
@@ -209,6 +202,13 @@ export default class NonTerminalNode {
     }
 
     return unpalatable;
+  }
+
+  isPalatable() {
+    const unpalatable = this.isUnpalatable(),
+          palatable = !unpalatable;
+
+    return palatable;
   }
 
   asParseTree(tokens) {

@@ -10,8 +10,21 @@ export default class DefinitionContext extends Context {
     this.precedence = precedence;
   }
 
-  getPrecedence() {
-    return this.precedence;
+  getPrecedence(frame) {
+    let precedence;
+
+    const context = this.getContext(),
+          isolated = context.isIsolated();
+
+    if (isolated) {
+      precedence = null;
+    } else {
+      precedence = frame.getPrecedence();
+
+      precedence = precedence || this.precedence; ///
+    }
+
+    return precedence;
   }
 
   getRule() {
@@ -22,28 +35,26 @@ export default class DefinitionContext extends Context {
     return rule;
   }
 
+  isIsolated() {
+    const isolated = false;
+
+    return isolated;
+  }
+
   compose(frame) {
-    const childNodes = frame.getChildNodes();
-
-    let precedence;
-
-    precedence = frame.getPrecedence();
-
-    precedence = precedence || this.precedence; ///
+    const childNodes = frame.getChildNodes(),
+          precedence = this.getPrecedence(frame);
 
     frame = Frame.fromChildNodesAndPrecedence(childNodes, precedence);
 
-    const context = this,  ///
+    const context = this, ///
           nonTerminalNode = nonTerminalNodeFromFrame(frame, context),
-          palatable = nonTerminalNode.isPalatable();
+          palatable = nonTerminalNode.isPalatable(),
+          childNode = nonTerminalNode;  ///
 
-    if (palatable) {
-      const childNode = nonTerminalNode;  ///
-
-      frame = Frame.fromChildNode(childNode);
-    } else {
-      frame = null;
-    }
+    frame = palatable ? ///
+              Frame.fromChildNode(childNode) :
+                null;
 
     return frame;
   }

@@ -27,6 +27,8 @@ export default class Context {
 
   NonTerminalNodeFromRuleName(ruleName) { return this.context.NonTerminalNodeFromRuleName(ruleName); }
 
+  isIsolated() {  return this.context.isIsolated(); }
+
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
   getNextPart() { return this.context.getNextPart(); }

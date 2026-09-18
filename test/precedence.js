@@ -11,6 +11,58 @@ describe("Precedence", () => {
     }
   ];
 
+  describe("isolated part", () => {
+    const bnf = `
+    
+      S ::= T... "." ;
+          
+      A ::= . ;
+      
+      B ::= . ;
+      
+      T ::= . "(" (T) ")" (3)
+      
+          | A "u" B (2) 
+          
+          ;
+    
+    `;
+
+    describe("correctly nested expressions", () => {
+      const content = "f(A u B).";
+
+      it("results in a non-null node" , () => {
+        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isNotNull(node);
+      });
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                                        
+                                                                                                      S [0]                                          
+                                                                                                        |                                            
+                                                                     -----------------------------------------------------------------------         
+                                                                     |                                                                     |         
+                                                                 T [0] (3)                                                        "."[unassigned] [0]
+                                                                     |                                                                               
+                   -----------------------------------------------------------------------------------------------------                             
+                   |                   |                                       |                                       |                             
+          "f"[unassigned] [0] "("[unassigned] [0]                            T [0]                            ")"[unassigned] [0]                    
+                                                                               |                                                                     
+                                                           -----------------------------------------                                                 
+                                                           |                   |                   |                                                 
+                                                         A [0]        "u"[unassigned] [0]        B [0]                                               
+                                                           |                                       |                                                 
+                                                  "A"[unassigned] [0]                     "B"[unassigned] [0]                                        
+    
+        `));
+      });
+    });
+  });
+
   describe("definitions with direct precedence", () => {
     const bnf = `
     

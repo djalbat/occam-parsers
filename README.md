@@ -38,39 +38,43 @@ definition               ::=  part+ precedence? ;
 
 part                     ::=  nonTerminalPart quantifier*
 
-                           |  terminalPart quantifier*
+                         |  terminalPart quantifier*
 
-                           ;
+                         ;
 
-nonTerminalPart          ::=  choiceOfParts
+nonTerminalPart          ::=  isolatedPart
 
-                           |  sequenceOfParts
-    
-                           |  ruleName continuationModifier?
-    
-                           ;
+                         |  choiceOfParts
+
+                         |  sequenceOfParts
+
+                         |  ruleName continuationModifier?
+
+                         ;
 
 terminalPart             ::=  significantTokenType
 
-                           |  regularExpression
-    
-                           |  stringLiteral
-    
-                           |  backtick
-    
-                           |  wildcard
-    
-                           |  epsilon
-    
-                           |  endOfLine
-    
-                           |  noWhitespace
-                          
-                           ;
+                         |  regularExpression
+
+                         |  stringLiteral
+
+                         |  backtick
+
+                         |  wildcard
+
+                         |  epsilon
+
+                         |  endOfLine
+
+                         |  noWhitespace
+                      
+                         ;
                       
 sequenceOfParts          ::=  "(" part part+ ")" ;
 
 choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
+
+isolatedPart             ::=  "(" part ")" ;
 
 partChoice               ::=  part precedence? ;
 
@@ -96,11 +100,11 @@ noWhitespace             ::=  "<NO_WHITESPACE>" ;
 
 quantifier               ::=  optionalQuantifier
 
-                           |  oneOrMoreQuantifier
-   
-                           |  zeroOrMoreQuantifier
-    
-                           ;
+                         |  oneOrMoreQuantifier
+
+                         |  zeroOrMoreQuantifier
+
+                         ;
 
 opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
 

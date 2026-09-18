@@ -1,9 +1,16 @@
 "use strict";
 
-const bnf = `S   ::= "a" T... "." ;
+const bnf = `S ::= T... "." ;
+    
+A ::= . ;
 
-T   ::= . ;
-          
+B ::= . ;
+
+T ::= . "(" (T) ")" (3)
+
+    | A "u" B (2) 
+    
+    ;
 `;
 
 export default bnf;

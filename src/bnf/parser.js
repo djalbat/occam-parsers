@@ -2,8 +2,9 @@
 
 import bnf from "./bnf";
 import Rule from "../rule";
-import NonTerminalNodeMap from "../nonTerminalNodeMap";
 import parserMixins from "../mixins/parser";
+import NonTerminalNodeMap from "../nonTerminalNodeMap";
+
 import NameBNFRule from "../rule/bnf/name";
 import PartBNFRule from "../rule/bnf/part";
 import RuleBNFRule from "../rule/bnf/rule";
@@ -19,6 +20,7 @@ import QuantifierBNFRule from "../rule/bnf/quantifier";
 import DefinitionBNFRule from "../rule/bnf/definition";
 import PrecedentsBNFRule from "../rule/bnf/precedence";
 import DefinitionsBNFRule from "../rule/bnf/definitions";
+import IsolatedPartBNFRule from "../rule/bnf/isolatedPart";
 import TerminalPartBNFRule from "../rule/bnf/terminalPart";
 import ChoiceOfPartsBNFRule from "../rule/bnf/choiceOfParts";
 import StringLiteralBNFRule from "../rule/bnf/stringLiteral";
@@ -92,6 +94,7 @@ export default class BNFParser {
           precedentsBNFRule = PrecedentsBNFRule.fromNothing(),
           definitionsBNFRule = DefinitionsBNFRule.fromNothing(),
           terminalPartBNFRule = TerminalPartBNFRule.fromNothing(),
+          isolatedPartBNFRule = IsolatedPartBNFRule.fromNothing(),
           choiceOfPartsBNFRule = ChoiceOfPartsBNFRule.fromNothing(),
           stringLiteralBNFRule = StringLiteralBNFRule.fromNothing(),
           nonTerminalPartBNFRule = NonTerminalPartBNFRule.fromNothing(),
@@ -116,6 +119,7 @@ export default class BNFParser {
             noWhitespacePartBNFRule,
             sequenceOfPartsBNFRule,
             choiceOfPartsBNFRule,
+            isolatedPartBNFRule,
             partChoiceBNFRule,
             ruleNameBNFRule,
             significantTokenTypeBNFRule,
