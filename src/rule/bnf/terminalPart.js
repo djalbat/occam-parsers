@@ -5,7 +5,6 @@ import RuleNameDefinition from "../../definition/ruleName";
 
 import { EPSILON_RULE_NAME,
          WILDCARD_RULE_NAME,
-         BACKTICK_RULE_NAME,
          END_OF_LINE_RULE_NAME,
          TERMINAL_PART_RULE_NAME,
          STRING_LITERAL_RULE_NAME,
@@ -26,10 +25,6 @@ export default class TerminalPartBNFRule extends Rule {
     ruleName = WILDCARD_RULE_NAME;
 
     const wildcardRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
-
-    ruleName = BACKTICK_RULE_NAME;
-
-    const backtickRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
 
     ruleName = END_OF_LINE_RULE_NAME;
 
@@ -57,7 +52,6 @@ export default class TerminalPartBNFRule extends Rule {
             stringLiteralRuleNameDefinition,
             endOfLineRuleNameDefinition,
             wildcardRuleNameDefinition,
-            backtickRuleNameDefinition,
             epsilonRuleNameDefinition,
             noWhitespacePartRuleNameDefinition
           ],

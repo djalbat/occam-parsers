@@ -38,41 +38,43 @@ definition               ::=  part+ precedence? ;
 
 part                     ::=  nonTerminalPart quantifier*
 
-                         |  terminalPart quantifier*
+                           |  terminalPart quantifier*
 
-                         ;
+                           ;
 
-nonTerminalPart          ::=  isolatedPart
+nonTerminalPart          ::=  restrictedPart
 
-                         |  choiceOfParts
+                           |  isolatedPart
 
-                         |  sequenceOfParts
-
-                         |  ruleName continuationModifier?
-
-                         ;
+                           |  choiceOfParts
+    
+                           |  sequenceOfParts
+    
+                           |  ruleName continuationModifier?
+    
+                           ;
 
 terminalPart             ::=  significantTokenType
 
-                         |  regularExpression
-
-                         |  stringLiteral
-
-                         |  backtick
-
-                         |  wildcard
-
-                         |  epsilon
-
-                         |  endOfLine
-
-                         |  noWhitespace
-                      
-                         ;
+                           |  regularExpression
+    
+                           |  stringLiteral
+    
+                           |  wildcard
+    
+                           |  epsilon
+    
+                           |  endOfLine
+    
+                           |  noWhitespace
+                          
+                           ;
                       
 sequenceOfParts          ::=  "(" part part+ ")" ;
 
 choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
+
+restrictedPart           ::=  "\`" part ;
 
 isolatedPart             ::=  "(" part ")" ;
 
@@ -90,8 +92,6 @@ precedence               ::=  "(" [number]? ")" ;
 
 endOfLine                ::=  "<END_OF_LINE>" ;
 
-backtick                 ::=  "\`" ;
-
 wildcard                 ::=  "." ;
 
 epsilon                  ::=  "ε" ;
@@ -100,11 +100,11 @@ noWhitespace             ::=  "<NO_WHITESPACE>" ;
 
 quantifier               ::=  optionalQuantifier
 
-                         |  oneOrMoreQuantifier
-
-                         |  zeroOrMoreQuantifier
-
-                         ;
+                           |  oneOrMoreQuantifier
+    
+                           |  zeroOrMoreQuantifier
+    
+                           ;
 
 opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
 

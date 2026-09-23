@@ -4,7 +4,7 @@ const { testUtilities } = require("../lib/index"); ///
 
 const { compareParseTreeStrings, nodeFromEntriesBnfAndContent, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe("Backticks", () => {
+describe("Restricted part", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"
@@ -29,7 +29,7 @@ describe("Backticks", () => {
     describe("content with a backtick", () => {
       const content = "a b .";
 
-      it.only("results in a null node" , () => {
+      it.skip("results in a null node" , () => {
         const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isNull(node);

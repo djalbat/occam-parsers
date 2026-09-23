@@ -13,7 +13,6 @@ import EpsilonBNFRule from "../rule/bnf/epsilon";
 import DocumentBNFRule from "../rule/bnf/document";
 import RuleNameBNFRule from "../rule/bnf/ruleName";
 import WildcardBNFRule from "../rule/bnf/wildcard";
-import BacktickBNFRule from "../rule/bnf/backtick";
 import EndOfLineBNFRule from "../rule/bnf/endOfLine";
 import PartChoiceBNFRule from "../rule/bnf/partChoice";
 import QuantifierBNFRule from "../rule/bnf/quantifier";
@@ -24,6 +23,7 @@ import IsolatedPartBNFRule from "../rule/bnf/isolatedPart";
 import TerminalPartBNFRule from "../rule/bnf/terminalPart";
 import ChoiceOfPartsBNFRule from "../rule/bnf/choiceOfParts";
 import StringLiteralBNFRule from "../rule/bnf/stringLiteral";
+import RestrictedPartBNFRule from "../rule/bnf/restrictedPart";
 import NonTerminalPartBNFRule from "../rule/bnf/nonTerminalPart";
 import SequenceOfPartsBNFRule from "../rule/bnf/sequenceOfParts";
 import OpacityModifierBNFRule from "../rule/bnf/opacityModifier";
@@ -86,7 +86,6 @@ export default class BNFParser {
           documentBNFRule = DocumentBNFRule.fromNothing(),
           ruleNameBNFRule = RuleNameBNFRule.fromNothing(),
           wildcardBNFRule = WildcardBNFRule.fromNothing(),
-          backtickBNFRule = BacktickBNFRule.fromNothing(),
           endOfLineBNFRule = EndOfLineBNFRule.fromNothing(),
           partChoiceBNFRule = PartChoiceBNFRule.fromNothing(),
           quantifierBNFRule = QuantifierBNFRule.fromNothing(),
@@ -97,6 +96,7 @@ export default class BNFParser {
           isolatedPartBNFRule = IsolatedPartBNFRule.fromNothing(),
           choiceOfPartsBNFRule = ChoiceOfPartsBNFRule.fromNothing(),
           stringLiteralBNFRule = StringLiteralBNFRule.fromNothing(),
+          restrictedPartBNFRule = RestrictedPartBNFRule.fromNothing(),
           nonTerminalPartBNFRule = NonTerminalPartBNFRule.fromNothing(),
           sequenceOfPartsBNFRule = SequenceOfPartsBNFRule.fromNothing(),
           opacityModifierBNFRule = OpacityModifierBNFRule.fromNothing(),
@@ -118,6 +118,7 @@ export default class BNFParser {
             terminalPartBNFRule,
             noWhitespacePartBNFRule,
             sequenceOfPartsBNFRule,
+            restrictedPartBNFRule,
             choiceOfPartsBNFRule,
             isolatedPartBNFRule,
             partChoiceBNFRule,
@@ -128,7 +129,6 @@ export default class BNFParser {
             precedentsBNFRule,
             endOfLineBNFRule,
             wildcardBNFRule,
-            backtickBNFRule,
             epsilonBNFRule,
             quantifierBNFRule,
             opacityModifierBNFRule,

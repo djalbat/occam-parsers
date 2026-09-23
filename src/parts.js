@@ -3,7 +3,6 @@
 import EpsilonPart from "./part/terminal/epsilon";
 import RuleNamePart from "./part/nonTerminal/ruleName";
 import WildcardPart from "./part/terminal/wildcard";
-import BacktickPart from "./part/terminal/backtick";
 import EndOfLinePart from "./part/terminal/endOfLine";
 import OptionalPartPart from "./part/nonTerminal/optionalPart";
 import StringLiteralPart from "./part/terminal/stringLiteral";
@@ -18,7 +17,6 @@ export default {
   EpsilonPart,
   RuleNamePart,
   WildcardPart,
-  BacktickPart,
   EndOfLinePart,
   OptionalPartPart,
   ChoiceOfPartsPart,

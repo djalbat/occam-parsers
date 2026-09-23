@@ -5,6 +5,7 @@ export const IsolatedPartPartType = "isolatedPart";
 export const OptionalPartPartType = "optionalPart";
 export const ChoiceOfPartsPartType = "choiceOfParts";
 export const OneOrMorePartsPartType = "oneOrMoreParts";
+export const RestrictedPartPartType = "restrictedPart";
 export const ZeroOrMorePartsPartType = "zeroOrMoreParts";
 export const SequenceOfPartsPartType = "sequenceOfParts";
 
@@ -14,6 +15,7 @@ export default {
   OptionalPartPartType,
   ChoiceOfPartsPartType,
   OneOrMorePartsPartType,
+  RestrictedPartPartType,
   ZeroOrMorePartsPartType,
   SequenceOfPartsPartType
 };

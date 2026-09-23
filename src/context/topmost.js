@@ -42,12 +42,6 @@ export default class TopmostContext extends Context {
     return isolated;
   }
 
-  isRestrained() {
-    const restrained = true;
-
-    return restrained;
-  }
-
   findRule(ruleName) {
     const rule = this.ruleMap[ruleName] || null;  ///
 

@@ -18,7 +18,9 @@ const bnf = `
 
                                  ;
 
-      nonTerminalPart          ::=  isolatedPart
+      nonTerminalPart          ::=  restrictedPart
+
+                                 |  isolatedPart
 
                                  |  choiceOfParts
 
@@ -34,8 +36,6 @@ const bnf = `
  
                                  |  stringLiteral
   
-                                 |  backtick
-  
                                  |  wildcard
   
                                  |  epsilon
@@ -49,6 +49,8 @@ const bnf = `
       sequenceOfParts          ::=  "(" part part+ ")" ;
 
       choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
+
+      restrictedPart           ::=  "\`" part ;
 
       isolatedPart             ::=  "(" part ")" ;
 
@@ -66,8 +68,6 @@ const bnf = `
       
       endOfLine                ::=  "<END_OF_LINE>" ;
       
-      backtick                 ::=  "\`" ;
-
       wildcard                 ::=  "." ;
 
       epsilon                  ::=  "ε" ;

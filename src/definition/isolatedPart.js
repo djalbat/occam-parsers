@@ -10,7 +10,7 @@ import { PART_RULE_NAME } from "../ruleNames";
 
 const { openBracket, closeBracket } = specialSymbols;
 
-export default class IsoltedPartDefinition extends Definition {
+export default class IsolatedPartDefinition extends Definition {
   static fromNothing() {
     const ruleName = PART_RULE_NAME,  ///
           openBracketStringLiteralContent = openBracket, ///
@@ -24,7 +24,7 @@ export default class IsoltedPartDefinition extends Definition {
             closeBracketStringLiteralPart
           ],
           precedence = null,
-          isolatedPartDefinition = new IsoltedPartDefinition(parts, precedence);
+          isolatedPartDefinition = new IsolatedPartDefinition(parts, precedence);
 
     return isolatedPartDefinition;
   }

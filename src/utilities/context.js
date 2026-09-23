@@ -6,12 +6,12 @@ import PartsContext from "../context/parts";
 import TopmostContext from "../context/topmost";
 import PartChoiceContext from "../context/partChoice";
 import DefinitionContext from "../context/definition";
-import BacktickPartContext from "../context/part/backtick";
 import RuleNamePartContext from "../context/part/ruleName";
 import ContinuationContext from "../context/continuation";
 import ChoiceOfPartsContext from "../context/part/choiceOfParrts";
 import ContinuationPartContext from "../context/part/continuation";
 import IsolatedPartPartContext from "../context/part/isolatedPart";
+import RestrictedPartPartContext from "../context/part/restrictedPart";
 import SequenceOfPartsPartContext from "../context/part/sequenceOfParts";
 
 export function ruleContext(innerFunction, rule, context) {
@@ -62,14 +62,6 @@ export function definitionContext(innerFunction, definition, context) {
   innerFunction(context);
 }
 
-export function backtickCPartontext(innerFunction, context) {
-  const backtickCPartontext = BacktickPartContext.fromNothing(context);
-
-  context = backtickCPartontext;
-
-  innerFunction(context);
-}
-
 export function ruleNamePartContext(innerFunction, frame, ruleNamePart, context) {
   const ruleNamePartContext = RuleNamePartContext.fromframeAndRuleNamePart(frame, ruleNamePart, context);
 
@@ -82,6 +74,14 @@ export function continuationContext(innerFunction, continuingContext, context) {
   const continuationContext = ContinuationContext.fromContinuingContext(continuingContext, context);
 
   context = continuationContext;  ///
+
+  innerFunction(context);
+}
+
+export function isolatedPartPartContext(innerFunction, context) {
+  const isolatedPartPartContext = IsolatedPartPartContext.fromNothing(context);
+
+  context = isolatedPartPartContext;  ///
 
   innerFunction(context);
 }
@@ -102,10 +102,10 @@ export function choiceOfPartsPartContext(innerFunction, choiceOfPartsPart, conte
   innerFunction(context);
 }
 
-export function isolatedPartPartContext(innerFunction, context) {
-  const isolatedPartPartContext = IsolatedPartPartContext.fromNothing(context);
+export function restrictedPartPartContext(innerFunction, context) {
+  const restrictedPartPartContext = RestrictedPartPartContext.fromNothing(context);
 
-  context = isolatedPartPartContext;  ///
+  context = restrictedPartPartContext;  ///
 
   innerFunction(context);
 }

@@ -8,7 +8,6 @@ import EpsilonBNFNode from "./node/bnf/epsilon";
 import DocumentBNFNode from "./node/bnf/document";
 import RuleNameBNFNode from "./node/bnf/ruleName";
 import WildcardBNFNode from "./node/bnf/wildcard";
-import BacktickBNFNode from "./node/bnf/backtick";
 import EndOfLineBNFNode from "./node/bnf/endOfLine";
 import PartChoiceBNFNode from "./node/bnf/partChoice";
 import PrecedenceBNFNode from "./node/bnf/precedence";
@@ -19,6 +18,7 @@ import TerminalPartBNFNode from "./node/bnf/terminalPart";
 import IsolatedPartBNFNode from "./node/bnf/isolatedPart";
 import ChoiceOfPartsBNFNode from "./node/bnf/choiceOfParts";
 import StringLiteralBNFNode from "./node/bnf/stringLiteral";
+import RestrictedPartBNFNode from "./node/bnf/restrictedPart";
 import BonTerminalPartBNFNode from "./node/bnf/nonTerminalPart";
 import SequenceOfPartsBNFNode from "./node/bnf/sequenceOfParts";
 import OpacityModifierBNFNode from "./node/bnf/opacityModifier";
@@ -37,7 +37,6 @@ import { NAME_RULE_NAME,
          EPSILON_RULE_NAME,
          DOCUMENT_RULE_NAME,
          WILDCARD_RULE_NAME,
-         BACKTICK_RULE_NAME,
          RULE_NAME_RULE_NAME,
          DEFINITION_RULE_NAME,
          PRECEDENCE_RULE_NAME,
@@ -48,6 +47,7 @@ import { NAME_RULE_NAME,
          TERMINAL_PART_RULE_NAME,
          ISOLATED_PART_RULE_NAME,
          STRING_LITERAL_RULE_NAME,
+         RESTRICTED_PART_RULE_NAME,
          CHOICE_OF_PARTS_RULE_NAME,
          OPACITY_MODIFIER_RULE_NAME,
          NON_TERMINAL_PART_RULE_NAME,
@@ -68,7 +68,6 @@ const NonTerminalNodeMap = {
   [EPSILON_RULE_NAME]: EpsilonBNFNode,
   [DOCUMENT_RULE_NAME]: DocumentBNFNode,
   [WILDCARD_RULE_NAME]: WildcardBNFNode,
-  [BACKTICK_RULE_NAME]: BacktickBNFNode,
   [RULE_NAME_RULE_NAME]: RuleNameBNFNode,
   [DEFINITION_RULE_NAME]: DefinitionBNFNode,
   [PRECEDENCE_RULE_NAME]: PrecedenceBNFNode,
@@ -80,6 +79,7 @@ const NonTerminalNodeMap = {
   [ISOLATED_PART_RULE_NAME]: IsolatedPartBNFNode,
   [STRING_LITERAL_RULE_NAME]: StringLiteralBNFNode,
   [CHOICE_OF_PARTS_RULE_NAME]: ChoiceOfPartsBNFNode,
+  [RESTRICTED_PART_RULE_NAME]: RestrictedPartBNFNode,
   [OPACITY_MODIFIER_RULE_NAME]: OpacityModifierBNFNode,
   [NON_TERMINAL_PART_RULE_NAME]: BonTerminalPartBNFNode,
   [SEQUENCE_OF_PARTS_RULE_NAME]: SequenceOfPartsBNFNode,
