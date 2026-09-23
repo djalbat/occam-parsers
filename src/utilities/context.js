@@ -6,6 +6,7 @@ import PartsContext from "../context/parts";
 import TopmostContext from "../context/topmost";
 import PartChoiceContext from "../context/partChoice";
 import DefinitionContext from "../context/definition";
+import BacktickPartContext from "../context/part/backtick";
 import RuleNamePartContext from "../context/part/ruleName";
 import ContinuationContext from "../context/continuation";
 import ChoiceOfPartsContext from "../context/part/choiceOfParrts";
@@ -57,6 +58,14 @@ export function definitionContext(innerFunction, definition, context) {
   const definitionContext = DefinitionContext.fromDefinition(definition, context);
 
   context = definitionContext;  ///
+
+  innerFunction(context);
+}
+
+export function backtickCPartontext(innerFunction, context) {
+  const backtickCPartontext = BacktickPartContext.fromNothing(context);
+
+  context = backtickCPartontext;
 
   innerFunction(context);
 }

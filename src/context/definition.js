@@ -34,6 +34,12 @@ export default class DefinitionContext extends Context {
     return isolated;
   }
 
+  isRestrained() {
+    const restrained = false;
+
+    return restrained;
+  }
+
   compose(frame) {
     let context;
 

@@ -4,32 +4,21 @@ import { specialSymbols } from "occam-lexers";
 
 import Frame from "../../frame";
 import TerminalPart from "../../part/terminal";
-import TerminalNode from "../../node/terminal";
+import BacktickNode from "../../node/terminal/backtick";
 
-import { partContext } from "../../utilities/context";
+import { backtickCPartontext } from "../../utilities/context";
 
 const { backtick } = specialSymbols;
 
 export default class BacktickPart extends TerminalPart {
   parse(frame, context) {
-    const part = this;  ///
+    backtickCPartontext((context) => {
+      let partFrame;
 
-    partContext((context) => {
-      let partFrame = null;
+      const backtickNode = BacktickNode.fromNothing(),
+            childNode = backtickNode;  ///
 
-      const nextSignificantToken = context.getNextSignificantToken();
-
-      if (nextSignificantToken !== null) {
-        const significantToken = nextSignificantToken, ///
-              content = significantToken.getContent();
-
-        if (content === backtick) {
-          const terminalNode = TerminalNode.fromSignificantToken(significantToken),
-                childNode = terminalNode;  ///
-
-          partFrame = Frame.fromChildNode(childNode);
-        }
-      }
+      partFrame = Frame.fromChildNode(childNode);
 
       frame = (partFrame !== null) ?
                 context.compose(frame, partFrame) :
@@ -42,13 +31,13 @@ export default class BacktickPart extends TerminalPart {
       if (frame !== null) {
         context.commit();
       }
-    }, part, context);
+    }, context);
 
     return frame;
   }
 
   asString() {
-    const string = backtick;  ///
+    const string = backtick; ///
 
     return string;
   }

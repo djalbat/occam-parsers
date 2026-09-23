@@ -27,9 +27,15 @@ export default class RuleNamePartContext extends PartContext {
   }
 
   isContinuing() {
-    const continuing = (this.continuation === null) ?
-                          super.isContinuing() :
-                            true;
+    let continuing = false;
+
+    const unrestrained = this.isUnrestrained();
+
+    if (unrestrained) {
+      continuing = (this.continuation === null) ?
+                     super.isContinuing() :
+                       true;
+    }
 
     return continuing;
   }

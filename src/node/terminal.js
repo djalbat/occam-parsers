@@ -36,6 +36,12 @@ export default class TerminalNode {
     return epsilonNode;
   }
 
+  isBacktickNode() {
+    const backtickNode = false;
+
+    return backtickNode;
+  }
+
   isTerminalNode() {
     const terminalNode = true;
     

@@ -29,6 +29,8 @@ export default class Context {
 
   isIsolated() {  return this.context.isIsolated(); }
 
+  isRestrained() {  return this.context.isRestrained(); }
+
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
   getNextPart() { return this.context.getNextPart(); }
@@ -55,9 +57,23 @@ export default class Context {
     return continuation;
   }
 
+  isUnrestrained() {
+    const restrained = this.isRestrained(),
+          unrestrained = !restrained;
+
+    return unrestrained;
+  }
+
   isContinuing() {
-    const continuationsLength = this.continuations.length,
-          continuing = (continuationsLength > 0);
+    let continuing = false;
+
+    const unrestrained = this.isUnrestrained();
+
+    if (unrestrained) {
+      const continuationsLength = this.continuations.length;
+
+      continuing = (continuationsLength > 0);
+    }
 
     return continuing;
   }
