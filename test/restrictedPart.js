@@ -11,7 +11,7 @@ describe("Restricted part", () => {
     }
   ];
 
-  describe("genuine backticks", () => {
+  describe("restricted rule name part", () => {
     const bnf = `
     
       S ::= A...  "." ;
@@ -26,7 +26,7 @@ describe("Restricted part", () => {
           
     `;
 
-    describe("content with a backtick", () => {
+    describe("requisite content", () => {
       const content = "a b .";
 
       it.skip("results in a null node" , () => {
@@ -36,4 +36,29 @@ describe("Restricted part", () => {
       });
     });
   });
-});
+
+  describe("simulated polynomial operator boundaries", () => {
+    const bnf = `
+  
+      S ::= T... "." ;
+      
+      T ::= \`A "+" A ;
+      
+      A ::= . "+" .
+      
+          | .
+                   
+          ;
+                 
+    `;
+
+    describe("content with overlapping operators", () => {
+      const content = "1 + 2 .";
+
+      it.only("results in a null node because the first argument commits greedily", () => {
+        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isNull(node);
+      });
+    });
+  });});

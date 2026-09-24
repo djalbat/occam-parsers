@@ -105,7 +105,7 @@ export function choiceOfPartsPartContext(innerFunction, choiceOfPartsPart, conte
 export function restrictedPartPartContext(innerFunction, context) {
   const restrictedPartPartContext = RestrictedPartPartContext.fromNothing(context);
 
-  context = restrictedPartPartContext;  ///
+  context = restrictedPartPartContext;
 
   innerFunction(context);
 }

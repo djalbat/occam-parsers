@@ -3,9 +3,17 @@
 import Context from "../../context";
 
 export default class RestrictedPartPartContext extends Context {
-  static fromNothing(context) {
-    const restrictedPartPartContext = Context.fromNothing(RestrictedPartPartContext, context);
+  continued(frame, context) {
+    frame = this.compose(frame);
 
-    return restrictedPartPartContext;
+    if (frame !== null) {
+      context.commit(this);
+    }
+
+    return frame;
+  }
+
+  static fromNothing(context) {
+    return Context.fromNothing(RestrictedPartPartContext, context);
   }
 }

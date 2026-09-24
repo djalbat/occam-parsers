@@ -37,7 +37,7 @@ export default class ContinuationPartContext extends PartContext {
       frame = this.parsePartContinually(part, count, strict, frame, context);
 
       if (frame !== null) {
-        context.commit(frame);
+        context.commit();
       }
     }, continuingContext, context);
 

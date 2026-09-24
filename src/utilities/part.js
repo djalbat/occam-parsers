@@ -21,7 +21,7 @@ export function parsePartContinually(part, count, strict, frame, context) {
     }
 
     if (frame !== null) {
-      context.commit(frame);
+      context.commit();
     }
   }, part, count, parsePartContinually, context);
 

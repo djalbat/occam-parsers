@@ -88,8 +88,12 @@ export default class Context {
     return frame;
   }
 
-  commit() {
-    this.context.updateState(this.state);
+  commit(context) {
+    if (context === undefined) {
+      context = this.context;
+    }
+
+    context.updateState(this.state);
   }
 
   static fromNothing(Class, ...remainingArguments) {

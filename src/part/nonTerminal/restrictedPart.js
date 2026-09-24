@@ -23,6 +23,10 @@ export default class RestrictedPartPart extends NonTerminalPart {
 
       if (continuing) {
         frame = this.part.parse(frame, context);
+
+        if (frame !== null) {
+          frame = context.continue(frame);
+        }
       } else {
         const partFrame = this.part.parse(emptyFrame, context);
 
