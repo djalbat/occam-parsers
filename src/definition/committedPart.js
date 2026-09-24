@@ -10,7 +10,7 @@ import { PART_RULE_NAME } from "../ruleNames";
 
 const { backtick } = specialSymbols;
 
-export default class RestritedPartDefinition extends Definition {
+export default class CommittedPartDefinition extends Definition {
   static fromNothing() {
     const ruleName = PART_RULE_NAME,  ///
           backtickStringLiteralContent = backtick, ///
@@ -21,8 +21,8 @@ export default class RestritedPartDefinition extends Definition {
             partRuleNamePart
           ],
           precedence = null,
-          restrictedPartDefinition = new RestritedPartDefinition(parts, precedence);
+          committedPartDefinition = new CommittedPartDefinition(parts, precedence);
 
-    return restrictedPartDefinition;
+    return committedPartDefinition;
   }
 }

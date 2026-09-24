@@ -4,8 +4,8 @@ export const RuleNamePartType = "ruleNamePart";
 export const IsolatedPartPartType = "isolatedPart";
 export const OptionalPartPartType = "optionalPart";
 export const ChoiceOfPartsPartType = "choiceOfParts";
+export const CommittedPartPartType = "committedPart";
 export const OneOrMorePartsPartType = "oneOrMoreParts";
-export const RestrictedPartPartType = "restrictedPart";
 export const ZeroOrMorePartsPartType = "zeroOrMoreParts";
 export const SequenceOfPartsPartType = "sequenceOfParts";
 
@@ -14,8 +14,8 @@ export default {
   IsolatedPartPartType,
   OptionalPartPartType,
   ChoiceOfPartsPartType,
+  CommittedPartPartType,
   OneOrMorePartsPartType,
-  RestrictedPartPartType,
   ZeroOrMorePartsPartType,
   SequenceOfPartsPartType
 };

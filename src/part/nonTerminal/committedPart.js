@@ -5,12 +5,12 @@ import { specialSymbols } from "occam-lexers";
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { emptyFrame } from "../../frame";
-import { RestrictedPartPartType } from "../../partTypes";
-import { restrictedPartPartContext } from "../../utilities/context";
+import { CommittedPartPartType } from "../../partTypes";
+import { committedPartPartContext } from "../../utilities/context";
 
 const { backtick } = specialSymbols;
 
-export default class RestrictedPartPart extends NonTerminalPart {
+export default class CommittedPartPart extends NonTerminalPart {
   constructor(type, continuation, part) {
     super(type, continuation);
 
@@ -22,7 +22,7 @@ export default class RestrictedPartPart extends NonTerminalPart {
   }
 
   parse(frame, context) {
-    restrictedPartPartContext((context) => {
+    committedPartPartContext((context) => {
       const continuing = context.isContinuing();
 
       if (continuing) {
@@ -55,10 +55,10 @@ export default class RestrictedPartPart extends NonTerminalPart {
   }
 
   static fromPart(part) {
-    const type = RestrictedPartPartType,
+    const type = CommittedPartPartType,
           continuation = false,
-          restrictedPartPart = new RestrictedPartPart(type, continuation, part);
+          committedPartPart = new CommittedPartPart(type, continuation, part);
 
-    return restrictedPartPart;
+    return committedPartPart;
   }
 }

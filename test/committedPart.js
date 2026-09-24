@@ -4,14 +4,14 @@ const { testUtilities } = require("../lib/index"); ///
 
 const { compareParseTreeStrings, nodeFromEntriesBnfAndContent, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe("Restricted part", () => {
+describe("Committed part", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"
     }
   ];
 
-  describe("singular restricted rule name part", () => {
+  describe("singular committed rule name part", () => {
     const bnf = `
     
       S ::= A...  "." ;

@@ -6,12 +6,12 @@ import PartsContext from "../context/parts";
 import TopmostContext from "../context/topmost";
 import PartChoiceContext from "../context/partChoice";
 import DefinitionContext from "../context/definition";
-import RuleNamePartContext from "../context/part/ruleName";
 import ContinuationContext from "../context/continuation";
+import RuleNamePartContext from "../context/part/ruleName";
 import ChoiceOfPartsContext from "../context/part/choiceOfParrts";
-import ContinuationPartContext from "../context/part/continuation";
 import IsolatedPartPartContext from "../context/part/isolatedPart";
-import RestrictedPartPartContext from "../context/part/restrictedPart";
+import ContinuationPartContext from "../context/part/continuation";
+import CommittedPartPartContext from "../context/part/committedPart";
 import SequenceOfPartsPartContext from "../context/part/sequenceOfParts";
 
 export function ruleContext(innerFunction, rule, context) {
@@ -102,10 +102,10 @@ export function choiceOfPartsPartContext(innerFunction, choiceOfPartsPart, conte
   innerFunction(context);
 }
 
-export function restrictedPartPartContext(innerFunction, context) {
-  const restrictedPartPartContext = RestrictedPartPartContext.fromNothing(context);
+export function committedPartPartContext(innerFunction, context) {
+  const committedPartPartContext = CommittedPartPartContext.fromNothing(context);
 
-  context = restrictedPartPartContext;
+  context = committedPartPartContext;
 
   innerFunction(context);
 }

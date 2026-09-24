@@ -1,12 +1,12 @@
 "use strict";
 
 import NonTerminalNode from "../../node/nonTerminal";
-import RestirctedPartPart from "../../part/nonTerminal/restrictedPart";
+import CommittedPartPart from "../../part/nonTerminal/committedPart";
 
 import { PART_RULE_NAME } from "../../ruleNames";
 import { nodeFromChildNodesAndRuleName } from "../../utilities/node";
 
-export default class RestirctedPartBNFNode extends NonTerminalNode {
+export default class CommittedPartBNFNode extends NonTerminalNode {
   generatePart(continuation) {
     const ruleName = PART_RULE_NAME,
           childNodes = this.getChildNodes(),
@@ -18,12 +18,12 @@ export default class RestirctedPartBNFNode extends NonTerminalNode {
 
     part = partBNFNode.generatePart(continuation);
 
-    const restrictedPartPart = RestirctedPartPart.fromPart(part);
+    const committedPartPart = CommittedPartPart.fromPart(part);
 
-    part = restrictedPartPart; ///
+    part = committedPartPart; ///
 
     return part;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(RestirctedPartBNFNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(CommittedPartBNFNode, ruleName, childNodes, opacity, precedence); }
 }

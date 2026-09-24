@@ -42,7 +42,7 @@ part                     ::=  nonTerminalPart quantifier*
 
                            ;
 
-nonTerminalPart          ::=  restrictedPart
+nonTerminalPart          ::=  committedPart
 
                            |  isolatedPart
 
@@ -74,7 +74,7 @@ sequenceOfParts          ::=  "(" part part+ ")" ;
 
 choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
 
-restrictedPart           ::=  "\`" part ;
+committedPart            ::=  "\`" part ;
 
 isolatedPart             ::=  "(" part ")" ;
 

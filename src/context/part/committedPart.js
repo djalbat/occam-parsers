@@ -2,7 +2,7 @@
 
 import Context from "../../context";
 
-export default class RestrictedPartPartContext extends Context {
+export default class CommittedPartPartContext extends Context {
   continued(frame, context) {
     frame = this.compose(frame);
 
@@ -14,6 +14,6 @@ export default class RestrictedPartPartContext extends Context {
   }
 
   static fromNothing(context) {
-    return Context.fromNothing(RestrictedPartPartContext, context);
+    return Context.fromNothing(CommittedPartPartContext, context);
   }
 }
