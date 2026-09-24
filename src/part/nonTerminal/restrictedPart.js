@@ -1,10 +1,14 @@
 "use strict";
 
+import { specialSymbols } from "occam-lexers";
+
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { emptyFrame } from "../../frame";
 import { RestrictedPartPartType } from "../../partTypes";
 import { restrictedPartPartContext } from "../../utilities/context";
+
+const { backtick } = specialSymbols;
 
 export default class RestrictedPartPart extends NonTerminalPart {
   constructor(type, continuation, part) {
@@ -45,7 +49,7 @@ export default class RestrictedPartPart extends NonTerminalPart {
 
   asString() {
     const partString = this.part.asString(),
-          string = `( ${partString} )`;
+          string = `${backtick} ${partString}`;
 
     return string;
   }
