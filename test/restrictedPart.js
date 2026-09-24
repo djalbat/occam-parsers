@@ -11,12 +11,12 @@ describe("Restricted part", () => {
     }
   ];
 
-  describe("restricted rule name part", () => {
+  describe("singular restricted rule name part", () => {
     const bnf = `
     
       S ::= A...  "." ;
       
-      A ::= \` B ;
+      A ::= \`B ;
       
       B ::= "a"
       
@@ -26,10 +26,10 @@ describe("Restricted part", () => {
           
     `;
 
-    describe("requisite content", () => {
+    describe("requisite with three significant tokens", () => {
       const content = "a b .";
 
-      it.skip("results in a null node" , () => {
+      it("results in a null node" , () => {
         const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isNull(node);
@@ -37,7 +37,7 @@ describe("Restricted part", () => {
     });
   });
 
-  describe("simulated polynomial operator boundaries", () => {
+  describe("rule name part followed by other parts", () => {
     const bnf = `
   
       S ::= T... "." ;
@@ -52,13 +52,94 @@ describe("Restricted part", () => {
                  
     `;
 
-    describe("content with overlapping operators", () => {
+    describe("content with four significant tokens", () => {
       const content = "1 + 2 .";
 
-      it.only("results in a null node because the first argument commits greedily", () => {
+      it("results in a null node", () => {
         const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isNull(node);
       });
     });
-  });});
+  });
+
+  describe("rule name part with nested continuations", () => {
+    const bnf = `
+  
+      S ::= T... "." ;
+      
+      T ::= A \`"+" A ;
+      
+      A ::= . "+" .
+      
+          | .
+                   
+          ;
+                 
+    `;
+
+    describe("content with four significant tokens", () => {
+      const content = "1 + 2 .";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                                        
+                                                         S [0]                           
+                                                           |                             
+                                       -----------------------------------------         
+                                       |                                       |         
+                                     T [0]                            "."[unassigned] [0]
+                                       |                                                 
+                   -----------------------------------------                             
+                   |                   |                   |                             
+                 A [0]        "+"[unassigned] [0]        A [0]                           
+                   |                                       |                             
+          "1"[unassigned] [0]                     "2"[unassigned] [0]                    
+    
+        `));
+      });
+    });
+  });
+
+  describe("rule name part with nested continuations", () => {
+    const bnf = `
+  
+      S ::= T... "." ;
+      
+      T ::= A (\`"+" A)+ ;
+      
+      A ::= . "+" .
+      
+          | .
+                   
+          ;
+                 
+    `;
+
+    describe("content with four significant tokens", () => {
+      const content = "1 + 2 .";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                                        
+                                                         S [0]                           
+                                                           |                             
+                                       -----------------------------------------         
+                                       |                                       |         
+                                     T [0]                            "."[unassigned] [0]
+                                       |                                                 
+                   -----------------------------------------                             
+                   |                   |                   |                             
+                 A [0]        "+"[unassigned] [0]        A [0]                           
+                   |                                       |                             
+          "1"[unassigned] [0]                     "2"[unassigned] [0]                    
+    
+        `));
+      });
+    });
+  });
+});
