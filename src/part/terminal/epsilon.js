@@ -11,6 +11,12 @@ import { partContext } from "../../utilities/context";
 const { epsilon } = specialSymbols;
 
 export default class EpsilonPart extends TerminalPart {
+  isEpsilonPart() {
+    const epsilonPart = true;
+
+    return epsilonPart;
+  }
+
   parse(frame, context) {
     const part = this;  ///
 
