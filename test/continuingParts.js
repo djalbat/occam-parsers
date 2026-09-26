@@ -1,6 +1,6 @@
 "use strict";
 
-const { testUtilities } = require("../lib/index"); ///
+const { testUtilities } = require("../lib"); ///
 
 const { compareParseTreeStrings, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
