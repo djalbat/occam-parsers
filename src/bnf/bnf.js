@@ -64,7 +64,7 @@ const bnf = `
 
       stringLiteral            ::=  [string-literal] ;
 
-      precedence               ::=  "(" [number]? ")" ;
+      precedence               ::=  "(" [integer]? ")" ;
       
       endOfLine                ::=  "<END_OF_LINE>" ;
       

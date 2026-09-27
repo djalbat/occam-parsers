@@ -7,12 +7,12 @@ import OptionalPartPart from "../part/nonTerminal/optionalPart";
 import StringLiteralPart from "../part/terminal/stringLiteral";
 import SignificantTokenTypePart from "../part/terminal/significantTokenType";
 
-const { numberType } = types,
+const { integerType } = types,
       { openBracket, closeBracket } = specialSymbols;
 
 export default class PrecedenceDefinition extends Definition {
   static fromNothing() {
-    const significantTokenType = numberType,  ///
+    const significantTokenType = integerType,  ///
           openBracketStringLiteralContent = openBracket, ///
           closeBracketStringLiteralContent = closeBracket, ///
           openBracketStringLiteralPart = StringLiteralPart.fromContent(openBracketStringLiteralContent),

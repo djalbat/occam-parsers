@@ -63,6 +63,48 @@ describe("Precedence", () => {
     });
   });
 
+  describe("left association", () => {
+    const bnf = `
+    
+      S ::= E... "." ;
+      
+      E ::= T "+" T     (-100) ;
+      
+      T ::= . "+" .     (100)
+      
+          | .  
+          
+          ;
+        
+    `;
+
+    describe("correctly nested terms", () => {
+      const content = "x + y + z.";
+
+      it.only("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                            
+                                                                                            S [0]                                
+                                                                                              |                                  
+                                                                     ---------------------------------------------------         
+                                                                     |                                                 |         
+                                                               E [0] (-100)                                   "."[unassigned] [0]
+                                                                     |                                                           
+                                       -------------------------------------------------------------                             
+                                       |                                       |                   |                             
+                                  T [0] (100)                         "+"[unassigned] [0]        T [0]                           
+                                       |                                                           |                             
+                   -----------------------------------------                              "z"[unassigned] [0]                    
+                   |                   |                   |                                                                     
+          "x"[unassigned] [0] "+"[unassigned] [0] "y"[unassigned] [0]                                                            
+                                                                      
+        `));
+      });
+    });
+  });
+
   describe("definitions with direct precedence", () => {
     const bnf = `
     
@@ -78,12 +120,6 @@ describe("Precedence", () => {
 
     describe("correctly nested expressions", () => {
       const content = "1 + 2 * 3.";
-
-      it("results in a non-null node" , () => {
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNotNull(node);
-      });
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -126,7 +162,7 @@ describe("Precedence", () => {
     
       S ::= T... "." ;
     
-      T ::= . "+" A (1) 
+      T ::= . "+" A (1)
     
           | . "*" A (2)
     
@@ -138,12 +174,6 @@ describe("Precedence", () => {
 
     describe("correctly nested expressions", () => {
       const content = "1 + 2 * 3.";
-
-      it("results in a non-null node" , () => {
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNotNull(node);
-      });
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
@@ -199,12 +229,6 @@ describe("Precedence", () => {
     describe("correctly nested expressions", () => {
       const content = "1 + 2 * 3.";
 
-      it("results in a non-null node" , () => {
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNotNull(node);
-      });
-
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
@@ -256,12 +280,6 @@ describe("Precedence", () => {
 
     describe("correctly nested expressions", () => {
       const content = "1 + 2 * 3.";
-
-      it("results in a non-null node" , () => {
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNotNull(node);
-      });
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
