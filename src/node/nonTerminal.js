@@ -184,14 +184,26 @@ export default class NonTerminalNode {
   isUnprecedented() {
     let unprecedented = false;
 
-    if ((this.precedence !== null) && (this.precedence !== Infinity)){
+    const childNodesLowerPrecedence = this.areChildNodesLowerPrecedence();
+
+    if (childNodesLowerPrecedence) {
+      unprecedented = true;
+    }
+
+    return unprecedented;
+  }
+
+  areChildNodesLowerPrecedence() {
+    let childNodesLowerPrecedence = false;
+
+    if ((this.precedence !== null) && (this.precedence !== Infinity)) {
       const length = this.childNodes.length,
             lastIndex = (length - 1),
             firstIndex = 0,
             strength = Math.abs(this.precedence),
             associativity = Math.sign(this.precedence);
 
-      unprecedented = this.childNodes.some((childNode, index) => {  ///
+      childNodesLowerPrecedence = this.childNodes.some((childNode, index) => {  ///
         const last = (index === lastIndex),
               first = (index === firstIndex),
               childNodeLowerPrecedence = childNode.isLowerPrecedence(associativity, strength, first, last);
@@ -202,7 +214,7 @@ export default class NonTerminalNode {
       });
     }
 
-    return unprecedented;
+    return childNodesLowerPrecedence;
   }
 
   isLowerPrecedence(associativity, strength, first, last) {
@@ -213,7 +225,7 @@ export default class NonTerminalNode {
     } else if (this.precedence === null) {
       lowerPrecedence = false;
     } else if (this.precedence === Infinity) {
-      lowerPrecedence = this.childNodes.some((childNode) => {
+      lowerPrecedence = this.someChildNode((childNode) => {
         const childNodeLowerPrecedence = childNode.isLowerPrecedence(associativity, strength, first, last);
 
         if (childNodeLowerPrecedence) {
