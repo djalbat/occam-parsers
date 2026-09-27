@@ -49,7 +49,7 @@ export default class CommittedPartPart extends NonTerminalPart {
 
   asString() {
     const partString = this.part.asString(),
-          string = `${backtick} ${partString}`;
+          string = `${backtick}${partString}`;
 
     return string;
   }

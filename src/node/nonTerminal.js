@@ -161,6 +161,42 @@ export default class NonTerminalNode {
     return singular;
   }
 
+  isPalatable() {
+    const unpalatable = this.isUnpalatable(),
+          palatable = !unpalatable;
+
+    return palatable;
+  }
+
+  isUnpalatable() {
+    let unpalatable = false;
+
+    const empty = this.isEmpty(),
+          unprecedented = this.isUnprecedented();
+
+    if (empty || unprecedented) {
+      unpalatable = true;
+    }
+
+    return unpalatable;
+  }
+
+  isUnprecedented() {
+    let unprecedented = false;
+
+    if (this.precedence !== null) {
+      unprecedented = this.childNodes.some((childNode) => {  ///
+        const childNodeLowerPrecedence = childNode.isLowerPrecedence(this.ruleName, this.precedence);
+
+        if (childNodeLowerPrecedence) {
+          return true;
+        }
+      });
+    }
+
+    return unprecedented;
+  }
+
   isLowerPrecedence(ruleName, precedence) {
     let lowerPrecedence;
 
@@ -181,42 +217,6 @@ export default class NonTerminalNode {
     }
 
     return lowerPrecedence;
-  }
-
-  isUnprecedented() {
-    let unprecedented = false;
-
-    if (this.precedence !== null) {
-      unprecedented = this.childNodes.some((childNode) => {  ///
-        const childNodeLowerPrecedence = childNode.isLowerPrecedence(this.ruleName, this.precedence);
-
-        if (childNodeLowerPrecedence) {
-          return true;
-        }
-      });
-    }
-
-    return unprecedented;
-  }
-
-  isUnpalatable() {
-    let unpalatable = false;
-
-    const empty = this.isEmpty(),
-          unprecedented = this.isUnprecedented();
-
-    if (empty || unprecedented) {
-      unpalatable = true;
-    }
-
-    return unpalatable;
-  }
-
-  isPalatable() {
-    const unpalatable = this.isUnpalatable(),
-          palatable = !unpalatable;
-
-    return palatable;
   }
 
   asParseTree(tokens) {
