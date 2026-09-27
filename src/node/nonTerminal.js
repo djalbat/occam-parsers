@@ -226,8 +226,6 @@ export default class NonTerminalNode {
 
       strength = Math.abs(this.precedence);
 
-      associativity = Math.sign(this.precedence);
-
       if (false) {
         ///
       } else if (first) {
