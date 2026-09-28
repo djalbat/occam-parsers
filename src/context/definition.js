@@ -3,6 +3,8 @@
 import Frame from "../frame";
 import Context from "../context";
 
+import { nullifiedFrame } from "../frame";
+
 export default class DefinitionContext extends Context {
   constructor(context, state, continuations, precedence) {
     super(context, state, continuations);
@@ -34,6 +36,12 @@ export default class DefinitionContext extends Context {
     return isolated;
   }
 
+  isCommitted() {
+    const committed = false;
+
+    return committed;
+  }
+
   compose(frame) {
     let context;
 
@@ -54,12 +62,21 @@ export default class DefinitionContext extends Context {
       nonTerminalNode.nullifyPrecedence();
     }
 
-    const palatable = nonTerminalNode.isPalatable(),
-          childNode = nonTerminalNode;  ///
+    const palatable = nonTerminalNode.isPalatable();
 
-    frame = palatable ? ///
-              Frame.fromChildNode(childNode) :
-                null;
+    if (palatable) {
+      const childNode = nonTerminalNode;  ///
+
+      frame = Frame.fromChildNode(childNode);
+    } else {
+      const committed = nonTerminalNode.isCommitted();
+
+      if (committed) {
+        debugger
+      } else {
+        frame = nullifiedFrame;
+      }
+    }
 
     return frame;
   }

@@ -1,13 +1,15 @@
 "use strict";
 
 import { characters } from "necessary";
+import { specialSymbols } from "occam-lexers";
 
 import VerticalBranchParseTree from "./verticalBranch";
 
 import { EMPTY_STRING } from "../constants";
 import { lineIndexFromTokenIndexAndTokens } from "../utilities/tokens";
 
-const { NEW_LINE_CHARACTER, CARRIAGE_RETURN_CHARACTER } = characters;
+const { backtick } = specialSymbols,
+      { NEW_LINE_CHARACTER, CARRIAGE_RETURN_CHARACTER } = characters;
 
 export default class TerminalNodeParseTree extends VerticalBranchParseTree {
   static fromTerminalNodeAndTokens(terminalNode, tokens) {
@@ -40,7 +42,15 @@ export default class TerminalNodeParseTree extends VerticalBranchParseTree {
       lineIndexes = ` [${lineIndex}]`;
     }
 
-    const string = `"${content}"[${type}]${lineIndexes}`,
+    let committed;
+
+    committed = terminalNode.isCommitted();
+
+    committed = committed ?
+                  backtick :
+                    EMPTY_STRING;
+
+    const string = `${committed}"${content}"[${type}]${lineIndexes}`,
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),

@@ -25,7 +25,9 @@ export default class PartChoice {
     partChoiceContext((context) => {
       frame = this.part.parse(frame, context);
 
-      if (frame !== null) {
+      const frameValid = frame.isValid();
+
+      if (frameValid) {
         context.commit();
       }
     }, partChoice, context);

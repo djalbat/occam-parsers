@@ -2,9 +2,9 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { emptyFrame } from "../../frame";
 import { ChoiceOfPartsPartType } from "../../partTypes";
 import { choiceOfPartsPartContext } from "../../utilities/context";
+import { emptyFrame, nullifiedFrame } from "../../frame";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
   constructor(type, continuation, partChoices) {
@@ -40,19 +40,24 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
         if (continuing) {
           frame = partChoice.parse(frame, context);
         } else {
-          const partFrame = partChoice.parse(emptyFrame, context);
+          const partFrame = partChoice.parse(emptyFrame, context),
+                partFrameValid = partFrame.isValid();
 
-          frame = (partFrame !== null) ?
+          frame = partFrameValid ?
                     context.compose(frame, partFrame) :
-                      null;
+                      nullifiedFrame;
         }
 
-        if (frame !== null) {
+        const frameValid = frame.isValid();
+
+        if (frameValid) {
           return true;
         }
       });
 
-      if (frame !== null) {
+      const frameValid = frame.isValid();
+
+      if (frameValid) {
         context.commit();
       }
     }, choiceOfPartsPart, context);

@@ -4,10 +4,10 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { emptyFrame } from "../../frame";
 import { partContext } from "../../utilities/context";
 import { parsePartContinually } from "../../utilities/part";
 import { OneOrMorePartsPartType } from "../../partTypes";
+import { emptyFrame, nullifiedFrame } from "../../frame";
 
 const { plus } = specialSymbols;
 
@@ -40,13 +40,19 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
 
         partFrame = this.part.parse(partFrame, context);
 
-        if (partFrame !== null) {
+        let partFrameValid
+
+        partFrameValid = partFrame.isValid();
+
+        if (partFrameValid) {
           while (true) {
             const savedFrame = partFrame; ///
 
             partFrame = this.part.parse(partFrame, context);
 
-            if (partFrame === null) {
+            const partFrameInvalid = partFrame.isInvalid();
+
+            if (partFrameInvalid) {
               partFrame = savedFrame; ///
 
               break;
@@ -54,12 +60,16 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
           }
         }
 
-        frame = (partFrame !== null) ?
+        partFrameValid = partFrame.isValid();
+
+        frame = partFrameValid ?
                   context.compose(frame, partFrame) :
-                    null;
+                    nullifiedFrame;
       }
 
-      if (frame !== null) {
+      const frameValid = frame.isValid();
+
+      if (frameValid) {
         context.commit();
       }
     }, part, context);

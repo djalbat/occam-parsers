@@ -14,13 +14,18 @@ export function parseParts(parts, frame, context) {
   parts = tailParts;  ///
 
   partsContext((context) => {
-    const partFrame = context.recover(part);
+    const partFrame = context.recover(part),
+          partFrameValid = partFrame.isValid();
 
-    frame = (partFrame !== null) ?
+    frame = partFrameValid ?
               frame.merge(partFrame) :
                 part.parse(frame, context);
 
-    if (frame !== null) {
+    let frameValid;
+
+    frameValid = frame.isValid();
+
+    if (frameValid) {
       const partsLength = parts.length;
 
       if (partsLength > 0) {
@@ -28,7 +33,9 @@ export function parseParts(parts, frame, context) {
       }
     }
 
-    if (frame !== null) {
+    frameValid = frame.isValid();
+
+    if (frameValid) {
       context.commit();
     }
   }, parts, parsePartsContinually, context);
@@ -46,7 +53,9 @@ export function parsePartsContinually(parts, frame, context) {
   partsContext((context) => {
     frame = part.parse(frame, context);
 
-    if (frame !== null) {
+    const frameValid = frame.isValid();
+
+    if (frameValid) {
       context.commit();
     }
   }, parts, parsePartsContinually, context);

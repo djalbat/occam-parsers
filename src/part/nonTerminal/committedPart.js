@@ -4,9 +4,9 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { emptyFrame } from "../../frame";
 import { CommittedPartPartType } from "../../partTypes";
 import { committedPartPartContext } from "../../utilities/context";
+import { emptyFrame, nullifiedFrame } from "../../frame";
 
 const { backtick } = specialSymbols;
 
@@ -28,18 +28,23 @@ export default class CommittedPartPart extends NonTerminalPart {
       if (continuing) {
         frame = this.part.parse(frame, context);
 
-        if (frame !== null) {
+        const frameValid = frame.isValid();
+
+        if (frameValid) {
           frame = context.continue(frame);
         }
       } else {
-        const partFrame = this.part.parse(emptyFrame, context);
+        const partFrame = this.part.parse(emptyFrame, context),
+              partFrameValid = partFrame.isValid();
 
-        frame = (partFrame !== null) ?
+        frame = partFrameValid ?
                   context.compose(frame, partFrame) :
-                    null;
+                    nullifiedFrame;
       }
 
-      if (frame !== null) {
+      const frameValid = frame.isValid();
+
+      if (frameValid) {
         context.commit();
       }
     }, context);

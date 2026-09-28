@@ -2,9 +2,9 @@
 
 import { characters } from "necessary";
 
-import { emptyFrame } from "./frame";
 import { EMPTY_STRING } from "./constants";
 import { definitionContext } from "./utilities/context";
+import { emptyFrame, nullifiedFrame } from "./frame";
 import { parseParts, parsePartsContinually } from "./utilities/parts";
 
 const { SPACE_CHARACTER } = characters;
@@ -36,12 +36,16 @@ export default class Definition {
       } else {
         frame = parseParts(this.parts, emptyFrame, context);
 
-        frame = (frame !== null) ?
+        const frameValid = frame.isValid();
+
+        frame = frameValid ?
                   context.compose(frame) :
-                    null;
+                    nullifiedFrame;
       }
 
-      if (frame !== null) {
+      const frameValid = frame.isValid();
+
+      if (frameValid) {
         context.commit();
       }
     }, definition, context);

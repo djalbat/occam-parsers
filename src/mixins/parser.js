@@ -8,9 +8,10 @@ function parse(tokens, rule = this.startRule) {
   const parser = this;  ///
 
   topmostContext((context) => {
-    const ruleFrame = rule.parse(context);
+    const ruleFrame = rule.parse(context),
+          ruleFrameValid = ruleFrame.isValid();
 
-    if (ruleFrame !== null) {
+    if (ruleFrameValid) {
       node = ruleFrame.getNode();
     }
   }, parser, tokens);

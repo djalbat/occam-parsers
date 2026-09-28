@@ -42,8 +42,14 @@ export default class TopmostContext extends Context {
     return isolated;
   }
 
+  isCommitted() {
+    const committed = false;
+
+    return committed;
+  }
+
   findRule(ruleName) {
-    const rule = this.ruleMap[ruleName] || null;  ///
+    const rule = this.ruleMap[ruleName] || null;
 
     return rule;
   }

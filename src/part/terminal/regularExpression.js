@@ -7,6 +7,7 @@ import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../node/terminal";
 
 import { partContext } from "../../utilities/context";
+import { nullifiedFrame } from "../../frame";
 
 const { first } = arrayUtilities;
 
@@ -25,7 +26,7 @@ export default class RegularExpressionPart extends TerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      let partFrame = null;
+      let partFrame = nullifiedFrame;
 
       const nextSignificantToken = context.getNextSignificantToken();
 
@@ -38,7 +39,8 @@ export default class RegularExpressionPart extends TerminalPart {
           const firstMatch = first(matches);
 
           if (firstMatch === content) {
-            const terminalNode = TerminalNode.fromSignificantToken(significantToken),
+            const committed = context.isCommitted(),
+                  terminalNode = TerminalNode.fromSignificantTokenAndCommitted(significantToken, committed),
                   childNode = terminalNode;  ///
 
             partFrame = Frame.fromChildNode(childNode);
@@ -46,15 +48,23 @@ export default class RegularExpressionPart extends TerminalPart {
         }
       }
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+      const partFrameValid = partFrame.isValid();
 
-      if (frame !== null) {
+      frame = partFrameValid ?
+                context.compose(frame, partFrame) :
+                  nullifiedFrame;
+
+      let frameValid;
+
+      frameValid = frame.isValid();
+
+      if (frameValid) {
         frame = context.continue(frame);
       }
 
-      if (frame !== null) {
+      frameValid = frame.isValid();
+
+      if (frameValid) {
         context.commit();
       }
     }, part, context);

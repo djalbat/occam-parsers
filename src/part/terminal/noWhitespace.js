@@ -7,6 +7,7 @@ import TerminalPart from "../../part/terminal";
 import NoWhitespaceNode from "../../node/terminal/noWhitespace";
 
 import { partContext } from "../../utilities/context";
+import { nullifiedFrame } from "../../frame";
 
 const { noWhitespace } = specialSymbols;
 
@@ -21,7 +22,7 @@ export default class NoWhitespacePart extends TerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      let partFrame = null;
+      let partFrame = nullifiedFrame;
 
       const nextTokenWhitespaceToken = context.isNextTokenWhitespaceToken();
 
@@ -32,15 +33,23 @@ export default class NoWhitespacePart extends TerminalPart {
         partFrame = Frame.fromChildNode(childNode);
       }
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+      const partFrameValid = partFrame.isValid();
 
-      if (frame !== null) {
+      frame = partFrameValid ?
+                context.compose(frame, partFrame) :
+                  nullifiedFrame;
+
+      let frameValid;
+
+      frameValid = frame.isValid();
+
+      if (frameValid) {
         frame = context.continue(frame);
       }
 
-      if (frame !== null) {
+      frameValid = frame.isValid();
+
+      if (frameValid) {
         context.commit();
       }
     }, part, context);

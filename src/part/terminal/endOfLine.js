@@ -7,6 +7,7 @@ import TerminalPart from "../../part/terminal";
 import EndOfLineNode from "../../node/terminal/endOfLine";
 
 import { partContext } from "../../utilities/context";
+import { nullifiedFrame } from "../../frame";
 
 const { endOfLine } = specialSymbols;
 
@@ -15,7 +16,7 @@ export default class EndOfLinePart extends TerminalPart {
     const part = this;  ///
 
     partContext((context) => {
-      let partFrame = null;
+      let partFrame = nullifiedFrame;
 
       const nextSignificantToken = context.getNextSignificantToken();
 
@@ -24,22 +25,31 @@ export default class EndOfLinePart extends TerminalPart {
               significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
 
         if (significantTokenEndOfLineToken) {
-          const endOfLineNode = EndOfLineNode.fromSignificantToken(significantToken),
+          const committed = context.isCommitted(),
+                endOfLineNode = EndOfLineNode.fromSignificantTokenAndCommitted(significantToken, committed),
                 childNode = endOfLineNode;  ///
 
           partFrame = Frame.fromChildNode(childNode);
         }
       }
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+      const partFrameValid = partFrame.isValid();
 
-      if (frame !== null) {
+      frame = partFrameValid ?
+                context.compose(frame, partFrame) :
+                  nullifiedFrame;
+
+      let frameValid;
+
+      frameValid = frame.isValid();
+
+      if (frameValid) {
         frame = context.continue(frame);
       }
 
-      if (frame !== null) {
+      frameValid = frame.isValid();
+
+      if (frameValid) {
         context.commit();
       }
     }, part, context);

@@ -39,7 +39,9 @@ export default class RuleNamePartContext extends PartContext {
 
     frame = this.compose(this.continuedFrame, partFrame);
 
-    if (frame !== null) {
+    const frameValid = frame.isValid();
+
+    if (frameValid) {
       const continuingContext = this.getContinuingContext();
 
       frame = continuingContext.continued(frame, context);

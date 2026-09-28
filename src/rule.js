@@ -65,12 +65,16 @@ export default class Rule {
       this.definitions.some((definition) => {
         frame = definition.parse(context);
 
-        if (frame !== null) {
+        const frameValid = frame.isValid();
+
+        if (frameValid) {
           return true;
         }
       });
 
-      if (frame !== null) {
+      const frameValid = frame.isValid();
+
+      if (frameValid) {
         context.commit();
       }
     }, rule, context);

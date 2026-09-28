@@ -1,5 +1,7 @@
 "use strict";
 
+import { nullifiedFrame } from "./frame";
+
 export default class State {
   constructor(tokens, cache, index) {
     this.tokens = tokens;
@@ -71,9 +73,11 @@ export default class State {
   }
 
   recover(part) {
-    const frame = this.cache.get(part) || null;
+    const frame = this.cache.get(part) || nullifiedFrame;
 
-    if (frame !== null) {
+    const frameValid = frame.isValid();
+
+    if (frameValid) {
       this.cache.delete(part);
     }
 

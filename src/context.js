@@ -27,6 +27,8 @@ export default class Context {
 
   NonTerminalNodeFromRuleName(ruleName) { return this.context.NonTerminalNodeFromRuleName(ruleName); }
 
+  isCommitted() {  return this.context.isCommitted(); }
+
   isIsolated() {  return this.context.isIsolated(); }
 
   findRule(ruleName) { return this.context.findRule(ruleName); }
@@ -65,7 +67,9 @@ export default class Context {
   continued(frame, context) {
     frame = this.compose(frame);
 
-    if (frame !== null) {
+    const frameValid = frame.isValid();
+
+    if (frameValid) {
       frame = this.context.continued(frame, context);
     }
 

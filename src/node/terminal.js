@@ -3,25 +3,34 @@
 import TerminalNodeParseTree from "../parseTree/terminalNode";
 
 export default class TerminalNode {
-  constructor(parentNode, significantToken) {
-    this.parentNode = parentNode;
+  constructor(significantToken, parentNode, committed) {
     this.significantToken = significantToken;
-  }
-
-  getParentNode() {
-    return this.parentNode;
+    this.parentNode = parentNode;
+    this.committed = committed;
   }
 
   getSignificantToken() {
     return this.significantToken;
   }
 
-  setParentNode(parentNode) {
-    this.parentNode = parentNode;
+  getParentNode() {
+    return this.parentNode;
+  }
+
+  isCommitted() {
+    return this.committed;
   }
 
   setSignificantToken(significantToken) {
     this.significantToken = significantToken;
+  }
+
+  setParentNode(parentNode) {
+    this.parentNode = parentNode;
+  }
+
+  setCommitted(committed) {
+    this.committed = committed;
   }
 
   isNoWhitespaceNode() {
@@ -254,9 +263,10 @@ export default class TerminalNode {
 
   clone(...remainingArguments) {
     const Class = this.constructor,
+          committed = this.committed,
           parentNode = null,
           significantToken = this.significantToken,
-          terminalNode = new Class(parentNode, significantToken, ...remainingArguments);
+          terminalNode = new Class(significantToken, parentNode, committed, ...remainingArguments);
 
     return terminalNode;
   }
@@ -271,9 +281,10 @@ export default class TerminalNode {
       Class = TerminalNode; ///
     }
 
-    const parentNode = null,
-          significantToken = null,
-          terminalNode = new Class(parentNode, significantToken, ...remainingArguments);
+    const significantToken = null,
+          parentNode = null,
+          committed = false,
+          terminalNode = new Class(significantToken, parentNode, committed, ...remainingArguments);
 
     return terminalNode;
   }
@@ -285,9 +296,25 @@ export default class TerminalNode {
       Class = TerminalNode; ///
     }
 
+    const committed = false,
+      parentNode = null,
+      terminalNode = new Class(significantToken, parentNode, committed, ...remainingArguments);
+
+    return terminalNode;
+  }
+
+  static fromSignificantTokenAndCommitted(Class, significantToken, committed, ...remainingArguments) {
+    if (committed === undefined) {
+      committed = significantToken; ///
+
+      significantToken = Class; ///
+
+      Class = TerminalNode; ///
+    }
+
     const parentNode = null,
-          terminalNode = new Class(parentNode, significantToken, ...remainingArguments);
-    
+          terminalNode = new Class(significantToken, parentNode, committed, ...remainingArguments);
+
     return terminalNode;
   }
 }

@@ -72,6 +72,26 @@ export default class NonTerminalNode {
     return opaque;
   }
 
+  isCommitted() {
+    let committed = false;
+
+    this.childNodes.some((childNode) => {
+      const childNodeTerminalNode = childNode.isTerminalNode();
+
+      if (childNodeTerminalNode) {
+        const terminalNode = childNode; ///
+
+        committed = terminalNode.isCommitted();
+
+        if (committed) {
+          return true;
+        }
+      }
+    });
+
+    return committed;
+  }
+
   isSemiOpaque() {
     const semiOpaque = (this.opacity === semiOpaqueSpecialSymbol);
 
@@ -201,7 +221,7 @@ export default class NonTerminalNode {
     } else if (this.precedence === null) {
       lowerPrecedence = false;
     } else if (this.precedence === Infinity) {
-      lowerPrecedence = this.someChildNode((childNode) => {
+      lowerPrecedence = this.childNodes.some((childNode) => {
         const childNodeLowerPrecedence = childNode.isLowerPrecedence(associativity, strength, first, last);
 
         if (childNodeLowerPrecedence) {

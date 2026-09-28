@@ -3,10 +3,18 @@
 import Context from "../../context";
 
 export default class CommittedPartPartContext extends Context {
+  isCommitted() {
+    const committed = true;
+
+    return committed;
+  }
+
   continued(frame, context) {
     frame = this.compose(frame);
 
-    if (frame !== null) {
+    const frameValid = frame.isValid();
+
+    if (frameValid) {
       context.commit(this);
     }
 

@@ -8,7 +8,9 @@ export function parsePartContinually(part, count, strict, frame, context) {
 
     frame = part.parse(frame, context);
 
-    if (frame === null) {
+    const frameInvalid = frame.isInvalid();
+
+    if (frameInvalid) {
       const initial = (count === 0);
 
       if (strict && initial) {
@@ -20,7 +22,9 @@ export function parsePartContinually(part, count, strict, frame, context) {
       }
     }
 
-    if (frame !== null) {
+    const frameValid = frame.isValid();
+
+    if (frameValid) {
       context.commit();
     }
   }, part, count, parsePartContinually, context);
