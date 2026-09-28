@@ -193,6 +193,45 @@ export default class NonTerminalNode {
     return unprecedented;
   }
 
+  isLowerPrecedence(associativity, strength, first, last) {
+    let lowerPrecedence;
+
+    if (false) {
+      ///
+    } else if (this.precedence === null) {
+      lowerPrecedence = false;
+    } else if (this.precedence === Infinity) {
+      lowerPrecedence = this.someChildNode((childNode) => {
+        const childNodeLowerPrecedence = childNode.isLowerPrecedence(associativity, strength, first, last);
+
+        if (childNodeLowerPrecedence) {
+          return true;
+        }
+      });
+    } else {
+      const parentStrength = strength,  ///
+        parentAssociativity = associativity;  ///
+
+      strength = Math.abs(this.precedence);
+
+      if (false) {
+        ///
+      } else if (first) {
+        lowerPrecedence = (parentAssociativity < 0) ?
+          (strength < parentStrength) :
+          (strength <= parentStrength);
+      } else if (last) {
+        lowerPrecedence = (parentAssociativity < 0) ?
+          (strength <= parentStrength) :
+          (strength < parentStrength);
+      } else {
+        lowerPrecedence = (strength < parentStrength);
+      }
+    }
+
+    return lowerPrecedence;
+  }
+
   areChildNodesLowerPrecedence() {
     let childNodesLowerPrecedence = false;
 
@@ -215,45 +254,6 @@ export default class NonTerminalNode {
     }
 
     return childNodesLowerPrecedence;
-  }
-
-  isLowerPrecedence(associativity, strength, first, last) {
-    let lowerPrecedence;
-
-    if (false) {
-      ///
-    } else if (this.precedence === null) {
-      lowerPrecedence = false;
-    } else if (this.precedence === Infinity) {
-      lowerPrecedence = this.someChildNode((childNode) => {
-        const childNodeLowerPrecedence = childNode.isLowerPrecedence(associativity, strength, first, last);
-
-        if (childNodeLowerPrecedence) {
-          return true;
-        }
-      });
-    } else {
-      const parentStrength = strength,  ///
-            parentAssociativity = associativity;  ///
-
-      strength = Math.abs(this.precedence);
-
-      if (false) {
-        ///
-      } else if (first) {
-        lowerPrecedence = (parentAssociativity < 0) ?
-                            (strength < parentStrength) :
-                              (strength <= parentStrength);
-      } else if (last) {
-        lowerPrecedence = (parentAssociativity < 0) ?
-                            (strength <= parentStrength) :
-                              (strength < parentStrength);
-      } else {
-        lowerPrecedence = (strength < parentStrength);
-      }
-    }
-
-    return lowerPrecedence;
   }
 
   asParseTree(tokens) {
