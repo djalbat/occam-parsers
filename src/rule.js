@@ -1,8 +1,10 @@
 "use strict";
 
+import { specialSymbols } from "occam-lexers";
+
 import { ruleContext } from "./utilities/context";
 import { EMPTY_STRING } from "./constants";
-import { specialSymbols } from "occam-lexers";
+import { nullifiedFrame } from "./frame";
 import { marginStringFromMarginWidth } from "./utilities/string";
 
 const { opaque: opaqueSpecialSymbol, semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
@@ -65,10 +67,9 @@ export default class Rule {
       this.definitions.some((definition) => {
         frame = definition.parse(context);
 
-        const frameValid = frame.isValid(),
-              frameAborted = frame.isAborted();
+        const frameNullified = frame.isNullified();
 
-        if (frameValid || frameAborted) {
+        if (!frameNullified) {
           return true;
         }
       });

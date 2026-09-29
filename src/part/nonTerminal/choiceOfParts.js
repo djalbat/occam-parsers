@@ -44,7 +44,9 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
                 partFrameValid = partFrame.isValid(),
                 partFrameAborted = partFrame.isAborted();
 
-          if (partFrameValid) {
+          if (false) {
+            ///
+          } else if (partFrameValid) {
             frame = context.compose(frame, partFrame);
           } else if (partFrameAborted) {
             frame = partFrame; ///

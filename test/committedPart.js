@@ -238,4 +238,48 @@ describe("Committed part", () => {
       });
     });
   });
+
+  describe("committed terminal part with left associativity and an optional part", () => {
+    const bnf = `
+  
+      S  ::= T... "." ;
+      
+      T  ::= T_ T~* ( ) ;
+            
+      T_ ::= . ;
+      
+      T~ ::= \`"+" T (-98) ;
+                 
+    `;
+
+    describe("content with four significant tokens", () => {
+      const content = "x + x + x.";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                                                                    
+                                                                                      S [0]                                        
+                                                                                        |                                          
+                                                       -------------------------------------------------------------------         
+                                                       |                                                                 |         
+                                                   T [0] ( )                                                    "."[unassigned] [0]
+                                                       |                                                                           
+                   -------------------------------------------------------------------------                                       
+                   |                              |                                        |                                       
+                T_ [0]                      T~ [0] (-98)                             T~ [0] (-98)                                  
+                   |                              |                                        |                                       
+          "x"[unassigned] [0]           ---------------------                    ---------------------                             
+                                        |                   |                    |                   |                             
+                              \`"+"[unassigned] [0]      T [0] ( )      \`"+"[unassigned] [0]      T [0] ( )                         
+                                                            |                                        |                             
+                                                         T_ [0]                                   T_ [0]                           
+                                                            |                                        |                             
+                                                   "x"[unassigned] [0]                      "x"[unassigned] [0]                    
+                                                                                 
+        `));
+      });
+    });
+  });
 });

@@ -71,11 +71,9 @@ export default class DefinitionContext extends Context {
     } else {
       const committed = nonTerminalNode.isCommitted();
 
-      if (committed) {
-        frame = abortedFrame;
-      } else {
-        frame = nullifiedFrame;
-      }
+      frame = committed ?
+                abortedFrame :
+                  nullifiedFrame;
     }
 
     return frame;

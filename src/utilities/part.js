@@ -8,9 +8,16 @@ export function parsePartContinually(part, count, strict, frame, context) {
 
     frame = part.parse(frame, context);
 
-    const frameInvalid = frame.isInvalid();
+    const frameAborted = frame.isAborted(),
+          frameNullified = frame.isNullified();
 
-    if (frameInvalid) {
+    if (false) {
+      ///
+    } else if (frameAborted) {
+      frame = savedFrame; ///
+
+      frame = context.continue(frame);
+    } else if (frameNullified) {
       const initial = (count === 0);
 
       if (strict && initial) {

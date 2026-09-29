@@ -32,9 +32,14 @@ export default class OptionalPartPart extends NonTerminalPart {
 
         frame = this.part.parse(frame, context);
 
-        const frameInvalid = frame.isInvalid();
+        const frameAborted = frame.isAborted(),
+              frameNullified = frame.isNullified();
 
-        if (frameInvalid) {
+        if (false) {
+          ///
+        } else if (frameAborted) {
+          frame = nullifiedFrame;
+        } else if (frameNullified) {
           frame = savedFrame; ///
 
           frame = context.continue(frame);
