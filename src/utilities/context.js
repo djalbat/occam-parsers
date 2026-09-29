@@ -8,7 +8,6 @@ import PartChoiceContext from "../context/partChoice";
 import DefinitionContext from "../context/definition";
 import ContinuationContext from "../context/continuation";
 import RuleNamePartContext from "../context/part/ruleName";
-import ChoiceOfPartsContext from "../context/part/choiceOfParrts";
 import IsolatedPartPartContext from "../context/part/isolatedPart";
 import ContinuationPartContext from "../context/part/continuation";
 import CommittedPartPartContext from "../context/part/committedPart";
@@ -90,14 +89,6 @@ export function continuationPartContext(innerFunction, part, count, parsePartCon
   const continuationPartContext = ContinuationPartContext.fromPartCountAndParsePartContinually(part, count, parsePartContinually, context);
 
   context = continuationPartContext;  ///
-
-  innerFunction(context);
-}
-
-export function choiceOfPartsPartContext(innerFunction, choiceOfPartsPart, context) {
-  const choiceOfPartsPartContext = ChoiceOfPartsContext.fromChoiceOfPartsPart(choiceOfPartsPart, context);
-
-  context = choiceOfPartsPartContext;  ///
 
   innerFunction(context);
 }

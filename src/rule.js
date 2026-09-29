@@ -65,9 +65,10 @@ export default class Rule {
       this.definitions.some((definition) => {
         frame = definition.parse(context);
 
-        const frameValid = frame.isValid();
+        const frameValid = frame.isValid(),
+              frameAborted = frame.isAborted();
 
-        if (frameValid) {
+        if (frameValid || frameAborted) {
           return true;
         }
       });

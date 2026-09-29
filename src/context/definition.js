@@ -3,7 +3,7 @@
 import Frame from "../frame";
 import Context from "../context";
 
-import { nullifiedFrame } from "../frame";
+import { abortedFrame, nullifiedFrame } from "../frame";
 
 export default class DefinitionContext extends Context {
   constructor(context, state, continuations, precedence) {
@@ -72,7 +72,7 @@ export default class DefinitionContext extends Context {
       const committed = nonTerminalNode.isCommitted();
 
       if (committed) {
-        debugger
+        frame = abortedFrame;
       } else {
         frame = nullifiedFrame;
       }
