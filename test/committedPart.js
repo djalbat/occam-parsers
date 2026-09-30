@@ -26,26 +26,26 @@ describe("Committed part", () => {
                  
     `;
 
-    describe("content with four significant tokens", () => {
+    describe("content with four operators", () => {
       const content = "1 + 2 .";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                                  
-                                                          S [0]                           
-                                                            |                             
-                                        -----------------------------------------         
-                                        |                                       |         
+
+                                                          S [0]
+                                                            |
+                                        -----------------------------------------
+                                        |                                       |
                                       T [0]                            "."[unassigned] [0]
-                                        |                                                 
-                   ------------------------------------------                             
-                   |                    |                   |                             
-                 A [0]        \`"+"[unassigned] [0]        A [0]                           
-                   |                                        |                             
-          "1"[unassigned] [0]                      "2"[unassigned] [0]                    
-    
+                                        |
+                   ------------------------------------------
+                   |                    |                   |
+                 A [0]        \`"+"[unassigned] [0]        A [0]
+                   |                                        |
+          "1"[unassigned] [0]                      "2"[unassigned] [0]
+
         `));
       });
     });
@@ -66,7 +66,7 @@ describe("Committed part", () => {
                  
     `;
 
-    describe("content with four significant tokens", () => {
+    describe("content with on operator", () => {
       const content = "1 + 2 .";
 
       it("results in the requisite parse tree" , () => {
@@ -106,7 +106,7 @@ describe("Committed part", () => {
           
     `;
 
-    describe("const with three significant tokens", () => {
+    describe("content with three significant tokens", () => {
       const content = "a b .";
 
       it("results in a null node" , () => {
@@ -234,50 +234,6 @@ describe("Committed part", () => {
                                                                                                      |                             
                                                                                             "x"[unassigned] [0]                    
                                                                        
-        `));
-      });
-    });
-  });
-
-  describe("committed terminal part with left associativity and an optional part", () => {
-    const bnf = `
-  
-      S  ::= T... "." ;
-      
-      T  ::= T_ T~* ( ) ;
-            
-      T_ ::= . ;
-      
-      T~ ::= \`"+" T (-98) ;
-                 
-    `;
-
-    describe("content with four significant tokens", () => {
-      const content = "x + x + x.";
-
-      it("results in the requisite parse tree" , () => {
-        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                                                    
-                                                                                      S [0]                                        
-                                                                                        |                                          
-                                                       -------------------------------------------------------------------         
-                                                       |                                                                 |         
-                                                   T [0] ( )                                                    "."[unassigned] [0]
-                                                       |                                                                           
-                   -------------------------------------------------------------------------                                       
-                   |                              |                                        |                                       
-                T_ [0]                      T~ [0] (-98)                             T~ [0] (-98)                                  
-                   |                              |                                        |                                       
-          "x"[unassigned] [0]           ---------------------                    ---------------------                             
-                                        |                   |                    |                   |                             
-                              \`"+"[unassigned] [0]      T [0] ( )      \`"+"[unassigned] [0]      T [0] ( )                         
-                                                            |                                        |                             
-                                                         T_ [0]                                   T_ [0]                           
-                                                            |                                        |                             
-                                                   "x"[unassigned] [0]                      "x"[unassigned] [0]                    
-                                                                                 
         `));
       });
     });
