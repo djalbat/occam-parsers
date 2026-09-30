@@ -10,12 +10,13 @@ const { match } = arrayUtilities,
       { opaque: opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class NonTerminalNode {
-  constructor(ruleName, parentNode, childNodes, opacity, precedence) {
+  constructor(ruleName, parentNode, childNodes, precedence, committed, opacity) {
     this.ruleName = ruleName;
     this.parentNode = parentNode;
     this.childNodes = childNodes;
-    this.opacity = opacity;
     this.precedence = precedence;
+    this.committed = committed;
+    this.opacity = opacity;
   }
 
   getRuleName() {
@@ -30,12 +31,16 @@ export default class NonTerminalNode {
     return this.childNodes;
   }
 
-  getOpacity() {
-    return this.opacity;
-  }
-
   getPrecedence() {
     return this.precedence;
+  }
+
+  isCommitted() {
+    return this.committed;
+  }
+
+  getOpacity() {
+    return this.opacity;
   }
 
   setRuleName(ruleName) {
@@ -70,26 +75,6 @@ export default class NonTerminalNode {
     const opaque = (this.opacity === opaqueSpecialSymbol);
 
     return opaque;
-  }
-
-  isCommitted() {
-    let committed = false;
-
-    this.childNodes.some((childNode) => {
-      const childNodeTerminalNode = childNode.isTerminalNode();
-
-      if (childNodeTerminalNode) {
-        const terminalNode = childNode; ///
-
-        committed = terminalNode.isCommitted();
-
-        if (committed) {
-          return true;
-        }
-      }
-    });
-
-    return committed;
   }
 
   isSemiOpaque() {
@@ -345,20 +330,23 @@ export default class NonTerminalNode {
           parentNode = null,
           ruleName = this.ruleName,
           childNodes = cloneChildNodes(this.childNodes),
-          opacity = this.opacity,
           precedence = this.precedence,
-          nonTerminalNode = new Class(ruleName, parentNode, childNodes, opacity, precedence, ...remainingArguments);
+          committed = this.committed,
+          opacity = this.opacity,
+          nonTerminalNode = new Class(ruleName, parentNode, childNodes, precedence, committed, opacity, ...remainingArguments);
 
     nonTerminalNode.setChildNodesParentNode();
 
     return nonTerminalNode;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(Class, ruleName, childNodes, opacity, precedence, ...remainingArguments) {
-    if (precedence === undefined) {
-      precedence = opacity; ///
+  static fromRuleNameChildNodesPrecedenceCommittedAndOpacity(Class, ruleName, childNodes, precedence, committed, opacity, ...remainingArguments) {
+    if (opacity === undefined) {
+      opacity = committed; ///
 
-      opacity = childNodes; ///
+      committed = precedence; ///
+
+      precedence = childNodes; ///
 
       childNodes = ruleName;  ///
 
@@ -368,7 +356,7 @@ export default class NonTerminalNode {
     }
 
     const parentNode = null,
-          nonTerminalNode = new Class(ruleName, parentNode, childNodes, opacity, precedence, ...remainingArguments);
+          nonTerminalNode = new Class(ruleName, parentNode, childNodes, precedence, committed, opacity, ...remainingArguments);
 
     nonTerminalNode.setChildNodesParentNode();
 

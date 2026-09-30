@@ -29,7 +29,7 @@ export default class SignificantTokenTypeBNFNode extends NonTerminalNode {
     return significantTokenType;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(SignificantTokenTypeBNFNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceCommittedAndOpacity(ruleName, childNodes, precedence, committed, opacity) { return NonTerminalNode.fromRuleNameChildNodesPrecedenceCommittedAndOpacity(SignificantTokenTypeBNFNode, ruleName, childNodes, precedence, committed, opacity); }
 }
 
 module.exports = SignificantTokenTypeBNFNode;

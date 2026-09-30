@@ -27,5 +27,5 @@ export default class NonTerminalPartBNFNode extends NonTerminalNode {
     return part;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(NonTerminalPartBNFNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceCommittedAndOpacity(ruleName, childNodes, precedence, committed, opacity) { return NonTerminalNode.fromRuleNameChildNodesPrecedenceCommittedAndOpacity(NonTerminalPartBNFNode, ruleName, childNodes, precedence, committed, opacity); }
 }

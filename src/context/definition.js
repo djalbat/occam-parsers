@@ -93,11 +93,12 @@ function nonTerminalNodeFromFrame(frame, context) {
   const rule = context.getRule(),
         opacity = rule.getOpacity(),
         ruleName = rule.getName(),
+        committed = context.isCommitted(),
         childNodes = frame.getChildNodes(),
         precedence = frame.getPrecedence(),
         NonTerminalNode = rule.NonTerminalNodeFromRuleName(ruleName, context);
 
-  nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence);
+  nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesPrecedenceCommittedAndOpacity(ruleName, childNodes, precedence, committed, opacity);
 
   nonTerminalNode = nonTerminalNode.rewrite(context);  ///
 

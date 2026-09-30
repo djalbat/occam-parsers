@@ -10,5 +10,5 @@ export default class EndOfLineBNFNode extends NonTerminalNode {
     return endOfLinePart;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(EndOfLineBNFNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceCommittedAndOpacity(ruleName, childNodes, precedence, committed, opacity) { return NonTerminalNode.fromRuleNameChildNodesPrecedenceCommittedAndOpacity(EndOfLineBNFNode, ruleName, childNodes, precedence, committed, opacity); }
 }

@@ -10,5 +10,5 @@ export default class NoWhitespacePartBNFNode extends NonTerminalNode {
     return noWhitespacePart;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(NoWhitespacePartBNFNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceCommittedAndOpacity(ruleName, childNodes, precedence, committed, opacity) { return NonTerminalNode.fromRuleNameChildNodesPrecedenceCommittedAndOpacity(NoWhitespacePartBNFNode, ruleName, childNodes, precedence, committed, opacity); }
 }

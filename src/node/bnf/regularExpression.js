@@ -30,6 +30,6 @@ export default class RegularExpressionBNFNode extends NonTerminalNode {
     return regularExpression;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(RegularExpressionBNFNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceCommittedAndOpacity(ruleName, childNodes, precedence, committed, opacity) { return NonTerminalNode.fromRuleNameChildNodesPrecedenceCommittedAndOpacity(RegularExpressionBNFNode, ruleName, childNodes, precedence, committed, opacity); }
 }
 
