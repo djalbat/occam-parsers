@@ -1,18 +1,21 @@
 "use strict";
 
-import { characters} from "necessary";
+import { characters } from "necessary";
+import { specialSymbols } from "occam-lexers";
 
 import VerticalBranchParseTree from "./verticalBranch";
 
 import { EMPTY_STRING } from "../constants";
 import { lineIndexFromTokenIndexAndTokens } from "../utilities/tokens";
 
-const { SPACE_CHARACTER } = characters;
+const { backtick } = specialSymbols,
+      { SPACE_CHARACTER } = characters;
 
 export default class RuleNameParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
-    const ruleName = nonTerminalNode.getRuleName(),
-          opacity = nonTerminalNode.getOpacity(),
+    const opacity = nonTerminalNode.getOpacity(),
+          ruleName = nonTerminalNode.getRuleName(),
+          committed = nonTerminalNode.isCommitted(),
           firstSignificantTokenIndex = nonTerminalNode.getFirstSignificantTokenIndex(tokens),
           lastSignificantTokenIndex = nonTerminalNode.getLastSignificantTokenIndex(tokens),
           firstLineIndex = lineIndexFromTokenIndexAndTokens(firstSignificantTokenIndex, tokens),
@@ -50,12 +53,16 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
 
     let precedence = nonTerminalNode.getPrecedence();
 
-    if (precedence !== null) {
-      if (precedence === Infinity) {
-        precedence = SPACE_CHARACTER;
-      }
+    if (precedence === Infinity) {
+      precedence = SPACE_CHARACTER;
+    }
 
+    if (precedence !== null) {
       string = `${string} (${precedence})`;
+    }
+
+    if (committed) {
+      string = `${backtick}${string}`;
     }
 
     const stringLength = string.length,
