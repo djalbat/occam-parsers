@@ -5,11 +5,9 @@ import { arrayUtilities } from "necessary";
 const { first } = arrayUtilities;
 
 export default class Frame {
-  constructor(childNodes, precedence, nullified, aborted) {
+  constructor(childNodes, precedence) {
     this.childNodes = childNodes;
     this.precedence = precedence;
-    this.nullified = nullified;
-    this.aborted = aborted;
   }
 
   getChildNodes() {
@@ -20,28 +18,12 @@ export default class Frame {
     return this.precedence;
   }
 
-  isNullified() {
-    return this.nullified;
-  }
-
-  isAborted() {
-    return this.aborted;
-  }
-
   setChildNodes(childNodes) {
     this.childNodes = childNodes;
   }
 
   setPrecedence(precedence) {
     this.precedence = precedence;
-  }
-
-  setNullified(nullified) {
-    this.nullified = nullified;
-  }
-
-  setAborted(aborted) {
-    this.aborted = aborted;
   }
 
   getNode() {
@@ -58,23 +40,7 @@ export default class Frame {
     return node;
   }
 
-  isValid() {
-    const valid = !this.nullified && !this.aborted;
-
-    return valid;
-  }
-
-  isInvalid() {
-    const invalid = this.nullified || this.aborted;
-
-    return invalid;
-  }
-
   merge(frame) {
-    if (this.nullified || this.aborted) {
-      debugger
-    }
-
     let childNodes,
         precedence;
 
@@ -89,10 +55,7 @@ export default class Frame {
 
     precedence = precedence || this.precedence; ///
 
-    const nullified = false,
-          aborted = false;
-
-    frame = new Frame(childNodes, precedence, nullified, aborted);
+    frame = new Frame(childNodes, precedence);
 
     return frame;
   }
@@ -100,9 +63,7 @@ export default class Frame {
   static fromNothing() {
     const childNodes = [],
           precedence = null,
-          nullified = false,
-          aborted = false,
-          frame = new Frame(childNodes, precedence, nullified, aborted);
+          frame = new Frame(childNodes, precedence);
 
     return frame;
   }
@@ -112,31 +73,16 @@ export default class Frame {
             childNode
           ],
           precedence = null,
-          nullified = false,
-          aborted = false,
-          frame = new Frame(childNodes, precedence, nullified, aborted);
+          frame = new Frame(childNodes, precedence);
 
     return frame;
   }
 
   static fromChildNodesAndPrecedence(childNodes, precedence) {
-    const nullified = false,
-          aborted = false,
-          frame = new Frame(childNodes, precedence, nullified, aborted);
+    const frame = new Frame(childNodes, precedence);
 
     return frame;
   }
 }
 
 export const emptyFrame = Frame.fromNothing();
-
-export const abortedFrame = Frame.fromNothing();
-
-export const nullifiedFrame = Frame.fromNothing();
-
-const aborted = true,
-      nullified = true;
-
-abortedFrame.setAborted(aborted);
-
-nullifiedFrame.setNullified(nullified);

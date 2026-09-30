@@ -4,8 +4,6 @@ import { arrayUtilities } from "necessary";
 
 import Context from "../context";
 
-import { nullifiedFrame } from "../frame";
-
 const { last } = arrayUtilities;
 
 export default class PartContext extends Context {
@@ -24,16 +22,14 @@ export default class PartContext extends Context {
     return this.part;
   }
 
-  compose(frame, partFrame = nullifiedFrame) {
+  compose(frame, partFrame = null) {
     const final = this.isFinal(),
           continuing = this.isContinuing();
 
     if (final && !continuing) {
       this.store(this.part, partFrame);
     } else {
-      const partFrameValid = partFrame.isValid();
-
-      if (partFrameValid) {
+      if (partFrame !== null) {
         frame = frame.merge(partFrame);
       }
     }

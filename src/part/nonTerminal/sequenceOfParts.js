@@ -2,8 +2,8 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { emptyFrame } from "../../frame";
 import { SequenceOfPartsPartType } from "../../partTypes";
-import { emptyFrame, nullifiedFrame } from "../../frame";
 import { sequenceOfPartsPartContext } from "../../utilities/context";
 import { parseParts, parsePartsContinually } from "../../utilities/parts";
 
@@ -27,17 +27,14 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
       if (continuing) {
         frame = parsePartsContinually(this.parts, frame, context);
       } else {
-        const partsFrame = parseParts(this.parts, emptyFrame, context),
-              partsFrameValid = partsFrame.isValid();
+        const partsFrame = parseParts(this.parts, emptyFrame, context);
 
-        frame = partsFrameValid ?
-                  context.compose(frame, partsFrame) :
-                    nullifiedFrame;
+        if (partsFrame !== null) {
+          frame = context.compose(frame, partsFrame);
+        }
       }
 
-      const frameValid = frame.isValid();
-
-      if (frameValid) {
+      if (frame !== null) {
         context.commit();
       }
     }, sequenceOfPartsPart, context);

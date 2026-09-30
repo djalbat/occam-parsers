@@ -4,7 +4,6 @@ import { specialSymbols } from "occam-lexers";
 
 import { ruleContext } from "./utilities/context";
 import { EMPTY_STRING } from "./constants";
-import { nullifiedFrame } from "./frame";
 import { marginStringFromMarginWidth } from "./utilities/string";
 
 const { opaque: opaqueSpecialSymbol, semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
@@ -67,16 +66,12 @@ export default class Rule {
       this.definitions.some((definition) => {
         frame = definition.parse(context);
 
-        const frameNullified = frame.isNullified();
-
-        if (!frameNullified) {
+        if (frame !== null) {
           return true;
         }
       });
 
-      const frameValid = frame.isValid();
-
-      if (frameValid) {
+      if (frame !== null) {
         context.commit();
       }
     }, rule, context);

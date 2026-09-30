@@ -67,9 +67,7 @@ export default class Context {
   continued(frame, context) {
     frame = this.compose(frame);
 
-    const frameValid = frame.isValid();
-
-    if (frameValid) {
+    if (frame !== null) {
       frame = this.context.continued(frame, context);
     }
 

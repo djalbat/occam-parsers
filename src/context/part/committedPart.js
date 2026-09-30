@@ -2,8 +2,6 @@
 
 import Context from "../../context";
 
-import { nullifiedFrame } from "../../frame";
-
 export default class CommittedPartPartContext extends Context {
   isCommitted() {
     const committed = true;
@@ -11,10 +9,8 @@ export default class CommittedPartPartContext extends Context {
     return committed;
   }
 
-  compose(frame, partFrame = nullifiedFrame) {
-    const partFrameValid = partFrame.isValid();
-
-    if (partFrameValid) {
+  compose(frame, partFrame = null) {
+    if (partFrame !== null) {
       frame = frame.merge(partFrame);
     }
 
@@ -24,9 +20,7 @@ export default class CommittedPartPartContext extends Context {
   continued(frame, context) {
     frame = this.compose(frame);
 
-    const frameValid = frame.isValid();
-
-    if (frameValid) {
+    if (frame !== null) {
       context.commit(this);
     }
 

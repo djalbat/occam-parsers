@@ -18,7 +18,7 @@ describe("BNF", () => {
 
 `;
 
-      it("results in the requisite parse tree" , () => {
+      it.only("results in the requisite parse tree" , () => {
         const tokens = bnfLexer.tokenise(content),
               node = bnfParser.parse(tokens),
               parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);

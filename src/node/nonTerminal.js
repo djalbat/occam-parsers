@@ -215,7 +215,7 @@ export default class NonTerminalNode {
       });
     } else {
       const parentStrength = strength,  ///
-        parentAssociativity = associativity;  ///
+            parentAssociativity = associativity;  ///
 
       strength = Math.abs(this.precedence);
 
@@ -223,12 +223,12 @@ export default class NonTerminalNode {
         ///
       } else if (first) {
         lowerPrecedence = (parentAssociativity < 0) ?
-          (strength < parentStrength) :
-          (strength <= parentStrength);
+                           (strength < parentStrength) :
+                             (strength <= parentStrength);
       } else if (last) {
         lowerPrecedence = (parentAssociativity < 0) ?
-          (strength <= parentStrength) :
-          (strength < parentStrength);
+                            (strength <= parentStrength) :
+                              (strength < parentStrength);
       } else {
         lowerPrecedence = (strength < parentStrength);
       }

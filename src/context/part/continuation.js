@@ -36,9 +36,7 @@ export default class ContinuationPartContext extends PartContext {
     continuationContext((context) => {
       frame = this.parsePartContinually(part, count, strict, frame, context);
 
-      const frameValid = frame.isValid();
-
-      if (frameValid) {
+      if (frame !== null) {
         context.commit();
       }
     }, continuingContext, context);

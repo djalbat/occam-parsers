@@ -3,8 +3,6 @@
 import Frame from "../frame";
 import Context from "../context";
 
-import { abortedFrame, nullifiedFrame } from "../frame";
-
 export default class DefinitionContext extends Context {
   constructor(context, state, continuations, precedence) {
     super(context, state, continuations);
@@ -69,11 +67,7 @@ export default class DefinitionContext extends Context {
 
       frame = Frame.fromChildNode(childNode);
     } else {
-      const committed = nonTerminalNode.isCommitted();
-
-      frame = committed ?
-                abortedFrame :
-                  nullifiedFrame;
+      frame = null;
     }
 
     return frame;

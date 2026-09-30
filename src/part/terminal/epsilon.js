@@ -7,7 +7,6 @@ import EpsilonNode from "../../node/terminal/epsilon";
 import TerminalPart from "../../part/terminal";
 
 import { partContext } from "../../utilities/context";
-import { nullifiedFrame } from "../../frame";
 
 const { epsilon } = specialSymbols;
 
@@ -29,23 +28,15 @@ export default class EpsilonPart extends TerminalPart {
 
       partFrame = Frame.fromChildNode(childNode);
 
-      const partFrameValid = partFrame.isValid();
-
-      frame = partFrameValid ?
+      frame = (partFrame !== null) ?
                 context.compose(frame, partFrame) :
-                  nullifiedFrame;
+                  null;
 
-      let frameValid;
-
-      frameValid = frame.isValid();
-
-      if (frameValid) {
+      if (frame !== null) {
         frame = context.continue(frame);
       }
 
-      frameValid = frame.isValid();
-
-      if (frameValid) {
+      if (frame !== null) {
         context.commit();
       }
     }, part, context);

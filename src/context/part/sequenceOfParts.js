@@ -2,13 +2,9 @@
 
 import PartContext from "../../context/part";
 
-import { nullifiedFrame } from "../../frame";
-
 export default class SequenceOfPartsPartContext extends PartContext {
-  compose(frame, partsFrame = nullifiedFrame) {
-    const partsFrameValid = partsFrame.isValid();
-
-    if (partsFrameValid) {
+  compose(frame, partsFrame = null) {
+    if (partsFrame !== null) {
       frame = frame.merge(partsFrame);
     }
 

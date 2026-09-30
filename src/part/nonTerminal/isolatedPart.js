@@ -2,9 +2,9 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { emptyFrame } from "../../frame";
 import { IsolatedPartPartType } from "../../partTypes";
 import { isolatedPartPartContext } from "../../utilities/context";
-import { emptyFrame, nullifiedFrame } from "../../frame";
 
 export default class IsolatedPartPart extends NonTerminalPart {
   constructor(type, continuation, part) {
@@ -24,17 +24,14 @@ export default class IsolatedPartPart extends NonTerminalPart {
       if (continuing) {
         frame = this.part.parse(frame, context);
       } else {
-        const partFrame = this.part.parse(emptyFrame, context),
-              partFrameValid = partFrame.isValid();
+        const partFrame = this.part.parse(emptyFrame, context);
 
-        frame = partFrameValid ?
+        frame = (partFrame !== null) ?
                   context.compose(frame, partFrame) :
-                    nullifiedFrame;
+                    null;
       }
 
-      const frameValid = frame.isValid();
-
-      if (frameValid) {
+      if (frame !== null) {
         context.commit();
       }
     }, context);

@@ -2,8 +2,6 @@
 
 import Context from "../context";
 
-import { nullifiedFrame } from "../frame";
-
 export default class RuleContext extends Context {
   constructor(context, state, continuations, rule) {
     super(context, state, continuations);
@@ -19,10 +17,8 @@ export default class RuleContext extends Context {
     ///
   }
 
-  compose(frame, definitionFrame = nullifiedFrame) {
-    const definitionFrameValid = definitionFrame.isValid();
-
-    if (definitionFrameValid) {
+  compose(frame, definitionFrame = null) {
+    if (definitionFrame !== null) {
       frame = frame.merge(definitionFrame);
     }
 

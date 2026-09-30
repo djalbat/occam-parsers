@@ -16,9 +16,7 @@ export default class ContinuationContext extends Context {
   continued(frame, context) {
     frame = this.compose(frame);
 
-    const frameValid = frame.isValid();
-
-    if (frameValid) {
+    if (frame !== null) {
       frame = this.continuingContext.continued(frame, context);
     }
 
