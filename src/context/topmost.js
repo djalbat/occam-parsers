@@ -49,7 +49,7 @@ export default class TopmostContext extends Context {
   }
 
   findRule(ruleName) {
-    const rule = this.ruleMap[ruleName] || null;
+    const rule = this.ruleMap[ruleName] || null;  ///
 
     return rule;
   }

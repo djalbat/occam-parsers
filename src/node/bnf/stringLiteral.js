@@ -41,8 +41,8 @@ export default class StringLiteralBNFNode extends NonTerminalNode {
 
 function sanitiseContent(content) {
   content = content
-             .replace(/\\\\/g, ESCAPED_BACKSLASH)
-             .replace(/\\"/g, ESCAPED_DOUBLE_QUOTE);
+              .replace(/\\\\/g, ESCAPED_BACKSLASH)
+              .replace(/\\"/g, ESCAPED_DOUBLE_QUOTE);
 
   return content;
 }

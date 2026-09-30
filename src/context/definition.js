@@ -60,15 +60,12 @@ export default class DefinitionContext extends Context {
       nonTerminalNode.nullifyPrecedence();
     }
 
-    const palatable = nonTerminalNode.isPalatable();
+    const palatable = nonTerminalNode.isPalatable(),
+          childNode = nonTerminalNode;  ///
 
-    if (palatable) {
-      const childNode = nonTerminalNode;  ///
-
-      frame = Frame.fromChildNode(childNode);
-    } else {
-      frame = null;
-    }
+    frame = palatable ? ///
+              Frame.fromChildNode(childNode) :
+                null;
 
     return frame;
   }

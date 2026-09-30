@@ -43,7 +43,7 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
 
           partFrame = this.part.parse(partFrame, context);
 
-          if (partFrame !== null) {
+          if (partFrame === null) {
             partFrame = savedFrame; ///
 
             break;
