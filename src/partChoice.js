@@ -23,13 +23,13 @@ export default class PartChoice {
   parse(frame, context) {
     const partChoice = this; ///
 
-    partChoiceContext((context) => {
-      frame = this.part.parse(frame, context);
+    context = partChoiceContext(partChoice, context); ///
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, partChoice, context);
+    frame = this.part.parse(frame, context);
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

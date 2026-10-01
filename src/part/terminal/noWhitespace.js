@@ -20,30 +20,30 @@ export default class NoWhitespacePart extends TerminalPart {
   parse(frame, context) {
     const part = this;  ///
 
-    partContext((context) => {
-      let partFrame = null;
+    context = partContext(part, context); ///
 
-      const nextTokenWhitespaceToken = context.isNextTokenWhitespaceToken();
+    let partFrame = null;
 
-      if (!nextTokenWhitespaceToken) {
-        const noWhitespaceNode = NoWhitespaceNode.fromNothing(),
-              childNode = noWhitespaceNode; ///
+    const nextTokenWhitespaceToken = context.isNextTokenWhitespaceToken();
 
-        partFrame = Frame.fromChildNode(childNode);
-      }
+    if (!nextTokenWhitespaceToken) {
+      const noWhitespaceNode = NoWhitespaceNode.fromNothing(),
+            childNode = noWhitespaceNode; ///
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+      partFrame = Frame.fromChildNode(childNode);
+    }
 
-      if (frame !== null) {
-        frame = context.continue(frame);
-      }
+    frame = (partFrame !== null) ?
+              context.compose(frame, partFrame) :
+                null;
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, part, context);
+    if (frame !== null) {
+      frame = context.continue(frame);
+    }
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

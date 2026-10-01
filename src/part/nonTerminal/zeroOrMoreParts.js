@@ -25,40 +25,40 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
   parse(frame, context) {
     const part = this;  ///
 
-    partContext((context) => {
-      const continuing = context.isContinuing();
+    context = partContext(part, context); ///
 
-      if (continuing) {
-        const count = 0,
-              strict = false;
+    const continuing = context.isContinuing();
 
-        frame = parsePartContinually(this.part, count, strict, frame, context);
-      } else {
-        let partFrame;
+    if (continuing) {
+      const count = 0,
+            strict = false;
 
-        partFrame = emptyFrame; ///
+      frame = parsePartContinually(this.part, count, strict, frame, context);
+    } else {
+      let partFrame;
 
-        while (true) {
-          const savedFrame = partFrame; ///
+      partFrame = emptyFrame; ///
 
-          partFrame = this.part.parse(partFrame, context);
+      while (true) {
+        const savedFrame = partFrame; ///
 
-          if (partFrame === null) {
-            partFrame = savedFrame; ///
+        partFrame = this.part.parse(partFrame, context);
 
-            break;
-          }
+        if (partFrame === null) {
+          partFrame = savedFrame; ///
+
+          break;
         }
-
-        frame = (partFrame !== null) ?
-                  context.compose(frame, partFrame) :
-                    null;
       }
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, part, context);
+      frame = (partFrame !== null) ?
+                context.compose(frame, partFrame) :
+                  null;
+    }
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

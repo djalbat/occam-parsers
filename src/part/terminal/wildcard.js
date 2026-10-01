@@ -14,32 +14,32 @@ export default class WildcardPart extends TerminalPart {
   parse(frame, context) {
     const part = this;  ///
 
-    partContext((context) => {
-      let partFrame = null;
+    context = partContext(part, context); ///
 
-      const nextSignificantToken = context.getNextSignificantToken();
+    let partFrame = null;
 
-      if (nextSignificantToken !== null) {
-        const committed = context.getCommitted(),
-              significantToken = nextSignificantToken,  ///
-              terminalNode = TerminalNode.fromSignificantTokenAndCommitted(significantToken, committed),
-              childNode = terminalNode;  ///
+    const nextSignificantToken = context.getNextSignificantToken();
 
-        partFrame = Frame.fromChildNode(childNode);
-      }
+    if (nextSignificantToken !== null) {
+      const committed = context.getCommitted(),
+            significantToken = nextSignificantToken,  ///
+            terminalNode = TerminalNode.fromSignificantTokenAndCommitted(significantToken, committed),
+            childNode = terminalNode;  ///
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+      partFrame = Frame.fromChildNode(childNode);
+    }
 
-      if (frame !== null) {
-        frame = context.continue(frame);
-      }
+    frame = (partFrame !== null) ?
+              context.compose(frame, partFrame) :
+                null;
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, part, context);
+    if (frame !== null) {
+      frame = context.continue(frame);
+    }
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

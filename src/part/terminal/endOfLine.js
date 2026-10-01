@@ -14,36 +14,36 @@ export default class EndOfLinePart extends TerminalPart {
   parse(frame, context) {
     const part = this;  ///
 
-    partContext((context) => {
-      let partFrame = null;
+    context = partContext(part, context); ///
 
-      const nextSignificantToken = context.getNextSignificantToken();
+    let partFrame = null;
 
-      if (nextSignificantToken !== null) {
-        const significantToken = nextSignificantToken, ///
-              significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
+    const nextSignificantToken = context.getNextSignificantToken();
 
-        if (significantTokenEndOfLineToken) {
-          const committed = context.getCommitted(),
-                endOfLineNode = EndOfLineNode.fromSignificantTokenAndCommitted(significantToken, committed),
-                childNode = endOfLineNode;  ///
+    if (nextSignificantToken !== null) {
+      const significantToken = nextSignificantToken, ///
+            significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
 
-          partFrame = Frame.fromChildNode(childNode);
-        }
+      if (significantTokenEndOfLineToken) {
+        const committed = context.getCommitted(),
+              endOfLineNode = EndOfLineNode.fromSignificantTokenAndCommitted(significantToken, committed),
+              childNode = endOfLineNode;  ///
+
+        partFrame = Frame.fromChildNode(childNode);
       }
+    }
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+    frame = (partFrame !== null) ?
+              context.compose(frame, partFrame) :
+                null;
 
-      if (frame !== null) {
-        frame = context.continue(frame);
-      }
+    if (frame !== null) {
+      frame = context.continue(frame);
+    }
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, part, context);
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

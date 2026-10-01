@@ -18,23 +18,23 @@ export default class IsolatedPartPart extends NonTerminalPart {
   }
 
   parse(frame, context) {
-    isolatedPartPartContext((context) => {
-      const continuing = context.isContinuing();
+    context = isolatedPartPartContext(context); ///
 
-      if (continuing) {
-        frame = this.part.parse(frame, context);
-      } else {
-        const partFrame = this.part.parse(emptyFrame, context);
+    const continuing = context.isContinuing();
 
-        frame = (partFrame !== null) ?
-                  context.compose(frame, partFrame) :
-                    null;
-      }
+    if (continuing) {
+      frame = this.part.parse(frame, context);
+    } else {
+      const partFrame = this.part.parse(emptyFrame, context);
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, context);
+      frame = (partFrame !== null) ?
+                context.compose(frame, partFrame) :
+                  null;
+    }
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

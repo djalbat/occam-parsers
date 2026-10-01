@@ -24,41 +24,41 @@ export default class RegularExpressionPart extends TerminalPart {
   parse(frame, context) {
     const part = this;  ///
 
-    partContext((context) => {
-      let partFrame = null;
+    context = partContext(part, context); ///
 
-      const nextSignificantToken = context.getNextSignificantToken();
+    let partFrame = null;
 
-      if (nextSignificantToken !== null) {
-        const significantToken = nextSignificantToken, ///
-              content = significantToken.getContent(),
-              matches = content.match(this.regularExpression);
+    const nextSignificantToken = context.getNextSignificantToken();
 
-        if (matches !== null) {
-          const firstMatch = first(matches);
+    if (nextSignificantToken !== null) {
+      const significantToken = nextSignificantToken, ///
+            content = significantToken.getContent(),
+            matches = content.match(this.regularExpression);
 
-          if (firstMatch === content) {
-            const committed = context.getCommitted(),
-                  terminalNode = TerminalNode.fromSignificantTokenAndCommitted(significantToken, committed),
-                  childNode = terminalNode;  ///
+      if (matches !== null) {
+        const firstMatch = first(matches);
 
-            partFrame = Frame.fromChildNode(childNode);
-          }
+        if (firstMatch === content) {
+          const committed = context.getCommitted(),
+                terminalNode = TerminalNode.fromSignificantTokenAndCommitted(significantToken, committed),
+                childNode = terminalNode;  ///
+
+          partFrame = Frame.fromChildNode(childNode);
         }
       }
+    }
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+    frame = (partFrame !== null) ?
+              context.compose(frame, partFrame) :
+                null;
 
-      if (frame !== null) {
-        frame = context.continue(frame);
-      }
+    if (frame !== null) {
+      frame = context.continue(frame);
+    }
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, part, context);
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

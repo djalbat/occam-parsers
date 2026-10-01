@@ -13,98 +13,26 @@ import ContinuationPartContext from "../context/part/continuation";
 import CommittedPartPartContext from "../context/part/committedPart";
 import SequenceOfPartsPartContext from "../context/part/sequenceOfParts";
 
-export function ruleContext(innerFunction, rule, context) {
-  const ruleContext = RuleContext.fromRule(rule, context);
+export function ruleContext(rule, context) { return RuleContext.fromRule(rule, context); }
 
-  context = ruleContext;  ///
+export function partContext(part, context) { return PartContext.fromPart(PartContext, part, context); } ///
 
-  innerFunction(context);
-}
+export function partsContext(parts, parsePartContinually, context) { return PartsContext.fromPartsAndParsePartsContinually(parts, parsePartContinually, context); }
 
-export function partContext(innerFunction, part, context) {
-  const partContext = PartContext.fromPart(PartContext, part, context); ///
+export function topmostContext(parser, tokens, context = null) { return TopmostContext.fromParserAndTokens(parser, tokens, context); }
 
-  context = partContext;  ///
+export function partChoiceContext(partChoice, context) { return PartChoiceContext.fromPartChoice(partChoice, context); }
 
-  innerFunction(context);
-}
+export function definitionContext(definition, context) { return DefinitionContext.fromDefinition(definition, context); }
 
-export function partsContext(innerFunction, parts, parsePartContinually, context) {
-  const partsContext = PartsContext.fromPartsAndParsePartsContinually(parts, parsePartContinually, context);
+export function continuationContext(continuingContext, context) { return ContinuationContext.fromContinuingContext(continuingContext, context); }
 
-  context = partsContext;  ///
+export function ruleNamePartContext(frame, ruleNamePart, context) { return RuleNamePartContext.fromframeAndRuleNamePart(frame, ruleNamePart, context); }
 
-  innerFunction(context);
-}
+export function isolatedPartPartContext(context) { return IsolatedPartPartContext.fromNothing(context); }
 
-export function topmostContext(innerFunction, parser, tokens, context = null) {
-  const topmostContext = TopmostContext.fromParserAndTokens(parser, tokens, context);
+export function continuationPartContext(part, count, parsePartContinually, context) { return ContinuationPartContext.fromPartCountAndParsePartContinually(part, count, parsePartContinually, context); }
 
-  context = topmostContext;  ///
+export function committedPartPartContext(savedFrame, consuming, context) { return CommittedPartPartContext.fromSavedFrameAndConsuming(savedFrame, consuming, context); }
 
-  innerFunction(context);
-}
-
-export function partChoiceContext(innerFunction, partChoice, context) {
-  const partChoiceContext = PartChoiceContext.fromPartChoice(partChoice, context);
-
-  context = partChoiceContext;  ///
-
-  innerFunction(context);
-}
-
-export function definitionContext(innerFunction, definition, context) {
-  const definitionContext = DefinitionContext.fromDefinition(definition, context);
-
-  context = definitionContext;  ///
-
-  innerFunction(context);
-}
-
-export function ruleNamePartContext(innerFunction, frame, ruleNamePart, context) {
-  const ruleNamePartContext = RuleNamePartContext.fromframeAndRuleNamePart(frame, ruleNamePart, context);
-
-  context = ruleNamePartContext;  ///
-
-  innerFunction(context);
-}
-
-export function continuationContext(innerFunction, continuingContext, context) {
-  const continuationContext = ContinuationContext.fromContinuingContext(continuingContext, context);
-
-  context = continuationContext;  ///
-
-  innerFunction(context);
-}
-
-export function isolatedPartPartContext(innerFunction, context) {
-  const isolatedPartPartContext = IsolatedPartPartContext.fromNothing(context);
-
-  context = isolatedPartPartContext;  ///
-
-  innerFunction(context);
-}
-
-export function continuationPartContext(innerFunction, part, count, parsePartContinually, context) {
-  const continuationPartContext = ContinuationPartContext.fromPartCountAndParsePartContinually(part, count, parsePartContinually, context);
-
-  context = continuationPartContext;  ///
-
-  innerFunction(context);
-}
-
-export function committedPartPartContext(innerFunction, savedFrame, consuming, context) {
-  const committedPartPartContext = CommittedPartPartContext.fromSavedFrameAndConsuming(savedFrame, consuming, context);
-
-  context = committedPartPartContext;
-
-  innerFunction(context);
-}
-
-export function sequenceOfPartsPartContext(innerFunction, sequenceOfPartsPart, context) {
-  const sequenceOfPartsPartContext = SequenceOfPartsPartContext.fromSequenceOfPartsPart(sequenceOfPartsPart, context);
-
-  context = sequenceOfPartsPartContext;  ///
-
-  innerFunction(context);
-}
+export function sequenceOfPartsPartContext(sequenceOfPartsPart, context) { return SequenceOfPartsPartContext.fromSequenceOfPartsPart(sequenceOfPartsPart, context); }

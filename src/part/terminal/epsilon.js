@@ -20,26 +20,26 @@ export default class EpsilonPart extends TerminalPart {
   parse(frame, context) {
     const part = this;  ///
 
-    partContext((context) => {
-      let partFrame;
+    context = partContext(part, context); ///
 
-      const epsilonNode = EpsilonNode.fromNothing(),
-            childNode = epsilonNode;  ///
+    let partFrame;
 
-      partFrame = Frame.fromChildNode(childNode);
+    const epsilonNode = EpsilonNode.fromNothing(),
+          childNode = epsilonNode;  ///
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+    partFrame = Frame.fromChildNode(childNode);
 
-      if (frame !== null) {
-        frame = context.continue(frame);
-      }
+    frame = (partFrame !== null) ?
+              context.compose(frame, partFrame) :
+                null;
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, part, context);
+    if (frame !== null) {
+      frame = context.continue(frame);
+    }
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

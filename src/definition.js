@@ -28,23 +28,23 @@ export default class Definition {
 
     const definition = this;  ///
 
-    definitionContext((context) => {
-      const continuing = context.isContinuing();
+    context = definitionContext(definition, context); ///
 
-      if (continuing) {
-        frame = parsePartsContinually(this.parts, emptyFrame, context);
-      } else {
-        frame = parseParts(this.parts, emptyFrame, context);
+    const continuing = context.isContinuing();
 
-        frame = (frame !== null) ?
-                  context.compose(frame) :
-                    null;
-      }
+    if (continuing) {
+      frame = parsePartsContinually(this.parts, emptyFrame, context);
+    } else {
+      frame = parseParts(this.parts, emptyFrame, context);
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, definition, context);
+      frame = (frame !== null) ?
+                context.compose(frame) :
+                  null;
+    }
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

@@ -25,44 +25,44 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
   parse(frame, context) {
     const part = this;  ///
 
-    partContext((context) => {
-      const continuing = context.isContinuing();
+    context = partContext(part, context);  ///
 
-      if (continuing) {
-        const count = 0,
-              strict = true;
+    const continuing = context.isContinuing();
 
-        frame = parsePartContinually(this.part, count, strict, frame, context);
-      } else {
-        let partFrame;
+    if (continuing) {
+      const count = 0,
+            strict = true;
 
-        partFrame = emptyFrame; ///
+      frame = parsePartContinually(this.part, count, strict, frame, context);
+    } else {
+      let partFrame;
 
-        partFrame = this.part.parse(partFrame, context);
+      partFrame = emptyFrame; ///
 
-        if (partFrame !== null) {
-          while (true) {
-            const savedFrame = partFrame; ///
+      partFrame = this.part.parse(partFrame, context);
 
-            partFrame = this.part.parse(partFrame, context);
+      if (partFrame !== null) {
+        while (true) {
+          const savedFrame = partFrame; ///
 
-            if (partFrame === null) {
-              partFrame = savedFrame; ///
+          partFrame = this.part.parse(partFrame, context);
 
-              break;
-            }
+          if (partFrame === null) {
+            partFrame = savedFrame; ///
+
+            break;
           }
         }
-
-        frame = (partFrame !== null) ?
-                  context.compose(frame, partFrame) :
-                    null;
       }
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, part, context);
+      frame = (partFrame !== null) ?
+                context.compose(frame, partFrame) :
+                  null;
+    }
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

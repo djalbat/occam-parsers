@@ -30,29 +30,29 @@ export default class RuleNamePart extends NonTerminalPart {
   parse(frame, context) {
     const ruleNamePart = this;  ///
 
-    ruleNamePartContext((context) => {
-      const rule = context.findRule(this.ruleName);
+    context = ruleNamePartContext(frame, ruleNamePart, context);  ///
 
-      if (rule !== null) {
-        const continuing = context.isContinuing();
+    const rule = context.findRule(this.ruleName);
 
-        if (continuing) {
-          frame = rule.parse(context);
-        } else {
-          const ruleFrame = rule.parse(context);
+    if (rule !== null) {
+      const continuing = context.isContinuing();
 
-          frame = (ruleFrame !== null) ?
-                    context.compose(frame, ruleFrame) :
-                      null;
-        }
+      if (continuing) {
+        frame = rule.parse(context);
       } else {
-        frame = null;
-      }
+        const ruleFrame = rule.parse(context);
 
-      if (frame !== null) {
-        context.commit();
+        frame = (ruleFrame !== null) ?
+                  context.compose(frame, ruleFrame) :
+                    null;
       }
-    }, frame, ruleNamePart, context);
+    } else {
+      frame = null;
+    }
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

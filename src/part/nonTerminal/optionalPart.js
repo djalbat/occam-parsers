@@ -24,39 +24,39 @@ export default class OptionalPartPart extends NonTerminalPart {
   parse(frame, context) {
     const part = this;  ///
 
-    partContext((context) => {
-      const continuing = context.isContinuing();
+    context = partContext(part, context); ///
 
-      if (continuing) {
-        const savedFrame = frame; ///
+    const continuing = context.isContinuing();
 
-        frame = this.part.parse(frame, context);
+    if (continuing) {
+      const savedFrame = frame; ///
 
-        if (frame === null) {
-          frame = savedFrame; ///
+      frame = this.part.parse(frame, context);
 
-          frame = context.continue(frame);
-        }
-      } else {
-        let partFrame;
+      if (frame === null) {
+        frame = savedFrame; ///
 
+        frame = context.continue(frame);
+      }
+    } else {
+      let partFrame;
+
+      partFrame = emptyFrame; ///
+
+      partFrame = this.part.parse(partFrame, context);
+
+      if (partFrame === null) {
         partFrame = emptyFrame; ///
-
-        partFrame = this.part.parse(partFrame, context);
-
-        if (partFrame === null) {
-          partFrame = emptyFrame; ///
-        }
-
-        frame = (partFrame !== null) ?
-                  context.compose(frame, partFrame) :
-                    null;
       }
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, part, context);
+      frame = (partFrame !== null) ?
+                context.compose(frame, partFrame) :
+                  null;
+    }
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

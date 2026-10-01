@@ -5,15 +5,13 @@ import { topmostContext } from "../utilities/context"
 function parse(tokens, rule = this.startRule) {
   let node = null;
 
-  const parser = this;  ///
+  const parser = this,
+        context = topmostContext(parser, tokens), ///
+        ruleFrame = rule.parse(context);
 
-  topmostContext((context) => {
-    const ruleFrame = rule.parse(context);
-
-    if (ruleFrame !== null) {
-      node = ruleFrame.getNode();
-    }
-  }, parser, tokens);
+  if (ruleFrame !== null) {
+    node = ruleFrame.getNode();
+  }
 
   return node;
 }

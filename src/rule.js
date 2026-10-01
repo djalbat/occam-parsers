@@ -62,19 +62,19 @@ export default class Rule {
 
     const rule = this;  ///
 
-    ruleContext((context) => {
-      this.definitions.some((definition) => {
-        frame = definition.parse(context);
+    context = ruleContext(rule, context); ///
 
-        if (frame !== null) {
-          return true;
-        }
-      });
+    this.definitions.some((definition) => {
+      frame = definition.parse(context);
 
       if (frame !== null) {
-        context.commit();
+        return true;
       }
-    }, rule, context);
+    });
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

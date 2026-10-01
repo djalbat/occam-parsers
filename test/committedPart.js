@@ -27,24 +27,26 @@ describe("Committed part", () => {
     `;
 
     describe("content with four operators", () => {
-      const content = "1 + 2 .";
+      const content = "1 + 2 + 3.";
 
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
 
-                                                          S [0]
-                                                            |
-                                        -----------------------------------------
-                                        |                                       |
-                                      T [0]                            "."[unassigned] [0]
-                                        |
-                   ------------------------------------------
-                   |                    |                   |
-                 A [0]        \`"+"[unassigned] [0]        A [0]
-                   |                                        |
-          "1"[unassigned] [0]                      "2"[unassigned] [0]
+                                                                                               S [0]                                
+                                                                                                 |                                  
+                                                                        ---------------------------------------------------         
+                                                                        |                                                 |         
+                                                                      T [0]                                      "."[unassigned] [0]
+                                                                        |                                                           
+                                         --------------------------------------------------------------                             
+                                         |                                        |                   |                             
+                                       A [0]                            \`"+"[unassigned] [0]        A [0]                           
+                                         |                                                            |                             
+                     -----------------------------------------                               "3"[unassigned] [0]                    
+                     |                   |                   |                                                                      
+            "1"[unassigned] [0] "+"[unassigned] [0] "2"[unassigned] [0]                                                             
 
         `));
       });
@@ -133,22 +135,36 @@ describe("Committed part", () => {
     describe("content with two operators", () => {
       const content = "x + y + z.";
 
-      it.only("results in the requisite parse tree" , () => {
+      it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-
-                                                          S [0]
-                                                            |
-                                        -----------------------------------------
-                                        |                                       |
-                                      T [0]                            "."[unassigned] [0]
-                                        |
-                   ------------------------------------------
-                   |                    |                   |
-                 A [0]        \`"+"[unassigned] [0]        A [0]
-                   |                                        |
-          "1"[unassigned] [0]                      "2"[unassigned] [0]
+          
+                                                                             S [0]                                                
+                                                                               |                                                  
+                                      -----------------------------------------------------------------------------------         
+                                      |                                                                                 |         
+                                    T [0]                                                                     \`"."[unassigned] [0]
+                                      |                                                                                           
+                   ---------------------------------------                                                                        
+                   |                                     |                                                                        
+                T_ [0]                                T~ [0]                                                                      
+                   |                                     |                                                                        
+          "x"[unassigned] [0]          ------------------------------------                                                       
+                                       |                                  |                                                       
+                              "+"[unassigned] [0]                       T [0]                                                     
+                                                                          |                                                       
+                                                           -------------------------------                                        
+                                                           |                             |                                        
+                                                        T_ [0]                        T~ [0]                                      
+                                                           |                             |                                        
+                                                  "y"[unassigned] [0]          ---------------------                              
+                                                                               |                   |                              
+                                                                      "+"[unassigned] [0]        T [0]                            
+                                                                                                   |                              
+                                                                                                T_ [0]                            
+                                                                                                   |                              
+                                                                                          "z"[unassigned] [0]                     
 
         `));
       });

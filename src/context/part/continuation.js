@@ -33,13 +33,13 @@ export default class ContinuationPartContext extends PartContext {
           strict = true,
           continuingContext = this.getContinuingContext();
 
-    continuationContext((context) => {
-      frame = this.parsePartContinually(part, count, strict, frame, context);
+    context = continuationContext(continuingContext, context);  ///
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, continuingContext, context);
+    frame = this.parsePartContinually(part, count, strict, frame, context);
+
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

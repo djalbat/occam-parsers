@@ -20,36 +20,36 @@ export default class StringLiteralPart extends TerminalPart {
   parse(frame, context) {
     const part = this;  ///
 
-    partContext((context) => {
-      let partFrame = null;
+    context = partContext(part, context); ///
 
-      const nextSignificantToken = context.getNextSignificantToken();
+    let partFrame = null;
 
-      if (nextSignificantToken !== null) {
-        const significantToken = nextSignificantToken, ///
-              content = significantToken.getContent();
+    const nextSignificantToken = context.getNextSignificantToken();
 
-        if (content === this.content) {
-          const committed = context.getCommitted(),
-                terminalNode = TerminalNode.fromSignificantTokenAndCommitted(significantToken, committed),
-                childNode = terminalNode;  ///
+    if (nextSignificantToken !== null) {
+      const significantToken = nextSignificantToken, ///
+            content = significantToken.getContent();
 
-          partFrame = Frame.fromChildNode(childNode);
-        }
+      if (content === this.content) {
+        const committed = context.getCommitted(),
+              terminalNode = TerminalNode.fromSignificantTokenAndCommitted(significantToken, committed),
+              childNode = terminalNode;  ///
+
+        partFrame = Frame.fromChildNode(childNode);
       }
+    }
 
-      frame = (partFrame !== null) ?
-                context.compose(frame, partFrame) :
-                  null;
+    frame = (partFrame !== null) ?
+              context.compose(frame, partFrame) :
+                null;
 
-      if (frame !== null) {
-        frame = context.continue(frame);
-      }
+    if (frame !== null) {
+      frame = context.continue(frame);
+    }
 
-      if (frame !== null) {
-        context.commit();
-      }
-    }, part, context);
+    if (frame !== null) {
+      context.commit();
+    }
 
     return frame;
   }

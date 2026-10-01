@@ -3,27 +3,27 @@
 import { continuationPartContext } from "../utilities/context";
 
 export function parsePartContinually(part, count, strict, frame, context) {
-  continuationPartContext((context) => {
-    const savedFrame = frame; ///
+  context = continuationPartContext(part, count, parsePartContinually, context); ///
 
-    frame = part.parse(frame, context);
+  const savedFrame = frame; ///
 
-    if (frame === null) {
-      const initial = (count === 0);
+  frame = part.parse(frame, context);
 
-      if (strict && initial) {
-        ///
-      } else {
-        frame = savedFrame; ///
+  if (frame === null) {
+    const initial = (count === 0);
 
-        frame = context.continue(frame);
-      }
+    if (strict && initial) {
+      ///
+    } else {
+      frame = savedFrame; ///
+
+      frame = context.continue(frame);
     }
+  }
 
-    if (frame !== null) {
-      context.commit();
-    }
-  }, part, count, parsePartContinually, context);
+  if (frame !== null) {
+    context.commit();
+  }
 
   return frame;
 }

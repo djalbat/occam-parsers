@@ -58,13 +58,13 @@ export default class PartsContext extends Context {
     if (!empty) {
       const continuingContext = this.getContinuingContext();
 
-      continuationContext((context) => {
-        frame = this.parsePartsContinually(this.parts, frame, context);
+      context = continuationContext(continuingContext, context);  ///
 
-        if (frame !== null) {
-          context.commit();
-        }
-      }, continuingContext, context);
+      frame = this.parsePartsContinually(this.parts, frame, context);
+
+      if (frame !== null) {
+        context.commit();
+      }
     } else {
       frame = super.continued(frame, context);
     }
