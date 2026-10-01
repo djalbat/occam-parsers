@@ -117,6 +117,44 @@ describe("Committed part", () => {
     });
   });
 
+  describe("non-consuming committed terminal part", () => {
+    const bnf = `
+  
+      S  ::= T... ".";
+      
+      T  ::= T_ \`\`"+" T~*;
+      
+      T_ ::= . ;
+      
+      T~ ::= "+" T ;
+                 
+    `;
+
+    describe("content with two operators", () => {
+      const content = "x + y + z.";
+
+      it.only("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+
+                                                          S [0]
+                                                            |
+                                        -----------------------------------------
+                                        |                                       |
+                                      T [0]                            "."[unassigned] [0]
+                                        |
+                   ------------------------------------------
+                   |                    |                   |
+                 A [0]        \`"+"[unassigned] [0]        A [0]
+                   |                                        |
+          "1"[unassigned] [0]                      "2"[unassigned] [0]
+
+        `));
+      });
+    });
+  });
+
   describe("non-singluar committed rule name part", () => {
     const bnf = `
   

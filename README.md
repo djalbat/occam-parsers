@@ -74,7 +74,7 @@ sequenceOfParts          ::=  "(" part part+ ")" ;
 
 choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
 
-committedPart            ::=  "\`" part ;
+committedPart            ::=  "`" ( <NO_WHITESPACE>"`" )? part ;
 
 isolatedPart             ::=  "(" part ")" ;
 

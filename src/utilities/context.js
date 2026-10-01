@@ -93,8 +93,8 @@ export function continuationPartContext(innerFunction, part, count, parsePartCon
   innerFunction(context);
 }
 
-export function committedPartPartContext(innerFunction, context) {
-  const committedPartPartContext = CommittedPartPartContext.fromNothing(context);
+export function committedPartPartContext(innerFunction, savedFrame, consuming, context) {
+  const committedPartPartContext = CommittedPartPartContext.fromSavedFrameAndConsuming(savedFrame, consuming, context);
 
   context = committedPartPartContext;
 

@@ -296,9 +296,9 @@ export default class TerminalNode {
       Class = TerminalNode; ///
     }
 
-    const committed = false,
-      parentNode = null,
-      terminalNode = new Class(significantToken, parentNode, committed, ...remainingArguments);
+    const committed = null,
+          parentNode = null,
+          terminalNode = new Class(significantToken, parentNode, committed, ...remainingArguments);
 
     return terminalNode;
   }

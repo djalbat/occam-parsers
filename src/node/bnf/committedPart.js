@@ -7,6 +7,13 @@ import { PART_RULE_NAME } from "../../ruleNames";
 import { nodeFromChildNodesAndRuleName } from "../../utilities/node";
 
 export default class CommittedPartBNFNode extends NonTerminalNode {
+  isConsuming() {
+    const multiplicity = this.getMultiplicity(),
+          consuming = (multiplicity === 2);
+
+    return consuming;
+  }
+
   generatePart(continuation) {
     const ruleName = PART_RULE_NAME,
           childNodes = this.getChildNodes(),
@@ -18,7 +25,8 @@ export default class CommittedPartBNFNode extends NonTerminalNode {
 
     part = partBNFNode.generatePart(continuation);
 
-    const committedPartPart = CommittedPartPart.fromPart(part);
+    const consuming = this.isConsuming(),
+          committedPartPart = CommittedPartPart.fromPartAndConsuming(part, consuming);
 
     part = committedPartPart; ///
 
