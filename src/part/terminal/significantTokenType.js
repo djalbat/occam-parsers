@@ -30,7 +30,7 @@ export default class SignificantTokenTypePart extends TerminalPart {
               significantTokenType = significantToken.getType();
 
         if (significantTokenType === this.significantTokenType) {
-          const committed = context.isCommitted(),
+          const committed = context.getCommitted(),
                 terminalNode = TerminalNode.fromSignificantTokenAndCommitted(significantToken, committed),
                 childNode = terminalNode;  ///
 

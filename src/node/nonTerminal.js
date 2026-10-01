@@ -35,7 +35,7 @@ export default class NonTerminalNode {
     return this.precedence;
   }
 
-  isCommitted() {
+  getCommitted() {
     return this.committed;
   }
 
@@ -59,12 +59,16 @@ export default class NonTerminalNode {
     this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
   }
 
-  setOpacity(opacity) {
-    this.opacity = opacity;
-  }
-
   setPrecedence(precedence) {
     this.precedence = precedence;
+  }
+
+  setCommitted(committed) {
+    this.committed = committed;
+  }
+
+  setOpacity(opacity) {
+    this.opacity = opacity;
   }
 
   nullifyPrecedence() {
@@ -152,13 +156,6 @@ export default class NonTerminalNode {
     return multiplicity;
   }
 
-  isEmpty() {
-    const multiplicity = this.getMultiplicity(),
-          empty = (multiplicity === 0);
-
-    return empty;
-  }
-
   isSingular() {
     const multiplicity = this.getMultiplicity(),
           singular = (multiplicity === 1);
@@ -168,7 +165,7 @@ export default class NonTerminalNode {
 
   isPalatable() {
     const unpalatable = this.isUnpalatable(),
-          palatable = !unpalatable;
+            palatable = !unpalatable;
 
     return palatable;
   }
@@ -184,6 +181,13 @@ export default class NonTerminalNode {
     }
 
     return unpalatable;
+  }
+
+  isEmpty() {
+    const multiplicity = this.getMultiplicity(),
+          empty = (multiplicity === 0);
+
+    return empty;
   }
 
   isUnprecedented() {

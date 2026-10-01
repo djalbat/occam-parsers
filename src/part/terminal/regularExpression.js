@@ -38,7 +38,7 @@ export default class RegularExpressionPart extends TerminalPart {
           const firstMatch = first(matches);
 
           if (firstMatch === content) {
-            const committed = context.isCommitted(),
+            const committed = context.getCommitted(),
                   terminalNode = TerminalNode.fromSignificantTokenAndCommitted(significantToken, committed),
                   childNode = terminalNode;  ///
 

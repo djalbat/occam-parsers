@@ -37,13 +37,13 @@ export default class TopmostContext extends Context {
   }
 
   isIsolated() {
-    const isolated = true;
+    const isolated = false;
 
     return isolated;
   }
 
-  isCommitted() {
-    const committed = false;
+  getCommitted() {
+    const committed = null;
 
     return committed;
   }

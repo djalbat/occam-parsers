@@ -20,7 +20,7 @@ export default class WildcardPart extends TerminalPart {
       const nextSignificantToken = context.getNextSignificantToken();
 
       if (nextSignificantToken !== null) {
-        const committed = context.isCommitted(),
+        const committed = context.getCommitted(),
               significantToken = nextSignificantToken,  ///
               terminalNode = TerminalNode.fromSignificantTokenAndCommitted(significantToken, committed),
               childNode = terminalNode;  ///

@@ -24,7 +24,7 @@ export default class EndOfLinePart extends TerminalPart {
               significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
 
         if (significantTokenEndOfLineToken) {
-          const committed = context.isCommitted(),
+          const committed = context.getCommitted(),
                 endOfLineNode = EndOfLineNode.fromSignificantTokenAndCommitted(significantToken, committed),
                 childNode = endOfLineNode;  ///
 

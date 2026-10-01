@@ -21,15 +21,15 @@ export default class Context {
 
   getRuleMap() { return this.context.getRuleMap(); }
 
+  isIsolated() {  return this.context.isIsolated(); }
+
   getNonTerminalNodeMap() { return this.context.getNonTerminalNodeMap(); }
 
   getDefaultNonTerminalNode() { return this.context.getDefaultNonTerminalNode(); }
 
   NonTerminalNodeFromRuleName(ruleName) { return this.context.NonTerminalNodeFromRuleName(ruleName); }
 
-  isCommitted() {  return this.context.isCommitted(); }
-
-  isIsolated() {  return this.context.isIsolated(); }
+  getCommitted() {  return this.context.getCommitted(); }
 
   findRule(ruleName) { return this.context.findRule(ruleName); }
 

@@ -1,69 +1,21 @@
 "use strict";
 
-import { characters } from "necessary";
-import { specialSymbols } from "occam-lexers";
-
 import VerticalBranchParseTree from "./verticalBranch";
 
-import { EMPTY_STRING } from "../constants";
-import { lineIndexFromTokenIndexAndTokens } from "../utilities/tokens";
-
-const { backtick } = specialSymbols,
-      { SPACE_CHARACTER } = characters;
+import { stringFromStringNonTermionalNodeAndTokens } from "../utilities/parseTree";
 
 export default class RuleNameParseTree extends VerticalBranchParseTree {
   static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
     const opacity = nonTerminalNode.getOpacity(),
-          ruleName = nonTerminalNode.getRuleName(),
-          committed = nonTerminalNode.isCommitted(),
-          firstSignificantTokenIndex = nonTerminalNode.getFirstSignificantTokenIndex(tokens),
-          lastSignificantTokenIndex = nonTerminalNode.getLastSignificantTokenIndex(tokens),
-          firstLineIndex = lineIndexFromTokenIndexAndTokens(firstSignificantTokenIndex, tokens),
-          lastLineIndex = lineIndexFromTokenIndexAndTokens(lastSignificantTokenIndex, tokens);
+          ruleName = nonTerminalNode.getRuleName();
 
-    let lineIndexes;
+    let string;
 
-    if (firstLineIndex === lastLineIndex) {
-      const lineIndex = firstLineIndex; ///
+    string = (opacity !== null) ?
+               `${string}${opacity}` :
+                  ruleName; ///
 
-      if (lineIndex === null) {
-        lineIndexes = EMPTY_STRING;
-      } else {
-        lineIndexes = ` [${lineIndex}]`;
-      }
-    } else {
-      if (false) {
-        ///
-      } else if (firstLineIndex === null) {
-        lineIndexes = ` [${lastLineIndex}]`;
-      } else if (lastLineIndex === null) {
-        lineIndexes = ` [${firstLineIndex}]`;
-      } else {
-        lineIndexes = ` [${firstLineIndex}-${lastLineIndex}]`
-      }
-    }
-
-    let string = `${ruleName}`;
-
-    if (opacity !== null) {
-      string = `${string}${opacity}`;
-    }
-
-    string = `${string}${lineIndexes}`;
-
-    let precedence = nonTerminalNode.getPrecedence();
-
-    if (precedence === Infinity) {
-      precedence = SPACE_CHARACTER;
-    }
-
-    if (precedence !== null) {
-      string = `${string} (${precedence})`;
-    }
-
-    if (committed) {
-      string = `${backtick}${string}`;
-    }
+    string = stringFromStringNonTermionalNodeAndTokens(string, nonTerminalNode, tokens);
 
     const stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///

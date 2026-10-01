@@ -17,7 +17,7 @@ export default class TerminalNode {
     return this.parentNode;
   }
 
-  isCommitted() {
+  getCommitted() {
     return this.committed;
   }
 
@@ -61,7 +61,7 @@ export default class TerminalNode {
 
   getContent() { return this.significantToken.getContent(); }
 
-  getPrecedence()  {
+  getPrecedence() {
     const precedence = null;
 
     return precedence;

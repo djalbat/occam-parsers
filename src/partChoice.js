@@ -1,6 +1,7 @@
 "use strict";
 
 import { characters } from "necessary";
+
 import { partChoiceContext } from "./utilities/context";
 
 const { SPACE_CHARACTER } = characters;

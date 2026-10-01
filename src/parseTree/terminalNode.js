@@ -1,57 +1,25 @@
 "use strict";
 
 import { characters } from "necessary";
-import { specialSymbols } from "occam-lexers";
 
 import VerticalBranchParseTree from "./verticalBranch";
 
-import { EMPTY_STRING } from "../constants";
-import { lineIndexFromTokenIndexAndTokens } from "../utilities/tokens";
+import { stringFromStringTerminalNodeAndTokens } from "../utilities/parseTree";
 
-const { backtick } = specialSymbols,
-      { NEW_LINE_CHARACTER, CARRIAGE_RETURN_CHARACTER } = characters;
+const { NEW_LINE_CHARACTER, CARRIAGE_RETURN_CHARACTER } = characters;
 
 export default class TerminalNodeParseTree extends VerticalBranchParseTree {
   static fromTerminalNodeAndTokens(terminalNode, tokens) {
-    let content;
-
-    content = terminalNode.getContent();
-
-    content = content.replace(/[\r\n]/g, (match) => {
-      switch (match) {
-        case CARRIAGE_RETURN_CHARACTER:
-          return "\\r";
-
-        case NEW_LINE_CHARACTER:
-          return "\\n";
-
-        default:
-          return match;
-      }
-    });
-
     const type = terminalNode.getType(),
-          significantTokenIndex = terminalNode.getSignificantTokenIndex(tokens),
-          lineIndex = lineIndexFromTokenIndexAndTokens(significantTokenIndex, tokens);
+          content = contentFromTerminalNode(terminalNode);
 
-    let lineIndexes;
+    let string;
 
-    if (lineIndex === null) {
-      lineIndexes = EMPTY_STRING;
-    } else {
-      lineIndexes = ` [${lineIndex}]`;
-    }
+    string = `"${content}"[${type}]`;
 
-    let committed;
+    string = stringFromStringTerminalNodeAndTokens(string, terminalNode, tokens);
 
-    committed = terminalNode.isCommitted();
-
-    committed = committed ?
-                  backtick :
-                    EMPTY_STRING;
-
-    const string = `${committed}"${content}"[${type}]${lineIndexes}`,
-          stringLength = string.length,
+    const stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
           verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(),
@@ -61,4 +29,25 @@ export default class TerminalNodeParseTree extends VerticalBranchParseTree {
 
     return terminalNodeParseTree;
   }
+}
+
+function contentFromTerminalNode(terminalNode) {
+  let content;
+
+  content = terminalNode.getContent();
+
+  content = content.replace(/[\r\n]/g, (match) => {
+    switch (match) {
+      case CARRIAGE_RETURN_CHARACTER:
+        return "\\r";
+
+      case NEW_LINE_CHARACTER:
+        return "\\n";
+
+      default:
+        return match;
+    }
+  });
+
+  return content;
 }

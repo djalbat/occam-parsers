@@ -207,7 +207,7 @@ describe("Committed part", () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                      
+        
                                                                               S [0]                                                
                                                                                 |                                                  
                                        -----------------------------------------------------------------------------------         
@@ -232,8 +232,8 @@ describe("Committed part", () => {
                                                                                                      |                             
                                                                                                   T_ [0]                           
                                                                                                      |                             
-                                                                                            "x"[unassigned] [0]                    
-                                                                       
+                                                                                            "x"[unassigned] [0]
+                                                                                                                
         `));
       });
     });

@@ -28,16 +28,16 @@ export default class DefinitionContext extends Context {
     return rule;
   }
 
+  getCommitted() {
+    const committed = null;
+
+    return committed;
+  }
+
   isIsolated() {
     const isolated = false;
 
     return isolated;
-  }
-
-  isCommitted() {
-    const committed = false;
-
-    return committed;
   }
 
   compose(frame) {
@@ -60,12 +60,15 @@ export default class DefinitionContext extends Context {
       nonTerminalNode.nullifyPrecedence();
     }
 
-    const palatable = nonTerminalNode.isPalatable(),
-          childNode = nonTerminalNode;  ///
+    const palatable = nonTerminalNode.isPalatable();
 
-    frame = palatable ? ///
-              Frame.fromChildNode(childNode) :
-                null;
+    if (palatable) {
+      const childNode = nonTerminalNode;  ///
+
+      frame = Frame.fromChildNode(childNode);
+    } else {
+      frame = null;
+    }
 
     return frame;
   }
@@ -84,7 +87,7 @@ function nonTerminalNodeFromFrame(frame, context) {
   const rule = context.getRule(),
         opacity = rule.getOpacity(),
         ruleName = rule.getName(),
-        committed = context.isCommitted(),
+        committed = context.getCommitted(),
         childNodes = frame.getChildNodes(),
         precedence = frame.getPrecedence(),
         NonTerminalNode = rule.NonTerminalNodeFromRuleName(ruleName, context);

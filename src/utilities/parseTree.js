@@ -1,0 +1,132 @@
+"use strict";
+
+import { specialSymbols } from "occam-lexers";
+
+import { EMPTY_STRING } from "../constants";
+
+const { backtick } = specialSymbols;
+
+export function stringFromStringNonTermionalNodeAndTokens(string, nonTerminalNode, tokens) {
+  const node = nonTerminalNode, ///
+        committed = committedFromNode(node),
+        precedence = precedenceFromNode(node),
+        lineIndexes = lineIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens);
+
+  string = `${committed}${string}${lineIndexes}${precedence}`;
+
+  return string;
+}
+
+export function stringFromStringTerminalNodeAndTokens(string, terminalNode, tokens) {
+  const node = terminalNode,  ///
+        committed = committedFromNode(node),
+        lineIndex = lineIndexFromTerminalNodeAndTokens(terminalNode, tokens);
+
+  string = `${committed}${string}${lineIndex}`;
+
+  return string;
+}
+
+function lineIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
+  let lineIndexes;
+
+  const firstSignificantTokenIndex = nonTerminalNode.getFirstSignificantTokenIndex(tokens),
+        lastSignificantTokenIndex = nonTerminalNode.getLastSignificantTokenIndex(tokens),
+        firstLineIndex = lineIndexFromTokenIndexAndTokens(firstSignificantTokenIndex, tokens),
+        lastLineIndex = lineIndexFromTokenIndexAndTokens(lastSignificantTokenIndex, tokens);
+
+  if (firstLineIndex === lastLineIndex) {
+    const lineIndex = firstLineIndex; ///
+
+    if (lineIndex === null) {
+      lineIndexes = EMPTY_STRING;
+    } else {
+      lineIndexes = ` [${lineIndex}]`;
+    }
+  } else {
+    if (false) {
+      ///
+    } else if (firstLineIndex === null) {
+      lineIndexes = ` [${lastLineIndex}]`;
+    } else if (lastLineIndex === null) {
+      lineIndexes = ` [${firstLineIndex}]`;
+    } else {
+      lineIndexes = ` [${firstLineIndex}-${lastLineIndex}]`
+    }
+  }
+
+  return lineIndexes;
+}
+
+function lineIndexFromTerminalNodeAndTokens(terminalNode, tokens) {
+  let lineIndex;
+
+  const significantTokenIndex = terminalNode.getSignificantTokenIndex(tokens);
+
+  lineIndex = lineIndexFromTokenIndexAndTokens(significantTokenIndex, tokens);
+
+  if (lineIndex === null) {
+    lineIndex = EMPTY_STRING;
+  } else {
+    lineIndex = ` [${lineIndex}]`;
+  }
+
+  return lineIndex;
+}
+
+function lineIndexFromTokenIndexAndTokens(tokenIndex, tokens) {
+  let lineIndex = null;
+
+  if (tokenIndex !== null) {
+    lineIndex = 0;
+
+    const start = 0,
+          end = tokenIndex;
+
+    tokens = tokens.slice(start, end);  ///
+
+    tokens.forEach((token) => {
+      const tokenEndOfLineToken = token.isEndOfLineToken();
+
+      if (tokenEndOfLineToken) {
+        lineIndex++;
+      }
+    });
+  }
+
+  return lineIndex;
+}
+
+function precedenceFromNode(node) {
+  let precedence = node.getPrecedence();
+
+  if (false) {
+    ///
+  } else if (precedence === null) {
+    precedence = EMPTY_STRING;
+  }else if (precedence === Infinity) {
+    precedence = ` ( )`;
+  } else {
+    precedence = ` (${precedence})`;
+  }
+
+  return precedence;
+}
+
+function committedFromNode(node) {
+  let committed;
+
+  committed = node.getCommitted();
+
+  if (false) {
+    ///
+  } else if (committed === null) {
+    committed = EMPTY_STRING;
+  } else if (committed === Infinity) {
+    committed = `${backtick}${backtick}`;
+  } else {
+    committed = backtick; ///
+  }
+
+  return committed;
+}

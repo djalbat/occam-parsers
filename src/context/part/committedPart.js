@@ -3,8 +3,8 @@
 import Context from "../../context";
 
 export default class CommittedPartPartContext extends Context {
-  isCommitted() {
-    const committed = true;
+  getCommitted() {
+    const committed = 1;
 
     return committed;
   }

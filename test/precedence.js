@@ -31,32 +31,26 @@ describe("Precedence", () => {
     describe("correctly nested expressions", () => {
       const content = "f(A u B).";
 
-      it("results in a non-null node" , () => {
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNotNull(node);
-      });
-
       it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                        
-                                                                                                      S [0]                                          
-                                                                                                        |                                            
-                                                                     -----------------------------------------------------------------------         
-                                                                     |                                                                     |         
-                                                                 T [0] (3)                                                        "."[unassigned] [0]
-                                                                     |                                                                               
-                   -----------------------------------------------------------------------------------------------------                             
-                   |                   |                                       |                                       |                             
-          "f"[unassigned] [0] "("[unassigned] [0]                            T [0]                            ")"[unassigned] [0]                    
-                                                                               |                                                                     
-                                                           -----------------------------------------                                                 
-                                                           |                   |                   |                                                 
-                                                         A [0]        "u"[unassigned] [0]        B [0]                                               
-                                                           |                                       |                                                 
-                                                  "A"[unassigned] [0]                     "B"[unassigned] [0]                                        
+        
+                                                                                                        S [0]                                          
+                                                                                                          |                                            
+                                                                       -----------------------------------------------------------------------         
+                                                                       |                                                                     |         
+                                                                   T [0] (3)                                                        "."[unassigned] [0]
+                                                                       |                                                                               
+                     -----------------------------------------------------------------------------------------------------                             
+                     |                   |                                       |                                       |                             
+            "f"[unassigned] [0] "("[unassigned] [0]                            T [0]                            ")"[unassigned] [0]                    
+                                                                                 |                                                                     
+                                                             -----------------------------------------                                                 
+                                                             |                   |                   |                                                 
+                                                           A [0]        "u"[unassigned] [0]        B [0]                                               
+                                                             |                                       |                                                 
+                                                    "A"[unassigned] [0]                     "B"[unassigned] [0]                                        
     
         `));
       });
@@ -85,22 +79,22 @@ describe("Precedence", () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                                    
-                                                                                            S [0]                                
-                                                                                              |                                  
-                                                                     ---------------------------------------------------         
-                                                                     |                                                 |         
-                                                               E [0] (-100)                                   "."[unassigned] [0]
-                                                                     |                                                           
-                                       -------------------------------------------------------------                             
-                                       |                                       |                   |                             
-                                 T [0] (-100)                         "+"[unassigned] [0]        T [0]                           
-                                       |                                                           |                             
-                   -----------------------------------------                              "z"[unassigned] [0]                    
-                   |                   |                   |                                                                     
-          "x"[unassigned] [0] "+"[unassigned] [0] "y"[unassigned] [0]                                                            
-                                                                          
-      `));
+        
+                                                                                              S [0]                                
+                                                                                                |                                  
+                                                                       ---------------------------------------------------         
+                                                                       |                                                 |         
+                                                                 E [0] (-100)                                   "."[unassigned] [0]
+                                                                       |                                                           
+                                         -------------------------------------------------------------                             
+                                         |                                       |                   |                             
+                                   T [0] (-100)                         "+"[unassigned] [0]        T [0]                           
+                                         |                                                           |                             
+                     -----------------------------------------                              "z"[unassigned] [0]                    
+                     |                   |                   |                                                                     
+            "x"[unassigned] [0] "+"[unassigned] [0] "y"[unassigned] [0]
+                                                                        
+        `));
       });
     });
   });
@@ -167,7 +161,7 @@ describe("Precedence", () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                        
+        
                                                                                   S [0]                                          
                                                                                     |                                            
                                                  -----------------------------------------------------------------------         
@@ -182,7 +176,7 @@ describe("Precedence", () => {
                                                            |                   |                   |                             
                                                   "2"[unassigned] [0] "*"[unassigned] [0]        T [0]                           
                                                                                                    |                             
-                                                                                          "3"[unassigned] [0]                                                                                                              
+                                                                                          "3"[unassigned] [0]                    
     
         `));
       });
@@ -221,7 +215,7 @@ describe("Precedence", () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                                  
+        
                                                                                   S [0]                                          
                                                                                     |                                            
                                                  -----------------------------------------------------------------------         
@@ -240,8 +234,8 @@ describe("Precedence", () => {
                                                                                                    |                             
                                                                                                  T [0]                           
                                                                                                    |                             
-                                                                                          "3"[unassigned] [0]                    
-    
+                                                                                          "3"[unassigned] [0]
+                                                                                                              
         `));
       });
     });
@@ -275,7 +269,7 @@ describe("Precedence", () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                                            
+        
                                                                                   S [0]                                          
                                                                                     |                                            
                                                  -----------------------------------------------------------------------         
@@ -290,8 +284,8 @@ describe("Precedence", () => {
                                                            |                   |                   |                             
                                                   "2"[unassigned] [0] "*"[unassigned] [0]        T [0]                           
                                                                                                    |                             
-                                                                                          "3"[unassigned] [0]                    
-    
+                                                                                          "3"[unassigned] [0]
+                                                                                                              
         `));
       });
     });
@@ -327,26 +321,27 @@ describe("Precedence", () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                                                                                  S [0]                                          
-                                                                                    |                                            
-                                                 -----------------------------------------------------------------------         
-                                                 |                                                                     |         
-                                             T [0] (1)                                                        "."[unassigned] [0]
-                                                 |                                                                               
-                   -------------------------------------------------------------                                                 
-                   |                   |                                       |                                                 
-          "1"[unassigned] [0] "+"[unassigned] [0]                          A [0] ( )                                             
-                                                                               |                                                 
-                                                                           T [0] (2)                                             
-                                                                               |                                                 
-                                                           -----------------------------------------                             
-                                                           |                   |                   |                             
-                                                  "2"[unassigned] [0] "*"[unassigned] [0]      A [0] ( )                         
-                                                                                                   |                             
-                                                                                                 T [0]                           
-                                                                                                   |                             
-                                                                                          "3"[unassigned] [0]
-                                                                                                              
+        
+                                                                                    S [0]                                          
+                                                                                      |                                            
+                                                   -----------------------------------------------------------------------         
+                                                   |                                                                     |         
+                                               T [0] (1)                                                        "."[unassigned] [0]
+                                                   |                                                                               
+                     -------------------------------------------------------------                                                 
+                     |                   |                                       |                                                 
+            "1"[unassigned] [0] "+"[unassigned] [0]                          A [0] ( )                                             
+                                                                                 |                                                 
+                                                                             T [0] (2)                                             
+                                                                                 |                                                 
+                                                             -----------------------------------------                             
+                                                             |                   |                   |                             
+                                                    "2"[unassigned] [0] "*"[unassigned] [0]      A [0] ( )                         
+                                                                                                     |                             
+                                                                                                   T [0]                           
+                                                                                                     |                             
+                                                                                            "3"[unassigned] [0]
+                                                                                                                
         `));
       });
     });
