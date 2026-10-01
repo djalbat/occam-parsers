@@ -7,30 +7,42 @@ import { partsContext } from "../utilities/context";
 const { first, tail } = arrayUtilities;
 
 export function parseParts(parts, frame, context) {
-  const firstPart = first(parts),
-        tailParts = tail(parts),
-        part = firstPart; ///
+  const contexts = [];
 
-  parts = tailParts;  ///
+  let partsLength = parts.length;
 
-  context = partsContext(parts, parsePartsContinually, context);  ///
+  while (partsLength > 0) {
+    const firstPart = first(parts),
+          tailParts = tail(parts),
+          part = firstPart; ///
 
-  const partFrame = context.recover(part);
+    parts = tailParts;  ///
 
-  frame = (partFrame !== null) ?
-            frame.merge(partFrame) :
-              part.parse(frame, context);
+    context = partsContext(parts, parsePartsContinually, context);  ///
 
-  if (frame !== null) {
-    const partsLength = parts.length;
+    contexts.push(context);
 
-    if (partsLength > 0) {
-      frame = parseParts(parts, frame, context);
+    const partFrame = context.recover(part);
+
+    frame = (partFrame !== null) ?
+              frame.merge(partFrame) :
+                part.parse(frame, context);
+
+    if (frame === null) {
+      break;
     }
+
+    partsLength = parts.length;
   }
 
   if (frame !== null) {
-    context.commit();
+    context = contexts.pop() || null;
+
+    while (context !== null) {
+      context.commit();
+
+      context = contexts.pop() || null;
+    }
   }
 
   return frame;
