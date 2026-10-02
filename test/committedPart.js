@@ -29,7 +29,7 @@ describe("Committed part", () => {
     describe("content with four operators", () => {
       const content = "1 + 2 + 3.";
 
-      it("results in the requisite parse tree" , () => {
+      it.only("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `

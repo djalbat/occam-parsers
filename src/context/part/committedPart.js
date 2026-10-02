@@ -30,15 +30,15 @@ export default class CommittedPartPartContext extends Context {
     return committed;
   }
 
-  updateState(state) {
-    const nonConsuming = this.isNonConsuming();
-
-    if (nonConsuming) {
-      return;
-    }
-
-    super.updateState(state);
-  }
+  // updateState(state) {
+  //   const nonConsuming = this.isNonConsuming();
+  //
+  //   if (nonConsuming) {
+  //     return;
+  //   }
+  //
+  //   super.updateState(state);
+  // }
 
   compose(frame, partFrame = null) {
     if (partFrame !== null) {
@@ -52,11 +52,11 @@ export default class CommittedPartPartContext extends Context {
     frame = this.compose(frame);
 
     if (frame !== null) {
-      const nonConsuming = this.isNonConsuming();
-
-      if (nonConsuming) {
-        frame = this.savedFrame;  ///
-      }
+      // const nonConsuming = this.isNonConsuming();
+      //
+      // if (nonConsuming) {
+      //   frame = this.savedFrame;  ///
+      // }
     }
 
     return frame;
