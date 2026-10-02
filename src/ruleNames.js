@@ -1,5 +1,6 @@
 "use strict";
 
+export const CUT_RULE_NAME = "cut";
 export const NAME_RULE_NAME = "name";
 export const PART_RULE_NAME = "part";
 export const RULE_RULE_NAME = "rule";

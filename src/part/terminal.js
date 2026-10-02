@@ -19,6 +19,12 @@ export default class TerminalPart {
     return terminalPart;
   }
 
+  isCutPart() {
+    const cutPart = false;
+
+    return cutPart;
+  }
+
   isEpsilonPart() {
     const epsilonPart = false;
 

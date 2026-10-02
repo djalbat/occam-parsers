@@ -3,6 +3,7 @@
 import { characters } from "necessary";
 
 import { isValid } from "./utilities/frame";
+import { emptyFrame } from "./frame";
 import { partChoiceContext } from "./utilities/context";
 
 const { SPACE_CHARACTER } = characters;
@@ -26,7 +27,18 @@ export default class PartChoice {
 
     context = partChoiceContext(partChoice, context); ///
 
-    frame = this.part.parse(frame, context);
+    const continuing = context.isContinuing();
+
+    if (continuing) {
+      frame = this.part.parse(frame, context);
+    } else {
+      const partFrame = this.part.parse(emptyFrame, context),
+            partFrameValid = isValid(partFrame);
+
+      frame = partFrameValid ?
+                context.compose(frame, partFrame) :
+                  null;
+    }
 
     const frameValid = isValid(frame);
 

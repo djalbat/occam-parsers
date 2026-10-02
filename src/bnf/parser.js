@@ -5,6 +5,7 @@ import Rule from "../rule";
 import parserMixins from "../mixins/parser";
 import NonTerminalNodeMap from "../nonTerminalNodeMap";
 
+import CutBNFRule from "../rule/bnf/cut";
 import NameBNFRule from "../rule/bnf/name";
 import PartBNFRule from "../rule/bnf/part";
 import RuleBNFRule from "../rule/bnf/rule";
@@ -34,7 +35,7 @@ import ZeroOrMoreQuantifierBNFRule from "../rule/bnf/zeroOrMoreQuantifier";
 import SignificantTokenTypeBNFRule from "../rule/bnf/significantTokenType";
 import ContinuationModifierBNFRule from "../rule/bnf/continuationModifier";
 
-import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
+import { ruleMapFromRules } from "../utilities/rules";
 
 export default class BNFParser {
   constructor(startRule, ruleMap) {
@@ -77,7 +78,8 @@ export default class BNFParser {
   static bnf = bnf;
 
   static fromNothing() {
-    const nameBNFRule = NameBNFRule.fromNothing(),
+    const cutBNFRule = CutBNFRule.fromNothing(),
+          nameBNFRule = NameBNFRule.fromNothing(),
           partBNFRule = PartBNFRule.fromNothing(),
           ruleBNFRule = RuleBNFRule.fromNothing(),
           errorBNFRule = ErrorBNFRule.fromNothing(),
@@ -106,36 +108,37 @@ export default class BNFParser {
           continuationModifierBNFRule = ContinuationModifierBNFRule.fromNothing(),
           significantTokenTypeBNFRule = SignificantTokenTypeBNFRule.fromNothing(),
           rules = [
-            documentBNFRule,
-            ruleBNFRule,
+            cutBNFRule,
             nameBNFRule,
-            definitionsBNFRule,
-            definitionBNFRule,
             partBNFRule,
-            nonTerminalPartBNFRule,
-            terminalPartBNFRule,
-            noWhitespacePartBNFRule,
-            sequenceOfPartsBNFRule,
-            choiceOfPartsBNFRule,
-            isolatedPartBNFRule,
-            partChoiceBNFRule,
-            ruleNameBNFRule,
-            significantTokenTypeBNFRule,
-            regularExpressionBNFRule,
-            stringLiteralBNFRule,
-            precedentsBNFRule,
-            endOfLineBNFRule,
-            wildcardBNFRule,
+            ruleBNFRule,
+            errorBNFRule,
             epsilonBNFRule,
+            documentBNFRule,
+            ruleNameBNFRule,
+            wildcardBNFRule,
+            endOfLineBNFRule,
+            partChoiceBNFRule,
             quantifierBNFRule,
+            definitionBNFRule,
+            precedentsBNFRule,
+            definitionsBNFRule,
+            terminalPartBNFRule,
+            isolatedPartBNFRule,
+            choiceOfPartsBNFRule,
+            stringLiteralBNFRule,
+            nonTerminalPartBNFRule,
+            sequenceOfPartsBNFRule,
             opacityModifierBNFRule,
+            noWhitespacePartBNFRule,
+            regularExpressionBNFRule,
             optionalQuantifierBNFRule,
             oneOrMoreQuantifierBNFRule,
             zeroOrMoreQuantifierBNFRule,
             continuationModifierBNFRule,
-            errorBNFRule
+            significantTokenTypeBNFRule
           ],
-          startRule = startRuleFromRules(rules),
+          startRule = documentBNFRule,  ///
           ruleMap = ruleMapFromRules(rules),
           bnfParser = new BNFParser(startRule, ruleMap);
 

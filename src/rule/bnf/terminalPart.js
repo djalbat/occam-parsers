@@ -3,7 +3,8 @@
 import Rule from "../../rule";
 import RuleNameDefinition from "../../definition/ruleName";
 
-import { EPSILON_RULE_NAME,
+import { CUT_RULE_NAME,
+         EPSILON_RULE_NAME,
          WILDCARD_RULE_NAME,
          END_OF_LINE_RULE_NAME,
          TERMINAL_PART_RULE_NAME,
@@ -17,6 +18,10 @@ export default class TerminalPartBNFRule extends Rule {
     let ruleName;
 
     const name = TERMINAL_PART_RULE_NAME;
+
+    ruleName = CUT_RULE_NAME;
+
+    const cutRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
 
     ruleName = EPSILON_RULE_NAME;
 
@@ -53,6 +58,7 @@ export default class TerminalPartBNFRule extends Rule {
             endOfLineRuleNameDefinition,
             wildcardRuleNameDefinition,
             epsilonRuleNameDefinition,
+            cutRuleNameDefinition,
             noWhitespacePartRuleNameDefinition
           ],
           terminalPartRule = new TerminalPartBNFRule(name, opacity, definitions);

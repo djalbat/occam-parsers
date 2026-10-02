@@ -1,5 +1,6 @@
 "use strict";
 
+import CutBNFNode from "./node/bnf/cut";
 import PartBNFNode from "./node/bnf/part";
 import NameBNFNode from "./node/bnf/name";
 import RuleBNFNode from "./node/bnf/rule";
@@ -29,7 +30,8 @@ import SignificantTokenTypeBNFNode from "./node/bnf/significantTokenType";
 import ContinuationModifierBNFNode from "./node/bnf/continuationModifier";
 import ZeroOrMoreQuantifierBNFNode from "./node/bnf/zeroOneOrMoreQuantifier";
 
-import { NAME_RULE_NAME,
+import { CUT_RULE_NAME,
+         NAME_RULE_NAME,
          PART_RULE_NAME,
          RULE_RULE_NAME,
          ERROR_RULE_NAME,
@@ -59,6 +61,7 @@ import { NAME_RULE_NAME,
          ZERO_OR_MORE_QUANTIFIER_RULE_NAME } from "./ruleNames";
 
 const NonTerminalNodeMap = {
+  [CUT_RULE_NAME]: CutBNFNode,
   [NAME_RULE_NAME]: NameBNFNode,
   [PART_RULE_NAME]: PartBNFNode,
   [RULE_RULE_NAME]: RuleBNFNode,

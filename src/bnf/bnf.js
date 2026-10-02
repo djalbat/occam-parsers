@@ -38,6 +38,8 @@ const bnf = `
   
                                  |  epsilon
   
+                                 |  cut
+  
                                  |  endOfLine
 
                                  |  noWhitespace
@@ -67,6 +69,8 @@ const bnf = `
       wildcard                 ::=  "." ;
 
       epsilon                  ::=  "ε" ;
+
+      cut                      ::=  "\`" ;
 
       noWhitespace             ::=  "<NO_WHITESPACE>" ;                              
 

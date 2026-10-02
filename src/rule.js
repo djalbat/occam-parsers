@@ -3,6 +3,7 @@
 import { specialSymbols } from "occam-lexers";
 
 import { isValid } from "./utilities/frame";
+import { cutFrame } from "./frame";
 import { ruleContext } from "./utilities/context";
 import { EMPTY_STRING } from "./constants";
 import { marginStringFromMarginWidth } from "./utilities/string";
@@ -67,6 +68,12 @@ export default class Rule {
 
     this.definitions.some((definition) => {
       frame = definition.parse(context);
+
+      if (frame === cutFrame) {
+        frame = null;
+
+        return true;
+      }
 
       const frameValid = isValid(frame);
 

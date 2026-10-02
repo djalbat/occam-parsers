@@ -60,6 +60,8 @@ terminalPart             ::=  significantTokenType
     
                            |  wildcard
     
+                           |  cut
+
                            |  epsilon
     
                            |  endOfLine
@@ -91,6 +93,8 @@ endOfLine                ::=  "<END_OF_LINE>" ;
 wildcard                 ::=  "." ;
 
 epsilon                  ::=  "ε" ;
+
+cut                      ::=  "`" ;
 
 noWhitespace             ::=  "<NO_WHITESPACE>" ;                              
 
