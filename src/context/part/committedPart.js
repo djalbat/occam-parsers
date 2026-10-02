@@ -30,38 +30,6 @@ export default class CommittedPartPartContext extends Context {
     return committed;
   }
 
-  // updateState(state) {
-  //   const nonConsuming = this.isNonConsuming();
-  //
-  //   if (nonConsuming) {
-  //     return;
-  //   }
-  //
-  //   super.updateState(state);
-  // }
-
-  compose(frame, partFrame = null) {
-    if (partFrame !== null) {
-      frame = frame.merge(partFrame);
-    }
-
-    return frame;
-  }
-
-  continued(frame, context) {
-    frame = this.compose(frame);
-
-    if (frame !== null) {
-      // const nonConsuming = this.isNonConsuming();
-      //
-      // if (nonConsuming) {
-      //   frame = this.savedFrame;  ///
-      // }
-    }
-
-    return frame;
-  }
-
   static fromSavedFrameAndConsuming(savedFrame, consuming, context) {
     return Context.fromNothing(CommittedPartPartContext, savedFrame, consuming, context);
   }

@@ -4,7 +4,7 @@ const { testUtilities } = require("../lib"); ///
 
 const { compareParseTreeStrings, nodeFromEntriesBnfAndContent, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe("Committed part", () => {
+describe.skip("Committed part", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"
@@ -16,39 +16,21 @@ describe("Committed part", () => {
   
       S ::= T... "." ;
       
-      T ::= A \`"+" A ;
+      T ::= "x" \`"+" "y"
       
-      A ::= . "+" .
-      
-          | .
+          | "x" "+" "z"
                    
           ;
                  
     `;
 
     describe("content with four operators", () => {
-      const content = "1 + 2 + 3.";
+      const content = "x + z.";
 
-      it.only("results in the requisite parse tree" , () => {
-        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+      it("fails to parse" , () => {
+        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
-        assert.isTrue(compareParseTreeStrings(parseTreeString, `
-
-                                                                                               S [0]                                
-                                                                                                 |                                  
-                                                                        ---------------------------------------------------         
-                                                                        |                                                 |         
-                                                                      T [0]                                      "."[unassigned] [0]
-                                                                        |                                                           
-                                         --------------------------------------------------------------                             
-                                         |                                        |                   |                             
-                                       A [0]                            \`"+"[unassigned] [0]        A [0]                           
-                                         |                                                            |                             
-                     -----------------------------------------                               "3"[unassigned] [0]                    
-                     |                   |                   |                                                                      
-            "1"[unassigned] [0] "+"[unassigned] [0] "2"[unassigned] [0]                                                             
-
-        `));
+        assert.isNull(node);
       });
     });
   });

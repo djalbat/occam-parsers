@@ -48,35 +48,13 @@ export default class CommittedPartPart extends NonTerminalPart {
 
     if (continuing) {
       frame = this.part.parse(frame, context);
-
-      if (frame !== null) {
-        frame = context.continue(frame);
-      } else {
-        // const nonConsuming = this.isNonConsuming();
-        //
-        // if (nonConsuming) {
-        //   frame = savedFrame; ///
-        //
-        //   frame = context.continue(savedFrame);
-        // }
-      }
     } else {
       const partFrame = this.part.parse(emptyFrame, context);
 
       if (partFrame === null) {
-        // const nonConsuming = this.isNonConsuming();
-        //
-        // frame = nonConsuming ?
-        //           savedFrame :
-        //             null;
-
         frame = null;
       }
     }
-
-    // if ((frame !== null) && (frame !== savedFrame)) {
-    //   context.commit();
-    // }
 
     if (frame !== null) {
       context.commit();
