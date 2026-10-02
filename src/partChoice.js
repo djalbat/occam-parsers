@@ -2,6 +2,7 @@
 
 import { characters } from "necessary";
 
+import { isValid } from "./utilities/frame";
 import { partChoiceContext } from "./utilities/context";
 
 const { SPACE_CHARACTER } = characters;
@@ -27,7 +28,9 @@ export default class PartChoice {
 
     frame = this.part.parse(frame, context);
 
-    if (frame !== null) {
+    const frameValid = isValid(frame);
+
+    if (frameValid) {
       context.commit();
     }
 

@@ -6,6 +6,7 @@ import NonTerminalPart from "../../part/nonTerminal";
 
 import { emptyFrame } from "../../frame";
 import { partContext } from "../../utilities/context";
+import { isValid, isInvalid } from "../../utilities/frame";
 import { parsePartContinually } from "../../utilities/part";
 import { ZeroOrMorePartsPartType } from "../../partTypes";
 
@@ -44,19 +45,25 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
 
         partFrame = this.part.parse(partFrame, context);
 
-        if (partFrame === null) {
+        const partFrameInvalid = isInvalid(partFrame);
+
+        if (partFrameInvalid) {
           partFrame = savedFrame; ///
 
           break;
         }
       }
 
-      frame = (partFrame !== null) ?
+      const partFrameValid = isValid(partFrame);
+
+      frame = partFrameValid ?
                 context.compose(frame, partFrame) :
                   null;
     }
 
-    if (frame !== null) {
+    const frameValid = isValid(frame);
+
+    if (frameValid) {
       context.commit();
     }
 

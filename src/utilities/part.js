@@ -1,5 +1,6 @@
 "use strict";
 
+import { isValid, isInvalid } from "./frame";
 import { continuationPartContext } from "../utilities/context";
 
 export function parsePartContinually(part, count, strict, frame, context) {
@@ -9,7 +10,9 @@ export function parsePartContinually(part, count, strict, frame, context) {
 
   frame = part.parse(frame, context);
 
-  if (frame === null) {
+  const frameInvalid = isInvalid(frame);
+
+  if (frameInvalid) {
     const initial = (count === 0);
 
     if (strict && initial) {
@@ -21,7 +24,9 @@ export function parsePartContinually(part, count, strict, frame, context) {
     }
   }
 
-  if (frame !== null) {
+  const frameValid = isValid(frame);
+
+  if (frameValid) {
     context.commit();
   }
 

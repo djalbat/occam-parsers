@@ -4,6 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import Context from "../context";
 
+import { isValid } from "../utilities/frame";
 import { continuationContext } from "../utilities/context";
 
 const { first } = arrayUtilities;
@@ -62,7 +63,9 @@ export default class PartsContext extends Context {
 
       frame = this.parsePartsContinually(this.parts, frame, context);
 
-      if (frame !== null) {
+      const frameValid = isValid(frame);
+
+      if (frameValid) {
         context.commit();
       }
     } else {

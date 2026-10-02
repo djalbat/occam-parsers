@@ -2,6 +2,8 @@
 
 import Context from "../context";
 
+import { isValid } from "../utilities/frame";
+
 export default class ContinuationContext extends Context {
   constructor(context, state, continuations, continuingContext) {
     super(context, state, continuations);
@@ -16,7 +18,9 @@ export default class ContinuationContext extends Context {
   continued(frame, context) {
     frame = this.compose(frame);
 
-    if (frame !== null) {
+    const frameValid = isValid(frame);
+
+    if (frameValid) {
       frame = this.continuingContext.continued(frame, context);
     }
 

@@ -2,6 +2,7 @@
 
 import { specialSymbols } from "occam-lexers";
 
+import { isValid } from "./utilities/frame";
 import { ruleContext } from "./utilities/context";
 import { EMPTY_STRING } from "./constants";
 import { marginStringFromMarginWidth } from "./utilities/string";
@@ -67,12 +68,16 @@ export default class Rule {
     this.definitions.some((definition) => {
       frame = definition.parse(context);
 
-      if (frame !== null) {
+      const frameValid = isValid(frame);
+
+      if (frameValid) {
         return true;
       }
     });
 
-    if (frame !== null) {
+    const frameValid = isValid(frame);
+
+    if (frameValid) {
       context.commit();
     }
 

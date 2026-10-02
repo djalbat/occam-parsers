@@ -1,15 +1,17 @@
 "use strict";
 
-import { topmostContext } from "../utilities/context"
+import { isValid } from "../utilities/frame";
+import { topmostContext } from "../utilities/context";
 
 function parse(tokens, rule = this.startRule) {
   let node = null;
 
   const parser = this,
         context = topmostContext(parser, tokens), ///
-        ruleFrame = rule.parse(context);
+        ruleFrame = rule.parse(context),
+        ruleFrameValid = isValid(ruleFrame);
 
-  if (ruleFrame !== null) {
+  if (ruleFrameValid) {
     node = ruleFrame.getNode();
   }
 

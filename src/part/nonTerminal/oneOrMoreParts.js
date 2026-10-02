@@ -6,6 +6,7 @@ import NonTerminalPart from "../../part/nonTerminal";
 
 import { emptyFrame } from "../../frame";
 import { partContext } from "../../utilities/context";
+import { isValid, isInvalid } from "../../utilities/frame";
 import { parsePartContinually } from "../../utilities/part";
 import { OneOrMorePartsPartType } from "../../partTypes";
 
@@ -41,13 +42,19 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
 
       partFrame = this.part.parse(partFrame, context);
 
-      if (partFrame !== null) {
+      let partFrameValid;
+
+      partFrameValid = isValid(partFrame);
+
+      if (partFrameValid) {
         while (true) {
           const savedFrame = partFrame; ///
 
           partFrame = this.part.parse(partFrame, context);
 
-          if (partFrame === null) {
+          const partframeInvalid = isInvalid(partFrame);
+
+          if (partframeInvalid) {
             partFrame = savedFrame; ///
 
             break;
@@ -55,12 +62,16 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
         }
       }
 
-      frame = (partFrame !== null) ?
+      partFrameValid = isValid(partFrame);
+
+      frame = (partFrameValid) ?
                 context.compose(frame, partFrame) :
                   null;
     }
 
-    if (frame !== null) {
+    const frameValid = isValid(frame);
+
+    if (frameValid) {
       context.commit();
     }
 

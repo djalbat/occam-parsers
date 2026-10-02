@@ -2,6 +2,7 @@
 
 import { characters } from "necessary";
 
+import { isValid } from "./utilities/frame";
 import { emptyFrame } from "./frame";
 import { EMPTY_STRING } from "./constants";
 import { definitionContext } from "./utilities/context";
@@ -37,12 +38,16 @@ export default class Definition {
     } else {
       frame = parseParts(this.parts, emptyFrame, context);
 
-      frame = (frame !== null) ?
+      const frameValid = isValid(frame);
+
+      frame = frameValid ?
                 context.compose(frame) :
                   null;
     }
 
-    if (frame !== null) {
+    const frameValid = isValid(frame);
+
+    if (frameValid) {
       context.commit();
     }
 

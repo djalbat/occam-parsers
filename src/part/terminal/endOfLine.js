@@ -6,6 +6,7 @@ import Frame from "../../frame";
 import TerminalPart from "../../part/terminal";
 import EndOfLineNode from "../../node/terminal/endOfLine";
 
+import { isValid } from "../../utilities/frame";
 import { partContext } from "../../utilities/context";
 
 const { endOfLine } = specialSymbols;
@@ -33,15 +34,23 @@ export default class EndOfLinePart extends TerminalPart {
       }
     }
 
-    frame = (partFrame !== null) ?
+    const partFrameValid = isValid(partFrame);
+
+    frame = partFrameValid ?
               context.compose(frame, partFrame) :
                 null;
 
-    if (frame !== null) {
+    let frameValid;
+
+    frameValid = isValid(frame);
+
+    if (frameValid) {
       frame = context.continue(frame);
     }
 
-    if (frame !== null) {
+    frameValid = isValid(frame);
+
+    if (frameValid) {
       context.commit();
     }
 

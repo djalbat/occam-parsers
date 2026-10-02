@@ -2,6 +2,7 @@
 
 import PartContext from "../../context/part";
 
+import { isValid } from "../../utilities/frame";
 import { continuationContext } from "../../utilities/context";
 
 export default class ContinuationPartContext extends PartContext {
@@ -37,7 +38,9 @@ export default class ContinuationPartContext extends PartContext {
 
     frame = this.parsePartContinually(part, count, strict, frame, context);
 
-    if (frame !== null) {
+    const frameValid = isValid(frame);
+
+    if (frameValid) {
       context.commit();
     }
 

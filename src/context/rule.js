@@ -2,6 +2,8 @@
 
 import Context from "../context";
 
+import { isValid } from "../utilities/frame";
+
 export default class RuleContext extends Context {
   constructor(context, state, continuations, rule) {
     super(context, state, continuations);
@@ -18,7 +20,9 @@ export default class RuleContext extends Context {
   }
 
   compose(frame, definitionFrame = null) {
-    if (definitionFrame !== null) {
+    const definitionFrameValid = isValid(definitionFrame);
+
+    if (definitionFrameValid) {
       frame = frame.merge(definitionFrame);
     }
 

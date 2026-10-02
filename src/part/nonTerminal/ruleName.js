@@ -4,6 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { isValid } from "../../utilities/frame";
 import { EMPTY_STRING } from "../../constants";
 import { RuleNamePartType } from "../../partTypes";
 import { ruleNamePartContext } from "../../utilities/context";
@@ -40,9 +41,10 @@ export default class RuleNamePart extends NonTerminalPart {
       if (continuing) {
         frame = rule.parse(context);
       } else {
-        const ruleFrame = rule.parse(context);
+        const ruleFrame = rule.parse(context),
+              ruleFrameValid = isValid(ruleFrame);
 
-        frame = (ruleFrame !== null) ?
+        frame = ruleFrameValid ?
                   context.compose(frame, ruleFrame) :
                     null;
       }
@@ -50,7 +52,9 @@ export default class RuleNamePart extends NonTerminalPart {
       frame = null;
     }
 
-    if (frame !== null) {
+    const frameValid = isValid(frame);
+
+    if (frameValid) {
       context.commit();
     }
 

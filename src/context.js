@@ -1,5 +1,7 @@
 "use strict";
 
+import { isValid } from "./utilities/frame";
+
 export default class Context {
   constructor(context, state, continuations) {
     this.context = context;
@@ -67,7 +69,9 @@ export default class Context {
   continued(frame, context) {
     frame = this.compose(frame);
 
-    if (frame !== null) {
+    const frameValid = isValid(frame);
+
+    if (frameValid) {
       frame = this.context.continued(frame, context);
     }
 

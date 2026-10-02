@@ -4,6 +4,8 @@ import { arrayUtilities } from "necessary";
 
 import Context from "../context";
 
+import { isValid } from "../utilities/frame";
+
 const { last } = arrayUtilities;
 
 export default class PartContext extends Context {
@@ -29,7 +31,9 @@ export default class PartContext extends Context {
     if (final && !continuing) {
       this.store(this.part, partFrame);
     } else {
-      if (partFrame !== null) {
+      const partFrameValid = isValid(partFrame);
+
+      if (partFrameValid) {
         frame = frame.merge(partFrame);
       }
     }

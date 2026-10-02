@@ -6,6 +6,7 @@ import NonTerminalPart from "../../part/nonTerminal";
 
 import { emptyFrame } from "../../frame";
 import { partContext } from "../../utilities/context";
+import { isValid, isInvalid } from "../../utilities/frame";
 import { OptionalPartPartType } from "../../partTypes";
 
 const { questionMark } = specialSymbols;
@@ -33,7 +34,9 @@ export default class OptionalPartPart extends NonTerminalPart {
 
       frame = this.part.parse(frame, context);
 
-      if (frame === null) {
+      const frameInvalid = isInvalid(frame);
+
+      if (frameInvalid) {
         frame = savedFrame; ///
 
         frame = context.continue(frame);
@@ -45,16 +48,22 @@ export default class OptionalPartPart extends NonTerminalPart {
 
       partFrame = this.part.parse(partFrame, context);
 
-      if (partFrame === null) {
+      const partFrameInvalid = isInvalid(partFrame);
+
+      if (partFrameInvalid) {
         partFrame = emptyFrame; ///
       }
 
-      frame = (partFrame !== null) ?
+      const partFrameValid = isValid(partFrame);
+
+      frame = partFrameValid ?
                 context.compose(frame, partFrame) :
                   null;
     }
 
-    if (frame !== null) {
+    const frameValid = isValid(frame);
+
+    if (frameValid) {
       context.commit();
     }
 

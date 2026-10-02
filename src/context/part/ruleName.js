@@ -3,6 +3,8 @@
 import PartContext from "../../context/part";
 import Continuation from "../../continuation";
 
+import { isValid } from "../../utilities/frame";
+
 export default class RuleNamePartContext extends PartContext {
   constructor(context, state, continuations, final, part, continuation, continuedFrame) {
     super(context, state, continuations, final, part);
@@ -39,7 +41,9 @@ export default class RuleNamePartContext extends PartContext {
 
     frame = this.compose(this.continuedFrame, partFrame);
 
-    if (frame !== null) {
+    const frameValid = isValid(frame);
+
+    if (frameValid) {
       const continuingContext = this.getContinuingContext();
 
       frame = continuingContext.continued(frame, context);

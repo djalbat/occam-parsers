@@ -3,6 +3,7 @@
 import { arrayUtilities } from "necessary";
 
 import { partsContext } from "../utilities/context";
+import { isValid, isInvalid } from "./frame";
 
 const { first, tail } = arrayUtilities;
 
@@ -28,14 +29,18 @@ export function parseParts(parts, frame, context) {
               frame.merge(partFrame) :
                 part.parse(frame, context);
 
-    if (frame === null) {
+    const frameInvalid = isInvalid(frame);
+
+    if (frameInvalid) {
       break;
     }
 
     partsLength = parts.length;
   }
 
-  if (frame !== null) {
+  const frameValid = isValid(frame);
+
+  if (frameValid) {
     context = contexts.pop() || null;
 
     while (context !== null) {
@@ -59,7 +64,9 @@ export function parsePartsContinually(parts, frame, context) {
 
   frame = part.parse(frame, context);
 
-  if (frame !== null) {
+  const frameValid = isValid(frame);
+
+  if (frameValid) {
     context.commit();
   }
 
