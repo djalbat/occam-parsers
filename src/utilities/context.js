@@ -10,7 +10,6 @@ import ContinuationContext from "../context/continuation";
 import RuleNamePartContext from "../context/part/ruleName";
 import IsolatedPartPartContext from "../context/part/isolatedPart";
 import ContinuationPartContext from "../context/part/continuation";
-import CommittedPartPartContext from "../context/part/committedPart";
 import SequenceOfPartsPartContext from "../context/part/sequenceOfParts";
 
 export function ruleContext(rule, context) { return RuleContext.fromRule(rule, context); }
@@ -32,7 +31,5 @@ export function ruleNamePartContext(frame, ruleNamePart, context) { return RuleN
 export function isolatedPartPartContext(context) { return IsolatedPartPartContext.fromNothing(context); }
 
 export function continuationPartContext(part, count, parsePartContinually, context) { return ContinuationPartContext.fromPartCountAndParsePartContinually(part, count, parsePartContinually, context); }
-
-export function committedPartPartContext(savedFrame, consuming, context) { return CommittedPartPartContext.fromSavedFrameAndConsuming(savedFrame, consuming, context); }
 
 export function sequenceOfPartsPartContext(sequenceOfPartsPart, context) { return SequenceOfPartsPartContext.fromSequenceOfPartsPart(sequenceOfPartsPart, context); }

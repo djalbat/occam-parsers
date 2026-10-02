@@ -10,12 +10,11 @@ const { match } = arrayUtilities,
       { opaque: opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class NonTerminalNode {
-  constructor(ruleName, parentNode, childNodes, precedence, committed, opacity) {
+  constructor(ruleName, parentNode, childNodes, precedence, opacity) {
     this.ruleName = ruleName;
     this.parentNode = parentNode;
     this.childNodes = childNodes;
     this.precedence = precedence;
-    this.committed = committed;
     this.opacity = opacity;
   }
 
@@ -33,10 +32,6 @@ export default class NonTerminalNode {
 
   getPrecedence() {
     return this.precedence;
-  }
-
-  getCommitted() {
-    return this.committed;
   }
 
   getOpacity() {
@@ -61,10 +56,6 @@ export default class NonTerminalNode {
 
   setPrecedence(precedence) {
     this.precedence = precedence;
-  }
-
-  setCommitted(committed) {
-    this.committed = committed;
   }
 
   setOpacity(opacity) {
@@ -335,20 +326,17 @@ export default class NonTerminalNode {
           ruleName = this.ruleName,
           childNodes = cloneChildNodes(this.childNodes),
           precedence = this.precedence,
-          committed = this.committed,
           opacity = this.opacity,
-          nonTerminalNode = new Class(ruleName, parentNode, childNodes, precedence, committed, opacity, ...remainingArguments);
+          nonTerminalNode = new Class(ruleName, parentNode, childNodes, precedence, opacity, ...remainingArguments);
 
     nonTerminalNode.setChildNodesParentNode();
 
     return nonTerminalNode;
   }
 
-  static fromRuleNameChildNodesPrecedenceCommittedAndOpacity(Class, ruleName, childNodes, precedence, committed, opacity, ...remainingArguments) {
+  static fromRuleNameChildNodesPrecedenceAndOpacity(Class, ruleName, childNodes, precedence, opacity, ...remainingArguments) {
     if (opacity === undefined) {
-      opacity = committed; ///
-
-      committed = precedence; ///
+      opacity = precedence; ///
 
       precedence = childNodes; ///
 
@@ -360,7 +348,7 @@ export default class NonTerminalNode {
     }
 
     const parentNode = null,
-          nonTerminalNode = new Class(ruleName, parentNode, childNodes, precedence, committed, opacity, ...remainingArguments);
+          nonTerminalNode = new Class(ruleName, parentNode, childNodes, precedence, opacity, ...remainingArguments);
 
     nonTerminalNode.setChildNodesParentNode();
 

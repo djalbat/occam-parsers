@@ -16,7 +16,6 @@ export const PART_CHOICE_RULE_NAME = "partChoice";
 export const DEFINITIONS_RULE_NAME = "definitions";
 export const ISOLATED_PART_RULE_NAME = "isolatedPart";
 export const TERMINAL_PART_RULE_NAME = "terminalPart";
-export const COMMITTED_PART_RULE_NAME = "committedPart";
 export const STRING_LITERAL_RULE_NAME = "stringLiteral";
 export const CHOICE_OF_PARTS_RULE_NAME = "choiceOfParts";
 export const OPACITY_MODIFIER_RULE_NAME = "opacityModifier";

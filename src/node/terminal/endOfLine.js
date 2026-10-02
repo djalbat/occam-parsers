@@ -22,6 +22,4 @@ export default class EndOfLineNode extends TerminalNode {
   }
 
   static fromSignificantToken(significantToken) { return TerminalNode.fromSignificantToken(EndOfLineNode, significantToken); }
-
-  static fromSignificantTokenAndCommitted(significantToken, committed) { return TerminalNode.fromSignificantTokenAndCommitted(EndOfLineNode, significantToken, committed); }
 }

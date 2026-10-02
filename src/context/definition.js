@@ -28,12 +28,6 @@ export default class DefinitionContext extends Context {
     return rule;
   }
 
-  getCommitted() {
-    const committed = null;
-
-    return committed;
-  }
-
   isIsolated() {
     const isolated = false;
 
@@ -87,12 +81,11 @@ function nonTerminalNodeFromFrame(frame, context) {
   const rule = context.getRule(),
         opacity = rule.getOpacity(),
         ruleName = rule.getName(),
-        committed = context.getCommitted(),
         childNodes = frame.getChildNodes(),
         precedence = frame.getPrecedence(),
         NonTerminalNode = rule.NonTerminalNodeFromRuleName(ruleName, context);
 
-  nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesPrecedenceCommittedAndOpacity(ruleName, childNodes, precedence, committed, opacity);
+  nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity);
 
   nonTerminalNode = nonTerminalNode.rewrite(context);  ///
 

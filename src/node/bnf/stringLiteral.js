@@ -36,13 +36,13 @@ export default class StringLiteralBNFNode extends NonTerminalNode {
     return content;
   }
 
-  static fromRuleNameChildNodesPrecedenceCommittedAndOpacity(ruleName, childNodes, precedence, committed, opacity) { return NonTerminalNode.fromRuleNameChildNodesPrecedenceCommittedAndOpacity(StringLiteralBNFNode, ruleName, childNodes, precedence, committed, opacity); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return NonTerminalNode.fromRuleNameChildNodesPrecedenceAndOpacity(StringLiteralBNFNode, ruleName, childNodes, precedence, opacity); }
 }
 
 function sanitiseContent(content) {
   content = content
-              .replace(/\\\\/g, ESCAPED_BACKSLASH)
-              .replace(/\\"/g, ESCAPED_DOUBLE_QUOTE);
+             .replace(/\\\\/g, ESCAPED_BACKSLASH)
+             .replace(/\\"/g, ESCAPED_DOUBLE_QUOTE);
 
   return content;
 }

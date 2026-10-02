@@ -8,21 +8,19 @@ const { backtick } = specialSymbols;
 
 export function stringFromStringNonTermionalNodeAndTokens(string, nonTerminalNode, tokens) {
   const node = nonTerminalNode, ///
-        committed = committedFromNode(node),
         precedence = precedenceFromNode(node),
         lineIndexes = lineIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens);
 
-  string = `${committed}${string}${lineIndexes}${precedence}`;
+  string = `${string}${lineIndexes}${precedence}`;
 
   return string;
 }
 
 export function stringFromStringTerminalNodeAndTokens(string, terminalNode, tokens) {
   const node = terminalNode,  ///
-        committed = committedFromNode(node),
         lineIndex = lineIndexFromTerminalNodeAndTokens(terminalNode, tokens);
 
-  string = `${committed}${string}${lineIndex}`;
+  string = `${string}${lineIndex}`;
 
   return string;
 }
@@ -111,22 +109,4 @@ function precedenceFromNode(node) {
   }
 
   return precedence;
-}
-
-function committedFromNode(node) {
-  let committed;
-
-  committed = node.getCommitted();
-
-  if (false) {
-    ///
-  } else if (committed === null) {
-    committed = EMPTY_STRING;
-  } else if (committed === Infinity) {
-    committed = `${backtick}${backtick}`;
-  } else {
-    committed = backtick; ///
-  }
-
-  return committed;
 }

@@ -32,8 +32,7 @@ export default class StringLiteralPart extends TerminalPart {
             content = significantToken.getContent();
 
       if (content === this.content) {
-        const committed = context.getCommitted(),
-              terminalNode = TerminalNode.fromSignificantTokenAndCommitted(significantToken, committed),
+        const terminalNode = TerminalNode.fromSignificantToken(significantToken),
               childNode = terminalNode;  ///
 
         partFrame = Frame.fromChildNode(childNode);

@@ -18,9 +18,7 @@ const bnf = `
 
                                  ;
 
-      nonTerminalPart          ::=  committedPart
-
-                                 |  isolatedPart
+      nonTerminalPart          ::=  isolatedPart
 
                                  |  choiceOfParts
 
@@ -49,8 +47,6 @@ const bnf = `
       sequenceOfParts          ::=  "(" part part+ ")" ;
 
       choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
-
-      committedPart            ::=  "\`" ( <NO_WHITESPACE>"\`" )? part ;
 
       isolatedPart             ::=  "(" part ")" ;
 

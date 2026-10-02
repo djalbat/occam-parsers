@@ -42,9 +42,7 @@ part                     ::=  nonTerminalPart quantifier*
 
                            ;
 
-nonTerminalPart          ::=  committedPart
-
-                           |  isolatedPart
+nonTerminalPart          ::=  isolatedPart
 
                            |  choiceOfParts
     
@@ -73,8 +71,6 @@ terminalPart             ::=  significantTokenType
 sequenceOfParts          ::=  "(" part part+ ")" ;
 
 choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
-
-committedPart            ::=  "`" ( <NO_WHITESPACE>"`" )? part ;
 
 isolatedPart             ::=  "(" part ")" ;
 
