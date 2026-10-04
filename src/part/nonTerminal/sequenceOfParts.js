@@ -3,10 +3,9 @@
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { isValid } from "../../utilities/frame";
-import { emptyFrame } from "../../frame";
 import { SequenceOfPartsPartType } from "../../partTypes";
 import { sequenceOfPartsPartContext } from "../../utilities/context";
-import { parseParts, parsePartsContinually } from "../../utilities/parts";
+import { parsePartsContinually, parsePartsRepeatedly } from "../../utilities/parts";
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
   constructor(type, continuation, parts) {
@@ -26,16 +25,9 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
 
     const continuing = context.isContinuing();
 
-    if (continuing) {
-      frame = parsePartsContinually(this.parts, frame, context);
-    } else {
-      const partsFrame = parseParts(this.parts, emptyFrame, context),
-            partsFrameValid = isValid(partsFrame);
-
-      frame = partsFrameValid ?
-                context.compose(frame, partsFrame) :
-                  null;
-    }
+    frame = continuing ?
+              parsePartsContinually(this.parts, frame, context) :
+                parsePartsRepeatedly(this.parts, frame, context);
 
     const frameValid = isValid(frame);
 

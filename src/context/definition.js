@@ -2,6 +2,7 @@
 
 import Frame from "../frame";
 import Context from "../context";
+import {isValid} from "../utilities/frame";
 
 export default class DefinitionContext extends Context {
   constructor(context, state, continuations, precedence) {
@@ -34,7 +35,13 @@ export default class DefinitionContext extends Context {
     return isolated;
   }
 
-  compose(frame) {
+  compose(frame, partsFrame = null) {
+    const partsFrameValid = isValid(partsFrame);
+
+    if (partsFrameValid) {
+      frame = frame.merge(partsFrame);
+    }
+
     let context;
 
     const childNodes = frame.getChildNodes(),

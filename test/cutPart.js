@@ -18,14 +18,36 @@ describe("Cut part", () => {
   
        T ::= . (A* A)* ;
   
+       A ::= "+" T ;
+                              
+    `;
+
+    describe("content that does parse", () => {
+      const content = "x + x.";
+
+      it.skip("parses instantaneously", () => {
+        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isNotNull(node);
+      });
+    });
+  });
+
+  describe("cut part inside repetition", () => {
+    const bnf = `
+    
+       S ::= T... "." ;
+  
+       T ::= . (A* A)* ;
+  
        A ::= "+" \` T ;
                               
     `;
 
-    describe("when a cut is triggered inside a repeating sequence", () => {
-      const content = "x + x.";
+    describe("content that does not parse", () => {
+      const content = "x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x=";
 
-      it.skip("aborts the repetition instantly and fails to parse", () => {
+      it("parses instantaneously", () => {
         const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isNull(node);

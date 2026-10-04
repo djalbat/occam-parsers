@@ -6,7 +6,7 @@ import { isValid } from "./utilities/frame";
 import { emptyFrame } from "./frame";
 import { EMPTY_STRING } from "./constants";
 import { definitionContext } from "./utilities/context";
-import { parseParts, parsePartsContinually } from "./utilities/parts";
+import { parsePartsContinually, parsePartsRepeatedly } from "./utilities/parts";
 
 const { SPACE_CHARACTER } = characters;
 
@@ -33,17 +33,9 @@ export default class Definition {
 
     const continuing = context.isContinuing();
 
-    if (continuing) {
-      frame = parsePartsContinually(this.parts, emptyFrame, context);
-    } else {
-      frame = parseParts(this.parts, emptyFrame, context);
-
-      const frameValid = isValid(frame);
-
-      frame = frameValid ?
-                context.compose(frame) :
-                  null;
-    }
+    frame = continuing ?
+              parsePartsContinually(this.parts, emptyFrame, context) :
+                parsePartsRepeatedly(this.parts, emptyFrame, context);
 
     const frameValid = isValid(frame);
 
