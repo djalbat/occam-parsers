@@ -30,6 +30,6 @@ export function ruleNamePartContext(frame, ruleNamePart, context) { return RuleN
 
 export function isolatedPartPartContext(context) { return IsolatedPartPartContext.fromNothing(context); }
 
-export function continuationPartContext(part, count, parsePartContinually, context) { return ContinuationPartContext.fromPartCountAndParsePartContinually(part, count, parsePartContinually, context); }
+export function continuationPartContext(part, count, limit, parsePartContinually, context) { return ContinuationPartContext.fromPartCountLimitAndParsePartContinually(part, count, limit, parsePartContinually, context); }
 
 export function sequenceOfPartsPartContext(sequenceOfPartsPart, context) { return SequenceOfPartsPartContext.fromSequenceOfPartsPart(sequenceOfPartsPart, context); }

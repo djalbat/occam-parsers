@@ -4,11 +4,10 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { emptyFrame } from "../../frame";
+import { isValid } from "../../utilities/frame";
 import { partContext } from "../../utilities/context";
-import { isValid, isInvalid } from "../../utilities/frame";
-import { parsePartContinually } from "../../utilities/part";
 import { ZeroOrMorePartsPartType } from "../../partTypes";
+import { parsePartContinually, parsePartRepeatedly } from "../../utilities/part";
 
 const { asterisk } = specialSymbols;
 
@@ -28,38 +27,14 @@ export default class ZeroOrMorePartsPart extends NonTerminalPart {
 
     context = partContext(part, context); ///
 
-    const continuing = context.isContinuing();
+    const count = 0,
+          limit = Infinity,
+          strict = false,
+          continuing = context.isContinuing();
 
-    if (continuing) {
-      const count = 0,
-            strict = false;
-
-      frame = parsePartContinually(this.part, count, strict, frame, context);
-    } else {
-      let partFrame;
-
-      partFrame = emptyFrame; ///
-
-      while (true) {
-        const savedFrame = partFrame; ///
-
-        partFrame = this.part.parse(partFrame, context);
-
-        const partFrameInvalid = isInvalid(partFrame);
-
-        if (partFrameInvalid) {
-          partFrame = savedFrame; ///
-
-          break;
-        }
-      }
-
-      const partFrameValid = isValid(partFrame);
-
-      frame = partFrameValid ?
-                context.compose(frame, partFrame) :
-                  null;
-    }
+    frame = continuing ?
+              parsePartContinually(this.part, count, limit, strict, frame, context) :
+                parsePartRepeatedly(this.part, limit, strict, frame, context);
 
     const frameValid = isValid(frame);
 

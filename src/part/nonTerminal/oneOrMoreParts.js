@@ -4,11 +4,10 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { emptyFrame } from "../../frame";
+import { isValid } from "../../utilities/frame";
 import { partContext } from "../../utilities/context";
-import { isValid, isInvalid } from "../../utilities/frame";
-import { parsePartContinually } from "../../utilities/part";
 import { OneOrMorePartsPartType } from "../../partTypes";
+import { parsePartContinually, parsePartRepeatedly } from "../../utilities/part";
 
 const { plus } = specialSymbols;
 
@@ -28,46 +27,14 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
 
     context = partContext(part, context);  ///
 
-    const continuing = context.isContinuing();
+    const count = 0,
+          limit = Infinity,
+          strict = true,
+          continuing = context.isContinuing();
 
-    if (continuing) {
-      const count = 0,
-            strict = true;
-
-      frame = parsePartContinually(this.part, count, strict, frame, context);
-    } else {
-      let partFrame;
-
-      partFrame = emptyFrame; ///
-
-      partFrame = this.part.parse(partFrame, context);
-
-      let partFrameValid;
-
-      partFrameValid = isValid(partFrame);
-
-      if (partFrameValid) {
-        while (true) {
-          const savedFrame = partFrame; ///
-
-          partFrame = this.part.parse(partFrame, context);
-
-          const partframeInvalid = isInvalid(partFrame);
-
-          if (partframeInvalid) {
-            partFrame = savedFrame; ///
-
-            break;
-          }
-        }
-      }
-
-      partFrameValid = isValid(partFrame);
-
-      frame = (partFrameValid) ?
-                context.compose(frame, partFrame) :
-                  null;
-    }
+    frame = continuing ?
+              parsePartContinually(this.part, count, limit, strict, frame, context) :
+                parsePartRepeatedly(this.part, limit, strict, frame, context);
 
     const frameValid = isValid(frame);
 

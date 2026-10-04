@@ -66,11 +66,16 @@ export default class Rule {
 
     context = ruleContext(rule, context); ///
 
-    this.definitions.some((definition) => {
+    const length = this.definitions.length,
+          lastIndex = length - 1;
+
+    this.definitions.some((definition, index) => {
       frame = definition.parse(context);
 
       if (frame === cutFrame) {
-        frame = null;
+        if (index !== lastIndex) {
+          frame = null;
+        }
 
         return true;
       }

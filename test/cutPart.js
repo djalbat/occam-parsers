@@ -11,6 +11,28 @@ describe("Cut part", () => {
     }
   ];
 
+  describe("cut part inside repetition", () => {
+    const bnf = `
+    
+       S ::= T... "." ;
+  
+       T ::= . (A* A)* ;
+  
+       A ::= "+" \` T ;
+                              
+    `;
+
+    describe("when a cut is triggered inside a repeating sequence", () => {
+      const content = "x + x.";
+
+      it.skip("aborts the repetition instantly and fails to parse", () => {
+        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isNull(node);
+      });
+    });
+  });
+
   describe("cut part after a terminal in a definition", () => {
     const bnf = `
   
@@ -51,7 +73,7 @@ describe("Cut part", () => {
     `;
 
     describe("content that will not parse instantly", () => {
-      const content = "x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x=";
+      const content = "x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x=";
 
       it("fails to parse" , () => {
         const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
