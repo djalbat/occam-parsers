@@ -15,8 +15,10 @@ export default class RuleContext extends Context {
     return this.rule;
   }
 
-  updatePrecedence(precedence) {
-    ///
+  getCuttingContext() {
+    const cuttingContext = this;  ///
+
+    return cuttingContext;
   }
 
   compose(frame, definitionFrame = null) {
@@ -27,13 +29,6 @@ export default class RuleContext extends Context {
     }
 
     return frame;
-  }
-
-  getContinuingContext() {
-    const context = this.getContext(),
-          continuingContext = context;  ///
-
-    return continuingContext;
   }
 
   static fromRule(rule, context) {

@@ -47,8 +47,17 @@ export default class Context {
 
   recover(part) { return this.state.recover(part); }
 
-  updateState(state) {
-    this.state = state.clone();  ///
+  getContinuingContext() {
+    const continuingContext = this.context; ///
+
+    return continuingContext;
+  }
+
+  getCuttingContext() {
+    const continuatingContext = this.getContinuingContext(),
+          cuttingContext = continuatingContext.getCuttingContext();
+
+    return cuttingContext;
   }
 
   getContinuation() {
@@ -86,6 +95,10 @@ export default class Context {
     }
 
     return frame;
+  }
+
+  updateState(state) {
+    this.state = state.clone();  ///
   }
 
   compose(frame) {

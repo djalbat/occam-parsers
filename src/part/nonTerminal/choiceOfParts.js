@@ -3,7 +3,6 @@
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { isValid } from "../../utilities/frame";
-import { cutFrame } from "../../frame";
 import { partContext } from "../../utilities/context";
 import { ChoiceOfPartsPartType } from "../../partTypes";
 
@@ -39,14 +38,6 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
 
     this.partChoices.some((partChoice, index) => {
       frame = partChoice.parse(savedFrame, context);
-
-      if (frame === cutFrame) {
-        if (index !== lastIndex) {
-          frame = null;
-        }
-
-        return true;
-      }
 
       const frameValid = isValid(frame);
 

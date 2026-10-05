@@ -85,6 +85,4 @@ export default class Frame {
   }
 }
 
-export const cutFrame = Frame.fromNothing();
-
 export const emptyFrame = Frame.fromNothing();

@@ -16,16 +16,18 @@ describe("Cut part", () => {
     
        S ::= T... "." ;
   
-       T ::= . (A* A)* ;
+       T ::= . A? ;
   
-       A ::= "+" T ;
+       A ::= B? B ;
+  
+       B ::= "+" \` T ;
                               
     `;
 
     describe("content that does parse", () => {
       const content = "x + x.";
 
-      it.skip("parses instantaneously", () => {
+      it.only("parses instantaneously", () => {
         const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isNotNull(node);

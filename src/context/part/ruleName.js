@@ -21,13 +21,6 @@ export default class RuleNamePartContext extends PartContext {
     return this.continuedFrame;
   }
 
-  getContinuingContext() {
-    const context = this.getContext(),
-          continuingContext = context;  ///
-
-    return continuingContext;
-  }
-
   isContinuing() {
     const continuing = (this.continuation === null) ?
                          super.isContinuing() :

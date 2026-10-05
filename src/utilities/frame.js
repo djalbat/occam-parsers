@@ -1,15 +1,13 @@
 "use strict";
 
-import { cutFrame } from "../frame";
-
 export function isValid(frame) {
-  const valid = (frame !== null) && (frame !== cutFrame);
+  const valid = (frame !== null);
 
   return valid;
 }
 
 export function isInvalid(frame) {
-  const invalid = (frame === null) || (frame === cutFrame);
+  const invalid = (frame === null);
 
   return invalid;
 }

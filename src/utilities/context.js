@@ -1,5 +1,6 @@
 "use strict";
 
+import CutContext from "../context/cut";
 import RuleContext from "../context/rule";
 import PartContext from "../context/part";
 import PartsContext from "../context/parts";
@@ -11,6 +12,8 @@ import RuleNamePartContext from "../context/part/ruleName";
 import IsolatedPartPartContext from "../context/part/isolatedPart";
 import ContinuationPartContext from "../context/part/continuation";
 import SequenceOfPartsPartContext from "../context/part/sequenceOfParts";
+
+export function cutContext(continuingContext, context) { return CutContext.fromContinuingContext(continuingContext, context); }
 
 export function ruleContext(rule, context) { return RuleContext.fromRule(rule, context); }
 

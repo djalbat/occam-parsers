@@ -1,7 +1,7 @@
 "use strict";
 
+import { emptyFrame } from "../frame";
 import { isValid, isInvalid } from "./frame";
-import { cutFrame, emptyFrame } from "../frame";
 import { continuationPartContext } from "../utilities/context";
 
 export function parsePartContinually(part, count, limit, strict, frame, context) {
@@ -21,8 +21,6 @@ export function parsePartContinually(part, count, limit, strict, frame, context)
     if (false) {
       ///
     } else if (strict && initial) {
-      ///
-    } else if (frame === cutFrame) {
       ///
     } else {
       frame = savedFrame; ///
@@ -60,8 +58,6 @@ export function parsePartRepeatedly(part, limit, strict, frame, context) {
       if (false) {
         ///
       } else if (strict && initial) {
-        partFrame = null;
-      } else if (frame === cutFrame) {
         partFrame = null;
       } else {
         partFrame = savedFrame; ///

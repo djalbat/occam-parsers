@@ -5,8 +5,7 @@ import { specialSymbols } from "occam-lexers";
 import TerminalPart from "../../part/terminal";
 
 import { isValid } from "../../utilities/frame";
-import { cutFrame } from "../../frame";
-import { partContext } from "../../utilities/context";
+import { cutContext } from "../../utilities/context";
 
 const { backtick } = specialSymbols;
 
@@ -17,16 +16,19 @@ export default class CutPart extends TerminalPart {
     return cutPart;
   }
 
-  parse(frame, context) {
-    const part = this;  ///
+  getContinuingContext(context) {
+    const cuttingContext = context.getCuttingContext(),
+          continuingContext = cuttingContext; ///
 
-    context = partContext(part, context); ///
+    return continuingContext;
+  }
+
+  parse(frame, context) {
+    const continuingContext = this.getContinuingContext(context);
+
+    context = cutContext(continuingContext, context); ///
 
     frame = context.continue(frame);
-
-    if (frame === null) {
-      frame = cutFrame;  //
-    }
 
     const frameValid = isValid(frame);
 

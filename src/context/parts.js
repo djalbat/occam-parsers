@@ -46,13 +46,6 @@ export default class PartsContext extends Context {
     return nextPart;
   }
 
-  getContinuingContext() {
-    const context = this.getContext(),
-          continuingContext = context;  ///
-
-    return continuingContext;
-  }
-
   continued(frame, context) {
     const empty = this.isEmpty();
 
