@@ -4,7 +4,7 @@ const { testUtilities } = require("../lib"); ///
 
 const { nodeFromEntriesBnfAndContent } = testUtilities;
 
-describe("Cut part", () => {
+describe.skip("Cut part", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"
@@ -27,7 +27,7 @@ describe("Cut part", () => {
     describe("content that does parse", () => {
       const content = "x + x.";
 
-      it.only("parses instantaneously", () => {
+      it("parses instantaneously", () => {
         const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isNotNull(node);

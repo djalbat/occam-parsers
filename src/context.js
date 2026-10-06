@@ -29,8 +29,6 @@ export default class Context {
 
   getDefaultNonTerminalNode() { return this.context.getDefaultNonTerminalNode(); }
 
-  NonTerminalNodeFromRuleName(ruleName) { return this.context.NonTerminalNodeFromRuleName(ruleName); }
-
   findRule(ruleName) { return this.context.findRule(ruleName); }
 
   getNextPart() { return this.context.getNextPart(); }

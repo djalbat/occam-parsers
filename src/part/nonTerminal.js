@@ -31,4 +31,6 @@ export default class NonTerminalPart {
 
     return ruleNamePart;
   }
+
+  compose(frame, partFrame) { return frame.merge(partFrame); }
 }

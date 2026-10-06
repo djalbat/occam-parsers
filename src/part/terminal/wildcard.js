@@ -6,54 +6,31 @@ import Frame from "../../frame";
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../node/terminal";
 
-import { isValid } from "../../utilities/frame";
-import { partContext } from "../../utilities/context";
-
 const { wildcard } = specialSymbols;
 
 export default class WildcardPart extends TerminalPart {
-  parse(frame, context) {
-    const part = this;  ///
+  parse(frame, state, forward, back) {
+    const stateEmpty = state.isEmpty();
 
-    context = partContext(part, context); ///
-
-    let partFrame = null;
-
-    const nextSignificantToken = context.getNextSignificantToken();
-
-    if (nextSignificantToken !== null) {
-      const significantToken = nextSignificantToken,  ///
-            terminalNode = TerminalNode.fromSignificantToken(significantToken),
-            childNode = terminalNode;  ///
-
-      partFrame = Frame.fromChildNode(childNode);
+    if (stateEmpty) {
+      return back();
     }
 
-    const partFrameValid = isValid(partFrame);
+    const nextSignificantToken = state.getNextSignificantToken(),
+          significantToken = nextSignificantToken, ///
+          terminalNode = TerminalNode.fromSignificantToken(significantToken),
+          childNode = terminalNode,
+          partFrame = Frame.fromChildNode(childNode);
 
-    frame = partFrameValid ?
-              context.compose(frame, partFrame) :
-                null;
+    state = state.advance();
 
-    let frameValid;
+    frame = this.compose(frame, partFrame);
 
-    frameValid = isValid(frame);
-
-    if (frameValid) {
-      frame = context.continue(frame);
-    }
-
-    frameValid = isValid(frame);
-
-    if (frameValid) {
-      context.commit();
-    }
-
-    return frame;
+    return forward(frame, state, back);
   }
 
   asString() {
-    const string = wildcard;  ///
+    const string = `${wildcard}`;
 
     return string;
   }

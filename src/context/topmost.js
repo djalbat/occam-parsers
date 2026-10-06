@@ -28,24 +28,10 @@ export default class TopmostContext extends Context {
     return this.defaultNonTerminalNode;
   }
 
-  NonTerminalNodeFromRuleName(ruleName) {
-    const NonTerminalNode = Object.hasOwn(this.NonTerminalNodeMap, ruleName) ?
-                              this.NonTerminalNodeMap[ruleName] :
-                                this.defaultNonTerminalNode;
-
-    return NonTerminalNode;
-  }
-
   isIsolated() {
     const isolated = false;
 
     return isolated;
-  }
-
-  findRule(ruleName) {
-    const rule = this.ruleMap[ruleName] || null;  ///
-
-    return rule;
   }
 
   getNextPart() {

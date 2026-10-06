@@ -2,10 +2,8 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { isValid } from "../../utilities/frame";
-import { emptyFrame } from "../../frame";
+import { ISOLATED_PRECEDENCE } from "../../constants";
 import { IsolatedPartPartType } from "../../partTypes";
-import { isolatedPartPartContext } from "../../utilities/context";
 
 export default class IsolatedPartPart extends NonTerminalPart {
   constructor(type, continuation, part) {
@@ -18,27 +16,19 @@ export default class IsolatedPartPart extends NonTerminalPart {
     return this.part;
   }
 
-  parse(frame, context) {
-    context = isolatedPartPartContext(context); ///
+  parse(frame, state, forward, back) {
+    return this.part.parse(frame, state, (frame, state, back) => {
+      frame = this.compose(frame);
 
-    const continuing = context.isContinuing();
+      return forward(frame, state, back);
+    }, back);
+  }
 
-    if (continuing) {
-      frame = this.part.parse(frame, context);
-    } else {
-      const partFrame = this.part.parse(emptyFrame, context),
-            partFrameValid = isValid(partFrame);
+  comopse(frame) {
+    const childNodes = frame.getChildNodes(),
+          precedence = ISOLATED_PRECEDENCE;
 
-      frame = partFrameValid ?
-                context.compose(frame, partFrame) :
-                  null;
-    }
-
-    const frameValid = isValid(frame);
-
-    if (frameValid) {
-      context.commit();
-    }
+    frame = frame.fromChildNodesAndPrecedence(childNodes, precedence);
 
     return frame;
   }

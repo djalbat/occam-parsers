@@ -1,6 +1,5 @@
 "use strict";
 
-import { emptyFrame } from "../frame";
 import { isValid, isInvalid } from "./frame";
 import { continuationPartContext } from "../utilities/context";
 
@@ -38,42 +37,32 @@ export function parsePartContinually(part, count, limit, strict, frame, context)
   return frame;
 }
 
-export function parsePartRepeatedly(part, limit, strict, frame, context) {
-  let partFrame;
-
-  partFrame = emptyFrame; ///
-
+export function parsePartRepeatedly(part, limit, strict, frame, state, forward, back) {
   let count = 0;
 
+  let success = true;
+
   while (count < limit) {
-    const savedFrame = partFrame; ///
+    part.parse(frame, state, (partFrame, partState) => {
+      frame = partFrame;  ///
 
-    partFrame = part.parse(partFrame, context);
+      state = partState;  ///
+    }, () => {
+      success = false;
+    });
 
-    const partFrameInvalid = isInvalid(partFrame);
-
-    if (partFrameInvalid) {
-      const initial = (count === 0);
-
-      if (false) {
-        ///
-      } else if (strict && initial) {
-        partFrame = null;
-      } else {
-        partFrame = savedFrame; ///
-      }
-
+    if (!success) {
       break;
     }
 
     count++;
   }
 
-  const partFrameValid = isValid(partFrame);
+  const initial = (count === 0);
 
-  frame = partFrameValid ?
-            context.compose(frame, partFrame) :
-              null;
+  if (strict && initial) {
+    return back();
+  }
 
-  return frame;
+  return forward(frame, state, back);
 }

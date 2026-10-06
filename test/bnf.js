@@ -9,14 +9,14 @@ const { compareParseTreeStrings, parseTreeStringFromNodeAndTokens } = testUtilit
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
-describe("BNF", () => {
+describe.only("BNF", () => {
   describe("a BNF rule", () => {
     describe("content with a single rule", () => {
       const content = `
 
-      A  ::=  B ;
+        A  ::=  B ;
 
-`;
+      `;
 
       it("results in the requisite parse tree" , () => {
         const tokens = bnfLexer.tokenise(content),

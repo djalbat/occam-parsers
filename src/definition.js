@@ -2,10 +2,10 @@
 
 import { characters } from "necessary";
 
-import { isValid } from "./utilities/frame";
+import Frame from "./frame";
+
 import { emptyFrame } from "./frame";
-import { EMPTY_STRING } from "./constants";
-import { definitionContext } from "./utilities/context";
+import { EMPTY_STRING, TRANSPARENT_PRECEDENCE } from "./constants";
 import { parsePartsContinually, parsePartsRepeatedly } from "./utilities/parts";
 
 const { SPACE_CHARACTER } = characters;
@@ -24,23 +24,35 @@ export default class Definition {
     return this.precedence;
   }
 
-  parse(context) {
-    let frame;
+  parse(rule, frame, state, forward, back) {
+    const continuing = false,
+          parseParts = continuing ?
+                         parsePartsContinually :
+                           parsePartsRepeatedly;
 
-    const definition = this;  ///
+    return parseParts(this.parts, emptyFrame, state, (definitionFrame, state, back) => {
+      frame = this.compose(rule, frame, definitionFrame, state);
 
-    context = definitionContext(definition, context); ///
+      if (frame === null) {
+        return back();
+      }
 
-    const continuing = context.isContinuing();
+      return forward(frame, state, back);
+    }, back);
+  }
 
-    frame = continuing ?
-              parsePartsContinually(this.parts, emptyFrame, context) :
-                parsePartsRepeatedly(this.parts, emptyFrame, context);
+  compose(rule, frame, definitionFrame, state) {
+    const definition = this,  ///
+          nonTerminalNode = nonTerminalNodeFromDefinitionFrameDefinitionAndRule(definitionFrame, definition, rule, state),
+          unpalatable = nonTerminalNode.isUnpalatable();
 
-    const frameValid = isValid(frame);
+    if (unpalatable) {
+      frame = null;
+    } else {
+      const childNode = nonTerminalNode,  ///
+            ruleFrame = Frame.fromChildNode(childNode); ///
 
-    if (frameValid) {
-      context.commit();
+      frame = frame.merge(ruleFrame); ///
     }
 
     return frame;
@@ -64,7 +76,7 @@ export default class Definition {
     string = partsString; ///
 
     if (this.precedence !== null) {
-      const precedence = (this.precedence === Infinity) ?
+      const precedence = (this.precedence === TRANSPARENT_PRECEDENCE) ?
                            SPACE_CHARACTER :
                              this.precedence;
 
@@ -100,4 +112,21 @@ export default class Definition {
 
     return definition;
   }
+}
+
+function nonTerminalNodeFromDefinitionFrameDefinitionAndRule(definitionFrame, definition, rule, state) {
+  let nonTerminalNode;
+
+  const frame = definitionFrame,  ///
+        opacity = rule.getOpacity(),
+        ruleName = rule.getName(),
+        childNodes = frame.getChildNodes(),
+        precedence = frame.getPrecedence(definition),
+        NonTerminalNode = state.NonTerminalNodeFromRuleName(ruleName);
+
+  nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity);
+
+  nonTerminalNode = nonTerminalNode.rewrite(state);
+
+  return nonTerminalNode;
 }

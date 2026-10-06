@@ -36,4 +36,6 @@ export default class TerminalPart {
 
     return noWhitespacePart;
   }
+
+  compose(frame, partFrame) { return frame.merge(partFrame); }
 }

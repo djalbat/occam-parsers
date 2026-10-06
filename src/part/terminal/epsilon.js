@@ -6,9 +6,6 @@ import Frame from "../../frame";
 import EpsilonNode from "../../node/terminal/epsilon";
 import TerminalPart from "../../part/terminal";
 
-import { isValid } from "../../utilities/frame";
-import { partContext } from "../../utilities/context";
-
 const { epsilon } = specialSymbols;
 
 export default class EpsilonPart extends TerminalPart {
@@ -18,43 +15,18 @@ export default class EpsilonPart extends TerminalPart {
     return epsilonPart;
   }
 
-  parse(frame, context) {
-    const part = this;  ///
-
-    context = partContext(part, context); ///
-
-    let partFrame;
-
+  parse(frame, state, forward, back) {
     const epsilonNode = EpsilonNode.fromNothing(),
-          childNode = epsilonNode;  ///
+          childNode = epsilonNode,
+          partFrame = Frame.fromChildNode(childNode);
 
-    partFrame = Frame.fromChildNode(childNode);
+    frame = this.compose(frame, partFrame);
 
-    const partFrameValid = isValid(partFrame);
-
-    frame = partFrameValid ?
-              context.compose(frame, partFrame) :
-                null;
-
-    let frameValid;
-
-    frameValid = isValid(frame);
-
-    if (frameValid) {
-      frame = context.continue(frame);
-    }
-
-    frameValid = isValid(frame);
-
-    if (frameValid) {
-      context.commit();
-    }
-
-    return frame;
+    return forward(frame, state, back);
   }
 
   asString() {
-    const string = epsilon; ///
+    const string = `${epsilon}`;
 
     return string;
   }

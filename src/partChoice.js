@@ -2,9 +2,10 @@
 
 import { characters } from "necessary";
 
-import { isValid } from "./utilities/frame";
+import Frame from "./frame";
+
 import { emptyFrame } from "./frame";
-import { partChoiceContext } from "./utilities/context";
+import { TRANSPARENT_PRECEDENCE } from "./constants";
 
 const { SPACE_CHARACTER } = characters;
 
@@ -22,29 +23,28 @@ export default class PartChoice {
     return this.precedence;
   }
 
-  parse(frame, context) {
-    const partChoice = this; ///
+  parse(frame, state, forward, back) {
+    return this.part.parse(emptyFrame, state, (partFrame, partState) => {
+      state = partState;  ///
 
-    context = partChoiceContext(partChoice, context); ///
+      frame = this.compose(frame, partFrame);
 
-    const continuing = context.isContinuing();
+      return forward(frame, state, back);
+    }, back);
+  }
 
-    if (continuing) {
-      frame = this.part.parse(frame, context);
-    } else {
-      const partFrame = this.part.parse(emptyFrame, context),
-            partFrameValid = isValid(partFrame);
+  compose(frame, partFrame = null) {
+    frame = frame.merge(partFrame);
 
-      frame = partFrameValid ?
-                context.compose(frame, partFrame) :
-                  null;
-    }
+    let precedence;
 
-    const frameValid = isValid(frame);
+    const childNodes = frame.getChildNodes();
 
-    if (frameValid) {
-      context.commit();
-    }
+    precedence = frame.getPrecedence();
+
+    precedence = precedence || this.precedence; ///
+
+    frame = Frame.fromChildNodesAndPrecedence(childNodes, precedence);
 
     return frame;
   }
@@ -57,7 +57,7 @@ export default class PartChoice {
     string = partString;  ///
 
     if (this.precedence !== null) {
-      const precedence = (this.precedence === Infinity) ?
+      const precedence = (this.precedence === TRANSPARENT_PRECEDENCE) ?
                            SPACE_CHARACTER :
                              this.precedence;
 

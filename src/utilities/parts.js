@@ -2,13 +2,12 @@
 
 import { arrayUtilities } from "necessary";
 
-import { emptyFrame } from "../frame";
+import { isValid } from "./frame";
 import { partsContext } from "../utilities/context";
-import { isValid, isInvalid } from "./frame";
 
 const { first, tail } = arrayUtilities;
 
-export function parsePartsContinually(parts, frame, context) {
+export function parsePartsContinually(parts, frame, state, forward, back) {
   const firstPart = first(parts),
         tailParts = tail(parts),
         part = firstPart; ///
@@ -28,59 +27,30 @@ export function parsePartsContinually(parts, frame, context) {
   return frame;
 }
 
-export function parsePartsRepeatedly(parts, frame, context) {
-  const partsFrame = parseParts(parts, emptyFrame, context),
-        partsFrameValid = isValid(partsFrame);
+export function parsePartsRepeatedly(parts, frame, state, forward, back) {
+  const length = parts.length;
 
-  frame = partsFrameValid ?
-            context.compose(frame, partsFrame) :
-              null;
+  let success = true;
 
-  return frame;
-}
+  for (let index = 0; index < length; index++) {
+    const part = parts[index];
 
-function parseParts(parts, frame, context) {
-  const contexts = [];
+    part.parse(frame, state, (partFrame, partState) => {
+      frame = partFrame;  ///
 
-  let partsLength = parts.length;
+      state = partState;  ///
+    }, () => {
+      success = false;
+    });
 
-  while (partsLength > 0) {
-    const firstPart = first(parts),
-          tailParts = tail(parts),
-          part = firstPart; ///
-
-    parts = tailParts;  ///
-
-    context = partsContext(parts, parsePartsContinually, context);  ///
-
-    contexts.push(context);
-
-    const partFrame = context.recover(part);
-
-    frame = (partFrame !== null) ?
-              frame.merge(partFrame) :
-                part.parse(frame, context);
-
-    const frameInvalid = isInvalid(frame);
-
-    if (frameInvalid) {
+    if (!success) {
       break;
     }
-
-    partsLength = parts.length;
   }
 
-  const frameValid = isValid(frame);
-
-  if (frameValid) {
-    context = contexts.pop() || null;
-
-    while (context !== null) {
-      context.commit();
-
-      context = contexts.pop() || null;
-    }
+  if (!success) {
+    return back();
   }
 
-  return frame;
+  return forward(frame, state, back);
 }

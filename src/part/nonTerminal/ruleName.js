@@ -4,10 +4,8 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { isValid } from "../../utilities/frame";
 import { EMPTY_STRING } from "../../constants";
 import { RuleNamePartType } from "../../partTypes";
-import { ruleNamePartContext } from "../../utilities/context";
 
 const { ellipsis } = specialSymbols;
 
@@ -28,37 +26,14 @@ export default class RuleNamePart extends NonTerminalPart {
     return ruleNamePart;
   }
 
-  parse(frame, context) {
-    const ruleNamePart = this;  ///
+  parse(frame, state, forward, back) {
+    const rule = state.findRule(this.ruleName);
 
-    context = ruleNamePartContext(frame, ruleNamePart, context);  ///
-
-    const rule = context.findRule(this.ruleName);
-
-    if (rule !== null) {
-      const continuing = context.isContinuing();
-
-      if (continuing) {
-        frame = rule.parse(context);
-      } else {
-        const ruleFrame = rule.parse(context),
-              ruleFrameValid = isValid(ruleFrame);
-
-        frame = ruleFrameValid ?
-                  context.compose(frame, ruleFrame) :
-                    null;
-      }
-    } else {
-      frame = null;
+    if (rule === null) {
+      return back();
     }
 
-    const frameValid = isValid(frame);
-
-    if (frameValid) {
-      context.commit();
-    }
-
-    return frame;
+    return rule.parse(frame, state, forward, back);
   }
 
   asString() {

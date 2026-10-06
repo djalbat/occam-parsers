@@ -6,9 +6,6 @@ import Frame from "../../frame";
 import TerminalPart from "../../part/terminal";
 import NoWhitespaceNode from "../../node/terminal/noWhitespace";
 
-import { isValid } from "../../utilities/frame";
-import { partContext } from "../../utilities/context";
-
 const { noWhitespace } = specialSymbols;
 
 export default class NoWhitespacePart extends TerminalPart {
@@ -18,47 +15,30 @@ export default class NoWhitespacePart extends TerminalPart {
     return noWhitespacePart;
   }
 
-  parse(frame, context) {
-    const part = this;  ///
+  parse(frame, state, forward, back) {
+    const stateEmpty = state.isEmpty();
 
-    context = partContext(part, context); ///
-
-    let partFrame = null;
-
-    const nextTokenWhitespaceToken = context.isNextTokenWhitespaceToken();
-
-    if (!nextTokenWhitespaceToken) {
-      const noWhitespaceNode = NoWhitespaceNode.fromNothing(),
-            childNode = noWhitespaceNode; ///
-
-      partFrame = Frame.fromChildNode(childNode);
+    if (stateEmpty) {
+      return back();
     }
 
-    const partFrameValid = isValid(partFrame);
+    const nextTokenWhitespaceToken = state.isNextTokenWhitespaceToken();
 
-    frame = partFrameValid ?
-              context.compose(frame, partFrame) :
-                null;
-
-    let frameValid;
-
-    frameValid = isValid(frame);
-
-    if (frameValid) {
-      frame = context.continue(frame);
+    if (nextTokenWhitespaceToken) {
+      return back();
     }
 
-    frameValid = isValid(frame);
+    const noWhitespaceNode = NoWhitespaceNode.fromNothing(),
+          childNode = noWhitespaceNode, ///
+          partFrame = Frame.fromChildNode(childNode);
 
-    if (frameValid) {
-      context.commit();
-    }
+    frame = this.compose(frame, partFrame);
 
-    return frame;
+    return forward(frame, state, back);
   }
 
   asString() {
-    const string = noWhitespace; ///
+    const string = `${noWhitespace}`;
 
     return string;
   }

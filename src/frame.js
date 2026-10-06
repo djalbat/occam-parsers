@@ -1,6 +1,7 @@
 "use strict";
 
 import { arrayUtilities } from "necessary";
+import { ISOLATED_PRECEDENCE } from "./constants";
 
 const { first } = arrayUtilities;
 
@@ -14,8 +15,24 @@ export default class Frame {
     return this.childNodes;
   }
 
-  getPrecedence() {
-    return this.precedence;
+  getPrecedence(definition = null) {
+    let precedence;
+
+    if (definition === null) {
+      precedence = this.precedence;
+    } else {
+      const isolated = this.isIsolated();
+
+      if (isolated) {
+        precedence = null;
+      } else {
+        precedence = (this.precedence !== null) ?
+                        this.precedence :
+                          definition.getPrecedence();
+      }
+    }
+
+    return precedence;
   }
 
   setChildNodes(childNodes) {
@@ -24,6 +41,12 @@ export default class Frame {
 
   setPrecedence(precedence) {
     this.precedence = precedence;
+  }
+
+  isIsolated() {
+    const isolated = (this.precedence === ISOLATED_PRECEDENCE);
+
+    return isolated;
   }
 
   getNode() {

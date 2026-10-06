@@ -6,58 +6,37 @@ import Frame from "../../frame";
 import TerminalPart from "../../part/terminal";
 import EndOfLineNode from "../../node/terminal/endOfLine";
 
-import { isValid } from "../../utilities/frame";
-import { partContext } from "../../utilities/context";
-
 const { endOfLine } = specialSymbols;
 
 export default class EndOfLinePart extends TerminalPart {
-  parse(frame, context) {
-    const part = this;  ///
+  parse(frame, state, forward, back) {
+    const stateEmpty = state.isEmpty();
 
-    context = partContext(part, context); ///
-
-    let partFrame = null;
-
-    const nextSignificantToken = context.getNextSignificantToken();
-
-    if (nextSignificantToken !== null) {
-      const significantToken = nextSignificantToken, ///
-            significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
-
-      if (significantTokenEndOfLineToken) {
-        const endOfLineNode = EndOfLineNode.fromSignificantToken(significantToken),
-              childNode = endOfLineNode;  ///
-
-        partFrame = Frame.fromChildNode(childNode);
-      }
+    if (stateEmpty) {
+      return back();
     }
 
-    const partFrameValid = isValid(partFrame);
+    const nextSignificantToken = state.getNextSignificantToken(),
+          significantToken = nextSignificantToken, ///
+          significantTokenEndOfLineToken = significantToken.isEndOfLineToken();
 
-    frame = partFrameValid ?
-              context.compose(frame, partFrame) :
-                null;
-
-    let frameValid;
-
-    frameValid = isValid(frame);
-
-    if (frameValid) {
-      frame = context.continue(frame);
+    if (!significantTokenEndOfLineToken) {
+      return back();
     }
 
-    frameValid = isValid(frame);
+    const endOfLineNode = EndOfLineNode.fromSignificantToken(significantToken),
+          childNode = endOfLineNode,
+          partFrame = Frame.fromChildNode(childNode);
 
-    if (frameValid) {
-      context.commit();
-    }
+    state = state.advance();
 
-    return frame;
+    frame = this.compose(frame, partFrame);
+
+    return forward(frame, state, back);
   }
 
   asString() {
-    const string = endOfLine; ///
+    const string = `${endOfLine}`;
 
     return string;
   }

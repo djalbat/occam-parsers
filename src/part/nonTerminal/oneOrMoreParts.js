@@ -4,8 +4,6 @@ import { specialSymbols } from "occam-lexers";
 
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { isValid } from "../../utilities/frame";
-import { partContext } from "../../utilities/context";
 import { OneOrMorePartsPartType } from "../../partTypes";
 import { parsePartContinually, parsePartRepeatedly } from "../../utilities/part";
 
@@ -22,27 +20,15 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
     return this.part;
   }
 
-  parse(frame, context) {
-    const part = this;  ///
-
-    context = partContext(part, context);  ///
-
-    const count = 0,
-          limit = Infinity,
+  parse(frame, state, forward, back) {
+    const limit = Infinity,
           strict = true,
-          continuing = context.isContinuing();
+          continuing = false, ///
+          parsePart = continuing ?
+                        parsePartContinually :
+                          parsePartRepeatedly;
 
-    frame = continuing ?
-              parsePartContinually(this.part, count, limit, strict, frame, context) :
-                parsePartRepeatedly(this.part, limit, strict, frame, context);
-
-    const frameValid = isValid(frame);
-
-    if (frameValid) {
-      context.commit();
-    }
-
-    return frame;
+    return parsePart(this.part, limit, strict, frame, state, forward, back);
   }
 
   asString() {

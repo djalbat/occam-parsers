@@ -1,10 +1,6 @@
 "use strict";
 
-import { specialSymbols } from "occam-lexers";
-
-import { EMPTY_STRING } from "../constants";
-
-const { backtick } = specialSymbols;
+import { EMPTY_STRING, TRANSPARENT_PRECEDENCE } from "../constants";
 
 export function stringFromStringNonTermionalNodeAndTokens(string, nonTerminalNode, tokens) {
   const node = nonTerminalNode, ///
@@ -102,7 +98,7 @@ function precedenceFromNode(node) {
     ///
   } else if (precedence === null) {
     precedence = EMPTY_STRING;
-  }else if (precedence === Infinity) {
+  }else if (precedence === TRANSPARENT_PRECEDENCE) {
     precedence = ` ( )`;
   } else {
     precedence = ` (${precedence})`;

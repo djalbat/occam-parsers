@@ -1,96 +1,116 @@
 "use strict";
 
 export default class State {
-  constructor(tokens, cache, index) {
-    this.tokens = tokens;
-    this.cache = cache;
+  constructor(index, tokens, parser) {
     this.index = index;
-  }
-
-  getTokens() {
-    return this.tokens;
-  }
-
-  getCache() {
-    return this.cache;
+    this.tokens = tokens;
+    this.parser = parser;
   }
 
   getIndex() {
     return this.index;
   }
 
-  getNextToken() {
-    let nextToken = null;
+  getTokens() {
+    return this.tokens;
+  }
 
-    const length = this.tokens.length;
+  getParser() {
+    return this.parser;
+  }
 
-    if (this.index < length) {
-      nextToken = this.tokens[this.index++];
-    }
+  isEmpty() {
+    const tokensLength = this.tokens.length,
+          empty = (this.index === tokensLength);
 
-    return nextToken;
+    return empty;
+  }
+
+  findRule(ruleName) { return this.parser.findRule(ruleName); }
+
+  NonTerminalNodeFromRuleName(ruleName) { return this.parser.NonTerminalNodeFromRuleName(ruleName); }
+
+  isNextTokenWhitespaceToken() {
+    const nextToken = this.tokens[this.index],
+          nextTokenWhitespaceToken = nextToken.isWhitespaceToken();
+
+    return nextTokenWhitespaceToken;
   }
 
   getNextSignificantToken() {
     let nextSignificantToken = null;
 
-    const length = this.tokens.length
+    let index = this.index;
 
-    while (this.index < length) {
-      const token = this.tokens[this.index++],
+    while (true) {
+      const token = this.tokens[index],
             tokenSignificant = token.isSignificant();
 
       if (tokenSignificant) {
-        const significantToken = token; ///
-
-        nextSignificantToken = significantToken;	///
+        nextSignificantToken = token; ///
 
         break;
       }
+
+      index++;
     }
 
     return nextSignificantToken;
   }
 
-  isNextTokenWhitespaceToken() {
-    let nextTokenWhitespaceToken = false;
+  advance() {
+    const nextSignificantToken = this.getNextSignificantToken();
 
-    const length = this.tokens.length;
+    let index;
 
-    if (this.index < length) {
-      const nextToken = this.tokens[this.index];
+    index = this.tokens.indexOf(nextSignificantToken, this.index);
 
-      nextTokenWhitespaceToken = nextToken.isWhitespaceToken();
+    index++;
+
+    const tokensSignificant = areTokensSignificant(this.tokens, index);
+
+    if (!tokensSignificant) {
+      const tokensLength = this.tokens.length;
+
+      index = tokensLength; ///
     }
 
-    return nextTokenWhitespaceToken;
-  }
-
-  store(part, frame) {
-    this.cache.set(part, frame);
-  }
-
-  recover(part) {
-    const frame = this.cache.get(part) || null;
-
-    if (frame !== null) {
-      this.cache.delete(part);
-    }
-
-    return frame;
-  }
-
-  clone() {
-    const state = new State(this.tokens, this.cache, this.index);
+    const state = new State(index, this.tokens, this.parser);
 
     return state;
   }
 
-  static fromTokens(tokens) {
-    const cache = new WeakMap(),
-          index = 0,
-          state = new State(tokens, cache, index);
+  static fromTokensAndParser(tokens, parser) {
+    const tokensSignificant = areTokensSignificant(tokens),
+          tokensLength = tokens.length,
+          index = tokensSignificant ?
+                    0 :
+                      tokensLength, ///
+    state = new State(index, tokens, parser);
 
     return state;
   }
+}
+
+function areTokensSignificant(tokens, index = 0) {
+  let tokensSignificant = false;
+
+  const length = tokens.length;
+
+  while (index < length) {
+    const token = tokens[index],
+          tokenSignificant = token.isSignificant();
+
+    if (tokenSignificant) {
+      break;
+    }
+
+    index++;
+  }
+
+  if (index < length) {
+    tokensSignificant = true;
+  }
+
+  return tokensSignificant;
 }

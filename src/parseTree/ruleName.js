@@ -12,7 +12,7 @@ export default class RuleNameParseTree extends VerticalBranchParseTree {
     let string;
 
     string = (opacity !== null) ?
-               `${string}${opacity}` :
+               `${ruleName}${opacity}` :
                   ruleName; ///
 
     string = stringFromStringNonTermionalNodeAndTokens(string, nonTerminalNode, tokens);

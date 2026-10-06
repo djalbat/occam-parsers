@@ -4,11 +4,13 @@ import { arrayUtilities } from "necessary";
 
 import NonTerminalNode from "../../node/nonTerminal";
 
+import { TRANSPARENT_PRECEDENCE } from "../../constants";
+
 const { second } = arrayUtilities;
 
 export default class PrecedenceBNFNode extends NonTerminalNode {
   getPrecedence() {
-    let precedence = Infinity;
+    let precedence = TRANSPARENT_PRECEDENCE;
 
     const multiplicity = this.getMultiplicity();
 

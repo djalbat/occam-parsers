@@ -6,6 +6,8 @@ import { specialSymbols } from "occam-lexers";
 import nodeMixins from "../mixins/node";
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
+import { TRANSPARENT_PRECEDENCE } from "../constants";
+
 const { match } = arrayUtilities,
       { opaque: opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
@@ -60,10 +62,6 @@ export default class NonTerminalNode {
 
   setOpacity(opacity) {
     this.opacity = opacity;
-  }
-
-  nullifyPrecedence() {
-    this.precedence = null;
   }
 
   isOpaque() {
@@ -156,7 +154,7 @@ export default class NonTerminalNode {
 
   isPalatable() {
     const unpalatable = this.isUnpalatable(),
-            palatable = !unpalatable;
+          palatable = !unpalatable;
 
     return palatable;
   }
@@ -200,7 +198,7 @@ export default class NonTerminalNode {
       ///
     } else if (this.precedence === null) {
       lowerPrecedence = false;
-    } else if (this.precedence === Infinity) {
+    } else if (this.precedence === TRANSPARENT_PRECEDENCE) {
       lowerPrecedence = this.childNodes.some((childNode) => {
         const childNodeLowerPrecedence = childNode.isLowerPrecedence(associativity, strength, first, last);
 
@@ -235,7 +233,7 @@ export default class NonTerminalNode {
   areChildNodesLowerPrecedence() {
     let childNodesLowerPrecedence = false;
 
-    if ((this.precedence !== null) && (this.precedence !== Infinity)) {
+    if ((this.precedence !== null) && (this.precedence !== TRANSPARENT_PRECEDENCE)) {
       const length = this.childNodes.length,
             lastIndex = (length - 1),
             firstIndex = 0,
@@ -304,7 +302,7 @@ export default class NonTerminalNode {
     return matches;
   }
 
-  rewrite(context) {
+  rewrite(state) {
     const rewrittenNonTerminalNode = this;  ///
 
     return rewrittenNonTerminalNode;

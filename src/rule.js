@@ -2,8 +2,6 @@
 
 import { specialSymbols } from "occam-lexers";
 
-import { isValid } from "./utilities/frame";
-import { ruleContext } from "./utilities/context";
 import { EMPTY_STRING } from "./constants";
 import { marginStringFromMarginWidth } from "./utilities/string";
 
@@ -58,33 +56,36 @@ export default class Rule {
     return semiOpaque;
   }
 
-  parse(context) {
-    let frame;
+  parse(frame, state, forward, back) {
+    const rule = this,  ///
+          length = this.definitions.length;
 
-    const rule = this;  ///
+    let success = false;
 
-    context = ruleContext(rule, context); ///
+    for (let index = 0; index < length; index++) {
+      const definition = this.definitions[index];
 
-    this.definitions.some((definition, index) => {
-      frame = definition.parse(context);
+      definition.parse(rule, frame, state, (definitionFrame, definitionState) => {
+        frame = definitionFrame;  ///
 
-      const frameValid = isValid(frame);
+        state = definitionState;  ///
 
-      if (frameValid) {
-        return true;
+        success = true;
+      }, () => {
+        ///
+      });
+
+      if (success) {
+        break;
       }
-    });
-
-    const frameValid = isValid(frame);
-
-    if (frameValid) {
-      context.commit();
     }
 
-    return frame;
-  }
+    if (!success) {
+      return back();
+    }
 
-  NonTerminalNodeFromRuleName(ruleName, context) { return context.NonTerminalNodeFromRuleName(ruleName); }
+    return forward(frame, state, back);
+  }
 
   asString(maximumRuleNameLength, multiLine = true) {
     const definitionsLength = this.definitions.length;

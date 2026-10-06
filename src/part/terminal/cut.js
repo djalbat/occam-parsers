@@ -4,8 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import TerminalPart from "../../part/terminal";
 
-import { isValid } from "../../utilities/frame";
-import { cutContext } from "../../utilities/context";
+import { cut } from "../../utilities/continuation";
 
 const { backtick } = specialSymbols;
 
@@ -16,31 +15,14 @@ export default class CutPart extends TerminalPart {
     return cutPart;
   }
 
-  getContinuingContext(context) {
-    const cuttingContext = context.getCuttingContext(),
-          continuingContext = cuttingContext; ///
+  parse(frame, state, forward, back) {
+    forward = cut(forward, back); ///
 
-    return continuingContext;
-  }
-
-  parse(frame, context) {
-    const continuingContext = this.getContinuingContext(context);
-
-    context = cutContext(continuingContext, context); ///
-
-    frame = context.continue(frame);
-
-    const frameValid = isValid(frame);
-
-    if (frameValid) {
-      context.commit();
-    }
-
-    return frame;
+    return forward(frame, state, back);
   }
 
   asString() {
-    const string = backtick; ///
+    const string = `${backtick}`;
 
     return string;
   }

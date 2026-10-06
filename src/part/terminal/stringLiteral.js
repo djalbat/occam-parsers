@@ -4,9 +4,6 @@ import Frame from "../../frame";
 import TerminalPart from "../../part/terminal";
 import TerminalNode from "../../node/terminal";
 
-import { isValid } from "../../utilities/frame";
-import { partContext } from "../../utilities/context";
-
 export default class StringLiteralPart extends TerminalPart {
   constructor(content) {
     super();
@@ -18,48 +15,30 @@ export default class StringLiteralPart extends TerminalPart {
     return this.content;
   }
 
-  parse(frame, context) {
-    const part = this;  ///
+  parse(frame, state, forward, back) {
+    const stateEmpty = state.isEmpty();
 
-    context = partContext(part, context); ///
-
-    let partFrame = null;
-
-    const nextSignificantToken = context.getNextSignificantToken();
-
-    if (nextSignificantToken !== null) {
-      const significantToken = nextSignificantToken, ///
-            content = significantToken.getContent();
-
-      if (content === this.content) {
-        const terminalNode = TerminalNode.fromSignificantToken(significantToken),
-              childNode = terminalNode;  ///
-
-        partFrame = Frame.fromChildNode(childNode);
-      }
+    if (stateEmpty) {
+      return back();
     }
 
-    const partFrameValid = isValid(partFrame);
+    const nextSignificantToken = state.getNextSignificantToken(),
+          significantToken = nextSignificantToken, ///
+          content = significantToken.getContent();
 
-    frame = partFrameValid ?
-              context.compose(frame, partFrame) :
-                null;
-
-    let frameValid;
-
-    frameValid = isValid(frame);
-
-    if (frameValid) {
-      frame = context.continue(frame);
+    if (content !== this.content) {
+      return back();
     }
 
-    frameValid = isValid(frame);
+    const terminalNode = TerminalNode.fromSignificantToken(significantToken),
+          childNode = terminalNode,
+          partFrame = Frame.fromChildNode(childNode);
 
-    if (frameValid) {
-      context.commit();
-    }
+    state = state.advance();
 
-    return frame;
+    frame = this.compose(frame, partFrame);
+
+    return forward(frame, state, back);
   }
 
   asString() {
