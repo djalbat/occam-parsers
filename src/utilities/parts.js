@@ -3,7 +3,6 @@
 import { arrayUtilities } from "necessary";
 
 import { isValid } from "./frame";
-import { partsContext } from "../utilities/context";
 
 const { first, tail } = arrayUtilities;
 
