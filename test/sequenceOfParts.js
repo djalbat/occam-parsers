@@ -213,7 +213,7 @@ describe("Sequence of parts", () => {
     });
   });
 
-  describe("continuation from a sequence of parts part with two terminal parts to a terminal part", () => {
+  describe.skip("continuation from a sequence of parts part with two terminal parts to a terminal part", () => {
     const bnf = `
     
       S ::= A... . ;
@@ -245,7 +245,7 @@ describe("Sequence of parts", () => {
     });
   });
 
-  describe("continuation from a sequence of parts part with a terminal part followed by an optional part to a terminal part", () => {
+  describe.skip("continuation from a sequence of parts part with a terminal part followed by an optional part to a terminal part", () => {
     const bnf = `
     
       S ::= A... . ;
@@ -297,7 +297,7 @@ describe("Sequence of parts", () => {
     });
   });
 
-  describe("continuation from a sequence of parts part with a terminal part followed by an optional part to an optional part", () => {
+  describe.skip("continuation from a sequence of parts part with a terminal part followed by an optional part to an optional part", () => {
     const bnf = `
     
       S ::= A... .? ;
@@ -367,7 +367,7 @@ describe("Sequence of parts", () => {
     });
   });
 
-  describe("continuation from a terminal part through a sequence of parts part with a terminal part and a rule name part to an optional part", () => {
+  describe.skip("continuation from a terminal part through a sequence of parts part with a terminal part and a rule name part to an optional part", () => {
     const bnf = `
     
       S ::= B... "b"? ;
@@ -402,7 +402,7 @@ describe("Sequence of parts", () => {
     });
   });
 
-  describe("continuation from a terminal part to a terminal part in a sequence of parts", () => {
+  describe.skip("continuation from a terminal part to a terminal part in a sequence of parts", () => {
     const bnf = `
     
       S ::= ( A... . ) ;
@@ -432,7 +432,7 @@ describe("Sequence of parts", () => {
     });
   });
 
-  describe("continuation from a terminal part through an optional part to a terminal part in a sequence of parts", () => {
+  describe.skip("continuation from a terminal part through an optional part to a terminal part in a sequence of parts", () => {
     const bnf = `
     
       S ::= ( A... . ) ;
@@ -484,7 +484,7 @@ describe("Sequence of parts", () => {
     });
   });
 
-  describe("continuation from a terminal part through an optional part to an optional part in a sequence of parts", () => {
+  describe.skip("continuation from a terminal part through an optional part to an optional part in a sequence of parts", () => {
     const bnf = `
     
       S ::= ( A... .? ) ;

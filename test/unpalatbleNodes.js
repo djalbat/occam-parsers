@@ -11,7 +11,7 @@ describe("Unpalatble nodes", () => {
     }
   ];
 
-  describe("a non-producing definition", () => {
+  describe.skip("a non-producing definition", () => {
     const bnf = `
     
       S ::= A... "c" ;

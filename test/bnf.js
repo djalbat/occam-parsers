@@ -9,7 +9,7 @@ const { compareParseTreeStrings, parseTreeStringFromNodeAndTokens } = testUtilit
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
-describe.only("BNF", () => {
+describe("BNF", () => {
   describe("a BNF rule", () => {
     describe("content with a single rule", () => {
       const content = `
