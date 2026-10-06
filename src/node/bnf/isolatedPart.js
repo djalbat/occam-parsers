@@ -7,16 +7,16 @@ import { PART_RULE_NAME } from "../../ruleNames";
 import { nodeFromChildNodesAndRuleName } from "../../utilities/node";
 
 export default class IsolatedPartBNFNode extends NonTerminalNode {
-  generatePart(continuation) {
+  generatePart(branching) {
     const ruleName = PART_RULE_NAME,
           childNodes = this.getChildNodes(),
           partBNFNode = nodeFromChildNodesAndRuleName(childNodes, ruleName);
 
-    continuation = false;  ///
+    branching = false;  ///
 
     let part;
 
-    part = partBNFNode.generatePart(continuation);
+    part = partBNFNode.generatePart(branching);
 
     const isolatedPartPart = IsolatedPartPart.fromPart(part);
 

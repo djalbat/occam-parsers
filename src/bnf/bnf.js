@@ -24,7 +24,7 @@ const bnf = `
 
                                  |  sequenceOfParts
 
-                                 |  ruleName continuationModifier?
+                                 |  ruleName branchingModifier?
 
                                  ;
 
@@ -84,7 +84,7 @@ const bnf = `
 
       opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
       
-      continuationModifier     ::=  <NO_WHITESPACE>"..." ;
+      branchingModifier        ::=  <NO_WHITESPACE>"..." ;
 
       optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
 

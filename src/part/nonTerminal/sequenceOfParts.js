@@ -7,8 +7,8 @@ import { SequenceOfPartsPartType } from "../../partTypes";
 import { parsePartsContinually, parsePartsRepeatedly } from "../../utilities/parts";
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
-  constructor(type, continuation, parts) {
-    super(type, continuation);
+  constructor(type, branching, parts) {
+    super(type, branching);
 
     this.parts = parts;
   }
@@ -23,10 +23,8 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
                         parsePartsContinually :
                            parsePartsRepeatedly;
 
-    return parseParts(this.parts, emptyFrame, state, (definitionFrame, state, back) => {
-      debugger
-
-      frame = this.compose(frame, definitionFrame);
+    return parseParts(this.parts, emptyFrame, state, (partsFrame, state, back) => {
+      frame = this.compose(frame, partsFrame);
 
       return forward(frame, state, back);
     }, back);
@@ -51,8 +49,8 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
 
   static fromParts(parts) {
     const type = SequenceOfPartsPartType,
-          continuation = false,
-          sequenceOfPartsPart = new SequenceOfPartsPart(type, continuation, parts);
+          branching = false,
+          sequenceOfPartsPart = new SequenceOfPartsPart(type, branching, parts);
 
     return sequenceOfPartsPart;
   }

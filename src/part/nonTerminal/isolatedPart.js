@@ -6,8 +6,8 @@ import { ISOLATED_PRECEDENCE } from "../../constants";
 import { IsolatedPartPartType } from "../../partTypes";
 
 export default class IsolatedPartPart extends NonTerminalPart {
-  constructor(type, continuation, part) {
-    super(type, continuation);
+  constructor(type, branching, part) {
+    super(type, branching);
 
     this.part = part;
   }
@@ -42,8 +42,8 @@ export default class IsolatedPartPart extends NonTerminalPart {
 
   static fromPart(part) {
     const type = IsolatedPartPartType,
-          continuation = false,
-          isolatedPartPart = new IsolatedPartPart(type, continuation, part);
+          branching = false,
+          isolatedPartPart = new IsolatedPartPart(type, branching, part);
 
     return isolatedPartPart;
   }

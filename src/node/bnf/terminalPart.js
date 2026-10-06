@@ -7,11 +7,11 @@ import NonTerminalNode from "../../node/nonTerminal";
 const { first } = arrayUtilities;
 
 export default class TerminalPartBNFNode extends NonTerminalNode {
-  generatePart(continuation) {
+  generatePart(branching) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           node = firstChildNode,  ///
-          part = node.generatePart(continuation);
+          part = node.generatePart(branching);
 
     return part;
   }

@@ -4,7 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import TerminalPart from "../../part/terminal";
 
-import { cut } from "../../utilities/continuation";
+import { cut } from "../../utilities/branching";
 
 const { backtick } = specialSymbols;
 

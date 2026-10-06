@@ -8,7 +8,7 @@ import StringLiteralPart from "../part/terminal/stringLiteral";
 
 const { ellipsis } = specialSymbols;
 
-export default class ContinuationModifierRuleDefinition extends Definition {
+export default class BranchingModifierRuleDefinition extends Definition {
   static fromNothing() {
     const content = ellipsis,  ///
           noWhitespacePart = NoWhitespacePart.fromNothing(),
@@ -18,8 +18,8 @@ export default class ContinuationModifierRuleDefinition extends Definition {
             stringLiteralPart
           ],
           precedence = null,
-          continuationModifierRuleDefinition = new ContinuationModifierRuleDefinition(parts, precedence);
+          branchingModifierRuleDefinition = new BranchingModifierRuleDefinition(parts, precedence);
 
-    return continuationModifierRuleDefinition;
+    return branchingModifierRuleDefinition;
   }
 }

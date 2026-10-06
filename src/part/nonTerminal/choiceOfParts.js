@@ -2,11 +2,12 @@
 
 import NonTerminalPart from "../../part/nonTerminal";
 
+import { some as linearSome } from "../../utilities/linear";
 import { ChoiceOfPartsPartType } from "../../partTypes";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
-  constructor(type, continuation, partChoices) {
-    super(type, continuation);
+  constructor(type, branching, partChoices) {
+    super(type, branching);
     
     this.partChoices = partChoices;
   }
@@ -26,33 +27,9 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
   }
 
   parse(frame, state, forward, back) {
-    const length = this.partChoices.length;
-
-    let success = false;
-
-    for (let index = 0; index < length; index++) {
-      const partChoice = this.partChoices[index];
-
-      partChoice.parse(frame, state, (partChoiceFrame, partChoiceState) => {
-        frame = partChoiceFrame;  ///
-
-        state = partChoiceState;  ///
-
-        success = true;
-      }, () => {
-        ///
-      });
-
-      if (success) {
-        break;
-      }
-    }
-
-    if (!success) {
-      return back();
-    }
-
-    return forward(frame, state, back);
+    return linearSome(this.partChoices, (partChoice, frame, state, forward, back) => {
+      return partChoice.parse(frame, state, forward, back);
+    }, frame, state, forward, back);
   }
 
   asString() {
@@ -74,8 +51,8 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
 
   static fromPartChoices(partChoices) {
     const type = ChoiceOfPartsPartType,
-          continuation = false,
-          choiceOfPartsPart = new ChoiceOfPartsPart(type, continuation, partChoices);
+          branching = false,
+          choiceOfPartsPart = new ChoiceOfPartsPart(type, branching, partChoices);
 
     return choiceOfPartsPart;
   }

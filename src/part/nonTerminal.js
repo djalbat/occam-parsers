@@ -1,17 +1,17 @@
 "use strict";
 
 export default class NonTerminalPart {
-  constructor(type, continunation) {
+  constructor(type, branching) {
     this.type = type;
-    this.continunation = continunation;
+    this.branching = branching;
   }
   
   getType() {
     return this.type;
   }
 
-  isContinuation() {
-    return this.continunation;
+  isBranching() {
+    return this.branching;
   }
 
   isNonTerminalPart() {

@@ -10,8 +10,8 @@ import { RuleNamePartType } from "../../partTypes";
 const { ellipsis } = specialSymbols;
 
 export default class RuleNamePart extends NonTerminalPart {
-  constructor(type, continuation, ruleName) {
-    super(type, continuation);
+  constructor(type, branching, ruleName) {
+    super(type, branching);
 
     this.ruleName = ruleName;
   }
@@ -33,30 +33,36 @@ export default class RuleNamePart extends NonTerminalPart {
       return back();
     }
 
+    const branching = this.isBranching();
+
+    if (branching) {
+      state = state.branch();
+    }
+
     return rule.parse(frame, state, forward, back);
   }
 
   asString() {
-    const continuation = this.isContinuation(),
-          continuationString = continuation ?
-                                  ellipsis :
-                                    EMPTY_STRING,
-          string = `${this.ruleName}${continuationString}`;
+    const branching = this.isBranching(),
+          branchingString = branching ?
+                              ellipsis :
+                                EMPTY_STRING,
+          string = `${this.ruleName}${branchingString}`;
 
     return string;
   }
 
   static fromRuleName(ruleName) {
     const type = RuleNamePartType,
-          continuation = false,
-          ruleNamePart = new RuleNamePart(type, continuation, ruleName);
+          branching = false,
+          ruleNamePart = new RuleNamePart(type, branching, ruleName);
 
     return ruleNamePart;
   }
 
-  static fromContinuationAndRuleName(continuation, ruleName) {
+  static fromBranchingAndRuleName(branching, ruleName) {
     const type = RuleNamePartType,
-          ruleNamePart = new RuleNamePart(type, continuation, ruleName);
+          ruleNamePart = new RuleNamePart(type, branching, ruleName);
 
     return ruleNamePart;
   }

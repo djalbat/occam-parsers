@@ -48,7 +48,7 @@ nonTerminalPart          ::=  isolatedPart
     
                            |  sequenceOfParts
     
-                           |  ruleName continuationModifier?
+                           |  ruleName branchingModifier?
     
                            ;
 
@@ -108,7 +108,7 @@ quantifier               ::=  optionalQuantifier
 
 opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
 
-continuationModifier     ::=  <NO_WHITESPACE>"..." ;
+branchingModifier        ::=  <NO_WHITESPACE>"..." ;
 
 optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
 

@@ -1,10 +1,10 @@
 "use strict";
 
 export default class TerminalPart {
-  isContinuation() {
-    const continuation = false;
+  isBranching() {
+    const branching = false;
 
-    return continuation;
+    return branching;
   }
 
   isNonTerminalPart() {

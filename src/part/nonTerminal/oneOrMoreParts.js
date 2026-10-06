@@ -10,8 +10,8 @@ import { parsePartContinually, parsePartRepeatedly } from "../../utilities/part"
 const { plus } = specialSymbols;
 
 export default class OneOrMorePartsPart extends NonTerminalPart {
-  constructor(type, continuation, part) {
-    super(type, continuation);
+  constructor(type, branching, part) {
+    super(type, branching);
 
     this.part = part;
   }
@@ -40,8 +40,8 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
 
   static fromPart(part) {
     const type = OneOrMorePartsPartType,
-          continuation = false,
-          oneOrMorePartsPart = new OneOrMorePartsPart(type, continuation, part);
+          branching = false,
+          oneOrMorePartsPart = new OneOrMorePartsPart(type, branching, part);
 
     return oneOrMorePartsPart;
   }

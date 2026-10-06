@@ -7,15 +7,15 @@ import { PART_CHOICE_RULE_NAME } from "../../ruleNames";
 import { nodesFromChildNodesAndRuleName } from "../../utilities/node";
 
 export default class ChoiceOfPartsBNFNode extends NonTerminalNode {
-  generatePart(continuation) {
+  generatePart(branching) {
     const ruleName = PART_CHOICE_RULE_NAME,
           childNodes = this.getChildNodes(),
           partChoiceBNFNodes = nodesFromChildNodesAndRuleName(childNodes, ruleName);
 
-    continuation = false;  ///
+    branching = false;  ///
 
     const partChoices = partChoiceBNFNodes.map((partChoiceBNFNode) => {
-            const partChoice = partChoiceBNFNode.generatePartChoice(continuation);
+            const partChoice = partChoiceBNFNode.generatePartChoice(branching);
 
             return partChoice;
           }),

@@ -3,6 +3,7 @@
 import { specialSymbols } from "occam-lexers";
 
 import { EMPTY_STRING } from "./constants";
+import { some as linearSome } from "./utilities/linear";
 import { marginStringFromMarginWidth } from "./utilities/string";
 
 const { opaque: opaqueSpecialSymbol, semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
@@ -57,34 +58,11 @@ export default class Rule {
   }
 
   parse(frame, state, forward, back) {
-    const rule = this,  ///
-          length = this.definitions.length;
+    const rule = this;  ///
 
-    let success = false;
-
-    for (let index = 0; index < length; index++) {
-      const definition = this.definitions[index];
-
-      definition.parse(rule, frame, state, (definitionFrame, definitionState) => {
-        frame = definitionFrame;  ///
-
-        state = definitionState;  ///
-
-        success = true;
-      }, () => {
-        ///
-      });
-
-      if (success) {
-        break;
-      }
-    }
-
-    if (!success) {
-      return back();
-    }
-
-    return forward(frame, state, back);
+    return linearSome(this.definitions, (definition, frame, state, forward, back) => {
+      return definition.parse(rule, frame, state, forward, back);
+    }, frame, state, forward, back);
   }
 
   asString(maximumRuleNameLength, multiLine = true) {
