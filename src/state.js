@@ -1,11 +1,11 @@
 "use strict";
 
 export default class State {
-  constructor(index, parser, tokens, branching) {
+  constructor(index, parser, tokens, branches) {
     this.index = index;
     this.parser = parser;
     this.tokens = tokens;
-    this.branching = branching;
+    this.branches = branches;
   }
 
   getIndex() {
@@ -20,8 +20,14 @@ export default class State {
     return this.tokens;
   }
 
+  getBranches() {
+    return this.branches;
+  }
+
   isBranching() {
-    return this.branching;
+    const branching = (this.branches > 0);
+
+    return branching;
   }
 
   isEmpty() {
@@ -80,14 +86,21 @@ export default class State {
       index = tokensLength; ///
     }
 
-    const state = new State(index, this.parser, this.tokens, this.branching);
+    const state = new State(index, this.parser, this.tokens, this.branches);
 
     return state;
   }
 
   branch() {
-    const branching = true,
-          state = new State(this.index, this.parser, this.tokens, branching);
+    const branches = this.branches + 1,
+          state = new State(this.index, this.parser, this.tokens, branches);
+
+    return state;
+  }
+
+  prune() {
+    const branches = this.branches - 1,
+          state = new State(this.index, this.parser, this.tokens, branches);
 
     return state;
   }
@@ -98,8 +111,8 @@ export default class State {
           index = tokensSignificant ?
                     0 :
                       tokensLength, ///
-          branching = false,
-          state = new State(index, parser, tokens, branching);
+          branches = 0,
+          state = new State(index, parser, tokens, branches);
 
     return state;
   }

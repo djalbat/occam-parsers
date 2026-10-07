@@ -22,9 +22,11 @@ const bnf = `
 
                                  |  choiceOfParts
 
+                                 |  branchingParts
+
                                  |  sequenceOfParts
 
-                                 |  ruleName branchingModifier?
+                                 |  ruleName
 
                                  ;
 
@@ -47,6 +49,8 @@ const bnf = `
                                  ;
                               
       sequenceOfParts          ::=  "(" part part+ ")" ;
+
+      branchingParts           ::=  "(" part "..." part ")" ;
 
       choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
 
@@ -84,8 +88,6 @@ const bnf = `
 
       opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
       
-      branchingModifier        ::=  <NO_WHITESPACE>"..." ;
-
       optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
 
       oneOrMoreQuantifier      ::=  <NO_WHITESPACE>"+" ;

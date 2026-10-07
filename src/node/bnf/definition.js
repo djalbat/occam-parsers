@@ -19,9 +19,8 @@ export default class DefinitionBNFNode extends NonTerminalNode {
     ruleName = PRECEDENCE_RULE_NAME;
 
     const precedenceBNFNode = nodeFromChildNodesAndRuleName(childNodes, ruleName),
-          branching = false,  ///
           parts = partBNFNodes.map((partBNFNode) => {
-            const part = partBNFNode.generatePart(branching);
+            const part = partBNFNode.generatePart();
   
             return part;
           }),

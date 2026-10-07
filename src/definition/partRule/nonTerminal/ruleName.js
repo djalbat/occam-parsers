@@ -2,25 +2,15 @@
 
 import Definition from "../../../definition";
 import RuleNamePart from "../../../part/nonTerminal/ruleName";
-import OptionalPartPart from "../../../part/nonTerminal/optionalPart";
 
-import { RULE_NAME_RULE_NAME, BRANCHING_MODIFIER_RULE_NAME } from "../../../ruleNames";
+import { RULE_NAME_RULE_NAME } from "../../../ruleNames";
 
 export default class RuleNameNonTerminalPartRuleDefinition extends Definition {
   static fromNothing() {
-    let ruleName;
-
-    ruleName = RULE_NAME_RULE_NAME;
-
-    const ruleNameRuleNamePart = RuleNamePart.fromRuleName(ruleName);
-
-    ruleName = BRANCHING_MODIFIER_RULE_NAME;
-
-    const branchingModifierRuleNamePart = RuleNamePart.fromRuleName(ruleName),
-          optionalBranchingnRuleNamePartPart = OptionalPartPart.fromPart(branchingModifierRuleNamePart),
+    const ruleName = RULE_NAME_RULE_NAME,
+          ruleNameRuleNamePart = RuleNamePart.fromRuleName(ruleName),
           parts = [
             ruleNameRuleNamePart,
-            optionalBranchingnRuleNamePartPart
           ],
           precedence = null,
           ruleNameNonTerminalPartRuleDefinition = new RuleNameNonTerminalPartRuleDefinition(parts, precedence);

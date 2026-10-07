@@ -29,7 +29,6 @@ import SequenceOfPartsBNFRule from "../rule/bnf/sequenceOfParts";
 import OpacityModifierBNFRule from "../rule/bnf/opacityModifier";
 import NoWhitespacePartBNFRule from "../rule/bnf/noWhitespacePart";
 import RegularExpressionBNFRule from "../rule/bnf/regularExpression";
-import BranchingModifierBNFRule from "../rule/bnf/branchingModifier";
 import OptionalQuantifierBNFRule from "../rule/bnf/optionalQuantifier";
 import OneOrMoreQuantifierBNFRule from "../rule/bnf/oneOrMoreQuantifier";
 import ZeroOrMoreQuantifierBNFRule from "../rule/bnf/zeroOrMoreQuantifier";
@@ -102,7 +101,6 @@ export default class BNFParser {
           opacityModifierBNFRule = OpacityModifierBNFRule.fromNothing(),
           noWhitespacePartBNFRule = NoWhitespacePartBNFRule.fromNothing(),
           regularExpressionBNFRule = RegularExpressionBNFRule.fromNothing(),
-          branchingModifierBNFRule = BranchingModifierBNFRule.fromNothing(),
           optionalQuantifierBNFRule = OptionalQuantifierBNFRule.fromNothing(),
           oneOrMoreQuantifierBNFRule = OneOrMoreQuantifierBNFRule.fromNothing(),
           zeroOrMoreQuantifierBNFRule = ZeroOrMoreQuantifierBNFRule.fromNothing(),
@@ -132,7 +130,6 @@ export default class BNFParser {
             opacityModifierBNFRule,
             noWhitespacePartBNFRule,
             regularExpressionBNFRule,
-            branchingModifierBNFRule,
             optionalQuantifierBNFRule,
             oneOrMoreQuantifierBNFRule,
             zeroOrMoreQuantifierBNFRule,

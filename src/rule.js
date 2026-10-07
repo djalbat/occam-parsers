@@ -4,6 +4,7 @@ import { specialSymbols } from "occam-lexers";
 
 import { EMPTY_STRING } from "./constants";
 import { some as linearSome } from "./utilities/linear";
+import { some as branchingSome } from "./utilities/branching";
 import { marginStringFromMarginWidth } from "./utilities/string";
 
 const { opaque: opaqueSpecialSymbol, semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
@@ -58,9 +59,13 @@ export default class Rule {
   }
 
   parse(frame, state, forward, back) {
-    const rule = this;  ///
+    const rule = this,
+          branching = state.isBranching(),
+          some = branching ?
+                  branchingSome :
+                    linearSome;
 
-    return linearSome(this.definitions, (definition, frame, state, forward, back) => {
+    return some(this.definitions, (definition, frame, state, forward, back) => {
       return definition.parse(rule, frame, state, forward, back);
     }, frame, state, forward, back);
   }

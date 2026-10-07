@@ -4,11 +4,12 @@ import NonTerminalPart from "../../part/nonTerminal";
 
 import { emptyFrame } from "../../frame";
 import { every as linearEvery  } from "../../utilities/linear";
+import { every as branchingEvery  } from "../../utilities/branching";
 import { SequenceOfPartsPartType } from "../../partTypes";
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
-  constructor(type, branching, parts) {
-    super(type, branching);
+  constructor(type, parts) {
+    super(type);
 
     this.parts = parts;
   }
@@ -18,7 +19,12 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
   }
 
   parse(frame, state, forward, back) {
-    return linearEvery(this.parts, (part, frame, state, forward, back) => {
+    const branching = state.isBranching(),
+          every = branching ?
+                    branchingEvery :
+                      linearEvery;
+
+    return every(this.parts, (part, frame, state, forward, back) => {
       return part.parse(frame, state, forward, back);
     }, emptyFrame, state, (partsFrame, state, back) => {
       frame = this.compose(frame, partsFrame);
@@ -46,8 +52,7 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
 
   static fromParts(parts) {
     const type = SequenceOfPartsPartType,
-          branching = false,
-          sequenceOfPartsPart = new SequenceOfPartsPart(type, branching, parts);
+          sequenceOfPartsPart = new SequenceOfPartsPart(type, parts);
 
     return sequenceOfPartsPart;
   }

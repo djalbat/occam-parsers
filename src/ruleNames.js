@@ -23,7 +23,6 @@ export const OPACITY_MODIFIER_RULE_NAME = "opacityModifier";
 export const NON_TERMINAL_PART_RULE_NAME = "nonTerminalPart";
 export const SEQUENCE_OF_PARTS_RULE_NAME = "sequenceOfParts";
 export const NO_WHITESPACE_PART_RULE_NAME = "noWhitespace"; ///
-export const BRANCHING_MODIFIER_RULE_NAME = "branchingModifier";
 export const REGULAR_EXPRESSION_RULE_NAME = "regularExpression";
 export const OPTIONAL_QUANTIFIER_RULE_NAME = "optionalQuantifier";
 export const ONE_OR_MORE_QUANTIFIER_RULE_NAME = "oneOrMoreQuantifier";

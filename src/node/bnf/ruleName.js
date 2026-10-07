@@ -8,13 +8,13 @@ import NonTerminalNode from "../../node/nonTerminal";
 const { first } = arrayUtilities;
 
 export default class RuleNameBNFNode extends NonTerminalNode {
-  generatePart(branching) {
+  generatePart() {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           terminalNode = firstChildNode,  ///
           terminalNodeContent = terminalNode.getContent(),
           ruleName = terminalNodeContent, ///
-          ruleNamePart = RuleNamePart.fromBranchingAndRuleName(branching, ruleName);
+          ruleNamePart = RuleNamePart.fromRuleName(ruleName);
 
     return ruleNamePart;
   }

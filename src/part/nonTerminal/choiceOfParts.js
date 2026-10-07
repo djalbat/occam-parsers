@@ -3,11 +3,12 @@
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { some as linearSome } from "../../utilities/linear";
+import { some as branchingSome } from "../../utilities/branching";
 import { ChoiceOfPartsPartType } from "../../partTypes";
 
 export default class ChoiceOfPartsPart extends NonTerminalPart {
-  constructor(type, branching, partChoices) {
-    super(type, branching);
+  constructor(type, partChoices) {
+    super(type);
     
     this.partChoices = partChoices;
   }
@@ -27,7 +28,12 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
   }
 
   parse(frame, state, forward, back) {
-    return linearSome(this.partChoices, (partChoice, frame, state, forward, back) => {
+    const branching = state.isBranching(),
+          some = branching ?
+                   branchingSome :
+                     linearSome;
+
+    return some(this.partChoices, (partChoice, frame, state, forward, back) => {
       return partChoice.parse(frame, state, forward, back);
     }, frame, state, forward, back);
   }
@@ -51,8 +57,7 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
 
   static fromPartChoices(partChoices) {
     const type = ChoiceOfPartsPartType,
-          branching = false,
-          choiceOfPartsPart = new ChoiceOfPartsPart(type, branching, partChoices);
+          choiceOfPartsPart = new ChoiceOfPartsPart(type, partChoices);
 
     return choiceOfPartsPart;
   }

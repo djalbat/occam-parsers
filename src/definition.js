@@ -6,6 +6,7 @@ import Frame from "./frame";
 
 import { emptyFrame } from "./frame";
 import { every as linearEvery  } from "./utilities/linear";
+import { every as branchingEvery  } from "./utilities/branching";
 import { EMPTY_STRING, TRANSPARENT_PRECEDENCE } from "./constants";
 
 const { SPACE_CHARACTER } = characters;
@@ -25,7 +26,12 @@ export default class Definition {
   }
 
   parse(rule, frame, state, forward, back) {
-    return linearEvery(this.parts, (part, frame, state, forward, back) => {
+    const branching = state.isBranching(),
+          every = branching ?
+                    branchingEvery :
+                      linearEvery;
+
+    return every(this.parts, (part, frame, state, forward, back) => {
       return part.parse(frame, state, forward, back);
     }, emptyFrame, state, (definitionFrame, state, back) => {
       frame = this.compose(rule, frame, definitionFrame, state);

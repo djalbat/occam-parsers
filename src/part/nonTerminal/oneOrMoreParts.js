@@ -6,12 +6,13 @@ import NonTerminalPart from "../../part/nonTerminal";
 
 import { OneOrMorePartsPartType } from "../../partTypes";
 import { repeatedly as linearRepeatedly } from "../../utilities/linear";
+import { repeatedly as branchingRepeatedly } from "../../utilities/branching";
 
 const { plus } = specialSymbols;
 
 export default class OneOrMorePartsPart extends NonTerminalPart {
-  constructor(type, branching, part) {
-    super(type, branching);
+  constructor(type, part) {
+    super(type);
 
     this.part = part;
   }
@@ -22,9 +23,13 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
 
   parse(frame, state, forward, back) {
     const limit = Infinity,
-          strict = true;
+          strict = true,
+          branching = state.isBranching(),
+          repeatedly = branching ?
+                         branchingRepeatedly :
+                           linearRepeatedly;
 
-    return linearRepeatedly(this.part, limit, strict, (part, frame, state, forward, back) => {
+    return repeatedly(this.part, limit, strict, (part, frame, state, forward, back) => {
       return part.parse(frame, state, forward, back);
     }, frame, state, forward, back);
   }
@@ -38,8 +43,7 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
 
   static fromPart(part) {
     const type = OneOrMorePartsPartType,
-          branching = false,
-          oneOrMorePartsPart = new OneOrMorePartsPart(type, branching, part);
+          oneOrMorePartsPart = new OneOrMorePartsPart(type, part);
 
     return oneOrMorePartsPart;
   }

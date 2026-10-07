@@ -4,7 +4,7 @@ import CutPart from "../../part/terminal/cut";
 import NonTerminalNode from "../../node/nonTerminal";
 
 export default class CutBNFNode extends NonTerminalNode {
-  generatePart(branching) {
+  generatePart() {
     const cutPart = CutPart.fromNothing();
 
     return cutPart;

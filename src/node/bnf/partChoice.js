@@ -7,7 +7,7 @@ import { nodeFromChildNodesAndRuleName } from "../../utilities/node";
 import { PART_RULE_NAME, PRECEDENCE_RULE_NAME } from "../../ruleNames";
 
 export default class PartChoiceBNFNode extends NonTerminalNode {
-  generatePartChoice(branching) {
+  generatePartChoice() {
     let ruleName;
 
     const childNodes = this.getChildNodes();
@@ -20,9 +20,7 @@ export default class PartChoiceBNFNode extends NonTerminalNode {
 
     const precedenceBNFNode = nodeFromChildNodesAndRuleName(childNodes, ruleName);
 
-    branching = false;  ///
-
-    const part = partBNFNode.generatePart(branching),
+    const part = partBNFNode.generatePart(),
           precedence = (precedenceBNFNode === null) ?
                           null :
                             precedenceBNFNode.getPrecedence(),

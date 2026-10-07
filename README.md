@@ -46,9 +46,11 @@ nonTerminalPart          ::=  isolatedPart
 
                            |  choiceOfParts
     
+                           |  branchingParts
+    
                            |  sequenceOfParts
     
-                           |  ruleName branchingModifier?
+                           |  ruleName
     
                            ;
 
@@ -71,6 +73,8 @@ terminalPart             ::=  significantTokenType
                            ;
                       
 sequenceOfParts          ::=  "(" part part+ ")" ;
+
+branchingParts           ::=  "(" part "..." part ")" ;
 
 choiceOfParts            ::=  "(" partChoice ( "|" partChoice )+ ")" ;
 
@@ -107,8 +111,6 @@ quantifier               ::=  optionalQuantifier
                            ;
 
 opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
-
-branchingModifier        ::=  <NO_WHITESPACE>"..." ;
 
 optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
 

@@ -1,12 +1,6 @@
 "use strict";
 
 export default class TerminalPart {
-  isBranching() {
-    const branching = false;
-
-    return branching;
-  }
-
   isNonTerminalPart() {
     const nonTerminalPart = false;
 

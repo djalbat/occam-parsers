@@ -6,12 +6,13 @@ import NonTerminalPart from "../../part/nonTerminal";
 
 import { OptionalPartPartType } from "../../partTypes";
 import { repeatedly as linearRepeatedly } from "../../utilities/linear";
+import { repeatedly as branchingRepeatedly } from "../../utilities/branching";
 
 const { questionMark } = specialSymbols;
 
 export default class OptionalPartPart extends NonTerminalPart {
-  constructor(type, branching, part) {
-    super(type, branching);
+  constructor(type, part) {
+    super(type);
 
     this.part = part;
   }
@@ -22,9 +23,13 @@ export default class OptionalPartPart extends NonTerminalPart {
 
   parse(frame, state, forward, back) {
     const limit = 1,
-          strict = false;
+          strict = false,
+          branching = state.isBranching(),
+          repeatedly = branching ?
+                         branchingRepeatedly :
+                           linearRepeatedly;
 
-    return linearRepeatedly(this.part, limit, strict, (part, frame, state, forward, back) => {
+    return repeatedly(this.part, limit, strict, (part, frame, state, forward, back) => {
       return part.parse(frame, state, forward, back);
     }, frame, state, forward, back);
   }
@@ -38,8 +43,7 @@ export default class OptionalPartPart extends NonTerminalPart {
 
   static fromPart(part) {
     const type = OptionalPartPartType,
-          branching = false,
-          optionalPartPart = new OptionalPartPart(type, branching, part);
+          optionalPartPart = new OptionalPartPart(type, part);
 
     return optionalPartPart;
   }

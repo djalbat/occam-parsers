@@ -239,7 +239,7 @@ describe("Choice of parts", () => {
     });
   });
 
-  describe("continuation from a choice of parts part with two terminal parts to a terminal part", () => {
+  describe.skip("continuation from a choice of parts part with two terminal parts to a terminal part", () => {
     const bnf = `
     
       S ::= A... . ;
@@ -251,7 +251,7 @@ describe("Choice of parts", () => {
     describe("content with two significant tokens", () => {
       const content = "a a";
 
-      it.skip("results in the requisite parse tree" , () => {
+      it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
@@ -272,7 +272,7 @@ describe("Choice of parts", () => {
   describe.skip("continuation from a choice of parts part with one terminal part and one optional part through a terminal part to an optional part", () => {
     const bnf = `
     
-      S ::= A... . ;
+      S ::= A ... "a" ;
       
       A ::= ( . | .? ) . ;
     
