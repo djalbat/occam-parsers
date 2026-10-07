@@ -24,11 +24,15 @@ export default class BranchingPartsPart extends NonTerminalPart {
   }
 
   parse(frame, state, forward, back) {
+    const savedFrame = frame; ///
+
     state = state.branch(); ///
 
     return branchingEvery(this.parts, (part, frame, state, forward, back) => {
       return part.parse(frame, state, forward, back);
     }, emptyFrame, state, (partsFrame, state, back) => {
+      frame = savedFrame; ///
+
       frame = this.compose(frame, partsFrame);
 
       state = state.prune();  ///

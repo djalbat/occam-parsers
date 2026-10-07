@@ -19,7 +19,8 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
   }
 
   parse(frame, state, forward, back) {
-    const branching = state.isBranching(),
+    const savedFrame = frame, ///
+          branching = state.isBranching(),
           every = branching ?
                     branchingEvery :
                       linearEvery;
@@ -27,6 +28,8 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     return every(this.parts, (part, frame, state, forward, back) => {
       return part.parse(frame, state, forward, back);
     }, emptyFrame, state, (partsFrame, state, back) => {
+      frame = savedFrame; ///
+
       frame = this.compose(frame, partsFrame);
 
       return forward(frame, state, back);

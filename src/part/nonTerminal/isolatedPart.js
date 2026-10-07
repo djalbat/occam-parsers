@@ -17,7 +17,11 @@ export default class IsolatedPartPart extends NonTerminalPart {
   }
 
   parse(frame, state, forward, back) {
+    const savedFrame = frame; ///
+
     return this.part.parse(frame, state, (frame, state, back) => {
+      frame = savedFrame; ///
+
       frame = this.compose(frame);
 
       return forward(frame, state, back);

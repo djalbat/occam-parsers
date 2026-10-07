@@ -26,7 +26,8 @@ export default class Definition {
   }
 
   parse(rule, frame, state, forward, back) {
-    const branching = state.isBranching(),
+    const savedFrame = frame, ///
+          branching = state.isBranching(),
           every = branching ?
                     branchingEvery :
                       linearEvery;
@@ -34,7 +35,9 @@ export default class Definition {
     return every(this.parts, (part, frame, state, forward, back) => {
       return part.parse(frame, state, forward, back);
     }, emptyFrame, state, (definitionFrame, state, back) => {
-      frame = this.compose(rule, frame, definitionFrame, state);
+      frame = savedFrame; ///
+
+      frame = this.compose(rule, frame, definitionFrame, state);  ///
 
       if (frame === null) {
         return back();

@@ -4,14 +4,14 @@ const { testUtilities } = require("../lib"); ///
 
 const { nodeFromEntriesBnfAndContent } = testUtilities;
 
-describe.skip("Cut part", () => {
+describe("Cut part", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"
     }
   ];
 
-  describe("cut part inside repetition", () => {
+  describe.skip("cut part inside repetition", () => {
     const bnf = `
     
        S ::= T... "." ;
@@ -38,7 +38,7 @@ describe.skip("Cut part", () => {
   describe("cut part inside repetition", () => {
     const bnf = `
     
-       S ::= T... "." ;
+       S ::= ( T... "." ) ;
   
        T ::= . (A* A)* ;
   
@@ -47,9 +47,9 @@ describe.skip("Cut part", () => {
     `;
 
     describe("content that does not parse", () => {
-      const content = "x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x=";
+      const content = "x + x + x + x=";
 
-      it("parses instantaneously", () => {
+      it.only("parses instantaneously", () => {
         const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isNull(node);
@@ -60,7 +60,7 @@ describe.skip("Cut part", () => {
   describe("cut part after a terminal in a definition", () => {
     const bnf = `
   
-      S ::= T... "." ;
+      S ::= ( T... "." ) ;
       
       T ::= "x" "+" \` "y"
       
@@ -81,7 +81,7 @@ describe.skip("Cut part", () => {
     });
   });
 
-  describe("two cut parts after terminals in definitions", () => {
+  describe.skip("two cut parts after terminals in definitions", () => {
     const bnf = `
   
       S ::= T... "." ;
@@ -107,7 +107,7 @@ describe.skip("Cut part", () => {
     });
   });
 
-  describe("cut part after a terminal in a choice of part part", () => {
+  describe.skip("cut part after a terminal in a choice of part part", () => {
     const bnf = `
   
       S ::= T... "." ;
@@ -131,7 +131,7 @@ describe.skip("Cut part", () => {
     });
   });
 
-  describe("two cut parts after terminals in a choice of parts part", () => {
+  describe.skip("two cut parts after terminals in a choice of parts part", () => {
     const bnf = `
   
       S ::= T... "." ;

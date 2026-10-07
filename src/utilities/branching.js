@@ -18,7 +18,7 @@ export function some(array, callback, ...initialArguments) {
       forward,
       (exception) => {
         if (exception) {
-          return back(exception);
+          return back();
         }
 
         return next(index + 1);
@@ -49,7 +49,9 @@ export function every(array, callback, ...initialArguments) {
     return callback(
       element,
       ...nextArguments,
-      (...forwardArguments) => next(index + 1, ...forwardArguments),
+      (...forwardArguments) => {
+        return next(index + 1, ...forwardArguments);
+      },
       back,
       index
     );
@@ -76,10 +78,16 @@ export function repeatedly(element, limit, strict, callback, ...initialArguments
     return callback(
       element,
       ...nextArguments,
-      (...callbackArguments) => next(count + 1, ...callbackArguments),
-      (strict && initial) ?
-        back :
-          () => forward(...nextArguments, back)
+      (...callbackArguments) => {
+        return next(count + 1, ...callbackArguments);
+      },
+      (exception) => {
+        if (strict && initial) {
+          return back(exception);
+        }
+
+        return forward(...nextArguments, back)
+      }
     );
   }
 

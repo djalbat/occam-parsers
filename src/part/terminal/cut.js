@@ -32,13 +32,14 @@ export default class CutPart extends TerminalPart {
   }
 }
 
-function cut(...initialArguments) {
-  const back = initialArguments.pop(),
-        forward = initialArguments.pop();
-
+function cut(forward, back) {
   return (...forwardArguments) => {
     forwardArguments.pop(); ///
 
-    return forward(...forwardArguments, back);
+    return forward(...forwardArguments, () => {
+      const exception = true;
+
+      return back(exception);
+    });
   };
 }

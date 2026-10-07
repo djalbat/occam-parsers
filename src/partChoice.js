@@ -24,8 +24,12 @@ export default class PartChoice {
   }
 
   parse(frame, state, forward, back) {
-    return this.part.parse(emptyFrame, state, (partFrame, partState) => {
+    const savedFrame = frame; ///
+
+    return this.part.parse(emptyFrame, state, (partFrame, partState, back) => {
       state = partState;  ///
+
+      frame = savedFrame; ///
 
       frame = this.compose(frame, partFrame);
 
