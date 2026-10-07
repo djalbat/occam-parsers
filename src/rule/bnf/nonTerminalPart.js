@@ -4,13 +4,11 @@ import Rule from "../../rule";
 import RuleNameDefinition from "../../definition/ruleName";
 import RuleNameNonTerminalPartRuleDefinition from "../../definition/partRule/nonTerminal/ruleName";
 
-import { ISOLATED_PART_RULE_NAME, CHOICE_OF_PARTS_RULE_NAME, SEQUENCE_OF_PARTS_RULE_NAME, NON_TERMINAL_PART_RULE_NAME } from "../../ruleNames";
+import { ISOLATED_PART_RULE_NAME, CHOICE_OF_PARTS_RULE_NAME, BRANCHING_PARTS_RULE_NAME, SEQUENCE_OF_PARTS_RULE_NAME, NON_TERMINAL_PART_RULE_NAME } from "../../ruleNames";
 
 export default class NonTerminalPartBNFRule extends Rule {
   static fromNothing() {
     let ruleName;
-
-    const name = NON_TERMINAL_PART_RULE_NAME; ///
 
     ruleName = ISOLATED_PART_RULE_NAME;
 
@@ -20,14 +18,21 @@ export default class NonTerminalPartBNFRule extends Rule {
 
     const choiceOfPartsRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
 
+    ruleName = BRANCHING_PARTS_RULE_NAME;
+
+    const branchingPartsRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
+
     ruleName = SEQUENCE_OF_PARTS_RULE_NAME;
 
-    const sequenceOfPartsRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName),
-          ruleNameNonTerminalPartRuleDefinition = RuleNameNonTerminalPartRuleDefinition.fromNothing(),
+    const sequenceOfPartsRuleNameDefinition = RuleNameDefinition.fromRuleName(ruleName);
+
+    const ruleNameNonTerminalPartRuleDefinition = RuleNameNonTerminalPartRuleDefinition.fromNothing(),
+          name = NON_TERMINAL_PART_RULE_NAME, ///
           opacity = null,
           definitions = [
             isolatedPartRuleNameDefinition,
             choiceOfPartsRuleNameDefinition,
+            branchingPartsRuleNameDefinition,
             sequenceOfPartsRuleNameDefinition,
             ruleNameNonTerminalPartRuleDefinition
           ],

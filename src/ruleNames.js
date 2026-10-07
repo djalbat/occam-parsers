@@ -19,6 +19,7 @@ export const ISOLATED_PART_RULE_NAME = "isolatedPart";
 export const TERMINAL_PART_RULE_NAME = "terminalPart";
 export const STRING_LITERAL_RULE_NAME = "stringLiteral";
 export const CHOICE_OF_PARTS_RULE_NAME = "choiceOfParts";
+export const BRANCHING_PARTS_RULE_NAME = "branchingParts";
 export const OPACITY_MODIFIER_RULE_NAME = "opacityModifier";
 export const NON_TERMINAL_PART_RULE_NAME = "nonTerminalPart";
 export const SEQUENCE_OF_PARTS_RULE_NAME = "sequenceOfParts";

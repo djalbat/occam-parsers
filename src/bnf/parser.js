@@ -24,6 +24,7 @@ import IsolatedPartBNFRule from "../rule/bnf/isolatedPart";
 import TerminalPartBNFRule from "../rule/bnf/terminalPart";
 import ChoiceOfPartsBNFRule from "../rule/bnf/choiceOfParts";
 import StringLiteralBNFRule from "../rule/bnf/stringLiteral";
+import BranchingPartsBNFRule from "../rule/bnf/branchingParts";
 import NonTerminalPartBNFRule from "../rule/bnf/nonTerminalPart";
 import SequenceOfPartsBNFRule from "../rule/bnf/sequenceOfParts";
 import OpacityModifierBNFRule from "../rule/bnf/opacityModifier";
@@ -96,6 +97,7 @@ export default class BNFParser {
           isolatedPartBNFRule = IsolatedPartBNFRule.fromNothing(),
           choiceOfPartsBNFRule = ChoiceOfPartsBNFRule.fromNothing(),
           stringLiteralBNFRule = StringLiteralBNFRule.fromNothing(),
+          branchingPartsBNFRule = BranchingPartsBNFRule.fromNothing(),
           nonTerminalPartBNFRule = NonTerminalPartBNFRule.fromNothing(),
           sequenceOfPartsBNFRule = SequenceOfPartsBNFRule.fromNothing(),
           opacityModifierBNFRule = OpacityModifierBNFRule.fromNothing(),
@@ -125,6 +127,7 @@ export default class BNFParser {
             isolatedPartBNFRule,
             choiceOfPartsBNFRule,
             stringLiteralBNFRule,
+            branchingPartsBNFRule,
             nonTerminalPartBNFRule,
             sequenceOfPartsBNFRule,
             opacityModifierBNFRule,

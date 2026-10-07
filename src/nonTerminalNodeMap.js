@@ -19,6 +19,7 @@ import TerminalPartBNFNode from "./node/bnf/terminalPart";
 import IsolatedPartBNFNode from "./node/bnf/isolatedPart";
 import ChoiceOfPartsBNFNode from "./node/bnf/choiceOfParts";
 import StringLiteralBNFNode from "./node/bnf/stringLiteral";
+import BranchingPartsBNFNode from "./node/bnf/branchingParts";
 import BonTerminalPartBNFNode from "./node/bnf/nonTerminalPart";
 import SequenceOfPartsBNFNode from "./node/bnf/sequenceOfParts";
 import OpacityModifierBNFNode from "./node/bnf/opacityModifier";
@@ -48,6 +49,7 @@ import { CUT_RULE_NAME,
          ISOLATED_PART_RULE_NAME,
          STRING_LITERAL_RULE_NAME,
          CHOICE_OF_PARTS_RULE_NAME,
+         BRANCHING_PARTS_RULE_NAME,
          OPACITY_MODIFIER_RULE_NAME,
          NON_TERMINAL_PART_RULE_NAME,
          SEQUENCE_OF_PARTS_RULE_NAME,
@@ -78,6 +80,7 @@ const NonTerminalNodeMap = {
   [ISOLATED_PART_RULE_NAME]: IsolatedPartBNFNode,
   [STRING_LITERAL_RULE_NAME]: StringLiteralBNFNode,
   [CHOICE_OF_PARTS_RULE_NAME]: ChoiceOfPartsBNFNode,
+  [BRANCHING_PARTS_RULE_NAME]: BranchingPartsBNFNode,
   [OPACITY_MODIFIER_RULE_NAME]: OpacityModifierBNFNode,
   [NON_TERMINAL_PART_RULE_NAME]: BonTerminalPartBNFNode,
   [SEQUENCE_OF_PARTS_RULE_NAME]: SequenceOfPartsBNFNode,
