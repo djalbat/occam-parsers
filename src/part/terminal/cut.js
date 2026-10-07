@@ -4,8 +4,6 @@ import { specialSymbols } from "occam-lexers";
 
 import TerminalPart from "../../part/terminal";
 
-import { cut } from "../../utilities/branching";
-
 const { backtick } = specialSymbols;
 
 export default class CutPart extends TerminalPart {
@@ -32,4 +30,15 @@ export default class CutPart extends TerminalPart {
 
     return cutPart;
   }
+}
+
+function cut(...initialArguments) {
+  const back = initialArguments.pop(),
+        forward = initialArguments.pop();
+
+  return (...forwardArguments) => {
+    forwardArguments.pop(); ///
+
+    return forward(...forwardArguments, back);
+  };
 }

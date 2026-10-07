@@ -3,8 +3,8 @@
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { emptyFrame } from "../../frame";
+import { every as linearEvery  } from "../../utilities/linear";
 import { SequenceOfPartsPartType } from "../../partTypes";
-import { parsePartsContinually, parsePartsRepeatedly } from "../../utilities/parts";
 
 export default class SequenceOfPartsPart extends NonTerminalPart {
   constructor(type, branching, parts) {
@@ -18,12 +18,9 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
   }
 
   parse(frame, state, forward, back) {
-    const continuing = false,
-          parseParts = continuing ?
-                        parsePartsContinually :
-                           parsePartsRepeatedly;
-
-    return parseParts(this.parts, emptyFrame, state, (partsFrame, state, back) => {
+    return linearEvery(this.parts, (part, frame, state, forward, back) => {
+      return part.parse(frame, state, forward, back);
+    }, emptyFrame, state, (partsFrame, state, back) => {
       frame = this.compose(frame, partsFrame);
 
       return forward(frame, state, back);

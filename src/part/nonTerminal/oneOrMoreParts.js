@@ -5,7 +5,7 @@ import { specialSymbols } from "occam-lexers";
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { OneOrMorePartsPartType } from "../../partTypes";
-import { parsePartContinually, parsePartRepeatedly } from "../../utilities/part";
+import { repeatedly as linearRepeatedly } from "../../utilities/linear";
 
 const { plus } = specialSymbols;
 
@@ -22,13 +22,11 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
 
   parse(frame, state, forward, back) {
     const limit = Infinity,
-          strict = true,
-          continuing = false, ///
-          parsePart = continuing ?
-                        parsePartContinually :
-                          parsePartRepeatedly;
+          strict = true;
 
-    return parsePart(this.part, limit, strict, frame, state, forward, back);
+    return linearRepeatedly(this.part, limit, strict, (part, frame, state, forward, back) => {
+      return part.parse(frame, state, forward, back);
+    }, frame, state, forward, back);
   }
 
   asString() {

@@ -5,8 +5,8 @@ import { characters } from "necessary";
 import Frame from "./frame";
 
 import { emptyFrame } from "./frame";
+import { every as linearEvery  } from "./utilities/linear";
 import { EMPTY_STRING, TRANSPARENT_PRECEDENCE } from "./constants";
-import { parsePartsContinually, parsePartsRepeatedly } from "./utilities/parts";
 
 const { SPACE_CHARACTER } = characters;
 
@@ -25,12 +25,9 @@ export default class Definition {
   }
 
   parse(rule, frame, state, forward, back) {
-    const continuing = false,
-          parseParts = continuing ?
-                         parsePartsContinually :
-                           parsePartsRepeatedly;
-
-    return parseParts(this.parts, emptyFrame, state, (definitionFrame, state, back) => {
+    return linearEvery(this.parts, (part, frame, state, forward, back) => {
+      return part.parse(frame, state, forward, back);
+    }, emptyFrame, state, (definitionFrame, state, back) => {
       frame = this.compose(rule, frame, definitionFrame, state);
 
       if (frame === null) {

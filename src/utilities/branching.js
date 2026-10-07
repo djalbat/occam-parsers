@@ -1,16 +1,5 @@
 "use strict";
 
-export function cut(...initialArguments) {
-  const back = initialArguments.pop(),
-        forward = initialArguments.pop();
-
-  return (...forwardArguments) => {
-    forwardArguments.pop(); ///
-
-    return forward(...forwardArguments, back);
-  };
-}
-
 export function some(array, callback, ...initialArguments) {
   const back = initialArguments.pop(),
         forward = initialArguments.pop(),
@@ -60,9 +49,7 @@ export function every(array, callback, ...initialArguments) {
     return callback(
       element,
       ...nextArguments,
-      (...forwardArguments) => {
-        return next(index + 1, ...forwardArguments);
-      },
+      (...forwardArguments) => next(index + 1, ...forwardArguments),
       back,
       index
     );
@@ -71,4 +58,32 @@ export function every(array, callback, ...initialArguments) {
   const index = 0;
 
   return next(index, ...initialArguments, back);
+}
+
+export function repeatedly(element, limit, strict, callback, ...initialArguments) {
+  const back = initialArguments.pop(),
+        forward = initialArguments.pop();
+
+  function next(count, ...nextArguments) {
+    const back = nextArguments.pop();
+
+    if (count === limit) {
+      return forward(...nextArguments, back);
+    }
+
+    const initial = (count === 0);
+
+    return callback(
+      element,
+      ...nextArguments,
+      (...callbackArguments) => next(count + 1, ...callbackArguments),
+      (strict && initial) ?
+        back :
+          () => forward(...nextArguments, back)
+    );
+  }
+
+  const count = 0;
+
+  return next(count, ...initialArguments, back);
 }
