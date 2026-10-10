@@ -1,5 +1,6 @@
 "use strict";
 
+import Frame from "../../frame";
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { ISOLATED_PRECEDENCE } from "../../constants";
@@ -17,22 +18,18 @@ export default class IsolatedPartPart extends NonTerminalPart {
   }
 
   parse(frame, state, forward, back) {
-    const savedFrame = frame; ///
-
     return this.part.parse(frame, state, (frame, state, back) => {
-      frame = savedFrame; ///
-
       frame = this.compose(frame);
 
       return forward(frame, state, back);
     }, back);
   }
 
-  comopse(frame) {
+  compose(frame) {
     const childNodes = frame.getChildNodes(),
           precedence = ISOLATED_PRECEDENCE;
 
-    frame = frame.fromChildNodesAndPrecedence(childNodes, precedence);
+    frame = Frame.fromChildNodesAndPrecedence(childNodes, precedence);
 
     return frame;
   }

@@ -34,10 +34,10 @@ export default class Definition {
 
     return every(this.parts, (part, frame, state, forward, back) => {
       return part.parse(frame, state, forward, back);
-    }, emptyFrame, state, (definitionFrame, state, back) => {
-      frame = savedFrame; ///
+    }, emptyFrame, state, (frame, state, back) => {
+      const definition = this;  ///
 
-      frame = this.compose(rule, frame, definitionFrame, state);  ///
+      frame = this.compose(rule, definition, savedFrame, frame, state);  ///
 
       if (frame === null) {
         return back();
@@ -47,18 +47,18 @@ export default class Definition {
     }, back);
   }
 
-  compose(rule, frame, definitionFrame, state) {
-    const definition = this,  ///
-          nonTerminalNode = nonTerminalNodeFromDefinitionFrameDefinitionAndRule(definitionFrame, definition, rule, state),
+  compose(rule, definition, savedFrame, frame, state) {
+    const nonTerminalNode = nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame, state),
           unpalatable = nonTerminalNode.isUnpalatable();
 
     if (unpalatable) {
       frame = null;
     } else {
-      const childNode = nonTerminalNode,  ///
-            ruleFrame = Frame.fromChildNode(childNode); ///
+      const childNode = nonTerminalNode;  ///
 
-      frame = frame.merge(ruleFrame); ///
+      frame = Frame.fromChildNode(childNode); ///
+
+      frame = savedFrame.merge(frame); ///
     }
 
     return frame;
@@ -120,11 +120,10 @@ export default class Definition {
   }
 }
 
-function nonTerminalNodeFromDefinitionFrameDefinitionAndRule(definitionFrame, definition, rule, state) {
+function nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame, state) {
   let nonTerminalNode;
 
-  const frame = definitionFrame,  ///
-        opacity = rule.getOpacity(),
+  const opacity = rule.getOpacity(),
         ruleName = rule.getName(),
         childNodes = frame.getChildNodes(),
         precedence = frame.getPrecedence(definition),

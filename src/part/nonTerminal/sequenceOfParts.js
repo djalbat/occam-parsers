@@ -27,10 +27,8 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
 
     return every(this.parts, (part, frame, state, forward, back) => {
       return part.parse(frame, state, forward, back);
-    }, emptyFrame, state, (partsFrame, state, back) => {
-      frame = savedFrame; ///
-
-      frame = this.compose(frame, partsFrame);
+    }, emptyFrame, state, (frame, state, back) => {
+      frame = this.compose(savedFrame, frame);
 
       return forward(frame, state, back);
     }, back);

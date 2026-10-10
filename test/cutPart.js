@@ -11,6 +11,30 @@ describe("Cut part", () => {
     }
   ];
 
+  describe("cut part after a terminal in a definition", () => {
+    const bnf = `
+  
+      S ::= ( T... "." ) ;
+      
+      T ::= "x" "+" \` "y"
+      
+          | "x" "+" "z"
+                   
+          ;
+                 
+    `;
+
+    describe("content that will not parse", () => {
+      const content = "x + z.";
+
+      it("fails to parse" , () => {
+        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isNull(node);
+      });
+    });
+  });
+
   describe("cut-pruned rewritten left-recursion", () => {
     const bnf = `
   
@@ -42,217 +66,67 @@ describe("Cut part", () => {
     
     `;
 
-    describe("valid derivations", () => {
-      it.only("parses base A ('e')", () => {
-        const content = "e.",
-              node = nodeFromEntriesBnfAndContent(entries, bnf, content);
+    it("parses the A rule", () => {
+      const content = "e.",
+            node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
-        assert.isNotNull(node);
-      });
-
-      it("parses base B transitioned to A ('d g')", () => {
-        const content = "d g.";
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNotNull(node);
-      });
-
-      it("parses mutual cycle once ('e h g')", () => {
-        const content = "e h g.";
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNotNull(node);
-      });
-
-      it("parses direct left recursion on B ('d f g')", () => {
-        const content = "d f g.";
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNotNull(node);
-      });
-
-      it("parses compound loops ('e h f g h f g')", () => {
-        const content = "e h f g h f g.";
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNotNull(node);
-      });
-
-      it("parses multiple chained A statements", () => {
-        const content = "e.d g.e h g.";
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNotNull(node);
-      });
+      assert.isNotNull(node);
     });
 
-    describe("syntax errors with cuts", () => {
-      it("fails instantaneously on committed base prefix ('d x')", () => {
-        const content = "d x.";
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
+    it("parses rule B transitioned from A", () => {
+      const content = "d g.",
+            node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
-        assert.isNull(node);
-      });
-
-      it("fails instantaneously after inlined cycle cut ('e h x')", () => {
-        const content = "e h x.";
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNull(node);
-      });
-
-      it("fails instantaneously after repetition steps without Catalan search ('d f f f x')", () => {
-        const content = "d f f f x.";
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNull(node);
-      });
+      assert.isNotNull(node);
     });
-  });
 
-  describe.skip("cut part inside repetition", () => {
-    const bnf = `
-    
-       S ::= T... "." ;
-  
-       T ::= . A? ;
-  
-       A ::= B? B ;
-  
-       B ::= "+" \` T ;
-                              
-    `;
+    it("parses a mutual cycle once", () => {
+      const content = "e h g.",
+            node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
-    describe("content that does parse", () => {
-      const content = "x + x.";
-
-      it("parses instantaneously", () => {
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNotNull(node);
-      });
+      assert.isNotNull(node);
     });
-  });
 
-  describe.skip("cut part inside repetition", () => {
-    const bnf = `
-    
-      S ::= ( T ... "." ) ;
-      
-      T ::= . (A A?)? ;
-      
-      A ::= "+" \` T ;
-    
-    `;
+    it("direct left recursion on the B rule", () => {
+      const content = "d f g.",
+            node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
-    describe("content that does not parse", () => {
-      const content = "x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x=";
-
-      it("parses instantaneously", () => {
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNull(node);
-      });
+      assert.isNotNull(node);
     });
-  });
 
-  describe.skip("cut part after a terminal in a definition", () => {
-    const bnf = `
-  
-      S ::= ( T... "." ) ;
-      
-      T ::= "x" "+" \` "y"
-      
-          | "x" "+" "z"
-                   
-          ;
-                 
-    `;
+    it("parses compound loops", () => {
+      const content = "e h f g h f g.",
+            node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
-    describe("content that will not parse", () => {
-      const content = "x + z.";
-
-      it("fails to parse" , () => {
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNull(node);
-      });
+      assert.isNotNull(node);
     });
-  });
 
-  describe.skip("two cut parts after terminals in definitions", () => {
-    const bnf = `
-  
-      S ::= T... "." ;
-      
-      T ::= . "+" . "+" \` T
-      
-          | . "+" \` T
-      
-          | .
-                   
-          ;
-                 
-    `;
+    it("parses multiple chained statements", () => {
+      const content = "e.d g.e h g.",
+            node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
-    describe("content that will not parse instantly", () => {
-      const content = "x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x=";
-
-      it("fails to parse" , () => {
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNull(node);
-      });
+      assert.isNotNull(node);
     });
-  });
 
-  describe.skip("cut part after a terminal in a choice of part part", () => {
-    const bnf = `
-  
-      S ::= T... "." ;
-      
-      T ::= "x" ( ( "+" \` "y" )
-      
-                | ( "+" "z" ) )
-                   
-          ;
-                 
-    `;
+    it("fails on the committed base prefix", () => {
+      const content = "d x.",
+            node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
-    describe("content that will not parse", () => {
-      const content = "x + z.";
-
-      it("fails to parse" , () => {
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
-
-        assert.isNull(node);
-      });
+      assert.isNull(node);
     });
-  });
 
-  describe.skip("two cut parts after terminals in a choice of parts part", () => {
-    const bnf = `
-  
-      S ::= T... "." ;
-      
-      T ::= ( ( . "+" . "+" \` T )
-      
-            | ( . "+" \` T )
-      
-            | . )
-                   
-          ;
-                 
-    `;
+    it("fails after an inlined cycle cut", () => {
+      const content = "e h x.",
+            node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
-    describe("content that will not parse instantly", () => {
-      const content = "x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x=";
+      assert.isNull(node);
+    });
 
-      it("fails to parse" , () => {
-        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
+    it("fails after repetition steps without Catalan search", () => {
+      const content = "d f f f x.",
+            node = nodeFromEntriesBnfAndContent(entries, bnf, content);
 
-        assert.isNull(node);
-      });
+      assert.isNull(node);
     });
   });
 });

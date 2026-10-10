@@ -103,7 +103,7 @@ export function repeatedly(element, limit, strict, callback, ...initialArguments
   return forward(...finalArguments, back);
 }
 
-export function trampoline(callback, ...initialArguments) {
+export function incessantly(callback, ...initialArguments) {
   const back = initialArguments.pop(),
         forward = initialArguments.pop();
 

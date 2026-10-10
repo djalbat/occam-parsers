@@ -181,10 +181,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("contiunation to a terminal part", () => {
+  describe("contiunation to a terminal part", () => {
     const bnf = `
     
-      S ::= A... "b" ;
+      S ::= ( A ... "b" ) ;
       
       A ::= "a" ;
     
@@ -211,10 +211,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("contiunation to an optional part", () => {
+  describe("contiunation to an optional part", () => {
     const bnf = `
     
-      S ::= A... "a"? ;
+      S ::= ( A ... "a"? ) ;
       
       A ::= "a" ;
     
@@ -259,10 +259,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("contiunation to a zero or more parts part", () => {
+  describe("contiunation to a zero or more parts part", () => {
     const bnf = `
     
-      S ::= A... "a"* ;
+      S ::= ( A ... "a"* ) ;
       
       A ::= "a" ;
     
@@ -327,10 +327,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("contiunation to a one or more parts part", () => {
+  describe("contiunation to a one or more parts part", () => {
     const bnf = `
     
-      S ::= A... "a"+ ;
+      S ::= ( A ... "a"+ ) ;
       
       A ::= "a" ;
     
@@ -377,10 +377,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("contiunation from an optional part to a terminal part", () => {
+  describe("contiunation from an optional part to a terminal part", () => {
     const bnf = `
     
-      S ::= A... "a" ;
+      S ::= ( A ... "a" ) ;
       
       A ::= "a"? ;
     
@@ -407,10 +407,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("contiunation from a zero or more parts part to a terminal part", () => {
+  describe("contiunation from a zero or more parts part to a terminal part", () => {
     const bnf = `
     
-      S ::= A... "a" ;
+      S ::= ( A ... "a" ) ;
       
       A ::= "a"* ;
     
@@ -459,10 +459,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("contiunation from a one or more parts part to a terminal part", () => {
+  describe("contiunation from a one or more parts part to a terminal part", () => {
     const bnf = `
     
-      S ::= A... "a" ;
+      S ::= ( A ... "a" ) ;
       
       A ::= "a"+ ;
     
@@ -511,10 +511,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through an optional part to a terminal part", () => {
+  describe("nested contiunation through an optional part to a terminal part", () => {
     const bnf = `
         
-      S ::= B... "a" ;
+      S ::= ( B ... "a" ) ;
       
       B ::= A . ;
     
@@ -573,10 +573,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through a zero or more parts part to a terminal part", () => {
+  describe("nested contiunation through a zero or more parts part to a terminal part", () => {
     const bnf = `
         
-      S ::= B... "a" ;
+      S ::= ( B ... "a" ) ;
       
       B ::= A . ;
     
@@ -635,10 +635,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through a one or more parts part to a terminal part", () => {
+  describe("nested contiunation through a one or more parts part to a terminal part", () => {
     const bnf = `
         
-      S ::= B... "a" ;
+      S ::= ( B ... "a" ) ;
       
       B ::= A . ;
     
@@ -673,10 +673,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through an optional part to an optional part", () => {
+  describe("nested contiunation through an optional part to an optional part", () => {
     const bnf = `
         
-      S ::= B... "a"? ;
+      S ::= ( B ... "a"? ) ;
       
       B ::= A . ;
     
@@ -757,10 +757,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through a zero or more parts part to an optional part", () => {
+  describe("nested contiunation through a zero or more parts part to an optional part", () => {
     const bnf = `
         
-      S ::= B... "a"? ;
+      S ::= ( B ... "a"? ) ;
       
       B ::= A . ;
     
@@ -839,10 +839,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through a one or more parts part to an optional part", () => {
+  describe("nested contiunation through a one or more parts part to an optional part", () => {
     const bnf = `
         
-      S ::= B... "a"? ;
+      S ::= ( B ... "a"? ) ;
       
       B ::= A . ;
     
@@ -899,10 +899,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through an optional part to a zero or more parts part", () => {
+  describe("nested contiunation through an optional part to a zero or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"* ;
+      S ::= ( B ... "a"* ) ;
       
       B ::= A . ;
     
@@ -983,10 +983,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through a zero or more parts part to a zero or more parts part", () => {
+  describe("nested contiunation through a zero or more parts part to a zero or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"* ;
+      S ::= ( B ... "a"* ) ;
       
       B ::= A . ;
     
@@ -1065,10 +1065,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through a one or more parts part to a zero or more parts part", () => {
+  describe("nested contiunation through a one or more parts part to a zero or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"* ;
+      S ::= ( B ... "a"* ) ;
       
       B ::= A . ;
     
@@ -1125,10 +1125,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through an optional part to a one or more parts part", () => {
+  describe("nested contiunation through an optional part to a one or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"+ ;
+      S ::= ( B ... "a"+ ) ;
       
       B ::= A . ;
     
@@ -1187,10 +1187,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through a zero or more parts part to a one or more parts part", () => {
+  describe("nested contiunation through a zero or more parts part to a one or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"+ ;
+      S ::= ( B ... "a"+ ) ;
       
       B ::= A . ;
     
@@ -1249,10 +1249,10 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("nested contiunation through a one or more parts part to a one or more parts part", () => {
+  describe("nested contiunation through a one or more parts part to a one or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"+ ;
+      S ::= ( B ... "a"+ ) ;
       
       B ::= A . ;
     
@@ -1287,12 +1287,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a terminal part through a terminal part to a terminal part", () => {
+  describe("doubly nested contiunation from a terminal part through a terminal part to a terminal part", () => {
     const bnf = `
         
-      S ::= B... "a" ;
+      S ::= ( B ... "a" ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" ;
     
@@ -1323,12 +1323,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a terminal part through a terminal part to an optional part", () => {
+  describe("doubly nested contiunation from a terminal part through a terminal part to an optional part", () => {
     const bnf = `
         
-      S ::= B... "a"? ;
+      S ::= ( B ... "a"? ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" ;
     
@@ -1381,12 +1381,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a terminal part through a terminal part to a zero or more parts part", () => {
+  describe("doubly nested contiunation from a terminal part through a terminal part to a zero or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"* ;
+      S ::= ( B ... "a"* ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" ;
     
@@ -1463,12 +1463,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a terminal part through a terminal part to a one or more parts part", () => {
+  describe("doubly nested contiunation from a terminal part through a terminal part to a one or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"+ ;
+      S ::= ( B ... "a"+ ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" ;
     
@@ -1523,12 +1523,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from an optional part through a terminal part to a terminal part", () => {
+  describe("doubly nested contiunation from an optional part through a terminal part to a terminal part", () => {
     const bnf = `
         
-      S ::= B... "a" ;
+      S ::= ( B ... "a" ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"? ;
     
@@ -1585,12 +1585,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from an optional part through a terminal part to an optional part", () => {
+  describe("doubly nested contiunation from an optional part through a terminal part to an optional part", () => {
     const bnf = `
         
-      S ::= B... "a"? ;
+      S ::= ( B ... "a"? ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"? ;
     
@@ -1669,12 +1669,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from an optional part through a terminal part to a zero or more parts part", () => {
+  describe("doubly nested contiunation from an optional part through a terminal part to a zero or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"* ;
+      S ::= ( B ... "a"* ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"? ;
     
@@ -1753,12 +1753,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from an optional part through a terminal part to a one or more parts part", () => {
+  describe("doubly nested contiunation from an optional part through a terminal part to a one or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"+ ;
+      S ::= ( B ... "a"+ ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"? ;
     
@@ -1841,12 +1841,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a zero or more parts part through a terminal part to a terminal part", () => {
+  describe("doubly nested contiunation from a zero or more parts part through a terminal part to a terminal part", () => {
     const bnf = `
         
-      S ::= B... "a" ;
+      S ::= ( B ... "a" ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"* ;
     
@@ -1903,12 +1903,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a zero or more parts part through a terminal part to an optional part", () => {
+  describe("doubly nested contiunation from a zero or more parts part through a terminal part to an optional part", () => {
     const bnf = `
         
-      S ::= B... "a"? ;
+      S ::= ( B ... "a"? ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"* ;
     
@@ -1985,12 +1985,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a zero or more parts part through a terminal part to a zero or more parts part", () => {
+  describe("doubly nested contiunation from a zero or more parts part through a terminal part to a zero or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"* ;
+      S ::= ( B ... "a"* ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"* ;
     
@@ -2067,12 +2067,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a zero or more parts part through a terminal part to a one or more parts part", () => {
+  describe("doubly nested contiunation from a zero or more parts part through a terminal part to a one or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"+ ;
+      S ::= ( B ... "a"+ ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"* ;
     
@@ -2155,12 +2155,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a one or more parts part through a terminal part to a terminal part", () => {
+  describe("doubly nested contiunation from a one or more parts part through a terminal part to a terminal part", () => {
     const bnf = `
         
-      S ::= B... "a" ;
+      S ::= ( B ... "a" ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"+ ;
     
@@ -2219,12 +2219,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a one or more parts part through a terminal part to an optional part", () => {
+  describe("doubly nested contiunation from a one or more parts part through a terminal part to an optional part", () => {
     const bnf = `
         
-      S ::= B... "a"? ;
+      S ::= ( B ... "a"? ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"+ ;
     
@@ -2279,12 +2279,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a one or more parts part through a terminal part to a zero or more parts part", () => {
+  describe("doubly nested contiunation from a one or more parts part through a terminal part to a zero or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"* ;
+      S ::= ( B ... "a"* ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"+ ;
     
@@ -2339,12 +2339,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a one or more parts part through a terminal part to a one or more parts part", () => {
+  describe("doubly nested contiunation from a one or more parts part through a terminal part to a one or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"+ ;
+      S ::= ( B ... "a"+ ) ;
       
-      B ::= A... . ;
+      B ::= ( A ... . ) ;
     
       A ::= "a" "a"+ ;
     
@@ -2403,12 +2403,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a terminal part through an optional part to a terminal part", () => {
+  describe("doubly nested contiunation from a terminal part through an optional part to a terminal part", () => {
     const bnf = `
         
-      S ::= B... "a" ;
+      S ::= ( B ... "a" ) ;
       
-      B ::= A... .? ;
+      B ::= ( A ... .? ) ;
     
       A ::= "a" ;
     
@@ -2461,12 +2461,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from an optional part through a zero or more parts part to a terminal part", () => {
+  describe("doubly nested contiunation from an optional part through a zero or more parts part to a terminal part", () => {
     const bnf = `
         
-      S ::= B... "a" ;
+      S ::= ( B ... "a" ) ;
       
-      B ::= A... .* ;
+      B ::= ( A ... .* ) ;
     
       A ::= "a" "a"? ;
     
@@ -2545,12 +2545,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a zero or more part through a one or more parts part to an optional part", () => {
+  describe("doubly nested contiunation from a zero or more part through a one or more parts part to an optional part", () => {
     const bnf = `
         
-      S ::= B... "a"? ;
+      S ::= ( B ... "a"? ) ;
       
-      B ::= A... .+ ;
+      B ::= ( A ... .+ ) ;
     
       A ::= "a" "a"* ;
     
@@ -2627,12 +2627,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a terminal part through an optional part to a zero or more parts part", () => {
+  describe("doubly nested contiunation from a terminal part through an optional part to a zero or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"* ;
+      S ::= ( B ... "a"* ) ;
       
-      B ::= A... .? ;
+      B ::= ( A ... .? ) ;
     
       A ::= "a" ;
     
@@ -2709,12 +2709,12 @@ describe("Repeated parts", () => {
     });
   });
 
-  describe.skip("doubly nested contiunation from a one or more parts part through a zero or more parts part to a one or more parts part", () => {
+  describe("doubly nested contiunation from a one or more parts part through a zero or more parts part to a one or more parts part", () => {
     const bnf = `
         
-      S ::= B... "a"+ ;
+      S ::= ( B ... "a"+ ) ;
       
-      B ::= A... .* ;
+      B ::= ( A ... .* ) ;
     
       A ::= "a"+ ;
     

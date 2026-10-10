@@ -11,10 +11,10 @@ describe("Unpalatble nodes", () => {
     }
   ];
 
-  describe.skip("a non-producing definition", () => {
+  describe("a non-producing definition", () => {
     const bnf = `
     
-      S ::= A... "c" ;
+      S ::= ( A ... "c" ) ;
       
       A ::= B "b" ;
       

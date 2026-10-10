@@ -26,18 +26,14 @@ export default class PartChoice {
   parse(frame, state, forward, back) {
     const savedFrame = frame; ///
 
-    return this.part.parse(emptyFrame, state, (partFrame, partState, back) => {
-      state = partState;  ///
-
-      frame = savedFrame; ///
-
-      frame = this.compose(frame, partFrame);
+    return this.part.parse(emptyFrame, state, (frame, state, back) => {
+      frame = this.compose(savedFrame, frame);
 
       return forward(frame, state, back);
     }, back);
   }
 
-  compose(frame, partFrame = null) {
+  compose(frame, partFrame) {
     frame = frame.merge(partFrame);
 
     let precedence;
