@@ -16,9 +16,9 @@ export function some(array, callback, ...initialArguments) {
       element,
       ...initialArguments,
       forward,
-      (exception) => {
-        if (exception) {
-          return back();
+      (cut) => {
+        if (cut) {
+          return back(cut);
         }
 
         return next(index + 1);
@@ -50,7 +50,9 @@ export function every(array, callback, ...initialArguments) {
       element,
       ...nextArguments,
       (...forwardArguments) => {
-        return next(index + 1, ...forwardArguments);
+        const back = forwardArguments.pop();
+
+        return next(index + 1, ...forwardArguments, back);
       },
       back,
       index
@@ -78,12 +80,18 @@ export function repeatedly(element, limit, strict, callback, ...initialArguments
     return callback(
       element,
       ...nextArguments,
-      (...callbackArguments) => {
-        return next(count + 1, ...callbackArguments);
+      (...forwardArgumemts) => {
+        const back = forwardArgumemts.pop();
+
+        return next(count + 1, ...forwardArgumemts, back);
       },
-      (exception) => {
+      (cut) => {
+        if (cut) {
+          return back(cut);
+        }
+
         if (strict && initial) {
-          return back(exception);
+          return back();
         }
 
         return forward(...nextArguments, back)

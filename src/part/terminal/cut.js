@@ -2,6 +2,7 @@
 
 import { specialSymbols } from "occam-lexers";
 
+import Cut from "../../cut";
 import TerminalPart from "../../part/terminal";
 
 const { backtick } = specialSymbols;
@@ -14,9 +15,9 @@ export default class CutPart extends TerminalPart {
   }
 
   parse(frame, state, forward, back) {
-    forward = cut(forward, back); ///
+    const cut = Cut.fromFrameStateAndForward(frame, state, forward);
 
-    return forward(frame, state, back);
+    return back(cut);
   }
 
   asString() {
@@ -30,16 +31,4 @@ export default class CutPart extends TerminalPart {
 
     return cutPart;
   }
-}
-
-function cut(forward, back) {
-  return (...forwardArguments) => {
-    forwardArguments.pop(); ///
-
-    return forward(...forwardArguments, () => {
-      const exception = true;
-
-      return back(exception);
-    });
-  };
 }

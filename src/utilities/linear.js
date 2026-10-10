@@ -102,3 +102,31 @@ export function repeatedly(element, limit, strict, callback, ...initialArguments
 
   return forward(...finalArguments, back);
 }
+
+export function trampoline(callback, ...initialArguments) {
+  const back = initialArguments.pop(),
+        forward = initialArguments.pop();
+
+  let nextCut = null;
+
+  callback(...initialArguments, forward, bounceBack);
+
+  while (nextCut) {
+    const cut = nextCut; ///
+
+    nextCut = null;
+
+    const cutArguments = cut.getArguments(),
+          forward = cutArguments.pop();
+
+    forward(...cutArguments, bounceBack);
+  }
+
+  function bounceBack(cut) {
+    if (!cut) {
+      return back();
+    }
+
+    nextCut = cut; ///
+  }
+}

@@ -1,15 +1,11 @@
 "use strict";
 
 export default class State {
-  constructor(index, parser, tokens, branches) {
-    this.index = index;
+  constructor(parser, tokens, index, branches) {
     this.parser = parser;
     this.tokens = tokens;
+    this.index = index;
     this.branches = branches;
-  }
-
-  getIndex() {
-    return this.index;
   }
 
   getParser() {
@@ -18,6 +14,10 @@ export default class State {
 
   getTokens() {
     return this.tokens;
+  }
+
+  getIndex() {
+    return this.index;
   }
 
   getBranches() {
@@ -86,21 +86,24 @@ export default class State {
       index = tokensLength; ///
     }
 
-    const state = new State(index, this.parser, this.tokens, this.branches);
+    const branches = this.branches,
+          state = new State(this.parser, this.tokens, index, branches);
 
     return state;
   }
 
   branch() {
-    const branches = this.branches + 1,
-          state = new State(this.index, this.parser, this.tokens, branches);
+    const index = this.index,
+          branches = this.branches + 1,
+          state = new State(this.parser, this.tokens, index, branches);
 
     return state;
   }
 
   prune() {
-    const branches = this.branches - 1,
-          state = new State(this.index, this.parser, this.tokens, branches);
+    const index = this.index,
+          branches = this.branches - 1,
+          state = new State(this.parser, this.tokens, index, branches);
 
     return state;
   }
@@ -112,7 +115,7 @@ export default class State {
                     0 :
                       tokensLength, ///
           branches = 0,
-          state = new State(index, parser, tokens, branches);
+          state = new State(parser, tokens, index, branches);
 
     return state;
   }

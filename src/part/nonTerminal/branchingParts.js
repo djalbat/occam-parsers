@@ -6,6 +6,7 @@ import { specialSymbols } from "occam-lexers";
 import NonTerminalPart from "../../part/nonTerminal";
 
 import { emptyFrame } from "../../frame";
+import { trampoline } from "../../utilities/linear";
 import { BranchingPartsPartType } from "../../partTypes";
 import { every as branchingEvery  } from "../../utilities/branching";
 
@@ -28,17 +29,23 @@ export default class BranchingPartsPart extends NonTerminalPart {
 
     state = state.branch(); ///
 
-    return branchingEvery(this.parts, (part, frame, state, forward, back) => {
-      return part.parse(frame, state, forward, back);
-    }, emptyFrame, state, (partsFrame, state, back) => {
-      frame = savedFrame; ///
+    trampoline(
+      (frame, state, forward, back) => {
+        return branchingEvery(this.parts, (part, frame, state, forward, back) => {
+          return part.parse(frame, state, forward, back);
+        }, emptyFrame, state, forward, back)
+      },
+      frame,
+      state,
+      (frame, state, back) => {
+        frame = this.compose(savedFrame, frame);
 
-      frame = this.compose(frame, partsFrame);
+        state = state.prune();  ///
 
-      state = state.prune();  ///
-
-      return forward(frame, state, back);
-    }, back);
+        return forward(frame, state, back);
+      },
+      back
+    );
   }
 
   asString() {

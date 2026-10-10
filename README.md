@@ -248,52 +248,6 @@ For example:
 justifiedStatement         ::=   statement ( "by" | "from" ) reference <END_OF_LINE> ;
 ```
 
-### Continuations
-
-Consider the following rules:
-
-```
-ABC  ::=  AAB BC ;
-
-AAB  ::=  "a" "b" | "a" ;
-
-BC  ::=  "b" "c" ;
-```
-
-These will not parse the tokens `a`, `b`, `c` because the first definition of the `AAB` rule will parse the `a` and `b` tokens, leaving only the `c` token for the `BC` rule to parse. 
-This situation can be addressed by making the `AAB` rule contiunue, that is, try each of its definitions in turn until one is found that allows the remainder of the parent rule to parse. 
-The continuation modifier is an ellipsis, thus the rules above become:
-
-```
-ABC  ::=  AAB... BC ;
-
-AAB  ::=  "a" "b" | "a" ;
-
-BC  ::=  "b" "c" ;
-```
-
-Now the `ABC` rule will indeed parse the tokens `a`, `b`, `c`, because the second definition of the `AAB` rule will be tried after the first definition fails to allow the `BC` rule name part to parse.
-
-Also bear in mind that call-ahead is carried out to arbitrary depth and this it affects the behaviour of the `?`, `*` and `+` quantifiers, which become lazy. 
-For example:
-
-```
-ABC  ::=  AAB... ;
-
-AAB  ::=  "a" "b"+ "b" "c" ;
-```
-
-Here the call-ahead modifier on the `AAB` rule name part forces the `+` quantifier on the `"b"` terminal part to be lazy, allowing the following to parse:
-
-```
-a b b b c
-```
-
-Without call-ahead, the `"b"+` part would consume all of the `b` tokens, leaving none for the subsequent `"b"` terminal part.
-
-It seems that the parser parses in time that is roughly directly proportional to the length of the input. However, on the ohter hand it is most likely that call-ahead takes exponential time given its nested nature. 
-For this reason, call-ahead should be used sparingly.
-
 ## Building
 
 Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. 
