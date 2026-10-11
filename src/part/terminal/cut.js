@@ -14,6 +14,12 @@ export default class CutPart extends TerminalPart {
     return cutPart;
   }
 
+  isConsuming(ruleMap, visitedRules = []) {
+    const consuming = false;
+
+    return consuming;
+  }
+
   parse(frame, state, forward, back) {
     const cut = Cut.fromFrameStateAndForward(frame, state, forward);
 

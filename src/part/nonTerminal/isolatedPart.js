@@ -17,6 +17,8 @@ export default class IsolatedPartPart extends NonTerminalPart {
     return this.part;
   }
 
+  isConsuming(ruleMap, visitedRules = []) { return this.part.isConsuming(ruleMap, visitedRules); }
+
   parse(frame, state, forward, back) {
     return this.part.parse(frame, state, (frame, state, back) => {
       frame = this.compose(frame);

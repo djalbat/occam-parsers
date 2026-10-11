@@ -27,6 +27,18 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     return parts;
   }
 
+  isConsuming(ruleMap, visitedRules = []) {
+    const consuming = this.partChoices.every((partChoice) => {
+      const consuming = partChoice.isConsuming(ruleMap, visitedRules);
+
+      if (consuming) {
+        return true;
+      }
+    });
+
+    return consuming;
+  }
+
   parse(frame, state, forward, back) {
     const branching = state.isBranching(),
           some = branching ?

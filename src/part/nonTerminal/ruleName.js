@@ -21,6 +21,13 @@ export default class RuleNamePart extends NonTerminalPart {
     return ruleNamePart;
   }
 
+  isConsuming(ruleMap, visitedRules = []) {
+    const rule = ruleMap[this.ruleName],
+          consuming = rule.isConsuming(ruleMap, visitedRules);
+
+    return consuming;
+  }
+
   parse(frame, state, forward, back) {
     const rule = state.findRule(this.ruleName);
 

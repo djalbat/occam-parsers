@@ -9,6 +9,12 @@ import EndOfLineNode from "../../node/terminal/endOfLine";
 const { endOfLine } = specialSymbols;
 
 export default class EndOfLinePart extends TerminalPart {
+  isConsuming(ruleMap, visitedRules = []) {
+    const consuming = true;
+
+    return consuming;
+  }
+
   parse(frame, state, forward, back) {
     const stateEmpty = state.isEmpty();
 

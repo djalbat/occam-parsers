@@ -15,6 +15,12 @@ export default class EpsilonPart extends TerminalPart {
     return epsilonPart;
   }
 
+  isConsuming(ruleMap, visitedRules = []) {
+    const consuming = false;
+
+    return consuming;
+  }
+
   parse(frame, state, forward, back) {
     const epsilonNode = EpsilonNode.fromNothing(),
           childNode = epsilonNode,

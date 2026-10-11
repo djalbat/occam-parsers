@@ -23,6 +23,8 @@ export default class PartChoice {
     return this.precedence;
   }
 
+  isConsuming(ruleMap, visitedRules = []) { return this.part.isConsuming(ruleMap, visitedRules); }
+
   parse(frame, state, forward, back) {
     const savedFrame = frame; ///
 

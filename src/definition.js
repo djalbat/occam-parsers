@@ -25,6 +25,18 @@ export default class Definition {
     return this.precedence;
   }
 
+  isConsuming(ruleMap, visitedRules) {
+    const consuming = this.parts.some((part) => {
+      const consuming = part.isConsuming(ruleMap, visitedRules);
+
+      if (consuming) {
+        return true;
+      }
+    });
+
+    return consuming;
+  }
+
   parse(rule, frame, state, forward, back) {
     const savedFrame = frame, ///
           branching = state.isBranching(),

@@ -15,6 +15,12 @@ export default class StringLiteralPart extends TerminalPart {
     return this.content;
   }
 
+  isConsuming(ruleMap, visitedRules = []) {
+    const consuming = true;
+
+    return consuming;
+  }
+
   parse(frame, state, forward, back) {
     const stateEmpty = state.isEmpty();
 

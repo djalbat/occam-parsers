@@ -9,6 +9,12 @@ import TerminalNode from "../../node/terminal";
 const { wildcard } = specialSymbols;
 
 export default class WildcardPart extends TerminalPart {
+  isConsuming(ruleMap, visitedRules = []) {
+    const consuming = true;
+
+    return consuming;
+  }
+
   parse(frame, state, forward, back) {
     const stateEmpty = state.isEmpty();
 

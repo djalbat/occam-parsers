@@ -15,6 +15,12 @@ export default class SignificantTokenTypePart extends TerminalPart {
     return this.significantTokenType;
   }
 
+  isConsuming(ruleMap, visitedRules = []) {
+    const consuming = true;
+
+    return consuming;
+  }
+
   parse(frame, state, forward, back) {
     const stateEmpty = state.isEmpty();
 

@@ -21,6 +21,12 @@ export default class OptionalPartPart extends NonTerminalPart {
     return this.part;
   }
 
+  isConsuming(ruleMap, visitedRules = []) {
+    const consuming = false;
+
+    return consuming;
+  }
+
   parse(frame, state, forward, back) {
     const limit = 1,
           strict = false,

@@ -58,6 +58,39 @@ export default class Rule {
     return semiOpaque;
   }
 
+  isConsuming(ruleMap, visitedRules = []) {
+    let consuming = false;
+
+    const rule = this,  ///
+          visitedRulesIncludesRule = visitedRules.includes(rule);
+
+    if (!visitedRulesIncludesRule) {
+      const visitedRule = rule, ///
+            definitionsConsuming = this.areDefinitionsConsuming(ruleMap, [
+              ...visitedRules,
+              visitedRule
+            ]);
+
+      if (definitionsConsuming) {
+        consuming = true;
+      }
+    }
+
+    return consuming;
+  }
+
+  areDefinitionsConsuming(ruleMap, visitedRules) {
+    const definitionsConsuming = each(this.definitions, (definition) => {
+      const definitionConsuming = definition.isConsuming(ruleMap, visitedRules);
+
+      if (definitionConsuming) {
+        return true;
+      }
+    });
+
+    return definitionsConsuming;
+  }
+
   parse(frame, state, forward, back) {
     const rule = this,
           branching = state.isBranching(),
@@ -105,6 +138,18 @@ ${this.name}${opacityString}${marginString} ::= ${definitionsString}${semicolonS
 
     return rule;
   }
+}
+
+function each(array, callback) {
+  let success = false;
+
+  const arrayLength = array.length;
+
+  if (arrayLength > 0) {
+    success = array.every(callback);
+  }
+
+  return success
 }
 
 function opacityStringFromOpacity(opacity) {

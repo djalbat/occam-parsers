@@ -19,6 +19,12 @@ export default class RegularExpressionPart extends TerminalPart {
     return this.regularExpression;
   }
 
+  isConsuming(ruleMap, visitedRules = []) {
+    const consuming = true;
+
+    return consuming;
+  }
+
   parse(frame, state, forward, back) {
     const stateEmpty = state.isEmpty();
 

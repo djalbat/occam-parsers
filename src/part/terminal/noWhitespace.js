@@ -15,6 +15,12 @@ export default class NoWhitespacePart extends TerminalPart {
     return noWhitespacePart;
   }
 
+  isConsuming(ruleMap, visitedRules = []) {
+    const consuming = false;
+
+    return consuming;
+  }
+
   parse(frame, state, forward, back) {
     const stateEmpty = state.isEmpty();
 
