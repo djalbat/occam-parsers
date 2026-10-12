@@ -80,7 +80,7 @@ export default class Rule {
   }
 
   areDefinitionsConsuming(ruleMap, visitedRules) {
-    const definitionsConsuming = each(this.definitions, (definition) => {
+    const definitionsConsuming = this.definitions.every((definition) => {
       const definitionConsuming = definition.isConsuming(ruleMap, visitedRules);
 
       if (definitionConsuming) {
@@ -138,18 +138,6 @@ ${this.name}${opacityString}${marginString} ::= ${definitionsString}${semicolonS
 
     return rule;
   }
-}
-
-function each(array, callback) {
-  let success = false;
-
-  const arrayLength = array.length;
-
-  if (arrayLength > 0) {
-    success = array.every(callback);
-  }
-
-  return success
 }
 
 function opacityStringFromOpacity(opacity) {
