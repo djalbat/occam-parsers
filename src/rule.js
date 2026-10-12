@@ -91,6 +91,8 @@ export default class Rule {
     return definitionsConsuming;
   }
 
+  NonTerminalNodeFromRuleName(ruleName, state) { return state.NonTerminalNodeFromRuleName(ruleName); }
+
   parse(frame, state, forward, back) {
     const rule = this,
           branching = state.isBranching(),

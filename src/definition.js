@@ -139,7 +139,7 @@ function nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame,
         ruleName = rule.getName(),
         childNodes = frame.getChildNodes(),
         precedence = frame.getPrecedence(definition),
-        NonTerminalNode = state.NonTerminalNodeFromRuleName(ruleName);
+        NonTerminalNode = rule.NonTerminalNodeFromRuleName(ruleName, state);
 
   nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity);
 
