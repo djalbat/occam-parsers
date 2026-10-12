@@ -22,8 +22,13 @@ export default class RuleNamePart extends NonTerminalPart {
   }
 
   isConsuming(ruleMap, visitedRules = []) {
-    const rule = ruleMap[this.ruleName],
-          consuming = rule.isConsuming(ruleMap, visitedRules);
+    const rule = ruleMap[this.ruleName] || null;
+
+    if (rule == null) {
+      throw new Error(`The  '${this.ruleName}' rule is missing.`);
+    }
+
+    const consuming = rule.isConsuming(ruleMap, visitedRules);
 
     return consuming;
   }
