@@ -25,6 +25,7 @@ export const NON_TERMINAL_PART_RULE_NAME = "nonTerminalPart";
 export const SEQUENCE_OF_PARTS_RULE_NAME = "sequenceOfParts";
 export const NO_WHITESPACE_PART_RULE_NAME = "noWhitespace"; ///
 export const REGULAR_EXPRESSION_RULE_NAME = "regularExpression";
+export const PRODUCING_MODIFIER_RULE_NAME = "producingModifier";
 export const OPTIONAL_QUANTIFIER_RULE_NAME = "optionalQuantifier";
 export const ONE_OR_MORE_QUANTIFIER_RULE_NAME = "oneOrMoreQuantifier";
 export const SIGNIFICANT_TOKEN_TYPE_RULE_NAME = "significantTokenType";

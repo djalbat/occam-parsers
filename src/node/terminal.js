@@ -24,11 +24,16 @@ export default class TerminalNode {
     this.parentNode = parentNode;
   }
 
-
   isNoWhitespaceNode() {
     const noWhitespaceNode = false;
 
     return noWhitespaceNode;
+  }
+
+  isCutNode() {
+    const cutNode = false;
+
+    return cutNode;
   }
 
   isEpsilonNode() {

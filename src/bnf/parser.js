@@ -5,35 +5,36 @@ import Rule from "../rule";
 import parserMixins from "../mixins/parser";
 import NonTerminalNodeMap from "../nonTerminalNodeMap";
 
-import CutBNFRule from "../rule/bnf/cut";
-import NameBNFRule from "../rule/bnf/name";
-import PartBNFRule from "../rule/bnf/part";
-import RuleBNFRule from "../rule/bnf/rule";
-import ErrorBNFRule from "../rule/bnf/error";
-import EpsilonBNFRule from "../rule/bnf/epsilon";
-import DocumentBNFRule from "../rule/bnf/document";
-import RuleNameBNFRule from "../rule/bnf/ruleName";
-import WildcardBNFRule from "../rule/bnf/wildcard";
-import EndOfLineBNFRule from "../rule/bnf/endOfLine";
-import PartChoiceBNFRule from "../rule/bnf/partChoice";
-import QuantifierBNFRule from "../rule/bnf/quantifier";
-import DefinitionBNFRule from "../rule/bnf/definition";
-import PrecedentsBNFRule from "../rule/bnf/precedence";
-import DefinitionsBNFRule from "../rule/bnf/definitions";
-import IsolatedPartBNFRule from "../rule/bnf/isolatedPart";
-import TerminalPartBNFRule from "../rule/bnf/terminalPart";
-import ChoiceOfPartsBNFRule from "../rule/bnf/choiceOfParts";
-import StringLiteralBNFRule from "../rule/bnf/stringLiteral";
-import BranchingPartsBNFRule from "../rule/bnf/branchingParts";
-import NonTerminalPartBNFRule from "../rule/bnf/nonTerminalPart";
-import SequenceOfPartsBNFRule from "../rule/bnf/sequenceOfParts";
-import OpacityModifierBNFRule from "../rule/bnf/opacityModifier";
-import NoWhitespacePartBNFRule from "../rule/bnf/noWhitespacePart";
-import RegularExpressionBNFRule from "../rule/bnf/regularExpression";
-import OptionalQuantifierBNFRule from "../rule/bnf/optionalQuantifier";
-import OneOrMoreQuantifierBNFRule from "../rule/bnf/oneOrMoreQuantifier";
-import ZeroOrMoreQuantifierBNFRule from "../rule/bnf/zeroOrMoreQuantifier";
-import SignificantTokenTypeBNFRule from "../rule/bnf/significantTokenType";
+import CutRule from "../rule/cut";
+import NameRule from "../rule/name";
+import PartRule from "../rule/part";
+import RuleRule from "../rule/rule";
+import ErrorRule from "../rule/error";
+import EpsilonRule from "../rule/epsilon";
+import DocumentRule from "../rule/document";
+import RuleNameRule from "../rule/ruleName";
+import WildcardRule from "../rule/wildcard";
+import EndOfLineRule from "../rule/endOfLine";
+import PartChoiceRule from "../rule/partChoice";
+import QuantifierRule from "../rule/quantifier";
+import DefinitionRule from "../rule/definition";
+import PrecedentsRule from "../rule/precedence";
+import DefinitionsRule from "../rule/definitions";
+import IsolatedPartRule from "../rule/isolatedPart";
+import TerminalPartRule from "../rule/terminalPart";
+import ChoiceOfPartsRule from "../rule/choiceOfParts";
+import StringLiteralRule from "../rule/stringLiteral";
+import BranchingPartsRule from "../rule/branchingParts";
+import NonTerminalPartRule from "../rule/nonTerminalPart";
+import SequenceOfPartsRule from "../rule/sequenceOfParts";
+import OpacityModifierRule from "../rule/opacityModifier";
+import NoWhitespacePartRule from "../rule/noWhitespacePart";
+import ProducingModifierRule from "../rule/producingModifier";
+import RegularExpressionRule from "../rule/regularExpression";
+import OptionalQuantifierRule from "../rule/optionalQuantifier";
+import OneOrMoreQuantifierRule from "../rule/oneOrMoreQuantifier";
+import ZeroOrMoreQuantifierRule from "../rule/zeroOrMoreQuantifier";
+import SignificantTokenTypeRule from "../rule/significantTokenType";
 
 import { ruleMapFromRules } from "../utilities/rules";
 
@@ -78,67 +79,69 @@ export default class BNFParser {
   static bnf = bnf;
 
   static fromNothing() {
-    const cutBNFRule = CutBNFRule.fromNothing(),
-          nameBNFRule = NameBNFRule.fromNothing(),
-          partBNFRule = PartBNFRule.fromNothing(),
-          ruleBNFRule = RuleBNFRule.fromNothing(),
-          errorBNFRule = ErrorBNFRule.fromNothing(),
-          epsilonBNFRule = EpsilonBNFRule.fromNothing(),
-          documentBNFRule = DocumentBNFRule.fromNothing(),
-          ruleNameBNFRule = RuleNameBNFRule.fromNothing(),
-          wildcardBNFRule = WildcardBNFRule.fromNothing(),
-          endOfLineBNFRule = EndOfLineBNFRule.fromNothing(),
-          partChoiceBNFRule = PartChoiceBNFRule.fromNothing(),
-          quantifierBNFRule = QuantifierBNFRule.fromNothing(),
-          definitionBNFRule = DefinitionBNFRule.fromNothing(),
-          precedentsBNFRule = PrecedentsBNFRule.fromNothing(),
-          definitionsBNFRule = DefinitionsBNFRule.fromNothing(),
-          terminalPartBNFRule = TerminalPartBNFRule.fromNothing(),
-          isolatedPartBNFRule = IsolatedPartBNFRule.fromNothing(),
-          choiceOfPartsBNFRule = ChoiceOfPartsBNFRule.fromNothing(),
-          stringLiteralBNFRule = StringLiteralBNFRule.fromNothing(),
-          branchingPartsBNFRule = BranchingPartsBNFRule.fromNothing(),
-          nonTerminalPartBNFRule = NonTerminalPartBNFRule.fromNothing(),
-          sequenceOfPartsBNFRule = SequenceOfPartsBNFRule.fromNothing(),
-          opacityModifierBNFRule = OpacityModifierBNFRule.fromNothing(),
-          noWhitespacePartBNFRule = NoWhitespacePartBNFRule.fromNothing(),
-          regularExpressionBNFRule = RegularExpressionBNFRule.fromNothing(),
-          optionalQuantifierBNFRule = OptionalQuantifierBNFRule.fromNothing(),
-          oneOrMoreQuantifierBNFRule = OneOrMoreQuantifierBNFRule.fromNothing(),
-          zeroOrMoreQuantifierBNFRule = ZeroOrMoreQuantifierBNFRule.fromNothing(),
-          significantTokenTypeBNFRule = SignificantTokenTypeBNFRule.fromNothing(),
+    const cutRule = CutRule.fromNothing(),
+          nameRule = NameRule.fromNothing(),
+          partRule = PartRule.fromNothing(),
+          ruleRule = RuleRule.fromNothing(),
+          errorRule = ErrorRule.fromNothing(),
+          epsilonRule = EpsilonRule.fromNothing(),
+          documentRule = DocumentRule.fromNothing(),
+          ruleNameRule = RuleNameRule.fromNothing(),
+          wildcardRule = WildcardRule.fromNothing(),
+          endOfLineRule = EndOfLineRule.fromNothing(),
+          partChoiceRule = PartChoiceRule.fromNothing(),
+          quantifierRule = QuantifierRule.fromNothing(),
+          definitionRule = DefinitionRule.fromNothing(),
+          precedentsRule = PrecedentsRule.fromNothing(),
+          definitionsRule = DefinitionsRule.fromNothing(),
+          terminalPartRule = TerminalPartRule.fromNothing(),
+          isolatedPartRule = IsolatedPartRule.fromNothing(),
+          choiceOfPartsRule = ChoiceOfPartsRule.fromNothing(),
+          stringLiteralRule = StringLiteralRule.fromNothing(),
+          branchingPartsRule = BranchingPartsRule.fromNothing(),
+          nonTerminalPartRule = NonTerminalPartRule.fromNothing(),
+          sequenceOfPartsRule = SequenceOfPartsRule.fromNothing(),
+          opacityModifierRule = OpacityModifierRule.fromNothing(),
+          noWhitespacePartRule = NoWhitespacePartRule.fromNothing(),
+          regularExpressionRule = RegularExpressionRule.fromNothing(),
+          producingModifierRule = ProducingModifierRule.fromNothing(),
+          optionalQuantifierRule = OptionalQuantifierRule.fromNothing(),
+          oneOrMoreQuantifierRule = OneOrMoreQuantifierRule.fromNothing(),
+          zeroOrMoreQuantifierRule = ZeroOrMoreQuantifierRule.fromNothing(),
+          significantTokenTypeRule = SignificantTokenTypeRule.fromNothing(),
           rules = [
-            cutBNFRule,
-            nameBNFRule,
-            partBNFRule,
-            ruleBNFRule,
-            errorBNFRule,
-            epsilonBNFRule,
-            documentBNFRule,
-            ruleNameBNFRule,
-            wildcardBNFRule,
-            endOfLineBNFRule,
-            partChoiceBNFRule,
-            quantifierBNFRule,
-            definitionBNFRule,
-            precedentsBNFRule,
-            definitionsBNFRule,
-            terminalPartBNFRule,
-            isolatedPartBNFRule,
-            choiceOfPartsBNFRule,
-            stringLiteralBNFRule,
-            branchingPartsBNFRule,
-            nonTerminalPartBNFRule,
-            sequenceOfPartsBNFRule,
-            opacityModifierBNFRule,
-            noWhitespacePartBNFRule,
-            regularExpressionBNFRule,
-            optionalQuantifierBNFRule,
-            oneOrMoreQuantifierBNFRule,
-            zeroOrMoreQuantifierBNFRule,
-            significantTokenTypeBNFRule
+            cutRule,
+            nameRule,
+            partRule,
+            ruleRule,
+            errorRule,
+            epsilonRule,
+            documentRule,
+            ruleNameRule,
+            wildcardRule,
+            endOfLineRule,
+            partChoiceRule,
+            quantifierRule,
+            definitionRule,
+            precedentsRule,
+            definitionsRule,
+            terminalPartRule,
+            isolatedPartRule,
+            choiceOfPartsRule,
+            stringLiteralRule,
+            branchingPartsRule,
+            nonTerminalPartRule,
+            sequenceOfPartsRule,
+            opacityModifierRule,
+            noWhitespacePartRule,
+            regularExpressionRule,
+            producingModifierRule,
+            optionalQuantifierRule,
+            oneOrMoreQuantifierRule,
+            zeroOrMoreQuantifierRule,
+            significantTokenTypeRule
           ],
-          startRule = documentBNFRule,  ///
+          startRule = documentRule,  ///
           ruleMap = ruleMapFromRules(rules),
           bnfParser = new BNFParser(startRule, ruleMap);
 

@@ -25,6 +25,7 @@ import SequenceOfPartsBNFNode from "./node/bnf/sequenceOfParts";
 import OpacityModifierBNFNode from "./node/bnf/opacityModifier";
 import NoWhitespacePartBNFNode from "./node/bnf/noWhitespacePart";
 import RegularExpressionBNFNode from "./node/bnf/regularExpression";
+import ProducingModifierBNFNode from "./node/bnf/producingyModifier";
 import OptionalQuantifierBNFNode from "./node/bnf/optionalQuantifier";
 import OneOrMoreQuantifierBNFNode from "./node/bnf/oneOneOrMoreQuantifier";
 import SignificantTokenTypeBNFNode from "./node/bnf/significantTokenType";
@@ -55,6 +56,7 @@ import { CUT_RULE_NAME,
          SEQUENCE_OF_PARTS_RULE_NAME,
          NO_WHITESPACE_PART_RULE_NAME,
          REGULAR_EXPRESSION_RULE_NAME,
+         PRODUCING_MODIFIER_RULE_NAME,
          OPTIONAL_QUANTIFIER_RULE_NAME,
          SIGNIFICANT_TOKEN_TYPE_RULE_NAME,
          ONE_OR_MORE_QUANTIFIER_RULE_NAME,
@@ -86,6 +88,7 @@ const NonTerminalNodeMap = {
   [SEQUENCE_OF_PARTS_RULE_NAME]: SequenceOfPartsBNFNode,
   [NO_WHITESPACE_PART_RULE_NAME]: NoWhitespacePartBNFNode,
   [REGULAR_EXPRESSION_RULE_NAME]: RegularExpressionBNFNode,
+  [PRODUCING_MODIFIER_RULE_NAME]: ProducingModifierBNFNode,
   [OPTIONAL_QUANTIFIER_RULE_NAME]: OptionalQuantifierBNFNode,
   [ONE_OR_MORE_QUANTIFIER_RULE_NAME]: OneOrMoreQuantifierBNFNode,
   [SIGNIFICANT_TOKEN_TYPE_RULE_NAME]: SignificantTokenTypeBNFNode,
