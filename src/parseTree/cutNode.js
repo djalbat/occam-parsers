@@ -8,7 +8,7 @@ const { backtick } = specialSymbols;
 
 class CutNodeParseTree extends VerticalBranchParseTree {
   static fromNothing() {
-    const string = `${backtick}:${backtick}`,
+    const string = `${backtick}${backtick}`,
           stringLength = string.length,
           verticalBranchParseTreeWidth = stringLength, ///
           verticalBranchParseTree = VerticalBranchParseTree.fromWidth(verticalBranchParseTreeWidth),
