@@ -27,14 +27,24 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     return parts;
   }
 
-  isConsuming(ruleMap, visitedRules = []) {
-    const consuming = this.partChoices.every((partChoice) => {
-      const consuming = partChoice.isConsuming(ruleMap, visitedRules);
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
+    let consuming;
 
-      if (consuming) {
-        return true;
-      }
-    });
+    if (checkForCutParts) {
+      consuming = true;
+
+      this.partChoices.forEach((partChoice) => {
+        consuming = partChoice.isConsuming(ruleMap, visitedRules, checkForCutParts) && consuming;
+      });
+    } else {
+      consuming = this.partChoices.every((partChoice) => {
+        const consuming = partChoice.isConsuming(ruleMap, visitedRules, checkForCutParts);
+
+        if (consuming) {
+          return true;
+        }
+      });
+    }
 
     return consuming;
   }

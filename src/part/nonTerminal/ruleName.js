@@ -21,14 +21,14 @@ export default class RuleNamePart extends NonTerminalPart {
     return ruleNamePart;
   }
 
-  isConsuming(ruleMap, visitedRules = []) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const rule = ruleMap[this.ruleName] || null;
 
     if (rule == null) {
       throw new Error(`The  '${this.ruleName}' rule is missing.`);
     }
 
-    const consuming = rule.isConsuming(ruleMap, visitedRules);
+    const consuming = rule.isConsuming(ruleMap, visitedRules, checkForCutParts);
 
     return consuming;
   }

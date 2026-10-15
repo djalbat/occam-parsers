@@ -21,7 +21,7 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
     return this.part;
   }
 
-  isConsuming(ruleMap, visitedRules = []) { return this.part.isConsuming(ruleMap, visitedRules); }
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) { return this.part.isConsuming(ruleMap, visitedRules, checkForCutParts); }
 
   parse(frame, state, forward, back) {
     const limit = Infinity,

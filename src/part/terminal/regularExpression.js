@@ -19,7 +19,7 @@ export default class RegularExpressionPart extends TerminalPart {
     return this.regularExpression;
   }
 
-  isConsuming(ruleMap, visitedRules = []) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = true;
 
     return consuming;

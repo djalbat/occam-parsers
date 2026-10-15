@@ -9,7 +9,7 @@ import TerminalNode from "../../node/terminal";
 const { wildcard } = specialSymbols;
 
 export default class WildcardPart extends TerminalPart {
-  isConsuming(ruleMap, visitedRules = []) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = true;
 
     return consuming;

@@ -21,8 +21,12 @@ export default class OptionalPartPart extends NonTerminalPart {
     return this.part;
   }
 
-  isConsuming(ruleMap, visitedRules = []) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = false;
+
+    if (checkForCutParts) {
+      this.part.isConsuming(ruleMap, visitedRules, checkForCutParts);
+    }
 
     return consuming;
   }

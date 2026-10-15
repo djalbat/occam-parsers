@@ -15,7 +15,7 @@ export default class NoWhitespacePart extends TerminalPart {
     return noWhitespacePart;
   }
 
-  isConsuming(ruleMap, visitedRules = []) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = false;
 
     return consuming;

@@ -25,9 +25,9 @@ export default class Definition {
     return this.precedence;
   }
 
-  isConsuming(ruleMap, visitedRules) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = this.parts.some((part) => {
-      const consuming = part.isConsuming(ruleMap, visitedRules);
+      const consuming = part.isConsuming(ruleMap, visitedRules, checkForCutParts);
 
       if (consuming) {
         return true;

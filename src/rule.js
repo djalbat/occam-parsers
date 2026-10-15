@@ -58,7 +58,7 @@ export default class Rule {
     return semiOpaque;
   }
 
-  isConsuming(ruleMap, visitedRules = []) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     let consuming = false;
 
     const rule = this,  ///
@@ -66,10 +66,14 @@ export default class Rule {
 
     if (!visitedRulesIncludesRule) {
       const visitedRule = rule, ///
-            definitionsConsuming = this.areDefinitionsConsuming(ruleMap, [
-              ...visitedRules,
-              visitedRule
-            ]);
+            definitionsConsuming = this.areDefinitionsConsuming(
+              ruleMap,
+              [
+                ...visitedRules,
+                visitedRule
+              ],
+              checkForCutParts
+            );
 
       if (definitionsConsuming) {
         consuming = true;
@@ -79,14 +83,24 @@ export default class Rule {
     return consuming;
   }
 
-  areDefinitionsConsuming(ruleMap, visitedRules) {
-    const definitionsConsuming = this.definitions.every((definition) => {
-      const definitionConsuming = definition.isConsuming(ruleMap, visitedRules);
+  areDefinitionsConsuming(ruleMap, visitedRules, checkForCutParts) {
+    let definitionsConsuming;
 
-      if (definitionConsuming) {
-        return true;
-      }
-    });
+    if (checkForCutParts) {
+      definitionsConsuming = true;
+
+      this.definitions.forEach((definition) => {
+        definitionsConsuming = definition.isConsuming(ruleMap, visitedRules, checkForCutParts) && definitionsConsuming;
+      });
+    } else {
+      definitionsConsuming = this.definitions.every((definition) => {
+        const definitionConsuming = definition.isConsuming(ruleMap, visitedRules, checkForCutParts);
+
+        if (definitionConsuming) {
+          return true;
+        }
+      });
+    }
 
     return definitionsConsuming;
   }

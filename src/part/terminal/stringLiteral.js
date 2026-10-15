@@ -15,7 +15,7 @@ export default class StringLiteralPart extends TerminalPart {
     return this.content;
   }
 
-  isConsuming(ruleMap, visitedRules = []) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = true;
 
     return consuming;

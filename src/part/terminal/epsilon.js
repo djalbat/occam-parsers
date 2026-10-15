@@ -15,7 +15,7 @@ export default class EpsilonPart extends TerminalPart {
     return epsilonPart;
   }
 
-  isConsuming(ruleMap, visitedRules = []) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = false;
 
     return consuming;

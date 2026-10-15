@@ -9,7 +9,7 @@ import EndOfLineNode from "../../node/terminal/endOfLine";
 const { endOfLine } = specialSymbols;
 
 export default class EndOfLinePart extends TerminalPart {
-  isConsuming(ruleMap, visitedRules = []) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = true;
 
     return consuming;

@@ -26,8 +26,12 @@ export default class CutPart extends TerminalPart {
     return cutPart;
   }
 
-  isConsuming(ruleMap, visitedRules = []) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = false;
+
+    if (checkForCutParts) {
+      throw new Error(`A cut part has been found before a consuming terminal.`);
+    }
 
     return consuming;
   }

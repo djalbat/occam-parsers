@@ -15,7 +15,7 @@ export default class SignificantTokenTypePart extends TerminalPart {
     return this.significantTokenType;
   }
 
-  isConsuming(ruleMap, visitedRules = []) {
+  isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = true;
 
     return consuming;
