@@ -4,16 +4,8 @@ import CutPart from "../../part/terminal/cut";
 import NonTerminalNode from "../../node/nonTerminal";
 
 export default class CutBNFNode extends NonTerminalNode {
-  isProducing() {
-    const multiplicity = this.getMultiplicity(),
-          produding = (multiplicity > 1);
-
-    return produding;
-  }
-
   generatePart() {
-    const producing = this.isProducing(),
-          cutPart = CutPart.fromProducing(producing);
+    const cutPart = CutPart.fromNothing();
 
     return cutPart;
   }

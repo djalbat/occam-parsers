@@ -74,7 +74,7 @@ const bnf = `
 
       epsilon                  ::=  "ε" ;
 
-      cut                      ::=  "\`" producingModifier? ;
+      cut                      ::=  "\`" ;
 
       noWhitespace             ::=  "<NO_WHITESPACE>" ;                              
 
@@ -88,8 +88,6 @@ const bnf = `
 
       opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
       
-      producingModifier        ::=  <NO_WHITESPACE>"\`" ;
-
       optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
 
       oneOrMoreQuantifier      ::=  <NO_WHITESPACE>"+" ;

@@ -98,7 +98,7 @@ wildcard                 ::=  "." ;
 
 epsilon                  ::=  "ε" ;
 
-cut                      ::=  "`" producingModifier? ;
+cut                      ::=  "`" ;
 
 noWhitespace             ::=  "<NO_WHITESPACE>" ;                              
 
@@ -111,8 +111,6 @@ quantifier               ::=  optionalQuantifier
                            ;
 
 opacityModifier          ::=  <NO_WHITESPACE>( "." | ".." );
-
-producingModifier        ::=  <NO_WHITESPACE>"`" ;
 
 optionalQuantifier       ::=  <NO_WHITESPACE>"?" ;
 
