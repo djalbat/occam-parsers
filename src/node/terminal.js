@@ -64,10 +64,10 @@ export default class TerminalNode {
     return precedence;
   }
 
-  isLowerPrecedence(parentRuleName, parentPrecedence) {
-    const lowerPrecedence = false;
+  comparePrecedence(parentRuleName, parentPrecedence) {
+    const precedenceCompares = false;
 
-    return lowerPrecedence;
+    return precedenceCompares;
   }
 
   getFirstSignificantTokenIndex(tokens) {
