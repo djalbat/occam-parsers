@@ -138,11 +138,23 @@ export default class NonTerminalNode {
     return significantTokens;
   }
 
+  getAssociativity() {
+    const associativity = Math.sign(this.precedence);
+
+    return associativity;
+  }
+
   getMultiplicity() {
     const childNodesLength = this.childNodes.length,
           multiplicity = childNodesLength;  ///
 
     return multiplicity;
+  }
+
+  getStrength() {
+    const strength = Math.abs(this.precedence);
+
+    return strength;
   }
 
   isSingular() {
@@ -152,24 +164,17 @@ export default class NonTerminalNode {
     return singular;
   }
 
-  isPalatable() {
-    const unpalatable = this.isUnpalatable(),
-          palatable = !unpalatable;
-
-    return palatable;
-  }
-
-  isUnpalatable() {
-    let unpalatable = false;
+  isInvalid() {
+    let invalid = false;
 
     const empty = this.isEmpty(),
           unprecedented = this.isUnprecedented();
 
     if (empty || unprecedented) {
-      unpalatable = true;
+      invalid = true;
     }
 
-    return unpalatable;
+    return invalid;
   }
 
   isEmpty() {
@@ -182,27 +187,27 @@ export default class NonTerminalNode {
   isUnprecedented() {
     let unprecedented = false;
 
-    const childNodesLowerPrecedence = this.areChildNodesLowerPrecedence();
+    const childNodesPrecedenceCompares = this.compareChildNodesPrecedence();
 
-    if (childNodesLowerPrecedence) {
+    if (childNodesPrecedenceCompares) {
       unprecedented = true;
     }
 
     return unprecedented;
   }
 
-  isLowerPrecedence(associativity, strength, first, last) {
-    let lowerPrecedence;
+  comparePrecedence(associativity, strength, first, last) {
+    let precedenceCompares;
 
     if (false) {
       ///
     } else if (this.precedence === null) {
-      lowerPrecedence = false;
+      precedenceCompares = false;
     } else if (this.precedence === TRANSPARENT_PRECEDENCE) {
-      lowerPrecedence = this.childNodes.some((childNode) => {
-        const childNodeLowerPrecedence = childNode.isLowerPrecedence(associativity, strength, first, last);
+      precedenceCompares = this.childNodes.some((childNode) => {
+        const childNodePrecedenceCompares = childNode.comparePrecedence(associativity, strength, first, last);
 
-        if (childNodeLowerPrecedence) {
+        if (childNodePrecedenceCompares) {
           return true;
         }
       });
@@ -210,48 +215,48 @@ export default class NonTerminalNode {
       const parentStrength = strength,  ///
             parentAssociativity = associativity;  ///
 
-      strength = Math.abs(this.precedence);
+      strength = this.getStrength();
 
       if (false) {
         ///
       } else if (first) {
-        lowerPrecedence = (parentAssociativity < 0) ?
+        precedenceCompares = (parentAssociativity < 0) ?
                            (strength < parentStrength) :
                              (strength <= parentStrength);
       } else if (last) {
-        lowerPrecedence = (parentAssociativity < 0) ?
+        precedenceCompares = (parentAssociativity < 0) ?
                             (strength <= parentStrength) :
                               (strength < parentStrength);
       } else {
-        lowerPrecedence = (strength < parentStrength);
+        precedenceCompares = (strength < parentStrength);
       }
     }
 
-    return lowerPrecedence;
+    return precedenceCompares;
   }
 
-  areChildNodesLowerPrecedence() {
-    let childNodesLowerPrecedence = false;
+  compareChildNodesPrecedence() {
+    let childNodesPrecedenceCompares = false;
 
     if ((this.precedence !== null) && (this.precedence !== TRANSPARENT_PRECEDENCE)) {
-      const length = this.childNodes.length,
-            lastIndex = (length - 1),
+      const multiplicity = this.getMultiplicity(),
+            lastIndex = (multiplicity - 1),
             firstIndex = 0,
-            strength = Math.abs(this.precedence),
-            associativity = Math.sign(this.precedence);
+            strength = this.getStrength(),
+            associativity = this.getAssociativity();
 
-      childNodesLowerPrecedence = this.childNodes.some((childNode, index) => {  ///
+      childNodesPrecedenceCompares = this.childNodes.some((childNode, index) => {  ///
         const last = (index === lastIndex),
               first = (index === firstIndex),
-              childNodeLowerPrecedence = childNode.isLowerPrecedence(associativity, strength, first, last);
+              childNodePrecedenceCompares = childNode.comparePrecedence(associativity, strength, first, last);
 
-        if (childNodeLowerPrecedence) {
+        if (childNodePrecedenceCompares) {
           return true;
         }
       });
     }
 
-    return childNodesLowerPrecedence;
+    return childNodesPrecedenceCompares;
   }
 
   asParseTree(tokens) {

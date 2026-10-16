@@ -61,9 +61,9 @@ export default class Definition {
 
   compose(rule, definition, savedFrame, frame, state) {
     const nonTerminalNode = nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame, state),
-          unpalatable = nonTerminalNode.isUnpalatable();
+          invalid = nonTerminalNode.isInvalid();
 
-    if (unpalatable) {
+    if (invalid) {
       frame = null;
     } else {
       const childNode = nonTerminalNode;  ///
