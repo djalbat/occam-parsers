@@ -1,13 +1,13 @@
 "use strict";
 
-import { EMPTY_STRING, TRANSPARENT_PRECEDENCE } from "../constants";
+import { EMPTY_STRING } from "../constants";
 
 export function stringFromStringNonTermionalNodeAndTokens(string, nonTerminalNode, tokens) {
   const node = nonTerminalNode, ///
-        precedence = precedenceFromNode(node),
-        lineIndexes = lineIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens);
+        lineIndexes = lineIndexesFromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
+        precedenceString = precedenceStringFromNode(node);
 
-  string = `${string}${lineIndexes}${precedence}`;
+  string = `${string}${lineIndexes}${precedenceString}`;
 
   return string;
 }
@@ -91,18 +91,11 @@ function lineIndexFromTokenIndexAndTokens(tokenIndex, tokens) {
   return lineIndex;
 }
 
-function precedenceFromNode(node) {
-  let precedence = node.getPrecedence();
+function precedenceStringFromNode(node) {
+  const precedence = node.getPrecedence(),
+        precedenceString = (precedence !== null) ?
+                             precedence.asString() :
+                               EMPTY_STRING;
 
-  if (false) {
-    ///
-  } else if (precedence === null) {
-    precedence = EMPTY_STRING;
-  }else if (precedence === TRANSPARENT_PRECEDENCE) {
-    precedence = ` ( )`;
-  } else {
-    precedence = ` (${precedence})`;
-  }
-
-  return precedence;
+  return precedenceString;
 }

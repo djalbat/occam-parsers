@@ -3,7 +3,7 @@
 import Frame from "../../frame";
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { ISOLATED_PRECEDENCE } from "../../constants";
+import { isolatedPrecedence } from "../../precedence";
 import { IsolatedPartPartType } from "../../partTypes";
 
 export default class IsolatedPartPart extends NonTerminalPart {
@@ -29,7 +29,7 @@ export default class IsolatedPartPart extends NonTerminalPart {
 
   compose(frame) {
     const childNodes = frame.getChildNodes(),
-          precedence = ISOLATED_PRECEDENCE;
+          precedence = isolatedPrecedence;
 
     frame = Frame.fromChildNodesAndPrecedence(childNodes, precedence);
 

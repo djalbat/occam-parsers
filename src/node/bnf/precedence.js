@@ -2,15 +2,16 @@
 
 import { arrayUtilities } from "necessary";
 
+import Precedence from "../../precedence";
 import NonTerminalNode from "../../node/nonTerminal";
 
-import { TRANSPARENT_PRECEDENCE } from "../../constants";
+import { transparentPrecedence } from "../../precedence";
 
 const { second } = arrayUtilities;
 
 export default class PrecedenceBNFNode extends NonTerminalNode {
   getPrecedence() {
-    let precedence = TRANSPARENT_PRECEDENCE;
+    let precedence = transparentPrecedence;
 
     const multiplicity = this.getMultiplicity();
 
@@ -18,9 +19,10 @@ export default class PrecedenceBNFNode extends NonTerminalNode {
       const childNodes = this.getChildNodes(),
             secondChildNode = second(childNodes),
             terminalNode = secondChildNode,  ///
-            content = terminalNode.getContent();
+            content = terminalNode.getContent(),
+            number = Number(content);
 
-      precedence = Number(content); ///
+      precedence = Precedence.fromNumber(number);
     }
 
     return precedence;

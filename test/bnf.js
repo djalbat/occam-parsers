@@ -24,7 +24,7 @@ describe("BNF", () => {
               parseTreeString = parseTreeStringFromNodeAndTokens(node, tokens);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                    
+                              
                                       document [2]                             
                                             |                                  
                                         rule [2]                               

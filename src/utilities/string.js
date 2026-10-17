@@ -1,8 +1,6 @@
 "use strict";
 
-import { characters } from "necessary";
-
-const { SPACE_CHARACTER } = characters;
+import { SPACE_CHARACTER } from "../constants";
 
 export function marginStringFromMarginWidth(marginWidth) {
   const marginString = SPACE_CHARACTER.repeat(marginWidth);

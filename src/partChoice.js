@@ -1,13 +1,9 @@
 "use strict";
 
-import { characters } from "necessary";
-
 import Frame from "./frame";
 
 import { emptyFrame } from "./frame";
-import { TRANSPARENT_PRECEDENCE } from "./constants";
-
-const { SPACE_CHARACTER } = characters;
+import { EMPTY_STRING } from "./constants";
 
 export default class PartChoice {
   constructor(part, precedence) {
@@ -52,19 +48,11 @@ export default class PartChoice {
   }
 
   asString() {
-    let string;
-
-    const partString = this.part.asString();
-
-    string = partString;  ///
-
-    if (this.precedence !== null) {
-      const precedence = (this.precedence === TRANSPARENT_PRECEDENCE) ?
-                           SPACE_CHARACTER :
-                             this.precedence;
-
-      string = `${string} (${precedence})`;
-    }
+    const partString = this.part.asString(),
+          precedenceString = (this.precedence !== null) ?
+                                this.precedence.asString() :
+                                  EMPTY_STRING,
+          string = `${partString}${precedenceString}`;
 
     return string;
   }

@@ -1,7 +1,7 @@
 "use strict";
 
 import { arrayUtilities } from "necessary";
-import { ISOLATED_PRECEDENCE } from "./constants";
+import { isolatedPrecedence } from "./precedence";
 
 const { first } = arrayUtilities;
 
@@ -44,7 +44,7 @@ export default class Frame {
   }
 
   isIsolated() {
-    const isolated = (this.precedence === ISOLATED_PRECEDENCE);
+    const isolated = (this.precedence === isolatedPrecedence);
 
     return isolated;
   }

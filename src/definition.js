@@ -1,15 +1,11 @@
 "use strict";
 
-import { characters } from "necessary";
-
 import Frame from "./frame";
 
 import { emptyFrame } from "./frame";
+import { EMPTY_STRING } from "./constants";
 import { every as linearEvery  } from "./utilities/linear";
 import { every as branchingEvery  } from "./utilities/branching";
-import { EMPTY_STRING, TRANSPARENT_PRECEDENCE } from "./constants";
-
-const { SPACE_CHARACTER } = characters;
 
 export default class Definition {
   constructor(parts, precedence) {
@@ -77,29 +73,11 @@ export default class Definition {
   }
 
   asString() {
-    let string;
-
-    const partsString = this.parts.reduce((partsString, part) => {
-      const partString = part.asString();
-
-      if (partsString === EMPTY_STRING) {
-        partsString = partString; ///
-      } else {
-        partsString = `${partsString} ${partString}`;
-      }
-
-      return partsString;
-    }, EMPTY_STRING);
-
-    string = partsString; ///
-
-    if (this.precedence !== null) {
-      const precedence = (this.precedence === TRANSPARENT_PRECEDENCE) ?
-                           SPACE_CHARACTER :
-                             this.precedence;
-
-      string = `${string} (${precedence})`;
-    }
+    const partsString = partsStringFromParts(this.parts),
+          precedenceString = (this.precedence !== null) ?
+                               this.precedence.asString() :
+                                 EMPTY_STRING,
+          string = `${partsString}${precedenceString}`;
 
     return string;
   }
@@ -130,6 +108,20 @@ export default class Definition {
 
     return definition;
   }
+}
+
+function partsStringFromParts(parts) {
+  const partsString = parts.reduce((partsString, part) => {
+    const partString = part.asString();
+
+    partsString = (partsString !== null) ?
+                    `${partsString} ${partString}` :
+                      partString; ///
+
+    return partsString;
+  }, null);
+
+  return partsString;
 }
 
 function nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame, state) {

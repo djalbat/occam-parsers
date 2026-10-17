@@ -6,7 +6,7 @@ import { specialSymbols } from "occam-lexers";
 import nodeMixins from "../mixins/node";
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
-import { TRANSPARENT_PRECEDENCE } from "../constants";
+import { transparentPrecedence } from "../precedence";
 
 const { match } = arrayUtilities,
       { opaque: opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
@@ -138,23 +138,11 @@ export default class NonTerminalNode {
     return significantTokens;
   }
 
-  getAssociativity() {
-    const associativity = Math.sign(this.precedence);
-
-    return associativity;
-  }
-
   getMultiplicity() {
     const childNodesLength = this.childNodes.length,
           multiplicity = childNodesLength;  ///
 
     return multiplicity;
-  }
-
-  getStrength() {
-    const strength = Math.abs(this.precedence);
-
-    return strength;
   }
 
   isSingular() {
@@ -196,40 +184,23 @@ export default class NonTerminalNode {
     return unprecedented;
   }
 
-  comparePrecedence(associativity, strength, first, last) {
+  comparePrecedence(precedence, first, last) {
     let precedenceCompares;
 
     if (false) {
       ///
     } else if (this.precedence === null) {
       precedenceCompares = false;
-    } else if (this.precedence === TRANSPARENT_PRECEDENCE) {
+    } else if (this.precedence === transparentPrecedence) {
       precedenceCompares = this.childNodes.some((childNode) => {
-        const childNodePrecedenceCompares = childNode.comparePrecedence(associativity, strength, first, last);
+        const childNodePrecedenceCompares = childNode.comparePrecedence(precedence, first, last);
 
         if (childNodePrecedenceCompares) {
           return true;
         }
       });
     } else {
-      const parentStrength = strength,  ///
-            parentAssociativity = associativity;  ///
-
-      strength = this.getStrength();
-
-      if (false) {
-        ///
-      } else if (first) {
-        precedenceCompares = (parentAssociativity < 0) ?
-                           (strength < parentStrength) :
-                             (strength <= parentStrength);
-      } else if (last) {
-        precedenceCompares = (parentAssociativity < 0) ?
-                            (strength <= parentStrength) :
-                              (strength < parentStrength);
-      } else {
-        precedenceCompares = (strength < parentStrength);
-      }
+      precedenceCompares = this.precedence.compare(precedence, first, last);
     }
 
     return precedenceCompares;
@@ -238,17 +209,15 @@ export default class NonTerminalNode {
   compareChildNodesPrecedence() {
     let childNodesPrecedenceCompares = false;
 
-    if ((this.precedence !== null) && (this.precedence !== TRANSPARENT_PRECEDENCE)) {
+    if ((this.precedence !== null) && (this.precedence !== transparentPrecedence)) {
       const multiplicity = this.getMultiplicity(),
             lastIndex = (multiplicity - 1),
-            firstIndex = 0,
-            strength = this.getStrength(),
-            associativity = this.getAssociativity();
+            firstIndex = 0;
 
       childNodesPrecedenceCompares = this.childNodes.some((childNode, index) => {  ///
         const last = (index === lastIndex),
               first = (index === firstIndex),
-              childNodePrecedenceCompares = childNode.comparePrecedence(associativity, strength, first, last);
+              childNodePrecedenceCompares = childNode.comparePrecedence(this.precedence, first, last);
 
         if (childNodePrecedenceCompares) {
           return true;
