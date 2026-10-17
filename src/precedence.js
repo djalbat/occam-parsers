@@ -23,7 +23,7 @@ export default class Precedence {
   }
 
   compare(precedence, first, last) {
-    let compares;
+    let complies;
 
     const strength = precedence.getStrength(),
           associativity = precedence.getAssociativity();
@@ -31,18 +31,18 @@ export default class Precedence {
     if (false) {
       ///
     } else if (first) {
-      compares = (associativity < 0) ?
-                   (this.strength < strength) :
-                     (this.strength <= strength);
+      complies = (associativity < 0) ?
+                   (this.strength >= strength) :
+                     (this.strength > strength);
     } else if (last) {
-      compares = (associativity < 0) ?
-                   (this.strength <= strength) :
-                     (this.strength < strength);
+      complies = (associativity < 0) ?
+                   (this.strength > strength) :
+                     (this.strength >= strength);
     } else {
-      compares = (this.strength < strength);
+      complies = (this.strength >= strength);
     }
 
-    return compares;
+    return complies;
   }
 
   asString() {

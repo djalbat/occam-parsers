@@ -58,14 +58,8 @@ export default class TerminalNode {
 
   getContent() { return this.significantToken.getContent(); }
 
-  getPrecedence() {
-    const precedence = null;
-
-    return precedence;
-  }
-
-  comparePrecedence(parentRuleName, parentPrecedence) {
-    const precedenceCompares = false;
+  comparePrecedence(precedence, first, last) {
+    const precedenceCompares = true;
 
     return precedenceCompares;
   }

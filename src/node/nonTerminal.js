@@ -173,12 +173,12 @@ export default class NonTerminalNode {
   }
 
   isUnprecedented() {
-    let unprecedented = false;
+    let unprecedented = true;
 
     const childNodesPrecedenceCompares = this.compareChildNodesPrecedence();
 
     if (childNodesPrecedenceCompares) {
-      unprecedented = true;
+      unprecedented = false;
     }
 
     return unprecedented;
@@ -190,9 +190,9 @@ export default class NonTerminalNode {
     if (false) {
       ///
     } else if (this.precedence === null) {
-      precedenceCompares = false;
+      precedenceCompares = true;
     } else if (this.precedence === transparentPrecedence) {
-      precedenceCompares = this.childNodes.some((childNode) => {
+      precedenceCompares = this.childNodes.every((childNode) => {
         const childNodePrecedenceCompares = childNode.comparePrecedence(precedence, first, last);
 
         if (childNodePrecedenceCompares) {
@@ -207,14 +207,14 @@ export default class NonTerminalNode {
   }
 
   compareChildNodesPrecedence() {
-    let childNodesPrecedenceCompares = false;
+    let childNodesPrecedenceCompares = true;
 
     if ((this.precedence !== null) && (this.precedence !== transparentPrecedence)) {
       const multiplicity = this.getMultiplicity(),
             lastIndex = (multiplicity - 1),
             firstIndex = 0;
 
-      childNodesPrecedenceCompares = this.childNodes.some((childNode, index) => {  ///
+      childNodesPrecedenceCompares = this.childNodes.every((childNode, index) => {
         const last = (index === lastIndex),
               first = (index === firstIndex),
               childNodePrecedenceCompares = childNode.comparePrecedence(this.precedence, first, last);
