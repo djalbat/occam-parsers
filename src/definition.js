@@ -56,17 +56,16 @@ export default class Definition {
   }
 
   compose(rule, definition, savedFrame, frame, state) {
-    const nonTerminalNode = nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame, state),
-          invalid = nonTerminalNode.isInvalid();
+    const nonTerminalNode = nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame, state);
 
-    if (invalid) {
-      frame = null;
-    } else {
+    if (nonTerminalNode !== null) {
       const childNode = nonTerminalNode;  ///
 
       frame = Frame.fromChildNode(childNode); ///
 
       frame = savedFrame.merge(frame); ///
+    } else {
+      frame = null;
     }
 
     return frame;
@@ -136,6 +135,14 @@ function nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame,
   nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity);
 
   nonTerminalNode = nonTerminalNode.rewrite(state);
+
+  if (nonTerminalNode !== null) {
+    const invalid = nonTerminalNode.isInvalid();
+
+    if (invalid) {
+      nonTerminalNode = null;
+    }
+  }
 
   return nonTerminalNode;
 }
