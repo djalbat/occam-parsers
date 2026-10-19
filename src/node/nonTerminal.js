@@ -172,6 +172,12 @@ export default class NonTerminalNode {
     return empty;
   }
 
+  isMutable() {
+    const mutable = false;
+
+    return mutable;
+  }
+
   isUnprecedented() {
     let unprecedented = true;
 

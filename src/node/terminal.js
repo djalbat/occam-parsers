@@ -58,6 +58,18 @@ export default class TerminalNode {
 
   getContent() { return this.significantToken.getContent(); }
 
+  isMutable() {
+    const mutable = false;
+
+    return mutable;
+  }
+
+  isUnprecedented() {
+    let unprecedented = false;
+
+    return unprecedented;
+  }
+
   comparePrecedence(precedence, first, last) {
     const precedenceCompares = true;
 

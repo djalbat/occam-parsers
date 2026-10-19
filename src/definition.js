@@ -134,7 +134,7 @@ function nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame,
 
   nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity);
 
-  nonTerminalNode = nonTerminalNode.rewrite(state);
+  nonTerminalNode = nonTerminalNode.rewrite(state); ///
 
   if (nonTerminalNode !== null) {
     const invalid = nonTerminalNode.isInvalid();
