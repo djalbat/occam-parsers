@@ -108,14 +108,22 @@ export default class State {
     return state;
   }
 
-  static fromTokensAndParser(tokens, parser) {
+  static fromTokensAndParser(Class, tokens, parser, ...remaingArguments) {
+    if (parser === undefined) {
+      parser = tokens;  ///
+
+      tokens = Class; ///
+
+      Class = State;  ///
+    }
+
     const tokensSignificant = areTokensSignificant(tokens),
           tokensLength = tokens.length,
           index = tokensSignificant ?
                     0 :
                       tokensLength, ///
           branches = 0,
-          state = new State(parser, tokens, index, branches);
+          state = new Class(parser, tokens, index, branches, ...remaingArguments);
 
     return state;
   }

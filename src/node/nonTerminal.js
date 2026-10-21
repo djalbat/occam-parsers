@@ -256,6 +256,10 @@ export default class NonTerminalNode {
     return matches;
   }
 
+  restore(state) {
+    ///
+  }
+
   rewrite(state) {
     const nonTerminalNode = this;  ///
 
