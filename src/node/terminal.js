@@ -259,7 +259,9 @@ export default class TerminalNode {
   }
 
   restore(state) {
-    ///
+    const terminalNode = this;  ///
+
+    return terminalNode;
   }
 
   rewrite(state) {
