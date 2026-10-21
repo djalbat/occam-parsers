@@ -152,32 +152,6 @@ export default class NonTerminalNode {
     return singular;
   }
 
-  isInvalid() {
-    let invalid = false;
-
-    const empty = this.isEmpty(),
-          unprecedented = this.isUnprecedented();
-
-    if (empty || unprecedented) {
-      invalid = true;
-    }
-
-    return invalid;
-  }
-
-  isEmpty() {
-    const multiplicity = this.getMultiplicity(),
-          empty = (multiplicity === 0);
-
-    return empty;
-  }
-
-  isMutable() {
-    const mutable = false;
-
-    return mutable;
-  }
-
   isUnprecedented() {
     let unprecedented = true;
 

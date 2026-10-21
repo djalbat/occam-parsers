@@ -49,12 +49,26 @@ export default class Frame {
     return isolated;
   }
 
+  isSingular() {
+    const childNodesLength = this.childNodes.length,
+          singular = (childNodesLength === 1);
+
+    return singular;
+  }
+
+  isEmpty() {
+    const childNodesLength = this.childNodes.length,
+          empty = (childNodesLength === 0);
+
+    return empty;
+  }
+
   getNode() {
     let node = null;
 
-    const childNodesLength = this.childNodes.length;
+    const singluar = this.isIsolated();
 
-    if (childNodesLength === 1) {
+    if (singluar) {
       const firstChildNode = first(this.childNodes);
 
       node = firstChildNode;  ///
