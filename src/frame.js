@@ -66,7 +66,7 @@ export default class Frame {
   getNode() {
     let node = null;
 
-    const singluar = this.isIsolated();
+    const singluar = this.isSingular();
 
     if (singluar) {
       const firstChildNode = first(this.childNodes);
