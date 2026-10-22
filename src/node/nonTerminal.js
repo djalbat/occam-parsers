@@ -268,6 +268,12 @@ export default class NonTerminalNode {
     return nonTerminalNode;
   }
 
+  balance(state) {
+    const nonTerminalNode = this; ///
+
+    return nonTerminalNode;
+  }
+
   destroy() {
     this.forEachChildNode((childNode) => {
       childNode.destroy();

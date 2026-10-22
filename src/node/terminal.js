@@ -270,6 +270,12 @@ export default class TerminalNode {
     return terminalNode;
   }
 
+  balance(state) {
+    const terminalNode = this;  ///
+
+    return terminalNode;
+  }
+
   clone(...remainingArguments) {
     const Class = this.constructor,
           parentNode = null,
