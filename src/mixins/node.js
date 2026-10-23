@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-const { push, first, forwardsSome, backwardsSome, forwardsEvery, backwardsEvery } = arrayUtilities;
+const { push, first, forwardsSome, backwardsSome, forwardsEvery, backwardsEvery, forwardsForEach, backwardsForEach } = arrayUtilities;
 
 function getMultiplicity() {
   const childNodesLength = this.childNodes.length,
@@ -32,6 +32,10 @@ function backwardsSomeChildNode(callback) { return backwardsSome(this.childNodes
 function forwardsEveryChildNode(callback) { return forwardsEvery(this.childNodes, callback); }
 
 function backwardsEveryChildNode(callback) { return backwardsEvery(this.childNodes, callback); }
+
+function forwardsForEachChildNode(callback) { return forwardsForEach(this.childNodes, callback); }
+
+function backwardsForEachChildNode(callback) { return backwardsForEach(this.childNodes, callback); }
 
 function indexOfChildNode(childNode) { return this.childNodes.indexOf(childNode); }
 
@@ -408,6 +412,8 @@ const nodeMixins = {
   backwardsSomeChildNode,
   forwardsEveryChildNode,
   backwardsEveryChildNode,
+  forwardsForEachChildNode,
+  backwardsForEachChildNode,
   indexOfChildNode,
   setChildNodesParentNode,
   resetChildNodesParentNode,
