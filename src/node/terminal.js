@@ -258,22 +258,14 @@ export default class TerminalNode {
     return matches;
   }
 
-  restore(state) {
-    const terminalNode = this;  ///
-
-    return terminalNode;
-  }
-
   rewrite(state) {
     const terminalNode = this;  ///
 
     return terminalNode;
   }
 
-  balance(state) {
-    const terminalNode = this;  ///
-
-    return terminalNode;
+  simplify(state) {
+    ///
   }
 
   clone(...remainingArguments) {

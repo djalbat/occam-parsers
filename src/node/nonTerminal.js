@@ -256,22 +256,14 @@ export default class NonTerminalNode {
     return matches;
   }
 
-  restore(state) {
-    const nonTerminalNode = this;  ///
-
-    return nonTerminalNode;
-  }
-
   rewrite(state) {
     const nonTerminalNode = this;  ///
 
     return nonTerminalNode;
   }
 
-  balance(state) {
-    const nonTerminalNode = this; ///
-
-    return nonTerminalNode;
+  simplify(state) {
+    ///
   }
 
   destroy() {
