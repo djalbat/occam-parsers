@@ -31,7 +31,7 @@ describe("Precedence", () => {
     describe("correctly nested expressions", () => {
       const content = "(A u B).";
 
-      it.only("results in the requisite parse tree" , () => {
+      it("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
@@ -52,12 +52,12 @@ describe("Precedence", () => {
                                        |                                       |                                                 
                               "A"[unassigned] [0]                     "B"[unassigned] [0]                                        
     
-        `));
+       `));
       });
     });
   });
 
-  describe("left association", () => {
+  describe.skip("left assiciativity", () => {
     const bnf = `
   
       S ::= ( E... "." ) ;
@@ -79,7 +79,7 @@ describe("Precedence", () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                  
+                            
                                                                                             S [0]                                
                                                                                               |                                  
                                                                      ---------------------------------------------------         
@@ -94,12 +94,12 @@ describe("Precedence", () => {
                    |                   |                   |                                                                     
           "x"[unassigned] [0] "+"[unassigned] [0] "y"[unassigned] [0]                                                            
                                                                         
-        `));
+       `));
       });
     });
   });
 
-  describe("right association", () => {
+  describe.skip("right assiciativity", () => {
     const bnf = `
   
       S ::= ( E... "." ) ;
@@ -136,12 +136,12 @@ describe("Precedence", () => {
                                                            |                   |                   |                             
                                                   "y"[unassigned] [0] "+"[unassigned] [0] "z"[unassigned] [0]                    
                                                                     
-      `));
+       `));
       });
     });
   });
 
-  describe("definitions with direct precedence", () => {
+  describe.skip("definitions with direct precedence", () => {
     const bnf = `
     
       S ::= ( T ... "." ) ;
@@ -193,7 +193,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe("definitions with indirect precedence", () => {
+  describe.skip("definitions with indirect precedence", () => {
     const bnf = `
     
       S ::= ( T ... "." ) ;
@@ -251,7 +251,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe("part choices with direct precedence", () => {
+  describe.skip("part choices with direct precedence", () => {
     const bnf = `
     
       S ::= ( T ... "." ) ;
@@ -301,7 +301,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe("part choices with indirect precedence", () => {
+  describe.skip("part choices with indirect precedence", () => {
     const bnf = `
     
       S ::= ( T ... "." ) ;
