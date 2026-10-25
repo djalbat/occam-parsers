@@ -6,9 +6,7 @@ import { specialSymbols } from "occam-lexers";
 import nodeMixins from "../mixins/node";
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
-import { transparentPrecedence } from "../precedence";
-
-const { match } = arrayUtilities,
+const { match, first } = arrayUtilities,
       { opaque: opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
 export default class NonTerminalNode {
@@ -77,9 +75,9 @@ export default class NonTerminalNode {
   }
 
   isTransparent() {
-    const semiOpaque = (this.opacity === null);
+    const transparent = (this.opacity === null);
 
-    return semiOpaque;
+    return transparent;
   }
 
   isTerminalNode() {
@@ -138,6 +136,20 @@ export default class NonTerminalNode {
     return significantTokens;
   }
 
+  getSingularChildNode() {
+    let singularChildNode = null;
+
+    const multiplicity = this.getMultiplicity();
+
+    if (multiplicity === 1) {
+      const firstchildNode = first(this.childNodes);
+
+      singularChildNode = firstchildNode; ///
+    }
+
+    return singularChildNode;
+  }
+
   getMultiplicity() {
     const childNodesLength = this.childNodes.length,
           multiplicity = childNodesLength;  ///
@@ -153,59 +165,47 @@ export default class NonTerminalNode {
   }
 
   isUnprecedented() {
-    let unprecedented = true;
+    let unprecedented = false;
 
-    const childNodesPrecedenceCompares = this.compareChildNodesPrecedence();
+    if (this.precedence !== null) {
+      const multiplicity = this.getMultiplicity(),
+            firstIndex = 0,
+            lastIndex = (multiplicity - 1);
 
-    if (childNodesPrecedenceCompares) {
-      unprecedented = false;
+      this.childNodes.some((childNode, index) => {
+        const last = (index === lastIndex),
+              first = (index === firstIndex),
+              childNodePrecedenceCompares = childNode.comparePrecedence(this.precedence, first, last);
+
+        if (!childNodePrecedenceCompares) {
+          unprecedented = true;
+
+          return true;
+        }
+      });
     }
 
     return unprecedented;
   }
 
   comparePrecedence(precedence, first, last) {
-    let precedenceCompares;
+    let precedenceCompares = true;
 
-    if (false) {
-      ///
-    } else if (this.precedence === null) {
-      precedenceCompares = true;
-    } else if (this.precedence === transparentPrecedence) {
-      precedenceCompares = this.childNodes.every((childNode) => {
-        const childNodePrecedenceCompares = childNode.comparePrecedence(precedence, first, last);
+    if (this.precedence !== null) {
+      const transparent = this.precedence.isTransparent();
 
-        if (childNodePrecedenceCompares) {
-          return true;
-        }
-      });
-    } else {
-      precedenceCompares = this.precedence.compare(precedence, first, last);
+      if (transparent) {
+        const singularChildNode = this.getSingularChildNode();
+
+        precedenceCompares = (singularChildNode !== null) ?
+                               singularChildNode.comparePrecedence(precedence, first, last) :
+                                 false;
+      } else {
+        precedenceCompares = this.precedence.compare(precedence, first, last);
+      }
     }
 
     return precedenceCompares;
-  }
-
-  compareChildNodesPrecedence() {
-    let childNodesPrecedenceCompares = true;
-
-    if ((this.precedence !== null) && (this.precedence !== transparentPrecedence)) {
-      const multiplicity = this.getMultiplicity(),
-            lastIndex = (multiplicity - 1),
-            firstIndex = 0;
-
-      childNodesPrecedenceCompares = this.childNodes.every((childNode, index) => {
-        const last = (index === lastIndex),
-              first = (index === firstIndex),
-              childNodePrecedenceCompares = childNode.comparePrecedence(this.precedence, first, last);
-
-        if (childNodePrecedenceCompares) {
-          return true;
-        }
-      });
-    }
-
-    return childNodesPrecedenceCompares;
   }
 
   asParseTree(tokens) {

@@ -4,7 +4,7 @@ const { testUtilities } = require("../lib"); ///
 
 const { compareParseTreeStrings, nodeFromEntriesBnfAndContent, parseTreeStringFromEntriesBnfAndContent } = testUtilities;
 
-describe.skip("Precedence", () => {
+describe("Precedence", () => {
   const entries = [
     {
       "unassigned": "^[^\\s]"
@@ -31,20 +31,20 @@ describe.skip("Precedence", () => {
     describe("correctly nested expressions", () => {
       const content = "(A u B).";
 
-      it("results in the requisite parse tree" , () => {
+      it.only("results in the requisite parse tree" , () => {
         const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
 
         assert.isTrue(compareParseTreeStrings(parseTreeString, `
-                  
+                            
                                                                                        S [0]                                     
                                                                                          |                                       
                                                            -------------------------------------------------------------         
                                                            |                                                           |         
-                                                         T [0]                                                "."[unassigned] [0]
+                                                       T [0] (3)                                              "."[unassigned] [0]
                                                            |                                                                     
                    ---------------------------------------------------------------------------------                             
                    |                                       |                                       |                             
-          "("[unassigned] [0]                          T [0] (2)                          ")"[unassigned] [0]                    
+          "("[unassigned] [0]                         T [0] ((2))                         ")"[unassigned] [0]                    
                                                            |                                                                     
                                        -----------------------------------------                                                 
                                        |                   |                   |                                                 

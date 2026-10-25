@@ -59,7 +59,7 @@ export default class Definition {
     const frameEmpty = frame.isEmpty();
 
     if (!frameEmpty) {
-      const nonTerminalNode = nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame, state);
+      const nonTerminalNode = createNonTerminalNode(rule, definition, savedFrame, frame, state);
 
       if (nonTerminalNode !== null) {
         const childNode = nonTerminalNode;  ///
@@ -129,13 +129,13 @@ function partsStringFromParts(parts) {
   return partsString;
 }
 
-function nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame, state) {
+function createNonTerminalNode(rule, definition, savedFrame, frame, state) {
   let nonTerminalNode;
 
   const opacity = rule.getOpacity(),
         ruleName = rule.getName(),
         childNodes = frame.getChildNodes(),
-        precedence = frame.getPrecedence(definition),
+        precedence = precedenceFromDefinitionSavedFrameAndFrame(definition, savedFrame, frame),
         NonTerminalNode = rule.NonTerminalNodeFromRuleName(ruleName, state);
 
   nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity);
@@ -143,4 +143,23 @@ function nonTerminalNodeFromRuleDefinitionFrameAndState(rule, definition, frame,
   nonTerminalNode = nonTerminalNode.rewrite(state); ///
 
   return nonTerminalNode;
+}
+
+function precedenceFromDefinitionSavedFrameAndFrame(definition, savedFrame, frame) {
+  let precedence;
+
+  const framePrecedence = frame.getPrecedence(),
+        definitionPrecedence = definition.getPrecedence();
+
+  precedence = definitionPrecedence || framePrecedence;
+
+  if (precedence !== null) {
+    const isolated = savedFrame.isIsolated();
+
+    if (isolated) {
+      precedence = precedence.isolate();  ///
+    }
+  }
+
+  return precedence;
 }

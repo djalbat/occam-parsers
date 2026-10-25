@@ -1,6 +1,7 @@
 "use strict";
 
 import { arrayUtilities } from "necessary";
+
 import { isolatedPrecedence } from "./precedence";
 
 const { first } = arrayUtilities;
@@ -15,24 +16,8 @@ export default class Frame {
     return this.childNodes;
   }
 
-  getPrecedence(definition = null) {
-    let precedence;
-
-    if (definition === null) {
-      precedence = this.precedence;
-    } else {
-      const isolated = this.isIsolated();
-
-      if (isolated) {
-        precedence = null;
-      } else {
-        precedence = (this.precedence !== null) ?
-                        this.precedence :
-                          definition.getPrecedence();
-      }
-    }
-
-    return precedence;
+  getPrecedence() {
+    return this.precedence;
   }
 
   setChildNodes(childNodes) {
@@ -41,12 +26,6 @@ export default class Frame {
 
   setPrecedence(precedence) {
     this.precedence = precedence;
-  }
-
-  isIsolated() {
-    const isolated = (this.precedence === isolatedPrecedence);
-
-    return isolated;
   }
 
   isSingular() {
@@ -61,6 +40,16 @@ export default class Frame {
           empty = (childNodesLength === 0);
 
     return empty;
+  }
+
+  isIsolated() {
+    let isolated = false;
+
+    if (this.precedence !== null) {
+      isolated = this.precedence.isIsolated();
+    }
+
+    return isolated;
   }
 
   getNode() {
@@ -93,6 +82,18 @@ export default class Frame {
     precedence = precedence || this.precedence; ///
 
     frame = new Frame(childNodes, precedence);
+
+    return frame;
+  }
+
+  isolate() {
+    const childNodes = [
+            ...this.childNodes,
+          ],
+          precedence = (this.precedence !== null) ?
+                         this.precedence.isolate() :
+                           isolatedPrecedence,
+          frame = new Frame(childNodes, precedence);
 
     return frame;
   }

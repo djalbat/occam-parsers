@@ -1,9 +1,7 @@
 "use strict";
 
-import Frame from "../../frame";
 import NonTerminalPart from "../../part/nonTerminal";
 
-import { isolatedPrecedence } from "../../precedence";
 import { IsolatedPartPartType } from "../../partTypes";
 
 export default class IsolatedPartPart extends NonTerminalPart {
@@ -20,25 +18,14 @@ export default class IsolatedPartPart extends NonTerminalPart {
   isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) { return this.part.isConsuming(ruleMap, visitedRules, checkForCutParts); }
 
   parse(frame, state, forward, back) {
-    return this.part.parse(frame, state, (frame, state, back) => {
-      frame = this.compose(frame);
+    frame = frame.isolate();  ///
 
-      return forward(frame, state, back);
-    }, back);
-  }
-
-  compose(frame) {
-    const childNodes = frame.getChildNodes(),
-          precedence = isolatedPrecedence;
-
-    frame = Frame.fromChildNodesAndPrecedence(childNodes, precedence);
-
-    return frame;
+    return this.part.parse(frame, state, forward, back);
   }
 
   asString() {
     const partString = this.part.asString(),
-          string = `( ${partString} )`;
+          string = `(${partString})`;
 
     return string;
   }

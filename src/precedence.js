@@ -1,11 +1,13 @@
 "use strict";
 
-import { EMPTY_STRING, MINUS_CHARACTER, SPACE_CHARACTER, TRANSPARENT_PRECEDENCE_STRENGTH } from "./constants";
+import { EMPTY_STRING, MINUS_CHARACTER, SPACE_CHARACTER } from "./constants";
 
 export default class Precedence {
-  constructor(strength, associativity) {
+  constructor(strength, associativity, transparent, isolated) {
     this.strength = strength;
     this.associativity = associativity;
+    this.transparent = transparent;
+    this.isolated = isolated;
   }
 
   getStrength() {
@@ -17,40 +19,60 @@ export default class Precedence {
   }
 
   isTransparent() {
-    const transparent = (this.strength === TRANSPARENT_PRECEDENCE_STRENGTH);
+    return this.transparent;
+  }
 
-    return transparent;
+  isIsolated() {
+    return this.isolated;
   }
 
   compare(precedence, first, last) {
-    let complies;
+    let compares;
 
-    const strength = precedence.getStrength(),
-          associativity = precedence.getAssociativity();
+    const transparent = precedence.isTransparent();
 
     if (false) {
       ///
-    } else if (first) {
-      complies = (associativity < 0) ?
-                   (this.strength >= strength) :
-                     (this.strength > strength);
-    } else if (last) {
-      complies = (associativity < 0) ?
-                   (this.strength > strength) :
-                     (this.strength >= strength);
+    } else if (transparent) {
+      compares = false;
+    } else if (this.isolated) {
+      compares = true;
     } else {
-      complies = (this.strength >= strength);
+      const strength = precedence.getStrength(),
+            associativity = precedence.getAssociativity();
+
+      if (false) {
+        ///
+      } else if (first) {
+        compares = (associativity < 0) ?
+                     (this.strength >= strength) :
+                       (this.strength > strength);
+      } else if (last) {
+        compares = (associativity < 0) ?
+                     (this.strength > strength) :
+                       (this.strength >= strength);
+      } else {
+        compares = (this.strength >= strength);
+      }
     }
 
-    return complies;
+    return compares;
+  }
+
+  isolate() {
+    const strength = this.strength,
+          associativity = this.associativity,
+          transparent = this.transparent,
+          isolated = true,
+          precedence = new Precedence(strength, associativity, transparent, isolated);
+
+    return precedence;
   }
 
   asString() {
     let string;
 
-    const transparent = this.isTransparent();
-
-    if (transparent) {
+    if (this.transparent) {
       string = SPACE_CHARACTER;
     } else {
       const sign = (this.associativity < 0) ?
@@ -60,37 +82,66 @@ export default class Precedence {
       string = `${sign}${this.strength}`;
     }
 
-    string = ` (${string})`; ///
+    string = (this.isolated) ?
+               `((${string}))` : ///
+                 `(${string})`; ///
+
+    string = ` ${string}`; ///
 
     return string;
-  }
-
-  static fromNumber(number) {
-    const strength = Math.abs(number),
-          associativity = Math.sign(number),
-          precedence = new Precedence(strength, associativity);
-
-    return precedence;
   }
 
   static fromNothing() {
     const strength = null,
           associativity = null,
-          precedence = new Precedence(strength, associativity);
+          transparent = false,
+          isolated = false,
+          precedence = new Precedence(strength, associativity, transparent, isolated);
+
+    return precedence;
+  }
+
+  static fromNumber(number) {
+    const strength = Math.abs(number),
+          associativity = Math.sign(number),
+          transparent = false,
+          isolated = false,
+          precedence = new Precedence(strength, associativity, transparent, isolated);
 
     return precedence;
   }
 
   static fromStrength(strength) {
     const associativity = null,
-          precedence = new Precedence(strength, associativity);
+          transparent = false,
+          isolated = false,
+          precedence = new Precedence(strength, associativity, transparent, isolated);
+
+    return precedence;
+  }
+
+  static fromIsolated(isolated) {
+    const strength = null,
+          associativity = null,
+          transparent = false,
+          precedence = new Precedence(strength, associativity, transparent, isolated);
+
+    return precedence;
+  }
+
+  static fromTransparent(transparent) {
+    const strength = null,
+          associativity = null,
+          isolated = false,
+          precedence = new Precedence(strength, associativity, transparent, isolated);
 
     return precedence;
   }
 }
 
-const strength = TRANSPARENT_PRECEDENCE_STRENGTH;
+const isolated = true,
+      transparent = true;
 
-export const isolatedPrecedence = Precedence.fromNothing();
+export const isolatedPrecedence = Precedence.fromIsolated(isolated);
 
-export const transparentPrecedence = Precedence.fromStrength(strength);
+export const transparentPrecedence = Precedence.fromTransparent(transparent);
