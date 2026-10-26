@@ -171,6 +171,16 @@ export default class NonTerminalNode {
     return singular;
   }
 
+  isIntervening() {
+    let intervening = false;
+
+    if (this.precedence !== null) {
+      intervening = this.precedence.isIntervening();
+    }
+
+    return intervening;
+  }
+
   isUnprecedented() {
     let unprecedented = false;
 
@@ -199,9 +209,9 @@ export default class NonTerminalNode {
     let precedenceCompares = true;
 
     if (this.precedence !== null) {
-      const transparent = this.precedence.isTransparent();
+      const intervening = this.precedence.isIntervening();
 
-      if (transparent) {
+      if (intervening) {
         const singleChildNode = this.getSingleChildNode();
 
         precedenceCompares = (singleChildNode !== null) ?

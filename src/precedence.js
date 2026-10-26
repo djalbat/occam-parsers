@@ -3,10 +3,10 @@
 import { EMPTY_STRING, MINUS_CHARACTER, SPACE_CHARACTER } from "./constants";
 
 export default class Precedence {
-  constructor(strength, associativity, transparent, isolated) {
+  constructor(strength, associativity, intervening, isolated) {
     this.strength = strength;
     this.associativity = associativity;
-    this.transparent = transparent;
+    this.intervening = intervening;
     this.isolated = isolated;
   }
 
@@ -18,8 +18,8 @@ export default class Precedence {
     return this.associativity;
   }
 
-  isTransparent() {
-    return this.transparent;
+  isIntervening() {
+    return this.intervening;
   }
 
   isIsolated() {
@@ -29,11 +29,11 @@ export default class Precedence {
   compare(precedence, first, last) {
     let compares;
 
-    const transparent = precedence.isTransparent();
+    const intervening = precedence.isIntervening();
 
     if (false) {
       ///
-    } else if (transparent) {
+    } else if (intervening) {
       compares = false;
     } else if (this.isolated) {
       compares = true;
@@ -62,9 +62,9 @@ export default class Precedence {
   isolate() {
     const strength = this.strength,
           associativity = this.associativity,
-          transparent = this.transparent,
+          intervening = this.intervening,
           isolated = true,
-          precedence = new Precedence(strength, associativity, transparent, isolated);
+          precedence = new Precedence(strength, associativity, intervening, isolated);
 
     return precedence;
   }
@@ -72,7 +72,7 @@ export default class Precedence {
   asString() {
     let string;
 
-    if (this.transparent) {
+    if (this.intervening) {
       string = SPACE_CHARACTER;
     } else {
       const sign = (this.associativity < 0) ?
@@ -94,9 +94,9 @@ export default class Precedence {
   static fromNothing() {
     const strength = null,
           associativity = null,
-          transparent = false,
+          intervening = false,
           isolated = false,
-          precedence = new Precedence(strength, associativity, transparent, isolated);
+          precedence = new Precedence(strength, associativity, intervening, isolated);
 
     return precedence;
   }
@@ -104,18 +104,18 @@ export default class Precedence {
   static fromNumber(number) {
     const strength = Math.abs(number),
           associativity = Math.sign(number),
-          transparent = false,
+          intervening = false,
           isolated = false,
-          precedence = new Precedence(strength, associativity, transparent, isolated);
+          precedence = new Precedence(strength, associativity, intervening, isolated);
 
     return precedence;
   }
 
   static fromStrength(strength) {
     const associativity = null,
-          transparent = false,
+          intervening = false,
           isolated = false,
-          precedence = new Precedence(strength, associativity, transparent, isolated);
+          precedence = new Precedence(strength, associativity, intervening, isolated);
 
     return precedence;
   }
@@ -123,25 +123,25 @@ export default class Precedence {
   static fromIsolated(isolated) {
     const strength = null,
           associativity = null,
-          transparent = false,
-          precedence = new Precedence(strength, associativity, transparent, isolated);
+          intervening = false,
+          precedence = new Precedence(strength, associativity, intervening, isolated);
 
     return precedence;
   }
 
-  static fromTransparent(transparent) {
+  static fromIntervening(intervening) {
     const strength = null,
           associativity = null,
           isolated = false,
-          precedence = new Precedence(strength, associativity, transparent, isolated);
+          precedence = new Precedence(strength, associativity, intervening, isolated);
 
     return precedence;
   }
 }
 
 const isolated = true,
-      transparent = true;
+      intervening = true;
 
 export const isolatedPrecedence = Precedence.fromIsolated(isolated);
 
-export const transparentPrecedence = Precedence.fromTransparent(transparent);
+export const interveningPrecedence = Precedence.fromIntervening(intervening);

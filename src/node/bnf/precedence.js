@@ -5,13 +5,13 @@ import { arrayUtilities } from "necessary";
 import Precedence from "../../precedence";
 import NonTerminalNode from "../../node/nonTerminal";
 
-import { transparentPrecedence } from "../../precedence";
+import { interveningPrecedence } from "../../precedence";
 
 const { second } = arrayUtilities;
 
 export default class PrecedenceBNFNode extends NonTerminalNode {
   getPrecedence() {
-    let precedence = transparentPrecedence;
+    let precedence = interveningPrecedence;
 
     const multiplicity = this.getMultiplicity();
 

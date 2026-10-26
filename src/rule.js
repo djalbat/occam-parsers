@@ -53,9 +53,9 @@ export default class Rule {
   }
 
   isTransparent() {
-    const semiOpaque = (this.opacity === null);
+    const transparent = (this.opacity === null);
 
-    return semiOpaque;
+    return transparent;
   }
 
   isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
