@@ -157,6 +157,13 @@ export default class NonTerminalNode {
     return multiplicity;
   }
 
+  isSingle() {
+    const singleChildNode = this.parentNode.getSingleChildNode(),
+          single = (singleChildNode !== null);
+
+    return single;
+  }
+
   isSingular() {
     const multiplicity = this.getMultiplicity(),
       singular = (multiplicity === 1);
