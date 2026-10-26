@@ -157,6 +157,19 @@ export default class NonTerminalNode {
     return multiplicity;
   }
 
+  getIndex() {
+    const childNode = this, ///
+          index = this.parentNode.indexOf(childNode);
+
+    return index;
+  }
+
+  indexOf(childNode) {
+    const index = this.childNodes.indexOf(childNode);
+
+    return index;
+  }
+
   isSingle() {
     const singleChildNode = this.parentNode.getSingleChildNode(),
           single = (singleChildNode !== null);

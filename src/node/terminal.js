@@ -54,6 +54,13 @@ export default class TerminalNode {
     return nonTerminalNode;
   }
 
+  getIndex() {
+    const childNode = this, ///
+          index = this.parentNode.indexOf(childNode);
+
+    return index;
+  }
+
   isSingle() {
     const singleChildNode = this.parentNode.getSingleChildNode(),
           single = (singleChildNode !== null);
