@@ -54,15 +54,21 @@ export default class TerminalNode {
     return nonTerminalNode;
   }
 
-  getType() { return this.significantToken.getType(); }
+  isSingular() {
+    const singular = false;
 
-  getContent() { return this.significantToken.getContent(); }
+    return singular;
+  }
 
   isUnprecedented() {
     let unprecedented = false;
 
     return unprecedented;
   }
+
+  getType() { return this.significantToken.getType(); }
+
+  getContent() { return this.significantToken.getContent(); }
 
   comparePrecedence(precedence, first, last) {
     const precedenceCompares = true;

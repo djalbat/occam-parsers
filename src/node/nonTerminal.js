@@ -136,18 +136,18 @@ export default class NonTerminalNode {
     return significantTokens;
   }
 
-  getSingularChildNode() {
-    let singularChildNode = null;
+  getSingleChildNode() {
+    let singleChildNode = null;
 
     const multiplicity = this.getMultiplicity();
 
     if (multiplicity === 1) {
       const firstchildNode = first(this.childNodes);
 
-      singularChildNode = firstchildNode; ///
+      singleChildNode = firstchildNode; ///
     }
 
-    return singularChildNode;
+    return singleChildNode;
   }
 
   getMultiplicity() {
@@ -159,7 +159,7 @@ export default class NonTerminalNode {
 
   isSingular() {
     const multiplicity = this.getMultiplicity(),
-          singular = (multiplicity === 1);
+      singular = (multiplicity === 1);
 
     return singular;
   }
@@ -195,10 +195,10 @@ export default class NonTerminalNode {
       const transparent = this.precedence.isTransparent();
 
       if (transparent) {
-        const singularChildNode = this.getSingularChildNode();
+        const singleChildNode = this.getSingleChildNode();
 
-        precedenceCompares = (singularChildNode !== null) ?
-                               singularChildNode.comparePrecedence(precedence, first, last) :
+        precedenceCompares = (singleChildNode !== null) ?
+                               singleChildNode.comparePrecedence(precedence, first, last) :
                                  false;
       } else {
         precedenceCompares = this.precedence.compare(precedence, first, last);
