@@ -279,7 +279,7 @@ export default class NonTerminalNode {
     return nonTerminalNode;
   }
 
-  simplify(state) {
+  simplify(index, state) {
     ///
   }
 
