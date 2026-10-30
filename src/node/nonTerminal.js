@@ -189,6 +189,12 @@ export default class NonTerminalNode {
     return singular;
   }
 
+  isOrphanced() {
+    const orphaned = (this.parentNode === null);
+
+    return orphaned;
+  }
+
   isIntervening() {
     let intervening = false;
 

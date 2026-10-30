@@ -79,6 +79,12 @@ export default class TerminalNode {
     return singular;
   }
 
+  isOrphanced() {
+    const orphaned = (this.parentNode === null);
+
+    return orphaned;
+  }
+
   isIntervening() {
     const intervening = false;
 
