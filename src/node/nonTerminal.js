@@ -178,8 +178,8 @@ export default class NonTerminalNode {
   }
 
   isSingular() {
-    const multiplicity = this.getMultiplicity(),
-      singular = (multiplicity === 1);
+    const childNodesLength = this.childNodes.length,
+          singular = (childNodesLength === 1);
 
     return singular;
   }
@@ -192,6 +192,27 @@ export default class NonTerminalNode {
     }
 
     return intervening;
+  }
+
+  isRelevant() {
+    const irrelevant = this.isIrrelevant(),
+          relevant = !irrelevant;
+
+    return relevant;
+  }
+
+  isIrrelevant() {
+    let irrelevant = false;
+
+    const single = this.isSingle(),
+          singular = this.isSingular(),
+          intervening = this.isIntervening();
+
+    if (single && singular && intervening) {
+      irrelevant = true;
+    }
+
+    return irrelevant;
   }
 
   isUnprecedented() {

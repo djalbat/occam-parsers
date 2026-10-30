@@ -80,6 +80,27 @@ export default class TerminalNode {
     return intervening;
   }
 
+  isRelevant() {
+    const irrelevant = this.isIrrelevant(),
+          relevant = !irrelevant;
+
+    return relevant;
+  }
+
+  isIrrelevant() {
+    let irrelevant = false;
+
+    const single = this.isSingle(),
+          singular = this.isSingular(),
+          intervening = this.isIntervening();
+
+    if (single && singular && intervening) {
+      irrelevant = true;
+    }
+
+    return irrelevant;
+  }
+
   isUnprecedented() {
     let unprecedented = false;
 
