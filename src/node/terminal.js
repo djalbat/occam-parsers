@@ -62,8 +62,13 @@ export default class TerminalNode {
   }
 
   isSingle() {
-    const singleChildNode = this.parentNode.getSingleChildNode(),
-          single = (singleChildNode !== null);
+    let single = true;
+
+    if (this.parentNode !== null) {
+      const singleChildNode = this.parentNode.getSingleChildNode();
+
+      single = (singleChildNode !== null);
+    }
 
     return single;
   }
