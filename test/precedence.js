@@ -11,7 +11,7 @@ describe("Precedence", () => {
     }
   ];
 
-  describe("isolated part", () => {
+  describe("an isolated part", () => {
     const bnf = `
     
       S ::= ( T ... "." ) ;
@@ -57,7 +57,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe.skip("left assiciativity", () => {
+  describe("left assiciativity", () => {
     const bnf = `
   
       S ::= ( E... "." ) ;
@@ -99,7 +99,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe.skip("right assiciativity", () => {
+  describe("right assiciativity", () => {
     const bnf = `
   
       S ::= ( E... "." ) ;
@@ -141,7 +141,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe.skip("definitions with direct precedence", () => {
+  describe("definitions with direct precedence", () => {
     const bnf = `
     
       S ::= ( T ... "." ) ;
@@ -193,7 +193,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe.skip("definitions with indirect precedence", () => {
+  describe("definitions with intervening precedence", () => {
     const bnf = `
     
       S ::= ( T ... "." ) ;
@@ -251,7 +251,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe.skip("part choices with direct precedence", () => {
+  describe("part choices with direct precedence", () => {
     const bnf = `
     
       S ::= ( T ... "." ) ;
@@ -301,7 +301,7 @@ describe("Precedence", () => {
     });
   });
 
-  describe.skip("part choices with indirect precedence", () => {
+  describe("part choices with intervening precedence", () => {
     const bnf = `
     
       S ::= ( T ... "." ) ;
