@@ -4,6 +4,7 @@ import { arrayUtilities } from "necessary";
 import { specialSymbols } from "occam-lexers";
 
 import nodeMixins from "../mixins/node";
+import precedenceMixins from "../mixins/precedence";
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
 const { match, first } = arrayUtilities,
@@ -369,6 +370,7 @@ export default class NonTerminalNode {
 }
 
 Object.assign(NonTerminalNode.prototype, nodeMixins);
+Object.assign(NonTerminalNode.prototype, precedenceMixins);
 
 function cloneChildNodes(childNodes) {
   childNodes = childNodes.map((childNode) => {  ///
