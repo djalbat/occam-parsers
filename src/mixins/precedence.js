@@ -112,8 +112,8 @@ function leanRight() {
 }
 
 function rotateLeft(rightLeaningNode, rightLeftLeaningNode, rightLeaningAscendantNode, rightLeftLeaningAscendantNode) {
-  let addedChildNodes,
-      removedChildNodes;
+  let removedChildNodes,
+      prependedChildNodes;
 
   removedChildNodes = rightLeaningNode.removeAllButFirstChildNode();
 
@@ -127,21 +127,19 @@ function rotateLeft(rightLeaningNode, rightLeftLeaningNode, rightLeaningAscendan
 
   rightLeaningAscendantNode.remove();
 
-  const startIndex = 0;
-
-  addedChildNodes = [  ///
+  prependedChildNodes = [  ///
     ...leftChildNodes,
     rightLeftLeaningAscendantNode
   ];
 
-  rightLeaningNode.addChildNodes(addedChildNodes, startIndex);
+  rightLeaningNode.prependChildNodes(prependedChildNodes);
 
-  addedChildNodes = [  ///
+  prependedChildNodes = [  ///
     rightLeaningAscendantNode,
     ...rightChildNodes
   ];
 
-  this.addChildNodes(addedChildNodes, startIndex);
+  this.prependChildNodes(prependedChildNodes);
 
   let ruleName,
       precedence;
@@ -167,8 +165,8 @@ function rotateLeft(rightLeaningNode, rightLeftLeaningNode, rightLeaningAscendan
 }
 
 function rotateRight(leftLeaningNode, leftRightLeaningNode, leftLeaningAscendantNode, leftRightLeaningAscendantNode) {
-  let addedChildNodes,
-      removedChildNodes;
+  let removedChildNodes,
+      prependedChildNodes;
 
   removedChildNodes = leftLeaningNode.removeAllButLastChildNode();
 
@@ -182,21 +180,19 @@ function rotateRight(leftLeaningNode, leftRightLeaningNode, leftLeaningAscendant
 
   leftLeaningAscendantNode.remove();
 
-  const startIndex = 0;
-
-  addedChildNodes = [  ///
+  prependedChildNodes = [  ///
     leftRightLeaningAscendantNode,
     ...rightChildNodes,
   ];
 
-  leftLeaningNode.addChildNodes(addedChildNodes, startIndex);
+  leftLeaningNode.prependChildNodes(prependedChildNodes);
 
-  addedChildNodes = [  ///
+  prependedChildNodes = [  ///
     ...leftChildNodes,
     leftLeaningAscendantNode
   ];
 
-  this.addChildNodes(addedChildNodes, startIndex);
+  this.prependChildNodes(prependedChildNodes);
 
   let ruleName,
       precedence;
