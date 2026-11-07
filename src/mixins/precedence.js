@@ -6,16 +6,18 @@ function rewrite(state) {
   const precedence = this.getPrecedence();
 
   if (precedence !== null) {
-    nonTerminalNode = this.clone();
+    const intervening = precedence.isIntervening();
 
-    const effectiveDescendantNode = nonTerminalNode.retrieveEffectiveDescendantNode();
+    if (!intervening) {
+      nonTerminalNode = this.clone();
 
-    effectiveDescendantNode.tiltLeft();
+      nonTerminalNode.tiltLeft();
 
-    const unprecedented = effectiveDescendantNode.balance();
+      const unprecedented = nonTerminalNode.balance();
 
-    if (unprecedented) {
-      nonTerminalNode = null;
+      if (unprecedented) {
+        nonTerminalNode = null;
+      }
     }
   }
 
