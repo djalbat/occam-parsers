@@ -19,6 +19,8 @@ export default class PartChoice {
     return this.precedence;
   }
 
+  isBranching() { return this.part.isBranching(); }
+
   isConsuming(ruleMap, visitedRules = []) { return this.part.isConsuming(ruleMap, visitedRules); }
 
   parse(frame, state, forward, back) {

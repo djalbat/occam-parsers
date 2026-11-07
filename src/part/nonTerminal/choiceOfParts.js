@@ -27,6 +27,18 @@ export default class ChoiceOfPartsPart extends NonTerminalPart {
     return parts;
   }
 
+  isBranching() {
+    const branching = this.partChoices.some((partChoice) => {
+      const partChoiceBranching = partChoice.isBranching();
+
+      if (partChoiceBranching) {
+        return true;
+      }
+    });
+
+    return branching;
+  }
+
   isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     let consuming;
 

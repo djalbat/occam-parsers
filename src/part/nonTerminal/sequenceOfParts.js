@@ -18,6 +18,18 @@ export default class SequenceOfPartsPart extends NonTerminalPart {
     return this.parts;
   }
 
+  isBranching() {
+    const branching = this.parts.some((part) => {
+      const partBranching = part.isBranching();
+
+      if (partBranching) {
+        return true;
+      }
+    });
+
+    return branching;
+  }
+
   isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = this.parts.some((part) => {
       const consuming = part.isConsuming(ruleMap, visitedRules, checkForCutParts);

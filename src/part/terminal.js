@@ -31,5 +31,11 @@ export default class TerminalPart {
     return noWhitespacePart;
   }
 
+  isBranching() {
+    const branching = false;
+
+    return branching;
+  }
+
   compose(frame, partFrame) { return frame.merge(partFrame); }
 }

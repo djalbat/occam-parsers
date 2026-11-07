@@ -21,6 +21,12 @@ export default class RuleNamePart extends NonTerminalPart {
     return ruleNamePart;
   }
 
+  isBranching() {
+    const branching = false;
+
+    return branching;
+  }
+
   isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const rule = ruleMap[this.ruleName] || null;
 

@@ -21,6 +21,8 @@ export default class OneOrMorePartsPart extends NonTerminalPart {
     return this.part;
   }
 
+  isBranching() { return this.part.isBranching(); }
+
   isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) { return this.part.isConsuming(ruleMap, visitedRules, checkForCutParts); }
 
   parse(frame, state, forward, back) {

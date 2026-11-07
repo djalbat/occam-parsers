@@ -24,6 +24,12 @@ export default class BranchingPartsPart extends NonTerminalPart {
     return this.parts;
   }
 
+  isBranching() {
+    const branching = true;
+
+    return branching;
+  }
+
   isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) {
     const consuming = this.parts.some((part) => {
       const consuming = part.isConsuming(ruleMap, visitedRules, checkForCutParts);
