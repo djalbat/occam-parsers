@@ -85,6 +85,12 @@ export default class TerminalNode {
     return intervening;
   }
 
+  isRewritable() {
+    const rewritable = false;
+
+    return rewritable;
+  }
+
   isRelevant() {
     const irrelevant = this.isIrrelevant(),
           relevant = !irrelevant;

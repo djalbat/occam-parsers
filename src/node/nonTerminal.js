@@ -200,6 +200,22 @@ export default class NonTerminalNode {
     return intervening;
   }
 
+  isRewritable() {
+    let rewritable = false;
+
+    const precedence = this.getPrecedence();
+
+    if (precedence !== null) {
+      const intervening = precedence.isIntervening();
+
+      if (!intervening) {
+        rewritable = true;
+      }
+    }
+
+    return rewritable;
+  }
+
   isRelevant() {
     const irrelevant = this.isIrrelevant(),
           relevant = !irrelevant;

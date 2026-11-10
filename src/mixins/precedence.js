@@ -3,21 +3,17 @@
 function rewrite(state) {
   let nonTerminalNode = this;
 
-  const precedence = this.getPrecedence();
+  const rewritable = this.isRewritable();
 
-  if (precedence !== null) {
-    const intervening = precedence.isIntervening();
+  if (rewritable) {
+    nonTerminalNode = this.clone();
 
-    if (!intervening) {
-      nonTerminalNode = this.clone();
+    nonTerminalNode.tiltLeft();
 
-      nonTerminalNode.tiltLeft();
+    const unprecedented = nonTerminalNode.balance();
 
-      const unprecedented = nonTerminalNode.balance();
-
-      if (unprecedented) {
-        nonTerminalNode = null;
-      }
+    if (unprecedented) {
+      nonTerminalNode = null;
     }
   }
 
