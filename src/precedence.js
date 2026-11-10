@@ -74,6 +74,8 @@ export default class Precedence {
 
     if (this.intervening) {
       string = SPACE_CHARACTER;
+    } else if ((this.strength === null) || (this.associativity === null)) {
+      string = EMPTY_STRING;
     } else {
       const sign = (this.associativity < 0) ?
                       MINUS_CHARACTER :
