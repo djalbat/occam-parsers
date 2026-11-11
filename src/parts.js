@@ -1,5 +1,6 @@
 "use strict";
 
+import CutPart from "./part/terminal/cut";
 import EpsilonPart from "./part/terminal/epsilon";
 import RuleNamePart from "./part/nonTerminal/ruleName";
 import WildcardPart from "./part/terminal/wildcard";
@@ -16,6 +17,7 @@ import RegularExpressionPart from "./part/terminal/regularExpression";
 import SignificantTokenTypePart from "./part/terminal/significantTokenType";
 
 export default {
+  CutPart,
   EpsilonPart,
   RuleNamePart,
   WildcardPart,
