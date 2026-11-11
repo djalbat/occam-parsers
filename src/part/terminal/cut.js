@@ -25,9 +25,15 @@ export default class CutPart extends TerminalPart {
   }
 
   parse(frame, state, forward, back) {
-    const cut = Cut.fromFrameStateAndForward(frame, state, forward);
+    const branching = state.isBranching();
 
-    return back(cut);
+    if (branching) {
+      const cut = Cut.fromFrameStateAndForward(frame, state, forward);
+
+      return back(cut);
+    }
+
+    return forward(frame, state, back);
   }
 
   asString() {

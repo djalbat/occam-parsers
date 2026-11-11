@@ -34,4 +34,26 @@ describe("Cut part", () => {
       });
     });
   });
+
+  describe("cut part outside of bramching", () => {
+    const bnf = `
+  
+      C ::= "=" \` T ;
+              
+      T ::= A C* ;
+      
+      A ::= . ;
+                 
+    `;
+
+    describe("content that will not parse", () => {
+      const content = "=3";
+
+      it("succeeds in parsing" , () => {
+        const node = nodeFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isNotNull(node);
+      });
+    });
+  });
 });
