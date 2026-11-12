@@ -91,8 +91,8 @@ export default class Frame {
             ...this.childNodes,
           ],
           precedence = (this.precedence !== null) ?
-                         this.precedence.isolate() :
-                           isolatedPrecedence,
+                          this.precedence.isolate() :
+                            isolatedPrecedence,
           frame = new Frame(childNodes, precedence);
 
     return frame;

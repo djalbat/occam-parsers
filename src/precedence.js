@@ -69,6 +69,19 @@ export default class Precedence {
     return precedence;
   }
 
+  match(precedence) {
+    const strength = precedence.getStrength(),
+          associativity = precedence.getAssociativity(),
+          intervening = precedence.isIntervening(),
+          isolated = precedence.isIsolated(),
+          matches = ((this.strength === strength)
+                  && (this.associativity === associativity)
+                  && (this.intervening === intervening)
+                  && (this.isolated === isolated));
+
+    return matches;
+  }
+
   asString() {
     let string;
 
@@ -139,6 +152,22 @@ export default class Precedence {
 
     return precedence;
   }
+}
+
+export function matchPrecedence(precedenceA, precedenceB) {
+  let precedenceMatches;
+
+  if ((precedenceA === null) && (precedenceB === null)) {
+    precedenceMatches = true;
+  } else if ((precedenceA === null) || (precedenceB === null)) {
+    precedenceMatches = false;
+  } else {
+    const matches = precedenceA.match(precedenceB);
+
+    precedenceMatches = matches;  ///
+  }
+
+  return precedenceMatches;
 }
 
 const isolated = true,

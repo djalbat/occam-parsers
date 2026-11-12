@@ -92,8 +92,8 @@ export default class Definition {
   asString() {
     const partsString = partsStringFromParts(this.parts),
           precedenceString = (this.precedence !== null) ?
-                               this.precedence.asString() :
-                                 EMPTY_STRING,
+                                this.precedence.asString() :
+                                  EMPTY_STRING,
           string = `${partsString}${precedenceString}`;
 
     return string;

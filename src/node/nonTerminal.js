@@ -7,6 +7,8 @@ import nodeMixins from "../mixins/node";
 import precedenceMixins from "../mixins/precedence";
 import NonTerminalNodeParseTree from "../parseTree/nonTerminalNode";
 
+import { matchPrecedence } from "../precedence";
+
 const { match, first } = arrayUtilities,
       { opaque: opaqueSpecialSymbol , semiOpaque: semiOpaqueSpecialSymbol } = specialSymbols;
 
@@ -302,10 +304,10 @@ export default class NonTerminalNode {
         const nonTerminalNodeOpacity = nonTerminalNode.getOpacity();
 
         if (this.opacity === nonTerminalNodeOpacity) {
-          const precedence = this.getPrecedence(),
-                nonTerminalNodePrecedence = nonTerminalNode.getPrecedence();
+          const nonTerminalNodePrecedence = nonTerminalNode.getPrecedence(),
+                precedenceMatchesNonTerminalNodePrecedence = matchPrecedence(this.precedence, nonTerminalNodePrecedence);
 
-          if (precedence === nonTerminalNodePrecedence) {
+          if (precedenceMatchesNonTerminalNodePrecedence) {
             depth--;
 
             if (depth === 0) {
