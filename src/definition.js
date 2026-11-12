@@ -78,6 +78,8 @@ export default class Definition {
 
         frame = Frame.fromChildNode(childNode); ///
 
+        savedFrame = savedFrame.incorporate();  ///
+
         frame = savedFrame.merge(frame); ///
       } else {
         frame = null;
@@ -163,7 +165,7 @@ function precedenceFromDefinitionSavedFrameAndFrame(definition, savedFrame, fram
   const framePrecedence = frame.getPrecedence(),
         definitionPrecedence = definition.getPrecedence();
 
-  precedence = definitionPrecedence || framePrecedence;
+  precedence = framePrecedence || definitionPrecedence; ///
 
   if (precedence !== null) {
     const isolated = savedFrame.isIsolated();

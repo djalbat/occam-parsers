@@ -20,7 +20,7 @@ export default class IsolatedPartPart extends NonTerminalPart {
   isConsuming(ruleMap, visitedRules = [], checkForCutParts = false) { return this.part.isConsuming(ruleMap, visitedRules, checkForCutParts); }
 
   parse(frame, state, forward, back) {
-    frame = frame.isolate();  ///
+    frame = frame.isolating();  ///
 
     return this.part.parse(frame, state, forward, back);
   }

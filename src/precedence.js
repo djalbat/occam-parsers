@@ -26,6 +26,12 @@ export default class Precedence {
     return this.isolated;
   }
 
+  isIntermediate() {
+    const intermediate = ((this.strength === null) && (this.associativity === null) && (this.intervening === null));
+
+    return intermediate;
+  }
+
   compare(precedence, first, last) {
     let compares;
 
@@ -59,16 +65,6 @@ export default class Precedence {
     return compares;
   }
 
-  isolate() {
-    const strength = this.strength,
-          associativity = this.associativity,
-          intervening = this.intervening,
-          isolated = true,
-          precedence = new Precedence(strength, associativity, intervening, isolated);
-
-    return precedence;
-  }
-
   match(precedence) {
     const strength = precedence.getStrength(),
           associativity = precedence.getAssociativity(),
@@ -80,6 +76,39 @@ export default class Precedence {
                   && (this.isolated === isolated));
 
     return matches;
+  }
+
+  isolate() {
+    const strength = this.strength,
+          associativity = this.associativity,
+          intervening = this.intervening,
+          isolated = true,
+          precedence = new Precedence(strength, associativity, intervening, isolated);
+
+    return precedence;
+  }
+
+  incorporate() {
+    let precedence;
+
+    if (!this.isolated) {
+      precedence = this;  ///
+    } else {
+      const intermediate = this.isIntermediate();
+
+      if (intermediate) {
+        precedence = null;
+      } else {
+        const strength = this.strength,
+              associativity = this.associativity,
+              intervening = this.intervening,
+              isolated = !this.isolated;
+
+        precedence = new Precedence(strength, associativity, intervening, isolated);
+      }
+    }
+
+    return precedence;
   }
 
   asString() {
@@ -138,7 +167,7 @@ export default class Precedence {
   static fromIsolated(isolated) {
     const strength = null,
           associativity = null,
-          intervening = false,
+          intervening = null,
           precedence = new Precedence(strength, associativity, intervening, isolated);
 
     return precedence;
@@ -173,6 +202,6 @@ export function matchPrecedence(precedenceA, precedenceB) {
 const isolated = true,
       intervening = true;
 
-export const isolatedPrecedence = Precedence.fromIsolated(isolated);
+export const isolatingPrecedence = Precedence.fromIsolated(isolated);
 
 export const interveningPrecedence = Precedence.fromIntervening(intervening);

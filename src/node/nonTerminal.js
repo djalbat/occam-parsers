@@ -205,10 +205,8 @@ export default class NonTerminalNode {
   isRewritable() {
     let rewritable = false;
 
-    const precedence = this.getPrecedence();
-
-    if (precedence !== null) {
-      const intervening = precedence.isIntervening();
+    if (this.precedence !== null) {
+      const intervening = this.precedence.isIntervening();
 
       if (!intervening) {
         rewritable = true;

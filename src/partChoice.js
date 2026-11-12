@@ -42,7 +42,7 @@ export default class PartChoice {
 
     precedence = frame.getPrecedence();
 
-    precedence = precedence || this.precedence; ///
+    precedence = this.precedence || precedence; ///
 
     frame = Frame.fromChildNodesAndPrecedence(childNodes, precedence);
 

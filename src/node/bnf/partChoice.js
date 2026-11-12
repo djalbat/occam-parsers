@@ -23,7 +23,7 @@ export default class PartChoiceBNFNode extends NonTerminalNode {
     const part = partBNFNode.generatePart(),
           precedence = (precedenceBNFNode === null) ?
                           null :
-                            precedenceBNFNode.getPrecedence(),
+                            precedenceBNFNode.generatePrecedence(),
           definition = PartChoice.fromPartAndPrecedence(part, precedence);
 
     return definition;

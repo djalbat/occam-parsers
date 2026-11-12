@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-import { isolatedPrecedence } from "./precedence";
+import { isolatingPrecedence } from "./precedence";
 
 const { first } = arrayUtilities;
 
@@ -86,13 +86,23 @@ export default class Frame {
     return frame;
   }
 
-  isolate() {
+  isolating() {
+    const childNodes = [
+            ...this.childNodes,
+          ],
+          precedence = isolatingPrecedence,
+          frame = new Frame(childNodes, precedence);
+
+    return frame;
+  }
+
+  incorporate() {
     const childNodes = [
             ...this.childNodes,
           ],
           precedence = (this.precedence !== null) ?
-                          this.precedence.isolate() :
-                            isolatedPrecedence,
+                          this.precedence.incorporate() :
+                            null,
           frame = new Frame(childNodes, precedence);
 
     return frame;

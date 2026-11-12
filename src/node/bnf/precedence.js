@@ -6,16 +6,17 @@ import Precedence from "../../precedence";
 import NonTerminalNode from "../../node/nonTerminal";
 
 import { interveningPrecedence } from "../../precedence";
+import { NON_INTERVENING_MULTIPLICITY } from "../../constants";
 
 const { second } = arrayUtilities;
 
 export default class PrecedenceBNFNode extends NonTerminalNode {
-  getPrecedence() {
-    let precedence = interveningPrecedence;
+  generatePrecedence() {
+    let precedence = interveningPrecedence; ///
 
     const multiplicity = this.getMultiplicity();
 
-    if (multiplicity === 3) {
+    if (multiplicity === NON_INTERVENING_MULTIPLICITY) {
       const childNodes = this.getChildNodes(),
             secondChildNode = second(childNodes),
             terminalNode = secondChildNode,  ///

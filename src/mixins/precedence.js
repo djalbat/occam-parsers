@@ -23,9 +23,7 @@ function rewrite(state) {
 function balance() {
   let unprecedencted;
 
-  const precedence = this.getPrecedence();
-
-  if (precedence !== null) {
+  if (this.precedence !== null) {
     unprecedencted = this.isUnprecedented();
 
     if (unprecedencted) {
@@ -59,19 +57,23 @@ function balance() {
 }
 
 function remove() {
-  const parentNode = this.getParentNode(),
-        removedChildNode = this;  ///
+  const removedChildNode = this;  ///
 
-  parentNode.removeChildNode(removedChildNode);
+  this.parentNode.removeChildNode(removedChildNode);
 }
 
 function tiltLeft() {
-  let rightLeaning;
+  let rewritable,
+      rightLeaning;
+
+  rewritable = this.isRewritable();
 
   rightLeaning = this.isRightLeaning();
 
-  while (rightLeaning) {
+  while (rewritable && rightLeaning) {
     this.leanLeft();
+
+    rewritable = this.isRewritable();
 
     rightLeaning = this.isRightLeaning();
   }
@@ -139,27 +141,16 @@ function rotateLeft(rightLeaningNode, rightLeftLeaningNode, rightLeaningAscendan
 
   this.prependChildNodes(prependedChildNodes);
 
-  let ruleName,
-      precedence;
+  const ruleName = rightLeaningNode.getRuleName(),
+        precedence = rightLeaningNode.getPrecedence();
 
-  ruleName = this.getRuleName();
+  rightLeaningNode.setRuleName(this.ruleName);
 
-  precedence = this.getPrecedence();
+  rightLeaningNode.setPrecedence(this.precedence);
 
-  const rightLeaningNodeRuleName = rightLeaningNode.getRuleName(),
-      rightLeaningNodePrecedence = rightLeaningNode.getPrecedence();
+  this.ruleName = ruleName;
 
-  rightLeaningNode.setRuleName(ruleName);
-
-  rightLeaningNode.setPrecedence(precedence);
-
-  ruleName = rightLeaningNodeRuleName;  ///
-
-  precedence = rightLeaningNodePrecedence;  ///
-
-  this.setRuleName(ruleName);
-
-  this.setPrecedence(precedence);
+  this.precedence = precedence;
 }
 
 function rotateRight(leftLeaningNode, leftRightLeaningNode, leftLeaningAscendantNode, leftRightLeaningAscendantNode) {
@@ -192,27 +183,16 @@ function rotateRight(leftLeaningNode, leftRightLeaningNode, leftLeaningAscendant
 
   this.prependChildNodes(prependedChildNodes);
 
-  let ruleName,
-      precedence;
+  const ruleName = leftLeaningNode.getRuleName(),
+        precedence = leftLeaningNode.getPrecedence();
 
-  ruleName = this.getRuleName();
+  leftLeaningNode.setRuleName(this.ruleName);
 
-  precedence = this.getPrecedence();
+  leftLeaningNode.setPrecedence(this.precedence);
 
-  const leftLeaningNodeRuleName = leftLeaningNode.getRuleName(),
-        leftLeaningNodePrecedence = leftLeaningNode.getPrecedence();
+  this.ruleName = ruleName;
 
-  leftLeaningNode.setRuleName(ruleName);
-
-  leftLeaningNode.setPrecedence(precedence);
-
-  ruleName = leftLeaningNodeRuleName; ///
-
-  precedence = leftLeaningNodePrecedence;  ///
-
-  this.setRuleName(ruleName);
-
-  this.setPrecedence(precedence);
+  this.precedence = precedence;
 }
 
 function isLeftLeaning() {
@@ -304,10 +284,8 @@ function retrieveEffectiveAscendantNode() {
     const single = this.isSingle();
 
     if (single) {
-      const parentNode = this.getParentNode();
-
-      if (parentNode !== null) {
-        effectiveAscendantNode = parentNode; ///
+      if (this.parentNode !== null) {
+        effectiveAscendantNode = this.parentNode; ///
       }
     }
   }
@@ -344,16 +322,14 @@ function retrieveEffectiveDescendantNode() {
 function retrieveIrrelevantAscendantNode() {
   let irrelevantAscendantNode = null;
 
-  const parentNode = this.getParentNode();
-
-  if (parentNode !== null) {
-    const parentNodeIrrelevant = parentNode.isIrrelevant();
+  if (this.parentNode !== null) {
+    const parentNodeIrrelevant = this.parentNode.isIrrelevant();
 
     if (parentNodeIrrelevant) {
-      irrelevantAscendantNode = parentNode.retrieveIrrelevantAscendantNode();
+      irrelevantAscendantNode = this.parentNode.retrieveIrrelevantAscendantNode();
 
       if (irrelevantAscendantNode === null) {
-        irrelevantAscendantNode = parentNode; ///
+        irrelevantAscendantNode = this.parentNode; ///
       }
     }
   }
@@ -429,7 +405,7 @@ function removeAllButLastChildNode() {
 
 function createNonTerminalNode(childNodes, precedence, state) {
   const opacity = this.getOpacity(),
-        ruleName = this.getRuleName(),
+        ruleName = this.ruleName,
         NonTerminalNode = state.NonTerminalNodeFromRuleName(ruleName),
         nonTerminalNode = NonTerminalNode.fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity);
 

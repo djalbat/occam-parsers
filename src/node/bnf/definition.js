@@ -26,7 +26,7 @@ export default class DefinitionBNFNode extends NonTerminalNode {
           }),
           precedence = (precedenceBNFNode === null) ?
                           null :
-                            precedenceBNFNode.getPrecedence(),
+                            precedenceBNFNode.generatePrecedence(),
           definition = Definition.fromPartsAndPrecedence(parts, precedence);
 
     return definition;
