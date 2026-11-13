@@ -67,6 +67,12 @@ function resetChildNodesParentNode(childNodes) {
   });
 }
 
+function remove() {
+  const removedChildNode = this;  ///
+
+  this.parentNode.removeChildNode(removedChildNode);
+}
+
 function addChildNode(addedChildNode, startIndex) {
   const addedChildNodes = [
     addedChildNode
@@ -417,6 +423,7 @@ const nodeMixins = {
   indexOfChildNode,
   setChildNodesParentNode,
   resetChildNodesParentNode,
+  remove,
   addChildNode,
   addChildNodes,
   removeChildNode,

@@ -56,12 +56,6 @@ function balance() {
   return unprecedencted;
 }
 
-function remove() {
-  const removedChildNode = this;  ///
-
-  this.parentNode.removeChildNode(removedChildNode);
-}
-
 function tiltLeft() {
   let rewritable,
       rightLeaning;
