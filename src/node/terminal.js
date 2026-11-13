@@ -322,7 +322,7 @@ export default class TerminalNode {
     return terminalNode;
   }
 
-  simplify(index, state) {
+  simplify(state) {
     ///
   }
 

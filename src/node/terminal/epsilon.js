@@ -26,6 +26,10 @@ export default class EpsilonNode extends TerminalNode {
     return epsilonNode;
   }
 
+  simplify(state) {
+    this.remove();
+  }
+
   asParseTree(tokens) {
     const epsilonNodeParseTree = EpsilonNodeParseTree.fromNothing(),
           parseTree = epsilonNodeParseTree;  ///
