@@ -339,6 +339,12 @@ export default class NonTerminalNode {
     ///
   }
 
+  remove() {
+    const removedChildNode = this;  ///
+
+    this.parentNode.removeChildNode(removedChildNode);
+  }
+
   destroy() {
     this.forEachChildNode((childNode) => {
       childNode.destroy();
