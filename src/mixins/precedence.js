@@ -409,7 +409,6 @@ function createNonTerminalNode(childNodes, precedence, state) {
 const precedenceMixins = {
   rewrite,
   balance,
-  remove,
   tiltLeft,
   leanLeft,
   leanRight,
