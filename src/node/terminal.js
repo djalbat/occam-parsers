@@ -335,6 +335,12 @@ export default class TerminalNode {
     return terminalNode;
   }
 
+  remove() {
+    const removedChildNode = this;  ///
+
+    this.parentNode.removeChildNode(removedChildNode);
+  }
+
   destroy() {
     this.parentNode = null;
     this.significantToken = null;
