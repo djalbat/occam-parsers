@@ -26,7 +26,7 @@ export default class EpsilonNode extends TerminalNode {
     return epsilonNode;
   }
 
-  simplify(state) {
+  simplify(alternate, state) {
     this.remove();
   }
 
