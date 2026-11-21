@@ -162,7 +162,7 @@ function prependChildNodes(prependedChildNodes) {
   this.addChildNodes(addedChildNodes, startIndex);
 }
 
-function spliceChildNodes(startIndex, deleteCount, addedChildNodes = []) {
+function spliceChildNodes(startIndex, deleteCount = Infinity, addedChildNodes = []) {
   const removedChildNodes = this.childNodes.splice(startIndex, deleteCount, ...addedChildNodes);
 
   this.resetChildNodesParentNode(removedChildNodes);
