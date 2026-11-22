@@ -322,8 +322,12 @@ export default class TerminalNode {
     return terminalNode;
   }
 
-  simplify(alternate, state) {
+  restore(alternate, state) {
+    const terminate = false;
+
     ///
+
+    return terminate;
   }
 
   clone(...remainingArguments) {

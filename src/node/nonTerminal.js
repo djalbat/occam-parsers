@@ -335,8 +335,12 @@ export default class NonTerminalNode {
     return nonTerminalNode;
   }
 
-  simplify(alternate, state) {
+  restore(alternate, state) {
+    const terminate = false;
+
     ///
+
+    return terminate;
   }
 
   remove() {
