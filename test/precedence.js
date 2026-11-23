@@ -356,4 +356,76 @@ describe("Precedence", () => {
       });
     });
   });
+
+  describe.only("isLeftLeaning", () => {
+    const bnf = `
+    
+      S   ::= ( T ... "." ) ;
+        
+      T   ::= "¬"<NO_WHITESPACE>A1 (10)
+
+            |  A1 "∧" A1 (-9)
+
+            |  V
+
+            ;
+
+      A1 ::= T1 ( ) ;
+
+      T1  ::= "¬"<NO_WHITESPACE>A2 (10)
+
+            |  A2 "∧" A2 (-9)
+
+            |  V
+
+            ;
+
+      A2 ::= T2 ( ) ;
+
+      T2  ::= "¬"<NO_WHITESPACE>A3 (10)
+
+            |  A3 "∧" A3 (-9)
+
+            |  V
+
+            ;
+
+      A3 ::= T3 ( ) ;
+
+      T3  ::= V
+
+            ;
+
+      V ::= . ;
+      
+    `;
+
+    describe("correctly nested expressions", () => {
+      const content = "P ∧ Q ∧ R.";
+
+      it("results in the requisite parse tree" , () => {
+        const parseTreeString = parseTreeStringFromEntriesBnfAndContent(entries, bnf, content);
+
+        assert.isTrue(compareParseTreeStrings(parseTreeString, `
+                            
+                                                                                       S [0]                                     
+                                                                                         |                                       
+                                                           -------------------------------------------------------------         
+                                                           |                                                           |         
+                                                       T [0] (3)                                              "."[unassigned] [0]
+                                                           |                                                                     
+                   ---------------------------------------------------------------------------------                             
+                   |                                       |                                       |                             
+          "("[unassigned] [0]                         T [0] ((2))                         ")"[unassigned] [0]                    
+                                                           |                                                                     
+                                       -----------------------------------------                                                 
+                                       |                   |                   |                                                 
+                                     A [0]        "u"[unassigned] [0]        B [0]                                               
+                                       |                                       |                                                 
+                              "A"[unassigned] [0]                     "B"[unassigned] [0]                                        
+    
+       `));
+      });
+    });
+  });
 });
