@@ -1,18 +1,20 @@
 "use strict";
 
 function rewrite(state) {
-  let nonTerminalNode = this;
+  let nonTerminalNode = this; ///
 
   const rewritable = this.isRewritable();
 
   if (rewritable) {
-    nonTerminalNode = this.clone();
+    nonTerminalNode = this.clone(); ///
 
     nonTerminalNode.tiltLeft();
 
-    const unprecedented = nonTerminalNode.balance();
+    nonTerminalNode.tiltRight();
 
-    if (unprecedented) {
+    const whollyPrecedented = isWhollyPrecedented(nonTerminalNode);
+
+    if (!whollyPrecedented) {
       nonTerminalNode = null;
     }
   }
@@ -20,87 +22,80 @@ function rewrite(state) {
   return nonTerminalNode;
 }
 
-function balance() {
-  let unprecedencted;
+function tiltLeft() {
+  let changed;
 
-  if (this.precedence !== null) {
-    unprecedencted = this.isUnprecedented();
-
-    if (unprecedencted) {
-      const leftLeaning = this.isLeftLeaning();
-
-      if (leftLeaning) {
-        this.leanRight();
-
-        const shallow = true,
-              rightLeaningNode = this.findRightLeaningNode(shallow);
-
-        unprecedencted = rightLeaningNode.isUnprecedented();
-
-        if (!unprecedencted) {
-          unprecedencted = this.balance();
-        }
-      }
-    } else {
-      const shallow = true,
-            leftLeaningNode = this.findLeftLeaningNode(shallow);
-
-      if (leftLeaningNode !== null) {
-        unprecedencted = leftLeaningNode.balance();
-      }
-    }
-  } else {
-    unprecedencted = false;
-  }
-
-  return unprecedencted;
+  do {
+    changed = this.tiltLeftPass();
+  } while (changed);
 }
 
-function tiltLeft() {
-  let rewritable,
-      rightLeaning;
+function tiltRight() {
+  let changed;
 
-  rewritable = this.isRewritable();
+  do {
+    changed = this.tiltRightPass();
+  } while (changed);
+}
 
-  rightLeaning = this.isRightLeaning();
+function tiltLeftPass() {
+  let changed = false;
 
-  while (rewritable && rightLeaning) {
+  this.forEachChildNonTerminalNode((childNonTermionalNode) => {
+    changed = childNonTermionalNode.tiltLeftPass() || changed;
+  });
+
+  const rightLeaning = this.isRightLeaning();
+
+  if (rightLeaning) {
+    changed = true;
+
     this.leanLeft();
-
-    rewritable = this.isRewritable();
-
-    rightLeaning = this.isRightLeaning();
   }
 
-  this.forEachChildNonTerrminalNode((nonTermionalNode) => {
-    nonTermionalNode.tiltLeft();
+  return changed;
+}
+
+function tiltRightPass() {
+  let changed = false;
+
+  this.forEachChildNonTerminalNode((childNonTermionalNode) => {
+    changed = childNonTermionalNode.tiltRightPass() || changed;
   });
+
+  const nonTerminalNode = this, ///
+        unprecedented = isUnprecedented(nonTerminalNode),
+        leftLeaning = this.isLeftLeaning();
+
+  if (unprecedented && leftLeaning) {
+    changed = true;
+
+    this.leanRight();
+  }
+
+  return changed;
 }
 
 function leanLeft() {
-  const effectiveDescendantNode = this.retrieveEffectiveDescendantNode();
-
-  const shallow = true,
+  const effectiveDescendantNode = this.retrieveEffectiveDescendantNode(),
         rightLeaningNode = effectiveDescendantNode.findRightLeaningNode(),
-        rightLeftLeaningNode = rightLeaningNode.findLeftLeaningNode(shallow),
+        rightLeftLeaningNode = rightLeaningNode.findLeftLeaningNode(),  ///
         rightLeaningNodeEffectiveAscendantNode = rightLeaningNode.retrieveEffectiveAscendantNode(),
         rightLeftLeaningNodeEffectiveAscendantNode = rightLeftLeaningNode.retrieveEffectiveAscendantNode(),
-        rightLeaningAscendantNode = rightLeaningNodeEffectiveAscendantNode,  ///
+        rightLeaningAscendantNode = rightLeaningNodeEffectiveAscendantNode, ///
         rightLeftLeaningAscendantNode = rightLeftLeaningNodeEffectiveAscendantNode;  ///
 
   effectiveDescendantNode.rotateLeft(rightLeaningNode, rightLeftLeaningNode, rightLeaningAscendantNode, rightLeftLeaningAscendantNode);
 }
 
 function leanRight() {
-  const effectiveDescendantNode = this.retrieveEffectiveDescendantNode();
-
-  const shallow = true,
+  const effectiveDescendantNode = this.retrieveEffectiveDescendantNode(),
         leftLeaningNode = effectiveDescendantNode.findLeftLeaningNode(),
-        leftRightLeaningNode = leftLeaningNode.findRightLeaningNode(shallow),
+        leftRightLeaningNode = leftLeaningNode.findRightLeaningNode(),  ///
         leftLeaningNodeEffectiveAscendantNode = leftLeaningNode.retrieveEffectiveAscendantNode(),
         leftRightLeaningNodeEffectiveAscendantNode = leftRightLeaningNode.retrieveEffectiveAscendantNode(),
-        leftLeaningAscendantNode = leftLeaningNodeEffectiveAscendantNode,  ///
-        leftRightLeaningAscendantNode = leftRightLeaningNodeEffectiveAscendantNode;  ///
+        leftLeaningAscendantNode = leftLeaningNodeEffectiveAscendantNode, ///
+        leftRightLeaningAscendantNode = leftRightLeaningNodeEffectiveAscendantNode; ///
 
   effectiveDescendantNode.rotateRight(leftLeaningNode, leftRightLeaningNode, leftLeaningAscendantNode, leftRightLeaningAscendantNode);
 }
@@ -135,12 +130,17 @@ function rotateLeft(rightLeaningNode, rightLeftLeaningNode, rightLeaningAscendan
 
   this.prependChildNodes(prependedChildNodes);
 
-  const ruleName = rightLeaningNode.getRuleName(),
+  const opacity = rightLeaningNode.getOpacity(),
+        ruleName = rightLeaningNode.getRuleName(),
         precedence = rightLeaningNode.getPrecedence();
+
+  rightLeaningNode.setOpacity(this.opacity);
 
   rightLeaningNode.setRuleName(this.ruleName);
 
   rightLeaningNode.setPrecedence(this.precedence);
+
+  this.opacity = opacity;
 
   this.ruleName = ruleName;
 
@@ -177,12 +177,17 @@ function rotateRight(leftLeaningNode, leftRightLeaningNode, leftLeaningAscendant
 
   this.prependChildNodes(prependedChildNodes);
 
-  const ruleName = leftLeaningNode.getRuleName(),
+  const opacity = leftLeaningNode.getOpacity(),
+        ruleName = leftLeaningNode.getRuleName(),
         precedence = leftLeaningNode.getPrecedence();
+
+  leftLeaningNode.setOpacity(this.opacity);
 
   leftLeaningNode.setRuleName(this.ruleName);
 
   leftLeaningNode.setPrecedence(this.precedence);
+
+  this.opacity = opacity;
 
   this.ruleName = ruleName;
 
@@ -190,20 +195,38 @@ function rotateRight(leftLeaningNode, leftRightLeaningNode, leftLeaningAscendant
 }
 
 function isLeftLeaning() {
-  const leftLeaningNode = this.findLeftLeaningNode(),
-        leftLeaning = (leftLeaningNode !== null);
+  let leftLeaning = false;
+
+  const leftLeaningNode = this.findLeftLeaningNode();
+
+  if (leftLeaningNode !== null) {
+    const leftRightLeaningNode = leftLeaningNode.findRightLeaningNode();  ///
+
+    if (leftRightLeaningNode !== null) {
+      leftLeaning = true;
+    }
+  }
 
   return leftLeaning;
 }
 
 function isRightLeaning() {
-  const rightLeaningNode = this.findRightLeaningNode(),
-        rightLeaning = (rightLeaningNode !== null);
+  let rightLeaning = false;
+
+  const rightLeaningNode = this.findRightLeaningNode();
+
+  if (rightLeaningNode !== null) {
+    const rightLeftLeaningNode = rightLeaningNode.findLeftLeaningNode();  ///
+
+    if (rightLeftLeaningNode !== null) {
+      rightLeaning = true;
+    }
+  }
 
   return rightLeaning;
 }
 
-function findLeftLeaningNode(shallow = false) {
+function findLeftLeaningNode() {
   let leftLeaningNode = null;
 
   const effectiveDescendantNode = this.retrieveEffectiveDescendantNode();
@@ -215,16 +238,7 @@ function findLeftLeaningNode(shallow = false) {
       const nonTerminalNode = childNode,  ///
             effectiveDescendantNode = nonTerminalNode.retrieveEffectiveDescendantNode();
 
-      if (shallow) {
-        leftLeaningNode = effectiveDescendantNode;  ///
-      } else {
-        const shallow = true,
-              rightLeaningNode = effectiveDescendantNode.findRightLeaningNode(shallow);
-
-        if (rightLeaningNode !== null) {
-          leftLeaningNode = effectiveDescendantNode;  ///
-        }
-      }
+      leftLeaningNode = effectiveDescendantNode;  ///
     }
 
     return true;
@@ -233,7 +247,7 @@ function findLeftLeaningNode(shallow = false) {
   return leftLeaningNode;
 }
 
-function findRightLeaningNode(shallow = false) {
+function findRightLeaningNode() {
   let rightLeaningNode = null;
 
   const effectiveDescendantNode = this.retrieveEffectiveDescendantNode();
@@ -245,22 +259,29 @@ function findRightLeaningNode(shallow = false) {
       const nonTerminalNode = childNode,  ///
             effectiveDescendantNode = nonTerminalNode.retrieveEffectiveDescendantNode();
 
-      if (shallow) {
-        rightLeaningNode = effectiveDescendantNode;  ///
-      } else {
-        const shallow = true,
-              leftLeaningNode = effectiveDescendantNode.findLeftLeaningNode(shallow);
-
-        if (leftLeaningNode !== null) {
-          rightLeaningNode = effectiveDescendantNode; ///
-        }
-      }
+      rightLeaningNode = effectiveDescendantNode;  ///
     }
 
     return true;
   });
 
   return rightLeaningNode;
+}
+
+function getSingleChildNonTerminalNode() {
+  let singleChildNonTerminalNode = null;
+
+  const singleChildNode = this.getSingleChildNode();
+
+  if (singleChildNode !== null) {
+    const singleChildNodeNonTerminalNode = singleChildNode.isNonTerminalNode();
+
+    if (singleChildNodeNonTerminalNode) {
+      singleChildNonTerminalNode = singleChildNode; ///
+    }
+  }
+
+  return singleChildNonTerminalNode;
 }
 
 function retrieveEffectiveAscendantNode() {
@@ -351,23 +372,7 @@ function retrieveIrrelevantDescendantNode() {
   return irrelevantDescendantNode;
 }
 
-function getSingleChildNonTerminalNode() {
-  let singleChildNonTerminalNode = null;
-
-  const singleChildNode = this.getSingleChildNode();
-
-  if (singleChildNode !== null) {
-    const singleChildNodeNonTerminalNode = singleChildNode.isNonTerminalNode();
-
-    if (singleChildNodeNonTerminalNode) {
-      singleChildNonTerminalNode = singleChildNode; ///
-    }
-  }
-
-  return singleChildNonTerminalNode;
-}
-
-function forEachChildNonTerrminalNode(callback) {
+function forEachChildNonTerminalNode(callback) {
   this.forEachChildNode((childNode) => {
     const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
@@ -408,25 +413,66 @@ function createNonTerminalNode(childNodes, precedence, state) {
 
 const precedenceMixins = {
   rewrite,
-  balance,
-  tiltLeft,
   leanLeft,
   leanRight,
+  tiltLeft,
+  tiltRight,
+  tiltLeftPass,
+  tiltRightPass,
   rotateLeft,
   rotateRight,
   isLeftLeaning,
   isRightLeaning,
   findLeftLeaningNode,
   findRightLeaningNode,
+  getSingleChildNonTerminalNode,
   retrieveEffectiveAscendantNode,
   retrieveEffectiveDescendantNode,
   retrieveIrrelevantAscendantNode,
   retrieveIrrelevantDescendantNode,
-  getSingleChildNonTerminalNode,
-  forEachChildNonTerrminalNode,
+  forEachChildNonTerminalNode,
   removeAllButFirstChildNode,
   removeAllButLastChildNode,
   createNonTerminalNode
 };
 
 export default precedenceMixins;
+
+function isPrecedented(nonTerminalNode) {
+  let precedented = true;
+
+  const intervening = nonTerminalNode.isIntervening();
+
+  if (!intervening) {
+    const unprecedented = nonTerminalNode.isUnprecedented();
+
+    if (unprecedented) {
+      precedented = false;
+    }
+  }
+
+  return precedented;
+}
+
+function isUnprecedented(nonTerminalNode) {
+  const precedented = isPrecedented(nonTerminalNode),
+        unprecedented = !precedented;
+
+  return unprecedented;
+}
+
+function isWhollyPrecedented(nonTerminalNode) {
+  let whollyPrecedented = true;
+
+  const precedented = isPrecedented(nonTerminalNode);
+
+  if (!precedented) {
+    whollyPrecedented = false;
+  } else {
+    nonTerminalNode.forEachChildNonTerminalNode((childNonTermionalNode) => {
+      whollyPrecedented = whollyPrecedented && isWhollyPrecedented(childNonTermionalNode);
+    });
+  }
+
+  return whollyPrecedented;
+}
