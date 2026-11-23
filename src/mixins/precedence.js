@@ -78,7 +78,7 @@ function tiltRightPass() {
 
 function leanLeft() {
   const effectiveDescendantNode = this.retrieveEffectiveDescendantNode(),
-        rightLeaningNode = effectiveDescendantNode.findRightLeaningNode(),
+        rightLeaningNode = this.findRightLeaningNode(),
         rightLeftLeaningNode = rightLeaningNode.findLeftLeaningNode(),  ///
         rightLeaningNodeEffectiveAscendantNode = rightLeaningNode.retrieveEffectiveAscendantNode(),
         rightLeftLeaningNodeEffectiveAscendantNode = rightLeftLeaningNode.retrieveEffectiveAscendantNode(),
@@ -90,7 +90,7 @@ function leanLeft() {
 
 function leanRight() {
   const effectiveDescendantNode = this.retrieveEffectiveDescendantNode(),
-        leftLeaningNode = effectiveDescendantNode.findLeftLeaningNode(),
+        leftLeaningNode = this.findLeftLeaningNode(),
         leftRightLeaningNode = leftLeaningNode.findRightLeaningNode(),  ///
         leftLeaningNodeEffectiveAscendantNode = leftLeaningNode.retrieveEffectiveAscendantNode(),
         leftRightLeaningNodeEffectiveAscendantNode = leftRightLeaningNode.retrieveEffectiveAscendantNode(),
