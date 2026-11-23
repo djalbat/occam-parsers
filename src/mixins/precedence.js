@@ -12,9 +12,9 @@ function rewrite(state) {
 
     nonTerminalNode.tiltRight();
 
-    const whollyPrecedented = isWhollyPrecedented(nonTerminalNode);
+    const whollyUnprecedented = isWhollyUnprecedented(nonTerminalNode);
 
-    if (!whollyPrecedented) {
+    if (whollyUnprecedented) {
       nonTerminalNode = null;
     }
   }
@@ -475,4 +475,11 @@ function isWhollyPrecedented(nonTerminalNode) {
   }
 
   return whollyPrecedented;
+}
+
+function isWhollyUnprecedented(nonTerminalNode) {
+  const whollyPrecedented = isWhollyPrecedented(nonTerminalNode),
+        whollyUnprecedented = !whollyPrecedented;
+
+  return whollyUnprecedented;
 }
