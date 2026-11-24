@@ -101,14 +101,6 @@ export default class TerminalNode {
   isIrrelevant() {
     let irrelevant = false;
 
-    const single = this.isSingle(),
-          singular = this.isSingular(),
-          intervening = this.isIntervening();
-
-    if (single && singular && intervening) {
-      irrelevant = true;
-    }
-
     return irrelevant;
   }
 
