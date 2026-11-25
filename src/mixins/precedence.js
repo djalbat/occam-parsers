@@ -200,10 +200,15 @@ function isLeftLeaning() {
   const leftLeaningNode = this.findLeftLeaningNode();
 
   if (leftLeaningNode !== null) {
-    const leftRightLeaningNode = leftLeaningNode.findRightLeaningNode();  ///
+    const leftLeaningNodeNonTerminalNode = leftLeaningNode.isNonTerminalNode();
 
-    if (leftRightLeaningNode !== null) {
-      leftLeaning = true;
+    if (leftLeaningNodeNonTerminalNode) {
+      const nonTerminalNode = leftLeaningNode,  ///
+            rightLeaningNode = nonTerminalNode.findRightLeaningNode();  ///
+
+      if (rightLeaningNode !== null) {
+        leftLeaning = true;
+      }
     }
   }
 
@@ -216,10 +221,15 @@ function isRightLeaning() {
   const rightLeaningNode = this.findRightLeaningNode();
 
   if (rightLeaningNode !== null) {
-    const rightLeftLeaningNode = rightLeaningNode.findLeftLeaningNode();  ///
+    const rightLeaningNodeNonTerminalNode = rightLeaningNode.isNonTerminalNode();
 
-    if (rightLeftLeaningNode !== null) {
-      rightLeaning = true;
+    if (rightLeaningNodeNonTerminalNode) {
+      const nonTerminalNode = rightLeaningNode, ///
+            leftLeaningNode = nonTerminalNode.findLeftLeaningNode();  ///
+
+      if (leftLeaningNode !== null) {
+        rightLeaning = true;
+      }
     }
   }
 
@@ -229,10 +239,13 @@ function isRightLeaning() {
 function findLeftLeaningNode() {
   let leftLeaningNode = null;
 
-  const extremalDescendantNode = this.retrieveExtremalDescendantNode();
+  const extremalDescendantNode = this.retrieveExtremalDescendantNode(),
+        extremalDescendantNodeNonTerminalNode = extremalDescendantNode.isNonTerminalNode();
 
-  if (extremalDescendantNode !== null) {
-    extremalDescendantNode.forwardsSomeChildNode((childNode) => {
+  if (extremalDescendantNodeNonTerminalNode) {
+    const nonTerminalNode = extremalDescendantNode;  ///
+
+    nonTerminalNode.forwardsSomeChildNode((childNode) => {
       const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
       if (childNodeNonTerminalNode) {
@@ -252,10 +265,13 @@ function findLeftLeaningNode() {
 function findRightLeaningNode() {
   let rightLeaningNode = null;
 
-  const extremalDescendantNode = this.retrieveExtremalDescendantNode();
+  const extremalDescendantNode = this.retrieveExtremalDescendantNode(),
+        extremalDescendantNodeNonTerminalNode = extremalDescendantNode.isNonTerminalNode();
 
-  if (extremalDescendantNode !== null) {
-    extremalDescendantNode.backwardsSomeChildNode((childNode) => {
+  if (extremalDescendantNodeNonTerminalNode) {
+    const nonTerminalNode = extremalDescendantNode;  ///
+
+    nonTerminalNode.backwardsSomeChildNode((childNode) => {
       const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
       if (childNodeNonTerminalNode) {
@@ -329,12 +345,6 @@ function retrieveExtremalDescendantNode() {
     if (singleChildNode !== null) {
       extremalDescendantNode = singleChildNode;  ///
     }
-  }
-
-  const extremalDescendantNodeTerminalNode = extremalDescendantNode.isTerminalNode();
-
-  if (extremalDescendantNodeTerminalNode) {
-    extremalDescendantNode = null;
   }
 
   return extremalDescendantNode;
