@@ -7,7 +7,7 @@ const { testUtilities } = require("../../lib"); ///
 const { nodeQuery } = queryUtilities,
       { compareParseTreeStrings, nodeFromBNFAndTokens, tokensFromEntriesAndContent } = testUtilities;
 
-describe("Precedence methods and mixins", () => {
+describe.only("Precedence methods and mixins", () => {
   const entries = [
           {
             "unassigned": "^[^\\s]"
@@ -15,7 +15,9 @@ describe("Precedence methods and mixins", () => {
         ],
         bnf = `
         
-          S   ::= ( A ... "." ) ;
+          S   ::= ( R ... "." ) ;
+            
+          R   ::= A ;
             
           A   ::= T ( ) ;
             
@@ -44,16 +46,13 @@ describe("Precedence methods and mixins", () => {
         `,
         content = "P ∧ Q ∧ R.";
 
-  let S,
-      node,
+  let node,
       tokens;
 
   before(() => {
     tokens = tokensFromEntriesAndContent(entries, content);
 
     node = nodeFromBNFAndTokens(bnf, tokens);
-
-    S = node; ///
   });
 
   it("creates the requisite parse tree", () => {
@@ -67,7 +66,9 @@ describe("Precedence methods and mixins", () => {
                                                                                           |                                  
                                                                  ---------------------------------------------------         
                                                                  |                                                 |         
-                                                             A [0] ( )                                    "."[unassigned] [0]
+                                                               R [0]                                      "."[unassigned] [0]
+                                                                 |                                                           
+                                                             A [0] ( )                                                       
                                                                  |                                                           
                                                             T [0] (-9)                                                       
                                                                  |                                                           
@@ -90,11 +91,42 @@ describe("Precedence methods and mixins", () => {
    `));
   });
 
+  let S,
+      R,
+      A,
+      T,
+      A1,
+      T1,
+      V;
+
+  before(() => {
+    const RQuery = nodeQuery("/S/R"),
+          AQuery = nodeQuery("/S/R/A"),
+          TQuery = nodeQuery("/S/R/A/T"),
+          A1Query = nodeQuery("/S/R/A/T/A1[0]"),
+          T1Query = nodeQuery("/S/R/A/T/A1/T1[0]"),
+          VQuery = nodeQuery("/S/R/A/T/A1/T1[0]/V");
+
+    S = node; ///
+
+    R = RQuery(S);
+
+    A = AQuery(S);
+
+    T = TQuery(S);
+
+    A1 = A1Query(S);
+
+    T1 = T1Query(S);
+
+    V = VQuery(S);
+  });
+
   describe("isSingle", () => {
     describe("a terminal node", () => {
       describe("with no parent", () => {
         it("returns true", () => {
-          const terminalNodeQuery = nodeQuery("/S/A/T/A1/T1/V/@unassigned"),
+          const terminalNodeQuery = nodeQuery("/S/R/A/T/A1/T1/V/@unassigned"),
                 terminalNode = terminalNodeQuery(S).clone(),  ///
                 single = terminalNode.isSingle();
 
@@ -105,7 +137,7 @@ describe("Precedence methods and mixins", () => {
       describe("with a parent", () => {
         describe("and no siblings", () => {
           it("returns true", () => {
-            const terminalNodeQuery = nodeQuery("/S/A/T/A1/T1/V/@unassigned"),
+            const terminalNodeQuery = nodeQuery("/S/R/A/T/A1/T1/V/@unassigned"),
                   terminalNode = terminalNodeQuery(S),
                   single = terminalNode.isSingle();
 
@@ -115,7 +147,7 @@ describe("Precedence methods and mixins", () => {
 
         describe("and siblings", () => {
           it("returns false", () => {
-            const terminalNodeQuery = nodeQuery("/S/A/T/@unassigned"),
+            const terminalNodeQuery = nodeQuery("/S/R/A/T/@unassigned"),
                   terminalNode = terminalNodeQuery(S),
                   single = terminalNode.isSingle();
 
@@ -128,9 +160,8 @@ describe("Precedence methods and mixins", () => {
     describe("a non-terminal node", () => {
       describe("with no parent", () => {
         it("returns true", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A/T/A1/T1/V"),
-                nonTerminalNode = nonTerminalNodeQuery(S).clone(),  ///
-                single = nonTerminalNode.isSingle();
+          const VV = V.clone(),  ///
+                single = VV.isSingle();
 
           assert.isTrue(single);
         });
@@ -139,9 +170,7 @@ describe("Precedence methods and mixins", () => {
       describe("with a parent", () => {
         describe("and no siblings", () => {
           it("returns true", () => {
-            const nonTerminalNodeQuery = nodeQuery("/S/A/T/A1/T1/V"),
-                  nonTerminalNode = nonTerminalNodeQuery(S),
-                  single = nonTerminalNode.isSingle();
+            const single = V.isSingle();
 
             assert.isTrue(single);
           });
@@ -149,9 +178,7 @@ describe("Precedence methods and mixins", () => {
 
         describe("and siblings", () => {
           it("returns false", () => {
-            const nonTerminalNodeQuery = nodeQuery("/S/A/T/A1[0]"),
-                  nonTerminalNode = nonTerminalNodeQuery(S),
-                  single = nonTerminalNode.isSingle();
+            const single = A1.isSingle();
 
             assert.isFalse(single);
           });
@@ -163,7 +190,7 @@ describe("Precedence methods and mixins", () => {
   describe("isSingular", () => {
     describe("a terminal node", () => {
       it("returns false", () => {
-        const terminalNodeQuery = nodeQuery("/S/A/T/A1/T1/V/@unassigned"),
+        const terminalNodeQuery = nodeQuery("/S/R/A/T/A1/T1/V/@unassigned"),
               terminalNode = terminalNodeQuery(S),
               singular = terminalNode.isSingular();
 
@@ -174,9 +201,7 @@ describe("Precedence methods and mixins", () => {
     describe("a non-terminal node", () => {
       describe("with one child", () => {
         it("returns true", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A/T/A1/T1/V"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                singular = nonTerminalNode.isSingular();
+          const singular = V.isSingular();
 
           assert.isTrue(singular);
         });
@@ -184,9 +209,7 @@ describe("Precedence methods and mixins", () => {
 
       describe("with more than one child", () => {
         it("returns false", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A/T"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                singular = nonTerminalNode.isSingular();
+          const singular = T.isSingular();
 
           assert.isFalse(singular);
         });
@@ -197,7 +220,7 @@ describe("Precedence methods and mixins", () => {
   describe("isIntervening", () => {
     describe("a terminal node", () => {
       it("returns false", () => {
-        const terminalNodeQuery = nodeQuery("/S/A/T/A1/T1/V/@unassigned"),
+        const terminalNodeQuery = nodeQuery("/S/R/A/T/A1/T1/V/@unassigned"),
               terminalNode = terminalNodeQuery(S),
               intervening = terminalNode.isIntervening();
 
@@ -208,9 +231,7 @@ describe("Precedence methods and mixins", () => {
     describe("a non-terminal node", () => {
       describe("with null precedence", () => {
         it("returns false", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A/T/A1/T1/V"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                intervening = nonTerminalNode.isIntervening();
+          const intervening = V.isIntervening();
 
           assert.isFalse(intervening);
         });
@@ -218,9 +239,7 @@ describe("Precedence methods and mixins", () => {
 
       describe("with an intervening precedence", () => {
         it("returns true", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A/T/A1[0]"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                intervening = nonTerminalNode.isIntervening();
+          const intervening = A1.isIntervening();
 
           assert.isTrue(intervening);
         });
@@ -228,9 +247,7 @@ describe("Precedence methods and mixins", () => {
 
       describe("with an non-intervening precedence", () => {
         it("returns false", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A/T/A1/T1[0]"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                intervening = nonTerminalNode.isIntervening();
+          const intervening = T1.isIntervening();
 
           assert.isFalse(intervening);
         });
@@ -241,7 +258,7 @@ describe("Precedence methods and mixins", () => {
   describe("isRewritable", () => {
     describe("a terminal node", () => {
       it("returns false", () => {
-        const terminalNodeQuery = nodeQuery("/S/A/T/A1/T1/V/@unassigned"),
+        const terminalNodeQuery = nodeQuery("/S/R/A/T/A1/T1/V/@unassigned"),
               terminalNode = terminalNodeQuery(S),
               rewritable = terminalNode.isRewritable();
 
@@ -252,9 +269,7 @@ describe("Precedence methods and mixins", () => {
     describe("a non-terminal node", () => {
       describe("with null precedence", () => {
         it("returns false", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A/T/A1/T1/V"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                rewritable = nonTerminalNode.isRewritable();
+          const rewritable = V.isRewritable();
 
           assert.isFalse(rewritable);
         });
@@ -262,9 +277,7 @@ describe("Precedence methods and mixins", () => {
 
       describe("with a non-null precedence", () => {
         it("returns true", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A/T/A1[0]"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                rewritable = nonTerminalNode.isRewritable();
+          const rewritable = A1.isRewritable();
 
           assert.isTrue(rewritable);
         });
@@ -276,7 +289,7 @@ describe("Precedence methods and mixins", () => {
     describe("a terminal node", () => {
       describe("with a parent", () => {
         it("returns false", () => {
-          const terminalNodeQuery = nodeQuery("/S/A/T/@unassigned"),
+          const terminalNodeQuery = nodeQuery("/S/R/A/T/@unassigned"),
                 terminalNode = terminalNodeQuery(S),
                 irrelevant = terminalNode.isIrrelevant();
 
@@ -288,29 +301,23 @@ describe("Precedence methods and mixins", () => {
     describe("a non-terminal node", () => {
       describe("with no parent", () => {
         it("returns false", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                irrelevant = nonTerminalNode.isIrrelevant();
+          const irrelevant = S.isIrrelevant();
 
           assert.isFalse(irrelevant);
         });
       });
 
-      describe("singular, not single and with intervening precedence", () => {
-        it("returns false", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                irrelevant = nonTerminalNode.isIrrelevant();
+      describe("single, singular and with intervening precedence", () => {
+        it("returns true", () => {
+          const irrelevant = A.isIrrelevant();
 
-          assert.isFalse(irrelevant);
+          assert.isTrue(irrelevant);
         });
       });
 
-      describe("single, not singluar and with non-intervening precedence", () => {
+      describe("single, non-singluar and with non-intervening precedence", () => {
         it("returns false", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A/T"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                irrelevant = nonTerminalNode.isIrrelevant();
+          const irrelevant = T.isIrrelevant();
 
           assert.isFalse(irrelevant);
         });
@@ -322,7 +329,7 @@ describe("Precedence methods and mixins", () => {
     describe("a terminal node", () => {
       describe("with a parent", () => {
         it("returns true", () => {
-          const terminalNodeQuery = nodeQuery("/S/A/T/@unassigned"),
+          const terminalNodeQuery = nodeQuery("/S/R/A/T/@unassigned"),
                 terminalNode = terminalNodeQuery(S),
                 relevant = terminalNode.isRelevant();
 
@@ -334,29 +341,23 @@ describe("Precedence methods and mixins", () => {
     describe("a non-terminal node", () => {
       describe("with no parent", () => {
         it("returns true", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                relevant = nonTerminalNode.isRelevant();
+          const relevant = S.isRelevant();
 
           assert.isTrue(relevant);
         });
       });
 
-      describe("singular, not single and with intervening precedence", () => {
-        it("returns true", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                relevant = nonTerminalNode.isRelevant();
+      describe("single, singular and with intervening precedence", () => {
+        it("returns false", () => {
+          const relevant = A.isRelevant();
 
-          assert.isTrue(relevant);
+          assert.isFalse(relevant);
         });
       });
 
-      describe("single, not singluar and with non-intervening precedence", () => {
+      describe("single, non-singluar and with non-intervening precedence", () => {
         it("returns true", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A/T"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                relevant = nonTerminalNode.isRelevant();
+          const relevant = T.isRelevant();
 
           assert.isTrue(relevant);
         });
@@ -365,58 +366,106 @@ describe("Precedence methods and mixins", () => {
   });
 
   describe("retrieveIrrelevantDescendantNode", () => {
-    describe("a node", () => {
-      describe("with no single child node", () => {
-        it("returns null", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                irrelevantDescendantNode = nonTerminalNode.retrieveIrrelevantDescendantNode();
+    describe("a node with no single child node", () => {
+      it("returns null", () => {
+        const irrelevantDescendantNode = S.retrieveIrrelevantDescendantNode();
 
-          assert.isNull(irrelevantDescendantNode);
-        });
+        assert.isNull(irrelevantDescendantNode);
       });
+    });
 
-      describe("with a single relevant parent node", () => {
-        it("returns null", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                irrelevantDescendantNode = nonTerminalNode.retrieveIrrelevantDescendantNode();
+    describe("a node with a single relevant parent node", () => {
+      it("returns null", () => {
+        const irrelevantDescendantNode = A.retrieveIrrelevantDescendantNode();
 
-          assert.isNull(irrelevantDescendantNode);
-        });
+        assert.isNull(irrelevantDescendantNode);
       });
     });
   });
 
   describe("retrieveIrrelevantAscendantNode", () => {
-    describe("a node", () => {
-      describe("with no parent", () => {
-        it("returns null", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                irrelevantAscendantNode = nonTerminalNode.retrieveIrrelevantAscendantNode();
+    describe("a node with no parent", () => {
+      it("returns null", () => {
+        const irrelevantAscendantNode = S.retrieveIrrelevantAscendantNode();
 
-          assert.isNull(irrelevantAscendantNode);
-        });
+        assert.isNull(irrelevantAscendantNode);
       });
+    });
 
-      describe("with a relevant parent node", () => {
-        it("returns null", () => {
-          const nonTerminalNodeQuery = nodeQuery("/S/A"),
-                nonTerminalNode = nonTerminalNodeQuery(S),
-                irrelevantAscendantNode = nonTerminalNode.retrieveIrrelevantAscendantNode();
+    describe("a node with a relevant parent node", () => {
+      it("returns null", () => {
+        const irrelevantAscendantNode = A.retrieveIrrelevantAscendantNode();
 
-          assert.isNull(irrelevantAscendantNode);
-        });
+        assert.isNull(irrelevantAscendantNode);
       });
     });
   });
 
   describe("retrieveEffectiveDescendantNode", () => {
+    describe("a non-singular node", () => {
+      it("returns the node itself", () => {
+        const effectiveDescendantNode = S.retrieveEffectiveDescendantNode();
 
+        assert.equal(effectiveDescendantNode, S);
+      });
+    });
+
+    describe("a singular node with a releavnt child", () => {
+      it("returns its child", () => {
+        const effectiveDescendantNode = A.retrieveEffectiveDescendantNode();
+
+        assert.equal(effectiveDescendantNode, T);
+      });
+    });
+
+    describe("a singular node with an irreleavnt child", () => {
+      it("returns its grandchild", () => {
+        const effectiveDescendantNode = R.retrieveEffectiveDescendantNode();
+
+        assert.equal(effectiveDescendantNode, T);
+      });
+    });
+
+    describe("a singular node with a terminal child", () => {
+      it("returns null", () => {
+        const effectiveDescendantNode = V.retrieveEffectiveDescendantNode();
+
+        assert.isNull(effectiveDescendantNode);
+      });
+    });
   });
 
-  describe("retrieveEffectiveAscendantNode", () => {
+  describe.only("retrieveEffectiveAscendantNode", () => {
+    describe("a node with no parent", () => {
+      it("returns the node itself", () => {
+        const effectiveAscendantNode = S.retrieveEffectiveAscendantNode();
 
+        assert.equal(effectiveAscendantNode, S);
+      });
+    });
+
+    describe("a single, relevant node with a releavnt parent", () => {
+      it("returns its parent", () => {
+        const effectiveAscendantNode = V.retrieveEffectiveAscendantNode();
+
+        assert.equal(effectiveAscendantNode, T1);
+      });
+    });
+
+    describe("a single, irrelevant node with a releavnt parent", () => {
+      it("returns its grandparent", () => {
+        const effectiveAscendantNode = T.retrieveEffectiveAscendantNode();
+
+        assert.equal(effectiveAscendantNode, R);
+      });
+    });
+
+    describe("a node with an irreleavnt parent", () => {
+      it("returns its grandchild", () => {
+        const effectiveAscendantNode = T.retrieveEffectiveAscendantNode();
+
+        assert.equal(effectiveAscendantNode, R);
+      });
+    });
   });
 });
