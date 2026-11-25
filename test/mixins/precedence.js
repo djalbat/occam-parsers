@@ -514,12 +514,10 @@ describe("Precedence methods and mixins", () => {
       });
 
       describe("a singular node with a terminal child", () => {
-        it("returns the terminal node", () => {
-          const extremalDescendantNode = V.retrieveExtremalDescendantNode(),
-                terminalNodeQuery = nodeQuery("/V/@unassigned"),
-                terminalNode = terminalNodeQuery(V);
+        it("returns the node", () => {
+          const extremalDescendantNode = V.retrieveExtremalDescendantNode();
 
-          assert.equal(extremalDescendantNode, terminalNode);
+          assert.equal(extremalDescendantNode, V);
         });
       });
     });
