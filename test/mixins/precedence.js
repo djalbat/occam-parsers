@@ -1,11 +1,10 @@
 "use strict";
 
-const { queryUtilities } = require("occam-query");
-
 const { testUtilities } = require("../../lib"); ///
 
-const { nodeQuery } = queryUtilities,
-      { compareParseTreeStrings, nodeFromBNFAndTokens, tokensFromEntriesAndContent } = testUtilities;
+const { nodeQuery } = require("../helpers/query/utilities/query");
+
+const { compareParseTreeStrings, nodeFromBNFAndTokens, tokensFromEntriesAndContent } = testUtilities;
 
 describe("Precedence methods and mixins", () => {
   const entries = [
