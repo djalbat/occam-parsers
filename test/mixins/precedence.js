@@ -7,7 +7,7 @@ const { testUtilities } = require("../../lib"); ///
 const { nodeQuery } = queryUtilities,
       { compareParseTreeStrings, nodeFromBNFAndTokens, tokensFromEntriesAndContent } = testUtilities;
 
-describe.only("Precedence methods and mixins", () => {
+describe("Precedence methods and mixins", () => {
   const entries = [
           {
             "unassigned": "^[^\\s]"
@@ -103,9 +103,9 @@ describe.only("Precedence methods and mixins", () => {
     const RQuery = nodeQuery("/S/R"),
           AQuery = nodeQuery("/S/R/A"),
           TQuery = nodeQuery("/S/R/A/T"),
-          A1Query = nodeQuery("/S/R/A/T/A1[0]"),
-          T1Query = nodeQuery("/S/R/A/T/A1/T1[0]"),
-          VQuery = nodeQuery("/S/R/A/T/A1/T1[0]/V");
+          A1Query = nodeQuery("/S/R/A/T/A1[1]"),
+          T1Query = nodeQuery("/S/R/A/T/A1[1]/T1"),
+          VQuery = nodeQuery("/S/R/A/T/A1[1]/T1/V");
 
     S = node; ///
 
@@ -401,70 +401,130 @@ describe.only("Precedence methods and mixins", () => {
     });
   });
 
-  describe("retrieveEffectiveDescendantNode", () => {
+  describe("retrieveExtremalDescendantNode", () => {
     describe("a non-singular node", () => {
       it("returns the node itself", () => {
-        const effectiveDescendantNode = S.retrieveEffectiveDescendantNode();
+        const extremalDescendantNode = S.retrieveExtremalDescendantNode();
 
-        assert.equal(effectiveDescendantNode, S);
+        assert.equal(extremalDescendantNode, S);
       });
     });
 
     describe("a singular node with a releavnt child", () => {
       it("returns its child", () => {
-        const effectiveDescendantNode = A.retrieveEffectiveDescendantNode();
+        const extremalDescendantNode = A.retrieveExtremalDescendantNode();
 
-        assert.equal(effectiveDescendantNode, T);
+        assert.equal(extremalDescendantNode, T);
       });
     });
 
     describe("a singular node with an irreleavnt child", () => {
       it("returns its grandchild", () => {
-        const effectiveDescendantNode = R.retrieveEffectiveDescendantNode();
+        const extremalDescendantNode = R.retrieveExtremalDescendantNode();
 
-        assert.equal(effectiveDescendantNode, T);
+        assert.equal(extremalDescendantNode, T);
       });
     });
 
     describe("a singular node with a terminal child", () => {
       it("returns null", () => {
-        const effectiveDescendantNode = V.retrieveEffectiveDescendantNode();
+        const extremalDescendantNode = V.retrieveExtremalDescendantNode();
 
-        assert.isNull(effectiveDescendantNode);
+        assert.isNull(extremalDescendantNode);
       });
     });
   });
 
-  describe.only("retrieveEffectiveAscendantNode", () => {
+  describe("retrieveExtremalAscendantNode", () => {
     describe("a node with no parent", () => {
       it("returns the node itself", () => {
-        const effectiveAscendantNode = S.retrieveEffectiveAscendantNode();
+        const extremalAscendantNode = S.retrieveExtremalAscendantNode();
 
-        assert.equal(effectiveAscendantNode, S);
+        assert.equal(extremalAscendantNode, S);
       });
     });
 
     describe("a single, relevant node with a releavnt parent", () => {
       it("returns its parent", () => {
-        const effectiveAscendantNode = V.retrieveEffectiveAscendantNode();
+        const extremalAscendantNode = V.retrieveExtremalAscendantNode();
 
-        assert.equal(effectiveAscendantNode, T1);
+        assert.equal(extremalAscendantNode, T1);
       });
     });
 
-    describe("a single, irrelevant node with a releavnt parent", () => {
+    describe("a relevant node with an irreleavnt parent", () => {
       it("returns its grandparent", () => {
-        const effectiveAscendantNode = T.retrieveEffectiveAscendantNode();
+        const extremalAscendantNode = T.retrieveExtremalAscendantNode();
 
-        assert.equal(effectiveAscendantNode, R);
+        assert.equal(extremalAscendantNode, R);
       });
     });
 
-    describe("a node with an irreleavnt parent", () => {
-      it("returns its grandchild", () => {
-        const effectiveAscendantNode = T.retrieveEffectiveAscendantNode();
+    describe("n irreleavnt node with a relevant parent", () => {
+      it("returns its grandparent", () => {
+        const extremalAscendantNode = A.retrieveExtremalAscendantNode();
 
-        assert.equal(effectiveAscendantNode, R);
+        assert.equal(extremalAscendantNode, R);
+      });
+    });
+  });
+
+  describe("findRightLeaningNode", () => {
+    describe("an extremal ascendant node ", () => {
+      it("returns the right extremal descendant node", () => {
+        const rightLeaningNode = R.findRightLeaningNode();
+
+        assert.equal(rightLeaningNode, T1);
+      });
+    });
+
+    describe("an irrelevant node ", () => {
+      it("returns the right extremal descendant node", () => {
+        const rightLeaningNode = A.findRightLeaningNode();
+
+        assert.equal(rightLeaningNode, T1);
+      });
+    });
+
+    describe("an extremal descendant node ", () => {
+      it("returns the right extremal descendant node", () => {
+        const rightLeaningNode = T.findRightLeaningNode();
+
+        assert.equal(rightLeaningNode, T1);
+      });
+    });
+  });
+
+  describe("findLeftLeaningNode", () => {
+    let T1;
+
+    before(() => {
+      const T1Query = nodeQuery("/S/R/A/T/A1[0]/T1");
+
+      T1 = T1Query(S);
+    });
+
+    describe("an extremal ascendant node ", () => {
+      it("returns the left extremal descendant node", () => {
+        const leftLeaningNode = R.findLeftLeaningNode();
+
+        assert.equal(leftLeaningNode, T1);
+      });
+    });
+
+    describe("an irrelevant node ", () => {
+      it("returns the left extremal descendant node", () => {
+        const leftLeaningNode = A.findLeftLeaningNode();
+
+        assert.equal(leftLeaningNode, T1);
+      });
+    });
+
+    describe("an extremal descendant node ", () => {
+      it("returns the left extremal descendant node", () => {
+        const leftLeaningNode = T.findLeftLeaningNode();
+
+        assert.equal(leftLeaningNode, T1);
       });
     });
   });
