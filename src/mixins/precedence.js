@@ -297,16 +297,14 @@ function retrieveIrrelevantDescendantNode() {
 function retrieveIrrelevantAscendantNode() {
   let irrelevantAscendantNode = null;
 
-  const parentNode = this.getParentNode();
-
-  if (parentNode !== null) {
-    const parentNodeIrrelevant = parentNode.isIrrelevant();
+  if (this.parentNode !== null) {
+    const parentNodeIrrelevant = this.parentNode.isIrrelevant();
 
     if (parentNodeIrrelevant) {
-      irrelevantAscendantNode = parentNode.retrieveIrrelevantAscendantNode();
+      irrelevantAscendantNode = this.parentNode.retrieveIrrelevantAscendantNode();
 
       if (irrelevantAscendantNode === null) {
-        irrelevantAscendantNode = parentNode; ///
+        irrelevantAscendantNode = this.parentNode; ///
       }
     }
   }
@@ -351,10 +349,8 @@ function retrieveExtremalAscendantNode() {
     const single = this.isSingle();
 
     if (single) {
-      const parentNode = this.getParentNode();
-
-      if (parentNode !== null) {
-        extremalAscendantNode = parentNode;  ///
+      if (this.parentNode !== null) {
+        extremalAscendantNode = this.parentNode;  ///
       }
     }
   }

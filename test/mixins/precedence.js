@@ -361,9 +361,17 @@ describe("Precedence methods and mixins", () => {
           });
         });
 
-        describe("with a non-null precedence", () => {
+        describe("with an intervening precedence", () => {
+          it("returns false", () => {
+            const rewritable = A.isRewritable();
+
+            assert.isFalse(rewritable);
+          });
+        });
+
+        describe("with a non-intervening precedence", () => {
           it("returns true", () => {
-            const rewritable = A1.isRewritable();
+            const rewritable = T.isRewritable();
 
             assert.isTrue(rewritable);
           });
