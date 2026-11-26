@@ -8,10 +8,10 @@ function rewrite(state) {
   if (rewritable) {
     const extremalDescendantNode = this.retrieveExtremalDescendantNode();
 
-    nonTerminalNode = this.mutate(extremalDescendantNode, (nonTerminalNode) => {
-      nonTerminalNode = nonTerminalNode.balance();  ///
+    nonTerminalNode = this.mutate(extremalDescendantNode, (extremalDescendantNode) => {
+      extremalDescendantNode = extremalDescendantNode.balance();  ///
 
-      return nonTerminalNode;
+      return extremalDescendantNode;
     });
   }
 
