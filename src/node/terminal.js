@@ -79,6 +79,12 @@ export default class TerminalNode {
     return singular;
   }
 
+  isNonSingular() {
+    const nonSingular = false;
+
+    return nonSingular;
+  }
+
   isIntervening() {
     const intervening = false;
 

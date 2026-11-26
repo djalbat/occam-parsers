@@ -192,6 +192,13 @@ export default class NonTerminalNode {
     return singular;
   }
 
+  isNonSingular() {
+    const childNodesLength = this.childNodes.length,
+          nonSingular = (childNodesLength > 1);
+
+    return nonSingular;
+  }
+
   isIntervening() {
     let intervening = false;
 

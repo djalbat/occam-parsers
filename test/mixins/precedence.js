@@ -566,15 +566,7 @@ describe("Precedence methods and mixins", () => {
     describe("findRightLeaningNode", () => {
       describe("an extremal ascendant node ", () => {
         it("returns the right extremal descendant node", () => {
-          const rightLeaningNode = R.findRightLeaningNode();
-
-          assert.equal(rightLeaningNode, T1);
-        });
-      });
-
-      describe("an irrelevant node ", () => {
-        it("returns the right extremal descendant node", () => {
-          const rightLeaningNode = A.findRightLeaningNode();
+          const rightLeaningNode = T.findRightLeaningNode();
 
           assert.equal(rightLeaningNode, T1);
         });
@@ -596,22 +588,6 @@ describe("Precedence methods and mixins", () => {
         const T1Query = nodeQuery("/S/R/A/T/A1[0]/T1");
 
         T1 = T1Query(S);
-      });
-
-      describe("an extremal ascendant node ", () => {
-        it("returns the left extremal descendant node", () => {
-          const leftLeaningNode = R.findLeftLeaningNode();
-
-          assert.equal(leftLeaningNode, T1);
-        });
-      });
-
-      describe("an irrelevant node ", () => {
-        it("returns the left extremal descendant node", () => {
-          const leftLeaningNode = A.findLeftLeaningNode();
-
-          assert.equal(leftLeaningNode, T1);
-        });
       });
 
       describe("an extremal descendant node ", () => {
